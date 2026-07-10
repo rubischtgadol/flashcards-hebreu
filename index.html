@@ -17,7 +17,7 @@
   body{
     background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%);
     color:var(--ink);
-    font-family:'Assistant',sans-serif;
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
     min-height:100dvh;
     display:flex; flex-direction:column;
     padding:16px 14px 26px;
@@ -27,7 +27,7 @@
   /* ---------- Header ---------- */
   header{ text-align:center; margin-bottom:10px; }
   .brand{
-    font-family:'Frank Ruhl Libre',serif; font-weight:700;
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-weight:700;
     font-size:1.5rem; letter-spacing:.01em;
   }
   .brand .he{ color:var(--gold); }
@@ -40,7 +40,7 @@
     padding:16px 15px; max-width:520px; width:100%; margin:8px auto 0;
   }
   .panel h2{
-    font-family:'Assistant',sans-serif; font-size:.72rem; font-weight:700;
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:.72rem; font-weight:700;
     text-transform:uppercase; letter-spacing:.12em; color:var(--gold);
     margin:0 0 9px;
   }
@@ -85,20 +85,21 @@
   .exit{ background:none; border:none; color:var(--ink-dim); font-size:1.3rem; line-height:1; cursor:pointer; padding:0 2px; }
 
   /* ---------- The card ---------- */
-  .stage{ flex:1; display:flex; align-items:center; justify-content:center; perspective:1400px; min-height:340px; }
+  .stage{ flex:1; display:flex; align-items:center; justify-content:center; margin-bottom:4px; }
   .flip{
-    position:relative; width:100%; max-width:420px; aspect-ratio:5/6.2;
-    transform-style:preserve-3d; transition:transform .5s cubic-bezier(.4,.15,.2,1);
-    cursor:pointer;
-  }
-  .flip.flipped{ transform:rotateY(180deg); }
-  .face{
-    position:absolute; inset:0; backface-visibility:hidden;
+    position:relative; width:100%; max-width:420px;
+    display:flex; flex-direction:column;
     border-radius:20px; border:1px solid var(--card-edge);
     background:linear-gradient(160deg, var(--card), var(--bg2));
     box-shadow:0 20px 50px -22px #000, inset 0 1px 0 rgba(255,255,255,.03);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:26px 22px; text-align:center;
+    cursor:pointer; overflow:hidden;
+    min-height:340px; max-height:520px; height:min(60vh,520px);
+    transition:transform .12s ease;
+  }
+  .flip:active{ transform:scale(.994); }
+  .face{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:44px 22px 40px; text-align:center; overflow-y:auto;
   }
   .face .eyebrow{
     position:absolute; top:16px; left:0; right:0;
@@ -106,22 +107,23 @@
     color:var(--gold); font-weight:600;
   }
   .face .hint{
-    position:absolute; bottom:15px; left:0; right:0;
+    position:absolute; bottom:14px; left:0; right:0;
     font-size:.72rem; color:var(--ink-dim);
   }
-  .back{ transform:rotateY(180deg); }
+  .face.flip-anim{ animation:cardIn .26s ease; }
+  @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
 
-  .big-he{ font-family:'Frank Ruhl Libre',serif; font-size:3.1rem; line-height:1.15; direction:rtl; }
-  .big-he.cursive{ font-family:'Playpen Sans Hebrew',cursive; font-weight:300; font-size:2.7rem; color:var(--gold-soft); }
-  .big-fr{ font-size:1.9rem; font-weight:600; font-family:'Frank Ruhl Libre',serif; }
+  .big-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.1rem; line-height:1.15; direction:rtl; }
+  .big-he.cursive{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:2.7rem; color:var(--gold-soft); }
+  .big-fr{ font-size:1.9rem; font-weight:600; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; }
   .translit{ font-family:'JetBrains Mono',monospace; font-size:1rem; color:var(--ink-dim); margin-top:12px; direction:ltr; }
-  .sub-he{ font-family:'Frank Ruhl Libre',serif; font-size:1.7rem; direction:rtl; margin-top:6px; }
+  .sub-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.7rem; direction:rtl; margin-top:6px; }
   .sub-fr{ font-size:1.15rem; color:var(--ink); margin-top:10px; }
-  .cursive-line{ font-family:'Playpen Sans Hebrew',cursive; font-weight:300; font-size:1.6rem; color:var(--gold-soft); direction:rtl; margin-top:8px; }
+  .cursive-line{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:1.6rem; color:var(--gold-soft); direction:rtl; margin-top:8px; }
   .note-line{ font-size:.82rem; color:var(--ink-dim); margin-top:14px; max-width:90%; font-style:italic; }
   .forms{ margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:6px 18px; direction:rtl; }
   .forms div{ font-size:.98rem; }
-  .forms .f-he{ font-family:'Frank Ruhl Libre',serif; }
+  .forms .f-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; }
   .forms .f-lbl{ font-size:.7rem; color:var(--ink-dim); direction:ltr; }
 
   /* ---------- Answer controls ---------- */
@@ -141,7 +143,7 @@
   /* ---------- Done screen ---------- */
   .done{ display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; max-width:520px; margin:0 auto; }
   .done.active{ display:flex; }
-  .done .score{ font-family:'Frank Ruhl Libre',serif; font-size:3.4rem; color:var(--gold); }
+  .done .score{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.4rem; color:var(--gold); }
   .done .score small{ font-size:1.4rem; color:var(--ink-dim); }
   .done p{ color:var(--ink-dim); margin:6px 0 24px; }
   .done .big-he{ font-size:2.2rem; margin-bottom:8px; }
@@ -213,25 +215,20 @@
 
   <div class="stage">
     <div class="flip" id="flip">
-      <div class="face front">
-        <div class="eyebrow" id="front-cat"></div>
-        <div id="front-content"></div>
-        <div class="hint">tap pour retourner</div>
-      </div>
-      <div class="face back">
-        <div class="eyebrow" id="back-cat"></div>
-        <div id="back-content"></div>
-        <div class="hint">tap pour retourner</div>
+      <div class="face" id="face">
+        <div class="eyebrow" id="face-cat"></div>
+        <div id="face-content"></div>
+        <div class="hint" id="face-hint">tap pour retourner</div>
       </div>
     </div>
   </div>
 
   <div class="controls">
     <button class="btn-flip" id="btn-flip">Voir la réponse</button>
-    <button class="btn-again hide" id="btn-again">À revoir</button>
-    <button class="btn-good hide" id="btn-good">Su</button>
+    <button class="btn-again hide" id="btn-again">Je savais pas</button>
+    <button class="btn-good hide" id="btn-good">Je savais</button>
   </div>
-  <div class="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> su</div>
+  <div class="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> je savais pas · <kbd>&rarr;</kbd> je savais</div>
 </section>
 
 <!-- ============ DONE ============ -->
@@ -323,42 +320,48 @@ function formsHtml(card){
 function render(){
   const card=state.queue[state.idx];
   state.flipped=false;
-  document.getElementById('flip').classList.remove('flipped');
   document.getElementById('btn-flip').classList.remove('hide');
   document.getElementById('btn-again').classList.add('hide');
   document.getElementById('btn-good').classList.add('hide');
 
-  const catLabel=card.cat;
-  document.getElementById('front-cat').textContent=catLabel;
-  document.getElementById('back-cat').textContent=catLabel;
-
-  const front=document.getElementById('front-content');
-  const back=document.getElementById('back-content');
   const note = card.note ? '<div class="note-line">'+card.note+'</div>' : '';
 
   if(state.dir==='he2fr'){
-    front.innerHTML = heFront(card);
+    state.frontHtml = heFront(card);
     let b = '<div class="big-fr">'+card.fr+'</div>';
     if(card.tr) b += '<div class="translit">'+card.tr+'</div>';
     if(state.script!=='nikud') b += '<div class="sub-he">'+card.he+'</div>';
     b += formsHtml(card) + note;
-    back.innerHTML=b;
+    state.backHtml = b;
   } else {
-    front.innerHTML = '<div class="big-fr">'+card.fr+'</div>' + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
+    state.frontHtml = '<div class="big-fr">'+card.fr+'</div>' + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
     let b = '<div class="big-he">'+card.he+'</div>';
     b += '<div class="cursive-line">'+card.he_plain+'</div>';
     if(card.tr) b += '<div class="translit">'+card.tr+'</div>';
     b += formsHtml(card) + note;
-    back.innerHTML=b;
+    state.backHtml = b;
   }
+
+  document.getElementById('face-cat').textContent = card.cat;
+  document.getElementById('face-content').innerHTML = state.frontHtml;
+  document.getElementById('face-hint').textContent = 'tap pour retourner';
+  animateFace();
 
   document.getElementById('counter').textContent=(state.idx+1)+' / '+state.total;
   document.getElementById('barfill').style.width=((state.idx)/state.total*100)+'%';
 }
 
+function animateFace(){
+  const face=document.getElementById('face');
+  face.classList.remove('flip-anim'); void face.offsetWidth; face.classList.add('flip-anim');
+  face.scrollTop=0;
+}
+
 function doFlip(){
   state.flipped=!state.flipped;
-  document.getElementById('flip').classList.toggle('flipped', state.flipped);
+  document.getElementById('face-content').innerHTML = state.flipped ? state.backHtml : state.frontHtml;
+  document.getElementById('face-hint').textContent = state.flipped ? 'tap pour revenir' : 'tap pour retourner';
+  animateFace();
   if(state.flipped){
     document.getElementById('btn-flip').classList.add('hide');
     document.getElementById('btn-again').classList.remove('hide');
@@ -369,8 +372,13 @@ function doFlip(){
     document.getElementById('btn-good').classList.add('hide');
   }
 }
-document.getElementById('flip').onclick=doFlip;
-document.getElementById('btn-flip').onclick=(e)=>{e.stopPropagation();doFlip();};
+function bindTap(el, fn){
+  let handled=false;
+  el.addEventListener('pointerup', (e)=>{ e.preventDefault(); e.stopPropagation(); handled=true; fn(); setTimeout(()=>handled=false,50); });
+  el.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); if(!handled) fn(); });
+}
+bindTap(document.getElementById('flip'), ()=>{ if(!state.flipped || true) doFlip(); });
+bindTap(document.getElementById('btn-flip'), doFlip);
 
 function answer(good){
   const card=state.queue[state.idx];
@@ -379,8 +387,8 @@ function answer(good){
   if(state.idx>=state.queue.length) finish();
   else render();
 }
-document.getElementById('btn-good').onclick=(e)=>{e.stopPropagation();answer(true);};
-document.getElementById('btn-again').onclick=(e)=>{e.stopPropagation();answer(false);};
+bindTap(document.getElementById('btn-good'), ()=>answer(true));
+bindTap(document.getElementById('btn-again'), ()=>answer(false));
 
 function finish(){
   document.getElementById('study').classList.remove('active');
@@ -448,7 +456,6 @@ function extractCards(doc){
       else if(el.querySelectorAll) el.querySelectorAll('ul.word-list > li').forEach(li=>out.push(li));
     }); return out;
   }
-  // Verbs (infinitive + 4 present forms)
   rowsOf('Verbes').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<5) return;
     const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
@@ -457,20 +464,17 @@ function extractCards(doc){
       forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
     if(he) cards.push({cat:'Verbes',he,tr:'',fr:'(infinitif) '+fr,forms});
   });
-  // Adjectives (MS form)
   rowsOf('Adjectifs').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<4) return;
     const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
     if(he) cards.push({cat:'Adjectifs',he,tr:'',fr});
   });
-  // Nouns (sing / genre)
   rowsOf('Noms').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<3) return;
     const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
     const genre=tds[1].textContent.trim();
     if(he) cards.push({cat:'Noms',he,tr:'',fr:fr+((genre==='m'||genre==='f')?(' ('+genre+')'):'')});
   });
-  // List-based sections
   const listCats={'Pronoms personnels':'Pronoms personnels','Démonstratifs':'Démonstratifs',
     'Prépositions':'Prépositions','Conjonctions':'Conjonctions','Mots interrogatifs':'Mots interrogatifs',
     'Nombres (0–10)':'Nombres','Jours de la semaine':'Jours de la semaine',
@@ -482,7 +486,6 @@ function extractCards(doc){
       cards.push({cat:listCats[sec],he,tr:firstText(li,'.tr'),fr:firstText(li,'.fr')});
     });
   });
-  // Light note trims (keep card fronts clean)
   const trim={
     'וַאלָה':['vraiment ?!','étonnement — à ne pas confondre avec יָאלְלָה'],
     'תַּחַת':['sous',"littéraire — à l'oral on dit plutôt מִתַּחַת לְ"],
