@@ -45,6 +45,53 @@
     margin:0 0 9px;
   }
   .panel h2:not(:first-of-type){ margin-top:18px; }
+
+  /* ---------- Search ---------- */
+  .search-wrap{ position:relative; margin-bottom:4px; }
+  .search-ico{ position:absolute; left:13px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-dim); pointer-events:none; }
+  #search-input{
+    width:100%; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1rem;
+    padding:12px 38px 12px 40px; outline:none; transition:border-color .15s ease;
+  }
+  #search-input:focus{ border-color:var(--gold); }
+  .search-clear{
+    position:absolute; right:8px; top:50%; transform:translateY(-50%);
+    width:28px; height:28px; border-radius:50%; border:none; background:transparent;
+    color:var(--ink-dim); font-size:1.3rem; line-height:1; cursor:pointer;
+  }
+  .search-results{ margin:10px 0 4px; display:flex; flex-direction:column; gap:6px; max-height:340px; overflow-y:auto; }
+  .sr-count{ font-size:.72rem; color:var(--ink-dim); padding:2px 2px 4px; }
+  .sr-row{
+    display:flex; align-items:center; gap:11px; padding:9px 11px;
+    border:1px solid var(--line); border-radius:11px; background:var(--bg2); cursor:pointer;
+    transition:border-color .12s ease;
+  }
+  .sr-row:hover{ border-color:var(--gold); }
+  .sr-speak{
+    flex:none; width:34px; height:34px; border-radius:50%;
+    border:1px solid var(--line); background:transparent; color:var(--gold);
+    display:flex; align-items:center; justify-content:center; padding:0;
+  }
+  .sr-speak svg{ width:17px; height:17px; }
+  .sr-body{ flex:1; min-width:0; }
+  .sr-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.3rem; direction:rtl; }
+  .sr-tr{ font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--ink-dim); margin-inline-start:8px; }
+  .sr-fr{ color:var(--ink); font-size:.9rem; margin-top:1px; }
+  .sr-cat{ flex:none; font-size:.6rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:3px 9px; white-space:nowrap; }
+  .search-empty{ color:var(--ink-dim); font-size:.85rem; padding:10px 2px; }
+  .sr-item{ border:1px solid var(--line); border-radius:11px; background:var(--bg2); overflow:hidden; }
+  .sr-item .sr-row{ border:none; border-radius:0; background:transparent; }
+  .sr-item.open{ border-color:var(--gold); }
+  .sr-chev{ flex:none; color:var(--ink-dim); font-size:1.3rem; line-height:1; transition:transform .18s ease; }
+  .sr-item.open .sr-chev{ transform:rotate(90deg); color:var(--gold); }
+  .sr-detail{ padding:2px 12px 12px 12px; border-top:1px dashed var(--line); margin:0 0 2px; }
+  .srd-title{ font-size:.64rem; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); margin:10px 0 7px; }
+  .srd-forms{ display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; direction:rtl; }
+  .srd-f{ display:flex; align-items:baseline; gap:7px; }
+  .srd-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.15rem; direction:rtl; }
+  .srd-lbl{ font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--ink-dim); direction:ltr; }
+  .srd-note{ font-size:.8rem; color:var(--ink-dim); font-style:italic; margin-top:10px; direction:ltr; }
   .chips{ display:flex; flex-wrap:wrap; gap:7px; }
   .chip{
     border:1px solid var(--line); background:transparent; color:var(--ink);
@@ -110,6 +157,19 @@
     position:absolute; bottom:14px; left:0; right:0;
     font-size:.72rem; color:var(--ink-dim);
   }
+  .speak-btn{
+    position:absolute; top:12px; right:14px;
+    width:40px; height:40px; border-radius:50%;
+    border:1px solid var(--line); background:rgba(0,0,0,.18);
+    color:var(--gold); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; padding:0; transition:transform .1s ease, color .15s ease, border-color .15s ease;
+    z-index:2;
+  }
+  .speak-btn svg{ width:21px; height:21px; }
+  .speak-btn:active{ transform:scale(.9); }
+  .speak-btn.speaking{ color:var(--gold-soft); border-color:var(--gold); }
+  .speak-btn.hide{ display:none !important; }
+  .audio-note{ color:var(--ink-dim); font-size:.74rem; margin-top:8px; }
   .face.flip-anim{ animation:cardIn .26s ease; }
   @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
 
@@ -139,6 +199,35 @@
   .btn-good{ border-color:var(--green); color:var(--green); }
   .btn-good:hover{ background:var(--green); color:#0a1a0f; }
   .hide{ display:none !important; }
+
+  /* ---------- Input mode ---------- */
+  .input-zone{ margin-top:18px; }
+  .input-row{ display:flex; gap:10px; }
+  #answer-input{
+    flex:1; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1.05rem;
+    padding:13px 15px; outline:none; transition:border-color .15s ease;
+  }
+  #answer-input:focus{ border-color:var(--gold); }
+  #answer-input.ok{ border-color:var(--green); }
+  #answer-input.no{ border-color:var(--red); }
+  #btn-check{
+    border:none; border-radius:12px; font-family:inherit; font-weight:700; font-size:.95rem;
+    padding:13px 20px; cursor:pointer;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206;
+  }
+  .btn-next{
+    margin-top:14px; width:100%; border:none; border-radius:12px; font-family:inherit;
+    font-weight:700; font-size:.98rem; padding:14px; cursor:pointer;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206;
+  }
+  .feedback{ margin-top:14px; text-align:center; font-size:1rem; min-height:1.2em; }
+  .feedback .verdict{ font-weight:700; font-size:1.1rem; }
+  .feedback .verdict.ok{ color:var(--green); }
+  .feedback .verdict.no{ color:var(--red); }
+  .feedback .answer{ margin-top:8px; color:var(--ink); }
+  .feedback .answer .he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.5rem; direction:rtl; }
+  .feedback .answer .tr{ font-family:'JetBrains Mono',monospace; font-size:.85rem; color:var(--ink-dim); }
 
   /* ---------- Done screen ---------- */
   .done{ display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; max-width:520px; margin:0 auto; }
@@ -177,9 +266,22 @@
 <!-- ============ SETUP ============ -->
 <div id="loader" class="loader"><div class="spin"></div><p id="loader-msg">Chargement du vocabulaire…</p></div>
 <section class="setup panel hidden" id="setup">
+  <div class="search-wrap">
+    <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…">
+    <button class="search-clear hide" id="search-clear" aria-label="Effacer">&times;</button>
+  </div>
+  <div class="search-results hide" id="search-results"></div>
+
   <h2>Catégories</h2>
   <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
   <div class="chips" id="cats"></div>
+
+  <h2>Mode</h2>
+  <div class="seg" id="mode">
+    <button class="chip" data-mode="cards" aria-pressed="true">Cartes</button>
+    <button class="chip" data-mode="input" aria-pressed="false">Saisie ⌨️</button>
+  </div>
 
   <h2>Sens de la carte</h2>
   <div class="seg" id="dir">
@@ -200,6 +302,13 @@
     <button class="chip" data-order="linear" aria-pressed="false">Dans l'ordre</button>
   </div>
 
+  <h2>Prononciation</h2>
+  <div class="seg" id="audio">
+    <button class="chip" data-audio="click" aria-pressed="true">Au clic 🔊</button>
+    <button class="chip" data-audio="auto" aria-pressed="false">Automatique</button>
+  </div>
+  <div class="audio-note" id="audio-note"></div>
+
   <button class="start" id="start">Commencer</button>
   <div class="count-note" id="count-note"></div>
   <div class="src-link"><a href="./vocabulaire_hebreu.html">Ouvrir le carnet de vocabulaire complet &#8599;</a></div>
@@ -217,18 +326,31 @@
     <div class="flip" id="flip">
       <div class="face" id="face">
         <div class="eyebrow" id="face-cat"></div>
+        <button class="speak-btn hide" id="speak-btn" title="Écouter" aria-label="Écouter la prononciation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg>
+        </button>
         <div id="face-content"></div>
         <div class="hint" id="face-hint">tap pour retourner</div>
       </div>
     </div>
   </div>
 
-  <div class="controls">
+  <div class="controls" id="controls-cards">
     <button class="btn-flip" id="btn-flip">Voir la réponse</button>
     <button class="btn-again hide" id="btn-again">Je savais pas</button>
     <button class="btn-good hide" id="btn-good">Je savais</button>
   </div>
-  <div class="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> je savais pas · <kbd>&rarr;</kbd> je savais</div>
+
+  <div class="input-zone hide" id="input-zone">
+    <div class="input-row" id="input-row">
+      <input id="answer-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…">
+      <button id="btn-check">Vérifier</button>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <button class="btn-next hide" id="btn-next">Suivant →</button>
+  </div>
+
+  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> je savais pas · <kbd>&rarr;</kbd> je savais</div>
 </section>
 
 <!-- ============ DONE ============ -->
@@ -246,10 +368,144 @@
 let CARDS = [];
 
 const state = {
-  dir:'he2fr', script:'nikud', order:'shuffle',
+  dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards',
   cats:new Set(),
   queue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
 };
+
+// ----- Speech (Web Speech API) -----
+const TTS_OK = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
+let voicesCache = [];
+let heVoice = null;
+function loadVoices(){
+  if(!TTS_OK) return;
+  voicesCache = window.speechSynthesis.getVoices() || [];
+  // All Hebrew voices (match by BCP-47 lang he/iw, or by name).
+  const heVoices = voicesCache.filter(v=>
+    /^(he|iw)(-|$)/i.test(v.lang) || /hebrew|עברית|carmit/i.test(v.name)
+  );
+  // Rank: prefer higher-quality named variants (Premium > Enhanced > default),
+  // and prefer a real Carmit voice when present.
+  function score(v){
+    const n = (v.name||'').toLowerCase();
+    let s = 0;
+    if(/premium/.test(n)) s += 40;
+    else if(/enhanced|neural|siri/.test(n)) s += 25;
+    if(/carmit/.test(n)) s += 10;
+    if(v.localService) s += 3;      // on-device (Carmit) over remote fallback
+    if(/^he(-|$)/i.test(v.lang)) s += 2;
+    return s;
+  }
+  heVoice = heVoices.sort((a,b)=>score(b)-score(a))[0] || null;
+}
+if(TTS_OK){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
+function speak(text){
+  if(!TTS_OK || !text) return;
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = heVoice ? heVoice.lang : 'he-IL';
+    if(heVoice) u.voice = heVoice;
+    u.rate = 0.88;
+    const btn = document.getElementById('speak-btn');
+    u.onstart = ()=>{ if(btn) btn.classList.add('speaking'); };
+    u.onend   = ()=>{ if(btn) btn.classList.remove('speaking'); };
+    u.onerror = ()=>{ if(btn) btn.classList.remove('speaking'); };
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakCurrent(){
+  const c = state.queue[state.idx];
+  // Prefer the vocalized form (with nikud) so the voice pronounces the exact vowels;
+  // fall back to the plain form if no vocalized text is present.
+  if(c) speak(c.he || c.he_plain);
+}
+function updateSpeaker(){
+  const btn = document.getElementById('speak-btn');
+  if(!btn) return;
+  let hebrewVisible;
+  if(state.mode==='input'){
+    hebrewVisible = (state.dir==='he2fr') || (state.dir==='fr2he' && state.answered);
+  } else {
+    hebrewVisible = state.flipped || state.dir==='he2fr';
+  }
+  btn.classList.toggle('hide', !(TTS_OK && hebrewVisible));
+}
+
+// ----- Dynamic search over the word bank -----
+const SPK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg>';
+function searchNorm(s){
+  return (s||'').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f\u0591-\u05C7]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
+function runSearch(){
+  const input = document.getElementById('search-input');
+  const box = document.getElementById('search-results');
+  const clear = document.getElementById('search-clear');
+  const raw = input.value.trim();
+  clear.classList.toggle('hide', raw.length===0);
+  const q = searchNorm(raw);
+  if(!q){ box.innerHTML=''; box.classList.add('hide'); return; }
+  box.classList.remove('hide');
+  const hits=[];
+  for(const c of CARDS){
+    const hay=[c.fr, c.he, c.he_plain, c.tr];
+    if(c.forms) c.forms.forEach(f=>{ hay.push(f.he, f.tr); });
+    if(searchNorm(hay.join(' ')).includes(q)) hits.push(c);
+    if(hits.length>=80) break;
+  }
+  if(!hits.length){ box.innerHTML='<div class="search-empty">Aucun résultat pour « '+raw+' ».</div>'; return; }
+  let html = '<div class="sr-count">'+hits.length+(hits.length>=80?'+':'')+' résultat'+(hits.length>1?'s':'')+'</div>';
+  html += hits.map((c,i)=>{
+    const tr = c.tr ? '<span class="sr-tr">'+c.tr+'</span>' : '';
+    const expandable = !!(c.forms || c.note);
+    const chevron = expandable ? '<span class="sr-chev" aria-hidden="true">\u203a</span>' : '';
+    let detail = '';
+    if(expandable){
+      detail = '<div class="sr-detail hide" id="srd-'+i+'">';
+      if(c.forms){
+        const lbl = c.cat==='Verbes' ? 'Présent' : (c.cat==='Noms' ? 'Pluriel' : 'Autres formes');
+        detail += '<div class="srd-title">'+lbl+'</div><div class="srd-forms">';
+        c.forms.forEach(f=>{
+          detail += '<div class="srd-f"><span class="srd-he">'+f.he+'</span>'
+                 +  '<span class="srd-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>';
+        });
+        detail += '</div>';
+      }
+      if(c.note) detail += '<div class="srd-note">'+c.note+'</div>';
+      detail += '</div>';
+    }
+    return '<div class="sr-item"'+(expandable?' data-exp="1"':'')+' id="sri-'+i+'">'
+      + '<div class="sr-row" id="sr-'+i+'">'
+      + '<button class="sr-speak" tabindex="-1" aria-label="Écouter">'+SPK_SVG+'</button>'
+      + '<div class="sr-body"><span class="sr-he">'+c.he+'</span>'+tr+'<div class="sr-fr">'+c.fr+'</div></div>'
+      + '<span class="sr-cat">'+c.cat+'</span>'+chevron
+      + '</div>'+detail+'</div>';
+  }).join('');
+  box.innerHTML = html;
+  hits.forEach((c,i)=>{
+    const speakBtn=document.querySelector('#sr-'+i+' .sr-speak');
+    if(speakBtn) bindTap(speakBtn, ()=>speak(c.he||c.he_plain));
+    const row=document.getElementById('sr-'+i);
+    const item=document.getElementById('sri-'+i);
+    const detail=document.getElementById('srd-'+i);
+    if(row){
+      bindTap(row, ()=>{
+        speak(c.he||c.he_plain);
+        if(detail){
+          const open=detail.classList.toggle('hide');
+          item.classList.toggle('open', !open);
+        }
+      });
+    }
+  });
+}
+document.getElementById('search-input').addEventListener('input', runSearch);
+document.getElementById('search-clear').addEventListener('click', ()=>{
+  const input=document.getElementById('search-input');
+  input.value=''; runSearch(); input.focus();
+});
 
 // ----- build category chips -----
 let catCounts = {};
@@ -279,6 +535,8 @@ function segPick(container, key){
 document.getElementById('dir').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('dir'),'dir'));
 document.getElementById('script').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('script'),'script'));
 document.getElementById('order').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('order'),'order'));
+document.getElementById('audio').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('audio'),'audio'));
+document.getElementById('mode').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('mode'),'mode'));
 
 document.getElementById('selall').onclick=()=>{
   const allOn = state.cats.size===Object.keys(catCounts).length;
@@ -291,6 +549,19 @@ document.getElementById('selall').onclick=()=>{
 };
 function updateStart(){ document.getElementById('start').disabled = state.cats.size===0; }
 updateStart();
+
+(function(){
+  const note = document.getElementById('audio-note');
+  if(!note) return;
+  function refresh(){
+    if(!TTS_OK){ note.textContent = "Synthèse vocale non disponible sur ce navigateur."; return; }
+    note.textContent = heVoice
+      ? "Voix hébraïque détectée ✓"
+      : "Aucune voix hébraïque installée sur l'appareil — le son peut être approximatif. (iOS : Réglages → Accessibilité → Contenu énoncé → Voix → Hébreu.)";
+  }
+  refresh();
+  if(TTS_OK) window.speechSynthesis.addEventListener('voiceschanged', refresh);
+})();
 
 // ----- start -----
 document.getElementById('start').onclick=start;
@@ -320,9 +591,7 @@ function formsHtml(card){
 function render(){
   const card=state.queue[state.idx];
   state.flipped=false;
-  document.getElementById('btn-flip').classList.remove('hide');
-  document.getElementById('btn-again').classList.add('hide');
-  document.getElementById('btn-good').classList.add('hide');
+  state.answered=false;
 
   const note = card.note ? '<div class="note-line">'+card.note+'</div>' : '';
 
@@ -344,11 +613,41 @@ function render(){
 
   document.getElementById('face-cat').textContent = card.cat;
   document.getElementById('face-content').innerHTML = state.frontHtml;
-  document.getElementById('face-hint').textContent = 'tap pour retourner';
   animateFace();
 
   document.getElementById('counter').textContent=(state.idx+1)+' / '+state.total;
   document.getElementById('barfill').style.width=((state.idx)/state.total*100)+'%';
+
+  if(state.mode==='input') setupInputCard(card);
+  else setupCardsMode();
+
+  updateSpeaker();
+  if(state.audio==='auto' && state.dir==='he2fr') speakCurrent();
+}
+
+function setupCardsMode(){
+  document.getElementById('controls-cards').classList.remove('hide');
+  document.getElementById('input-zone').classList.add('hide');
+  document.getElementById('kbd-hint').classList.remove('hide');
+  document.getElementById('face-hint').textContent = 'tap pour retourner';
+  document.getElementById('btn-flip').classList.remove('hide');
+  document.getElementById('btn-again').classList.add('hide');
+  document.getElementById('btn-good').classList.add('hide');
+}
+
+function setupInputCard(card){
+  document.getElementById('controls-cards').classList.add('hide');
+  document.getElementById('input-zone').classList.remove('hide');
+  document.getElementById('kbd-hint').classList.add('hide');
+  document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'traduis en français' : 'écris en hébreu';
+  const inp=document.getElementById('answer-input');
+  inp.value=''; inp.className=''; inp.disabled=false;
+  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu ou en translittération…';
+  document.getElementById('input-row').classList.remove('hide');
+  document.getElementById('btn-check').classList.remove('hide');
+  document.getElementById('feedback').innerHTML='';
+  document.getElementById('btn-next').classList.add('hide');
+  setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 60);
 }
 
 function animateFace(){
@@ -371,13 +670,15 @@ function doFlip(){
     document.getElementById('btn-again').classList.add('hide');
     document.getElementById('btn-good').classList.add('hide');
   }
+  updateSpeaker();
+  if(state.audio==='auto' && state.flipped && state.dir==='fr2he') speakCurrent();
 }
 function bindTap(el, fn){
   let handled=false;
   el.addEventListener('pointerup', (e)=>{ e.preventDefault(); e.stopPropagation(); handled=true; fn(); setTimeout(()=>handled=false,50); });
   el.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); if(!handled) fn(); });
 }
-bindTap(document.getElementById('flip'), ()=>{ if(!state.flipped || true) doFlip(); });
+bindTap(document.getElementById('flip'), ()=>{ if(state.mode==='cards') doFlip(); });
 bindTap(document.getElementById('btn-flip'), doFlip);
 
 function answer(good){
@@ -389,6 +690,96 @@ function answer(good){
 }
 bindTap(document.getElementById('btn-good'), ()=>answer(true));
 bindTap(document.getElementById('btn-again'), ()=>answer(false));
+bindTap(document.getElementById('speak-btn'), speakCurrent);
+
+// ---------- Input mode: answer checking ----------
+function normFr(s){
+  return (s||'')
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/\([^)]*\)/g,' ')
+    .replace(/[.!?;:«»"']/g,' ')
+    .replace(/\s+/g,' ')
+    .trim()
+    .replace(/^(le|la|les|l|un|une|des|du|de|d|a|au|aux|se|s|to)\s+/,'');
+}
+function frVariants(fr){
+  return fr.split(/[\/,]| ou /).map(normFr).filter(Boolean);
+}
+function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
+function normTr(s){ return (s||'').toLowerCase().replace(/[^a-z]/g,''); }
+function editDist(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  const d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++)d[0][j]=j;
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  }
+  return d[m][n];
+}
+function checkAnswer(card, raw){
+  const user = (raw||'').trim();
+  if(!user) return false;
+  if(state.dir==='he2fr'){
+    const u = normFr(user);
+    const variants = frVariants(card.fr);
+    for(const v of variants){
+      if(!v) continue;
+      if(u===v) return true;
+      if(v.length>4 && editDist(u,v)<=1) return true;
+    }
+    return false;
+  } else {
+    const uHe = normHe(user);
+    if(uHe && uHe===normHe(card.he)) return true;
+    if(card.tr){
+      const uTr = normTr(user);
+      if(uTr && uTr===normTr(card.tr)) return true;
+    }
+    return false;
+  }
+}
+function answerHtml(card){
+  let h = '<div class="answer">';
+  if(state.dir==='he2fr'){
+    h += '<span class="he">'+card.he+'</span>';
+    h += '<div>'+card.fr+'</div>';
+    if(card.tr) h += '<div class="tr">'+card.tr+'</div>';
+  } else {
+    h += '<div>'+card.fr+'</div>';
+    h += '<span class="he">'+card.he+'</span>';
+    if(card.tr) h += '<div class="tr">'+card.tr+'</div>';
+  }
+  return h+'</div>';
+}
+function submitAnswer(){
+  if(state.answered) return;
+  const card=state.queue[state.idx];
+  const inp=document.getElementById('answer-input');
+  const correct=checkAnswer(card, inp.value);
+  state.answered=true;
+  inp.disabled=true;
+  inp.classList.add(correct?'ok':'no');
+  document.getElementById('input-row').classList.add('hide');
+  const fb=document.getElementById('feedback');
+  fb.innerHTML = (correct
+      ? '<div class="verdict ok">✓ Correct</div>'
+      : '<div class="verdict no">✗ Réponse&nbsp;:</div>') + answerHtml(card);
+  document.getElementById('btn-next').classList.remove('hide');
+  if(correct) state.goodCount++; else state.missed.push(card);
+  updateSpeaker();
+  if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+}
+function nextAfterInput(){
+  state.idx++;
+  if(state.idx>=state.queue.length) finish();
+  else render();
+}
+bindTap(document.getElementById('btn-check'), submitAnswer);
+bindTap(document.getElementById('btn-next'), nextAfterInput);
+document.getElementById('answer-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter'){ e.preventDefault(); submitAnswer(); }
+});
 
 function finish(){
   document.getElementById('study').classList.remove('active');
@@ -426,6 +817,7 @@ document.getElementById('exit').onclick=()=>{
 // keyboard
 document.addEventListener('keydown', e=>{
   if(!document.getElementById('study').classList.contains('active')) return;
+  if(state.mode==='input') return;
   if(e.code==='Space'){ e.preventDefault(); doFlip(); }
   else if(state.flipped && e.code==='ArrowRight'){ answer(true); }
   else if(state.flipped && e.code==='ArrowLeft'){ answer(false); }
@@ -467,13 +859,20 @@ function extractCards(doc){
   rowsOf('Adjectifs').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<4) return;
     const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
-    if(he) cards.push({cat:'Adjectifs',he,tr:'',fr});
+    const labels=['f. sing.','m. plur.','f. plur.']; const forms=[];
+    for(let i=1;i<4;i++){ const fhe=firstText(tds[i],'.he'); const ftr=firstText(tds[i],'.tr');
+      if(fhe) forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
+    if(he) cards.push({cat:'Adjectifs',he,tr:'',fr, forms});
   });
   rowsOf('Noms').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<3) return;
     const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
     const genre=tds[1].textContent.trim();
-    if(he) cards.push({cat:'Noms',he,tr:'',fr:fr+((genre==='m'||genre==='f')?(' ('+genre+')'):'')});
+    const plHe=firstText(tds[2],'.he'); const plTr=firstText(tds[2],'.tr');
+    const card={cat:'Noms',he,tr:'',fr:fr+((genre==='m'||genre==='f')?(' ('+genre+')'):'')};
+    if(genre==='m'||genre==='f') card.genre=genre;
+    if(plHe && plHe!=='—'){ card.forms=[{he:plHe,tr:plTr,label:'pluriel',he_plain:stripNikud(plHe)}]; }
+    if(he) cards.push(card);
   });
   const listCats={'Pronoms personnels':'Pronoms personnels','Démonstratifs':'Démonstratifs',
     'Prépositions':'Prépositions','Conjonctions':'Conjonctions','Mots interrogatifs':'Mots interrogatifs',
