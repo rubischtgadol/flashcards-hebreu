@@ -21,6 +21,7 @@
     background:var(--bg);
     color:var(--ink);
     font-family:'Assistant',sans-serif;
+    font-size:18px;   /* base agrandie (+12% vs 16px par défaut) — tout le reste est en rem/em et suit */
     padding:28px 18px 60px;
   }
   header{
@@ -58,7 +59,7 @@
   }
   .note{
     color:var(--ink-dim);
-    font-size:0.85rem;
+    font-size:0.95rem;
     margin-bottom:16px;
   }
   /* --- Tableau verbes, vrai RTL --- */
@@ -105,7 +106,7 @@
   .tr{
     display:block;
     font-family:'JetBrains Mono',monospace;
-    font-size:0.78rem;
+    font-size:0.86rem;
     color:var(--ink-dim);
     margin-top:3px;
     direction:ltr;
@@ -121,7 +122,7 @@
     display:block;
     font-family:'Assistant',sans-serif;
     color:var(--ink-dim);
-    font-size:0.88rem;
+    font-size:0.98rem;
     margin-top:3px;
   }
 
@@ -213,12 +214,32 @@
     border-radius:10px; padding:12px 16px; margin:10px 0;
   }
   .example .ex-he{ font-family:'Frank Ruhl Libre',serif; font-size:1.35rem; direction:rtl; }
-  .example .ex-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:0.82rem; color:var(--ink-dim); margin-top:2px; }
-  .example .ex-fr{ font-size:0.95rem; color:var(--ink); margin-top:4px; }
-  .example .ex-gloss{ font-size:0.8rem; color:var(--ink-dim); margin-top:6px; font-style:italic; }
+  .example .ex-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:0.88rem; color:var(--ink-dim); margin-top:2px; }
+  .example .ex-fr{ font-size:1rem; color:var(--ink); margin-top:4px; }
+  .example .ex-gloss{ font-size:0.88rem; color:var(--ink-dim); margin-top:6px; font-style:italic; }
   .ex-title{ color:var(--gold); font-size:0.9rem; font-weight:600; margin:16px 0 4px; }
+  /* Encadré astuce / point-clé */
+  .tip{
+    background:linear-gradient(180deg, rgba(212,162,76,.10), transparent);
+    border:1px solid var(--gold); border-radius:12px;
+    padding:14px 18px; margin:18px 0;
+  }
+  .tip-title{
+    display:flex; align-items:center; gap:8px;
+    color:var(--gold); font-weight:700; font-size:0.95rem; margin-bottom:8px;
+  }
+  .tip p{ margin:6px 0; line-height:1.55; color:var(--ink); }
+  .tip .he{ font-size:1.1em; }
 
   /* ---------- Sommaire (table des matières) ---------- */
+  .app-link{
+    display:inline-block; margin-top:14px;
+    text-decoration:none; color:var(--gold);
+    background:var(--bg-card); border:1px solid var(--gold); border-radius:999px;
+    padding:8px 18px; font-size:0.95rem; font-weight:600;
+    transition:all .15s ease;
+  }
+  .app-link:hover{ background:var(--gold); color:#1a1206; }
   .toc{
     background:var(--bg-card); border:1px solid var(--line); border-radius:12px;
     padding:18px 20px; margin:0 0 28px;
@@ -239,7 +260,7 @@
     display:inline-flex; align-items:baseline; gap:7px;
     text-decoration:none; color:var(--ink);
     background:var(--bg); border:1px solid var(--line); border-radius:999px;
-    padding:6px 13px; font-size:0.88rem; transition:all .13s ease;
+    padding:6px 13px; font-size:0.95rem; transition:all .13s ease;
   }
   .toc-links a:hover{ border-color:var(--gold); color:var(--gold); }
   .toc-links a .toc-he{ font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; color:var(--gold); }
@@ -262,7 +283,7 @@
   .part .part-name .part-he{ font-family:'Frank Ruhl Libre',serif; color:var(--gold); font-size:1.5rem; }
   .part .part-sub{ display:block; color:var(--ink-dim); font-size:0.85rem; margin-top:3px; }
   .subtheme{
-    font-family:'Assistant',sans-serif; font-size:0.78rem; font-weight:700;
+    font-family:'Assistant',sans-serif; font-size:0.82rem; font-weight:700;
     text-transform:uppercase; letter-spacing:0.12em; color:var(--gold);
     margin:26px 0 8px; padding-bottom:5px; border-bottom:1px dashed var(--line);
   }
@@ -273,6 +294,7 @@
 <header>
   <h1>אוֹצַר מִלִּים <span style="color:var(--ink-dim);font-size:1rem;">— Vocabulaire Hébreu</span></h1>
   <div class="subtitle">Grammaire et vocabulaire de base de l'hébreu moderne</div>
+  <a class="app-link" href="./index.html">🎴 S'entraîner avec les flashcards &#8599;</a>
 </header>
 
 <div class="search-wrap">
@@ -563,6 +585,14 @@
   <div class="ex-gloss">דִּבַּרְנוּ = radical דִּבֵּר (parler) + terminaison ־נוּ (nous).</div>
 </div>
 
+<div class="tip">
+  <div class="tip-title">💡 Faut-il garder le pronom ?</div>
+  <p>Puisque la terminaison indique déjà QUI fait l'action, le pronom devient <b>facultatif</b> au passé (contrairement au présent, où il est obligatoire). <span class="he">אָכַלְתִּי</span> (achalti) veut déjà dire « j'ai mangé » à lui seul.</p>
+  <p><b>Quand on le remet, c'est pour insister</b> : <span class="he">אֲנִי אָכַלְתִּי</span> = « <i>moi</i>, j'ai mangé » (moi et pas un autre).</p>
+  <p><b>Exception — la 3ᵉ personne</b> (il / elle / ils / elles) : là on garde presque toujours le pronom (ou un nom), sinon on ne sait pas DE QUI on parle. <span class="he">הָלַךְ</span> seul = « il est allé »… mais qui ? → <span class="he">הוּא הָלַךְ</span>.</p>
+  <p><b>Débutant :</b> garde le pronom au début (plus simple), tu apprendras à l'alléger.</p>
+</div>
+
 <h2 id="sec-le-futur">זְמַן עָתִיד <span class="count">Le futur</span></h2>
 <div class="note">
   Comme le passé, le futur part de la <b>racine</b>, pas du présent. La différence : au lieu d'une terminaison à la fin, on ajoute un <b>préfixe</b> AU DÉBUT du verbe pour indiquer qui fait l'action. Quatre lettres suffisent à retenir : <b>א</b> = je, <b>ת</b> = tu / elle / vous, <b>י</b> = il / ils, <b>נ</b> = nous.
@@ -670,6 +700,14 @@
   <div class="ex-tr">anachnu nochal ba-mis'ada</div>
   <div class="ex-fr">Nous mangerons au restaurant.</div>
   <div class="ex-gloss">נֹאכַל = préfixe נ (nous) + radical de לֶאֱכֹל (manger).</div>
+</div>
+
+<div class="tip">
+  <div class="tip-title">💡 Faut-il garder le pronom ?</div>
+  <p>Comme au passé, le préfixe indique déjà la personne, donc le pronom est <b>facultatif</b> au futur. <span class="he">אֶכְתֹּב</span> (ekhtov) dit déjà « j'écrirai » à lui seul.</p>
+  <p><b>On le remet pour insister</b> : <span class="he">אֲנִי אֶכְתֹּב</span> = « <i>moi</i>, j'écrirai ».</p>
+  <p><b>Exception — la 3ᵉ personne</b> : garde le pronom (ou un nom), car <span class="he">יִכְתֹּב</span> seul (« il/elle écrira ») ne dit pas de qui il s'agit. Astuce : au futur, « il » et « ils » (préfixe <span class="he">י</span>) se distinguent de « tu / elle / vous » (préfixe <span class="he">ת</span>), mais le pronom lève toute ambiguïté.</p>
+  <p><b>Débutant :</b> garde le pronom, c'est plus clair au début.</p>
 </div>
 
 <h2 id="sec-patrons-de-conjugaison">בִּנְיָנִים <span class="count">Patrons de conjugaison</span></h2>
