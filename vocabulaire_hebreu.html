@@ -196,8 +196,17 @@
   mark.hl{ background:rgba(212,162,76,.28); color:var(--ink); border-radius:3px; padding:0 1px; }
 
   /* ---------- Pedagogical example blocks ---------- */
-  .steps{ margin:4px 0 14px; padding-left:0; }
-  .steps li{ margin:6px 0; color:var(--ink); line-height:1.5; }
+  .steps{ margin:4px 0 16px; padding-left:0; list-style:none; counter-reset:step; }
+  .steps li{
+    position:relative; margin:9px 0; padding-left:38px; color:var(--ink); line-height:1.55;
+    counter-increment:step;
+  }
+  .steps li::before{
+    content:counter(step); position:absolute; left:0; top:0;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--gold); color:#1a1206; font-family:'JetBrains Mono',monospace;
+    font-size:0.8rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+  }
   .example{
     background:var(--bg-card); border:1px solid var(--line); border-left:3px solid var(--gold);
     border-radius:10px; padding:12px 16px; margin:10px 0;
@@ -207,6 +216,34 @@
   .example .ex-fr{ font-size:0.95rem; color:var(--ink); margin-top:4px; }
   .example .ex-gloss{ font-size:0.8rem; color:var(--ink-dim); margin-top:6px; font-style:italic; }
   .ex-title{ color:var(--gold); font-size:0.9rem; font-weight:600; margin:16px 0 4px; }
+
+  /* ---------- Sommaire (table des matières) ---------- */
+  .toc{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:12px;
+    padding:18px 20px; margin:0 0 28px;
+  }
+  .toc-title{
+    font-family:'Frank Ruhl Libre',serif; color:var(--gold);
+    font-size:1.1rem; font-weight:600; margin:0 0 12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .toc-group{ margin-bottom:14px; }
+  .toc-group:last-child{ margin-bottom:0; }
+  .toc-group-label{
+    font-family:'JetBrains Mono',monospace; font-size:0.66rem; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--ink-dim); margin-bottom:7px;
+  }
+  .toc-links{ display:flex; flex-wrap:wrap; gap:7px; }
+  .toc-links a{
+    display:inline-flex; align-items:baseline; gap:7px;
+    text-decoration:none; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); border-radius:999px;
+    padding:6px 13px; font-size:0.88rem; transition:all .13s ease;
+  }
+  .toc-links a:hover{ border-color:var(--gold); color:var(--gold); }
+  .toc-links a .toc-he{ font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; color:var(--gold); }
+  html{ scroll-behavior:smooth; }
+  :target{ scroll-margin-top:80px; }
 </style>
 </head>
 <body>
@@ -225,7 +262,61 @@
   <span class="search-count" id="voc-search-count"></span>
 </div>
 
-<h2>כִּנּוּיֵי גוּף <span class="count">Pronoms personnels</span></h2>
+<nav class="toc" aria-label="Sommaire">
+  <div class="toc-title">תֹּכֶן הָעִנְיָנִים · Sommaire</div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Les bases</div>
+    <div class="toc-links">
+      <a href="#sec-pronoms-personnels"><span class="toc-he">כִּנּוּיֵי גוּף</span> Pronoms personnels</a>
+      <a href="#sec-demonstratifs"><span class="toc-he">מִלּוֹת רֶמֶז</span> Démonstratifs</a>
+      <a href="#sec-existence-et-possession"><span class="toc-he">יֵשׁ וְאֵין</span> Existence &amp; possession</a>
+    </div>
+  </div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Verbes &amp; conjugaison</div>
+    <div class="toc-links">
+      <a href="#sec-verbes"><span class="toc-he">פְּעָלִים</span> Verbes (présent)</a>
+      <a href="#sec-la-racine"><span class="toc-he">שֹׁרֶשׁ</span> La racine (clé des verbes)</a>
+      <a href="#sec-le-passe"><span class="toc-he">זְמַן עָבָר</span> Le passé</a>
+      <a href="#sec-le-futur"><span class="toc-he">זְמַן עָתִיד</span> Le futur</a>
+      <a href="#sec-patrons-de-conjugaison"><span class="toc-he">בִּנְיָנִים</span> Patrons de conjugaison</a>
+    </div>
+  </div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Noms &amp; adjectifs</div>
+    <div class="toc-links">
+      <a href="#sec-noms"><span class="toc-he">שְׁמוֹת עֶצֶם</span> Noms</a>
+      <a href="#sec-l-article-defini"><span class="toc-he">הַ־</span> L'article défini</a>
+      <a href="#sec-etat-construit"><span class="toc-he">סְמִיכוּת</span> État construit</a>
+      <a href="#sec-adjectifs"><span class="toc-he">תְּאָרִים</span> Adjectifs</a>
+    </div>
+  </div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Mots de liaison</div>
+    <div class="toc-links">
+      <a href="#sec-prepositions"><span class="toc-he">מִלּוֹת יַחַס</span> Prépositions</a>
+      <a href="#sec-prepositions-flechies"><span class="toc-he">מִלּוֹת יַחַס נְטוּיוֹת</span> Prépositions fléchies</a>
+      <a href="#sec-conjonctions"><span class="toc-he">מִלּוֹת חִבּוּר</span> Conjonctions</a>
+      <a href="#sec-mots-interrogatifs"><span class="toc-he">מִלּוֹת שְׁאֵלָה</span> Mots interrogatifs</a>
+    </div>
+  </div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Vocabulaire pratique</div>
+    <div class="toc-links">
+      <a href="#sec-nombres-010"><span class="toc-he">מִסְפָּרִים</span> Nombres (0–10)</a>
+      <a href="#sec-jours-de-la-semaine"><span class="toc-he">יְמֵי הַשָּׁבוּעַ</span> Jours de la semaine</a>
+      <a href="#sec-mots-de-quantite"><span class="toc-he">מִלּוֹת כַּמּוּת</span> Mots de quantité</a>
+      <a href="#sec-expressions-divers"><span class="toc-he">בִּיטּוּיִים</span> Expressions / Divers</a>
+    </div>
+  </div>
+</nav>
+
+<h2 id="sec-pronoms-personnels">כִּנּוּיֵי גוּף <span class="count">Pronoms personnels</span></h2>
 <div class="note">Série fixe de personnes, invariable — pas de carré magique.</div>
 <ul class="word-list">
   <li>
@@ -270,7 +361,7 @@
   </li>
 </ul>
 
-<h2>מִלּוֹת רֶמֶז <span class="count">Démonstratifs</span></h2>
+<h2 id="sec-demonstratifs">מִלּוֹת רֶמֶז <span class="count">Démonstratifs</span></h2>
 <div class="note">3 formes seulement — pas de distinction masc./fém. au pluriel.</div>
 <div class="note">
   Deux usages : devant un nom (« ce livre ») ou seul pour dire « c'est » (הַסֵּפֶר הַזֶּה טוֹב, ce livre est bon &nbsp;·&nbsp; זֶה טוֹב, c'est bon).
@@ -290,7 +381,7 @@
   </li>
 </ul>
 
-<h2>פְּעָלִים <span class="count">Verbes</span></h2>
+<h2 id="sec-verbes">פְּעָלִים <span class="count">Verbes</span></h2>
 <div class="note">Infinitif → présent : masc. sing. / fém. sing. / masc. plur. / fém. plur. — lecture droite→gauche</div>
 <div class="table-wrap">
 <table>
@@ -848,16 +939,77 @@
 </table>
 </div>
 
-<h2>זְמַן עָבָר <span class="count">Le passé</span></h2>
+<h2 id="sec-la-racine">שֹׁרֶשׁ <span class="count">La racine — la clé des verbes</span></h2>
 <div class="note">
-  En hébreu, le passé se construit toujours de la même façon : on part d'un <b>radical</b> (le squelette du verbe) et on lui ajoute une <b>terminaison</b> qui indique QUI fait l'action. Ces terminaisons sont <b>identiques pour tous les verbes</b> — apprends-les une seule fois et tu peux conjuguer n'importe quel verbe au passé.
+  C'est <b>la</b> notion à comprendre pour ne plus voir les temps comme des exceptions. Chaque verbe hébreu repose sur une <b>racine de 3 consonnes</b> (le שֹׁרֶשׁ / <i>choresh</i>) qui porte le sens. Le présent, le passé et le futur ne sont pas des mots différents : ce sont les <b>mêmes 3 consonnes</b> habillées de voyelles et de petits ajouts différents. La racine, elle, ne bouge jamais.
+</div>
+<div class="note">
+  ⚠️ Le piège du débutant : croire que le passé et le futur se fabriquent à partir du <b>présent</b>. Faux — ils se fabriquent à partir de la <b>racine</b>. Le présent est juste un habillage de plus, pas le point de départ.
+</div>
+
+<div class="ex-title">Une seule racine, trois temps (racine כ־ת־ב = « écrire »)</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Racine</th><th>Présent (הֹוֶה)</th><th>Passé (עָבָר)</th><th>Futur (עָתִיד)</th></tr>
+</thead>
+<tbody>
+  <tr>
+    <td><span class="he">כ־ת־ב</span><span class="tr">k-t-v</span></td>
+    <td><span class="he">כּוֹתֵב</span><span class="tr">kotev</span><span class="fr">il écrit</span></td>
+    <td><span class="he">כָּתַב</span><span class="tr">katav</span><span class="fr">il a écrit</span></td>
+    <td><span class="he">יִכְתֹּב</span><span class="tr">yikhtov</span><span class="fr">il écrira</span></td>
+  </tr>
+  <tr>
+    <td><span class="he">ל־מ־ד</span><span class="tr">l-m-d</span></td>
+    <td><span class="he">לוֹמֵד</span><span class="tr">lomed</span><span class="fr">il apprend</span></td>
+    <td><span class="he">לָמַד</span><span class="tr">lamad</span><span class="fr">il a appris</span></td>
+    <td><span class="he">יִלְמַד</span><span class="tr">yilmad</span><span class="fr">il apprendra</span></td>
+  </tr>
+  <tr>
+    <td><span class="he">ג־מ־ר</span><span class="tr">g-m-r</span></td>
+    <td><span class="he">גּוֹמֵר</span><span class="tr">gomer</span><span class="fr">il finit</span></td>
+    <td><span class="he">גָּמַר</span><span class="tr">gamar</span><span class="fr">il a fini</span></td>
+    <td><span class="he">יִגְמֹר</span><span class="tr">yigmor</span><span class="fr">il finira</span></td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div class="note">
+  Repère les 3 consonnes dans chaque ligne : elles sont <b>toujours là, dans le même ordre</b>. Seuls les voyelles et les petits ajouts (préfixe au futur, terminaison au passé) changent.
+</div>
+
+<div class="ex-title">Comment trouver la racine d'un verbe</div>
+<ol class="steps">
+  <li>Pars de l'<b>infinitif</b> (la forme du dictionnaire). Il commence presque toujours par <span class="he">לְ / לִ / לָ</span> (« à / pour »). Enlève ce petit mot de départ.</li>
+  <li>Enlève les voyelles (nikud). Ce qui reste, ce sont tes <b>3 consonnes</b> = la racine. Exemple : <span class="he">לִכְתֹּב</span> → כ־ת־ב.</li>
+  <li>Une fois la racine trouvée, tu ne cherches plus d'exception : tu appliques le <b>moule</b> du temps voulu (voir Le passé / Le futur).</li>
+</ol>
+<div class="example">
+  <div class="ex-he">לִסְגֹּר → ס־ג־ר</div>
+  <div class="ex-tr">lisgor → s-g-r</div>
+  <div class="ex-fr">fermer → racine s-g-r</div>
+  <div class="ex-gloss">Passé « il a fermé » : סָגַר (sagar). Futur « il fermera » : יִסְגֹּר (yisgor). Mêmes 3 consonnes partout.</div>
+</div>
+
+<div class="ex-title">Pourquoi certains verbes semblent irréguliers</div>
+<div class="note">
+  Cinq consonnes sont « faibles » (<span class="he">א · ה · ו · י · נ</span>) : selon leur place dans le mot, elles peuvent s'effacer ou se transformer. Ce ne sont pas des exceptions au hasard, mais des <b>familles régulières</b>. Exemple, racine <span class="he">ה־ל־ך</span> (aller) : présent <span class="he">הוֹלֵךְ</span> (holech), passé <span class="he">הָלַךְ</span> (halach), futur <span class="he">יֵלֵךְ</span> (yelech) — ici le <span class="he">ה</span> s'efface au futur.
+</div>
+<div class="note">
+  Conseil débutant : n'essaie pas de <i>calculer</i> ces verbes. Apprends par cœur la poignée de verbes très fréquents et irréguliers (aller, être, donner, prendre…), et pour tous les autres, mémorise la <b>racine</b> plutôt que la forme présente.
+</div>
+
+<h2 id="sec-le-passe">זְמַן עָבָר <span class="count">Le passé</span></h2>
+<div class="note">
+  Rappel : on ne part pas du présent mais de la <b>racine</b> (voir la section précédente). Le passé, c'est la racine + une <b>terminaison</b> qui indique QUI fait l'action. Ces terminaisons sont <b>identiques pour tous les verbes</b> — apprends-les une seule fois et tu peux conjuguer n'importe quel verbe au passé.
 </div>
 <div class="ex-title">La recette, étape par étape (verbe « écrire », radical כ־ת־ב)</div>
 <ol class="steps">
-  <li><b>1.</b> Pars du radical de base : <span class="he">כָּתַב</span> (katav) = « il a écrit ». C'est la forme la plus simple, celle de « il ».</li>
-  <li><b>2.</b> Pour « je », ajoute la terminaison <span class="he">־תִּי</span> (-ti) : <span class="he">כָּתַבְתִּי</span> (katavti) = « j'ai écrit ».</li>
-  <li><b>3.</b> Pour « tu (m) », ajoute <span class="he">־תָּ</span> (-ta) : <span class="he">כָּתַבְתָּ</span> (katavta) = « tu as écrit ».</li>
-  <li><b>4.</b> Même logique pour toutes les personnes — voir le tableau ci-dessous.</li>
+  <li>Pars du radical de base : <span class="he">כָּתַב</span> (katav) = « il a écrit ». C'est la forme la plus simple, celle de « il ».</li>
+  <li>Pour « je », ajoute la terminaison <span class="he">־תִּי</span> (-ti) : <span class="he">כָּתַבְתִּי</span> (katavti) = « j'ai écrit ».</li>
+  <li>Pour « tu (m) », ajoute <span class="he">־תָּ</span> (-ta) : <span class="he">כָּתַבְתָּ</span> (katavta) = « tu as écrit ».</li>
+  <li>Même logique pour toutes les personnes — voir le tableau ci-dessous.</li>
 </ol>
 <div class="note">
   Un seul temps du passé (pas de distinction passé composé / imparfait comme en français) : <span class="he">כָּתַבְתִּי</span> traduit aussi bien « j'ai écrit » que « j'écrivais ». Le contexte précise.
@@ -959,16 +1111,16 @@
   <div class="ex-gloss">דִּבַּרְנוּ = radical דִּבֵּר (parler) + terminaison ־נוּ (nous).</div>
 </div>
 
-<h2>זְמַן עָתִיד <span class="count">Le futur</span></h2>
+<h2 id="sec-le-futur">זְמַן עָתִיד <span class="count">Le futur</span></h2>
 <div class="note">
-  Le futur fonctionne à l'inverse du passé : au lieu d'une terminaison à la fin, on ajoute un <b>préfixe</b> AU DÉBUT du verbe pour indiquer qui fait l'action. Quatre lettres suffisent à retenir : <b>א</b> = je, <b>ת</b> = tu / elle / vous, <b>י</b> = il / ils, <b>נ</b> = nous.
+  Comme le passé, le futur part de la <b>racine</b>, pas du présent. La différence : au lieu d'une terminaison à la fin, on ajoute un <b>préfixe</b> AU DÉBUT du verbe pour indiquer qui fait l'action. Quatre lettres suffisent à retenir : <b>א</b> = je, <b>ת</b> = tu / elle / vous, <b>י</b> = il / ils, <b>נ</b> = nous.
 </div>
 <div class="ex-title">La recette, étape par étape (verbe « écrire »)</div>
 <ol class="steps">
-  <li><b>1.</b> Base du futur pour « il » : <span class="he">יִכְתֹּב</span> (yikhtov) = « il écrira ». Le préfixe <span class="he">יִ</span> (y-) marque « il ».</li>
-  <li><b>2.</b> Pour « je », change le préfixe en <span class="he">אֶ</span> (e-) : <span class="he">אֶכְתֹּב</span> (ekhtov) = « j'écrirai ».</li>
-  <li><b>3.</b> Pour « nous », préfixe <span class="he">נִ</span> (n-) : <span class="he">נִכְתֹּב</span> (nikhtov) = « nous écrirons ».</li>
-  <li><b>4.</b> Pour « tu (f) » et les pluriels, on ajoute aussi un petit suffixe (־י, ־וּ) — voir le tableau.</li>
+  <li>Base du futur pour « il » : <span class="he">יִכְתֹּב</span> (yikhtov) = « il écrira ». Le préfixe <span class="he">יִ</span> (y-) marque « il ».</li>
+  <li>Pour « je », change le préfixe en <span class="he">אֶ</span> (e-) : <span class="he">אֶכְתֹּב</span> (ekhtov) = « j'écrirai ».</li>
+  <li>Pour « nous », préfixe <span class="he">נִ</span> (n-) : <span class="he">נִכְתֹּב</span> (nikhtov) = « nous écrirons ».</li>
+  <li>Pour « tu (f) » et les pluriels, on ajoute aussi un petit suffixe (־י, ־וּ) — voir le tableau.</li>
 </ol>
 <div class="table-wrap">
 <table>
@@ -1068,7 +1220,7 @@
   <div class="ex-gloss">נֹאכַל = préfixe נ (nous) + radical de לֶאֱכֹל (manger).</div>
 </div>
 
-<h2>בִּנְיָנִים <span class="count">Patrons de conjugaison</span></h2>
+<h2 id="sec-patrons-de-conjugaison">בִּנְיָנִים <span class="count">Patrons de conjugaison</span></h2>
 <div class="note">
   Un verbe hébreu part d'une racine de 3 (parfois 4) consonnes qui porte le sens de base. Cette racine se coule dans l'un de 7 "moules" (בִּנְיָנִים), qui fixent les voyelles et ajoutent une nuance : actif, passif, causatif ou réfléchi. Chaque verbe déjà listé dans ce fichier appartient à l'un de ces 7 patrons.
 </div>
@@ -1094,7 +1246,7 @@
   Reconnaître le patron d'un verbe permet souvent de deviner ses voyelles même sans nikud.
 </div>
 
-<h2>שְׁמוֹת עֶצֶם <span class="count">Noms</span></h2>
+<h2 id="sec-noms">שְׁמוֹת עֶצֶם <span class="count">Noms</span></h2>
 <div class="note">Un nom a un genre fixe → pas de carré magique complet ici, juste singulier/pluriel. Lecture droite→gauche.</div>
 <div class="table-wrap">
 <table>
@@ -2449,7 +2601,7 @@
 </div>
 <div class="note">בֵּן/בַּת (fils/fille de qqn, relation familiale) sont différents de יֶלֶד/יַלְדָּה (garçon/fille, catégorie d'âge) — un בֵּן peut être adulte.</div>
 
-<h2>הַ־ <span class="count">L'article défini</span></h2>
+<h2 id="sec-l-article-defini">הַ־ <span class="count">L'article défini</span></h2>
 <div class="note">
   Hébreu n'a pas de mot séparé pour « le/la/les » : l'article הַ (ha-) se colle directement devant le nom, comme בְּ/לְ/כְּ/מִ.<br><br>
   בַּיִת (bayit) = une maison &nbsp;→&nbsp; הַבַּיִת (habayit) = la maison<br>
@@ -2457,7 +2609,7 @@
   Un adjectif qui décrit un nom défini prend lui aussi הַ : הַבַּיִת הַגָּדוֹל (habayit hagadol) = la grande maison (littéralement « la-maison la-grande »).
 </div>
 
-<h2>סְמִיכוּת <span class="count">État construit</span></h2>
+<h2 id="sec-etat-construit">סְמִיכוּת <span class="count">État construit</span></h2>
 <div class="note">
   Deuxième façon d'exprimer la possession, en plus de שֶׁל : deux noms se collent directement l'un à l'autre, sans mot de liaison. Le premier nom change souvent légèrement de forme ; le second reste inchangé.
 </div>
@@ -2482,7 +2634,7 @@
 </div>
 <div class="note">שֶׁל reste toujours correct et plus simple à l'oral ; la smikhut domine surtout dans les noms composés figés (comme ci-dessus) et à l'écrit soutenu.</div>
 
-<h2>תְּאָרִים <span class="count">Adjectifs</span></h2>
+<h2 id="sec-adjectifs">תְּאָרִים <span class="count">Adjectifs</span></h2>
 <div class="note">Carré magique complet, comme les verbes — lecture droite→gauche.</div>
 <div class="table-wrap">
 <table>
@@ -2566,7 +2718,7 @@
 </table>
 </div>
 
-<h2>מִלּוֹת יַחַס <span class="count">Prépositions</span></h2>
+<h2 id="sec-prepositions">מִלּוֹת יַחַס <span class="count">Prépositions</span></h2>
 <div class="note">Mots invariables — pas de carré magique.</div>
 <div class="note" style="border:1px dashed var(--line); border-radius:8px; padding:10px 12px; color:var(--ink);">
   ⚠️ 4 prépositions très courantes ne sont <strong>pas</strong> des mots séparés : elles se collent directement au mot suivant.<br>
@@ -2670,7 +2822,7 @@
   </li>
 </ul>
 
-<h2>מִלּוֹת יַחַס נְטוּיוֹת <span class="count">Prépositions fléchies</span></h2>
+<h2 id="sec-prepositions-flechies">מִלּוֹת יַחַס נְטוּיוֹת <span class="count">Prépositions fléchies</span></h2>
 <div class="note">
   ⚠️ Certaines prépositions ne prennent pas un pronom séparé (« de + moi ») : elles se déclinent par personne, comme un verbe. Les 5 ci-dessous sont les plus fréquentes à l'oral.
 </div>
@@ -2776,7 +2928,7 @@
 </table>
 </div>
 
-<h2>יֵשׁ וְאֵין <span class="count">Existence et possession</span></h2>
+<h2 id="sec-existence-et-possession">יֵשׁ וְאֵין <span class="count">Existence et possession</span></h2>
 <div class="note">
   L'hébreu n'a pas de verbe « avoir » : la possession se construit avec יֵשׁ/אֵין + לְ (vu dans les prépositions fléchies). Ces deux mots servent aussi seuls pour dire « il y a / il n'y a pas ».<br><br>
   יֵשׁ סֵפֶר (yesh sefer) = il y a un livre &nbsp;·&nbsp; יֵשׁ לִי סֵפֶר (yesh li sefer) = j'ai un livre (littéralement « il y a à-moi un livre »)<br>
@@ -2793,7 +2945,7 @@
   </li>
 </ul>
 
-<h2>מִלּוֹת חִבּוּר <span class="count">Conjonctions</span></h2>
+<h2 id="sec-conjonctions">מִלּוֹת חִבּוּר <span class="count">Conjonctions</span></h2>
 <div class="note">Mots invariables — pas de carré magique.</div>
 <div class="note" style="border:1px dashed var(--line); border-radius:8px; padding:10px 12px; color:var(--ink);">
   ⚠️ « et » n'est pas non plus un mot séparé : וְ (ve-) se colle au mot suivant.<br>
@@ -2827,7 +2979,7 @@
   </li>
 </ul>
 
-<h2>מִלּוֹת שְׁאֵלָה <span class="count">Mots interrogatifs</span></h2>
+<h2 id="sec-mots-interrogatifs">מִלּוֹת שְׁאֵלָה <span class="count">Mots interrogatifs</span></h2>
 <div class="note">Mots invariables — pas de carré magique.</div>
 <div class="note" style="border:1px dashed var(--line); border-radius:8px; padding:10px 12px; color:var(--ink);">
   ⚠️ Trois mots pour « où », comme בְּ/לְ/מִ- plus haut : <strong>אֵיפֹה</strong> = où (position) &nbsp;·&nbsp; <strong>לְאָן</strong> = vers où (direction) &nbsp;·&nbsp; <strong>מֵאַיִן</strong> = d'où (origine).<br>
@@ -2885,7 +3037,7 @@
   </li>
 </ul>
 
-<h2>מִסְפָּרִים <span class="count">Nombres (0–10)</span></h2>
+<h2 id="sec-nombres-010">מִסְפָּרִים <span class="count">Nombres (0–10)</span></h2>
 <div class="note">Forme de base (comptage) — les nombres ont aussi une forme masculine distincte, utilisée devant un nom masculin (ex. שְׁנֵי סְפָרִים, deux livres).</div>
 <ul class="word-list">
   <li>
@@ -2934,7 +3086,7 @@
   </li>
 </ul>
 
-<h2>יְמֵי הַשָּׁבוּעַ <span class="count">Jours de la semaine</span></h2>
+<h2 id="sec-jours-de-la-semaine">יְמֵי הַשָּׁבוּעַ <span class="count">Jours de la semaine</span></h2>
 <div class="note">La semaine commence le dimanche. Les noms viennent des nombres ordinaux (« jour un », « jour deux »...) sauf שַׁבָּת, qui a son propre nom.</div>
 <ul class="word-list">
   <li>
@@ -2967,7 +3119,7 @@
   </li>
 </ul>
 
-<h2>מִלּוֹת כַּמּוּת <span class="count">Mots de quantité</span></h2>
+<h2 id="sec-mots-de-quantite">מִלּוֹת כַּמּוּת <span class="count">Mots de quantité</span></h2>
 <div class="note">Mots essentiellement invariables — pas de carré magique.</div>
 <ul class="word-list">
   <li>
@@ -3016,7 +3168,7 @@
   Ex. : כָּל יוֹם (kol yom) = chaque jour &nbsp;·&nbsp; כָּל הַזְּמַן (kol hazman) = tout le temps
 </div>
 
-<h2>בִּיטּוּיִים <span class="count">Expressions / Divers</span></h2>
+<h2 id="sec-expressions-divers">בִּיטּוּיִים <span class="count">Expressions / Divers</span></h2>
 <div class="note">Phrases figées — pas de flexion, donc pas de carré magique.</div>
 <ul class="word-list">
   <li>
@@ -3242,12 +3394,14 @@
       var raw = input.value.trim();
       var q = norm(raw);
       clearBtn.hidden = raw.length === 0;
+      var toc = document.querySelector('.toc');
 
       // reset
       entries.forEach(function(e){ e.el.classList.remove('search-hidden'); clearHighlights(e.el); });
       sections.forEach(function(s){ s.block.forEach(function(b){ b.classList.remove('search-hidden'); }); });
 
-      if(!q){ countEl.textContent = ''; return; }
+      if(!q){ countEl.textContent = ''; if(toc) toc.classList.remove('search-hidden'); return; }
+      if(toc) toc.classList.add('search-hidden');  // hide the summary while filtering
 
       var shown = 0;
       entries.forEach(function(e){
