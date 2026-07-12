@@ -196,6 +196,7 @@
   mark.hl{ background:rgba(212,162,76,.28); color:var(--ink); border-radius:3px; padding:0 1px; }
 
   /* ---------- Pedagogical example blocks ---------- */
+  .note .he, .steps li .he{ font-size:1.15em; }
   .steps{ margin:4px 0 16px; padding-left:0; list-style:none; counter-reset:step; }
   .steps li{
     position:relative; margin:9px 0; padding-left:38px; color:var(--ink); line-height:1.55;
@@ -244,6 +245,27 @@
   .toc-links a .toc-he{ font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; color:var(--gold); }
   html{ scroll-behavior:smooth; }
   :target{ scroll-margin-top:80px; }
+
+  /* ---------- Parties & sous-thèmes ---------- */
+  .part{
+    margin:54px 0 10px; padding:18px 22px;
+    border:1px solid var(--gold); border-radius:14px;
+    background:linear-gradient(180deg, rgba(212,162,76,.08), transparent);
+  }
+  .part .part-num{
+    display:block; font-family:'JetBrains Mono',monospace; font-size:0.7rem;
+    text-transform:uppercase; letter-spacing:0.16em; color:var(--gold); margin-bottom:4px;
+  }
+  .part .part-name{
+    display:block; font-family:'Frank Ruhl Libre',serif; font-size:1.45rem; color:var(--ink);
+  }
+  .part .part-name .part-he{ font-family:'Frank Ruhl Libre',serif; color:var(--gold); font-size:1.5rem; }
+  .part .part-sub{ display:block; color:var(--ink-dim); font-size:0.85rem; margin-top:3px; }
+  .subtheme{
+    font-family:'Assistant',sans-serif; font-size:0.78rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.12em; color:var(--gold);
+    margin:26px 0 8px; padding-bottom:5px; border-bottom:1px dashed var(--line);
+  }
 </style>
 </head>
 <body>
@@ -266,48 +288,30 @@
   <div class="toc-title">תֹּכֶן הָעִנְיָנִים · Sommaire</div>
 
   <div class="toc-group">
-    <div class="toc-group-label">Les bases</div>
+    <div class="toc-group-label">Partie 1 · Grammaire — comprendre la langue</div>
     <div class="toc-links">
       <a href="#sec-pronoms-personnels"><span class="toc-he">כִּנּוּיֵי גוּף</span> Pronoms personnels</a>
       <a href="#sec-demonstratifs"><span class="toc-he">מִלּוֹת רֶמֶז</span> Démonstratifs</a>
+      <a href="#sec-la-racine"><span class="toc-he">שֹׁרֶשׁ</span> La racine (clé des verbes)</a>
+      <a href="#sec-le-passe"><span class="toc-he">זְמַן עָבָר</span> Le passé</a>
+      <a href="#sec-le-futur"><span class="toc-he">זְמַן עָתִיד</span> Le futur</a>
+      <a href="#sec-patrons-de-conjugaison"><span class="toc-he">בִּנְיָנִים</span> Patrons de conjugaison</a>
+      <a href="#sec-l-article-defini"><span class="toc-he">הַ־</span> L'article défini</a>
+      <a href="#sec-etat-construit"><span class="toc-he">סְמִיכוּת</span> État construit</a>
+      <a href="#sec-prepositions-flechies"><span class="toc-he">מִלּוֹת יַחַס נְטוּיוֹת</span> Prépositions fléchies</a>
       <a href="#sec-existence-et-possession"><span class="toc-he">יֵשׁ וְאֵין</span> Existence &amp; possession</a>
     </div>
   </div>
 
   <div class="toc-group">
-    <div class="toc-group-label">Verbes &amp; conjugaison</div>
+    <div class="toc-group-label">Partie 2 · Vocabulaire — le dictionnaire</div>
     <div class="toc-links">
-      <a href="#sec-verbes"><span class="toc-he">פְּעָלִים</span> Verbes (présent)</a>
-      <a href="#sec-la-racine"><span class="toc-he">שֹׁרֶשׁ</span> La racine (clé des verbes)</a>
-      <a href="#sec-le-passe"><span class="toc-he">זְמַן עָבָר</span> Le passé</a>
-      <a href="#sec-le-futur"><span class="toc-he">זְמַן עָתִיד</span> Le futur</a>
-      <a href="#sec-patrons-de-conjugaison"><span class="toc-he">בִּנְיָנִים</span> Patrons de conjugaison</a>
-    </div>
-  </div>
-
-  <div class="toc-group">
-    <div class="toc-group-label">Noms &amp; adjectifs</div>
-    <div class="toc-links">
+      <a href="#sec-verbes"><span class="toc-he">פְּעָלִים</span> Verbes</a>
       <a href="#sec-noms"><span class="toc-he">שְׁמוֹת עֶצֶם</span> Noms</a>
-      <a href="#sec-l-article-defini"><span class="toc-he">הַ־</span> L'article défini</a>
-      <a href="#sec-etat-construit"><span class="toc-he">סְמִיכוּת</span> État construit</a>
       <a href="#sec-adjectifs"><span class="toc-he">תְּאָרִים</span> Adjectifs</a>
-    </div>
-  </div>
-
-  <div class="toc-group">
-    <div class="toc-group-label">Mots de liaison</div>
-    <div class="toc-links">
       <a href="#sec-prepositions"><span class="toc-he">מִלּוֹת יַחַס</span> Prépositions</a>
-      <a href="#sec-prepositions-flechies"><span class="toc-he">מִלּוֹת יַחַס נְטוּיוֹת</span> Prépositions fléchies</a>
       <a href="#sec-conjonctions"><span class="toc-he">מִלּוֹת חִבּוּר</span> Conjonctions</a>
       <a href="#sec-mots-interrogatifs"><span class="toc-he">מִלּוֹת שְׁאֵלָה</span> Mots interrogatifs</a>
-    </div>
-  </div>
-
-  <div class="toc-group">
-    <div class="toc-group-label">Vocabulaire pratique</div>
-    <div class="toc-links">
       <a href="#sec-nombres-010"><span class="toc-he">מִסְפָּרִים</span> Nombres (0–10)</a>
       <a href="#sec-jours-de-la-semaine"><span class="toc-he">יְמֵי הַשָּׁבוּעַ</span> Jours de la semaine</a>
       <a href="#sec-mots-de-quantite"><span class="toc-he">מִלּוֹת כַּמּוּת</span> Mots de quantité</a>
@@ -315,6 +319,12 @@
     </div>
   </div>
 </nav>
+
+<div class="part" id="part-grammaire">
+  <span class="part-num">Partie 1</span>
+  <span class="part-name"><span class="part-he">דִּקְדּוּק</span> · Grammaire</span>
+  <span class="part-sub">Comprendre comment la langue fonctionne — à lire comme un cours.</span>
+</div>
 
 <h2 id="sec-pronoms-personnels">כִּנּוּיֵי גוּף <span class="count">Pronoms personnels</span></h2>
 <div class="note">Série fixe de personnes, invariable — pas de carré magique.</div>
@@ -380,564 +390,6 @@
     <span class="meta"><span class="tr">eleh</span><span class="fr">ces, ceux-ci, celles-ci (plur.)</span></span>
   </li>
 </ul>
-
-<h2 id="sec-verbes">פְּעָלִים <span class="count">Verbes</span></h2>
-<div class="note">Infinitif → présent : masc. sing. / fém. sing. / masc. plur. / fém. plur. — lecture droite→gauche</div>
-<div class="table-wrap">
-<table>
-  <thead>
-    <tr><th>Infinitif</th><th>MS</th><th>FS</th><th>MP</th><th>FP</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><span class="he">לָלֶכֶת</span><span class="fr">aller</span></td>
-      <td><span class="he">הוֹלֵךְ</span><span class="tr">holech</span></td>
-      <td><span class="he">הוֹלֶכֶת</span><span class="tr">holechet</span></td>
-      <td><span class="he">הוֹלְכִים</span><span class="tr">holchim</span></td>
-      <td><span class="he">הוֹלְכוֹת</span><span class="tr">holchot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָבוֹא</span><span class="fr">venir</span></td>
-      <td><span class="he">בָּא</span><span class="tr">ba</span></td>
-      <td><span class="he">בָּאָה</span><span class="tr">ba'ah</span></td>
-      <td><span class="he">בָּאִים</span><span class="tr">ba'im</span></td>
-      <td><span class="he">בָּאוֹת</span><span class="tr">ba'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לֶאֱכֹל</span><span class="fr">manger</span></td>
-      <td><span class="he">אוֹכֵל</span><span class="tr">ochel</span></td>
-      <td><span class="he">אוֹכֶלֶת</span><span class="tr">ochelet</span></td>
-      <td><span class="he">אוֹכְלִים</span><span class="tr">ochlim</span></td>
-      <td><span class="he">אוֹכְלוֹת</span><span class="tr">ochlot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׁתּוֹת</span><span class="fr">boire</span></td>
-      <td><span class="he">שׁוֹתֶה</span><span class="tr">shoteh</span></td>
-      <td><span class="he">שׁוֹתָה</span><span class="tr">shotah</span></td>
-      <td><span class="he">שׁוֹתִים</span><span class="tr">shotim</span></td>
-      <td><span class="he">שׁוֹתוֹת</span><span class="tr">shotot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִרְצוֹת</span><span class="fr">vouloir</span></td>
-      <td><span class="he">רוֹצֶה</span><span class="tr">rotzeh</span></td>
-      <td><span class="he">רוֹצָה</span><span class="tr">rotzah</span></td>
-      <td><span class="he">רוֹצִים</span><span class="tr">rotzim</span></td>
-      <td><span class="he">רוֹצוֹת</span><span class="tr">rotzot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לֶאֱהֹב</span><span class="fr">aimer</span></td>
-      <td><span class="he">אוֹהֵב</span><span class="tr">ohev</span></td>
-      <td><span class="he">אוֹהֶבֶת</span><span class="tr">ohevet</span></td>
-      <td><span class="he">אוֹהֲבִים</span><span class="tr">ohavim</span></td>
-      <td><span class="he">אוֹהֲבוֹת</span><span class="tr">ohavot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׂנֹא</span><span class="fr">haïr</span></td>
-      <td><span class="he">שׂוֹנֵא</span><span class="tr">sone</span></td>
-      <td><span class="he">שׂוֹנֵאת</span><span class="tr">sonet</span></td>
-      <td><span class="he">שׂוֹנְאִים</span><span class="tr">son'im</span></td>
-      <td><span class="he">שׂוֹנְאוֹת</span><span class="tr">son'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְדַבֵּר</span><span class="fr">parler</span></td>
-      <td><span class="he">מְדַבֵּר</span><span class="tr">medaber</span></td>
-      <td><span class="he">מְדַבֶּרֶת</span><span class="tr">medaberet</span></td>
-      <td><span class="he">מְדַבְּרִים</span><span class="tr">medabrim</span></td>
-      <td><span class="he">מְדַבְּרוֹת</span><span class="tr">medabrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׁתֹּק</span><span class="fr">se taire</span></td>
-      <td><span class="he">שׁוֹתֵק</span><span class="tr">shotek</span></td>
-      <td><span class="he">שׁוֹתֶקֶת</span><span class="tr">shoteket</span></td>
-      <td><span class="he">שׁוֹתְקִים</span><span class="tr">shotkim</span></td>
-      <td><span class="he">שׁוֹתְקוֹת</span><span class="tr">shotkot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַעֲשׂוֹת</span><span class="fr">faire</span></td>
-      <td><span class="he">עוֹשֶׂה</span><span class="tr">oseh</span></td>
-      <td><span class="he">עוֹשָׂה</span><span class="tr">osah</span></td>
-      <td><span class="he">עוֹשִׂים</span><span class="tr">osim</span></td>
-      <td><span class="he">עוֹשׂוֹת</span><span class="tr">osot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִלְמֹד</span><span class="fr">étudier</span></td>
-      <td><span class="he">לוֹמֵד</span><span class="tr">lomed</span></td>
-      <td><span class="he">לוֹמֶדֶת</span><span class="tr">lomedet</span></td>
-      <td><span class="he">לוֹמְדִים</span><span class="tr">lomdim</span></td>
-      <td><span class="he">לוֹמְדוֹת</span><span class="tr">lomdot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִרְאוֹת</span><span class="fr">voir</span></td>
-      <td><span class="he">רוֹאֶה</span><span class="tr">ro'eh</span></td>
-      <td><span class="he">רוֹאָה</span><span class="tr">ro'ah</span></td>
-      <td><span class="he">רוֹאִים</span><span class="tr">ro'im</span></td>
-      <td><span class="he">רוֹאוֹת</span><span class="tr">ro'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָדַעַת</span><span class="fr">savoir</span></td>
-      <td><span class="he">יוֹדֵעַ</span><span class="tr">yode'a</span></td>
-      <td><span class="he">יוֹדַעַת</span><span class="tr">yoda'at</span></td>
-      <td><span class="he">יוֹדְעִים</span><span class="tr">yod'im</span></td>
-      <td><span class="he">יוֹדְעוֹת</span><span class="tr">yod'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָתֵת</span><span class="fr">donner</span></td>
-      <td><span class="he">נוֹתֵן</span><span class="tr">noten</span></td>
-      <td><span class="he">נוֹתֶנֶת</span><span class="tr">notenet</span></td>
-      <td><span class="he">נוֹתְנִים</span><span class="tr">notnim</span></td>
-      <td><span class="he">נוֹתְנוֹת</span><span class="tr">notnot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָקַחַת</span><span class="fr">prendre</span></td>
-      <td><span class="he">לוֹקֵחַ</span><span class="tr">loke'ach</span></td>
-      <td><span class="he">לוֹקַחַת</span><span class="tr">lokachat</span></td>
-      <td><span class="he">לוֹקְחִים</span><span class="tr">lokchim</span></td>
-      <td><span class="he">לוֹקְחוֹת</span><span class="tr">lokchot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׁמֹעַ</span><span class="fr">entendre / écouter</span></td>
-      <td><span class="he">שׁוֹמֵעַ</span><span class="tr">shome'a</span></td>
-      <td><span class="he">שׁוֹמַעַת</span><span class="tr">shoma'at</span></td>
-      <td><span class="he">שׁוֹמְעִים</span><span class="tr">shom'im</span></td>
-      <td><span class="he">שׁוֹמְעוֹת</span><span class="tr">shom'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָגוּר</span><span class="fr">habiter</span></td>
-      <td><span class="he">גָּר</span><span class="tr">gar</span></td>
-      <td><span class="he">גָּרָה</span><span class="tr">garah</span></td>
-      <td><span class="he">גָּרִים</span><span class="tr">garim</span></td>
-      <td><span class="he">גָּרוֹת</span><span class="tr">garot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַעֲבֹד</span><span class="fr">travailler</span></td>
-      <td><span class="he">עוֹבֵד</span><span class="tr">oved</span></td>
-      <td><span class="he">עוֹבֶדֶת</span><span class="tr">ovedet</span></td>
-      <td><span class="he">עוֹבְדִים</span><span class="tr">ovdim</span></td>
-      <td><span class="he">עוֹבְדוֹת</span><span class="tr">ovdot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִכְתֹּב</span><span class="fr">écrire</span></td>
-      <td><span class="he">כּוֹתֵב</span><span class="tr">kotev</span></td>
-      <td><span class="he">כּוֹתֶבֶת</span><span class="tr">kotevet</span></td>
-      <td><span class="he">כּוֹתְבִים</span><span class="tr">kotvim</span></td>
-      <td><span class="he">כּוֹתְבוֹת</span><span class="tr">kotvot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִקְרֹא</span><span class="fr">lire</span></td>
-      <td><span class="he">קוֹרֵא</span><span class="tr">kore</span></td>
-      <td><span class="he">קוֹרֵאת</span><span class="tr">koret</span></td>
-      <td><span class="he">קוֹרְאִים</span><span class="tr">kor'im</span></td>
-      <td><span class="he">קוֹרְאוֹת</span><span class="tr">kor'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִישֹׁן</span><span class="fr">dormir</span></td>
-      <td><span class="he">יָשֵׁן</span><span class="tr">yashen</span></td>
-      <td><span class="he">יְשֵׁנָה</span><span class="tr">yeshenah</span></td>
-      <td><span class="he">יְשֵׁנִים</span><span class="tr">yeshenim</span></td>
-      <td><span class="he">יְשֵׁנוֹת</span><span class="tr">yeshenot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהִתְעוֹרֵר</span><span class="fr">se réveiller</span></td>
-      <td><span class="he">מִתְעוֹרֵר</span><span class="tr">mitorer</span></td>
-      <td><span class="he">מִתְעוֹרֶרֶת</span><span class="tr">mitoreret</span></td>
-      <td><span class="he">מִתְעוֹרְרִים</span><span class="tr">mitorerim</span></td>
-      <td><span class="he">מִתְעוֹרְרוֹת</span><span class="tr">mitorerot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָקוּם</span><span class="fr">se lever</span></td>
-      <td><span class="he">קָם</span><span class="tr">kam</span></td>
-      <td><span class="he">קָמָה</span><span class="tr">kamah</span></td>
-      <td><span class="he">קָמִים</span><span class="tr">kamim</span></td>
-      <td><span class="he">קָמוֹת</span><span class="tr">kamot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָשֶׁבֶת</span><span class="fr">s'asseoir</span></td>
-      <td><span class="he">יוֹשֵׁב</span><span class="tr">yoshev</span></td>
-      <td><span class="he">יוֹשֶׁבֶת</span><span class="tr">yoshevet</span></td>
-      <td><span class="he">יוֹשְׁבִים</span><span class="tr">yoshvim</span></td>
-      <td><span class="he">יוֹשְׁבוֹת</span><span class="tr">yoshvot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַחְשֹׁב</span><span class="fr">penser</span></td>
-      <td><span class="he">חוֹשֵׁב</span><span class="tr">choshev</span></td>
-      <td><span class="he">חוֹשֶׁבֶת</span><span class="tr">choshevet</span></td>
-      <td><span class="he">חוֹשְׁבִים</span><span class="tr">choshvim</span></td>
-      <td><span class="he">חוֹשְׁבוֹת</span><span class="tr">choshvot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִקְנוֹת</span><span class="fr">acheter</span></td>
-      <td><span class="he">קוֹנֶה</span><span class="tr">koneh</span></td>
-      <td><span class="he">קוֹנָה</span><span class="tr">konah</span></td>
-      <td><span class="he">קוֹנִים</span><span class="tr">konim</span></td>
-      <td><span class="he">קוֹנוֹת</span><span class="tr">konot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִמְכֹּר</span><span class="fr">vendre</span></td>
-      <td><span class="he">מוֹכֵר</span><span class="tr">mocher</span></td>
-      <td><span class="he">מוֹכֶרֶת</span><span class="tr">mocheret</span></td>
-      <td><span class="he">מוֹכְרִים</span><span class="tr">mochrim</span></td>
-      <td><span class="he">מוֹכְרוֹת</span><span class="tr">mochrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְשַׂחֵק</span><span class="fr">jouer</span></td>
-      <td><span class="he">מְשַׂחֵק</span><span class="tr">mesachek</span></td>
-      <td><span class="he">מְשַׂחֶקֶת</span><span class="tr">mesacheket</span></td>
-      <td><span class="he">מְשַׂחֲקִים</span><span class="tr">mesachakim</span></td>
-      <td><span class="he">מְשַׂחֲקוֹת</span><span class="tr">mesachakot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָרוּץ</span><span class="fr">courir</span></td>
-      <td><span class="he">רָץ</span><span class="tr">ratz</span></td>
-      <td><span class="he">רָצָה</span><span class="tr">ratza</span></td>
-      <td><span class="he">רָצִים</span><span class="tr">ratzim</span></td>
-      <td><span class="he">רָצוֹת</span><span class="tr">ratzot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַעֲמֹד</span><span class="fr">se tenir debout</span></td>
-      <td><span class="he">עוֹמֵד</span><span class="tr">omed</span></td>
-      <td><span class="he">עוֹמֶדֶת</span><span class="tr">omedet</span></td>
-      <td><span class="he">עוֹמְדִים</span><span class="tr">omdim</span></td>
-      <td><span class="he">עוֹמְדוֹת</span><span class="tr">omdot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִנְסֹעַ</span><span class="fr">voyager / rouler</span></td>
-      <td><span class="he">נוֹסֵעַ</span><span class="tr">nosea</span></td>
-      <td><span class="he">נוֹסַעַת</span><span class="tr">nosaat</span></td>
-      <td><span class="he">נוֹסְעִים</span><span class="tr">nos'im</span></td>
-      <td><span class="he">נוֹסְעוֹת</span><span class="tr">nos'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָטוּס</span><span class="fr">voler (avion)</span></td>
-      <td><span class="he">טָס</span><span class="tr">tas</span></td>
-      <td><span class="he">טָסָה</span><span class="tr">tasa</span></td>
-      <td><span class="he">טָסִים</span><span class="tr">tasim</span></td>
-      <td><span class="he">טָסוֹת</span><span class="tr">tasot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַחְזֹר</span><span class="fr">revenir / retourner</span></td>
-      <td><span class="he">חוֹזֵר</span><span class="tr">chozer</span></td>
-      <td><span class="he">חוֹזֶרֶת</span><span class="tr">chozeret</span></td>
-      <td><span class="he">חוֹזְרִים</span><span class="tr">chozrim</span></td>
-      <td><span class="he">חוֹזְרוֹת</span><span class="tr">chozrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהִכָּנֵס</span><span class="fr">entrer</span></td>
-      <td><span class="he">נִכְנָס</span><span class="tr">nichnas</span></td>
-      <td><span class="he">נִכְנֶסֶת</span><span class="tr">nichneset</span></td>
-      <td><span class="he">נִכְנָסִים</span><span class="tr">nichnasim</span></td>
-      <td><span class="he">נִכְנָסוֹת</span><span class="tr">nichnasot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָצֵאת</span><span class="fr">sortir</span></td>
-      <td><span class="he">יוֹצֵא</span><span class="tr">yotze</span></td>
-      <td><span class="he">יוֹצֵאת</span><span class="tr">yotzet</span></td>
-      <td><span class="he">יוֹצְאִים</span><span class="tr">yotz'im</span></td>
-      <td><span class="he">יוֹצְאוֹת</span><span class="tr">yotz'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִפְתֹּחַ</span><span class="fr">ouvrir</span></td>
-      <td><span class="he">פּוֹתֵחַ</span><span class="tr">poteach</span></td>
-      <td><span class="he">פּוֹתַחַת</span><span class="tr">potachat</span></td>
-      <td><span class="he">פּוֹתְחִים</span><span class="tr">potchim</span></td>
-      <td><span class="he">פּוֹתְחוֹת</span><span class="tr">potchot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִסְגֹּר</span><span class="fr">fermer</span></td>
-      <td><span class="he">סוֹגֵר</span><span class="tr">soger</span></td>
-      <td><span class="he">סוֹגֶרֶת</span><span class="tr">sogeret</span></td>
-      <td><span class="he">סוֹגְרִים</span><span class="tr">sogrim</span></td>
-      <td><span class="he">סוֹגְרוֹת</span><span class="tr">sogrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָשִׂים</span><span class="fr">mettre / poser</span></td>
-      <td><span class="he">שָׂם</span><span class="tr">sam</span></td>
-      <td><span class="he">שָׂמָה</span><span class="tr">sama</span></td>
-      <td><span class="he">שָׂמִים</span><span class="tr">samim</span></td>
-      <td><span class="he">שָׂמוֹת</span><span class="tr">samot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְחַפֵּשׂ</span><span class="fr">chercher</span></td>
-      <td><span class="he">מְחַפֵּשׂ</span><span class="tr">mechapes</span></td>
-      <td><span class="he">מְחַפֶּשֶׂת</span><span class="tr">mechapeset</span></td>
-      <td><span class="he">מְחַפְּשִׂים</span><span class="tr">mechapsim</span></td>
-      <td><span class="he">מְחַפְּשׂוֹת</span><span class="tr">mechapsot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִמְצֹא</span><span class="fr">trouver</span></td>
-      <td><span class="he">מוֹצֵא</span><span class="tr">motze</span></td>
-      <td><span class="he">מוֹצֵאת</span><span class="tr">motzet</span></td>
-      <td><span class="he">מוֹצְאִים</span><span class="tr">motz'im</span></td>
-      <td><span class="he">מוֹצְאוֹת</span><span class="tr">motz'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְקַבֵּל</span><span class="fr">recevoir</span></td>
-      <td><span class="he">מְקַבֵּל</span><span class="tr">mekabel</span></td>
-      <td><span class="he">מְקַבֶּלֶת</span><span class="tr">mekabelet</span></td>
-      <td><span class="he">מְקַבְּלִים</span><span class="tr">mekablim</span></td>
-      <td><span class="he">מְקַבְּלוֹת</span><span class="tr">mekablot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהָבִיא</span><span class="fr">apporter</span></td>
-      <td><span class="he">מֵבִיא</span><span class="tr">mevi</span></td>
-      <td><span class="he">מְבִיאָה</span><span class="tr">mevia</span></td>
-      <td><span class="he">מְבִיאִים</span><span class="tr">mevi'im</span></td>
-      <td><span class="he">מְבִיאוֹת</span><span class="tr">mevi'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַעֲזֹר</span><span class="fr">aider</span></td>
-      <td><span class="he">עוֹזֵר</span><span class="tr">ozer</span></td>
-      <td><span class="he">עוֹזֶרֶת</span><span class="tr">ozeret</span></td>
-      <td><span class="he">עוֹזְרִים</span><span class="tr">ozrim</span></td>
-      <td><span class="he">עוֹזְרוֹת</span><span class="tr">ozrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְחַכּוֹת</span><span class="fr">attendre</span></td>
-      <td><span class="he">מְחַכֶּה</span><span class="tr">mechake</span></td>
-      <td><span class="he">מְחַכָּה</span><span class="tr">mechaka</span></td>
-      <td><span class="he">מְחַכִּים</span><span class="tr">mechakim</span></td>
-      <td><span class="he">מְחַכּוֹת</span><span class="tr">mechakot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַתְחִיל</span><span class="fr">commencer</span></td>
-      <td><span class="he">מַתְחִיל</span><span class="tr">matchil</span></td>
-      <td><span class="he">מַתְחִילָה</span><span class="tr">matchila</span></td>
-      <td><span class="he">מַתְחִילִים</span><span class="tr">matchilim</span></td>
-      <td><span class="he">מַתְחִילוֹת</span><span class="tr">matchilot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִגְמֹר</span><span class="fr">finir / terminer</span></td>
-      <td><span class="he">גּוֹמֵר</span><span class="tr">gomer</span></td>
-      <td><span class="he">גּוֹמֶרֶת</span><span class="tr">gomeret</span></td>
-      <td><span class="he">גּוֹמְרִים</span><span class="tr">gomrim</span></td>
-      <td><span class="he">גּוֹמְרוֹת</span><span class="tr">gomrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַמְשִׁיךְ</span><span class="fr">continuer</span></td>
-      <td><span class="he">מַמְשִׁיךְ</span><span class="tr">mamshich</span></td>
-      <td><span class="he">מַמְשִׁיכָה</span><span class="tr">mamshicha</span></td>
-      <td><span class="he">מַמְשִׁיכִים</span><span class="tr">mamshichim</span></td>
-      <td><span class="he">מַמְשִׁיכוֹת</span><span class="tr">mamshichot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַכִּיר</span><span class="fr">connaître (qqn)</span></td>
-      <td><span class="he">מַכִּיר</span><span class="tr">makir</span></td>
-      <td><span class="he">מַכִּירָה</span><span class="tr">makira</span></td>
-      <td><span class="he">מַכִּירִים</span><span class="tr">makirim</span></td>
-      <td><span class="he">מַכִּירוֹת</span><span class="tr">makirot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהָבִין</span><span class="fr">comprendre</span></td>
-      <td><span class="he">מֵבִין</span><span class="tr">mevin</span></td>
-      <td><span class="he">מְבִינָה</span><span class="tr">mevina</span></td>
-      <td><span class="he">מְבִינִים</span><span class="tr">mevinim</span></td>
-      <td><span class="he">מְבִינוֹת</span><span class="tr">mevinot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְלַמֵּד</span><span class="fr">enseigner</span></td>
-      <td><span class="he">מְלַמֵּד</span><span class="tr">melamed</span></td>
-      <td><span class="he">מְלַמֶּדֶת</span><span class="tr">melamedet</span></td>
-      <td><span class="he">מְלַמְּדִים</span><span class="tr">melamdim</span></td>
-      <td><span class="he">מְלַמְּדוֹת</span><span class="tr">melamdot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְסַפֵּר</span><span class="fr">raconter</span></td>
-      <td><span class="he">מְסַפֵּר</span><span class="tr">mesaper</span></td>
-      <td><span class="he">מְסַפֶּרֶת</span><span class="tr">mesaperet</span></td>
-      <td><span class="he">מְסַפְּרִים</span><span class="tr">mesaprim</span></td>
-      <td><span class="he">מְסַפְּרוֹת</span><span class="tr">mesaprot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׁאֹל</span><span class="fr">demander</span></td>
-      <td><span class="he">שׁוֹאֵל</span><span class="tr">shoel</span></td>
-      <td><span class="he">שׁוֹאֶלֶת</span><span class="tr">shoelet</span></td>
-      <td><span class="he">שׁוֹאֲלִים</span><span class="tr">shoalim</span></td>
-      <td><span class="he">שׁוֹאֲלוֹת</span><span class="tr">shoalot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַעֲנוֹת</span><span class="fr">répondre</span></td>
-      <td><span class="he">עוֹנֶה</span><span class="tr">one</span></td>
-      <td><span class="he">עוֹנָה</span><span class="tr">ona</span></td>
-      <td><span class="he">עוֹנִים</span><span class="tr">onim</span></td>
-      <td><span class="he">עוֹנוֹת</span><span class="tr">onot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְשַׁלֵּם</span><span class="fr">payer</span></td>
-      <td><span class="he">מְשַׁלֵּם</span><span class="tr">meshalem</span></td>
-      <td><span class="he">מְשַׁלֶּמֶת</span><span class="tr">meshalemet</span></td>
-      <td><span class="he">מְשַׁלְּמִים</span><span class="tr">meshalmim</span></td>
-      <td><span class="he">מְשַׁלְּמוֹת</span><span class="tr">meshalmot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְנַסּוֹת</span><span class="fr">essayer</span></td>
-      <td><span class="he">מְנַסֶּה</span><span class="tr">menase</span></td>
-      <td><span class="he">מְנַסָּה</span><span class="tr">menasa</span></td>
-      <td><span class="he">מְנַסִּים</span><span class="tr">menasim</span></td>
-      <td><span class="he">מְנַסּוֹת</span><span class="tr">menasot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַרְגִּישׁ</span><span class="fr">ressentir</span></td>
-      <td><span class="he">מַרְגִּישׁ</span><span class="tr">margish</span></td>
-      <td><span class="he">מַרְגִּישָׁה</span><span class="tr">margisha</span></td>
-      <td><span class="he">מַרְגִּישִׁים</span><span class="tr">margishim</span></td>
-      <td><span class="he">מַרְגִּישׁוֹת</span><span class="tr">margishot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְקַוּוֹת</span><span class="fr">espérer</span></td>
-      <td><span class="he">מְקַוֶּה</span><span class="tr">mekave</span></td>
-      <td><span class="he">מְקַוָּה</span><span class="tr">mekava</span></td>
-      <td><span class="he">מְקַוִּים</span><span class="tr">mekavim</span></td>
-      <td><span class="he">מְקַווֹת</span><span class="tr">mekavot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַאֲמִין</span><span class="fr">croire</span></td>
-      <td><span class="he">מַאֲמִין</span><span class="tr">maamin</span></td>
-      <td><span class="he">מַאֲמִינָה</span><span class="tr">maamina</span></td>
-      <td><span class="he">מַאֲמִינִים</span><span class="tr">maaminim</span></td>
-      <td><span class="he">מַאֲמִינוֹת</span><span class="tr">maaminot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִזְכֹּר</span><span class="fr">se souvenir</span></td>
-      <td><span class="he">זוֹכֵר</span><span class="tr">zocher</span></td>
-      <td><span class="he">זוֹכֶרֶת</span><span class="tr">zocheret</span></td>
-      <td><span class="he">זוֹכְרִים</span><span class="tr">zochrim</span></td>
-      <td><span class="he">זוֹכְרוֹת</span><span class="tr">zochrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׁכֹּחַ</span><span class="fr">oublier</span></td>
-      <td><span class="he">שׁוֹכֵחַ</span><span class="tr">shokeach</span></td>
-      <td><span class="he">שׁוֹכַחַת</span><span class="tr">shokachat</span></td>
-      <td><span class="he">שׁוֹכְחִים</span><span class="tr">shokchim</span></td>
-      <td><span class="he">שׁוֹכְחוֹת</span><span class="tr">shokchot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְטַיֵּל</span><span class="fr">se promener / faire un tour</span></td>
-      <td><span class="he">מְטַיֵּל</span><span class="tr">metayel</span></td>
-      <td><span class="he">מְטַיֶּלֶת</span><span class="tr">metayelet</span></td>
-      <td><span class="he">מְטַיְּלִים</span><span class="tr">metaylim</span></td>
-      <td><span class="he">מְטַיְּלוֹת</span><span class="tr">metaylot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׂחוֹת</span><span class="fr">nager</span></td>
-      <td><span class="he">שׂוֹחֶה</span><span class="tr">soche</span></td>
-      <td><span class="he">שׂוֹחָה</span><span class="tr">socha</span></td>
-      <td><span class="he">שׂוֹחִים</span><span class="tr">sochim</span></td>
-      <td><span class="he">שׂוֹחוֹת</span><span class="tr">sochot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְבַשֵּׁל</span><span class="fr">cuisiner</span></td>
-      <td><span class="he">מְבַשֵּׁל</span><span class="tr">mevashel</span></td>
-      <td><span class="he">מְבַשֶּׁלֶת</span><span class="tr">mevashelet</span></td>
-      <td><span class="he">מְבַשְּׁלִים</span><span class="tr">mevashlim</span></td>
-      <td><span class="he">מְבַשְּׁלוֹת</span><span class="tr">mevashlot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִרְחֹץ</span><span class="fr">laver</span></td>
-      <td><span class="he">רוֹחֵץ</span><span class="tr">rochetz</span></td>
-      <td><span class="he">רוֹחֶצֶת</span><span class="tr">rochetzet</span></td>
-      <td><span class="he">רוֹחֲצִים</span><span class="tr">rochatzim</span></td>
-      <td><span class="he">רוֹחֲצוֹת</span><span class="tr">rochatzot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְנַקּוֹת</span><span class="fr">nettoyer</span></td>
-      <td><span class="he">מְנַקֶּה</span><span class="tr">menake</span></td>
-      <td><span class="he">מְנַקָּה</span><span class="tr">menaka</span></td>
-      <td><span class="he">מְנַקִּים</span><span class="tr">menakim</span></td>
-      <td><span class="he">מְנַקּוֹת</span><span class="tr">menakot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִלְבֹּשׁ</span><span class="fr">porter (vêtement)</span></td>
-      <td><span class="he">לוֹבֵשׁ</span><span class="tr">lovesh</span></td>
-      <td><span class="he">לוֹבֶשֶׁת</span><span class="tr">loveshet</span></td>
-      <td><span class="he">לוֹבְשִׁים</span><span class="tr">lovshim</span></td>
-      <td><span class="he">לוֹבְשׁוֹת</span><span class="tr">lovshot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לָשִׁיר</span><span class="fr">chanter</span></td>
-      <td><span class="he">שָׁר</span><span class="tr">shar</span></td>
-      <td><span class="he">שָׁרָה</span><span class="tr">shara</span></td>
-      <td><span class="he">שָׁרִים</span><span class="tr">sharim</span></td>
-      <td><span class="he">שָׁרוֹת</span><span class="tr">sharot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִרְקֹד</span><span class="fr">danser</span></td>
-      <td><span class="he">רוֹקֵד</span><span class="tr">roked</span></td>
-      <td><span class="he">רוֹקֶדֶת</span><span class="tr">rokedet</span></td>
-      <td><span class="he">רוֹקְדִים</span><span class="tr">rokdim</span></td>
-      <td><span class="he">רוֹקְדוֹת</span><span class="tr">rokdot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִצְחֹק</span><span class="fr">rire</span></td>
-      <td><span class="he">צוֹחֵק</span><span class="tr">tzochek</span></td>
-      <td><span class="he">צוֹחֶקֶת</span><span class="tr">tzocheket</span></td>
-      <td><span class="he">צוֹחֲקִים</span><span class="tr">tzochakim</span></td>
-      <td><span class="he">צוֹחֲקוֹת</span><span class="tr">tzochakot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִבְכּוֹת</span><span class="fr">pleurer</span></td>
-      <td><span class="he">בּוֹכֶה</span><span class="tr">boche</span></td>
-      <td><span class="he">בּוֹכָה</span><span class="tr">bocha</span></td>
-      <td><span class="he">בּוֹכִים</span><span class="tr">bochim</span></td>
-      <td><span class="he">בּוֹכוֹת</span><span class="tr">bochot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַחְלֹם</span><span class="fr">rêver</span></td>
-      <td><span class="he">חוֹלֵם</span><span class="tr">cholem</span></td>
-      <td><span class="he">חוֹלֶמֶת</span><span class="tr">cholemet</span></td>
-      <td><span class="he">חוֹלְמִים</span><span class="tr">cholmim</span></td>
-      <td><span class="he">חוֹלְמוֹת</span><span class="tr">cholmot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַחְלִיט</span><span class="fr">décider</span></td>
-      <td><span class="he">מַחְלִיט</span><span class="tr">machlit</span></td>
-      <td><span class="he">מַחְלִיטָה</span><span class="tr">machlita</span></td>
-      <td><span class="he">מַחְלִיטִים</span><span class="tr">machlitim</span></td>
-      <td><span class="he">מַחְלִיטוֹת</span><span class="tr">machlitot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִבְחֹר</span><span class="fr">choisir</span></td>
-      <td><span class="he">בּוֹחֵר</span><span class="tr">bocher</span></td>
-      <td><span class="he">בּוֹחֶרֶת</span><span class="tr">bocheret</span></td>
-      <td><span class="he">בּוֹחֲרִים</span><span class="tr">bocharim</span></td>
-      <td><span class="he">בּוֹחֲרוֹת</span><span class="tr">bocharot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַרְאוֹת</span><span class="fr">montrer</span></td>
-      <td><span class="he">מַרְאֶה</span><span class="tr">mar'e</span></td>
-      <td><span class="he">מַרְאָה</span><span class="tr">mar'a</span></td>
-      <td><span class="he">מַרְאִים</span><span class="tr">mar'im</span></td>
-      <td><span class="he">מַרְאוֹת</span><span class="tr">mar'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְהַגִּיעַ</span><span class="fr">arriver</span></td>
-      <td><span class="he">מַגִּיעַ</span><span class="tr">magia</span></td>
-      <td><span class="he">מַגִּיעָה</span><span class="tr">magi'a</span></td>
-      <td><span class="he">מַגִּיעִים</span><span class="tr">magi'im</span></td>
-      <td><span class="he">מַגִּיעוֹת</span><span class="tr">magi'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לְטַלְפֵּן</span><span class="fr">téléphoner</span></td>
-      <td><span class="he">מְטַלְפֵּן</span><span class="tr">metalpen</span></td>
-      <td><span class="he">מְטַלְפֶּנֶת</span><span class="tr">metalpenet</span></td>
-      <td><span class="he">מְטַלְפְּנִים</span><span class="tr">metalpenim</span></td>
-      <td><span class="he">מְטַלְפְּנוֹת</span><span class="tr">metalpenot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִשְׁמֹר</span><span class="fr">garder / surveiller</span></td>
-      <td><span class="he">שׁוֹמֵר</span><span class="tr">shomer</span></td>
-      <td><span class="he">שׁוֹמֶרֶת</span><span class="tr">shomeret</span></td>
-      <td><span class="he">שׁוֹמְרִים</span><span class="tr">shomrim</span></td>
-      <td><span class="he">שׁוֹמְרוֹת</span><span class="tr">shomrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִפְגֹּשׁ</span><span class="fr">rencontrer</span></td>
-      <td><span class="he">פּוֹגֵשׁ</span><span class="tr">pogesh</span></td>
-      <td><span class="he">פּוֹגֶשֶׁת</span><span class="tr">pogeshet</span></td>
-      <td><span class="he">פּוֹגְשִׁים</span><span class="tr">pogshim</span></td>
-      <td><span class="he">פּוֹגְשׁוֹת</span><span class="tr">pogshot</span></td>
-    </tr>
-  </tbody>
-</table>
-</div>
 
 <h2 id="sec-la-racine">שֹׁרֶשׁ <span class="count">La racine — la clé des verbes</span></h2>
 <div class="note">
@@ -1246,19 +698,786 @@
   Reconnaître le patron d'un verbe permet souvent de deviner ses voyelles même sans nikud.
 </div>
 
-<h2 id="sec-noms">שְׁמוֹת עֶצֶם <span class="count">Noms</span></h2>
-<div class="note">Un nom a un genre fixe → pas de carré magique complet ici, juste singulier/pluriel. Lecture droite→gauche.</div>
+<h2 id="sec-l-article-defini">הַ־ <span class="count">L'article défini</span></h2>
+<div class="note">
+  Hébreu n'a pas de mot séparé pour « le/la/les » : l'article הַ (ha-) se colle directement devant le nom, comme בְּ/לְ/כְּ/מִ.<br><br>
+  בַּיִת (bayit) = une maison &nbsp;→&nbsp; הַבַּיִת (habayit) = la maison<br>
+  יְלָדִים (yeladim) = des enfants &nbsp;→&nbsp; הַיְלָדִים (hayeladim) = les enfants<br><br>
+  Un adjectif qui décrit un nom défini prend lui aussi הַ : הַבַּיִת הַגָּדוֹל (habayit hagadol) = la grande maison (littéralement « la-maison la-grande »).
+</div>
+
+<h2 id="sec-etat-construit">סְמִיכוּת <span class="count">État construit</span></h2>
+<div class="note">
+  Deuxième façon d'exprimer la possession, en plus de שֶׁל : deux noms se collent directement l'un à l'autre, sans mot de liaison. Le premier nom change souvent légèrement de forme ; le second reste inchangé.
+</div>
+<div class="note">
+  בַּיִת (maison) + סֵפֶר (livre) &nbsp;→&nbsp; בֵּית סֵפֶר (beit sefer) = école (littéralement « maison de livre[s] »). בַּיִת devient בֵּית en tête de smikhut.
+</div>
+<div class="note">
+  Deux changements fréquents pour le premier mot :<br>
+  • féminin singulier en ה ⭢ ת : מִשְׁפָּחָה (famille) → מִשְׁפַּחַת דָּוִד (la famille de David)<br>
+  • masculin pluriel en ים ⭢ ֵי : יְלָדִים (enfants) → יַלְדֵי הַשְּׁכוּנָה (les enfants du quartier)
+</div>
 <div class="table-wrap">
 <table>
-  <thead>
+  <thead><tr><th>Smikhut</th><th>Sens</th></tr></thead>
+  <tbody>
+    <tr><td><span class="he">בֵּית סֵפֶר</span><span class="tr">beit sefer</span></td><td>école</td></tr>
+    <tr><td><span class="he">בֵּית חוֹלִים</span><span class="tr">beit cholim</span></td><td>hôpital</td></tr>
+    <tr><td><span class="he">בֵּית קָפֶה</span><span class="tr">beit kafeh</span></td><td>café</td></tr>
+    <tr><td><span class="he">בֵּית מִשְׁפָּט</span><span class="tr">beit mishpat</span></td><td>tribunal</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="note">שֶׁל reste toujours correct et plus simple à l'oral ; la smikhut domine surtout dans les noms composés figés (comme ci-dessus) et à l'écrit soutenu.</div>
+
+<h2 id="sec-prepositions-flechies">מִלּוֹת יַחַס נְטוּיוֹת <span class="count">Prépositions fléchies</span></h2>
+<div class="note">
+  ⚠️ Certaines prépositions ne prennent pas un pronom séparé (« de + moi ») : elles se déclinent par personne, comme un verbe. Les 5 ci-dessous sont les plus fréquentes à l'oral.
+</div>
+
+<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:18px 0 6px;">שֶׁל — possessif ("mon/ton/son...")</div>
+<div class="note">C'est la construction la plus fréquente de toutes : "le livre שֶׁלִּי" = mon livre (littéralement "le livre de-moi").</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Pronom</th><th>שֶׁל + pronom</th></tr></thead>
+  <tbody>
+    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">שֶׁלִּי</span><span class="tr">sheli — mon/ma/mien</span></td></tr>
+    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">שֶׁלְּךָ</span><span class="tr">shelcha — ton (m.)</span></td></tr>
+    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">שֶׁלָּךְ</span><span class="tr">shelach — ton (f.)</span></td></tr>
+    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">שֶׁלּוֹ</span><span class="tr">shelo — son (à lui)</span></td></tr>
+    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">שֶׁלָּהּ</span><span class="tr">shelah — son (à elle)</span></td></tr>
+    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">שֶׁלָּנוּ</span><span class="tr">shelanu — notre</span></td></tr>
+    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">שֶׁלָּכֶם</span><span class="tr">shelachem — votre (m.)</span></td></tr>
+    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">שֶׁלָּכֶן</span><span class="tr">shelachen — votre (f.)</span></td></tr>
+    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">שֶׁלָּהֶם</span><span class="tr">shelahem — leur (m.)</span></td></tr>
+    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">שֶׁלָּהֶן</span><span class="tr">shelahen — leur (f.)</span></td></tr>
+  </tbody>
+</table>
+</div>
+<div class="note" style="margin-top:8px;">Il existe une 2e façon d'exprimer la possession sans שֶׁל, appelée סְמִיכוּת (état construit), plus formelle et moins courante à l'oral que שֶׁל.</div>
+
+<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">לְ — datif ("à/pour"), clé du verbe "avoir"</div>
+<div class="note">En hébreu, "avoir" ne se dit pas avec un verbe : יש לי (yesh li) = littéralement "il y a à-moi" = j'ai. Cette déclinaison est l'une des plus utilisées de la langue.</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Pronom</th><th>לְ + pronom</th></tr></thead>
+  <tbody>
+    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">לִי</span><span class="tr">li — à moi / j'ai (avec יש)</span></td></tr>
+    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">לְךָ</span><span class="tr">lecha — à toi (m.)</span></td></tr>
+    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">לָךְ</span><span class="tr">lach — à toi (f.)</span></td></tr>
+    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">לוֹ</span><span class="tr">lo — à lui</span></td></tr>
+    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">לָהּ</span><span class="tr">lah — à elle</span></td></tr>
+    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">לָנוּ</span><span class="tr">lanu — à nous</span></td></tr>
+    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">לָכֶם</span><span class="tr">lachem — à vous (m.)</span></td></tr>
+    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">לָכֶן</span><span class="tr">lachen — à vous (f.)</span></td></tr>
+    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">לָהֶם</span><span class="tr">lahem — à eux</span></td></tr>
+    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">לָהֶן</span><span class="tr">lahen — à elles</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">בְּ — locatif ("dans/en")</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Pronom</th><th>בְּ + pronom</th></tr></thead>
+  <tbody>
+    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">בִּי</span><span class="tr">bi — en moi</span></td></tr>
+    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">בְּךָ</span><span class="tr">becha — en toi (m.)</span></td></tr>
+    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">בָּךְ</span><span class="tr">bach — en toi (f.)</span></td></tr>
+    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">בּוֹ</span><span class="tr">bo — en lui</span></td></tr>
+    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">בָּהּ</span><span class="tr">bah — en elle</span></td></tr>
+    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">בָּנוּ</span><span class="tr">banu — en nous</span></td></tr>
+    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">בָּכֶם</span><span class="tr">bachem — en vous (m.)</span></td></tr>
+    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">בָּכֶן</span><span class="tr">bachen — en vous (f.)</span></td></tr>
+    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">בָּהֶם</span><span class="tr">bahem — en eux</span></td></tr>
+    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">בָּהֶן</span><span class="tr">bahen — en elles</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">עַל — "sur / à propos de"</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Pronom</th><th>עַל + pronom</th></tr></thead>
+  <tbody>
+    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">עָלַי</span><span class="tr">alai — sur moi</span></td></tr>
+    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">עָלֶיךָ</span><span class="tr">aleicha — sur toi (m.)</span></td></tr>
+    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">עָלַיִךְ</span><span class="tr">alayich — sur toi (f.)</span></td></tr>
+    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">עָלָיו</span><span class="tr">alav — sur lui</span></td></tr>
+    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">עָלֶיהָ</span><span class="tr">aleiha — sur elle</span></td></tr>
+    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">עָלֵינוּ</span><span class="tr">aleinu — sur nous</span></td></tr>
+    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">עֲלֵיכֶם</span><span class="tr">aleichem — sur vous (m.)</span></td></tr>
+    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">עֲלֵיכֶן</span><span class="tr">aleichen — sur vous (f.)</span></td></tr>
+    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">עֲלֵיהֶם</span><span class="tr">aleihem — sur eux</span></td></tr>
+    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">עֲלֵיהֶן</span><span class="tr">aleihen — sur elles</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">עִם — "avec" (racine à part : אִתְּ-)</div>
+<div class="note">
+  ⚠️ Irrégulier — la forme fléchie ne vient pas de עִם lui-même mais d'une racine différente (אִתְּ-).
+</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Pronom</th><th>עִם + pronom</th></tr></thead>
+  <tbody>
+    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">אִתִּי</span><span class="tr">iti — avec moi</span></td></tr>
+    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">אִתְּךָ</span><span class="tr">itcha — avec toi (m.)</span></td></tr>
+    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">אִתָּךְ</span><span class="tr">itach — avec toi (f.)</span></td></tr>
+    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">אִתּוֹ</span><span class="tr">ito — avec lui</span></td></tr>
+    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">אִתָּהּ</span><span class="tr">itah — avec elle</span></td></tr>
+    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">אִתָּנוּ</span><span class="tr">itanu — avec nous</span></td></tr>
+    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">אִתְּכֶם</span><span class="tr">itchem — avec vous (m.)</span></td></tr>
+    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">אִתְּכֶן</span><span class="tr">itchen — avec vous (f.)</span></td></tr>
+    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">אִתָּם</span><span class="tr">itam — avec eux</span></td></tr>
+    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">אִתָּן</span><span class="tr">itan — avec elles</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="sec-existence-et-possession">יֵשׁ וְאֵין <span class="count">Existence et possession</span></h2>
+<div class="note">
+  L'hébreu n'a pas de verbe « avoir » : la possession se construit avec יֵשׁ/אֵין + לְ (vu dans les prépositions fléchies). Ces deux mots servent aussi seuls pour dire « il y a / il n'y a pas ».<br><br>
+  יֵשׁ סֵפֶר (yesh sefer) = il y a un livre &nbsp;·&nbsp; יֵשׁ לִי סֵפֶר (yesh li sefer) = j'ai un livre (littéralement « il y a à-moi un livre »)<br>
+  אֵין לִי זְמַן (ein li zman) = je n'ai pas de temps
+</div>
+<ul class="word-list">
+  <li>
+    <span class="word-main"><span class="he">יֵשׁ</span></span>
+    <span class="meta"><span class="tr">yesh</span><span class="fr">il y a / j'ai (avec לְ)</span></span>
+  </li>
+  <li>
+    <span class="word-main"><span class="he">אֵין</span></span>
+    <span class="meta"><span class="tr">ein</span><span class="fr">il n'y a pas / je n'ai pas (avec לְ)</span></span>
+  </li>
+</ul>
+
+<div class="part" id="part-vocabulaire">
+  <span class="part-num">Partie 2</span>
+  <span class="part-name"><span class="part-he">אוֹצַר מִלִּים</span> · Vocabulaire</span>
+  <span class="part-sub">Le dictionnaire — à consulter, regroupé par thèmes.</span>
+</div>
+
+<h2 id="sec-verbes">פְּעָלִים <span class="count">Verbes</span></h2>
+<div class="note">Infinitif → présent : masc. sing. / fém. sing. / masc. plur. / fém. plur. — regroupés par thème, lecture droite→gauche</div>
+<h3 class="subtheme">Mouvement & déplacement</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Infinitif</th><th>MS</th><th>FS</th><th>MP</th><th>FP</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">לָלֶכֶת</span><span class="fr">aller</span></td>
+      <td><span class="he">הוֹלֵךְ</span><span class="tr">holech</span></td>
+      <td><span class="he">הוֹלֶכֶת</span><span class="tr">holechet</span></td>
+      <td><span class="he">הוֹלְכִים</span><span class="tr">holchim</span></td>
+      <td><span class="he">הוֹלְכוֹת</span><span class="tr">holchot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָבוֹא</span><span class="fr">venir</span></td>
+      <td><span class="he">בָּא</span><span class="tr">ba</span></td>
+      <td><span class="he">בָּאָה</span><span class="tr">ba'ah</span></td>
+      <td><span class="he">בָּאִים</span><span class="tr">ba'im</span></td>
+      <td><span class="he">בָּאוֹת</span><span class="tr">ba'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָרוּץ</span><span class="fr">courir</span></td>
+      <td><span class="he">רָץ</span><span class="tr">ratz</span></td>
+      <td><span class="he">רָצָה</span><span class="tr">ratza</span></td>
+      <td><span class="he">רָצִים</span><span class="tr">ratzim</span></td>
+      <td><span class="he">רָצוֹת</span><span class="tr">ratzot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַעֲמֹד</span><span class="fr">se tenir debout</span></td>
+      <td><span class="he">עוֹמֵד</span><span class="tr">omed</span></td>
+      <td><span class="he">עוֹמֶדֶת</span><span class="tr">omedet</span></td>
+      <td><span class="he">עוֹמְדִים</span><span class="tr">omdim</span></td>
+      <td><span class="he">עוֹמְדוֹת</span><span class="tr">omdot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִנְסֹעַ</span><span class="fr">voyager / rouler</span></td>
+      <td><span class="he">נוֹסֵעַ</span><span class="tr">nosea</span></td>
+      <td><span class="he">נוֹסַעַת</span><span class="tr">nosaat</span></td>
+      <td><span class="he">נוֹסְעִים</span><span class="tr">nos'im</span></td>
+      <td><span class="he">נוֹסְעוֹת</span><span class="tr">nos'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָטוּס</span><span class="fr">voler (avion)</span></td>
+      <td><span class="he">טָס</span><span class="tr">tas</span></td>
+      <td><span class="he">טָסָה</span><span class="tr">tasa</span></td>
+      <td><span class="he">טָסִים</span><span class="tr">tasim</span></td>
+      <td><span class="he">טָסוֹת</span><span class="tr">tasot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַחְזֹר</span><span class="fr">revenir / retourner</span></td>
+      <td><span class="he">חוֹזֵר</span><span class="tr">chozer</span></td>
+      <td><span class="he">חוֹזֶרֶת</span><span class="tr">chozeret</span></td>
+      <td><span class="he">חוֹזְרִים</span><span class="tr">chozrim</span></td>
+      <td><span class="he">חוֹזְרוֹת</span><span class="tr">chozrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהִכָּנֵס</span><span class="fr">entrer</span></td>
+      <td><span class="he">נִכְנָס</span><span class="tr">nichnas</span></td>
+      <td><span class="he">נִכְנֶסֶת</span><span class="tr">nichneset</span></td>
+      <td><span class="he">נִכְנָסִים</span><span class="tr">nichnasim</span></td>
+      <td><span class="he">נִכְנָסוֹת</span><span class="tr">nichnasot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָצֵאת</span><span class="fr">sortir</span></td>
+      <td><span class="he">יוֹצֵא</span><span class="tr">yotze</span></td>
+      <td><span class="he">יוֹצֵאת</span><span class="tr">yotzet</span></td>
+      <td><span class="he">יוֹצְאִים</span><span class="tr">yotz'im</span></td>
+      <td><span class="he">יוֹצְאוֹת</span><span class="tr">yotz'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַגִּיעַ</span><span class="fr">arriver</span></td>
+      <td><span class="he">מַגִּיעַ</span><span class="tr">magia</span></td>
+      <td><span class="he">מַגִּיעָה</span><span class="tr">magi'a</span></td>
+      <td><span class="he">מַגִּיעִים</span><span class="tr">magi'im</span></td>
+      <td><span class="he">מַגִּיעוֹת</span><span class="tr">magi'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְטַיֵּל</span><span class="fr">se promener / faire un tour</span></td>
+      <td><span class="he">מְטַיֵּל</span><span class="tr">metayel</span></td>
+      <td><span class="he">מְטַיֶּלֶת</span><span class="tr">metayelet</span></td>
+      <td><span class="he">מְטַיְּלִים</span><span class="tr">metaylim</span></td>
+      <td><span class="he">מְטַיְּלוֹת</span><span class="tr">metaylot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׂחוֹת</span><span class="fr">nager</span></td>
+      <td><span class="he">שׂוֹחֶה</span><span class="tr">soche</span></td>
+      <td><span class="he">שׂוֹחָה</span><span class="tr">socha</span></td>
+      <td><span class="he">שׂוֹחִים</span><span class="tr">sochim</span></td>
+      <td><span class="he">שׂוֹחוֹת</span><span class="tr">sochot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָקוּם</span><span class="fr">se lever</span></td>
+      <td><span class="he">קָם</span><span class="tr">kam</span></td>
+      <td><span class="he">קָמָה</span><span class="tr">kamah</span></td>
+      <td><span class="he">קָמִים</span><span class="tr">kamim</span></td>
+      <td><span class="he">קָמוֹת</span><span class="tr">kamot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָשֶׁבֶת</span><span class="fr">s'asseoir</span></td>
+      <td><span class="he">יוֹשֵׁב</span><span class="tr">yoshev</span></td>
+      <td><span class="he">יוֹשֶׁבֶת</span><span class="tr">yoshevet</span></td>
+      <td><span class="he">יוֹשְׁבִים</span><span class="tr">yoshvim</span></td>
+      <td><span class="he">יוֹשְׁבוֹת</span><span class="tr">yoshvot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Vie quotidienne</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Infinitif</th><th>MS</th><th>FS</th><th>MP</th><th>FP</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">לֶאֱכֹל</span><span class="fr">manger</span></td>
+      <td><span class="he">אוֹכֵל</span><span class="tr">ochel</span></td>
+      <td><span class="he">אוֹכֶלֶת</span><span class="tr">ochelet</span></td>
+      <td><span class="he">אוֹכְלִים</span><span class="tr">ochlim</span></td>
+      <td><span class="he">אוֹכְלוֹת</span><span class="tr">ochlot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׁתּוֹת</span><span class="fr">boire</span></td>
+      <td><span class="he">שׁוֹתֶה</span><span class="tr">shoteh</span></td>
+      <td><span class="he">שׁוֹתָה</span><span class="tr">shotah</span></td>
+      <td><span class="he">שׁוֹתִים</span><span class="tr">shotim</span></td>
+      <td><span class="he">שׁוֹתוֹת</span><span class="tr">shotot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִישֹׁן</span><span class="fr">dormir</span></td>
+      <td><span class="he">יָשֵׁן</span><span class="tr">yashen</span></td>
+      <td><span class="he">יְשֵׁנָה</span><span class="tr">yeshenah</span></td>
+      <td><span class="he">יְשֵׁנִים</span><span class="tr">yeshenim</span></td>
+      <td><span class="he">יְשֵׁנוֹת</span><span class="tr">yeshenot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהִתְעוֹרֵר</span><span class="fr">se réveiller</span></td>
+      <td><span class="he">מִתְעוֹרֵר</span><span class="tr">mitorer</span></td>
+      <td><span class="he">מִתְעוֹרֶרֶת</span><span class="tr">mitoreret</span></td>
+      <td><span class="he">מִתְעוֹרְרִים</span><span class="tr">mitorerim</span></td>
+      <td><span class="he">מִתְעוֹרְרוֹת</span><span class="tr">mitorerot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָגוּר</span><span class="fr">habiter</span></td>
+      <td><span class="he">גָּר</span><span class="tr">gar</span></td>
+      <td><span class="he">גָּרָה</span><span class="tr">garah</span></td>
+      <td><span class="he">גָּרִים</span><span class="tr">garim</span></td>
+      <td><span class="he">גָּרוֹת</span><span class="tr">garot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִקְנוֹת</span><span class="fr">acheter</span></td>
+      <td><span class="he">קוֹנֶה</span><span class="tr">koneh</span></td>
+      <td><span class="he">קוֹנָה</span><span class="tr">konah</span></td>
+      <td><span class="he">קוֹנִים</span><span class="tr">konim</span></td>
+      <td><span class="he">קוֹנוֹת</span><span class="tr">konot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִמְכֹּר</span><span class="fr">vendre</span></td>
+      <td><span class="he">מוֹכֵר</span><span class="tr">mocher</span></td>
+      <td><span class="he">מוֹכֶרֶת</span><span class="tr">mocheret</span></td>
+      <td><span class="he">מוֹכְרִים</span><span class="tr">mochrim</span></td>
+      <td><span class="he">מוֹכְרוֹת</span><span class="tr">mochrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְשַׁלֵּם</span><span class="fr">payer</span></td>
+      <td><span class="he">מְשַׁלֵּם</span><span class="tr">meshalem</span></td>
+      <td><span class="he">מְשַׁלֶּמֶת</span><span class="tr">meshalemet</span></td>
+      <td><span class="he">מְשַׁלְּמִים</span><span class="tr">meshalmim</span></td>
+      <td><span class="he">מְשַׁלְּמוֹת</span><span class="tr">meshalmot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְבַשֵּׁל</span><span class="fr">cuisiner</span></td>
+      <td><span class="he">מְבַשֵּׁל</span><span class="tr">mevashel</span></td>
+      <td><span class="he">מְבַשֶּׁלֶת</span><span class="tr">mevashelet</span></td>
+      <td><span class="he">מְבַשְּׁלִים</span><span class="tr">mevashlim</span></td>
+      <td><span class="he">מְבַשְּׁלוֹת</span><span class="tr">mevashlot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִרְחֹץ</span><span class="fr">laver</span></td>
+      <td><span class="he">רוֹחֵץ</span><span class="tr">rochetz</span></td>
+      <td><span class="he">רוֹחֶצֶת</span><span class="tr">rochetzet</span></td>
+      <td><span class="he">רוֹחֲצִים</span><span class="tr">rochatzim</span></td>
+      <td><span class="he">רוֹחֲצוֹת</span><span class="tr">rochatzot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְנַקּוֹת</span><span class="fr">nettoyer</span></td>
+      <td><span class="he">מְנַקֶּה</span><span class="tr">menake</span></td>
+      <td><span class="he">מְנַקָּה</span><span class="tr">menaka</span></td>
+      <td><span class="he">מְנַקִּים</span><span class="tr">menakim</span></td>
+      <td><span class="he">מְנַקּוֹת</span><span class="tr">menakot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִלְבֹּשׁ</span><span class="fr">porter (vêtement)</span></td>
+      <td><span class="he">לוֹבֵשׁ</span><span class="tr">lovesh</span></td>
+      <td><span class="he">לוֹבֶשֶׁת</span><span class="tr">loveshet</span></td>
+      <td><span class="he">לוֹבְשִׁים</span><span class="tr">lovshim</span></td>
+      <td><span class="he">לוֹבְשׁוֹת</span><span class="tr">lovshot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִפְתֹּחַ</span><span class="fr">ouvrir</span></td>
+      <td><span class="he">פּוֹתֵחַ</span><span class="tr">poteach</span></td>
+      <td><span class="he">פּוֹתַחַת</span><span class="tr">potachat</span></td>
+      <td><span class="he">פּוֹתְחִים</span><span class="tr">potchim</span></td>
+      <td><span class="he">פּוֹתְחוֹת</span><span class="tr">potchot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִסְגֹּר</span><span class="fr">fermer</span></td>
+      <td><span class="he">סוֹגֵר</span><span class="tr">soger</span></td>
+      <td><span class="he">סוֹגֶרֶת</span><span class="tr">sogeret</span></td>
+      <td><span class="he">סוֹגְרִים</span><span class="tr">sogrim</span></td>
+      <td><span class="he">סוֹגְרוֹת</span><span class="tr">sogrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָשִׂים</span><span class="fr">mettre / poser</span></td>
+      <td><span class="he">שָׂם</span><span class="tr">sam</span></td>
+      <td><span class="he">שָׂמָה</span><span class="tr">sama</span></td>
+      <td><span class="he">שָׂמִים</span><span class="tr">samim</span></td>
+      <td><span class="he">שָׂמוֹת</span><span class="tr">samot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָקַחַת</span><span class="fr">prendre</span></td>
+      <td><span class="he">לוֹקֵחַ</span><span class="tr">loke'ach</span></td>
+      <td><span class="he">לוֹקַחַת</span><span class="tr">lokachat</span></td>
+      <td><span class="he">לוֹקְחִים</span><span class="tr">lokchim</span></td>
+      <td><span class="he">לוֹקְחוֹת</span><span class="tr">lokchot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָתֵת</span><span class="fr">donner</span></td>
+      <td><span class="he">נוֹתֵן</span><span class="tr">noten</span></td>
+      <td><span class="he">נוֹתֶנֶת</span><span class="tr">notenet</span></td>
+      <td><span class="he">נוֹתְנִים</span><span class="tr">notnim</span></td>
+      <td><span class="he">נוֹתְנוֹת</span><span class="tr">notnot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהָבִיא</span><span class="fr">apporter</span></td>
+      <td><span class="he">מֵבִיא</span><span class="tr">mevi</span></td>
+      <td><span class="he">מְבִיאָה</span><span class="tr">mevia</span></td>
+      <td><span class="he">מְבִיאִים</span><span class="tr">mevi'im</span></td>
+      <td><span class="he">מְבִיאוֹת</span><span class="tr">mevi'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׁמֹר</span><span class="fr">garder / surveiller</span></td>
+      <td><span class="he">שׁוֹמֵר</span><span class="tr">shomer</span></td>
+      <td><span class="he">שׁוֹמֶרֶת</span><span class="tr">shomeret</span></td>
+      <td><span class="he">שׁוֹמְרִים</span><span class="tr">shomrim</span></td>
+      <td><span class="he">שׁוֹמְרוֹת</span><span class="tr">shomrot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Communication & perception</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Infinitif</th><th>MS</th><th>FS</th><th>MP</th><th>FP</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">לְדַבֵּר</span><span class="fr">parler</span></td>
+      <td><span class="he">מְדַבֵּר</span><span class="tr">medaber</span></td>
+      <td><span class="he">מְדַבֶּרֶת</span><span class="tr">medaberet</span></td>
+      <td><span class="he">מְדַבְּרִים</span><span class="tr">medabrim</span></td>
+      <td><span class="he">מְדַבְּרוֹת</span><span class="tr">medabrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׁתֹּק</span><span class="fr">se taire</span></td>
+      <td><span class="he">שׁוֹתֵק</span><span class="tr">shotek</span></td>
+      <td><span class="he">שׁוֹתֶקֶת</span><span class="tr">shoteket</span></td>
+      <td><span class="he">שׁוֹתְקִים</span><span class="tr">shotkim</span></td>
+      <td><span class="he">שׁוֹתְקוֹת</span><span class="tr">shotkot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׁאֹל</span><span class="fr">demander</span></td>
+      <td><span class="he">שׁוֹאֵל</span><span class="tr">shoel</span></td>
+      <td><span class="he">שׁוֹאֶלֶת</span><span class="tr">shoelet</span></td>
+      <td><span class="he">שׁוֹאֲלִים</span><span class="tr">shoalim</span></td>
+      <td><span class="he">שׁוֹאֲלוֹת</span><span class="tr">shoalot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַעֲנוֹת</span><span class="fr">répondre</span></td>
+      <td><span class="he">עוֹנֶה</span><span class="tr">one</span></td>
+      <td><span class="he">עוֹנָה</span><span class="tr">ona</span></td>
+      <td><span class="he">עוֹנִים</span><span class="tr">onim</span></td>
+      <td><span class="he">עוֹנוֹת</span><span class="tr">onot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְסַפֵּר</span><span class="fr">raconter</span></td>
+      <td><span class="he">מְסַפֵּר</span><span class="tr">mesaper</span></td>
+      <td><span class="he">מְסַפֶּרֶת</span><span class="tr">mesaperet</span></td>
+      <td><span class="he">מְסַפְּרִים</span><span class="tr">mesaprim</span></td>
+      <td><span class="he">מְסַפְּרוֹת</span><span class="tr">mesaprot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְלַמֵּד</span><span class="fr">enseigner</span></td>
+      <td><span class="he">מְלַמֵּד</span><span class="tr">melamed</span></td>
+      <td><span class="he">מְלַמֶּדֶת</span><span class="tr">melamedet</span></td>
+      <td><span class="he">מְלַמְּדִים</span><span class="tr">melamdim</span></td>
+      <td><span class="he">מְלַמְּדוֹת</span><span class="tr">melamdot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְטַלְפֵּן</span><span class="fr">téléphoner</span></td>
+      <td><span class="he">מְטַלְפֵּן</span><span class="tr">metalpen</span></td>
+      <td><span class="he">מְטַלְפֶּנֶת</span><span class="tr">metalpenet</span></td>
+      <td><span class="he">מְטַלְפְּנִים</span><span class="tr">metalpenim</span></td>
+      <td><span class="he">מְטַלְפְּנוֹת</span><span class="tr">metalpenot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִפְגֹּשׁ</span><span class="fr">rencontrer</span></td>
+      <td><span class="he">פּוֹגֵשׁ</span><span class="tr">pogesh</span></td>
+      <td><span class="he">פּוֹגֶשֶׁת</span><span class="tr">pogeshet</span></td>
+      <td><span class="he">פּוֹגְשִׁים</span><span class="tr">pogshim</span></td>
+      <td><span class="he">פּוֹגְשׁוֹת</span><span class="tr">pogshot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַרְאוֹת</span><span class="fr">montrer</span></td>
+      <td><span class="he">מַרְאֶה</span><span class="tr">mar'e</span></td>
+      <td><span class="he">מַרְאָה</span><span class="tr">mar'a</span></td>
+      <td><span class="he">מַרְאִים</span><span class="tr">mar'im</span></td>
+      <td><span class="he">מַרְאוֹת</span><span class="tr">mar'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׁמֹעַ</span><span class="fr">entendre / écouter</span></td>
+      <td><span class="he">שׁוֹמֵעַ</span><span class="tr">shome'a</span></td>
+      <td><span class="he">שׁוֹמַעַת</span><span class="tr">shoma'at</span></td>
+      <td><span class="he">שׁוֹמְעִים</span><span class="tr">shom'im</span></td>
+      <td><span class="he">שׁוֹמְעוֹת</span><span class="tr">shom'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִרְאוֹת</span><span class="fr">voir</span></td>
+      <td><span class="he">רוֹאֶה</span><span class="tr">ro'eh</span></td>
+      <td><span class="he">רוֹאָה</span><span class="tr">ro'ah</span></td>
+      <td><span class="he">רוֹאִים</span><span class="tr">ro'im</span></td>
+      <td><span class="he">רוֹאוֹת</span><span class="tr">ro'ot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Pensée & sentiments</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Infinitif</th><th>MS</th><th>FS</th><th>MP</th><th>FP</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">לִרְצוֹת</span><span class="fr">vouloir</span></td>
+      <td><span class="he">רוֹצֶה</span><span class="tr">rotzeh</span></td>
+      <td><span class="he">רוֹצָה</span><span class="tr">rotzah</span></td>
+      <td><span class="he">רוֹצִים</span><span class="tr">rotzim</span></td>
+      <td><span class="he">רוֹצוֹת</span><span class="tr">rotzot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לֶאֱהֹב</span><span class="fr">aimer</span></td>
+      <td><span class="he">אוֹהֵב</span><span class="tr">ohev</span></td>
+      <td><span class="he">אוֹהֶבֶת</span><span class="tr">ohevet</span></td>
+      <td><span class="he">אוֹהֲבִים</span><span class="tr">ohavim</span></td>
+      <td><span class="he">אוֹהֲבוֹת</span><span class="tr">ohavot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׂנֹא</span><span class="fr">haïr</span></td>
+      <td><span class="he">שׂוֹנֵא</span><span class="tr">sone</span></td>
+      <td><span class="he">שׂוֹנֵאת</span><span class="tr">sonet</span></td>
+      <td><span class="he">שׂוֹנְאִים</span><span class="tr">son'im</span></td>
+      <td><span class="he">שׂוֹנְאוֹת</span><span class="tr">son'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַחְשֹׁב</span><span class="fr">penser</span></td>
+      <td><span class="he">חוֹשֵׁב</span><span class="tr">choshev</span></td>
+      <td><span class="he">חוֹשֶׁבֶת</span><span class="tr">choshevet</span></td>
+      <td><span class="he">חוֹשְׁבִים</span><span class="tr">choshvim</span></td>
+      <td><span class="he">חוֹשְׁבוֹת</span><span class="tr">choshvot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָדַעַת</span><span class="fr">savoir</span></td>
+      <td><span class="he">יוֹדֵעַ</span><span class="tr">yode'a</span></td>
+      <td><span class="he">יוֹדַעַת</span><span class="tr">yoda'at</span></td>
+      <td><span class="he">יוֹדְעִים</span><span class="tr">yod'im</span></td>
+      <td><span class="he">יוֹדְעוֹת</span><span class="tr">yod'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהָבִין</span><span class="fr">comprendre</span></td>
+      <td><span class="he">מֵבִין</span><span class="tr">mevin</span></td>
+      <td><span class="he">מְבִינָה</span><span class="tr">mevina</span></td>
+      <td><span class="he">מְבִינִים</span><span class="tr">mevinim</span></td>
+      <td><span class="he">מְבִינוֹת</span><span class="tr">mevinot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַכִּיר</span><span class="fr">connaître (qqn)</span></td>
+      <td><span class="he">מַכִּיר</span><span class="tr">makir</span></td>
+      <td><span class="he">מַכִּירָה</span><span class="tr">makira</span></td>
+      <td><span class="he">מַכִּירִים</span><span class="tr">makirim</span></td>
+      <td><span class="he">מַכִּירוֹת</span><span class="tr">makirot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַאֲמִין</span><span class="fr">croire</span></td>
+      <td><span class="he">מַאֲמִין</span><span class="tr">maamin</span></td>
+      <td><span class="he">מַאֲמִינָה</span><span class="tr">maamina</span></td>
+      <td><span class="he">מַאֲמִינִים</span><span class="tr">maaminim</span></td>
+      <td><span class="he">מַאֲמִינוֹת</span><span class="tr">maaminot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְקַוּוֹת</span><span class="fr">espérer</span></td>
+      <td><span class="he">מְקַוֶּה</span><span class="tr">mekave</span></td>
+      <td><span class="he">מְקַוָּה</span><span class="tr">mekava</span></td>
+      <td><span class="he">מְקַוִּים</span><span class="tr">mekavim</span></td>
+      <td><span class="he">מְקַווֹת</span><span class="tr">mekavot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִזְכֹּר</span><span class="fr">se souvenir</span></td>
+      <td><span class="he">זוֹכֵר</span><span class="tr">zocher</span></td>
+      <td><span class="he">זוֹכֶרֶת</span><span class="tr">zocheret</span></td>
+      <td><span class="he">זוֹכְרִים</span><span class="tr">zochrim</span></td>
+      <td><span class="he">זוֹכְרוֹת</span><span class="tr">zochrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִשְׁכֹּחַ</span><span class="fr">oublier</span></td>
+      <td><span class="he">שׁוֹכֵחַ</span><span class="tr">shokeach</span></td>
+      <td><span class="he">שׁוֹכַחַת</span><span class="tr">shokachat</span></td>
+      <td><span class="he">שׁוֹכְחִים</span><span class="tr">shokchim</span></td>
+      <td><span class="he">שׁוֹכְחוֹת</span><span class="tr">shokchot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַרְגִּישׁ</span><span class="fr">ressentir</span></td>
+      <td><span class="he">מַרְגִּישׁ</span><span class="tr">margish</span></td>
+      <td><span class="he">מַרְגִּישָׁה</span><span class="tr">margisha</span></td>
+      <td><span class="he">מַרְגִּישִׁים</span><span class="tr">margishim</span></td>
+      <td><span class="he">מַרְגִּישׁוֹת</span><span class="tr">margishot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַחְלֹם</span><span class="fr">rêver</span></td>
+      <td><span class="he">חוֹלֵם</span><span class="tr">cholem</span></td>
+      <td><span class="he">חוֹלֶמֶת</span><span class="tr">cholemet</span></td>
+      <td><span class="he">חוֹלְמִים</span><span class="tr">cholmim</span></td>
+      <td><span class="he">חוֹלְמוֹת</span><span class="tr">cholmot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַחְלִיט</span><span class="fr">décider</span></td>
+      <td><span class="he">מַחְלִיט</span><span class="tr">machlit</span></td>
+      <td><span class="he">מַחְלִיטָה</span><span class="tr">machlita</span></td>
+      <td><span class="he">מַחְלִיטִים</span><span class="tr">machlitim</span></td>
+      <td><span class="he">מַחְלִיטוֹת</span><span class="tr">machlitot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִבְחֹר</span><span class="fr">choisir</span></td>
+      <td><span class="he">בּוֹחֵר</span><span class="tr">bocher</span></td>
+      <td><span class="he">בּוֹחֶרֶת</span><span class="tr">bocheret</span></td>
+      <td><span class="he">בּוֹחֲרִים</span><span class="tr">bocharim</span></td>
+      <td><span class="he">בּוֹחֲרוֹת</span><span class="tr">bocharot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Travail, étude & action</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Infinitif</th><th>MS</th><th>FS</th><th>MP</th><th>FP</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">לַעֲשׂוֹת</span><span class="fr">faire</span></td>
+      <td><span class="he">עוֹשֶׂה</span><span class="tr">oseh</span></td>
+      <td><span class="he">עוֹשָׂה</span><span class="tr">osah</span></td>
+      <td><span class="he">עוֹשִׂים</span><span class="tr">osim</span></td>
+      <td><span class="he">עוֹשׂוֹת</span><span class="tr">osot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִלְמֹד</span><span class="fr">étudier</span></td>
+      <td><span class="he">לוֹמֵד</span><span class="tr">lomed</span></td>
+      <td><span class="he">לוֹמֶדֶת</span><span class="tr">lomedet</span></td>
+      <td><span class="he">לוֹמְדִים</span><span class="tr">lomdim</span></td>
+      <td><span class="he">לוֹמְדוֹת</span><span class="tr">lomdot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַעֲבֹד</span><span class="fr">travailler</span></td>
+      <td><span class="he">עוֹבֵד</span><span class="tr">oved</span></td>
+      <td><span class="he">עוֹבֶדֶת</span><span class="tr">ovedet</span></td>
+      <td><span class="he">עוֹבְדִים</span><span class="tr">ovdim</span></td>
+      <td><span class="he">עוֹבְדוֹת</span><span class="tr">ovdot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִכְתֹּב</span><span class="fr">écrire</span></td>
+      <td><span class="he">כּוֹתֵב</span><span class="tr">kotev</span></td>
+      <td><span class="he">כּוֹתֶבֶת</span><span class="tr">kotevet</span></td>
+      <td><span class="he">כּוֹתְבִים</span><span class="tr">kotvim</span></td>
+      <td><span class="he">כּוֹתְבוֹת</span><span class="tr">kotvot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִקְרֹא</span><span class="fr">lire</span></td>
+      <td><span class="he">קוֹרֵא</span><span class="tr">kore</span></td>
+      <td><span class="he">קוֹרֵאת</span><span class="tr">koret</span></td>
+      <td><span class="he">קוֹרְאִים</span><span class="tr">kor'im</span></td>
+      <td><span class="he">קוֹרְאוֹת</span><span class="tr">kor'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַתְחִיל</span><span class="fr">commencer</span></td>
+      <td><span class="he">מַתְחִיל</span><span class="tr">matchil</span></td>
+      <td><span class="he">מַתְחִילָה</span><span class="tr">matchila</span></td>
+      <td><span class="he">מַתְחִילִים</span><span class="tr">matchilim</span></td>
+      <td><span class="he">מַתְחִילוֹת</span><span class="tr">matchilot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִגְמֹר</span><span class="fr">finir / terminer</span></td>
+      <td><span class="he">גּוֹמֵר</span><span class="tr">gomer</span></td>
+      <td><span class="he">גּוֹמֶרֶת</span><span class="tr">gomeret</span></td>
+      <td><span class="he">גּוֹמְרִים</span><span class="tr">gomrim</span></td>
+      <td><span class="he">גּוֹמְרוֹת</span><span class="tr">gomrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְהַמְשִׁיךְ</span><span class="fr">continuer</span></td>
+      <td><span class="he">מַמְשִׁיךְ</span><span class="tr">mamshich</span></td>
+      <td><span class="he">מַמְשִׁיכָה</span><span class="tr">mamshicha</span></td>
+      <td><span class="he">מַמְשִׁיכִים</span><span class="tr">mamshichim</span></td>
+      <td><span class="he">מַמְשִׁיכוֹת</span><span class="tr">mamshichot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְנַסּוֹת</span><span class="fr">essayer</span></td>
+      <td><span class="he">מְנַסֶּה</span><span class="tr">menase</span></td>
+      <td><span class="he">מְנַסָּה</span><span class="tr">menasa</span></td>
+      <td><span class="he">מְנַסִּים</span><span class="tr">menasim</span></td>
+      <td><span class="he">מְנַסּוֹת</span><span class="tr">menasot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְחַפֵּשׂ</span><span class="fr">chercher</span></td>
+      <td><span class="he">מְחַפֵּשׂ</span><span class="tr">mechapes</span></td>
+      <td><span class="he">מְחַפֶּשֶׂת</span><span class="tr">mechapeset</span></td>
+      <td><span class="he">מְחַפְּשִׂים</span><span class="tr">mechapsim</span></td>
+      <td><span class="he">מְחַפְּשׂוֹת</span><span class="tr">mechapsot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִמְצֹא</span><span class="fr">trouver</span></td>
+      <td><span class="he">מוֹצֵא</span><span class="tr">motze</span></td>
+      <td><span class="he">מוֹצֵאת</span><span class="tr">motzet</span></td>
+      <td><span class="he">מוֹצְאִים</span><span class="tr">motz'im</span></td>
+      <td><span class="he">מוֹצְאוֹת</span><span class="tr">motz'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְקַבֵּל</span><span class="fr">recevoir</span></td>
+      <td><span class="he">מְקַבֵּל</span><span class="tr">mekabel</span></td>
+      <td><span class="he">מְקַבֶּלֶת</span><span class="tr">mekabelet</span></td>
+      <td><span class="he">מְקַבְּלִים</span><span class="tr">mekablim</span></td>
+      <td><span class="he">מְקַבְּלוֹת</span><span class="tr">mekablot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַעֲזֹר</span><span class="fr">aider</span></td>
+      <td><span class="he">עוֹזֵר</span><span class="tr">ozer</span></td>
+      <td><span class="he">עוֹזֶרֶת</span><span class="tr">ozeret</span></td>
+      <td><span class="he">עוֹזְרִים</span><span class="tr">ozrim</span></td>
+      <td><span class="he">עוֹזְרוֹת</span><span class="tr">ozrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לְחַכּוֹת</span><span class="fr">attendre</span></td>
+      <td><span class="he">מְחַכֶּה</span><span class="tr">mechake</span></td>
+      <td><span class="he">מְחַכָּה</span><span class="tr">mechaka</span></td>
+      <td><span class="he">מְחַכִּים</span><span class="tr">mechakim</span></td>
+      <td><span class="he">מְחַכּוֹת</span><span class="tr">mechakot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Loisirs & émotions</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Infinitif</th><th>MS</th><th>FS</th><th>MP</th><th>FP</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">לְשַׂחֵק</span><span class="fr">jouer</span></td>
+      <td><span class="he">מְשַׂחֵק</span><span class="tr">mesachek</span></td>
+      <td><span class="he">מְשַׂחֶקֶת</span><span class="tr">mesacheket</span></td>
+      <td><span class="he">מְשַׂחֲקִים</span><span class="tr">mesachakim</span></td>
+      <td><span class="he">מְשַׂחֲקוֹת</span><span class="tr">mesachakot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לָשִׁיר</span><span class="fr">chanter</span></td>
+      <td><span class="he">שָׁר</span><span class="tr">shar</span></td>
+      <td><span class="he">שָׁרָה</span><span class="tr">shara</span></td>
+      <td><span class="he">שָׁרִים</span><span class="tr">sharim</span></td>
+      <td><span class="he">שָׁרוֹת</span><span class="tr">sharot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִרְקֹד</span><span class="fr">danser</span></td>
+      <td><span class="he">רוֹקֵד</span><span class="tr">roked</span></td>
+      <td><span class="he">רוֹקֶדֶת</span><span class="tr">rokedet</span></td>
+      <td><span class="he">רוֹקְדִים</span><span class="tr">rokdim</span></td>
+      <td><span class="he">רוֹקְדוֹת</span><span class="tr">rokdot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִצְחֹק</span><span class="fr">rire</span></td>
+      <td><span class="he">צוֹחֵק</span><span class="tr">tzochek</span></td>
+      <td><span class="he">צוֹחֶקֶת</span><span class="tr">tzocheket</span></td>
+      <td><span class="he">צוֹחֲקִים</span><span class="tr">tzochakim</span></td>
+      <td><span class="he">צוֹחֲקוֹת</span><span class="tr">tzochakot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִבְכּוֹת</span><span class="fr">pleurer</span></td>
+      <td><span class="he">בּוֹכֶה</span><span class="tr">boche</span></td>
+      <td><span class="he">בּוֹכָה</span><span class="tr">bocha</span></td>
+      <td><span class="he">בּוֹכִים</span><span class="tr">bochim</span></td>
+      <td><span class="he">בּוֹכוֹת</span><span class="tr">bochot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="sec-noms">שְׁמוֹת עֶצֶם <span class="count">Noms</span></h2>
+<div class="note">Un nom a un genre fixe → pas de carré magique complet ici, juste singulier/pluriel. Regroupés par thème. Lecture droite→gauche.</div>
+<h3 class="subtheme">Famille & personnes</h3>
+<div class="table-wrap">
+<table>
+<thead>
     <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
   </thead>
-  <tbody>
-    <tr>
-      <td><span class="he">בַּיִת</span><span class="fr">maison</span></td>
-      <td>m</td>
-      <td><span class="he">בָּתִּים</span><span class="tr">batim</span></td>
-    </tr>
+<tbody>
     <tr>
       <td><span class="he">אִישׁ</span><span class="fr">homme</span></td>
       <td>m</td>
@@ -1278,26 +1497,6 @@
       <td><span class="he">יַלְדָּה</span><span class="fr">fille</span></td>
       <td>f</td>
       <td><span class="he">יְלָדוֹת</span><span class="tr">yeladot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">סֵפֶר</span><span class="fr">livre</span></td>
-      <td>m</td>
-      <td><span class="he">סְפָרִים</span><span class="tr">sfarim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">יוֹם</span><span class="fr">jour</span></td>
-      <td>m</td>
-      <td><span class="he">יָמִים</span><span class="tr">yamim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לַיְלָה</span><span class="fr">nuit</span></td>
-      <td>m</td>
-      <td><span class="he">לֵילוֹת</span><span class="tr">leilot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שָׁנָה</span><span class="fr">année</span></td>
-      <td>f</td>
-      <td><span class="he">שָׁנִים</span><span class="tr">shanim</span></td>
     </tr>
     <tr>
       <td><span class="he">חָבֵר</span><span class="fr">ami</span></td>
@@ -1364,7 +1563,282 @@
       <td>f</td>
       <td>—</td>
     </tr>
-
+  </tbody>
+</table>
+</div>
+<div class="note">בֵּן/בַּת (fils/fille de qqn, relation familiale) sont différents de יֶלֶד/יַלְדָּה (garçon/fille, catégorie d'âge) — un בֵּן peut être adulte.</div>
+<h3 class="subtheme">Corps</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">יָד</span><span class="fr">main / bras</span></td>
+      <td>f</td>
+      <td><span class="he">יָדַיִם</span><span class="tr">yadaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">רֶגֶל</span><span class="fr">pied / jambe</span></td>
+      <td>f</td>
+      <td><span class="he">רַגְלַיִם</span><span class="tr">raglaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">רֹאשׁ</span><span class="fr">tête</span></td>
+      <td>m</td>
+      <td><span class="he">רָאשִׁים</span><span class="tr">rashim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עַיִן</span><span class="fr">œil</span></td>
+      <td>f</td>
+      <td><span class="he">עֵינַיִם</span><span class="tr">einaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לֵב</span><span class="fr">cœur</span></td>
+      <td>m</td>
+      <td><span class="he">לִבּוֹת</span><span class="tr">libot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">פֶּה</span><span class="fr">bouche</span></td>
+      <td>m</td>
+      <td><span class="he">פִּיּוֹת</span><span class="tr">piyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אֹזֶן</span><span class="fr">oreille</span></td>
+      <td>f</td>
+      <td><span class="he">אָזְנַיִם</span><span class="tr">oznaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אַף</span><span class="fr">nez</span></td>
+      <td>m</td>
+      <td><span class="he">אַפִּים</span><span class="tr">apim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שֵׁן</span><span class="fr">dent</span></td>
+      <td>f</td>
+      <td><span class="he">שִׁנַּיִם</span><span class="tr">shinaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שֵׂעָר</span><span class="fr">cheveux</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">פָּנִים</span><span class="fr">visage</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">גַּב</span><span class="fr">dos</span></td>
+      <td>m</td>
+      <td><span class="he">גַּבּוֹת</span><span class="tr">gabot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בֶּטֶן</span><span class="fr">ventre</span></td>
+      <td>f</td>
+      <td><span class="he">בְּטָנִים</span><span class="tr">betanim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">צַוָּאר</span><span class="fr">cou</span></td>
+      <td>m</td>
+      <td><span class="he">צַוָּארִים</span><span class="tr">tzavarim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כָּתֵף</span><span class="fr">épaule</span></td>
+      <td>f</td>
+      <td><span class="he">כְּתֵפַיִם</span><span class="tr">ktefaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בֶּרֶךְ</span><span class="fr">genou</span></td>
+      <td>f</td>
+      <td><span class="he">בִּרְכַּיִם</span><span class="tr">birkaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אֶצְבַּע</span><span class="fr">doigt</span></td>
+      <td>f</td>
+      <td><span class="he">אֶצְבָּעוֹת</span><span class="tr">etzba'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">צִפֹּרֶן</span><span class="fr">ongle</span></td>
+      <td>f</td>
+      <td><span class="he">צִפָּרְנַיִם</span><span class="tr">tzipornaim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עוֹר</span><span class="fr">peau</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">דָּם</span><span class="fr">sang</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">עֶצֶם</span><span class="fr">os</span></td>
+      <td>f</td>
+      <td><span class="he">עֲצָמוֹת</span><span class="tr">atzamot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מֹחַ</span><span class="fr">cerveau</span></td>
+      <td>m</td>
+      <td><span class="he">מוֹחוֹת</span><span class="tr">mochot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Maison & objets</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">בַּיִת</span><span class="fr">maison</span></td>
+      <td>m</td>
+      <td><span class="he">בָּתִּים</span><span class="tr">batim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">דֶּלֶת</span><span class="fr">porte</span></td>
+      <td>f</td>
+      <td><span class="he">דְּלָתוֹת</span><span class="tr">dlatot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">חַלּוֹן</span><span class="fr">fenêtre</span></td>
+      <td>m</td>
+      <td><span class="he">חַלּוֹנוֹת</span><span class="tr">chalonot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שֻׁלְחָן</span><span class="fr">table</span></td>
+      <td>m</td>
+      <td><span class="he">שֻׁלְחָנוֹת</span><span class="tr">shulchanot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כִּסֵּא</span><span class="fr">chaise</span></td>
+      <td>m</td>
+      <td><span class="he">כִּסְאוֹת</span><span class="tr">kis'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מִטָּה</span><span class="fr">lit</span></td>
+      <td>f</td>
+      <td><span class="he">מִטּוֹת</span><span class="tr">mitot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">חֶדֶר</span><span class="fr">pièce / chambre</span></td>
+      <td>m</td>
+      <td><span class="he">חֲדָרִים</span><span class="tr">chadarim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מַפְתֵּחַ</span><span class="fr">clé</span></td>
+      <td>m</td>
+      <td><span class="he">מַפְתְּחוֹת</span><span class="tr">maftechot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">טֶלֶפוֹן</span><span class="fr">téléphone</span></td>
+      <td>m</td>
+      <td><span class="he">טֶלֶפוֹנִים</span><span class="tr">telefonim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">קִיר</span><span class="fr">mur</span></td>
+      <td>m</td>
+      <td><span class="he">קִירוֹת</span><span class="tr">kirot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">רִצְפָּה</span><span class="fr">sol / plancher</span></td>
+      <td>f</td>
+      <td><span class="he">רְצָפוֹת</span><span class="tr">retzafot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תִּקְרָה</span><span class="fr">plafond</span></td>
+      <td>f</td>
+      <td><span class="he">תִּקְרוֹת</span><span class="tr">tikrot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מִקְלַחַת</span><span class="fr">douche</span></td>
+      <td>f</td>
+      <td><span class="he">מִקְלָחוֹת</span><span class="tr">miklachot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אַמְבַּטְיָה</span><span class="fr">baignoire / bain</span></td>
+      <td>f</td>
+      <td><span class="he">אַמְבַּטְיוֹת</span><span class="tr">ambatyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מְקָרֵר</span><span class="fr">réfrigérateur</span></td>
+      <td>m</td>
+      <td><span class="he">מְקָרְרִים</span><span class="tr">mekarerim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תַּנּוּר</span><span class="fr">four</span></td>
+      <td>m</td>
+      <td><span class="he">תַּנּוּרִים</span><span class="tr">tanurim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">סַפָּה</span><span class="fr">canapé</span></td>
+      <td>f</td>
+      <td><span class="he">סַפּוֹת</span><span class="tr">sapot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אָרוֹן</span><span class="fr">armoire / placard</span></td>
+      <td>m</td>
+      <td><span class="he">אֲרוֹנוֹת</span><span class="tr">aronot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מַדָּף</span><span class="fr">étagère</span></td>
+      <td>m</td>
+      <td><span class="he">מַדָּפִים</span><span class="tr">madafim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מַרְאָה</span><span class="fr">miroir</span></td>
+      <td>f</td>
+      <td><span class="he">מַרְאוֹת</span><span class="tr">marot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׁטִיחַ</span><span class="fr">tapis</span></td>
+      <td>m</td>
+      <td><span class="he">שְׁטִיחִים</span><span class="tr">shtichim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">וִילוֹן</span><span class="fr">rideau</span></td>
+      <td>m</td>
+      <td><span class="he">וִילוֹנוֹת</span><span class="tr">vilonot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מְנוֹרָה</span><span class="fr">lampe</span></td>
+      <td>f</td>
+      <td><span class="he">מְנוֹרוֹת</span><span class="tr">menorot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׁעוֹן</span><span class="fr">montre / horloge</span></td>
+      <td>m</td>
+      <td><span class="he">שְׁעוֹנִים</span><span class="tr">she'onim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מִבְרֶשֶׁת</span><span class="fr">brosse</span></td>
+      <td>f</td>
+      <td><span class="he">מִבְרָשׁוֹת</span><span class="tr">mivrashot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">סַבּוֹן</span><span class="fr">savon</span></td>
+      <td>m</td>
+      <td><span class="he">סַבּוֹנִים</span><span class="tr">sabonim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מַגֶּבֶת</span><span class="fr">serviette</span></td>
+      <td>f</td>
+      <td><span class="he">מַגָּבוֹת</span><span class="tr">magavot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Nourriture & repas</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
     <tr>
       <td><span class="he">מַיִם</span><span class="fr">eau</span></td>
       <td>m</td>
@@ -1409,182 +1883,6 @@
       <td><span class="he">בָּשָׂר</span><span class="fr">viande</span></td>
       <td>m</td>
       <td>—</td>
-    </tr>
-
-    <tr>
-      <td><span class="he">יָד</span><span class="fr">main / bras</span></td>
-      <td>f</td>
-      <td><span class="he">יָדַיִם</span><span class="tr">yadaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">רֶגֶל</span><span class="fr">pied / jambe</span></td>
-      <td>f</td>
-      <td><span class="he">רַגְלַיִם</span><span class="tr">raglaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">רֹאשׁ</span><span class="fr">tête</span></td>
-      <td>m</td>
-      <td><span class="he">רָאשִׁים</span><span class="tr">rashim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עַיִן</span><span class="fr">œil</span></td>
-      <td>f</td>
-      <td><span class="he">עֵינַיִם</span><span class="tr">einaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לֵב</span><span class="fr">cœur</span></td>
-      <td>m</td>
-      <td><span class="he">לִבּוֹת</span><span class="tr">libot</span></td>
-    </tr>
-
-    <tr>
-      <td><span class="he">דֶּלֶת</span><span class="fr">porte</span></td>
-      <td>f</td>
-      <td><span class="he">דְּלָתוֹת</span><span class="tr">dlatot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חַלּוֹן</span><span class="fr">fenêtre</span></td>
-      <td>m</td>
-      <td><span class="he">חַלּוֹנוֹת</span><span class="tr">chalonot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שֻׁלְחָן</span><span class="fr">table</span></td>
-      <td>m</td>
-      <td><span class="he">שֻׁלְחָנוֹת</span><span class="tr">shulchanot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כִּסֵּא</span><span class="fr">chaise</span></td>
-      <td>m</td>
-      <td><span class="he">כִּסְאוֹת</span><span class="tr">kis'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מִטָּה</span><span class="fr">lit</span></td>
-      <td>f</td>
-      <td><span class="he">מִטּוֹת</span><span class="tr">mitot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חֶדֶר</span><span class="fr">pièce / chambre</span></td>
-      <td>m</td>
-      <td><span class="he">חֲדָרִים</span><span class="tr">chadarim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מַפְתֵּחַ</span><span class="fr">clé</span></td>
-      <td>m</td>
-      <td><span class="he">מַפְתְּחוֹת</span><span class="tr">maftechot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כֶּסֶף</span><span class="fr">argent</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">טֶלֶפוֹן</span><span class="fr">téléphone</span></td>
-      <td>m</td>
-      <td><span class="he">טֶלֶפוֹנִים</span><span class="tr">telefonim</span></td>
-    </tr>
-
-    <tr>
-      <td><span class="he">רְחוֹב</span><span class="fr">rue</span></td>
-      <td>m</td>
-      <td><span class="he">רְחוֹבוֹת</span><span class="tr">rechovot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עִיר</span><span class="fr">ville</span></td>
-      <td>f</td>
-      <td><span class="he">עָרִים</span><span class="tr">arim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אֶרֶץ</span><span class="fr">pays / terre</span></td>
-      <td>f</td>
-      <td><span class="he">אֲרָצוֹת</span><span class="tr">aratzot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חֲנוּת</span><span class="fr">magasin</span></td>
-      <td>f</td>
-      <td><span class="he">חֲנוּיּוֹת</span><span class="tr">chanuyot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מִסְעָדָה</span><span class="fr">restaurant</span></td>
-      <td>f</td>
-      <td><span class="he">מִסְעָדוֹת</span><span class="tr">mis'adot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עֲבוֹדָה</span><span class="fr">travail</span></td>
-      <td>f</td>
-      <td><span class="he">עֲבוֹדוֹת</span><span class="tr">avodot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מְכוֹנִית</span><span class="fr">voiture</span></td>
-      <td>f</td>
-      <td><span class="he">מְכוֹנִיּוֹת</span><span class="tr">mechoniyot</span></td>
-    </tr>
-
-    <tr>
-      <td><span class="he">שֶׁמֶשׁ</span><span class="fr">soleil</span></td>
-      <td>f</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">יָרֵחַ</span><span class="fr">lune</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">שָׁמַיִם</span><span class="fr">ciel</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">יָם</span><span class="fr">mer</span></td>
-      <td>m</td>
-      <td><span class="he">יַמִּים</span><span class="tr">yamim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עֵץ</span><span class="fr">arbre</span></td>
-      <td>m</td>
-      <td><span class="he">עֵצִים</span><span class="tr">etzim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כֶּלֶב</span><span class="fr">chien</span></td>
-      <td>m</td>
-      <td><span class="he">כְּלָבִים</span><span class="tr">klavim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חָתוּל</span><span class="fr">chat</span></td>
-      <td>m</td>
-      <td><span class="he">חֲתוּלִים</span><span class="tr">chatulim</span></td>
-    </tr>
-
-    <tr>
-      <td><span class="he">שָׁעָה</span><span class="fr">heure</span></td>
-      <td>f</td>
-      <td><span class="he">שָׁעוֹת</span><span class="tr">sha'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שָׁבוּעַ</span><span class="fr">semaine</span></td>
-      <td>m</td>
-      <td><span class="he">שָׁבוּעוֹת</span><span class="tr">shavu'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חֹדֶשׁ</span><span class="fr">mois</span></td>
-      <td>m</td>
-      <td><span class="he">חֳדָשִׁים</span><span class="tr">chodashim</span></td>
-    </tr>
-
-    <tr>
-      <td><span class="he">מִלָּה</span><span class="fr">mot</span></td>
-      <td>f</td>
-      <td><span class="he">מִלִּים</span><span class="tr">milim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שֵׁם</span><span class="fr">nom</span></td>
-      <td>m</td>
-      <td><span class="he">שֵׁמוֹת</span><span class="tr">shemot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">דָּבָר</span><span class="fr">chose</span></td>
-      <td>m</td>
-      <td><span class="he">דְּבָרִים</span><span class="tr">dvarim</span></td>
     </tr>
     <tr>
       <td><span class="he">אֹרֶז</span><span class="fr">riz</span></td>
@@ -1677,6 +1975,86 @@
       <td><span class="he">כַּפּוֹת</span><span class="tr">kapot</span></td>
     </tr>
     <tr>
+      <td><span class="he">חֶמְאָה</span><span class="fr">beurre</span></td>
+      <td>f</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">דְּבַשׁ</span><span class="fr">miel</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">שׁוֹקוֹלָד</span><span class="fr">chocolat</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">גְּלִידָה</span><span class="fr">glace</span></td>
+      <td>f</td>
+      <td><span class="he">גְּלִידוֹת</span><span class="tr">glidot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עוּגִיָּה</span><span class="fr">biscuit</span></td>
+      <td>f</td>
+      <td><span class="he">עוּגִיּוֹת</span><span class="tr">ugiyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עוֹף</span><span class="fr">poulet / volaille</span></td>
+      <td>m</td>
+      <td><span class="he">עוֹפוֹת</span><span class="tr">ofot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תַּפּוּחַ אֲדָמָה</span><span class="fr">pomme de terre</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">גֶּזֶר</span><span class="fr">carotte</span></td>
+      <td>m</td>
+      <td><span class="he">גְּזָרִים</span><span class="tr">gzarim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בָּצָל</span><span class="fr">oignon</span></td>
+      <td>m</td>
+      <td><span class="he">בְּצָלִים</span><span class="tr">betzalim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לִימוֹן</span><span class="fr">citron</span></td>
+      <td>m</td>
+      <td><span class="he">לִימוֹנִים</span><span class="tr">limonim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תַּפּוּז</span><span class="fr">orange</span></td>
+      <td>m</td>
+      <td><span class="he">תַּפּוּזִים</span><span class="tr">tapuzim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עֲנָבִים</span><span class="fr">raisins</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">מִיץ</span><span class="fr">jus</span></td>
+      <td>m</td>
+      <td><span class="he">מִיצִים</span><span class="tr">mitzim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תֵּה</span><span class="fr">thé</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Vêtements & accessoires</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
       <td><span class="he">בֶּגֶד</span><span class="fr">vêtement</span></td>
       <td>m</td>
       <td><span class="he">בְּגָדִים</span><span class="tr">bgadim</span></td>
@@ -1712,44 +2090,519 @@
       <td><span class="he">שְׂמָלוֹת</span><span class="tr">smalot</span></td>
     </tr>
     <tr>
-      <td><span class="he">פֶּה</span><span class="fr">bouche</span></td>
+      <td><span class="he">גֶּרֶב</span><span class="fr">chaussette</span></td>
       <td>m</td>
-      <td><span class="he">פִּיּוֹת</span><span class="tr">piyot</span></td>
+      <td><span class="he">גַּרְבַּיִם</span><span class="tr">garbaim</span></td>
     </tr>
     <tr>
-      <td><span class="he">אֹזֶן</span><span class="fr">oreille</span></td>
+      <td><span class="he">חֲגוֹרָה</span><span class="fr">ceinture</span></td>
       <td>f</td>
-      <td><span class="he">אָזְנַיִם</span><span class="tr">oznaim</span></td>
+      <td><span class="he">חֲגוֹרוֹת</span><span class="tr">chagorot</span></td>
     </tr>
     <tr>
-      <td><span class="he">אַף</span><span class="fr">nez</span></td>
+      <td><span class="he">כְּפָפָה</span><span class="fr">gant</span></td>
+      <td>f</td>
+      <td><span class="he">כְּפָפוֹת</span><span class="tr">kfafot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">צְעִיף</span><span class="fr">écharpe</span></td>
       <td>m</td>
-      <td><span class="he">אַפִּים</span><span class="tr">apim</span></td>
+      <td><span class="he">צְעִיפִים</span><span class="tr">tze'ifim</span></td>
     </tr>
     <tr>
-      <td><span class="he">שֵׁן</span><span class="fr">dent</span></td>
-      <td>f</td>
-      <td><span class="he">שִׁנַּיִם</span><span class="tr">shinaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שֵׂעָר</span><span class="fr">cheveux</span></td>
+      <td><span class="he">מִשְׁקָפַיִם</span><span class="fr">lunettes</span></td>
       <td>m</td>
       <td>—</td>
     </tr>
     <tr>
-      <td><span class="he">פָּנִים</span><span class="fr">visage</span></td>
+      <td><span class="he">תִּיק</span><span class="fr">sac</span></td>
+      <td>m</td>
+      <td><span class="he">תִּיקִים</span><span class="tr">tikim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אַרְנָק</span><span class="fr">portefeuille</span></td>
+      <td>m</td>
+      <td><span class="he">אַרְנָקִים</span><span class="tr">arnakim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">טַבַּעַת</span><span class="fr">bague</span></td>
+      <td>f</td>
+      <td><span class="he">טַבָּעוֹת</span><span class="tr">tabaot</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Ville, lieux & transport</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">רְחוֹב</span><span class="fr">rue</span></td>
+      <td>m</td>
+      <td><span class="he">רְחוֹבוֹת</span><span class="tr">rechovot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עִיר</span><span class="fr">ville</span></td>
+      <td>f</td>
+      <td><span class="he">עָרִים</span><span class="tr">arim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אֶרֶץ</span><span class="fr">pays / terre</span></td>
+      <td>f</td>
+      <td><span class="he">אֲרָצוֹת</span><span class="tr">aratzot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">חֲנוּת</span><span class="fr">magasin</span></td>
+      <td>f</td>
+      <td><span class="he">חֲנוּיּוֹת</span><span class="tr">chanuyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מִסְעָדָה</span><span class="fr">restaurant</span></td>
+      <td>f</td>
+      <td><span class="he">מִסְעָדוֹת</span><span class="tr">mis'adot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מְכוֹנִית</span><span class="fr">voiture</span></td>
+      <td>f</td>
+      <td><span class="he">מְכוֹנִיּוֹת</span><span class="tr">mechoniyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אוֹטוֹבּוּס</span><span class="fr">bus</span></td>
+      <td>m</td>
+      <td><span class="he">אוֹטוֹבּוּסִים</span><span class="tr">otobusim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">רַכֶּבֶת</span><span class="fr">train</span></td>
+      <td>f</td>
+      <td><span class="he">רַכָּבוֹת</span><span class="tr">rakavot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מַטּוֹס</span><span class="fr">avion</span></td>
+      <td>m</td>
+      <td><span class="he">מְטוֹסִים</span><span class="tr">metosim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שְׂדֵה תְּעוּפָה</span><span class="fr">aéroport</span></td>
       <td>m</td>
       <td>—</td>
     </tr>
     <tr>
-      <td><span class="he">גַּב</span><span class="fr">dos</span></td>
-      <td>m</td>
-      <td><span class="he">גַּבּוֹת</span><span class="tr">gabot</span></td>
+      <td><span class="he">תַּחֲנָה</span><span class="fr">gare / station</span></td>
+      <td>f</td>
+      <td><span class="he">תַּחֲנוֹת</span><span class="tr">tachanot</span></td>
     </tr>
     <tr>
-      <td><span class="he">בֶּטֶן</span><span class="fr">ventre</span></td>
+      <td><span class="he">גֶּשֶׁר</span><span class="fr">pont</span></td>
+      <td>m</td>
+      <td><span class="he">גְּשָׁרִים</span><span class="tr">gsharim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כְּבִישׁ</span><span class="fr">route</span></td>
+      <td>m</td>
+      <td><span class="he">כְּבִישִׁים</span><span class="tr">kvishim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בֵּית חוֹלִים</span><span class="fr">hôpital</span></td>
+      <td>m</td>
+      <td><span class="he">בָּתֵּי חוֹלִים</span><span class="tr">batei cholim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בֵּית קָפֶה</span><span class="fr">café (lieu)</span></td>
+      <td>m</td>
+      <td><span class="he">בָּתֵּי קָפֶה</span><span class="tr">batei kafe</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בַּנְק</span><span class="fr">banque</span></td>
+      <td>m</td>
+      <td><span class="he">בַּנְקִים</span><span class="tr">bankim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שׁוּק</span><span class="fr">marché</span></td>
+      <td>m</td>
+      <td><span class="he">שְׁוָקִים</span><span class="tr">shvakim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">גַּן</span><span class="fr">jardin / parc</span></td>
+      <td>m</td>
+      <td><span class="he">גַּנִּים</span><span class="tr">ganim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מְלוֹן</span><span class="fr">hôtel</span></td>
+      <td>m</td>
+      <td><span class="he">מְלוֹנוֹת</span><span class="tr">melonot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כִּכָּר</span><span class="fr">place (ville)</span></td>
       <td>f</td>
-      <td><span class="he">בְּטָנִים</span><span class="tr">betanim</span></td>
+      <td><span class="he">כִּכָּרוֹת</span><span class="tr">kikarot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">פִּנָּה</span><span class="fr">coin</span></td>
+      <td>f</td>
+      <td><span class="he">פִּנּוֹת</span><span class="tr">pinot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מַדְרֵגוֹת</span><span class="fr">escaliers</span></td>
+      <td>f</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">מַעֲלִית</span><span class="fr">ascenseur</span></td>
+      <td>f</td>
+      <td><span class="he">מַעֲלִיּוֹת</span><span class="tr">maaliyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מִשְׂרָד</span><span class="fr">bureau</span></td>
+      <td>m</td>
+      <td><span class="he">מִשְׂרָדִים</span><span class="tr">misradim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">סְפְרִיָּה</span><span class="fr">bibliothèque</span></td>
+      <td>f</td>
+      <td><span class="he">סְפְרִיּוֹת</span><span class="tr">sifriyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מוּזֵיאוֹן</span><span class="fr">musée</span></td>
+      <td>m</td>
+      <td><span class="he">מוּזֵיאוֹנִים</span><span class="tr">muzeonim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תֵּאַטְרוֹן</span><span class="fr">théâtre</span></td>
+      <td>m</td>
+      <td><span class="he">תֵּאַטְרוֹנִים</span><span class="tr">teatronim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">קוֹלְנוֹעַ</span><span class="fr">cinéma</span></td>
+      <td>m</td>
+      <td><span class="he">קוֹלְנוֹעִים</span><span class="tr">kolno'im</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כְּנֵסִיָּה</span><span class="fr">église</span></td>
+      <td>f</td>
+      <td><span class="he">כְּנֵסִיּוֹת</span><span class="tr">knesiyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בֵּית כְּנֶסֶת</span><span class="fr">synagogue</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">מִסְגָּד</span><span class="fr">mosquée</span></td>
+      <td>m</td>
+      <td><span class="he">מִסְגָּדִים</span><span class="tr">misgadim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">חוֹף</span><span class="fr">plage</span></td>
+      <td>m</td>
+      <td><span class="he">חוֹפִים</span><span class="tr">chofim</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Nature & animaux</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">שֶׁמֶשׁ</span><span class="fr">soleil</span></td>
+      <td>f</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">יָרֵחַ</span><span class="fr">lune</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׁמַיִם</span><span class="fr">ciel</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">יָם</span><span class="fr">mer</span></td>
+      <td>m</td>
+      <td><span class="he">יַמִּים</span><span class="tr">yamim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עֵץ</span><span class="fr">arbre</span></td>
+      <td>m</td>
+      <td><span class="he">עֵצִים</span><span class="tr">etzim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כֶּלֶב</span><span class="fr">chien</span></td>
+      <td>m</td>
+      <td><span class="he">כְּלָבִים</span><span class="tr">klavim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">חָתוּל</span><span class="fr">chat</span></td>
+      <td>m</td>
+      <td><span class="he">חֲתוּלִים</span><span class="tr">chatulim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">הַר</span><span class="fr">montagne</span></td>
+      <td>m</td>
+      <td><span class="he">הָרִים</span><span class="tr">harim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">נָהָר</span><span class="fr">fleuve / rivière</span></td>
+      <td>m</td>
+      <td><span class="he">נְהָרוֹת</span><span class="tr">neharot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אֶבֶן</span><span class="fr">pierre</span></td>
+      <td>f</td>
+      <td><span class="he">אֲבָנִים</span><span class="tr">avanim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">פֶּרַח</span><span class="fr">fleur</span></td>
+      <td>m</td>
+      <td><span class="he">פְּרָחִים</span><span class="tr">prachim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">צִפּוֹר</span><span class="fr">oiseau</span></td>
+      <td>f</td>
+      <td><span class="he">צִפֳּרִים</span><span class="tr">tziporim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">סוּס</span><span class="fr">cheval</span></td>
+      <td>m</td>
+      <td><span class="he">סוּסִים</span><span class="tr">susim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">דָּג</span><span class="fr">poisson</span></td>
+      <td>m</td>
+      <td><span class="he">דָּגִים</span><span class="tr">dagim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אֵשׁ</span><span class="fr">feu</span></td>
+      <td>f</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">רוּחַ</span><span class="fr">vent / esprit</span></td>
+      <td>f</td>
+      <td><span class="he">רוּחוֹת</span><span class="tr">ruchot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">גֶּשֶׁם</span><span class="fr">pluie</span></td>
+      <td>m</td>
+      <td><span class="he">גְּשָׁמִים</span><span class="tr">gshamim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שֶׁלֶג</span><span class="fr">neige</span></td>
+      <td>m</td>
+      <td><span class="he">שְׁלָגִים</span><span class="tr">shlagim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׂדֶה</span><span class="fr">champ</span></td>
+      <td>m</td>
+      <td><span class="he">שָׂדוֹת</span><span class="tr">sadot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">יַעַר</span><span class="fr">forêt</span></td>
+      <td>m</td>
+      <td><span class="he">יְעָרוֹת</span><span class="tr">ye'arot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עָנָן</span><span class="fr">nuage</span></td>
+      <td>m</td>
+      <td><span class="he">עֲנָנִים</span><span class="tr">ananim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כּוֹכָב</span><span class="fr">étoile</span></td>
+      <td>m</td>
+      <td><span class="he">כּוֹכָבִים</span><span class="tr">kochavim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">קֶרַח</span><span class="fr">glace / verglas</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">חֹם</span><span class="fr">chaleur</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">קֹר</span><span class="fr">froid</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">אֲדָמָה</span><span class="fr">terre / sol</span></td>
+      <td>f</td>
+      <td><span class="he">אֲדָמוֹת</span><span class="tr">adamot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">דֶּשֶׁא</span><span class="fr">pelouse / herbe</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">פָּרָה</span><span class="fr">vache</span></td>
+      <td>f</td>
+      <td><span class="he">פָּרוֹת</span><span class="tr">parot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כֶּבֶשׂ</span><span class="fr">mouton</span></td>
+      <td>m</td>
+      <td><span class="he">כְּבָשִׂים</span><span class="tr">kvasim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תַּרְנְגֹלֶת</span><span class="fr">poule</span></td>
+      <td>f</td>
+      <td><span class="he">תַּרְנְגֹלוֹת</span><span class="tr">tarnegolot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">אַרְיֵה</span><span class="fr">lion</span></td>
+      <td>m</td>
+      <td><span class="he">אֲרָיוֹת</span><span class="tr">arayot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">דֹּב</span><span class="fr">ours</span></td>
+      <td>m</td>
+      <td><span class="he">דֻּבִּים</span><span class="tr">dubim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">נָמָל</span><span class="fr">fourmi</span></td>
+      <td>f</td>
+      <td><span class="he">נְמָלִים</span><span class="tr">nemalim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">דְּבוֹרָה</span><span class="fr">abeille</span></td>
+      <td>f</td>
+      <td><span class="he">דְּבוֹרִים</span><span class="tr">dvorim</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Temps & calendrier</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">יוֹם</span><span class="fr">jour</span></td>
+      <td>m</td>
+      <td><span class="he">יָמִים</span><span class="tr">yamim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">לַיְלָה</span><span class="fr">nuit</span></td>
+      <td>m</td>
+      <td><span class="he">לֵילוֹת</span><span class="tr">leilot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׁנָה</span><span class="fr">année</span></td>
+      <td>f</td>
+      <td><span class="he">שָׁנִים</span><span class="tr">shanim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׁעָה</span><span class="fr">heure</span></td>
+      <td>f</td>
+      <td><span class="he">שָׁעוֹת</span><span class="tr">sha'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׁבוּעַ</span><span class="fr">semaine</span></td>
+      <td>m</td>
+      <td><span class="he">שָׁבוּעוֹת</span><span class="tr">shavu'ot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">חֹדֶשׁ</span><span class="fr">mois</span></td>
+      <td>m</td>
+      <td><span class="he">חֳדָשִׁים</span><span class="tr">chodashim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">זְמַן</span><span class="fr">temps</span></td>
+      <td>m</td>
+      <td><span class="he">זְמַנִּים</span><span class="tr">zmanim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">בֹּקֶר</span><span class="fr">matin</span></td>
+      <td>m</td>
+      <td><span class="he">בְּקָרִים</span><span class="tr">bkarim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">צָהֳרַיִם</span><span class="fr">midi</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">עֶרֶב</span><span class="fr">soir</span></td>
+      <td>m</td>
+      <td><span class="he">עֲרָבִים</span><span class="tr">aravim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שָׁנָה טוֹבָה</span><span class="fr">(bonne) nouvelle année</span></td>
+      <td>f</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">חַג</span><span class="fr">fête / jour férié</span></td>
+      <td>m</td>
+      <td><span class="he">חַגִּים</span><span class="tr">chagim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">דַּקָּה</span><span class="fr">minute</span></td>
+      <td>f</td>
+      <td><span class="he">דַּקּוֹת</span><span class="tr">dakot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שְׁנִיָּה</span><span class="fr">seconde</span></td>
+      <td>f</td>
+      <td><span class="he">שְׁנִיּוֹת</span><span class="tr">shniyot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">עָבָר</span><span class="fr">passé</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">עָתִיד</span><span class="fr">futur / avenir</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">הֹוֶה</span><span class="fr">présent</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">תַּאֲרִיךְ</span><span class="fr">date</span></td>
+      <td>m</td>
+      <td><span class="he">תַּאֲרִיכִים</span><span class="tr">taarichim</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">École, travail & argent</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">סֵפֶר</span><span class="fr">livre</span></td>
+      <td>m</td>
+      <td><span class="he">סְפָרִים</span><span class="tr">sfarim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">כֶּסֶף</span><span class="fr">argent</span></td>
+      <td>m</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="he">עֲבוֹדָה</span><span class="fr">travail</span></td>
+      <td>f</td>
+      <td><span class="he">עֲבוֹדוֹת</span><span class="tr">avodot</span></td>
     </tr>
     <tr>
       <td><span class="he">בֵּית סֵפֶר</span><span class="fr">école</span></td>
@@ -1837,155 +2690,30 @@
       <td><span class="he">לָקוֹחוֹת</span><span class="tr">lakochot</span></td>
     </tr>
     <tr>
-      <td><span class="he">אוֹטוֹבּוּס</span><span class="fr">bus</span></td>
-      <td>m</td>
-      <td><span class="he">אוֹטוֹבּוּסִים</span><span class="tr">otobusim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">רַכֶּבֶת</span><span class="fr">train</span></td>
-      <td>f</td>
-      <td><span class="he">רַכָּבוֹת</span><span class="tr">rakavot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מַטּוֹס</span><span class="fr">avion</span></td>
-      <td>m</td>
-      <td><span class="he">מְטוֹסִים</span><span class="tr">metosim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שְׂדֵה תְּעוּפָה</span><span class="fr">aéroport</span></td>
+      <td><span class="he">כֶּסֶף מְזֻמָּן</span><span class="fr">argent liquide</span></td>
       <td>m</td>
       <td>—</td>
     </tr>
     <tr>
-      <td><span class="he">תַּחֲנָה</span><span class="fr">gare / station</span></td>
-      <td>f</td>
-      <td><span class="he">תַּחֲנוֹת</span><span class="tr">tachanot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">גֶּשֶׁר</span><span class="fr">pont</span></td>
+      <td><span class="he">מְחִיר</span><span class="fr">prix</span></td>
       <td>m</td>
-      <td><span class="he">גְּשָׁרִים</span><span class="tr">gsharim</span></td>
+      <td><span class="he">מְחִירִים</span><span class="tr">mechirim</span></td>
     </tr>
     <tr>
-      <td><span class="he">כְּבִישׁ</span><span class="fr">route</span></td>
+      <td><span class="he">חֶשְׁבּוֹן</span><span class="fr">compte / addition</span></td>
       <td>m</td>
-      <td><span class="he">כְּבִישִׁים</span><span class="tr">kvishim</span></td>
+      <td><span class="he">חֶשְׁבּוֹנוֹת</span><span class="tr">cheshbonot</span></td>
     </tr>
-    <tr>
-      <td><span class="he">בֵּית חוֹלִים</span><span class="fr">hôpital</span></td>
-      <td>m</td>
-      <td><span class="he">בָּתֵּי חוֹלִים</span><span class="tr">batei cholim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">בֵּית קָפֶה</span><span class="fr">café (lieu)</span></td>
-      <td>m</td>
-      <td><span class="he">בָּתֵּי קָפֶה</span><span class="tr">batei kafe</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">בַּנְק</span><span class="fr">banque</span></td>
-      <td>m</td>
-      <td><span class="he">בַּנְקִים</span><span class="tr">bankim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שׁוּק</span><span class="fr">marché</span></td>
-      <td>m</td>
-      <td><span class="he">שְׁוָקִים</span><span class="tr">shvakim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">גַּן</span><span class="fr">jardin / parc</span></td>
-      <td>m</td>
-      <td><span class="he">גַּנִּים</span><span class="tr">ganim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מְלוֹן</span><span class="fr">hôtel</span></td>
-      <td>m</td>
-      <td><span class="he">מְלוֹנוֹת</span><span class="tr">melonot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">הַר</span><span class="fr">montagne</span></td>
-      <td>m</td>
-      <td><span class="he">הָרִים</span><span class="tr">harim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">נָהָר</span><span class="fr">fleuve / rivière</span></td>
-      <td>m</td>
-      <td><span class="he">נְהָרוֹת</span><span class="tr">neharot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אֶבֶן</span><span class="fr">pierre</span></td>
-      <td>f</td>
-      <td><span class="he">אֲבָנִים</span><span class="tr">avanim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">פֶּרַח</span><span class="fr">fleur</span></td>
-      <td>m</td>
-      <td><span class="he">פְּרָחִים</span><span class="tr">prachim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">צִפּוֹר</span><span class="fr">oiseau</span></td>
-      <td>f</td>
-      <td><span class="he">צִפֳּרִים</span><span class="tr">tziporim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">סוּס</span><span class="fr">cheval</span></td>
-      <td>m</td>
-      <td><span class="he">סוּסִים</span><span class="tr">susim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">דָּג</span><span class="fr">poisson</span></td>
-      <td>m</td>
-      <td><span class="he">דָּגִים</span><span class="tr">dagim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אֵשׁ</span><span class="fr">feu</span></td>
-      <td>f</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">רוּחַ</span><span class="fr">vent / esprit</span></td>
-      <td>f</td>
-      <td><span class="he">רוּחוֹת</span><span class="tr">ruchot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">גֶּשֶׁם</span><span class="fr">pluie</span></td>
-      <td>m</td>
-      <td><span class="he">גְּשָׁמִים</span><span class="tr">gshamim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שֶׁלֶג</span><span class="fr">neige</span></td>
-      <td>m</td>
-      <td><span class="he">שְׁלָגִים</span><span class="tr">shlagim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">זְמַן</span><span class="fr">temps</span></td>
-      <td>m</td>
-      <td><span class="he">זְמַנִּים</span><span class="tr">zmanim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">בֹּקֶר</span><span class="fr">matin</span></td>
-      <td>m</td>
-      <td><span class="he">בְּקָרִים</span><span class="tr">bkarim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">צָהֳרַיִם</span><span class="fr">midi</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">עֶרֶב</span><span class="fr">soir</span></td>
-      <td>m</td>
-      <td><span class="he">עֲרָבִים</span><span class="tr">aravim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שָׁנָה טוֹבָה</span><span class="fr">(bonne) nouvelle année</span></td>
-      <td>f</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">חַג</span><span class="fr">fête / jour férié</span></td>
-      <td>m</td>
-      <td><span class="he">חַגִּים</span><span class="tr">chagim</span></td>
-    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Culture & loisirs</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
     <tr>
       <td><span class="he">מְסִבָּה</span><span class="fr">fête (soirée)</span></td>
       <td>f</td>
@@ -2015,6 +2743,51 @@
       <td><span class="he">קוֹל</span><span class="fr">voix / son</span></td>
       <td>m</td>
       <td><span class="he">קוֹלוֹת</span><span class="tr">kolot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מַתָּנָה</span><span class="fr">cadeau</span></td>
+      <td>f</td>
+      <td><span class="he">מַתָּנוֹת</span><span class="tr">matanot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">תְּמוּנָה</span><span class="fr">image / photo</span></td>
+      <td>f</td>
+      <td><span class="he">תְּמוּנוֹת</span><span class="tr">temunot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">מִשְׁחָק</span><span class="fr">jeu / match</span></td>
+      <td>m</td>
+      <td><span class="he">מִשְׂחָקִים</span><span class="tr">mischakim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">צַעֲצוּעַ</span><span class="fr">jouet</span></td>
+      <td>m</td>
+      <td><span class="he">צַעֲצוּעִים</span><span class="tr">tzaatzu'im</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<h3 class="subtheme">Abstraits & idées</h3>
+<div class="table-wrap">
+<table>
+<thead>
+    <tr><th>Singulier</th><th>Genre</th><th>Pluriel</th></tr>
+  </thead>
+<tbody>
+    <tr>
+      <td><span class="he">מִלָּה</span><span class="fr">mot</span></td>
+      <td>f</td>
+      <td><span class="he">מִלִּים</span><span class="tr">milim</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">שֵׁם</span><span class="fr">nom</span></td>
+      <td>m</td>
+      <td><span class="he">שֵׁמוֹת</span><span class="tr">shemot</span></td>
+    </tr>
+    <tr>
+      <td><span class="he">דָּבָר</span><span class="fr">chose</span></td>
+      <td>m</td>
+      <td><span class="he">דְּבָרִים</span><span class="tr">dvarim</span></td>
     </tr>
     <tr>
       <td><span class="he">אַהֲבָה</span><span class="fr">amour</span></td>
@@ -2087,461 +2860,6 @@
       <td><span class="he">חֲלוֹמוֹת</span><span class="tr">chalomot</span></td>
     </tr>
     <tr>
-      <td><span class="he">מַתָּנָה</span><span class="fr">cadeau</span></td>
-      <td>f</td>
-      <td><span class="he">מַתָּנוֹת</span><span class="tr">matanot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תְּמוּנָה</span><span class="fr">image / photo</span></td>
-      <td>f</td>
-      <td><span class="he">תְּמוּנוֹת</span><span class="tr">temunot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">דַּקָּה</span><span class="fr">minute</span></td>
-      <td>f</td>
-      <td><span class="he">דַּקּוֹת</span><span class="tr">dakot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שְׁנִיָּה</span><span class="fr">seconde</span></td>
-      <td>f</td>
-      <td><span class="he">שְׁנִיּוֹת</span><span class="tr">shniyot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עָבָר</span><span class="fr">passé</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">עָתִיד</span><span class="fr">futur / avenir</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">הֹוֶה</span><span class="fr">présent</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">תַּאֲרִיךְ</span><span class="fr">date</span></td>
-      <td>m</td>
-      <td><span class="he">תַּאֲרִיכִים</span><span class="tr">taarichim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">קִיר</span><span class="fr">mur</span></td>
-      <td>m</td>
-      <td><span class="he">קִירוֹת</span><span class="tr">kirot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">רִצְפָּה</span><span class="fr">sol / plancher</span></td>
-      <td>f</td>
-      <td><span class="he">רְצָפוֹת</span><span class="tr">retzafot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תִּקְרָה</span><span class="fr">plafond</span></td>
-      <td>f</td>
-      <td><span class="he">תִּקְרוֹת</span><span class="tr">tikrot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מִקְלַחַת</span><span class="fr">douche</span></td>
-      <td>f</td>
-      <td><span class="he">מִקְלָחוֹת</span><span class="tr">miklachot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אַמְבַּטְיָה</span><span class="fr">baignoire / bain</span></td>
-      <td>f</td>
-      <td><span class="he">אַמְבַּטְיוֹת</span><span class="tr">ambatyot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מְקָרֵר</span><span class="fr">réfrigérateur</span></td>
-      <td>m</td>
-      <td><span class="he">מְקָרְרִים</span><span class="tr">mekarerim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תַּנּוּר</span><span class="fr">four</span></td>
-      <td>m</td>
-      <td><span class="he">תַּנּוּרִים</span><span class="tr">tanurim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">סַפָּה</span><span class="fr">canapé</span></td>
-      <td>f</td>
-      <td><span class="he">סַפּוֹת</span><span class="tr">sapot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אָרוֹן</span><span class="fr">armoire / placard</span></td>
-      <td>m</td>
-      <td><span class="he">אֲרוֹנוֹת</span><span class="tr">aronot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מַדָּף</span><span class="fr">étagère</span></td>
-      <td>m</td>
-      <td><span class="he">מַדָּפִים</span><span class="tr">madafim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מַרְאָה</span><span class="fr">miroir</span></td>
-      <td>f</td>
-      <td><span class="he">מַרְאוֹת</span><span class="tr">marot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שָׁטִיחַ</span><span class="fr">tapis</span></td>
-      <td>m</td>
-      <td><span class="he">שְׁטִיחִים</span><span class="tr">shtichim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">וִילוֹן</span><span class="fr">rideau</span></td>
-      <td>m</td>
-      <td><span class="he">וִילוֹנוֹת</span><span class="tr">vilonot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מְנוֹרָה</span><span class="fr">lampe</span></td>
-      <td>f</td>
-      <td><span class="he">מְנוֹרוֹת</span><span class="tr">menorot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שָׁעוֹן</span><span class="fr">montre / horloge</span></td>
-      <td>m</td>
-      <td><span class="he">שְׁעוֹנִים</span><span class="tr">she'onim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מִבְרֶשֶׁת</span><span class="fr">brosse</span></td>
-      <td>f</td>
-      <td><span class="he">מִבְרָשׁוֹת</span><span class="tr">mivrashot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">סַבּוֹן</span><span class="fr">savon</span></td>
-      <td>m</td>
-      <td><span class="he">סַבּוֹנִים</span><span class="tr">sabonim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מַגֶּבֶת</span><span class="fr">serviette</span></td>
-      <td>f</td>
-      <td><span class="he">מַגָּבוֹת</span><span class="tr">magavot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חֶמְאָה</span><span class="fr">beurre</span></td>
-      <td>f</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">דְּבַשׁ</span><span class="fr">miel</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">שׁוֹקוֹלָד</span><span class="fr">chocolat</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">גְּלִידָה</span><span class="fr">glace</span></td>
-      <td>f</td>
-      <td><span class="he">גְּלִידוֹת</span><span class="tr">glidot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עוּגִיָּה</span><span class="fr">biscuit</span></td>
-      <td>f</td>
-      <td><span class="he">עוּגִיּוֹת</span><span class="tr">ugiyot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עוֹף</span><span class="fr">poulet / volaille</span></td>
-      <td>m</td>
-      <td><span class="he">עוֹפוֹת</span><span class="tr">ofot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תַּפּוּחַ אֲדָמָה</span><span class="fr">pomme de terre</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">גֶּזֶר</span><span class="fr">carotte</span></td>
-      <td>m</td>
-      <td><span class="he">גְּזָרִים</span><span class="tr">gzarim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">בָּצָל</span><span class="fr">oignon</span></td>
-      <td>m</td>
-      <td><span class="he">בְּצָלִים</span><span class="tr">betzalim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">לִימוֹן</span><span class="fr">citron</span></td>
-      <td>m</td>
-      <td><span class="he">לִימוֹנִים</span><span class="tr">limonim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תַּפּוּז</span><span class="fr">orange</span></td>
-      <td>m</td>
-      <td><span class="he">תַּפּוּזִים</span><span class="tr">tapuzim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עֲנָבִים</span><span class="fr">raisins</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">מִיץ</span><span class="fr">jus</span></td>
-      <td>m</td>
-      <td><span class="he">מִיצִים</span><span class="tr">mitzim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תֵּה</span><span class="fr">thé</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">צַוָּאר</span><span class="fr">cou</span></td>
-      <td>m</td>
-      <td><span class="he">צַוָּארִים</span><span class="tr">tzavarim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כָּתֵף</span><span class="fr">épaule</span></td>
-      <td>f</td>
-      <td><span class="he">כְּתֵפַיִם</span><span class="tr">ktefaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">בֶּרֶךְ</span><span class="fr">genou</span></td>
-      <td>f</td>
-      <td><span class="he">בִּרְכַּיִם</span><span class="tr">birkaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אֶצְבַּע</span><span class="fr">doigt</span></td>
-      <td>f</td>
-      <td><span class="he">אֶצְבָּעוֹת</span><span class="tr">etzba'ot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">צִפֹּרֶן</span><span class="fr">ongle</span></td>
-      <td>f</td>
-      <td><span class="he">צִפָּרְנַיִם</span><span class="tr">tzipornaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עוֹר</span><span class="fr">peau</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">דָּם</span><span class="fr">sang</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">עֶצֶם</span><span class="fr">os</span></td>
-      <td>f</td>
-      <td><span class="he">עֲצָמוֹת</span><span class="tr">atzamot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מֹחַ</span><span class="fr">cerveau</span></td>
-      <td>m</td>
-      <td><span class="he">מוֹחוֹת</span><span class="tr">mochot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">גֶּרֶב</span><span class="fr">chaussette</span></td>
-      <td>m</td>
-      <td><span class="he">גַּרְבַּיִם</span><span class="tr">garbaim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חֲגוֹרָה</span><span class="fr">ceinture</span></td>
-      <td>f</td>
-      <td><span class="he">חֲגוֹרוֹת</span><span class="tr">chagorot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כְּפָפָה</span><span class="fr">gant</span></td>
-      <td>f</td>
-      <td><span class="he">כְּפָפוֹת</span><span class="tr">kfafot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">צְעִיף</span><span class="fr">écharpe</span></td>
-      <td>m</td>
-      <td><span class="he">צְעִיפִים</span><span class="tr">tze'ifim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מִשְׁקָפַיִם</span><span class="fr">lunettes</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">תִּיק</span><span class="fr">sac</span></td>
-      <td>m</td>
-      <td><span class="he">תִּיקִים</span><span class="tr">tikim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אַרְנָק</span><span class="fr">portefeuille</span></td>
-      <td>m</td>
-      <td><span class="he">אַרְנָקִים</span><span class="tr">arnakim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">טַבַּעַת</span><span class="fr">bague</span></td>
-      <td>f</td>
-      <td><span class="he">טַבָּעוֹת</span><span class="tr">tabaot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כִּכָּר</span><span class="fr">place (ville)</span></td>
-      <td>f</td>
-      <td><span class="he">כִּכָּרוֹת</span><span class="tr">kikarot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">פִּנָּה</span><span class="fr">coin</span></td>
-      <td>f</td>
-      <td><span class="he">פִּנּוֹת</span><span class="tr">pinot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מַדְרֵגוֹת</span><span class="fr">escaliers</span></td>
-      <td>f</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">מַעֲלִית</span><span class="fr">ascenseur</span></td>
-      <td>f</td>
-      <td><span class="he">מַעֲלִיּוֹת</span><span class="tr">maaliyot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מִשְׂרָד</span><span class="fr">bureau</span></td>
-      <td>m</td>
-      <td><span class="he">מִשְׂרָדִים</span><span class="tr">misradim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">סְפְרִיָּה</span><span class="fr">bibliothèque</span></td>
-      <td>f</td>
-      <td><span class="he">סְפְרִיּוֹת</span><span class="tr">sifriyot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מוּזֵיאוֹן</span><span class="fr">musée</span></td>
-      <td>m</td>
-      <td><span class="he">מוּזֵיאוֹנִים</span><span class="tr">muzeonim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תֵּאַטְרוֹן</span><span class="fr">théâtre</span></td>
-      <td>m</td>
-      <td><span class="he">תֵּאַטְרוֹנִים</span><span class="tr">teatronim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">קוֹלְנוֹעַ</span><span class="fr">cinéma</span></td>
-      <td>m</td>
-      <td><span class="he">קוֹלְנוֹעִים</span><span class="tr">kolno'im</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כְּנֵסִיָּה</span><span class="fr">église</span></td>
-      <td>f</td>
-      <td><span class="he">כְּנֵסִיּוֹת</span><span class="tr">knesiyot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">בֵּית כְּנֶסֶת</span><span class="fr">synagogue</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">מִסְגָּד</span><span class="fr">mosquée</span></td>
-      <td>m</td>
-      <td><span class="he">מִסְגָּדִים</span><span class="tr">misgadim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חוֹף</span><span class="fr">plage</span></td>
-      <td>m</td>
-      <td><span class="he">חוֹפִים</span><span class="tr">chofim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">שָׂדֶה</span><span class="fr">champ</span></td>
-      <td>m</td>
-      <td><span class="he">שָׂדוֹת</span><span class="tr">sadot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">יַעַר</span><span class="fr">forêt</span></td>
-      <td>m</td>
-      <td><span class="he">יְעָרוֹת</span><span class="tr">ye'arot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">עָנָן</span><span class="fr">nuage</span></td>
-      <td>m</td>
-      <td><span class="he">עֲנָנִים</span><span class="tr">ananim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כּוֹכָב</span><span class="fr">étoile</span></td>
-      <td>m</td>
-      <td><span class="he">כּוֹכָבִים</span><span class="tr">kochavim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">קֶרַח</span><span class="fr">glace / verglas</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">חֹם</span><span class="fr">chaleur</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">קֹר</span><span class="fr">froid</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">אֲדָמָה</span><span class="fr">terre / sol</span></td>
-      <td>f</td>
-      <td><span class="he">אֲדָמוֹת</span><span class="tr">adamot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">דֶּשֶׁא</span><span class="fr">pelouse / herbe</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">פָּרָה</span><span class="fr">vache</span></td>
-      <td>f</td>
-      <td><span class="he">פָּרוֹת</span><span class="tr">parot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כֶּבֶשׂ</span><span class="fr">mouton</span></td>
-      <td>m</td>
-      <td><span class="he">כְּבָשִׂים</span><span class="tr">kvasim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">תַּרְנְגֹלֶת</span><span class="fr">poule</span></td>
-      <td>f</td>
-      <td><span class="he">תַּרְנְגֹלוֹת</span><span class="tr">tarnegolot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">אַרְיֵה</span><span class="fr">lion</span></td>
-      <td>m</td>
-      <td><span class="he">אֲרָיוֹת</span><span class="tr">arayot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">דֹּב</span><span class="fr">ours</span></td>
-      <td>m</td>
-      <td><span class="he">דֻּבִּים</span><span class="tr">dubim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">נָמָל</span><span class="fr">fourmi</span></td>
-      <td>f</td>
-      <td><span class="he">נְמָלִים</span><span class="tr">nemalim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">דְּבוֹרָה</span><span class="fr">abeille</span></td>
-      <td>f</td>
-      <td><span class="he">דְּבוֹרִים</span><span class="tr">dvorim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">כֶּסֶף מְזֻמָּן</span><span class="fr">argent liquide</span></td>
-      <td>m</td>
-      <td>—</td>
-    </tr>
-    <tr>
-      <td><span class="he">מְחִיר</span><span class="fr">prix</span></td>
-      <td>m</td>
-      <td><span class="he">מְחִירִים</span><span class="tr">mechirim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">חֶשְׁבּוֹן</span><span class="fr">compte / addition</span></td>
-      <td>m</td>
-      <td><span class="he">חֶשְׁבּוֹנוֹת</span><span class="tr">cheshbonot</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">מִשְׁחָק</span><span class="fr">jeu / match</span></td>
-      <td>m</td>
-      <td><span class="he">מִשְׂחָקִים</span><span class="tr">mischakim</span></td>
-    </tr>
-    <tr>
-      <td><span class="he">צַעֲצוּעַ</span><span class="fr">jouet</span></td>
-      <td>m</td>
-      <td><span class="he">צַעֲצוּעִים</span><span class="tr">tzaatzu'im</span></td>
-    </tr>
-    <tr>
       <td><span class="he">מִכְשׁוֹל</span><span class="fr">obstacle</span></td>
       <td>m</td>
       <td><span class="he">מִכְשׁוֹלִים</span><span class="tr">michsholim</span></td>
@@ -2599,40 +2917,6 @@
   </tbody>
 </table>
 </div>
-<div class="note">בֵּן/בַּת (fils/fille de qqn, relation familiale) sont différents de יֶלֶד/יַלְדָּה (garçon/fille, catégorie d'âge) — un בֵּן peut être adulte.</div>
-
-<h2 id="sec-l-article-defini">הַ־ <span class="count">L'article défini</span></h2>
-<div class="note">
-  Hébreu n'a pas de mot séparé pour « le/la/les » : l'article הַ (ha-) se colle directement devant le nom, comme בְּ/לְ/כְּ/מִ.<br><br>
-  בַּיִת (bayit) = une maison &nbsp;→&nbsp; הַבַּיִת (habayit) = la maison<br>
-  יְלָדִים (yeladim) = des enfants &nbsp;→&nbsp; הַיְלָדִים (hayeladim) = les enfants<br><br>
-  Un adjectif qui décrit un nom défini prend lui aussi הַ : הַבַּיִת הַגָּדוֹל (habayit hagadol) = la grande maison (littéralement « la-maison la-grande »).
-</div>
-
-<h2 id="sec-etat-construit">סְמִיכוּת <span class="count">État construit</span></h2>
-<div class="note">
-  Deuxième façon d'exprimer la possession, en plus de שֶׁל : deux noms se collent directement l'un à l'autre, sans mot de liaison. Le premier nom change souvent légèrement de forme ; le second reste inchangé.
-</div>
-<div class="note">
-  בַּיִת (maison) + סֵפֶר (livre) &nbsp;→&nbsp; בֵּית סֵפֶר (beit sefer) = école (littéralement « maison de livre[s] »). בַּיִת devient בֵּית en tête de smikhut.
-</div>
-<div class="note">
-  Deux changements fréquents pour le premier mot :<br>
-  • féminin singulier en ה ⭢ ת : מִשְׁפָּחָה (famille) → מִשְׁפַּחַת דָּוִד (la famille de David)<br>
-  • masculin pluriel en ים ⭢ ֵי : יְלָדִים (enfants) → יַלְדֵי הַשְּׁכוּנָה (les enfants du quartier)
-</div>
-<div class="table-wrap">
-<table>
-  <thead><tr><th>Smikhut</th><th>Sens</th></tr></thead>
-  <tbody>
-    <tr><td><span class="he">בֵּית סֵפֶר</span><span class="tr">beit sefer</span></td><td>école</td></tr>
-    <tr><td><span class="he">בֵּית חוֹלִים</span><span class="tr">beit cholim</span></td><td>hôpital</td></tr>
-    <tr><td><span class="he">בֵּית קָפֶה</span><span class="tr">beit kafeh</span></td><td>café</td></tr>
-    <tr><td><span class="he">בֵּית מִשְׁפָּט</span><span class="tr">beit mishpat</span></td><td>tribunal</td></tr>
-  </tbody>
-</table>
-</div>
-<div class="note">שֶׁל reste toujours correct et plus simple à l'oral ; la smikhut domine surtout dans les noms composés figés (comme ci-dessus) et à l'écrit soutenu.</div>
 
 <h2 id="sec-adjectifs">תְּאָרִים <span class="count">Adjectifs</span></h2>
 <div class="note">Carré magique complet, comme les verbes — lecture droite→gauche.</div>
@@ -2819,129 +3103,6 @@
   <li>
     <span class="word-main"><span class="he">בִּשְׁבִיל</span></span>
     <span class="meta"><span class="tr">bishvil</span><span class="fr">pour</span></span>
-  </li>
-</ul>
-
-<h2 id="sec-prepositions-flechies">מִלּוֹת יַחַס נְטוּיוֹת <span class="count">Prépositions fléchies</span></h2>
-<div class="note">
-  ⚠️ Certaines prépositions ne prennent pas un pronom séparé (« de + moi ») : elles se déclinent par personne, comme un verbe. Les 5 ci-dessous sont les plus fréquentes à l'oral.
-</div>
-
-<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:18px 0 6px;">שֶׁל — possessif ("mon/ton/son...")</div>
-<div class="note">C'est la construction la plus fréquente de toutes : "le livre שֶׁלִּי" = mon livre (littéralement "le livre de-moi").</div>
-<div class="table-wrap">
-<table>
-  <thead><tr><th>Pronom</th><th>שֶׁל + pronom</th></tr></thead>
-  <tbody>
-    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">שֶׁלִּי</span><span class="tr">sheli — mon/ma/mien</span></td></tr>
-    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">שֶׁלְּךָ</span><span class="tr">shelcha — ton (m.)</span></td></tr>
-    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">שֶׁלָּךְ</span><span class="tr">shelach — ton (f.)</span></td></tr>
-    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">שֶׁלּוֹ</span><span class="tr">shelo — son (à lui)</span></td></tr>
-    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">שֶׁלָּהּ</span><span class="tr">shelah — son (à elle)</span></td></tr>
-    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">שֶׁלָּנוּ</span><span class="tr">shelanu — notre</span></td></tr>
-    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">שֶׁלָּכֶם</span><span class="tr">shelachem — votre (m.)</span></td></tr>
-    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">שֶׁלָּכֶן</span><span class="tr">shelachen — votre (f.)</span></td></tr>
-    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">שֶׁלָּהֶם</span><span class="tr">shelahem — leur (m.)</span></td></tr>
-    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">שֶׁלָּהֶן</span><span class="tr">shelahen — leur (f.)</span></td></tr>
-  </tbody>
-</table>
-</div>
-<div class="note" style="margin-top:8px;">Il existe une 2e façon d'exprimer la possession sans שֶׁל, appelée סְמִיכוּת (état construit), plus formelle et moins courante à l'oral que שֶׁל.</div>
-
-<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">לְ — datif ("à/pour"), clé du verbe "avoir"</div>
-<div class="note">En hébreu, "avoir" ne se dit pas avec un verbe : יש לי (yesh li) = littéralement "il y a à-moi" = j'ai. Cette déclinaison est l'une des plus utilisées de la langue.</div>
-<div class="table-wrap">
-<table>
-  <thead><tr><th>Pronom</th><th>לְ + pronom</th></tr></thead>
-  <tbody>
-    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">לִי</span><span class="tr">li — à moi / j'ai (avec יש)</span></td></tr>
-    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">לְךָ</span><span class="tr">lecha — à toi (m.)</span></td></tr>
-    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">לָךְ</span><span class="tr">lach — à toi (f.)</span></td></tr>
-    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">לוֹ</span><span class="tr">lo — à lui</span></td></tr>
-    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">לָהּ</span><span class="tr">lah — à elle</span></td></tr>
-    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">לָנוּ</span><span class="tr">lanu — à nous</span></td></tr>
-    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">לָכֶם</span><span class="tr">lachem — à vous (m.)</span></td></tr>
-    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">לָכֶן</span><span class="tr">lachen — à vous (f.)</span></td></tr>
-    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">לָהֶם</span><span class="tr">lahem — à eux</span></td></tr>
-    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">לָהֶן</span><span class="tr">lahen — à elles</span></td></tr>
-  </tbody>
-</table>
-</div>
-
-<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">בְּ — locatif ("dans/en")</div>
-<div class="table-wrap">
-<table>
-  <thead><tr><th>Pronom</th><th>בְּ + pronom</th></tr></thead>
-  <tbody>
-    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">בִּי</span><span class="tr">bi — en moi</span></td></tr>
-    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">בְּךָ</span><span class="tr">becha — en toi (m.)</span></td></tr>
-    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">בָּךְ</span><span class="tr">bach — en toi (f.)</span></td></tr>
-    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">בּוֹ</span><span class="tr">bo — en lui</span></td></tr>
-    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">בָּהּ</span><span class="tr">bah — en elle</span></td></tr>
-    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">בָּנוּ</span><span class="tr">banu — en nous</span></td></tr>
-    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">בָּכֶם</span><span class="tr">bachem — en vous (m.)</span></td></tr>
-    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">בָּכֶן</span><span class="tr">bachen — en vous (f.)</span></td></tr>
-    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">בָּהֶם</span><span class="tr">bahem — en eux</span></td></tr>
-    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">בָּהֶן</span><span class="tr">bahen — en elles</span></td></tr>
-  </tbody>
-</table>
-</div>
-
-<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">עַל — "sur / à propos de"</div>
-<div class="table-wrap">
-<table>
-  <thead><tr><th>Pronom</th><th>עַל + pronom</th></tr></thead>
-  <tbody>
-    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">עָלַי</span><span class="tr">alai — sur moi</span></td></tr>
-    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">עָלֶיךָ</span><span class="tr">aleicha — sur toi (m.)</span></td></tr>
-    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">עָלַיִךְ</span><span class="tr">alayich — sur toi (f.)</span></td></tr>
-    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">עָלָיו</span><span class="tr">alav — sur lui</span></td></tr>
-    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">עָלֶיהָ</span><span class="tr">aleiha — sur elle</span></td></tr>
-    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">עָלֵינוּ</span><span class="tr">aleinu — sur nous</span></td></tr>
-    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">עֲלֵיכֶם</span><span class="tr">aleichem — sur vous (m.)</span></td></tr>
-    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">עֲלֵיכֶן</span><span class="tr">aleichen — sur vous (f.)</span></td></tr>
-    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">עֲלֵיהֶם</span><span class="tr">aleihem — sur eux</span></td></tr>
-    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">עֲלֵיהֶן</span><span class="tr">aleihen — sur elles</span></td></tr>
-  </tbody>
-</table>
-</div>
-
-<div style="color:var(--gold); font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; margin:26px 0 6px;">עִם — "avec" (racine à part : אִתְּ-)</div>
-<div class="note">
-  ⚠️ Irrégulier — la forme fléchie ne vient pas de עִם lui-même mais d'une racine différente (אִתְּ-).
-</div>
-<div class="table-wrap">
-<table>
-  <thead><tr><th>Pronom</th><th>עִם + pronom</th></tr></thead>
-  <tbody>
-    <tr><td><span class="he">אֲנִי</span><span class="fr">je</span></td><td><span class="he">אִתִּי</span><span class="tr">iti — avec moi</span></td></tr>
-    <tr><td><span class="he">אַתָּה</span><span class="fr">tu (m.)</span></td><td><span class="he">אִתְּךָ</span><span class="tr">itcha — avec toi (m.)</span></td></tr>
-    <tr><td><span class="he">אַתְּ</span><span class="fr">tu (f.)</span></td><td><span class="he">אִתָּךְ</span><span class="tr">itach — avec toi (f.)</span></td></tr>
-    <tr><td><span class="he">הוּא</span><span class="fr">il</span></td><td><span class="he">אִתּוֹ</span><span class="tr">ito — avec lui</span></td></tr>
-    <tr><td><span class="he">הִיא</span><span class="fr">elle</span></td><td><span class="he">אִתָּהּ</span><span class="tr">itah — avec elle</span></td></tr>
-    <tr><td><span class="he">אֲנַחְנוּ</span><span class="fr">nous</span></td><td><span class="he">אִתָּנוּ</span><span class="tr">itanu — avec nous</span></td></tr>
-    <tr><td><span class="he">אַתֶּם</span><span class="fr">vous (m.)</span></td><td><span class="he">אִתְּכֶם</span><span class="tr">itchem — avec vous (m.)</span></td></tr>
-    <tr><td><span class="he">אַתֶּן</span><span class="fr">vous (f.)</span></td><td><span class="he">אִתְּכֶן</span><span class="tr">itchen — avec vous (f.)</span></td></tr>
-    <tr><td><span class="he">הֵם</span><span class="fr">ils</span></td><td><span class="he">אִתָּם</span><span class="tr">itam — avec eux</span></td></tr>
-    <tr><td><span class="he">הֵן</span><span class="fr">elles</span></td><td><span class="he">אִתָּן</span><span class="tr">itan — avec elles</span></td></tr>
-  </tbody>
-</table>
-</div>
-
-<h2 id="sec-existence-et-possession">יֵשׁ וְאֵין <span class="count">Existence et possession</span></h2>
-<div class="note">
-  L'hébreu n'a pas de verbe « avoir » : la possession se construit avec יֵשׁ/אֵין + לְ (vu dans les prépositions fléchies). Ces deux mots servent aussi seuls pour dire « il y a / il n'y a pas ».<br><br>
-  יֵשׁ סֵפֶר (yesh sefer) = il y a un livre &nbsp;·&nbsp; יֵשׁ לִי סֵפֶר (yesh li sefer) = j'ai un livre (littéralement « il y a à-moi un livre »)<br>
-  אֵין לִי זְמַן (ein li zman) = je n'ai pas de temps
-</div>
-<ul class="word-list">
-  <li>
-    <span class="word-main"><span class="he">יֵשׁ</span></span>
-    <span class="meta"><span class="tr">yesh</span><span class="fr">il y a / j'ai (avec לְ)</span></span>
-  </li>
-  <li>
-    <span class="word-main"><span class="he">אֵין</span></span>
-    <span class="meta"><span class="tr">ein</span><span class="fr">il n'y a pas / je n'ai pas (avec לְ)</span></span>
   </li>
 </ul>
 
@@ -3309,7 +3470,10 @@
       // Supprime les points-voyelles, dagesh, points shin/sin, cantillation (U+0591–U+05C7)
       return str.replace(/[\u0591-\u05C7]/g, '');
     }
-    document.querySelectorAll('.he').forEach(function(el){
+    // Cursive uniquement sous les entrées de dictionnaire (cellules de tableau,
+    // listes de mots) — jamais dans le texte courant des notes/recettes, où une
+    // ligne en display:block fragmenterait la phrase.
+    document.querySelectorAll('td .he, .word-main .he').forEach(function(el){
       var cursive = document.createElement('span');
       cursive.className = 'cursive';
       cursive.textContent = stripNikud(el.textContent);
@@ -3399,6 +3563,7 @@
       // reset
       entries.forEach(function(e){ e.el.classList.remove('search-hidden'); clearHighlights(e.el); });
       sections.forEach(function(s){ s.block.forEach(function(b){ b.classList.remove('search-hidden'); }); });
+      document.querySelectorAll('.part').forEach(function(pt){ pt.classList.remove('search-hidden'); });
 
       if(!q){ countEl.textContent = ''; if(toc) toc.classList.remove('search-hidden'); return; }
       if(toc) toc.classList.add('search-hidden');  // hide the summary while filtering
@@ -3408,6 +3573,23 @@
         if(e.hay.indexOf(q) !== -1){ shown++; highlight(e.el, q); }
         else { e.el.classList.add('search-hidden'); }
       });
+
+      // Hide sub-tables whose rows are all hidden, along with their subtheme heading.
+      document.querySelectorAll('.table-wrap').forEach(function(w){
+        var rows = w.querySelectorAll('tbody tr');
+        if(!rows.length) return;
+        var any = false;
+        for(var k=0;k<rows.length;k++){
+          if(!rows[k].classList.contains('search-hidden')){ any = true; break; }
+        }
+        if(!any){
+          w.classList.add('search-hidden');
+          var prev = w.previousElementSibling;
+          if(prev && prev.classList && prev.classList.contains('subtheme')) prev.classList.add('search-hidden');
+        }
+      });
+      // Hide the part separators while filtering.
+      document.querySelectorAll('.part').forEach(function(pt){ pt.classList.add('search-hidden'); });
 
       // Hide sections whose entries are all hidden.
       sections.forEach(function(s){
