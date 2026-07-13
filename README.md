@@ -2,12 +2,19 @@
 
 Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en français : un **carnet de grammaire et de vocabulaire** à consulter, et une **application de flashcards** pour réviser.
 
-## En ligne
+## 🔗 Accès rapide (aucun téléchargement)
 
-- **Flashcards** : https://rubischtgadol.github.io/flashcards-hebreu/
-- **Carnet grammaire + vocabulaire** : https://rubischtgadol.github.io/flashcards-hebreu/vocabulaire_hebreu.html
+Ouvre ces liens sur n'importe quelle machine — ordinateur, téléphone, tablette :
 
-Les deux pages s'ajoutent facilement à l'écran d'accueil d'un téléphone (Safari → Partager → « Sur l'écran d'accueil ») pour un usage comme une application.
+**➡️ L'application (page principale) :**
+
+    https://rubischtgadol.github.io/flashcards-hebreu/
+
+**➡️ Le carnet de grammaire + vocabulaire :**
+
+    https://rubischtgadol.github.io/flashcards-hebreu/vocabulaire_hebreu.html
+
+Depuis l'application, un bouton mène au carnet (et inversement), donc le premier lien suffit en pratique. Les deux pages s'ajoutent à l'écran d'accueil d'un téléphone (Safari → Partager → « Sur l'écran d'accueil ») pour un usage comme une vraie application. Les liens ne changent jamais : après chaque mise à jour du contenu, la même adresse affiche la version à jour.
 
 ## Contenu du carnet
 
@@ -18,11 +25,17 @@ Le carnet est organisé en deux parties, avec un sommaire cliquable et une reche
 
 Chaque mot hébreu est affiché avec nikud, sa translittération, sa traduction, et une ligne en écriture cursive.
 
+## L'application de flashcards
+
+- Cartes recto-verso, dans les deux sens (hébreu → français ou français → hébreu).
+- Mode saisie où l'on tape la réponse, avec navigation entièrement au clavier (Entrée pour vérifier, Entrée ou Espace pour passer à la suivante) et un bouton « Je ne sais pas ».
+- Réponses en hébreu acceptées **soit en translittération** (graphie à la française tolérée : « chatoul », « khatul »…), **soit via un clavier hébreu virtuel** intégré (disposition israélienne standard).
+- Affichage de l'hébreu avec nikud, sans nikud, ou en écriture cursive.
+- Audio avec la voix hébraïque du système, auto-évaluation et reprise des cartes ratées.
+
 ## Mise à jour automatique
 
 Les cartes ne sont **pas** figées dans l'application. Au chargement, `index.html` lit le carnet [`vocabulaire_hebreu.html`](./vocabulaire_hebreu.html) et en extrait tout le vocabulaire. Il suffit donc de modifier le carnet — ajouter un mot, une catégorie — pour que les flashcards se mettent à jour au prochain rechargement, sans toucher à l'application.
-
-Fonctions des flashcards : cartes recto-verso, choix du sens (hébreu ↔ français), mode saisie avec tolérance aux fautes de frappe, affichage avec ou sans nikud (ou en cursif), audio (voix hébraïque du système), auto-évaluation et reprise des cartes ratées.
 
 ## Fichiers
 
