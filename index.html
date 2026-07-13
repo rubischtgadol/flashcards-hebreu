@@ -255,6 +255,26 @@
   .src-link{ text-align:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
   .src-link a{ color:var(--gold); text-decoration:none; font-size:.92rem; }
   .src-link a:hover{ text-decoration:underline; }
+  /* ---------- Saisie : passer + clavier hébreu ---------- */
+  .input-actions{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+  .ghost-btn{
+    background:none; border:1px solid var(--line); border-radius:10px; color:var(--ink-dim);
+    font-family:inherit; font-size:.9rem; padding:9px 14px; cursor:pointer; transition:all .13s ease;
+  }
+  .ghost-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  #btn-skip{ margin-left:auto; }
+  .hebkb{ margin-top:12px; display:flex; flex-direction:column; gap:6px; }
+  .kb-row{ display:flex; gap:6px; direction:rtl; }
+  .hebkb button{
+    flex:1; min-width:0;
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.35rem;
+    padding:10px 0; border-radius:9px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); cursor:pointer; line-height:1;
+  }
+  .hebkb button:active{ background:var(--gold); color:#1a1206; }
+  .hebkb .kb-final{ color:var(--gold-soft); }
+  .hebkb .kb-ctl{ font-family:inherit; font-size:.9rem; color:var(--ink-dim); }
+  .hebkb .kb-space{ flex:3; }
 </style>
 </head>
 <body>
@@ -347,6 +367,11 @@
       <input id="answer-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…">
       <button id="btn-check">Vérifier</button>
     </div>
+        <div class="input-actions hide" id="input-actions">
+      <button class="ghost-btn hide" id="kb-toggle" type="button">&#9000; Clavier hébreu</button>
+      <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
+    </div>
+    <div class="hebkb hide" id="hebkb"></div>
     <div class="feedback" id="feedback"></div>
     <button class="btn-next hide" id="btn-next">Suivant →</button>
   </div>
@@ -643,11 +668,18 @@ function setupInputCard(card){
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'traduis en français' : 'écris en hébreu';
   const inp=document.getElementById('answer-input');
   inp.value=''; inp.className=''; inp.disabled=false;
-  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu ou en translittération…';
+  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu (clavier &#9000;) ou en translittération…';
   document.getElementById('input-row').classList.remove('hide');
   document.getElementById('btn-check').classList.remove('hide');
   document.getElementById('feedback').innerHTML='';
   document.getElementById('btn-next').classList.add('hide');
+  // Actions secondaires : passer + clavier hébreu (fr→he uniquement)
+  document.getElementById('input-actions').classList.remove('hide');
+  const kbT=document.getElementById('kb-toggle');
+  const heIn = state.dir==='fr2he';
+  kbT.classList.toggle('hide', !heIn);
+  kbT.innerHTML = state.kbOpen ? 'Masquer le clavier' : '&#9000; Clavier hébreu';
+  document.getElementById('hebkb').classList.toggle('hide', !(heIn && state.kbOpen));
   setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 60);
 }
 
@@ -718,6 +750,62 @@ function editDist(a,b){
   }
   return d[m][n];
 }
+// ---------- Translittération automatique depuis le nikud ----------
+function he2tr(he){
+  var V={}; V[0x05B7]='a'; V[0x05B8]='a'; V[0x05B2]='a'; V[0x05B5]='e'; V[0x05B6]='e'; V[0x05B1]='e';
+  V[0x05B4]='i'; V[0x05B9]='o'; V[0x05BA]='o'; V[0x05B3]='o'; V[0x05BB]='u';
+  var out='', s=(he||'').trim();
+  for(var i=0;i<s.length;i++){
+    var ch=s[i], code=s.charCodeAt(i);
+    if(code>=0x0591&&code<=0x05C7) continue;
+    var j=i+1, marks=[];
+    while(j<s.length){ var c=s.charCodeAt(j); if(c>=0x0591&&c<=0x05C7){ marks.push(c); j++; } else break; }
+    function has(m){ return marks.indexOf(m)!==-1; }
+    var hasVowel=marks.some(function(m){ return V[m]; });
+    var cons='';
+    switch(ch){
+      case 'א': case 'ע': cons=''; break;
+      case 'ב': cons=has(0x05BC)?'b':'v'; break;
+      case 'ג': cons='g'; break;
+      case 'ד': cons='d'; break;
+      case 'ה': cons='h'; break;
+      case 'ו':
+        if(has(0x05BC) && !hasVowel){ out+='u'; continue; }
+        if(has(0x05B9)||has(0x05BA)){ out+='o'; continue; }
+        cons='v'; break;
+      case 'ז': cons='z'; break;
+      case 'ח': cons='ch'; break;
+      case 'ט': cons='t'; break;
+      case 'י': cons='y'; break;
+      case 'כ': cons=has(0x05BC)?'k':'ch'; break;
+      case 'ך': cons='ch'; break;
+      case 'ל': cons='l'; break;
+      case 'מ': case 'ם': cons='m'; break;
+      case 'נ': case 'ן': cons='n'; break;
+      case 'ס': cons='s'; break;
+      case 'פ': cons=has(0x05BC)?'p':'f'; break;
+      case 'ף': cons='f'; break;
+      case 'צ': case 'ץ': cons='ts'; break;
+      case 'ק': cons='k'; break;
+      case 'ר': cons='r'; break;
+      case 'ש': cons=has(0x05C2)?'s':'sh'; break;
+      case 'ת': cons='t'; break;
+      default: cons=(ch===' ')?' ':(/[a-z]/i.test(ch)?ch:''); break;
+    }
+    out+=cons;
+    for(var k=0;k<marks.length;k++){ if(V[marks[k]]) out+=V[marks[k]]; }
+  }
+  out=out.replace(/iy(?![aeiou])/g,'i');
+  out=out.replace(/([aeiou])h$/,'$1');  // hé final muet seulement (pas le h de 'sh')
+  return out;
+}
+function trKey(s){
+  s=(s||'').toLowerCase().replace(/[^a-z]/g,'');
+  s=s.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
+  s=s.replace(/ou/g,'u').replace(/ch/g,'h');
+  s=s.replace(/(.)\1+/g,'$1');
+  return s;
+}
 function checkAnswer(card, raw){
   const user = (raw||'').trim();
   if(!user) return false;
@@ -733,9 +821,18 @@ function checkAnswer(card, raw){
   } else {
     const uHe = normHe(user);
     if(uHe && uHe===normHe(card.he)) return true;
-    if(card.tr){
-      const uTr = normTr(user);
-      if(uTr && uTr===normTr(card.tr)) return true;
+    // Translittération : celle du carnet si présente, sinon générée depuis le nikud
+    const uTr = trKey(user);
+    if(uTr){
+      const cands = [];
+      if(card.tr) cands.push(trKey(card.tr));
+      cands.push(trKey(he2tr(card.he)));
+      for(const c of cands){
+        if(!c) continue;
+        if(uTr===c) return true;
+        const tol = c.length>=8 ? 2 : (c.length>=4 ? 1 : 0);
+        if(tol && editDist(uTr,c)<=tol) return true;
+      }
     }
     return false;
   }
@@ -762,6 +859,8 @@ function submitAnswer(){
   inp.disabled=true;
   inp.classList.add(correct?'ok':'no');
   document.getElementById('input-row').classList.add('hide');
+  document.getElementById('input-actions').classList.add('hide');
+  document.getElementById('hebkb').classList.add('hide');
   const fb=document.getElementById('feedback');
   fb.innerHTML = (correct
       ? '<div class="verdict ok">✓ Correct</div>'
@@ -778,6 +877,65 @@ function nextAfterInput(){
 }
 bindTap(document.getElementById('btn-check'), submitAnswer);
 bindTap(document.getElementById('btn-next'), nextAfterInput);
+
+// ---------- « Je ne sais pas » : révèle la réponse et compte la carte à revoir ----------
+function skipAnswer(){
+  if(state.answered) return;
+  const card=state.queue[state.idx];
+  state.answered=true;
+  const inp=document.getElementById('answer-input');
+  inp.disabled=true;
+  document.getElementById('input-row').classList.add('hide');
+  document.getElementById('input-actions').classList.add('hide');
+  document.getElementById('hebkb').classList.add('hide');
+  document.getElementById('feedback').innerHTML='<div class="verdict">La réponse&nbsp;:</div>'+answerHtml(card);
+  document.getElementById('btn-next').classList.remove('hide');
+  state.missed.push(card);
+  updateSpeaker();
+  if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+}
+bindTap(document.getElementById('btn-skip'), skipAnswer);
+
+// ---------- Clavier hébreu virtuel (ordre alphabétique) ----------
+(function(){
+  const kb=document.getElementById('hebkb'); if(!kb) return;
+  // Disposition standard israélienne (3 rangées) ; lettres finales en doré.
+  const ROWS=['קראטוןםפ','שדגכעיחלךף','זסבהנמצתץ'];
+  const FINALS='ךםןףץ';
+  ROWS.forEach(function(row){
+    const r=document.createElement('div'); r.className='kb-row';
+    row.split('').forEach(function(ch){
+      const b=document.createElement('button'); b.type='button';
+      if(FINALS.indexOf(ch)!==-1) b.className='kb-final';
+      b.textContent=ch; b.dataset.ch=ch; r.appendChild(b);
+    });
+    kb.appendChild(r);
+  });
+  const ctl=document.createElement('div'); ctl.className='kb-row';
+  const bsp=document.createElement('button'); bsp.type='button'; bsp.className='kb-ctl'; bsp.dataset.act='bsp'; bsp.textContent='\u232B'; ctl.appendChild(bsp);
+  const spc=document.createElement('button'); spc.type='button'; spc.className='kb-ctl kb-space'; spc.dataset.act='space'; spc.textContent='espace'; ctl.appendChild(spc);
+  kb.appendChild(ctl);
+  kb.addEventListener('pointerdown', function(e){ e.preventDefault(); });
+  kb.addEventListener('click', function(e){
+    const b=e.target.closest('button'); if(!b) return;
+    const inp=document.getElementById('answer-input'); if(inp.disabled) return;
+    let s=inp.selectionStart, en=inp.selectionEnd;
+    if(s==null){ s=inp.value.length; } if(en==null){ en=s; }
+    if(b.dataset.act==='bsp'){
+      if(s===en && s>0){ inp.value=inp.value.slice(0,s-1)+inp.value.slice(en); s=s-1; }
+      else { inp.value=inp.value.slice(0,s)+inp.value.slice(en); }
+    } else {
+      const ch=b.dataset.act==='space'?' ':(b.dataset.ch||'');
+      inp.value=inp.value.slice(0,s)+ch+inp.value.slice(en); s=s+ch.length;
+    }
+    inp.focus(); try{ inp.setSelectionRange(s,s); }catch(err){}
+  });
+})();
+document.getElementById('kb-toggle').addEventListener('click', function(){
+  state.kbOpen=!state.kbOpen;
+  document.getElementById('hebkb').classList.toggle('hide', !state.kbOpen);
+  this.innerHTML = state.kbOpen ? 'Masquer le clavier' : '&#9000; Clavier hébreu';
+});
 document.getElementById('answer-input').addEventListener('keydown', e=>{
   if(e.key==='Enter'){ e.preventDefault(); submitAnswer(); }
 });
