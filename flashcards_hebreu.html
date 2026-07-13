@@ -278,6 +278,10 @@
   .feedback .forms .f-he{ font-size:1.2rem; }
   .feedback .forms .f-lbl{ font-size:.8rem; }
   .feedback .note-line{ margin-top:10px; }
+  /* Inflexions sur la carte elle-même (mode saisie, sens hébreu→français) */
+  body.input-mode #face-content .forms{ margin:14px auto 0; max-width:320px; gap:4px 14px; }
+  body.input-mode #face-content .forms .f-he{ font-size:1.15rem; }
+  body.input-mode #face-content .forms .f-lbl{ font-size:.78rem; }
 </style>
 </head>
 <body>
@@ -621,6 +625,9 @@ function render(){
 
   if(state.dir==='he2fr'){
     state.frontHtml = heFront(card);
+    // En mode saisie, inflexions visibles directement sous le mot : elles sont en
+    // hébreu et ne révèlent donc pas la traduction française demandée.
+    if(state.mode==='input') state.frontHtml += formsHtml(card);
     let b = '<div class="big-fr">'+card.fr+'</div>';
     if(card.tr) b += '<div class="translit">'+card.tr+'</div>';
     if(state.script!=='nikud') b += '<div class="sub-he">'+card.he+'</div>';
@@ -854,8 +861,9 @@ function answerHtml(card){
     if(card.tr) h += '<div class="tr">'+card.tr+'</div>';
   }
   h += '</div>';
-  // Inflexions en sous-titres : conjugaison (verbes), accords (adjectifs), pluriel (noms)
-  h += formsHtml(card);
+  // Inflexions : en français→hébreu elles n'apparaissent qu'ici (les montrer avant
+  // révélerait la réponse) ; en hébreu→français elles sont déjà sur la carte.
+  if(state.dir==='fr2he') h += formsHtml(card);
   if(card.note) h += '<div class="note-line">'+card.note+'</div>';
   return h;
 }
