@@ -278,6 +278,11 @@
   .hebkb .kb-final{ color:var(--gold-soft); }
   .hebkb .kb-ctl{ font-family:inherit; font-size:.9rem; color:var(--ink-dim); }
   .hebkb .kb-space{ flex:3; }
+  /* Inflexions affichées sous la correction en mode saisie (compactes) */
+  .feedback .forms{ margin:12px auto 0; max-width:340px; gap:5px 16px; }
+  .feedback .forms .f-he{ font-size:1.2rem; }
+  .feedback .forms .f-lbl{ font-size:.8rem; }
+  .feedback .note-line{ margin-top:10px; }
 </style>
 </head>
 <body>
@@ -853,7 +858,11 @@ function answerHtml(card){
     h += '<span class="he">'+card.he+'</span>';
     if(card.tr) h += '<div class="tr">'+card.tr+'</div>';
   }
-  return h+'</div>';
+  h += '</div>';
+  // Inflexions en sous-titres : conjugaison (verbes), accords (adjectifs), pluriel (noms)
+  h += formsHtml(card);
+  if(card.note) h += '<div class="note-line">'+card.note+'</div>';
+  return h;
 }
 function submitAnswer(){
   if(state.answered) return;
