@@ -144,6 +144,9 @@
     min-height:340px; max-height:520px; height:min(60vh,520px);
     transition:transform .12s ease;
   }
+  /* En mode saisie, carte plus compacte pour que réponse + Suivant tiennent à l'écran. */
+  body.input-mode .flip{ min-height:190px; height:min(32vh,290px); }
+  body.input-mode .stage{ flex:0 0 auto; margin-bottom:2px; }
   .flip:active{ transform:scale(.994); }
   .face{
     flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -643,6 +646,7 @@ function render(){
 }
 
 function setupCardsMode(){
+  document.body.classList.remove('input-mode');
   document.getElementById('controls-cards').classList.remove('hide');
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('kbd-hint').classList.remove('hide');
@@ -653,6 +657,7 @@ function setupCardsMode(){
 }
 
 function setupInputCard(card){
+  document.body.classList.add('input-mode');
   document.getElementById('controls-cards').classList.add('hide');
   document.getElementById('input-zone').classList.remove('hide');
   document.getElementById('kbd-hint').classList.add('hide');
@@ -933,10 +938,22 @@ document.getElementById('kb-toggle').addEventListener('click', function(){
   this.innerHTML = state.kbOpen ? 'Masquer le clavier' : '&#9000; Clavier hébreu';
 });
 document.getElementById('answer-input').addEventListener('keydown', e=>{
-  if(e.key==='Enter'){ e.preventDefault(); submitAnswer(); }
+  if(e.key==='Enter'){
+    e.preventDefault(); e.stopPropagation();  // ne pas laisser l'événement atteindre le handler global
+    if(state.answered) nextAfterInput(); else submitAnswer();
+  }
+});
+// Après la réponse (le champ est désactivé et ne capte plus rien), Entrée ou Espace
+// passent à la carte suivante depuis n'importe où sur la page.
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(state.mode!=='input' || !state.answered) return;
+  if(e.target && e.target.id==='answer-input') return;  // le champ gère son propre Enter
+  if(e.key==='Enter' || e.code==='Space'){ e.preventDefault(); nextAfterInput(); }
 });
 
 function finish(){
+  document.body.classList.remove('input-mode');
   document.getElementById('study').classList.remove('active');
   document.getElementById('done').classList.add('active');
   document.getElementById('barfill').style.width='100%';
@@ -965,6 +982,7 @@ document.getElementById('back-setup').onclick=()=>{
   document.getElementById('setup').classList.remove('hidden');
 };
 document.getElementById('exit').onclick=()=>{
+  document.body.classList.remove('input-mode');
   document.getElementById('study').classList.remove('active');
   document.getElementById('setup').classList.remove('hidden');
 };
