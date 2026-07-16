@@ -12,7 +12,7 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v1';
+const VERSION = 'v2'; // v2 : icônes régénérées avec la charte unifiée (fond #12181f, or #d4a24c)
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

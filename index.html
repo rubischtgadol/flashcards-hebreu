@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flashcards Hébreu</title>
 <!-- PWA : installable sur iPhone via Safari → Partager → « Sur l'écran d'accueil ». -->
-<meta name="theme-color" content="#0f1620">
+<meta name="theme-color" content="#12181f">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
@@ -15,12 +15,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playpen+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet">
 <style>
+  /* Charte unifiée carnet + app — ce bloc :root doit rester identique dans
+     vocabulaire_hebreu.html et index.html (référence : le carnet). */
   :root{
-    --bg:#0f1620; --bg2:#151f2b; --card:#1c2733; --card-edge:#26333f;
-    --ink:#ece3d2; --ink-dim:#8b96a3; --gold:#d9a441; --gold-soft:#e8c583;
-    --green:#5bbd7a; --red:#d96a5b; --line:#28333f;
+    --bg:#12181f; --bg2:#161e28; --card:#1a222b; --card-edge:#2c3844;
+    --ink:#ece7dd; --ink-dim:#9aa3ac; --gold:#d4a24c; --gold-soft:#e6c68a;
+    --green:#5bbd7a; --red:#d96a5b; --line:#2a3440;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  ::selection{ background:rgba(212,162,76,.30); color:var(--ink); }
   html,body{margin:0; height:100%;}
   body{
     background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%);
