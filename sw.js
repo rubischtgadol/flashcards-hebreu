@@ -12,7 +12,7 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v2'; // v2 : icônes régénérées avec la charte unifiée (fond #12181f, or #d4a24c)
+const VERSION = 'v3'; // v3 : icône en Frank Ruhl Libre 700 (police de la marque), aleph recentré
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
