@@ -173,6 +173,9 @@
   .speak-btn:active{ transform:scale(.9); }
   .speak-btn.speaking{ color:var(--gold-soft); border-color:var(--gold); }
   .speak-btn.hide{ display:none !important; }
+  /* Pas de voix hébraïque sur l'appareil : on masque les boutons audio plutôt
+     que de laisser la voix par défaut prononcer l'hébreu de travers. */
+  body.no-he-voice .speak-btn, body.no-he-voice .sr-speak{ display:none !important; }
   .audio-note{ color:var(--ink-dim); font-size:.74rem; margin-top:8px; }
   .face.flip-anim{ animation:cardIn .26s ease; }
   @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
@@ -435,10 +438,12 @@ function loadVoices(){
     return s;
   }
   heVoice = heVoices.sort((a,b)=>score(b)-score(a))[0] || null;
+  document.body.classList.toggle('no-he-voice', !heVoice);
 }
 if(TTS_OK){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
+else document.body.classList.add('no-he-voice');
 function speak(text){
-  if(!TTS_OK || !text) return;
+  if(!TTS_OK || !heVoice || !text) return;
   try{
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
@@ -496,7 +501,7 @@ function runSearch(){
   if(!hits.length){ box.innerHTML='<div class="search-empty">Aucun résultat pour « '+raw+' ».</div>'; return; }
   let html = '<div class="sr-count">'+hits.length+(hits.length>=80?'+':'')+' résultat'+(hits.length>1?'s':'')+'</div>';
   html += hits.map((c,i)=>{
-    const tr = c.tr ? '<span class="sr-tr">'+c.tr+'</span>' : '';
+    const tr = '<span class="sr-tr">'+(c.tr||he2tr(c.he))+'</span>';
     const expandable = !!(c.forms || c.note);
     const chevron = expandable ? '<span class="sr-chev" aria-hidden="true">\u203a</span>' : '';
     let detail = '';
@@ -639,7 +644,7 @@ function render(){
     // hébreu et ne révèlent donc pas la traduction française demandée.
     if(state.mode==='input') state.frontHtml += formsHtml(card);
     let b = '<div class="big-fr">'+card.fr+'</div>';
-    if(card.tr) b += '<div class="translit">'+card.tr+'</div>';
+    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
     if(state.script!=='nikud') b += '<div class="sub-he">'+card.he+'</div>';
     b += formsHtml(card) + note;
     state.backHtml = b;
@@ -647,7 +652,7 @@ function render(){
     state.frontHtml = '<div class="big-fr">'+card.fr+'</div>' + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
     let b = '<div class="big-he">'+card.he+'</div>';
     b += '<div class="cursive-line">'+card.he_plain+'</div>';
-    if(card.tr) b += '<div class="translit">'+card.tr+'</div>';
+    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
     b += formsHtml(card) + note;
     state.backHtml = b;
   }
@@ -770,7 +775,7 @@ function editDist(a,b){
 function he2tr(he){
   var V={}; V[0x05B7]='a'; V[0x05B8]='a'; V[0x05B2]='a'; V[0x05B5]='e'; V[0x05B6]='e'; V[0x05B1]='e';
   V[0x05B4]='i'; V[0x05B9]='o'; V[0x05BA]='o'; V[0x05B3]='o'; V[0x05BB]='u';
-  var out='', s=(he||'').trim();
+  var out='', s=(he||'').trim(), wordStart=true;
   for(var i=0;i<s.length;i++){
     var ch=s[i], code=s.charCodeAt(i);
     if(code>=0x0591&&code<=0x05C7) continue;
@@ -786,8 +791,8 @@ function he2tr(he){
       case 'ד': cons='d'; break;
       case 'ה': cons='h'; break;
       case 'ו':
-        if(has(0x05BC) && !hasVowel){ out+='u'; continue; }
-        if(has(0x05B9)||has(0x05BA)){ out+='o'; continue; }
+        if(has(0x05BC) && !hasVowel){ out+='u'; wordStart=false; continue; }
+        if(has(0x05B9)||has(0x05BA)){ out+='o'; wordStart=false; continue; }
         cons='v'; break;
       case 'ז': cons='z'; break;
       case 'ח': cons='ch'; break;
@@ -808,8 +813,14 @@ function he2tr(he){
       case 'ת': cons='t'; break;
       default: cons=(ch===' ')?' ':(/[a-z]/i.test(ch)?ch:''); break;
     }
+    // Patach furtif : un ח final avec patach se lit "ach" (la voyelle précède la consonne).
+    if(ch==='ח' && (j>=s.length || s[j]===' ') && has(0x05B7)){ out+='ach'; wordStart=false; continue; }
     out+=cons;
-    for(var k=0;k<marks.length;k++){ if(V[marks[k]]) out+=V[marks[k]]; }
+    var emitted=false;
+    for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
+    // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
+    if(!emitted && wordStart && cons && cons!==' ' && has(0x05B0)) out+='e';
+    if(ch===' ') wordStart=true; else if(cons||emitted) wordStart=false;
   }
   out=out.replace(/iy(?![aeiou])/g,'i');
   out=out.replace(/([aeiou])h$/,'$1');  // hé final muet seulement (pas le h de 'sh')
@@ -858,11 +869,11 @@ function answerHtml(card){
   if(state.dir==='he2fr'){
     h += '<span class="he">'+card.he+'</span>';
     h += '<div>'+card.fr+'</div>';
-    if(card.tr) h += '<div class="tr">'+card.tr+'</div>';
+    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
   } else {
     h += '<div>'+card.fr+'</div>';
     h += '<span class="he">'+card.he+'</span>';
-    if(card.tr) h += '<div class="tr">'+card.tr+'</div>';
+    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
   }
   h += '</div>';
   // Inflexions : en français→hébreu elles n'apparaissent qu'ici (les montrer avant

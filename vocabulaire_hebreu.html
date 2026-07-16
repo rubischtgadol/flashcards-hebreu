@@ -4358,8 +4358,13 @@
       countEl.textContent = shown + ' résultat' + (shown>1?'s':'') + (shown===0 ? ' — essaie un autre terme' : '');
     }
 
-    input.addEventListener('input', run);
-    clearBtn.addEventListener('click', function(){ input.value=''; run(); input.focus(); });
+    // Debounce : run() re-scanne toutes les entrées, inutile de le faire à chaque frappe.
+    var debounceTimer = null;
+    input.addEventListener('input', function(){
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(run, 150);
+    });
+    clearBtn.addEventListener('click', function(){ clearTimeout(debounceTimer); input.value=''; run(); input.focus(); });
   });
 </script>
 
