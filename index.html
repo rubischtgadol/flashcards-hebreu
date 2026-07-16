@@ -138,7 +138,9 @@
   .bar{ flex:1; height:5px; background:var(--line); border-radius:999px; overflow:hidden; }
   .bar > span{ display:block; height:100%; width:0; background:var(--gold); border-radius:999px; transition:width .35s ease; }
   .counter{ font-family:'JetBrains Mono',monospace; font-size:.88rem; color:var(--ink-dim); white-space:nowrap; }
-  .exit{ background:none; border:none; color:var(--ink-dim); font-size:1.3rem; line-height:1; cursor:pointer; padding:0 2px; }
+  .exit{ display:inline-flex; align-items:center; gap:3px; background:var(--card); border:1px solid var(--card-edge); color:var(--ink-dim); font-family:inherit; font-size:.95rem; line-height:1; cursor:pointer; padding:9px 12px 9px 10px; border-radius:10px; -webkit-tap-highlight-color:transparent; }
+  .exit > span{ font-size:.82rem; letter-spacing:.02em; }
+  .exit:hover, .exit:active{ color:var(--ink); border-color:var(--ink-dim); }
 
   /* ---------- The card ---------- */
   .stage{ flex:1; display:flex; align-items:center; justify-content:center; margin-bottom:4px; }
@@ -361,7 +363,7 @@
 <!-- ============ STUDY ============ -->
 <section class="study" id="study">
   <div class="progress-wrap">
-    <button class="exit" id="exit" title="Quitter">&times;</button>
+    <button class="exit" id="exit" title="Quitter la session" aria-label="Quitter la session">&#8249;<span>Quitter</span></button>
     <div class="bar"><span id="barfill"></span></div>
     <div class="counter" id="counter">1 / 1</div>
   </div>
