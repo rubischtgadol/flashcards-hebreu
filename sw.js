@@ -12,7 +12,7 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v3'; // v3 : icône en Frank Ruhl Libre 700 (police de la marque), aleph recentré
+const VERSION = 'v4'; // v4 : fix navigation — ne rabattre sur './' que la racine, pas le carnet
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
@@ -46,8 +46,13 @@ self.addEventListener('fetch', (e) => {
   const isFont = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
   if (url.origin !== location.origin && !isFont) return;
 
-  // Toute navigation (/, /index.html, lien profond) sert la coquille './'.
-  const cacheKey = req.mode === 'navigate' ? './' : req.url;
+  // Seules les navigations vers la racine (/ ou /index.html) sont normalisées
+  // sur la coquille './'. Les autres pages (ex. vocabulaire_hebreu.html) doivent
+  // être servies telles quelles — les rabattre sur './' cassait le lien vers le
+  // carnet depuis l'app.
+  const isRootNav = req.mode === 'navigate' &&
+    (url.pathname.endsWith('/') || url.pathname.endsWith('/index.html'));
+  const cacheKey = isRootNav ? './' : req.url;
 
   e.respondWith((async () => {
     const cache = await caches.open(CACHE);
