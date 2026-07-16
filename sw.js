@@ -12,7 +12,7 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v4'; // v4 : fix navigation — ne rabattre sur './' que la racine, pas le carnet
+const VERSION = 'v5'; // v5 : ajout vocabulaire (modaux, nombres 11+, adverbes, saisons/mois, famille, verbes)
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

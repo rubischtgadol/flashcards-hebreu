@@ -25,8 +25,8 @@ const APP = path.join(ROOT, 'index.html');
 const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
-const EXPECTED_CATS = ['Verbes','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
-  'Prépositions','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine',
+const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
+  'Prépositions','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine','Adverbes','Saisons & mois',
   'Mots de quantité','Expressions','Existence'];
 
 // ---------- mini-parsing HTML (zéro dépendance) ----------
@@ -146,8 +146,10 @@ function extractCards(html){
   });
 
   const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'Démonstratifs',
+    'Verbes modaux':'Verbes modaux',
     'Prépositions':'Prépositions', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
-    'Nombres (0–10)':'Nombres', 'Jours de la semaine':'Jours de la semaine',
+    'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',
+    'Jours de la semaine':'Jours de la semaine', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
     'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
     'Existence et possession':'Existence' };
   Object.keys(listCats).forEach(sec => {

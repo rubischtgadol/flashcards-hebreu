@@ -568,9 +568,9 @@ document.getElementById('search-clear').addEventListener('click', ()=>{
 // ----- build category chips -----
 let catCounts = {};
 const catsEl = document.getElementById('cats');
-const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Adjectifs','Noms',
+const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Noms',
   'Prépositions','Conjonctions','Mots interrogatifs','Existence','Nombres',
-  'Jours de la semaine','Mots de quantité','Expressions'];
+  'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions'];
 function buildChips(){
   catCounts = {};
   CARDS.forEach(c=>{ catCounts[c.cat]=(catCounts[c.cat]||0)+1; });
@@ -1103,8 +1103,10 @@ function extractCards(doc){
     if(he) cards.push(card);
   });
   const listCats={'Pronoms personnels':'Pronoms personnels','Démonstratifs':'Démonstratifs',
+    'Verbes modaux':'Verbes modaux',
     'Prépositions':'Prépositions','Conjonctions':'Conjonctions','Mots interrogatifs':'Mots interrogatifs',
-    'Nombres (0–10)':'Nombres','Jours de la semaine':'Jours de la semaine',
+    'Nombres (0–10)':'Nombres','Nombres (11 et plus)':'Nombres','Nombres ordinaux':'Nombres',
+    'Jours de la semaine':'Jours de la semaine','Adverbes':'Adverbes','Saisons & mois':'Saisons & mois',
     'Mots de quantité':'Mots de quantité','Expressions / Divers':'Expressions',
     'Existence et possession':'Existence'};
   Object.keys(listCats).forEach(sec=>{
