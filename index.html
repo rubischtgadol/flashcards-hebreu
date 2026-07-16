@@ -757,7 +757,6 @@ function frVariants(fr){
   return fr.split(/[\/,]| ou /).map(normFr).filter(Boolean);
 }
 function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
-function normTr(s){ return (s||'').toLowerCase().replace(/[^a-z]/g,''); }
 function editDist(a,b){
   const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
   const d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
@@ -1017,6 +1016,7 @@ document.addEventListener('keydown', e=>{
   else if(state.flipped && e.code==='ArrowLeft'){ answer(false); }
 });
 
+// ===== BUILD:ONLINE-ONLY : bloc remplace par build.js dans le fichier autonome =====
 // ---------- Runtime extraction from the vocab notebook ----------
 function stripNikud(s){ return s.replace(/[\u0591-\u05C7]/g,''); }
 function firstText(el, sel){ const x = el.querySelector(sel); return x ? x.textContent.trim() : ''; }
@@ -1076,16 +1076,14 @@ function extractCards(doc){
   Object.keys(listCats).forEach(sec=>{
     lisOf(sec).forEach(li=>{
       const he=firstText(li,'.he'); if(!he) return;
-      cards.push({cat:listCats[sec],he,tr:firstText(li,'.tr'),fr:firstText(li,'.fr')});
+      // data-fr-court : version courte pour la carte quand le .fr du carnet est trop long ;
+      // data-note : précision affichée sous la réponse.
+      const card={cat:listCats[sec],he,tr:firstText(li,'.tr'),fr:li.dataset.frCourt||firstText(li,'.fr')};
+      if(li.dataset.note) card.note=li.dataset.note;
+      cards.push(card);
     });
   });
-  const trim={
-    'וַאלָה':['vraiment ?!','étonnement — à ne pas confondre avec יָאלְלָה'],
-    'תַּחַת':['sous',"littéraire — à l'oral on dit plutôt מִתַּחַת לְ"],
-    'קְצָת':['un peu',"courant à l'oral, = מְעַט"],
-    'הַאִם':['est-ce que','marque la question oui/non']
-  };
-  cards.forEach(c=>{ c.he_plain=stripNikud(c.he); if(trim[c.he]){ c.fr=trim[c.he][0]; c.note=trim[c.he][1]; } });
+  cards.forEach(c=>{ c.he_plain=stripNikud(c.he); });
   return cards;
 }
 
@@ -1103,13 +1101,26 @@ async function init(){
     updateStart();
     loader.style.display='none';
     document.getElementById('setup').classList.remove('hidden');
-    document.getElementById('count-note').textContent = CARDS.length + ' mots chargés depuis le carnet';
+    const note=document.getElementById('count-note');
+    note.textContent = CARDS.length + ' mots chargés depuis le carnet';
+    // Garde-fou : un titre de section renommé ou une table restructurée dans le
+    // carnet fait disparaître ses cartes sans erreur — signaler toute catégorie vide.
+    const counts={};
+    CARDS.forEach(c=>{ counts[c.cat]=(counts[c.cat]||0)+1; });
+    console.log('Cartes par catégorie :', counts);
+    const missing = catOrder.filter(c=>!counts[c]);
+    if(missing.length){
+      console.warn('Catégories attendues sans carte :', missing);
+      note.innerHTML += '<br><span style="color:var(--red)">⚠️ Aucune carte dans : '
+        + missing.join(', ') + ' — section renommée dans le carnet ?</span>';
+    }
   }catch(err){
     msg.innerHTML = "Impossible de charger le vocabulaire.<br><span style='font-size:.8rem;opacity:.7'>Ouvre cette page via son lien en ligne (GitHub Pages), pas en fichier local.</span>";
     document.querySelector('#loader .spin').style.display='none';
   }
 }
 init();
+// ===== /BUILD:ONLINE-ONLY =====
 
 </script>
 </body>
