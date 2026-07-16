@@ -1,0 +1,155 @@
+# Architecture du dépôt
+
+> Vision d'ensemble du fonctionnement du projet. Pour les consignes d'édition destinées à Claude Code, voir [CLAUDE.md](CLAUDE.md) ; pour la présentation utilisateur, voir [README.md](README.md).
+
+## Vue d'ensemble
+
+Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichiers statiques** sur GitHub Pages (`https://rubischtgadol.github.io/flashcards-hebreu/`).
+
+**Aucune dépendance, aucun test, aucun gestionnaire de paquets.** Chaque fichier déployé est un document HTML autonome (CSS et JS inline, vanilla). Le seul outillage est `build.js`, un script Node zéro-dépendance, utilisé uniquement en développement et jamais déployé.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     vocabulaire_hebreu.html                      │
+│              LE CARNET — source unique de vérité                 │
+│         (grammaire + vocabulaire, ~4400 lignes de HTML)          │
+└───────────────┬────────────────────────────────┬────────────────┘
+                │ fetch() + extractCards()       │ lu par build.js
+                │ au chargement, dans le         │ (réplique regex
+                │ navigateur                     │  de extractCards)
+                ▼                                ▼
+┌───────────────────────────┐    ┌───────────────────────────────┐
+│        index.html         │───▶│    flashcards_hebreu.html     │
+│  app flashcards EN LIGNE  │    │  app flashcards AUTONOME      │
+│  (page principale)        │    │  (hors ligne, double-clic)    │
+│                           │    │  = index.html dont le bloc    │
+│  bloc BUILD:ONLINE-ONLY   │    │  réseau est remplacé par      │
+│  (fetch + extraction)     │    │  const CARDS = [...] intégré  │
+└───────────────────────────┘    │  100 % GÉNÉRÉ par build.js —  │
+                                 │  ne jamais éditer à la main   │
+                                 └───────────────────────────────┘
+```
+
+Il n'y a donc **qu'une seule app** (le code d'`index.html`) et **qu'une seule source de contenu** (le carnet). Le fichier autonome est une projection mécanique des deux.
+
+## Les quatre fichiers
+
+| Fichier | Rôle | Édité à la main ? |
+|---|---|---|
+| [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire. Toute modification de contenu se fait ici. | ✅ oui |
+| [index.html](index.html) | App de flashcards en ligne (page principale). Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
+| [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
+| [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
+
+À côté : `docs/analyse-2026-07.md` (analyse ponctuelle du dépôt, pas du code exécuté).
+
+## Flux de données : du carnet aux cartes
+
+### 1. Le carnet expose une structure conventionnelle
+
+Chaque section du carnet est un `<h2>` contenant un `<span class="count">LABEL</span>`. **Le texte exact du label est la clé d'extraction** (`'Verbes'`, `'Noms'`, `'Nombres (0–10)'`…) : le renommer détache silencieusement la section des flashcards.
+
+Deux formats d'entrées :
+
+- **Tables** (`<table><tbody><tr>`) pour Verbes, Adjectifs, Noms. Lecture **positionnelle** : Verbes exige ≥ 5 colonnes (infinitif + il/elle/ils/elles), Adjectifs ≥ 4 (m. sing. + f. sing./m. plur./f. plur.), Noms ≥ 3 (mot, genre `m`/`f`, pluriel). Ajouter une colonne casse l'extraction.
+- **Listes** (`<ul class="word-list"><li>`) pour pronoms, prépositions, nombres, expressions, etc. (voir la map `listCats`).
+
+Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr` (translittération), `.fr` (français). Un `<li>` peut porter deux attributs qui pilotent la carte sans toucher au code de l'app :
+
+- `data-fr-court` — français court affiché sur la carte à la place du `.fr` long du carnet ;
+- `data-note` — précision affichée sous la réponse.
+
+Les sections purement grammaticales (racine, passé, futur, binyanim, article, smikhut, prépositions fléchies) ont un label `.count` **sans** entrée dans les maps d'extraction : elles sont volontairement exclues des flashcards.
+
+### 2. Deux implémentations de la même extraction (couplage critique)
+
+`extractCards()` existe **deux fois** et doit rester identique en comportement :
+
+- [index.html:1035](index.html#L1035) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ([index.html:1030-1134](index.html#L1030-L1134)) ;
+- [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
+
+Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
+
+### 3. Le schéma de carte produit
+
+```js
+{
+  cat,        // catégorie ('Verbes', 'Noms', 'Nombres', …)
+  he,         // hébreu avec nikud
+  tr,         // translittération du carnet ('' pour les cartes issues de tables)
+  fr,         // français (préfixé '(infinitif) ' pour les verbes, suffixé ' (m)'/' (f)' pour les noms)
+  he_plain,   // he sans nikud (stripNikud)
+  note?,      // depuis data-note
+  genre?,     // 'm' | 'f' (noms)
+  forms?: [{ he, tr, label, he_plain }]  // conjugaisons, accords, pluriel
+}
+```
+
+Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2tr(card.he)`.
+
+## build.js : la chaîne de génération
+
+`node build.js` (ou `--check` pour vérifier sans écrire) :
+
+1. Lit le carnet, extrait les cartes, **affiche le compte par section** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) est vide.
+2. Copie `index.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
+   - bannière « fichier généré » après le doctype ;
+   - suppression du loader, panneau setup visible d'emblée ;
+   - `let CARDS = []` → `const CARDS = [...]` (snapshot JSON du vocabulaire) ;
+   - bloc `BUILD:ONLINE-ONLY` → démarrage direct (`buildChips()` + `updateStart()`).
+3. Vérifie qu'aucune trace du chemin réseau (`fetch(`, `DOMParser`, `extractCards`) ne subsiste dans le fichier généré.
+
+**Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`index.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
+
+## Anatomie d'index.html (~1140 lignes)
+
+Un seul fichier : CSS inline (l. 1–300 env.), puis quatre écrans, puis le JS.
+
+### Écrans
+
+| Écran | Ligne | Rôle |
+|---|---|---|
+| `#loader` | [index.html:303](index.html#L303) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [index.html:304](index.html#L304) | Choix des catégories (chips) et des réglages |
+| `#study` | [index.html:354](index.html#L354) | La session de révision (carte ou saisie) |
+| `#done` | [index.html:398](index.html#L398) | Bilan + reprise des cartes ratées |
+
+### Réglages
+
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), câblés par `segPick` ([index.html:573](index.html#L573)) dans l'objet `state` ([index.html:411](index.html#L411)) :
+
+- **mode** : cartes recto-verso ou saisie tapée ;
+- **direction** : `he2fr` / `fr2he` ;
+- **script** : nikud, sans nikud, ou cursive ;
+- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`, [index.html:421-466](index.html#L421-L466)).
+
+### Correction des réponses tapées (la logique la plus délicate)
+
+`checkAnswer` ([index.html:836](index.html#L836)) corrige avec tolérance :
+
+- **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies vers [index.html:938](index.html#L938)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:829](index.html#L829)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:775](index.html#L775)), le générateur hébreu→translittération piloté par le nikud (shva vocal initial → `e`, patach furtif sur `ח` final → `ach`), avec une petite tolérance de Levenshtein (`editDist`).
+
+⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
+
+## Garde-fous contre la casse silencieuse
+
+L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
+
+1. **`init()` dans index.html** ([index.html:1101](index.html#L1101)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
+3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
+
+## Développement et déploiement
+
+- **Servir en HTTP** : `index.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
+- **Vérification sans navigateur** (WSL sans Chrome headless) : Node + jsdom dans le scratchpad.
+- **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
+- **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
+
+## Check-list d'une modification de contenu
+
+1. Éditer `vocabulaire_hebreu.html` (et lui seul pour le vocabulaire).
+2. `node build.js` — vérifier les comptes par section.
+3. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
+4. Committer le carnet **et** `flashcards_hebreu.html` régénéré, pousser sur `main`.
