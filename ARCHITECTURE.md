@@ -40,8 +40,21 @@ Il n'y a donc **qu'une seule app** (le code d'`index.html`) et **qu'une seule so
 | [index.html](index.html) | App de flashcards en ligne (page principale). Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
+| [manifest.webmanifest](manifest.webmanifest), [sw.js](sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
-À côté : `docs/analyse-2026-07.md` (analyse ponctuelle du dépôt, pas du code exécuté).
+## La couche PWA
+
+L'app en ligne est installable (iPhone : Safari → « Sur l'écran d'accueil ») et fonctionne hors ligne :
+
+- **`manifest.webmanifest`** — nom, `display: standalone`, couleurs de la charte, icônes 192/512. `start_url` et `scope` sont **relatifs** (le site vit sous `/flashcards-hebreu/`).
+- **`sw.js`** — service worker en *stale-while-revalidate* : l'app et le carnet sont servis depuis le cache puis rafraîchis en arrière-plan (une mise à jour de contenu est visible au lancement suivant). Les polices Google sont en cache-first. Seules les navigations vers la racine (`/`, `/index.html`) sont rabattues sur la coquille `./` — les autres pages (le carnet !) sont servies telles quelles. Incrémenter `VERSION` en tête de fichier après un changement de stratégie, de liste d'assets ou d'icônes.
+- **L'enregistrement du service worker vit DANS le bloc `BUILD:ONLINE-ONLY` d'`index.html`** : le fichier autonome ne doit pas en hériter (inutile hors ligne, et invalide en `file://`).
+- Les icônes sont un א en Frank Ruhl Libre 700 (la police du bandeau de l'app) sur fond `--bg`, or `--gold` ; en cas de changement de palette, les régénérer (ImageMagick) et bumper `VERSION`.
+- Limite iOS : l'icône d'une PWA déjà installée est figée à l'installation — supprimer/réajouter l'app pour la rafraîchir.
+
+## Charte graphique unifiée
+
+Le bloc `:root` (11 tokens : `--bg`, `--bg2`, `--card`, `--card-edge`, `--ink`, `--ink-dim`, `--gold`, `--gold-soft`, `--green`, `--red`, `--line`) est **identique au caractère près** dans le carnet et `index.html` — le carnet est la référence (`#12181f` / or `#d4a24c`). Toute retouche de couleur se répercute dans les deux fichiers, plus `manifest.webmanifest`/`theme-color`/icônes si le fond ou l'or change.
 
 ## Flux de données : du carnet aux cartes
 
@@ -65,7 +78,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
-- [index.html:1035](index.html#L1035) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ([index.html:1030-1134](index.html#L1030-L1134)) ;
+- [index.html:1056](index.html#L1056) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ([index.html:1051-1163](index.html#L1051-L1163)) ;
 - [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
@@ -101,42 +114,46 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 **Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`index.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
 
-## Anatomie d'index.html (~1140 lignes)
+## Anatomie d'index.html (~1170 lignes)
 
-Un seul fichier : CSS inline (l. 1–300 env.), puis quatre écrans, puis le JS.
+Un seul fichier : CSS inline (l. 1–315 env.), puis quatre écrans, puis le JS.
 
 ### Écrans
 
 | Écran | Ligne | Rôle |
 |---|---|---|
-| `#loader` | [index.html:303](index.html#L303) | Spinner pendant le fetch du carnet (absent de la version autonome) |
-| `#setup` | [index.html:304](index.html#L304) | Choix des catégories (chips) et des réglages |
-| `#study` | [index.html:354](index.html#L354) | La session de révision (carte ou saisie) |
-| `#done` | [index.html:398](index.html#L398) | Bilan + reprise des cartes ratées |
+| `#loader` | [index.html:316](index.html#L316) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [index.html:317](index.html#L317) | Choix des catégories (chips) et des réglages |
+| `#study` | [index.html:367](index.html#L367) | La session de révision (carte ou saisie), bouton « ‹ Quitter » |
+| `#done` | [index.html:411](index.html#L411) | Bilan + reprise des cartes ratées |
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), câblés par `segPick` ([index.html:573](index.html#L573)) dans l'objet `state` ([index.html:411](index.html#L411)) :
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), câblés par `segPick` ([index.html:586](index.html#L586)) dans l'objet `state` ([index.html:424](index.html#L424)) :
 
 - **mode** : cartes recto-verso ou saisie tapée ;
 - **direction** : `he2fr` / `fr2he` ;
 - **script** : nikud, sans nikud, ou cursive ;
-- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`, [index.html:421-466](index.html#L421-L466)).
+- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`, [index.html:434](index.html#L434)).
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([index.html:836](index.html#L836)) corrige avec tolérance :
+`checkAnswer` ([index.html:857](index.html#L857)) corrige avec tolérance :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies vers [index.html:938](index.html#L938)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:829](index.html#L829)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:775](index.html#L775)), le générateur hébreu→translittération piloté par le nikud (shva vocal initial → `e`, patach furtif sur `ח` final → `ach`), avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:956](index.html#L956)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:850](index.html#L850)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:788](index.html#L788)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
+
+### Le standard de translittération
+
+Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validée le 2026-07-17) : **kh** = khaf sans daguech, **ch** = het (avec patach furtif final → `ach`), **ts** = tsadi, **`'`** = ayin partout (`'ivrit`, `be'er`, `rega'`, patach furtif → `'a` : `yode'a`) et alef entre deux voyelles (`tsme'ah`), **hé final conservé** (`atah`, `zeh`), **ei** = tsere/segol + yud (`beit`), `u` (jamais `ou`), `f` (jamais `ph`), `k` (jamais `q`), `v` (jamais `w`). Le shva initial d'un groupe de consonnes n'est écrit que s'il s'entend (`gdolim` mais `ledaber`) — c'est la seule zone de jugement humain, le carnet fait foi. Grâce aux replis de `trKey`, ce standard est purement d'affichage : la saisie tolère toutes les variantes.
 
 ## Garde-fous contre la casse silencieuse
 
 L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
 
-1. **`init()` dans index.html** ([index.html:1101](index.html#L1101)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans index.html** ([index.html:1122](index.html#L1122)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
 

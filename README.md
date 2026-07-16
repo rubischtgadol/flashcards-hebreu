@@ -14,16 +14,35 @@ Ouvre ces liens sur n'importe quelle machine — ordinateur, téléphone, tablet
 
     https://rubischtgadol.github.io/flashcards-hebreu/vocabulaire_hebreu.html
 
-Depuis l'application, un bouton mène au carnet (et inversement), donc le premier lien suffit en pratique. Les deux pages s'ajoutent à l'écran d'accueil d'un téléphone (Safari → Partager → « Sur l'écran d'accueil ») pour un usage comme une vraie application. Les liens ne changent jamais : après chaque mise à jour du contenu, la même adresse affiche la version à jour.
+Depuis l'application, un bouton mène au carnet (et inversement), donc le premier lien suffit en pratique. Les liens ne changent jamais : après chaque mise à jour du contenu, la même adresse affiche la version à jour.
+
+L'application est une **PWA installable** : sur iPhone, ouvrir le premier lien dans Safari → Partager → « Sur l'écran d'accueil ». Elle s'installe avec son icône א dorée, s'ouvre en plein écran et **fonctionne hors ligne** (app et vocabulaire mis en cache ; les mises à jour poussées sur `main` sont récupérées en arrière-plan et visibles au lancement suivant).
 
 ## Contenu du carnet
 
-Le carnet est organisé en deux parties, avec un sommaire cliquable et une recherche instantanée (français, hébreu avec ou sans nikud, translittération) :
+Le carnet est organisé en trois parties, avec un sommaire cliquable et une recherche instantanée (français, hébreu avec ou sans nikud, translittération) :
 
 - **Partie 1 — Grammaire** : pronoms, démonstratifs, la racine (clé des verbes), le passé, le futur, patrons de conjugaison (binyanim), l'article défini, l'état construit, prépositions fléchies, existence & possession.
-- **Partie 2 — Vocabulaire** : verbes et noms regroupés par thèmes, adjectifs, prépositions, conjonctions, mots interrogatifs, nombres, jours de la semaine, mots de quantité, expressions courantes.
+- **Partie 2 — Vocabulaire, le dictionnaire** : verbes, noms et adjectifs, regroupés par thèmes.
+- **Partie 3 — Mots-outils & expressions** : prépositions, conjonctions, mots interrogatifs, nombres, jours de la semaine, mots de quantité, expressions courantes.
 
 Chaque mot hébreu est affiché avec nikud, sa translittération, sa traduction, et une ligne en écriture cursive.
+
+## Translittération : le standard du carnet
+
+Toutes les translittérations suivent la même convention, pensée pour une lecture à la française :
+
+| Lettre hébraïque | Graphie | Exemple |
+|---|---|---|
+| כ khaf (sans daguech) | `kh` | *shelkha* (שֶׁלְּךָ) |
+| ח het | `ch` | *anachnu*, *koach* |
+| צ tsadi | `ts` | *ratsim* |
+| ע ayin | `'` (partout, même à l'initiale) | *'ivrit*, *be'er*, *yode'a* |
+| א alef entre deux voyelles | `'` | *tsme'ah* |
+| ה hé final | `h` conservé | *atah*, *zeh*, *morah* |
+| tsere/segol + yud | `ei` | *beit sefer* |
+
+Le shva initial d'un groupe de consonnes n'est écrit que s'il s'entend (*gdolim*, *dvarim*, mais *ledaber*). Dans le mode saisie des flashcards, la correction reste tolérante : `ch`/`kh`, `ts`/`tz`, `ou`/`u`, avec ou sans apostrophe… toutes ces variantes sont acceptées.
 
 ## L'application de flashcards
 
@@ -43,6 +62,7 @@ Les cartes ne sont **pas** figées dans l'application. Au chargement, `index.htm
 - `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire (source unique de vérité)
 - `flashcards_hebreu.html` — version autonome des flashcards, **générée par `build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
 - `build.js` — outil de développement (non déployé) : régénère `flashcards_hebreu.html` depuis les deux fichiers ci-dessus
+- `manifest.webmanifest`, `sw.js`, `icons/` — la couche PWA : manifeste d'installation, service worker hors-ligne, icônes א aux couleurs de la charte
 
 ## Modifier le contenu
 
