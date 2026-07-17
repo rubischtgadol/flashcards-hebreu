@@ -503,7 +503,7 @@ const CARDS = [{"cat":"Verbes","he":"לָלֶכֶת","tr":"","fr":"(infinitif) a
 const state = {
   dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards',
   session:'normal', cats:new Set(),
-  queue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
+  queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
 };
 
 // ----- Speech (Web Speech API) -----
@@ -701,15 +701,20 @@ updateStart();
 
 // ----- start -----
 document.getElementById('start').onclick=start;
-function start(){
-  state.session='normal';
-  let pool = CARDS.filter(c=>state.cats.has(c.cat));
-  if(state.order==='shuffle') pool = shuffle(pool.slice());
+// Transition setup/done → étude, commune à tous les points d'entrée (catégories,
+// révision, rejeu). `origQueue` mémorise le jeu de la session pour « Recommencer ».
+function beginSession(pool){
   state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('done').classList.remove('active');
   document.getElementById('study').classList.add('active');
   render();
+}
+function start(){
+  state.session='normal';
+  const pool = CARDS.filter(c=>state.cats.has(c.cat));
+  state.origQueue = pool.slice();
+  beginSession(state.order==='shuffle' ? shuffle(pool.slice()) : pool);
 }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
@@ -747,6 +752,7 @@ function masteryStats(){
 function refreshSrsUi(){
   const btn=document.getElementById('review-btn'); if(!btn) return;
   const due=dueCards().length;
+  const m=masteryStats();
   const title=document.getElementById('review-title');
   const sub=document.getElementById('review-sub');
   if(due>0){
@@ -755,12 +761,10 @@ function refreshSrsUi(){
     sub.textContent='Cartes à revoir aujourd’hui, tous thèmes confondus.';
   } else {
     btn.disabled=true;
-    const m0=masteryStats();
-    title.textContent = m0.seen ? 'À jour — rien à réviser 👌' : 'Rien à réviser pour l’instant';
-    sub.textContent = m0.seen ? 'Reviens plus tard : les cartes réapparaîtront à échéance.'
-                              : 'Les cartes reviennent ici au bon moment, après ta première réponse.';
+    title.textContent = m.seen ? 'À jour — rien à réviser 👌' : 'Rien à réviser pour l’instant';
+    sub.textContent = m.seen ? 'Reviens plus tard : les cartes réapparaîtront à échéance.'
+                             : 'Les cartes reviennent ici au bon moment, après ta première réponse.';
   }
-  const m=masteryStats();
   const mEl=document.getElementById('mastery');
   if(m.seen>0){
     mEl.classList.remove('hide');
@@ -770,14 +774,10 @@ function refreshSrsUi(){
   } else { mEl.classList.add('hide'); }
 }
 function startReview(){
-  let pool=dueCards(); if(!pool.length) return;
-  pool=shuffle(pool.slice());
+  const pool=dueCards(); if(!pool.length) return;
   state.session='review';
-  state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
-  document.getElementById('setup').classList.add('hidden');
-  document.getElementById('done').classList.remove('active');
-  document.getElementById('study').classList.add('active');
-  render();
+  state.origQueue = pool.slice();
+  beginSession(shuffle(pool.slice()));
 }
 (function(){ const b=document.getElementById('review-btn'); if(b) b.onclick=startReview; })();
 
@@ -835,12 +835,8 @@ function quizPick(btn, chosen, card){
   updateSpeaker();
   if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
 }
-function quizNext(){
-  state.idx++;
-  if(state.idx>=state.queue.length) finish();
-  else render();
-}
-bindTap(document.getElementById('quiz-next'), quizNext);
+// Passage à la carte suivante : identique au mode saisie → on réutilise nextAfterInput.
+bindTap(document.getElementById('quiz-next'), nextAfterInput);
 
 function heFront(card){
   const ph = card.cat==='Phrases' ? ' phrase' : '';
@@ -864,8 +860,7 @@ function render(){
   const note = card.note ? '<div class="note-line">'+card.note+'</div>' : '';
 
   if(state.mode==='quiz'){
-    state.frontHtml = quizPrompt(card);
-    state.backHtml = state.frontHtml;
+    state.frontHtml = quizPrompt(card);   // pas de verso en QCM : la carte ne se retourne pas
   } else if(state.dir==='he2fr'){
     state.frontHtml = heFront(card);
     // En mode saisie, inflexions visibles directement sous le mot : elles sont en
@@ -1244,13 +1239,14 @@ function finish(){
 }
 
 document.getElementById('retry-missed').onclick=()=>{
-  state.queue = state.order==='shuffle'? shuffle(state.missed.slice()):state.missed.slice();
-  state.idx=0; state.total=state.queue.length; state.missed=[]; state.goodCount=0;
-  document.getElementById('done').classList.remove('active');
-  document.getElementById('study').classList.add('active');
-  render();
+  beginSession(state.order==='shuffle' ? shuffle(state.missed.slice()) : state.missed.slice());
 };
-document.getElementById('retry-all').onclick=start;
+// « Recommencer » rejoue les cartes de la session (catégories OU révision), jamais
+// un re-filtrage des catégories — sinon une session de révision repartirait à vide.
+document.getElementById('retry-all').onclick=()=>{
+  const pool = state.origQueue.slice();
+  beginSession(state.order==='shuffle' ? shuffle(pool) : pool);
+};
 document.getElementById('back-setup').onclick=()=>{
   refreshSrsUi();
   document.getElementById('done').classList.remove('active');
