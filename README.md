@@ -24,7 +24,7 @@ Le carnet est organisé en trois parties, avec un sommaire cliquable et une rech
 
 - **Partie 1 — Grammaire** : pronoms, démonstratifs, la racine (clé des verbes), le passé, le futur, patrons de conjugaison (binyanim), l'article défini, l'état construit, prépositions fléchies, existence & possession.
 - **Partie 2 — Vocabulaire, le dictionnaire** : verbes, noms et adjectifs, regroupés par thèmes.
-- **Partie 3 — Mots-outils & expressions** : prépositions, conjonctions, mots interrogatifs, nombres, jours de la semaine, mots de quantité, expressions courantes.
+- **Partie 3 — Mots-outils & expressions** : prépositions, conjonctions, mots interrogatifs, nombres, jours de la semaine, mots de quantité, expressions courantes et **phrases utiles du quotidien** (« Combien ça coûte ? », « L'addition, s'il te plaît »…).
 
 Chaque mot hébreu est affiché avec nikud, sa translittération, sa traduction, et une ligne en écriture cursive.
 
@@ -46,11 +46,17 @@ Le shva initial d'un groupe de consonnes n'est écrit que s'il s'entend (*gdolim
 
 ## L'application de flashcards
 
-- Cartes recto-verso, dans les deux sens (hébreu → français ou français → hébreu).
-- Mode saisie où l'on tape la réponse, avec navigation entièrement au clavier (Entrée pour vérifier, Entrée ou Espace pour passer à la suivante) et un bouton « Je ne sais pas ».
-- Réponses en hébreu acceptées **soit en translittération** (graphie à la française tolérée : « chatoul », « khatul »…), **soit via un clavier hébreu virtuel** intégré (disposition israélienne standard).
+Trois modes de travail, dans les deux sens (hébreu → français ou français → hébreu) :
+
+- **Cartes** recto-verso, avec auto-évaluation (« je savais » / « je savais pas »).
+- **Saisie** où l'on tape la réponse, avec navigation entièrement au clavier (Entrée pour vérifier, Entrée ou Espace pour passer à la suivante) et un bouton « Je ne sais pas ». Réponses en hébreu acceptées **soit en translittération** (graphie à la française tolérée : « chatoul », « khatul »…), **soit via un clavier hébreu virtuel** intégré (disposition israélienne standard).
+- **QCM** : la bonne traduction à retrouver parmi quatre choix (distracteurs tirés de la même catégorie), sans clavier — idéal sur téléphone.
+
+Autres réglages et fonctions :
+
+- **Révision du jour** : une mémorisation par répétition espacée (système de Leitner). Chaque réponse, dans n'importe quel mode, fait « monter » ou « redescendre » la carte ; celles arrivées à échéance sont regroupées dans une session de révision, tous thèmes confondus. La progression est enregistrée dans le navigateur et **survit entre les sessions** ; une barre de maîtrise indique l'avancement global.
 - Affichage de l'hébreu avec nikud, sans nikud, ou en écriture cursive.
-- Audio avec la voix hébraïque du système, auto-évaluation et reprise des cartes ratées.
+- Audio avec la voix hébraïque du système, ordre aléatoire ou linéaire, et reprise des cartes ratées.
 
 ## Mise à jour automatique
 

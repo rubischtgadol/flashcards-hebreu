@@ -12,7 +12,7 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
 ┌─────────────────────────────────────────────────────────────────┐
 │                     vocabulaire_hebreu.html                      │
 │              LE CARNET — source unique de vérité                 │
-│         (grammaire + vocabulaire, ~4400 lignes de HTML)          │
+│         (grammaire + vocabulaire, ~4900 lignes de HTML)          │
 └───────────────┬────────────────────────────────┬────────────────┘
                 │ fetch() + extractCards()       │ lu par build.js
                 │ au chargement, dans le         │ (réplique regex
@@ -65,7 +65,7 @@ Chaque section du carnet est un `<h2>` contenant un `<span class="count">LABEL</
 Deux formats d'entrées :
 
 - **Tables** (`<table><tbody><tr>`) pour Verbes, Adjectifs, Noms. Lecture **positionnelle** : Verbes exige ≥ 5 colonnes (infinitif + il/elle/ils/elles), Adjectifs ≥ 4 (m. sing. + f. sing./m. plur./f. plur.), Noms ≥ 3 (mot, genre `m`/`f`, pluriel). Ajouter une colonne casse l'extraction.
-- **Listes** (`<ul class="word-list"><li>`) pour pronoms, prépositions, nombres, expressions, etc. (voir la map `listCats`).
+- **Listes** (`<ul class="word-list"><li>`) pour pronoms, prépositions, nombres, expressions, **phrases**, etc. (voir la map `listCats`). La section **Phrases** (label `.count` = `Phrases`) contient des phrases entières du quotidien : elles deviennent des cartes ordinaires (catégorie `Phrases`) et traversent tous les modes. Ajouter une entrée `listCats` impose de la répercuter dans `build.js` (objet `listCats` **et** `EXPECTED_CATS`).
 
 Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr` (translittération), `.fr` (français). Un `<li>` peut porter deux attributs qui pilotent la carte sans toucher au code de l'app :
 
@@ -78,7 +78,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
-- [index.html:1056](index.html#L1056) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ([index.html:1051-1163](index.html#L1051-L1163)) ;
+- [index.html:1277](index.html#L1277) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
 - [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
@@ -87,8 +87,8 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
 
 ```js
 {
-  cat,        // catégorie ('Verbes', 'Noms', 'Nombres', …)
-  he,         // hébreu avec nikud
+  cat,        // catégorie ('Verbes', 'Noms', 'Nombres', 'Phrases', …)
+  he,         // hébreu avec nikud (une phrase entière pour la catégorie 'Phrases')
   tr,         // translittération du carnet ('' pour les cartes issues de tables)
   fr,         // français (préfixé '(infinitif) ' pour les verbes, suffixé ' (m)'/' (f)' pour les noms)
   he_plain,   // he sans nikud (stripNikud)
@@ -98,7 +98,7 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
 }
 ```
 
-Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2tr(card.he)`.
+Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2tr(card.he)`. Les cartes de catégorie `Phrases` reçoivent un affichage réduit (`.big-he.phrase` / `.big-fr.phrase`) pour que les longues phrases passent à la ligne proprement.
 
 ## build.js : la chaîne de génération
 
@@ -114,34 +114,44 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 **Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`index.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
 
-## Anatomie d'index.html (~1170 lignes)
+## Anatomie d'index.html (~1390 lignes)
 
-Un seul fichier : CSS inline (l. 1–315 env.), puis quatre écrans, puis le JS.
+Un seul fichier : CSS inline (l. 1–370 env.), puis quatre écrans, puis le JS.
 
 ### Écrans
 
 | Écran | Ligne | Rôle |
 |---|---|---|
-| `#loader` | [index.html:316](index.html#L316) | Spinner pendant le fetch du carnet (absent de la version autonome) |
-| `#setup` | [index.html:317](index.html#L317) | Choix des catégories (chips) et des réglages |
-| `#study` | [index.html:367](index.html#L367) | La session de révision (carte ou saisie), bouton « ‹ Quitter » |
-| `#done` | [index.html:411](index.html#L411) | Bilan + reprise des cartes ratées |
+| `#loader` | [index.html:375](index.html#L375) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [index.html:376](index.html#L376) | « Révision du jour » (SRS), recherche, catégories (chips) et réglages |
+| `#study` | [index.html:441](index.html#L441) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
+| `#done` | [index.html:490](index.html#L490) | Bilan + reprise des cartes ratées / de la session |
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), câblés par `segPick` ([index.html:586](index.html#L586)) dans l'objet `state` ([index.html:424](index.html#L424)) :
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), câblés par `segPick` ([index.html:666](index.html#L666)) dans l'objet `state` ([index.html:503](index.html#L503)) :
 
-- **mode** : cartes recto-verso ou saisie tapée ;
+- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix) ;
 - **direction** : `he2fr` / `fr2he` ;
 - **script** : nikud, sans nikud, ou cursive ;
-- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`, [index.html:434](index.html#L434)).
+- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`).
+
+Chaque mode a sa zone dans `#study` (`#controls-cards` / `#input-zone` / `#quiz-zone`) et un `setup*Card()` qui bascule les classes body `input-mode` / `quiz-mode` ; `render()` aiguille selon `state.mode`. Le passage à la carte suivante est mutualisé (`nextAfterInput`, réutilisé par le QCM). Toutes les entrées de session (catégories, révision, rejeu) passent par `beginSession(pool)` ; `state.origQueue` mémorise le jeu de la session pour que « Recommencer » le rejoue tel quel (jamais un re-filtrage — sinon une session de révision repartirait à vide).
+
+### Révision espacée (système de Leitner)
+
+Couche de mémorisation persistée, **invisible pour `build.js`** (pur état applicatif) :
+
+- `recordResult(card, good)` est appelé depuis **tous** les chemins de réponse (cartes `answer`, saisie `submitAnswer`/`skipAnswer`, QCM `quizPick`) et écrit un enregistrement par carte dans `localStorage`, clé `srs_v1`. Identité d'une carte : `cat|he_plain`.
+- Chaque bonne réponse fait monter la carte d'une « boîte » (intervalle croissant, `SRS_INTERVALS`), un échec la remet à zéro. `dueCards()` renvoie les cartes arrivées à échéance ; le bouton « Révision du jour » (`startReview`) en fait une session tous thèmes confondus.
+- `refreshSrsUi()` met à jour le compteur de cartes dues et la barre de maîtrise. Il est appelé à la fin de `buildChips()` — donc **dans les deux chemins de démarrage** (en ligne et autonome) sans toucher à `build.js` — ainsi qu'après chaque session.
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([index.html:857](index.html#L857)) corrige avec tolérance :
+`checkAnswer` ([index.html:1072](index.html#L1072)) corrige avec tolérance :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:956](index.html#L956)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:850](index.html#L850)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:788](index.html#L788)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1173](index.html#L1173)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1065](index.html#L1065)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1003](index.html#L1003)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
 
@@ -153,14 +163,14 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
 
-1. **`init()` dans index.html** ([index.html:1122](index.html#L1122)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans index.html** ([index.html:1345](index.html#L1345)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
 
 ## Développement et déploiement
 
 - **Servir en HTTP** : `index.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
-- **Vérification sans navigateur** (WSL sans Chrome headless) : Node + jsdom dans le scratchpad.
+- **Vérification sans navigateur** (WSL sans Chrome headless, y compris réseau coupé) : Node dans le scratchpad — `build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, et de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation).
 - **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
 - **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
 
