@@ -12,7 +12,7 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v5'; // v5 : ajout vocabulaire (modaux, nombres 11+, adverbes, saisons/mois, famille, verbes)
+const VERSION = 'v6'; // v6 : mode QCM, révision espacée (Leitner), section Phrases, inflexions agrandies
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

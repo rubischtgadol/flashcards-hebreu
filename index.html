@@ -201,15 +201,25 @@
   .big-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.6rem; line-height:1.15; direction:rtl; }
   .big-he.cursive{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:3.2rem; color:var(--gold-soft); }
   .big-fr{ font-size:2.4rem; font-weight:600; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; }
+  /* Phrases : plus longues qu'un mot → taille réduite et retour à la ligne propre. */
+  .big-he.phrase{ font-size:2.15rem; line-height:1.45; }
+  .big-fr.phrase{ font-size:1.5rem; line-height:1.35; }
+  @media (max-width:480px){ .big-he.phrase{ font-size:1.9rem; } .big-fr.phrase{ font-size:1.35rem; } }
   .translit{ font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:var(--ink-dim); margin-top:12px; direction:ltr; }
   .sub-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.9rem; direction:rtl; margin-top:6px; }
   .sub-fr{ font-size:1.15rem; color:var(--ink); margin-top:10px; }
   .cursive-line{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:1.7rem; color:var(--gold-soft); direction:rtl; margin-top:8px; }
   .note-line{ font-size:1rem; color:var(--ink-dim); margin-top:14px; max-width:90%; font-style:italic; }
-  .forms{ margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:6px 18px; direction:rtl; }
-  .forms div{ font-size:1.2rem; }
-  .forms .f-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; }
-  .forms .f-lbl{ font-size:.9rem; color:var(--ink-dim); direction:ltr; }
+  /* Inflexions : chaque forme est une cellule empilée (mot au-dessus, étiquette
+     dessous), le tout centré et en retour à la ligne — jamais de mélange rtl/ltr
+     sur une même ligne (source des chevauchements) et une taille lisible. */
+  .forms{
+    margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start;
+    gap:14px 22px; direction:ltr; max-width:100%;
+  }
+  .forms .form-cell{ display:flex; flex-direction:column; align-items:center; gap:3px; min-width:78px; }
+  .forms .f-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:2rem; line-height:1.1; direction:rtl; }
+  .forms .f-lbl{ font-size:.85rem; color:var(--ink-dim); direction:ltr; line-height:1.2; white-space:nowrap; }
 
   /* ---------- Answer controls ---------- */
   .controls{ display:flex; gap:10px; margin-top:18px; min-height:52px; }
@@ -270,7 +280,7 @@
 
   kbd{ font-family:'JetBrains Mono',monospace; font-size:.84rem; background:var(--line); padding:1px 5px; border-radius:4px; color:var(--ink-dim); }
   .kbd-hint{ text-align:center; color:var(--ink-dim); font-size:.84rem; margin-top:12px; }
-  @media (max-width:480px){ .kbd-hint{ display:none; } .big-he{ font-size:3.2rem; } .big-he.cursive{ font-size:2.8rem; } .big-fr{ font-size:2rem; } }
+  @media (max-width:480px){ .kbd-hint{ display:none; } .big-he{ font-size:3.2rem; } .big-he.cursive{ font-size:2.8rem; } .big-fr{ font-size:2rem; } .forms{ gap:12px 16px; } .forms .f-he{ font-size:1.85rem; } }
 
   .loader{ max-width:520px; margin:40px auto; text-align:center; color:var(--ink-dim); }
   .loader .spin{ width:34px; height:34px; margin:0 auto 14px; border:3px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
@@ -299,12 +309,59 @@
   .hebkb .kb-final{ color:var(--gold-soft); }
   .hebkb .kb-ctl{ font-family:inherit; font-size:.9rem; color:var(--ink-dim); }
   .hebkb .kb-space{ flex:3; }
-  /* Inflexions sous la correction en mode saisie : même police que sur la carte,
-     seul l'espacement est resserré. */
-  .feedback .forms{ margin:12px auto 0; max-width:340px; gap:5px 16px; }
+  /* Inflexions sous la correction en mode saisie : mêmes cellules empilées,
+     espacement et taille resserrés pour tenir dans la carte compacte. */
+  .feedback .forms{ margin:12px auto 0; gap:10px 16px; }
+  .feedback .forms .f-he{ font-size:1.7rem; }
   .feedback .note-line{ margin-top:10px; }
   /* Inflexions sur la carte elle-même (mode saisie, sens hébreu→français) */
-  body.input-mode #face-content .forms{ margin:14px auto 0; max-width:320px; gap:4px 14px; }
+  body.input-mode #face-content .forms{ margin:12px auto 0; gap:10px 14px; }
+  body.input-mode #face-content .forms .f-he{ font-size:1.6rem; }
+
+  /* ---------- Mode QCM ---------- */
+  /* Carte plus compacte : question en haut, réponses cliquables en dessous. */
+  body.quiz-mode .flip{ min-height:150px; height:auto; max-height:none; }
+  body.quiz-mode .stage{ flex:0 0 auto; margin-bottom:6px; }
+  body.quiz-mode .face{ padding:34px 20px 30px; }
+  .quiz-zone{ margin-top:6px; }
+  .quiz-choices{ display:flex; flex-direction:column; gap:10px; }
+  .qc{
+    width:100%; border:1px solid var(--line); background:var(--card); color:var(--ink);
+    font-family:inherit; font-size:1.1rem; padding:14px 16px; border-radius:12px;
+    cursor:pointer; text-align:center; transition:border-color .12s ease, background .12s ease, color .12s ease;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+  }
+  .qc .qc-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.7rem; direction:rtl; line-height:1.15; }
+  .qc .qc-tr{ font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--ink-dim); direction:ltr; }
+  .qc:hover{ border-color:var(--gold); }
+  .qc:disabled{ cursor:default; }
+  .qc.ok{ border-color:var(--green); background:rgba(91,189,122,.14); color:var(--green); }
+  .qc.ok .qc-tr{ color:var(--green); }
+  .qc.no{ border-color:var(--red); background:rgba(217,106,91,.13); color:var(--red); }
+  .qc.no .qc-tr{ color:var(--red); }
+  .qc.dim{ opacity:.5; }
+  #quiz-next{ margin-top:14px; }
+
+  /* ---------- Révision espacée (SRS) ---------- */
+  .review-card{
+    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    border:1px solid var(--gold); border-radius:14px; cursor:pointer;
+    background:linear-gradient(135deg, rgba(212,162,76,.16), rgba(212,162,76,.05));
+    color:var(--ink); font-family:inherit; padding:13px 15px; transition:all .13s ease;
+  }
+  .review-card:hover{ background:linear-gradient(135deg, rgba(212,162,76,.24), rgba(212,162,76,.08)); }
+  .review-card:disabled{ opacity:.55; cursor:default; border-color:var(--line); background:var(--bg2); }
+  .review-ico{ flex:none; font-size:1.5rem; line-height:1; }
+  .review-body{ flex:1; min-width:0; }
+  .review-title{ font-weight:700; font-size:1rem; }
+  .review-sub{ font-size:.84rem; color:var(--ink-dim); margin-top:1px; }
+  .review-card:disabled .review-sub{ color:var(--ink-dim); }
+  .review-arrow{ flex:none; color:var(--gold); font-size:1.3rem; }
+  .review-card:disabled .review-arrow{ display:none; }
+  .mastery{ margin-top:12px; font-size:.9rem; color:var(--ink-dim); }
+  .mastery b{ color:var(--gold-soft); font-weight:700; }
+  .mastery .mbar{ height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin-top:7px; }
+  .mastery .mbar > span{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); border-radius:999px; transition:width .5s ease; }
 </style>
 </head>
 <body>
@@ -324,6 +381,20 @@
   </div>
   <div class="search-results hide" id="search-results"></div>
 
+  <h2>Révision du jour</h2>
+  <button class="review-card" id="review-btn" type="button" disabled>
+    <span class="review-ico">🔁</span>
+    <span class="review-body">
+      <span class="review-title" id="review-title">Rien à réviser pour l'instant</span>
+      <span class="review-sub" id="review-sub">Les cartes reviennent ici au bon moment, après ta première réponse.</span>
+    </span>
+    <span class="review-arrow">→</span>
+  </button>
+  <div class="mastery hide" id="mastery">
+    <span id="mastery-txt"></span>
+    <span class="mbar"><span id="mastery-bar"></span></span>
+  </div>
+
   <h2>Catégories</h2>
   <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
   <div class="chips" id="cats"></div>
@@ -332,6 +403,7 @@
   <div class="seg" id="mode">
     <button class="chip" data-mode="cards" aria-pressed="true">Cartes</button>
     <button class="chip" data-mode="input" aria-pressed="false">Saisie ⌨️</button>
+    <button class="chip" data-mode="quiz" aria-pressed="false">QCM ✅</button>
   </div>
 
   <h2>Sens de la carte</h2>
@@ -406,6 +478,11 @@
     <button class="btn-next hide" id="btn-next">Suivant →</button>
   </div>
 
+  <div class="quiz-zone hide" id="quiz-zone">
+    <div class="quiz-choices" id="quiz-choices"></div>
+    <button class="btn-next hide" id="quiz-next">Suivant →</button>
+  </div>
+
   <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> je savais pas · <kbd>&rarr;</kbd> je savais</div>
 </section>
 
@@ -425,7 +502,7 @@ let CARDS = [];
 
 const state = {
   dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards',
-  cats:new Set(),
+  session:'normal', cats:new Set(),
   queue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
 };
 
@@ -482,7 +559,7 @@ function updateSpeaker(){
   const btn = document.getElementById('speak-btn');
   if(!btn) return;
   let hebrewVisible;
-  if(state.mode==='input'){
+  if(state.mode==='input' || state.mode==='quiz'){
     hebrewVisible = (state.dir==='he2fr') || (state.dir==='fr2he' && state.answered);
   } else {
     hebrewVisible = state.flipped || state.dir==='he2fr';
@@ -570,7 +647,7 @@ let catCounts = {};
 const catsEl = document.getElementById('cats');
 const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Noms',
   'Prépositions','Conjonctions','Mots interrogatifs','Existence','Nombres',
-  'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions'];
+  'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases'];
 function buildChips(){
   catCounts = {};
   CARDS.forEach(c=>{ catCounts[c.cat]=(catCounts[c.cat]||0)+1; });
@@ -582,6 +659,7 @@ function buildChips(){
     b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.cats.add(cat); else state.cats.delete(cat); updateStart(); };
     catsEl.appendChild(b);
   });
+  refreshSrsUi();
 }
 
 function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
@@ -624,6 +702,7 @@ updateStart();
 // ----- start -----
 document.getElementById('start').onclick=start;
 function start(){
+  state.session='normal';
   let pool = CARDS.filter(c=>state.cats.has(c.cat));
   if(state.order==='shuffle') pool = shuffle(pool.slice());
   state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
@@ -634,15 +713,146 @@ function start(){
 }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
-function heFront(card){
-  if(state.script==='plain') return '<div class="big-he">'+card.he_plain+'</div>';
-  if(state.script==='cursive') return '<div class="big-he cursive">'+card.he_plain+'</div>';
-  return '<div class="big-he">'+card.he+'</div>';
+// ================= Révision espacée (système de Leitner) =================
+// Chaque réponse (dans TOUS les modes) fait monter ou redescendre la carte d'une
+// « boîte » ; l'intervalle avant réapparition croît avec la boîte. Persisté en
+// localStorage → la progression survit entre les sessions et les jours.
+const SRS_KEY='srs_v1';
+const SRS_INTERVALS=[0,1,2,4,8,16,32];      // jours avant réapparition, par boîte
+const SRS_MASTER=4;                          // boîte à partir de laquelle « maîtrisée »
+function todayNum(){ return Math.floor(Date.now()/86400000); }
+function cardId(c){ return c.cat+'|'+c.he_plain; }
+function srsLoad(){ try{ return JSON.parse(localStorage.getItem(SRS_KEY))||{}; }catch(e){ return {}; } }
+function srsSave(){ try{ localStorage.setItem(SRS_KEY, JSON.stringify(SRS)); }catch(e){} }
+let SRS=srsLoad();
+function recordResult(card, good){
+  if(!card) return;
+  const id=cardId(card), t=todayNum();
+  const e=SRS[id]||{box:0,due:t,seen:0,lapses:0};
+  e.seen++;
+  if(good){ e.box=Math.min(e.box+1, SRS_INTERVALS.length-1); }
+  else { if(e.box>0) e.lapses++; e.box=0; }
+  e.due=t+SRS_INTERVALS[e.box];
+  SRS[id]=e; srsSave();
 }
+function dueCards(){
+  const t=todayNum();
+  return CARDS.filter(c=>{ const e=SRS[cardId(c)]; return e && e.due<=t; });
+}
+function masteryStats(){
+  let seen=0, mastered=0;
+  for(const c of CARDS){ const e=SRS[cardId(c)]; if(e){ seen++; if(e.box>=SRS_MASTER) mastered++; } }
+  return {seen, mastered, total:CARDS.length};
+}
+function refreshSrsUi(){
+  const btn=document.getElementById('review-btn'); if(!btn) return;
+  const due=dueCards().length;
+  const title=document.getElementById('review-title');
+  const sub=document.getElementById('review-sub');
+  if(due>0){
+    btn.disabled=false;
+    title.textContent='Réviser '+due+' carte'+(due>1?'s':'')+' maintenant';
+    sub.textContent='Cartes à revoir aujourd’hui, tous thèmes confondus.';
+  } else {
+    btn.disabled=true;
+    const m0=masteryStats();
+    title.textContent = m0.seen ? 'À jour — rien à réviser 👌' : 'Rien à réviser pour l’instant';
+    sub.textContent = m0.seen ? 'Reviens plus tard : les cartes réapparaîtront à échéance.'
+                              : 'Les cartes reviennent ici au bon moment, après ta première réponse.';
+  }
+  const m=masteryStats();
+  const mEl=document.getElementById('mastery');
+  if(m.seen>0){
+    mEl.classList.remove('hide');
+    document.getElementById('mastery-txt').innerHTML='<b>'+m.mastered+'</b> maîtrisée'+(m.mastered>1?'s':'')
+      +' · <b>'+m.seen+'</b> vue'+(m.seen>1?'s':'')+' sur '+m.total;
+    document.getElementById('mastery-bar').style.width=(m.total?(m.mastered/m.total*100):0)+'%';
+  } else { mEl.classList.add('hide'); }
+}
+function startReview(){
+  let pool=dueCards(); if(!pool.length) return;
+  pool=shuffle(pool.slice());
+  state.session='review';
+  state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('done').classList.remove('active');
+  document.getElementById('study').classList.add('active');
+  render();
+}
+(function(){ const b=document.getElementById('review-btn'); if(b) b.onclick=startReview; })();
+
+// ================= Mode QCM (choix multiple) =================
+function frShort(card){ return card.fr.split(/[\/,]| ou /)[0].replace(/\([^)]*\)/g,'').trim() || card.fr; }
+function quizPrompt(card){
+  return state.dir==='he2fr' ? heFront(card) : bigFr(card);
+}
+function quizChoiceHtml(opt){
+  if(state.dir==='he2fr') return '<span>'+(opt.cat==='Phrases'?opt.fr:frShort(opt))+'</span>';
+  const he = (state.script==='nikud') ? opt.he : opt.he_plain;
+  return '<span class="qc-he">'+he+'</span><span class="qc-tr">'+(opt.tr||he2tr(opt.he))+'</span>';
+}
+function pickDistractors(card, n){
+  const key = state.dir==='he2fr' ? (c=>frShort(c).toLowerCase()) : (c=>c.he_plain);
+  const answer=key(card), seen=new Set([answer]), out=[];
+  const take=list=>{ for(const c of list){ if(out.length>=n) break; const k=key(c); if(!seen.has(k)){ seen.add(k); out.push(c); } } };
+  take(shuffle(CARDS.filter(c=>c!==card && c.cat===card.cat)));
+  if(out.length<n) take(shuffle(CARDS.filter(c=>c!==card && c.cat!==card.cat)));
+  return out;
+}
+function setupQuizCard(card){
+  document.body.classList.add('quiz-mode');
+  document.body.classList.remove('input-mode');
+  document.getElementById('controls-cards').classList.add('hide');
+  document.getElementById('input-zone').classList.add('hide');
+  document.getElementById('quiz-zone').classList.remove('hide');
+  document.getElementById('kbd-hint').classList.add('hide');
+  document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'choisis la traduction' : 'choisis le mot hébreu';
+  document.getElementById('quiz-next').classList.add('hide');
+  const box=document.getElementById('quiz-choices'); box.innerHTML='';
+  const options=shuffle([card, ...pickDistractors(card,3)]);
+  state.quizOptions=options;
+  options.forEach(opt=>{
+    const b=document.createElement('button'); b.className='qc'; b.type='button';
+    b.innerHTML=quizChoiceHtml(opt);
+    bindTap(b, ()=>quizPick(b, opt, card));
+    box.appendChild(b);
+  });
+}
+function quizPick(btn, chosen, card){
+  if(state.answered) return;
+  state.answered=true;
+  const correct = chosen===card;
+  const opts=state.quizOptions;
+  const btns=[...document.getElementById('quiz-choices').querySelectorAll('.qc')];
+  btns.forEach((b,i)=>{ b.disabled=true;
+    if(opts[i]===card) b.classList.add('ok');
+    else if(b===btn) b.classList.add('no');
+    else b.classList.add('dim');
+  });
+  recordResult(card, correct);
+  if(correct) state.goodCount++; else state.missed.push(card);
+  document.getElementById('quiz-next').classList.remove('hide');
+  updateSpeaker();
+  if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+}
+function quizNext(){
+  state.idx++;
+  if(state.idx>=state.queue.length) finish();
+  else render();
+}
+bindTap(document.getElementById('quiz-next'), quizNext);
+
+function heFront(card){
+  const ph = card.cat==='Phrases' ? ' phrase' : '';
+  if(state.script==='plain') return '<div class="big-he'+ph+'">'+card.he_plain+'</div>';
+  if(state.script==='cursive') return '<div class="big-he cursive'+ph+'">'+card.he_plain+'</div>';
+  return '<div class="big-he'+ph+'">'+card.he+'</div>';
+}
+function bigFr(card){ return '<div class="big-fr'+(card.cat==='Phrases'?' phrase':'')+'">'+card.fr+'</div>'; }
 function formsHtml(card){
   if(!card.forms) return '';
   let h='<div class="forms">';
-  card.forms.forEach(f=>{ h+='<div><span class="f-he">'+f.he+'</span> <span class="f-lbl">'+f.label+' · '+f.tr+'</span></div>'; });
+  card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
   return h+'</div>';
 }
 
@@ -653,18 +863,21 @@ function render(){
 
   const note = card.note ? '<div class="note-line">'+card.note+'</div>' : '';
 
-  if(state.dir==='he2fr'){
+  if(state.mode==='quiz'){
+    state.frontHtml = quizPrompt(card);
+    state.backHtml = state.frontHtml;
+  } else if(state.dir==='he2fr'){
     state.frontHtml = heFront(card);
     // En mode saisie, inflexions visibles directement sous le mot : elles sont en
     // hébreu et ne révèlent donc pas la traduction française demandée.
     if(state.mode==='input') state.frontHtml += formsHtml(card);
-    let b = '<div class="big-fr">'+card.fr+'</div>';
+    let b = bigFr(card);
     b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
     if(state.script!=='nikud') b += '<div class="sub-he">'+card.he+'</div>';
     b += formsHtml(card) + note;
     state.backHtml = b;
   } else {
-    state.frontHtml = '<div class="big-fr">'+card.fr+'</div>' + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
+    state.frontHtml = bigFr(card) + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
     let b = '<div class="big-he">'+card.he+'</div>';
     b += '<div class="cursive-line">'+card.he_plain+'</div>';
     b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
@@ -680,6 +893,7 @@ function render(){
   document.getElementById('barfill').style.width=((state.idx)/state.total*100)+'%';
 
   if(state.mode==='input') setupInputCard(card);
+  else if(state.mode==='quiz') setupQuizCard(card);
   else setupCardsMode();
 
   updateSpeaker();
@@ -687,9 +901,10 @@ function render(){
 }
 
 function setupCardsMode(){
-  document.body.classList.remove('input-mode');
+  document.body.classList.remove('input-mode','quiz-mode');
   document.getElementById('controls-cards').classList.remove('hide');
   document.getElementById('input-zone').classList.add('hide');
+  document.getElementById('quiz-zone').classList.add('hide');
   document.getElementById('kbd-hint').classList.remove('hide');
   document.getElementById('face-hint').textContent = 'tap pour retourner';
   document.getElementById('btn-flip').classList.remove('hide');
@@ -699,8 +914,10 @@ function setupCardsMode(){
 
 function setupInputCard(card){
   document.body.classList.add('input-mode');
+  document.body.classList.remove('quiz-mode');
   document.getElementById('controls-cards').classList.add('hide');
   document.getElementById('input-zone').classList.remove('hide');
+  document.getElementById('quiz-zone').classList.add('hide');
   document.getElementById('kbd-hint').classList.add('hide');
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'traduis en français' : 'écris en hébreu';
   const inp=document.getElementById('answer-input');
@@ -753,6 +970,7 @@ bindTap(document.getElementById('btn-flip'), doFlip);
 
 function answer(good){
   const card=state.queue[state.idx];
+  recordResult(card, good);
   if(good) state.goodCount++; else state.missed.push(card);
   state.idx++;
   if(state.idx>=state.queue.length) finish();
@@ -921,6 +1139,7 @@ function submitAnswer(){
       ? '<div class="verdict ok">✓ Correct</div>'
       : '<div class="verdict no">✗ Réponse&nbsp;:</div>') + answerHtml(card);
   document.getElementById('btn-next').classList.remove('hide');
+  recordResult(card, correct);
   if(correct) state.goodCount++; else state.missed.push(card);
   updateSpeaker();
   if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
@@ -945,6 +1164,7 @@ function skipAnswer(){
   document.getElementById('hebkb').classList.add('hide');
   document.getElementById('feedback').innerHTML='<div class="verdict">La réponse&nbsp;:</div>'+answerHtml(card);
   document.getElementById('btn-next').classList.remove('hide');
+  recordResult(card, false);
   state.missed.push(card);
   updateSpeaker();
   if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
@@ -1007,7 +1227,8 @@ document.addEventListener('keydown', e=>{
 });
 
 function finish(){
-  document.body.classList.remove('input-mode');
+  document.body.classList.remove('input-mode','quiz-mode');
+  refreshSrsUi();
   document.getElementById('study').classList.remove('active');
   document.getElementById('done').classList.add('active');
   document.getElementById('barfill').style.width='100%';
@@ -1031,12 +1252,14 @@ document.getElementById('retry-missed').onclick=()=>{
 };
 document.getElementById('retry-all').onclick=start;
 document.getElementById('back-setup').onclick=()=>{
+  refreshSrsUi();
   document.getElementById('done').classList.remove('active');
   document.getElementById('study').classList.remove('active');
   document.getElementById('setup').classList.remove('hidden');
 };
 document.getElementById('exit').onclick=()=>{
-  document.body.classList.remove('input-mode');
+  document.body.classList.remove('input-mode','quiz-mode');
+  refreshSrsUi();
   document.getElementById('study').classList.remove('active');
   document.getElementById('setup').classList.remove('hidden');
 };
@@ -1044,7 +1267,7 @@ document.getElementById('exit').onclick=()=>{
 // keyboard
 document.addEventListener('keydown', e=>{
   if(!document.getElementById('study').classList.contains('active')) return;
-  if(state.mode==='input') return;
+  if(state.mode!=='cards') return;
   if(e.code==='Space'){ e.preventDefault(); doFlip(); }
   else if(state.flipped && e.code==='ArrowRight'){ answer(true); }
   else if(state.flipped && e.code==='ArrowLeft'){ answer(false); }
@@ -1108,7 +1331,7 @@ function extractCards(doc){
     'Nombres (0–10)':'Nombres','Nombres (11 et plus)':'Nombres','Nombres ordinaux':'Nombres',
     'Jours de la semaine':'Jours de la semaine','Adverbes':'Adverbes','Saisons & mois':'Saisons & mois',
     'Mots de quantité':'Mots de quantité','Expressions / Divers':'Expressions',
-    'Existence et possession':'Existence'};
+    'Existence et possession':'Existence','Phrases':'Phrases'};
   Object.keys(listCats).forEach(sec=>{
     lisOf(sec).forEach(li=>{
       const he=firstText(li,'.he'); if(!he) return;

@@ -21,7 +21,7 @@ Important: `index.html` uses `fetch()`, so it must be served over HTTP, not open
 `index.html`'s `extractCards(doc)` (near line 1056) scrapes the notebook's DOM. Its parsing is tightly coupled to the notebook's markup, so edits to `vocabulaire_hebreu.html` can silently drop cards if they break these assumptions:
 
 - Sections are found by `<h2>` elements containing a `<span class="count">LABEL</span>`. The **exact `LABEL` text** is the key used throughout `extractCards` (e.g. `'Verbes'`, `'Adjectifs'`, `'Noms'`, `'Pronoms personnels'`, `'Nombres (0–10)'`). Renaming a count label detaches its section from extraction.
-- Word entries live in either `<table><tbody><tr>` rows (Verbes, Adjectifs, Noms) or `<ul class="word-list"><li>` items (pronouns, prepositions, numbers, expressions, etc. — see the `listCats` map).
+- Word entries live in either `<table><tbody><tr>` rows (Verbes, Adjectifs, Noms) or `<ul class="word-list"><li>` items (pronouns, prepositions, numbers, expressions, **Phrases**, etc. — see the `listCats` map). The `Phrases` section holds full example sentences (cat `Phrases`); they flow through every mode as ordinary cards and get a smaller `.big-he.phrase`/`.big-fr.phrase` size so long sentences wrap cleanly. Adding a `listCats` entry must be mirrored in `build.js` (both the `listCats` object **and** `EXPECTED_CATS`).
 - Cells/items expose fields via child spans: `.he` (Hebrew w/ nikud), `.tr` (transliteration), `.fr` (French). Table extraction is **positional** — it reads fixed column counts and indexes (Verbes needs ≥5 columns → il/elle/ils/elles forms; Adjectifs ≥4; Noms ≥3 where column 2 is the gender `m`/`f` and column 3 the plural).
 - A `<li>` can carry `data-fr-court` (short French used on the card instead of the notebook's long `.fr`) and `data-note` (precision shown under the answer). This is how card-specific wording lives in the notebook rather than in app code.
 - Grammar-only sections (racine, passé, futur, binyanim, article, smikhut…) have no `.count` mapping into cards and are intentionally excluded from flashcards.
@@ -41,7 +41,9 @@ Two guards catch silent extraction breakage: `init()` in `index.html` warns (con
 
 ## UI settings model
 
-The setup screen uses `.chip` segmented toggles carrying `data-*` attributes (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), wired by `segPick`. Modes: cards vs. typed input; direction he→fr / fr→he; script nikud / plain / cursive; audio uses the browser's Hebrew SpeechSynthesis voice.
+The setup screen uses `.chip` segmented toggles carrying `data-*` attributes (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), wired by `segPick`. Modes (`state.mode`): `cards` (flip), `input` (typed), `quiz` (QCM — 4 choices, distractors from `pickDistractors`, same category first). Each mode has its own zone in the study screen (`#controls-cards` / `#input-zone` / `#quiz-zone`) and a `setup*Card()` that toggles the `input-mode`/`quiz-mode` body classes; `render()` branches on `state.mode`. Direction he→fr / fr→he; script nikud / plain / cursive; audio uses the browser's Hebrew SpeechSynthesis voice.
+
+**Spaced repetition (Leitner)**: `recordResult(card, good)` is called from *every* answer path (cards `answer`, input `submitAnswer`/`skipAnswer`, `quizPick`) and persists a per-card box/due record to `localStorage` under `srs_v1` (card identity = `cat|he_plain`). The setup screen's "Révision du jour" button (`startReview`) builds a session from `dueCards()`; `refreshSrsUi()` (called at the end of `buildChips()`, so it runs in both the online and standalone boot paths) updates the due count and the mastery bar. Intervals in `SRS_INTERVALS`. This layer is invisible to `build.js` — it's pure app state.
 
 ## Content note
 

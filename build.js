@@ -27,7 +27,7 @@ const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
   'Prépositions','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine','Adverbes','Saisons & mois',
-  'Mots de quantité','Expressions','Existence'];
+  'Mots de quantité','Expressions','Existence','Phrases'];
 
 // ---------- mini-parsing HTML (zéro dépendance) ----------
 const NAMED_ENTITIES = { amp:'&', lt:'<', gt:'>', quot:'"', apos:"'", nbsp:' ',
@@ -151,7 +151,7 @@ function extractCards(html){
     'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',
     'Jours de la semaine':'Jours de la semaine', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
     'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
-    'Existence et possession':'Existence' };
+    'Existence et possession':'Existence', 'Phrases':'Phrases' };
   Object.keys(listCats).forEach(sec => {
     lisOf(sections, sec).forEach(li => {
       const he = firstSpanText(li, 'he'); if (!he) return;
