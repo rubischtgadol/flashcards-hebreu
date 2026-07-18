@@ -6,7 +6,7 @@
 
 Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichiers statiques** sur GitHub Pages (`https://rubischtgadol.github.io/flashcards-hebreu/`).
 
-**Aucune dépendance, aucun test, aucun gestionnaire de paquets.** Chaque fichier déployé est un document HTML autonome (CSS et JS inline, vanilla). Le seul outillage est `build.js`, un script Node zéro-dépendance, utilisé uniquement en développement et jamais déployé.
+**Aucune dépendance, aucun test, aucun gestionnaire de paquets.** Chaque fichier déployé est un document HTML autonome (CSS et JS inline, vanilla). Le seul outillage est `build.js` et `verifie_exemples.js`, deux scripts Node zéro-dépendance, utilisés uniquement en développement et jamais déployés.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -19,10 +19,10 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
                 │ navigateur                     │  de extractCards)
                 ▼                                ▼
 ┌───────────────────────────┐    ┌───────────────────────────────┐
-│        index.html         │───▶│    flashcards_hebreu.html     │
+│         app.html          │───▶│    flashcards_hebreu.html     │
 │  app flashcards EN LIGNE  │    │  app flashcards AUTONOME      │
-│  (page principale)        │    │  (hors ligne, double-clic)    │
-│                           │    │  = index.html dont le bloc    │
+│  (derrière le portail     │    │  (hors ligne, double-clic)    │
+│   index.html à la racine) │    │  = app.html dont le bloc      │
 │  bloc BUILD:ONLINE-ONLY   │    │  réseau est remplacé par      │
 │  (fetch + extraction)     │    │  const CARDS = [...] intégré  │
 └───────────────────────────┘    │  100 % GÉNÉRÉ par build.js —  │
@@ -30,16 +30,18 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
                                  └───────────────────────────────┘
 ```
 
-Il n'y a donc **qu'une seule app** (le code d'`index.html`) et **qu'une seule source de contenu** (le carnet). Le fichier autonome est une projection mécanique des deux.
+Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un portail léger) et **qu'une seule source de contenu** (le carnet). Le fichier autonome est une projection mécanique des deux.
 
-## Les quatre fichiers
+## Les fichiers
 
 | Fichier | Rôle | Édité à la main ? |
 |---|---|---|
 | [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire. Toute modification de contenu se fait ici. | ✅ oui |
-| [index.html](index.html) | App de flashcards en ligne (page principale). Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
+| [index.html](index.html) | Le **portail** : la porte d'entrée à la racine — deux portes (flashcards, carnet), salut aléatoire français/hébreu. Sans vocabulaire ni couplage build. | ✅ oui |
+| [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
+| [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, vocabulaire ≤ niveau). | ✅ oui |
 | [manifest.webmanifest](manifest.webmanifest), [sw.js](sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
 ## La couche PWA
@@ -47,14 +49,15 @@ Il n'y a donc **qu'une seule app** (le code d'`index.html`) et **qu'une seule so
 L'app en ligne est installable (iPhone : Safari → « Sur l'écran d'accueil ») et fonctionne hors ligne :
 
 - **`manifest.webmanifest`** — nom, `display: standalone`, couleurs de la charte, icônes 192/512. `start_url` et `scope` sont **relatifs** (le site vit sous `/flashcards-hebreu/`).
-- **`sw.js`** — service worker en *stale-while-revalidate* : l'app et le carnet sont servis depuis le cache puis rafraîchis en arrière-plan (une mise à jour de contenu est visible au lancement suivant). Les polices Google sont en cache-first. Seules les navigations vers la racine (`/`, `/index.html`) sont rabattues sur la coquille `./` — les autres pages (le carnet !) sont servies telles quelles. Incrémenter `VERSION` en tête de fichier après un changement de stratégie, de liste d'assets ou d'icônes.
-- **L'enregistrement du service worker vit DANS le bloc `BUILD:ONLINE-ONLY` d'`index.html`** : le fichier autonome ne doit pas en hériter (inutile hors ligne, et invalide en `file://`).
+- **`sw.js`** — service worker en *stale-while-revalidate* : l'app et le carnet sont servis depuis le cache puis rafraîchis en arrière-plan (une mise à jour de contenu est visible au lancement suivant). Les polices Google sont en cache-first. Seules les navigations vers la racine (`/`, `/index.html`) sont rabattues sur la coquille `./` — le **portail** — les autres pages (le carnet !) sont servies telles quelles. Incrémenter `VERSION` en tête de fichier après un changement de stratégie, de liste d'assets ou d'icônes.
+- **L'enregistrement du service worker vit DANS le bloc `BUILD:ONLINE-ONLY` d'`app.html`** : le fichier autonome ne doit pas en hériter (inutile hors ligne, et invalide en `file://`). Le portail (`index.html`) porte son propre petit script d'enregistrement.
+- **`start_url` pointe sur `./app.html`** : l'icône installée ouvre directement l'appli, sans passer par le portail. (Une PWA installée avant le portail garde son ancien `start_url` — la réinstaller une fois.)
 - Les icônes sont un א en Frank Ruhl Libre 700 (la police du bandeau de l'app) sur fond `--bg`, or `--gold` ; en cas de changement de palette, les régénérer (ImageMagick) et bumper `VERSION`.
 - Limite iOS : l'icône d'une PWA déjà installée est figée à l'installation — supprimer/réajouter l'app pour la rafraîchir.
 
 ## Charte graphique unifiée
 
-Le bloc `:root` (11 tokens : `--bg`, `--bg2`, `--card`, `--card-edge`, `--ink`, `--ink-dim`, `--gold`, `--gold-soft`, `--green`, `--red`, `--line`) est **identique au caractère près** dans le carnet et `index.html` — le carnet est la référence (`#12181f` / or `#d4a24c`). Toute retouche de couleur se répercute dans les deux fichiers, plus `manifest.webmanifest`/`theme-color`/icônes si le fond ou l'or change.
+Le bloc `:root` (11 tokens : `--bg`, `--bg2`, `--card`, `--card-edge`, `--ink`, `--ink-dim`, `--gold`, `--gold-soft`, `--green`, `--red`, `--line`) est **identique au caractère près** dans le carnet, `app.html` et le portail — le carnet est la référence (`#12181f` / or `#d4a24c`). Toute retouche de couleur se répercute dans les trois fichiers, plus `manifest.webmanifest`/`theme-color`/icônes si le fond ou l'or change.
 
 ## Flux de données : du carnet aux cartes
 
@@ -73,7 +76,7 @@ Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr
 - `data-note` — précision affichée sous la réponse ;
 - `data-niveau` — niveau CECRL fin (`A1`…`C2`) du mot, porté aussi par les `<tr>` des trois tables (voir § 4). Attribut **optionnel** : un mot sans niveau reste visible quel que soit le filtre de l'app — le carnet peut s'annoter progressivement sans jamais perdre une carte.
 
-Un mot peut aussi porter des **exemples en situation** (voir § 5) : une sous-liste `<ul class="exemples"><li>` — chaque `<li>` avec les spans `.he`/`.tr`/`.fr` habituels — imbriquée **dans le `<li>` du mot** (sections listes) ou **en fin de première cellule** des tables (après les spans du mot : l'extraction lit toujours le *premier* `.he`/`.fr` du fragment, l'ordre est donc significatif). ⚠️ Ces `<li>` imbriqués interdisent les regex non-gourmandes : `lisOf` (build.js) délimite les `<li>` de premier niveau par balayage à profondeur, et le DOM d'index.html utilise `ul.word-list > li` (enfant direct). Toute évolution du parsing doit préserver cette robustesse.
+Un mot peut aussi porter des **exemples en situation** (voir § 5) : une sous-liste `<ul class="exemples"><li>` — chaque `<li>` avec les spans `.he`/`.tr`/`.fr` habituels — imbriquée **dans le `<li>` du mot** (sections listes) ou **en fin de première cellule** des tables (après les spans du mot : l'extraction lit toujours le *premier* `.he`/`.fr` du fragment, l'ordre est donc significatif). ⚠️ Ces `<li>` imbriqués interdisent les regex non-gourmandes : `lisOf` (build.js) délimite les `<li>` de premier niveau par balayage à profondeur, et le DOM d'app.html utilise `ul.word-list > li` (enfant direct). Toute évolution du parsing doit préserver cette robustesse.
 
 Les sections purement grammaticales (racine, passé, futur, binyanim, article, smikhut, prépositions fléchies) ont un label `.count` **sans** entrée dans les maps d'extraction : elles sont volontairement exclues des flashcards.
 
@@ -81,7 +84,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
-- [index.html:1694](index.html#L1694) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
+- [app.html:1694](app.html#L1694) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
 - [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
@@ -109,7 +112,7 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 ### 4. Les niveaux de difficulté (CECRL)
 
-Le carnet stocke le **CECRL fin** (six valeurs, `data-niveau="A1"…"C2"`) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'index.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet actuel n'ayant rien au-delà de B2, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un carnet sans aucun `data-niveau` masque le groupe entier.
+Le carnet stocke le **CECRL fin** (six valeurs, `data-niveau="A1"…"C2"`) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'app.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet actuel n'ayant rien au-delà de B2, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un carnet sans aucun `data-niveau` masque le groupe entier.
 
 **Méthode de classement** (passe initiale du 2026-07-18, 709 mots, distribution A1 327 / A2 268 / B1 107 / B2 7) — trois critères croisés, dans cet ordre :
 
@@ -121,25 +124,25 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 ### 5. Les exemples en situation
 
-Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans index.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Le libellé du pli suit son état (« Voir un exemple » ↔ « Masquer l'exemple », géré dans `exActivate`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
+Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans app.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Le libellé du pli suit son état (« Voir un exemple » ↔ « Masquer l'exemple », géré dans `exActivate`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
 
-**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples sur les mots A1 — verbes, modaux, quantité, adjectifs courants) : phrases courtes (4–8 mots), présent, vocabulaire de l'exemple ≤ niveau du mot autant que possible (les niveaux de § 4 disent par où commencer), une situation concrète du quotidien par phrase. Écrire les lots suivants par sections, avec relecture humaine par échantillons.
+**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples sur les mots A1 — verbes, modaux, quantité, adjectifs courants) : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple ≤ niveau du mot autant que possible (les niveaux de § 4 disent par où commencer), une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node build.js`, avant commit.
 
 ## build.js : la chaîne de génération
 
 `node build.js` (ou `--check` pour vérifier sans écrire) :
 
 1. Lit le carnet, extrait les cartes, **affiche le compte par section, par niveau CECRL et par section d'exemples** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide.
-2. Copie `index.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
+2. Copie `app.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
    - bannière « fichier généré » après le doctype ;
    - suppression du loader, panneau setup visible d'emblée ;
    - `let CARDS = []` → `const CARDS = [...]` (snapshot JSON du vocabulaire) ;
    - bloc `BUILD:ONLINE-ONLY` → démarrage direct (`buildChips()` + `updateStart()`).
 3. Vérifie qu'aucune trace du chemin réseau (`fetch(`, `DOMParser`, `extractCards`) ne subsiste dans le fichier généré.
 
-**Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`index.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
+**Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`app.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
 
-## Anatomie d'index.html (~1660 lignes)
+## Anatomie d'app.html (~1660 lignes)
 
 Un seul fichier : CSS inline (l. 1–400 env.), puis quatre écrans, puis le JS.
 
@@ -147,16 +150,16 @@ Un seul fichier : CSS inline (l. 1–400 env.), puis quatre écrans, puis le JS.
 
 | Écran | Ligne | Rôle |
 |---|---|---|
-| `#loader` | [index.html:444](index.html#L444) | Spinner pendant le fetch du carnet (absent de la version autonome) |
-| `#setup` | [index.html:445](index.html#L445) | « Révision du jour » (SRS), recherche, catégories (chips), réglages — Ordre/Longueur/Prononciation repliés dans le `<details>` « Réglages avancés » ([index.html:498](index.html#L498)) |
-| `#study` | [index.html:535](index.html#L535) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
-| `#done` | [index.html:590](index.html#L590) | Bilan + liste des cartes ratées (`#missed-list`) + reprise des ratées / de la session |
+| `#loader` | [app.html:444](app.html#L444) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [app.html:445](app.html#L445) | « Révision du jour » (SRS), recherche, catégories (chips), réglages — Ordre/Longueur/Prononciation repliés dans le `<details>` « Réglages avancés » ([app.html:498](app.html#L498)) |
+| `#study` | [app.html:535](app.html#L535) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
+| `#done` | [app.html:590](app.html#L590) | Bilan + liste des cartes ratées (`#missed-list`) + reprise des ratées / de la session |
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([index.html:871](index.html#L871)) dans l'objet `state` ([index.html:604](index.html#L604)). Chaque groupe est un `role="group"` relié à son `<h2>` (`aria-labelledby`, notes en `aria-describedby`). Les trois groupes « qu'on règle une fois » (Ordre, Longueur, Prononciation) vivent repliés dans le `<details class="adv">` « Réglages avancés », fermé par défaut ; sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce), l'indice de sélection vide étant placé **au-dessus** de lui pour rester visible. Détail des clés :
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([app.html:871](app.html#L871)) dans l'objet `state` ([app.html:604](app.html#L604)). Chaque groupe est un `role="group"` relié à son `<h2>` (`aria-labelledby`, notes en `aria-describedby`). Les trois groupes « qu'on règle une fois » (Ordre, Longueur, Prononciation) vivent repliés dans le `<details class="adv">` « Réglages avancés », fermé par défaut ; sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce), l'indice de sélection vide étant placé **au-dessus** de lui pour rester visible. Détail des clés :
 
-- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([index.html:1032](index.html#L1032)) pioche d'abord dans la même catégorie et **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » ; un dernier recours relâché garantit 4 options ; les options de la catégorie « Phrases » portent la classe `.qc.ph` — corps réduit et boutons resserrés, pour que quatre phrases complètes empilées restent lisibles sur petit écran) ;
+- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([app.html:1032](app.html#L1032)) pioche d'abord dans la même catégorie et **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » ; un dernier recours relâché garantit 4 options ; les options de la catégorie « Phrases » portent la classe `.qc.ph` — corps réduit et boutons resserrés, pour que quatre phrases complètes empilées restent lisibles sur petit écran) ;
 - **direction** : `he2fr` / `fr2he` ;
 - **niveau** (hors `SEG_KEYS` — multi-sélection comme les catégories) : le groupe « Niveau » (`#niv`, chips construites par `buildNivChips`) filtre le pool de `start()` en **croisement** avec les catégories (`nivOk(card)`). La « Révision du jour » l'ignore volontairement : une carte apprise reste due quel que soit le filtre. `updateStart()` distingue trois vides — aucune catégorie, aucun niveau, croisement sans carte — avec un indice dédié pour chacun ;
 - **script** : nikud, sans nikud, ou cursive ;
@@ -179,7 +182,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 - **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, niveaux, mode, dir, script, order, audio, len}` — `niveaux` est **rétro-compatible** : absent des anciennes préférences (ou vidé), il redevient « tout sélectionné », rien ne disparaît. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), `defaultCats()` sélectionne **tout sauf « Phrases »** — le bouton « Commencer » n'est jamais muet, mais un débutant ne tombe pas sur une phrase complète d'entrée (« tout sélectionner » les ramène ; des préférences sauvegardées restent intactes). `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he_plain`) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
-- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([index.html:1111](index.html#L1111)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([index.html:1283](index.html#L1283)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
+- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([app.html:1111](app.html#L1111)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([app.html:1283](app.html#L1283)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
 - **Sortie explicite** : « Quitter » affiche sur l'accueil la ligne `#exit-note` (`role="status"`) « Session interrompue — X réponse(s) sur Y déjà comptée(s) dans ta révision » quand au moins une réponse a été donnée (les réponses sont déjà en SRS — le dire) ; masquée au démarrage suivant. Sur l'écran de fin, « Recommencer » est libellé « Rejouer ces N cartes » (même tirage `origQueue`), et une fin de **révision** avec ratées explique qu'elles sont aussitôt redevenues dues (effet Sisyphe du compteur, pas un bug).
 - **Remise à zéro du profil** : la zone « Repartir de zéro » ferme le pli « Réglages avancés » (action rare et destructrice — jamais en concurrence avec « Commencer » ni la révision du jour ; le sous-titre du pli continue de n'annoncer que les valeurs mémorisées). Deux temps obligatoires : le bouton `#reset-btn` ouvre un bloc de confirmation qui **nomme la perte** (nombre de cartes suivies, via `masteryStats().seen`), « Annuler » est le défaut sûr et reçoit le focus. Confirmer efface `srs_v1`, `prefs_v1` (localStorage) et `sess_v1` (sessionStorage), remet en mémoire `SRS={}`, `lastRecord`/`cardsUndo` à `null` **et les six clés de réglage de `state` à leurs valeurs initiales** (`applyPrefs()` sans préférences ne les touche pas), puis rafraîchit l'UI en place — `applyPrefs()` (catégories = tout sauf « Phrases », niveaux = tous), `refreshSrsUi()`, `updateStart()`, `#exit-note` masqué — sans recharger la page. Une ligne `role="status"` (`#reset-done`) annonce « Profil effacé », et le focus revient sur le bouton d'appel.
 - **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
@@ -196,10 +199,10 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([index.html:1392](index.html#L1392)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
+`checkAnswer` ([app.html:1392](app.html#L1392)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1537](index.html#L1537)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1384](index.html#L1384)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1322](index.html#L1322)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [app.html:1537](app.html#L1537)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([app.html:1384](app.html#L1384)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([app.html:1322](app.html#L1322)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
@@ -212,14 +215,14 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
 
-1. **`init()` dans index.html** ([index.html:1789](index.html#L1789)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans app.html** ([app.html:1789](app.html#L1789)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
 
 ## Développement et déploiement
 
-- **Servir en HTTP** : `index.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
-- **Vérification sans navigateur** (environnement sans Chrome headless, y compris réseau coupé) : des scripts Node jetables, hors du dépôt — `build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin).
+- **Servir en HTTP** : `app.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
+- **Vérification sans navigateur** (environnement sans Chrome headless, y compris réseau coupé) : des scripts Node jetables, hors du dépôt — `build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin). Pour un rendu visuel mobile, Playwright + Chromium headless fonctionne en WSL (émulation iPhone : viewport, tactile, captures) ; WebKit réel exige `libgtk-4-1 libavif13 libgstreamer-plugins-bad1.0-0`.
 - **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
 - **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
 
@@ -227,5 +230,6 @@ L'extraction étant couplée au markup du carnet, trois filets détectent les ca
 
 1. Éditer `vocabulaire_hebreu.html` (et lui seul pour le vocabulaire).
 2. `node build.js` — vérifier les comptes par section.
-3. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
-4. Committer le carnet **et** `flashcards_hebreu.html` régénéré, pousser sur `main`.
+3. Si des exemples ont changé : `node verifie_exemples.js` — 0 erreur exigé.
+4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
+5. Committer le carnet **et** `flashcards_hebreu.html` régénéré, pousser sur `main`.

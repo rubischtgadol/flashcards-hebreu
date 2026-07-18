@@ -6,17 +6,21 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 
 Ouvre ces liens sur n'importe quelle machine — ordinateur, téléphone, tablette :
 
-**➡️ L'application (page principale) :**
+**➡️ La porte d'entrée (le portail — choisir flashcards ou carnet) :**
 
     https://rubischtgadol.github.io/flashcards-hebreu/
 
-**➡️ Le carnet de grammaire + vocabulaire :**
+**➡️ L'application de flashcards, directement :**
+
+    https://rubischtgadol.github.io/flashcards-hebreu/app.html
+
+**➡️ Le carnet de grammaire + vocabulaire, directement :**
 
     https://rubischtgadol.github.io/flashcards-hebreu/vocabulaire_hebreu.html
 
 Depuis l'application, un bouton mène au carnet (et inversement), donc le premier lien suffit en pratique. Les liens ne changent jamais : après chaque mise à jour du contenu, la même adresse affiche la version à jour.
 
-L'application est une **PWA installable** : sur iPhone, ouvrir le premier lien dans Safari → Partager → « Sur l'écran d'accueil ». Elle s'installe avec son icône א dorée, s'ouvre en plein écran et **fonctionne hors ligne** (app et vocabulaire mis en cache ; les mises à jour poussées sur `main` sont récupérées en arrière-plan et visibles au lancement suivant).
+L'application est une **PWA installable** : sur iPhone, ouvrir un des liens dans Safari → Partager → « Sur l'écran d'accueil ». Elle s'installe avec son icône א dorée, s'ouvre en plein écran directement sur les flashcards et **fonctionne hors ligne** (app et vocabulaire mis en cache ; les mises à jour poussées sur `main` sont récupérées en arrière-plan et visibles au lancement suivant).
 
 ## Contenu du carnet
 
@@ -68,21 +72,23 @@ Autres réglages et fonctions :
 
 ## Mise à jour automatique
 
-Les cartes ne sont **pas** figées dans l'application. Au chargement, `index.html` lit le carnet [`vocabulaire_hebreu.html`](./vocabulaire_hebreu.html) et en extrait tout le vocabulaire. Il suffit donc de modifier le carnet — ajouter un mot, une catégorie — pour que les flashcards se mettent à jour au prochain rechargement, sans toucher à l'application.
+Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html` lit le carnet [`vocabulaire_hebreu.html`](./vocabulaire_hebreu.html) et en extrait tout le vocabulaire. Il suffit donc de modifier le carnet — ajouter un mot, une catégorie — pour que les flashcards se mettent à jour au prochain rechargement, sans toucher à l'application.
 
 ## Fichiers
 
-- `index.html` — l'application de flashcards en ligne (reconstruit le vocabulaire depuis le carnet)
+- `index.html` — le portail : la porte d'entrée à la racine, qui oriente vers l'application ou le carnet
+- `app.html` — l'application de flashcards en ligne (reconstruit le vocabulaire depuis le carnet)
 - `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire (source unique de vérité)
 - `flashcards_hebreu.html` — version autonome des flashcards, **générée par `build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
-- `build.js` — outil de développement (non déployé) : régénère `flashcards_hebreu.html` depuis les deux fichiers ci-dessus
+- `build.js` — outil de développement (non déployé) : régénère `flashcards_hebreu.html` depuis le carnet et `app.html`
+- `verifie_exemples.js` — outil de développement (non déployé) : contrôle les exemples en situation du carnet (longueur, nikoud, translittération, niveau du vocabulaire)
 - `manifest.webmanifest`, `sw.js`, `icons/` — la couche PWA : manifeste d'installation, service worker hors-ligne, icônes א aux couleurs de la charte
 
 ## Modifier le contenu
 
 Pour ajouter ou corriger du vocabulaire, éditer `vocabulaire_hebreu.html` puis remplacer le fichier sur le dépôt (**Add file → Upload files → glisser le fichier → Commit changes**). GitHub Pages redéploie automatiquement en une à deux minutes, à la même adresse ; l'application en ligne se met à jour toute seule.
 
-La version autonome, elle, ne se met pas à jour toute seule : après toute modification du carnet ou d'`index.html`, lancer
+La version autonome, elle, ne se met pas à jour toute seule : après toute modification du carnet ou d'`app.html`, lancer
 
     node build.js
 

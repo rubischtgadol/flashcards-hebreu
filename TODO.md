@@ -4,11 +4,10 @@
 accessibilité des trois modes, allègement de l'accueil, niveaux de difficulté (CECRL),
 exemples en situation, re-mesure UX finale à **34/40** (progression 28 → 33 → 34,
 détecteur de qualité à 0 finding — snapshots dans `.impeccable/critique/`), puis backlog
-mineur soldé. Des trois fonctionnalités demandées le 2026-07-18, la **remise à zéro du
-profil est faite** et le chantier voix a son **premier pas de diagnostic** ; restent la
-**page d'accueil commune** (décision d'architecture à trancher), la suite du chantier
-voix, du contenu (relectures éditoriales, lots d'exemples) et quelques pistes de design
-non tranchées.
+mineur soldé. Les trois fonctionnalités demandées le 2026-07-18 sont **faites** (remise à
+zéro du profil, portail à la racine, premier pas du chantier voix) ; reste la **suite du
+chantier voix** (relever le nom affiché sur l'appareil), les **lots d'exemples** (désormais
+sans relecture, gardés par `verifie_exemples.js`) et deux pistes de design mineures.
 
 ## Fait (historique compact — détail dans les messages de commit)
 
@@ -60,6 +59,20 @@ non tranchées.
   scratchpad de session).
 - **[x] Diagnostic voix — premier pas** (`f8a00fb`) : la note du groupe Prononciation
   affiche le nom réel de la voix retenue (« Voix hébraïque détectée ✓ — … »).
+- **[x] Portail à la racine** (`ba93e32`, décision actée) : `index.html` devient la porte
+  d'entrée (deux portes dans la charte, la lampe sur les flashcards), l'appli déménage
+  dans `app.html`, `build.js` la suit, `sw.js` passe en v7, `start_url` → `./app.html`
+  (l'icône installée ouvre l'appli ; une PWA installée avant doit être réinstallée une
+  fois), lien du carnet retargeté. Parcours complet vérifié en émulation iPhone
+  (Playwright/Chromium — voir « Contrôle visuel » ci-dessous).
+- **[x] Salut aléatoire du portail** (`2e21068`) : « Bienvenue ! » ou
+  « בְּרוּכִים הַבָּאִים! » (exclamation collée en hébreu), tiré au sort à chaque ouverture.
+- **[x] Place de la recherche tranchée** (`b0c225a`) : la « Révision du jour » ouvre
+  l'écran de l'appli, la recherche passe juste dessous — la lampe d'abord.
+- **[x] verifie_exemples.js** (`73d0208`) : filet de sécurité des exemples (champs,
+  3–8 mots, nikoud, translittération concordante avec he2tr/trKey extraits d'app.html,
+  vocabulaire ≤ niveau). Calibré sur le lot pilote : 0 erreur, 36 avertissements
+  éditoriaux. Condition du nouveau workflow « lots sans relecture ».
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - L'écran de réglages reste le premier écran ; la hiérarchie de l'accueil est tranchée.
@@ -71,21 +84,9 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
 ### Fonctionnalités demandées (2026-07-18)
 
-- **[ ] Page d'accueil commune (portail)** : une porte d'entrée qui oriente vers les deux
-  branches — le **carnet** (`vocabulaire_hebreu.html`) et l'**appli flashcards**.
-  Aujourd'hui `index.html` **est** l'appli et occupe la racine ; un portail à la racine
-  impose de trancher l'architecture : soit déplacer l'appli (ex. `app.html`) avec un
-  portail léger en `index.html`, soit garder l'appli en racine et faire du portail une
-  page à part. Impacts à traiter quel que soit le choix : `sw.js` (les navigations
-  **racine** sont rabattues sur la coquille `./` — un portail change ce que « racine »
-  veut dire, et la liste d'assets + `VERSION` bougent), `manifest.webmanifest`
-  (`start_url` : l'icône installée doit-elle ouvrir le portail ou l'appli ?), `build.js`
-  (remplacements par correspondance exacte dans `index.html`), les liens croisés existants
-  app ↔ carnet, et l'URL GitHub Pages publiée. Décision produit + design (DESIGN.md :
-  même charte, le portail est une « porte », pas un troisième univers).
 - **[ ] Voix robotique (option audio)** : la voix hébraïque de la synthèse vocale sonne
   robotique. Le code choisit déjà la « meilleure » voix disponible (`loadVoices` dans
-  index.html : score Premium > Enhanced/Neural/Siri > Carmit, `rate` à 0.88) — donc le
+  app.html : score Premium > Enhanced/Neural/Siri > Carmit, `rate` à 0.88) — donc le
   problème est en aval. Le premier pas est fait : la note audio du setup **affiche le nom
   de la voix retenue** (`f8a00fb`) — relever ce nom sur l'appareil concerné, puis
   tester les alternatives par plateforme (iOS : Carmit Enhanced à télécharger dans
@@ -94,23 +95,27 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   la piste lourde : audio préenregistré ou API TTS externe — en tension avec le
   tout-statique hors-ligne (PRODUCT.md), donc décision produit.
 
-### Relectures éditoriales (contenu, par échantillons)
-- **Classement CECRL** : relire des échantillons par section et corriger les
-  `data-niveau` directement dans `vocabulaire_hebreu.html`, puis `node build.js`.
-  Les cas limites ont été tranchés « vers le bas » (mieux vaut découvrir un mot trop tôt).
-- **Lot pilote d'exemples (77)** : relire nikud, ton et translittération (standard maison,
-  cf. README) directement dans le carnet.
+### Contenu (workflow acté le 2026-07-18 : lots sans relecture humaine)
 - **Lots d'exemples suivants** : d'abord les mots A1 restants (noms, expressions,
-  interrogatifs…), puis A2 — ligne éditoriale dans ARCHITECTURE.md §5 (phrases de
-  4–8 mots, présent, vocabulaire de l'exemple ≤ niveau du mot, une situation concrète
-  du quotidien par phrase).
+  interrogatifs…), puis A2 — ligne éditoriale dans ARCHITECTURE.md §5 (3–8 mots, présent,
+  vocabulaire ≤ niveau du mot, une situation concrète par phrase). **Chaque lot doit
+  passer `node verifie_exemples.js` (0 erreur) avant commit** — c'est le filet qui
+  remplace la relecture ; les avertissements s'arbitrent au fil de l'eau.
+- **Avertissements du pilote (36)** : mots hors carnet (souvent des mots utiles absents
+  du carnet — עברית, עכשיו en ktiv malé… — les ajouter au carnet est souvent la bonne
+  réponse), écarts de translittération distance 2, mots d'un niveau au-dessus. À solder
+  progressivement.
+- **Classement CECRL** : corrections ponctuelles quand un mot semble mal classé à
+  l'usage (éditer `data-niveau` dans le carnet, puis `node build.js`).
 
 ### Contrôle visuel navigateur (mobile)
-Rien n'a été vérifié dans un vrai navigateur depuis la refonte (les vérifications ont été
-faites en DOM simulé). À regarder en priorité : le pli et le bouton collant de l'accueil,
-la nouvelle zone « Repartir de zéro » (rendu du bloc rouge de confirmation, focus),
-et la frontière défilement/tap de la carte (`#flip`) sur iOS quand la face déborde
-(`bindTap` + `preventDefault()` sur `pointerup`).
+Fait le 2026-07-18 en **émulation iPhone** (Playwright/Chromium headless, viewport
+iPhone 14, tactile) : accueil, pli, zone « Repartir de zéro », carte recto/verso,
+portail, parcours complet — rien à corriger, zéro erreur JS. Pour du **WebKit réel**
+(moteur Safari), installer les libs manquantes puis relancer les mêmes scripts :
+`sudo apt-get install -y libgtk-4-1 libavif13 libgstreamer-plugins-bad1.0-0`.
+Reste à sentir sur le vrai iPhone : la frontière défilement/tap de la carte (`#flip`)
+quand la face déborde, et la réinstallation de la PWA (nouveau `start_url`).
 
 ### Pistes de design ouvertes (non tranchées — demandent une décision produit)
 - **Deux « lampes » sur l'accueil** : la carte « Révision du jour » (l'action quotidienne
@@ -118,13 +123,12 @@ et la frontière défilement/tap de la carte (`#flip`) sur iOS quand la face dé
   doré et le plus accessible au pouce. Faut-il inverser la hiérarchie ?
 - **« Facile » comme vrai contrat** : masquer les mots non classés quand un niveau est
   coché, plutôt que les laisser passer ? (Théorique tant que tout le carnet est classé.)
-- **La place de la recherche** : le dictionnaire trône en tête de l'écran de réglages —
-  est-ce le bon premier écran pour lui ?
 
 ## Rituel à chaque modification
 
 1. `node build.js` — régénère `flashcards_hebreu.html` ; échec si une section ou un
    niveau attendu tombe à 0 ; vérifier les comptes affichés (sections, niveaux, exemples).
+   Si des exemples ont changé : `node verifie_exemples.js` (0 erreur exigé).
 2. Vérifier le comportement : dans un navigateur (`python3 -m http.server` puis
    `http://localhost:8000/`), ou sans navigateur avec un script Node + jsdom jetable qui
    boote `flashcards_hebreu.html` (cf. ARCHITECTURE.md « Développement et déploiement »).
