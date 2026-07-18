@@ -73,6 +73,8 @@ Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr
 - `data-note` — précision affichée sous la réponse ;
 - `data-niveau` — niveau CECRL fin (`A1`…`C2`) du mot, porté aussi par les `<tr>` des trois tables (voir § 4). Attribut **optionnel** : un mot sans niveau reste visible quel que soit le filtre de l'app — le carnet peut s'annoter progressivement sans jamais perdre une carte.
 
+Un mot peut aussi porter des **exemples en situation** (voir § 5) : une sous-liste `<ul class="exemples"><li>` — chaque `<li>` avec les spans `.he`/`.tr`/`.fr` habituels — imbriquée **dans le `<li>` du mot** (sections listes) ou **en fin de première cellule** des tables (après les spans du mot : l'extraction lit toujours le *premier* `.he`/`.fr` du fragment, l'ordre est donc significatif). ⚠️ Ces `<li>` imbriqués interdisent les regex non-gourmandes : `lisOf` (build.js) délimite les `<li>` de premier niveau par balayage à profondeur, et le DOM d'index.html utilise `ul.word-list > li` (enfant direct). Toute évolution du parsing doit préserver cette robustesse.
+
 Les sections purement grammaticales (racine, passé, futur, binyanim, article, smikhut, prépositions fléchies) ont un label `.count` **sans** entrée dans les maps d'extraction : elles sont volontairement exclues des flashcards.
 
 ### 2. Deux implémentations de la même extraction (couplage critique)
@@ -95,10 +97,13 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
   he_plain,   // he sans nikud (stripNikud)
   note?,      // depuis data-note
   niveau?,    // depuis data-niveau ('A1'…'C2' — absent si le mot n'est pas classé)
+  exemples?: [{ he, tr, fr, he_plain }], // phrases en situation (ul.exemples du carnet)
   genre?,     // 'm' | 'f' (noms)
   forms?: [{ he, tr, label, he_plain }]  // conjugaisons, accords, pluriel
 }
 ```
+
+⚠️ L'**ordre d'insertion des propriétés** doit rester identique entre les deux extracteurs : le snapshot embarqué est comparé au byte près par `--check`, un simple `niveau` posé avant `forms` d'un côté et après de l'autre casse la vérification.
 
 Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2tr(card.he)`. Les cartes de catégorie `Phrases` reçoivent un affichage réduit (`.big-he.phrase` / `.big-fr.phrase`) pour que les longues phrases passent à la ligne proprement.
 
@@ -114,11 +119,17 @@ Le carnet stocke le **CECRL fin** (six valeurs, `data-niveau="A1"…"C2"`) — s
 
 Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut découvrir un mot « trop tôt » que de ne jamais le croiser). La relecture humaine se fait par échantillons, section par section — le classement vit dans le carnet, donc se corrige comme le reste du contenu : en éditant l'attribut, puis `node build.js`.
 
+### 5. Les exemples en situation
+
+Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans index.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
+
+**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples sur les mots A1 — verbes, modaux, quantité, adjectifs courants) : phrases courtes (4–8 mots), présent, vocabulaire de l'exemple ≤ niveau du mot autant que possible (les niveaux de § 4 disent par où commencer), une situation concrète du quotidien par phrase. Écrire les lots suivants par sections, relecture de Ruben par échantillons.
+
 ## build.js : la chaîne de génération
 
 `node build.js` (ou `--check` pour vérifier sans écrire) :
 
-1. Lit le carnet, extrait les cartes, **affiche le compte par section et par niveau CECRL** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide.
+1. Lit le carnet, extrait les cartes, **affiche le compte par section, par niveau CECRL et par section d'exemples** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide.
 2. Copie `index.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
    - bannière « fichier généré » après le doctype ;
    - suppression du loader, panneau setup visible d'emblée ;

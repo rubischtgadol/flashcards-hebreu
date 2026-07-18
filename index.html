@@ -227,7 +227,7 @@
   .speak-btn.hide{ display:none !important; }
   /* Pas de voix hébraïque sur l'appareil : on masque les boutons audio plutôt
      que de laisser la voix par défaut prononcer l'hébreu de travers. */
-  body.no-he-voice .speak-btn, body.no-he-voice .sr-speak, body.no-he-voice .spk-hint{ display:none !important; }
+  body.no-he-voice .speak-btn, body.no-he-voice .sr-speak, body.no-he-voice .spk-hint, body.no-he-voice .ex-speak{ display:none !important; }
   .audio-note, .seg-note{ color:var(--ink-dim); font-size:.76rem; margin-top:8px; }
   .face.flip-anim{ animation:cardIn .26s ease; }
   @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
@@ -246,6 +246,37 @@
   .sub-fr{ font-size:1.15rem; color:var(--ink); margin-top:10px; }
   .cursive-line{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:1.7rem; color:var(--gold-soft); direction:rtl; margin-top:8px; }
   .note-line{ font-size:1rem; color:var(--ink-dim); margin-top:14px; max-width:90%; font-style:italic; }
+  /* --- Exemples en situation : pli « Voir un exemple » (verso, feedback, QCM) --- */
+  .ex-wrap{ margin-top:16px; }
+  .ex-toggle{
+    background:none; border:1px solid var(--line); border-radius:10px;
+    color:var(--ink-dim); font-family:'Assistant',sans-serif; font-size:.88rem;
+    padding:7px 14px; cursor:pointer; transition:border-color .15s ease, color .15s ease;
+  }
+  .ex-toggle:hover{ border-color:var(--gold); color:var(--gold); }
+  .ex-toggle[aria-expanded="true"]{ color:var(--gold); }
+  .ex-box{ margin-top:12px; display:flex; flex-direction:column; gap:10px; }
+  .ex-item{ display:flex; align-items:center; justify-content:center; gap:10px; }
+  .ex-body{ min-width:0; }
+  .ex-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.5rem; line-height:1.45; direction:rtl; }
+  .ex-tr{ font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--ink-dim); direction:ltr; margin-top:2px; }
+  .ex-fr{ font-family:'Assistant',sans-serif; font-size:.95rem; margin-top:2px; }
+  .ex-speak{
+    flex:0 0 auto; width:40px; height:40px; padding:9px; border-radius:50%;
+    border:1px solid var(--line); background:none; color:var(--ink-dim); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .ex-speak:hover{ border-color:var(--gold); color:var(--gold); }
+  .ex-speak svg{ width:100%; height:100%; }
+  @media (pointer:coarse){ .ex-speak{ width:44px; height:44px; } }
+  .quiz-ex{ text-align:center; margin-top:4px; }
+  /* Dans le tiroir de la recherche : version compacte, alignée à gauche comme le reste du tiroir. */
+  .srd-ex{ display:flex; align-items:center; gap:8px; margin:6px 0; }
+  .srd-ex .ex-he{ font-size:1.15rem; }
+  .srd-ex .ex-tr{ font-size:.76rem; margin-top:0; }
+  .srd-ex .ex-fr{ font-size:.8rem; margin-top:0; }
+  .srd-ex .ex-speak{ width:34px; height:34px; padding:7px; }
   /* Inflexions : chaque forme est une cellule empilée (mot au-dessus, étiquette
      dessous), le tout centré et en retour à la ligne — jamais de mélange rtl/ltr
      sur une même ligne (source des chevauchements) et une taille lisible. */
@@ -586,6 +617,7 @@
     <div class="quiz-choices" id="quiz-choices"></div>
     <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
     <div class="fix-row"><button class="fix-btn hide" type="button" id="quiz-fix"></button></div>
+    <div class="quiz-ex" id="quiz-ex"></div>
     <button class="btn-next hide" id="quiz-next">Suivant →</button>
   </div>
 
@@ -815,7 +847,7 @@ function runSearch(){
   let html = '<div class="sr-count">'+hits.length+(hits.length>=80?'+':'')+' résultat'+(hits.length>1?'s':'')+'</div>';
   html += hits.map((c,i)=>{
     const tr = '<span class="sr-tr">'+(c.tr||he2tr(c.he))+'</span>';
-    const expandable = !!(c.forms || c.note);
+    const expandable = !!(c.forms || c.note || c.exemples);
     const chevron = expandable ? '<span class="sr-chev" aria-hidden="true">\u203a</span>' : '';
     let detail = '';
     if(expandable){
@@ -830,6 +862,14 @@ function runSearch(){
         detail += '</div>';
       }
       if(c.note) detail += '<div class="srd-note">'+c.note+'</div>';
+      if(c.exemples){
+        detail += '<div class="srd-title">Exemple'+(c.exemples.length>1?'s':'')+'</div>';
+        c.exemples.forEach(ex=>{
+          detail += '<div class="srd-ex"><button class="ex-speak" type="button" data-he="'+escapeHtml(ex.he)+'" aria-label="Écouter l\'exemple">'+SPK_SVG+'</button>'
+                 +  '<div class="ex-body"><div class="ex-he" lang="he">'+ex.he+'</div>'
+                 +  '<div class="ex-tr">'+ex.tr+'</div><div class="ex-fr">'+ex.fr+'</div></div></div>';
+        });
+      }
       detail += '</div>';
     }
     // Un vrai <button> est impossible ici (il contient déjà le bouton Écouter,
@@ -1125,6 +1165,7 @@ function setupQuizCard(card){
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'choisis la traduction' : 'choisis le mot hébreu';
   document.getElementById('quiz-next').classList.add('hide');
   const qf=document.getElementById('quiz-fix'); qf.classList.add('hide'); qf.disabled=false;
+  document.getElementById('quiz-ex').innerHTML='';
   document.getElementById('quiz-live').textContent='';
   const box=document.getElementById('quiz-choices'); box.innerHTML='';
   const options=shuffle([card, ...pickDistractors(card,3)]);
@@ -1159,6 +1200,7 @@ function quizPick(btn, chosen, card){
   fix.textContent = correct ? 'En fait, je ne savais pas' : 'J’avais juste →';
   fix.classList.remove('hide');
   fix.onclick=()=>quizFixVerdict(card, correct, fix);
+  document.getElementById('quiz-ex').innerHTML = exHtml(card);
   document.getElementById('quiz-next').classList.remove('hide');
   updateSpeaker();
   // « Automatique » seulement : en « Au clic », le bouton haut-parleur reste le seul déclencheur.
@@ -1199,6 +1241,44 @@ function formsHtml(card){
   card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he" lang="he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
   return h+'</div>';
 }
+// Exemples en situation : pli « Voir un exemple », uniquement là où la réponse est
+// déjà visible (verso des Cartes, feedback de Saisie, verdict du QCM) — jamais
+// côté recto en fr→he, l'exemple contient le mot. Texte toujours affiché ;
+// l'audio (phrase entière) n'est qu'un complément, masqué sous no-he-voice.
+function exHtml(card){
+  if(!card.exemples || !card.exemples.length) return '';
+  const n=card.exemples.length;
+  let h='<div class="ex-wrap"><button class="ex-toggle" type="button" aria-expanded="false">'
+    +(n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')+'</button><div class="ex-box hide">';
+  card.exemples.forEach(ex=>{
+    h+='<div class="ex-item"><button class="ex-speak" type="button" data-he="'+escapeHtml(ex.he)+'" aria-label="Écouter l\'exemple">'+SPK_SVG+'</button>'
+     +'<div class="ex-body"><div class="ex-he" lang="he">'+ex.he+'</div>'
+     +'<div class="ex-tr">'+ex.tr+'</div>'
+     +'<div class="ex-fr">'+ex.fr+'</div></div></div>';
+  });
+  return h+'</div></div>';
+}
+function exActivate(t){
+  if(t.classList.contains('ex-toggle')){
+    const open=t.getAttribute('aria-expanded')==='true';
+    t.setAttribute('aria-expanded', open?'false':'true');
+    const box=t.nextElementSibling; if(box) box.classList.toggle('hide', open);
+  } else speak(t.dataset.he);
+}
+// Délégation façon bindTap (les zones sont réinjectées en innerHTML à chaque carte) :
+// pointerup d'abord avec stopPropagation — sinon le tap remonterait jusqu'au
+// bindTap de #flip et retournerait la carte — puis click en filet (clavier inclus).
+function exBind(el){
+  if(!el) return;
+  let handled=false;
+  const hit=e=>(e.target.closest ? e.target.closest('.ex-toggle,.ex-speak') : null);
+  el.addEventListener('pointerup', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); handled=true; exActivate(t); setTimeout(()=>handled=false,50); });
+  el.addEventListener('click', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); if(!handled) exActivate(t); });
+}
+exBind(document.getElementById('face-content'));
+exBind(document.getElementById('feedback'));
+exBind(document.getElementById('quiz-ex'));
+exBind(document.getElementById('search-results'));
 
 function render(){
   const card=state.queue[state.idx];
@@ -1217,14 +1297,14 @@ function render(){
     let b = bigFr(card);
     b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
     if(state.script!=='nikud') b += '<div class="sub-he" lang="he">'+card.he+'</div>';
-    b += formsHtml(card) + note;
+    b += formsHtml(card) + note + exHtml(card);
     state.backHtml = b;
   } else {
     state.frontHtml = bigFr(card) + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
     let b = '<div class="big-he" lang="he">'+card.he+'</div>';
     b += '<div class="cursive-line" lang="he">'+card.he_plain+'</div>';
     b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
-    b += formsHtml(card) + note;
+    b += formsHtml(card) + note + exHtml(card);
     state.backHtml = b;
   }
 
@@ -1514,7 +1594,7 @@ function showInputFeedback(card, kind, attempt){
     : (kind==='almost' && attempt)
     ? '<div class="your-answer">Ta réponse : '+escapeHtml(attempt)+'</div>' : '';
   const fixLabel = (kind==='ok'||kind==='almost') ? 'En fait, je ne savais pas' : 'J’avais juste →';
-  fb.innerHTML = verdict + tried + answerHtml(card)
+  fb.innerHTML = verdict + tried + answerHtml(card) + exHtml(card)
     + '<button class="fix-btn" type="button" id="fix-verdict">'+fixLabel+'</button>';
   const btn=document.getElementById('fix-verdict');
   if(btn) btn.onclick=()=>fixVerdict(card, kind, btn);
@@ -1771,6 +1851,16 @@ function extractCards(doc){
       else if(el.querySelectorAll) el.querySelectorAll('ul.word-list > li').forEach(li=>out.push(li));
     }); return out;
   }
+  // Exemples en situation : sous-liste <ul class="exemples"> dans le <li> du mot
+  // ou dans la première cellule d'une table. Optionnel — mot sans exemple = carte normale.
+  function exOf(el){
+    const out=[];
+    el.querySelectorAll('ul.exemples > li').forEach(x=>{
+      const he=firstText(x,'.he'); if(!he) return;
+      out.push({he, tr:firstText(x,'.tr'), fr:firstText(x,'.fr'), he_plain:stripNikud(he)});
+    });
+    return out;
+  }
   rowsOf('Verbes').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<5) return;
     const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
@@ -1779,6 +1869,7 @@ function extractCards(doc){
       forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
     if(he){ const card={cat:'Verbes',he,tr:'',fr:'(infinitif) '+fr,forms};
       if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
       cards.push(card); }
   });
   rowsOf('Adjectifs').forEach(tr=>{
@@ -1789,6 +1880,7 @@ function extractCards(doc){
       if(fhe) forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
     if(he){ const card={cat:'Adjectifs',he,tr:'',fr, forms};
       if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
       cards.push(card); }
   });
   rowsOf('Noms').forEach(tr=>{
@@ -1800,6 +1892,7 @@ function extractCards(doc){
     if(genre==='m'||genre==='f') card.genre=genre;
     if(plHe && plHe!=='—'){ card.forms=[{he:plHe,tr:plTr,label:'pluriel',he_plain:stripNikud(plHe)}]; }
     if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+    const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
     if(he) cards.push(card);
   });
   const listCats={'Pronoms personnels':'Pronoms personnels','Démonstratifs':'Démonstratifs',
@@ -1817,6 +1910,7 @@ function extractCards(doc){
       const card={cat:listCats[sec],he,tr:firstText(li,'.tr'),fr:li.dataset.frCourt||firstText(li,'.fr')};
       if(li.dataset.note) card.note=li.dataset.note;
       if(li.dataset.niveau) card.niveau=li.dataset.niveau;
+      const ex=exOf(li); if(ex.length) card.exemples=ex;
       cards.push(card);
     });
   });

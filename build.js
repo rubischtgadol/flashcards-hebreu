@@ -97,15 +97,54 @@ function rowsOf(sections, name){
   });
   return rows;
 }
+// Fin du bloc ouvert à openTag.index : suit la profondeur des <tag>/<\/tag> imbriqués
+// (une regex non-gourmande s'arrêterait au premier fermant — celui d'un enfant).
+function closeOf(html, openEnd, tag){
+  const re = new RegExp('</?' + tag + '\\b[^>]*>', 'g');
+  re.lastIndex = openEnd;
+  let depth = 1, t;
+  while ((t = re.exec(html))){
+    depth += t[0][1] === '/' ? -1 : 1;
+    if (depth === 0) return t.index;
+  }
+  return html.length;
+}
 function lisOf(sections, name){
-  // renvoie chaque <li> COMPLET (balise ouvrante incluse, pour lire ses data-*)
+  // renvoie chaque <li> COMPLET de premier niveau (balise ouvrante incluse, pour
+  // lire ses data-*) — les <ul class="exemples"> imbriqués et leurs <li> restent
+  // à l'intérieur du fragment, jamais énumérés comme des mots.
   const body = sections[name] || '';
   const lis = [];
-  blocksOf(body, /<ul\b[^>]*\bclass="word-list"[^>]*>([\s\S]*?)<\/ul>/g).forEach(ul => {
-    let m; const re = /<li\b[^>]*>[\s\S]*?<\/li>/g;
-    while ((m = re.exec(ul))) lis.push(m[0]);
-  });
+  const ulRe = /<ul\b[^>]*\bclass="word-list"[^>]*>/g;
+  let ul;
+  while ((ul = ulRe.exec(body))){
+    const end = closeOf(body, ul.index + ul[0].length, 'ul');
+    const inner = body.slice(ul.index + ul[0].length, end);
+    const liRe = /<\/?li\b[^>]*>/g;
+    let depth = 0, start = -1, t;
+    while ((t = liRe.exec(inner))){
+      if (t[0][1] !== '/'){ if (depth === 0) start = t.index; depth++; }
+      else { depth--; if (depth === 0 && start >= 0){ lis.push(inner.slice(start, t.index + t[0].length)); start = -1; } }
+    }
+    ulRe.lastIndex = end;
+  }
   return lis;
+}
+// Exemples en situation : <ul class="exemples"><li> .he/.tr/.fr </li></ul> dans un
+// <li> de word-list ou dans la première cellule d'une table. Champ optionnel.
+function exemplesOf(fragment){
+  const out = [];
+  const ulRe = /<ul\b[^>]*\bclass="exemples"[^>]*>/g;
+  let ul;
+  while ((ul = ulRe.exec(fragment))){
+    const end = closeOf(fragment, ul.index + ul[0].length, 'ul');
+    blocksOf(fragment.slice(ul.index + ul[0].length, end), /<li\b[^>]*>([\s\S]*?)<\/li>/g).forEach(li => {
+      const he = firstSpanText(li, 'he'); if (!he) return;
+      out.push({ he, tr: firstSpanText(li, 'tr'), fr: firstSpanText(li, 'fr'), he_plain: stripNikud(he) });
+    });
+    ulRe.lastIndex = end;
+  }
+  return out;
 }
 function attrOf(fragment, name){
   // attribut de la balise ouvrante d'un fragment <li>/<tr> complet
@@ -130,6 +169,8 @@ function extractCards(html){
       const card = { cat: 'Verbes', he, tr: '', fr: '(infinitif) ' + fr, forms };
       const niveau = attrOf(tr, 'data-niveau');
       if (niveau) card.niveau = niveau;
+      const ex = exemplesOf(tds[0]);
+      if (ex.length) card.exemples = ex;
       cards.push(card);
     }
   });
@@ -146,6 +187,8 @@ function extractCards(html){
       const card = { cat: 'Adjectifs', he, tr: '', fr, forms };
       const niveau = attrOf(tr, 'data-niveau');
       if (niveau) card.niveau = niveau;
+      const ex = exemplesOf(tds[0]);
+      if (ex.length) card.exemples = ex;
       cards.push(card);
     }
   });
@@ -160,6 +203,8 @@ function extractCards(html){
     if (plHe && plHe !== '—'){ card.forms = [{ he: plHe, tr: plTr, label: 'pluriel', he_plain: stripNikud(plHe) }]; }
     const niveau = attrOf(tr, 'data-niveau');
     if (niveau) card.niveau = niveau;
+    const ex = exemplesOf(tds[0]);
+    if (ex.length) card.exemples = ex;
     if (he) cards.push(card);
   });
 
@@ -179,6 +224,8 @@ function extractCards(html){
       if (note) card.note = note;
       const niveau = attrOf(li, 'data-niveau');
       if (niveau) card.niveau = niveau;
+      const ex = exemplesOf(li);
+      if (ex.length) card.exemples = ex;
       cards.push(card);
     });
   });
@@ -217,6 +264,22 @@ function report(cards){
     console.error('\n✗ Niveaux attendus sans aucune carte : ' + missingLevels.join(', '));
     console.error('  (data-niveau retirés ou renommés dans le carnet ?)');
     process.exit(1);
+  }
+
+  // Exemples en situation (étape 6 du plan UX) : comptes par section.
+  const exCounts = {};
+  let exTotal = 0, exWords = 0;
+  cards.forEach(c => {
+    if (!c.exemples) return;
+    exWords++; exTotal += c.exemples.length;
+    exCounts[c.cat] = (exCounts[c.cat] || 0) + c.exemples.length;
+  });
+  if (exTotal){
+    console.log('\nExemples en situation : ' + exTotal + ' phrase(s) sur ' + exWords + ' mot(s)');
+    const ew = Math.max(...Object.keys(exCounts).map(k => k.length));
+    Object.keys(exCounts).sort((a, b) => exCounts[b] - exCounts[a]).forEach(cat => {
+      console.log('  ' + cat.padEnd(ew) + '  ' + exCounts[cat]);
+    });
   }
 }
 

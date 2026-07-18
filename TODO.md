@@ -1,8 +1,8 @@
 # Plan d'amélioration UX — suite de la re-critique du 18/07/2026
 
-État au 18/07/2026 au soir : les étapes 1 à 5 sont **faites, vérifiées (jsdom) et poussées** sur
-`main`. Reste le chantier des exemples (ouvre par un shape avec décisions de Ruben) puis la
-re-mesure.
+État au 18/07/2026 au soir : les étapes 1 à 6 sont **faites, vérifiées (jsdom) et poussées** sur
+`main`. Reste la re-mesure (étape 7), et deux chantiers éditoriaux au long cours : la relecture
+du classement CECRL par Ruben, et les lots d'exemples suivants.
 
 ## Fait (historique compact — détail dans les messages de commit)
 
@@ -30,6 +30,17 @@ re-mesure.
   rétro-compatible, trois indices de sélection vide distincts, comptes + garde-fou
   `EXPECTED_LEVELS` dans build.js. Vérifié jsdom : 20/20. **Relecture du classement par
   Ruben : par échantillons, en corrigeant `data-niveau` directement dans le carnet.**
+- **[x] 6. Exemples en situation** — shape validé par Ruben le 18/07 (pli inline « Voir un
+  exemple », lot pilote A1 d'abord). Sous-listes `<ul class="exemples">` dans le carnet
+  (li du mot / 1re cellule des tables), `card.exemples` extrait dans les deux
+  implémentations (`lisOf` de build.js réécrit en balayage à profondeur — les `<li>`
+  imbriqués cassaient l'énumération regex), pli sur le verso Cartes + feedback Saisie +
+  verdict QCM (jamais côté recto fr→he), exemples dans le tiroir de la recherche, bouton
+  Écouter par phrase (masqué sous `no-he-voice`), comptes par section dans build.js.
+  **Lot pilote : 77 exemples A1** (42 verbes, 2 modaux, 6 quantité, 27 adjectifs), ligne
+  éditoriale dans ARCHITECTURE.md §5. Vérifié jsdom : 22/22 + non-régression niveaux.
+  **Restent : relecture du lot par Ruben (nikud, ton, translittération), puis les lots
+  suivants** (A1 restants — noms, expressions, interrogatifs — puis A2) par sections.
 
 Reste transverse : **contrôle visuel navigateur (mobile) côté Ruben** — rien n'a été vu dans
 un vrai navigateur depuis la refonte. Points à regarder en priorité : le pli et le bouton
@@ -41,40 +52,6 @@ Décisions prises (ne pas re-débattre) :
 - Le setup reste le premier écran ; seul son poids était en cause (tranché à l'étape 3).
 
 ## Ce qui reste
-
-### 6. `/impeccable shape exemples` — exemples concrets d'utilisation, puis implémentation  [ ]
-Demande de Ruben (18/07/2026) : sur les flashcards, un lien ou une autre fenêtre avec des
-exemples concrets d'utilisation du mot (phrase en situation, pas juste la traduction).
-**L'exemple est écrit et affiché** — la phrase hébraïque en toutes lettres (nikud), sa
-translittération et sa traduction française lisibles à l'écran ; l'audio n'est qu'un
-complément optionnel, jamais le seul vecteur.
-
-- **Le contenu vit dans le carnet** (source unique de vérité) : chaque exemple = hébreu avec
-  nikud + translittération + français. Format à trancher au shape : sous-liste imbriquée
-  `<ul class="exemples"><li>` avec les spans `.he`/`.tr`/`.fr` habituels (plusieurs exemples
-  possibles, cohérent avec le markup existant) plutôt que des `data-*` (trois champs × N
-  exemples ne tiennent pas dans des attributs).
-- **Affordance côté app** — à trancher au shape, dans l'esprit de la charte (pas de modale
-  par réflexe, divulgation progressive) :
-  - pli inline « Voir un exemple » (ghost) sur le **verso** de la carte et dans le feedback
-    de saisie/QCM — jamais sur le recto en fr→he (l'exemple contient le mot : il révélerait
-    la réponse) ;
-  - et/ou lien profond vers le mot dans le carnet (nécessite des ancres `id` par entrée —
-    utile aussi à la recherche) ;
-  - la recherche du setup a déjà son tiroir `sr-detail` : y afficher les exemples aussi.
-- **Audio (complément)** : en plus du texte affiché, un bouton Écouter par exemple (la phrase
-  entière — la synthèse vocale au service du but conversationnel de PRODUCT.md) ; masqué
-  comme le reste sous `no-he-voice`, sans jamais priver du texte.
-- **Extraction** : `card.exemples?: [{he, tr, fr, he_plain}]` dans le schéma ; miroir dans
-  **les deux** implémentations (`extractCards()` d'index.html + réplique regex de build.js) ;
-  champ optionnel — un mot sans exemple reste une carte normale, le contenu s'écrit
-  progressivement.
-- **Contenu** (~700 mots, gros chantier éditorial) : par lots, en commençant par les mots
-  A1/A2 (synergie avec l'étape 5 — les niveaux disent par où commencer) et les verbes/noms
-  du quotidien ; exemples courts (5–8 mots), vocabulaire de l'exemple ≤ niveau du mot autant
-  que possible, relecture de Ruben par échantillons.
-- Garde-fous : compte d'exemples par section dans la sortie de `build.js` ; `--check` couvre
-  la dérive.
 
 ### 7. `/impeccable critique index.html` — re-mesure  [ ]
 - Objectif : ≥ 33/40 et **0 P1**. Le trend se lit dans `.impeccable/critique/` (28 → 33 → ?).

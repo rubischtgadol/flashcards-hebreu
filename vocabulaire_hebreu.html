@@ -169,6 +169,22 @@
     font-size:1.12rem;
     color:var(--ink-dim);
   }
+
+  /* --- Exemples en situation (extraits vers les flashcards, cf. ARCHITECTURE.md) ---
+     Sous-liste <ul class="exemples"> dans le <li> du mot ou la 1re cellule d'une table. */
+  .word-list li{ flex-wrap:wrap; }
+  .exemples{ list-style:none; width:100%; margin:8px 0 0; padding:0; direction:rtl; }
+  .exemples li, .word-list .exemples li{
+    display:block; padding:7px 12px; margin-top:4px;
+    border-bottom:none; background:rgba(0,0,0,.14); border-radius:9px;
+  }
+  .word-list .exemples li:hover, .exemples li:hover{ background:rgba(0,0,0,.14); }
+  td:first-child .exemples .he, .word-list .exemples .he{ font-size:1.3rem; color:var(--ink); }
+  .exemples .tr{ font-size:.88rem; margin-top:1px; text-align:right; }
+  td:first-child .exemples .fr, .word-list .exemples .fr{
+    display:block; font-family:'Assistant',sans-serif; font-size:1rem;
+    color:var(--ink-dim); direction:ltr; text-align:right; margin-top:1px;
+  }
   .empty{
     color:var(--ink-dim);
     font-style:italic;
@@ -928,14 +944,18 @@
   </thead>
 <tbody>
     <tr data-niveau="A1">
-      <td><span class="he">לָלֶכֶת</span><span class="fr">aller</span></td>
+      <td><span class="he">לָלֶכֶת</span><span class="fr">aller</span>
+      <ul class="exemples"><li><span class="he">אֲנִי הוֹלֵךְ לָעֲבוֹדָה בַּבֹּקֶר</span><span class="tr">ani holekh la'avodah baboker</span><span class="fr">je vais au travail le matin</span></li></ul>
+    </td>
       <td><span class="he">הוֹלֵךְ</span><span class="tr">holekh</span></td>
       <td><span class="he">הוֹלֶכֶת</span><span class="tr">holekhet</span></td>
       <td><span class="he">הוֹלְכִים</span><span class="tr">holkhim</span></td>
       <td><span class="he">הוֹלְכוֹת</span><span class="tr">holkhot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָבוֹא</span><span class="fr">venir</span></td>
+      <td><span class="he">לָבוֹא</span><span class="fr">venir</span>
+      <ul class="exemples"><li><span class="he">אַתָּה בָּא לַמְּסִבָּה הָעֶרֶב?</span><span class="tr">atah ba lamesibah ha'erev?</span><span class="fr">tu viens à la fête ce soir ?</span></li></ul>
+    </td>
       <td><span class="he">בָּא</span><span class="tr">ba</span></td>
       <td><span class="he">בָּאָה</span><span class="tr">ba'ah</span></td>
       <td><span class="he">בָּאִים</span><span class="tr">ba'im</span></td>
@@ -956,7 +976,9 @@
       <td><span class="he">עוֹמְדוֹת</span><span class="tr">'omdot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִנְסֹעַ</span><span class="fr">voyager / rouler</span></td>
+      <td><span class="he">לִנְסֹעַ</span><span class="fr">voyager / rouler</span>
+      <ul class="exemples"><li><span class="he">אֲנַחְנוּ נוֹסְעִים לְתֵל אָבִיב מָחָר</span><span class="tr">anachnu nos'im leTel Aviv machar</span><span class="fr">nous allons à Tel-Aviv demain</span></li></ul>
+    </td>
       <td><span class="he">נוֹסֵעַ</span><span class="tr">nose'a</span></td>
       <td><span class="he">נוֹסַעַת</span><span class="tr">nosa'at</span></td>
       <td><span class="he">נוֹסְעִים</span><span class="tr">nos'im</span></td>
@@ -970,7 +992,9 @@
       <td><span class="he">טָסוֹת</span><span class="tr">tasot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לַחְזֹר</span><span class="fr">revenir / retourner</span></td>
+      <td><span class="he">לַחְזֹר</span><span class="fr">revenir / retourner</span>
+      <ul class="exemples"><li><span class="he">הוּא חוֹזֵר הַבַּיְתָה בָּעֶרֶב</span><span class="tr">hu chozer habaytah ba'erev</span><span class="fr">il rentre à la maison le soir</span></li></ul>
+    </td>
       <td><span class="he">חוֹזֵר</span><span class="tr">chozer</span></td>
       <td><span class="he">חוֹזֶרֶת</span><span class="tr">chozeret</span></td>
       <td><span class="he">חוֹזְרִים</span><span class="tr">chozrim</span></td>
@@ -984,14 +1008,18 @@
       <td><span class="he">נִכְנָסוֹת</span><span class="tr">nikhnasot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָצֵאת</span><span class="fr">sortir</span></td>
+      <td><span class="he">לָצֵאת</span><span class="fr">sortir</span>
+      <ul class="exemples"><li><span class="he">אֲנִי יוֹצֵא מֵהַבַּיִת עַכְשָׁו</span><span class="tr">ani yotse mehabayit 'akhshav</span><span class="fr">je sors de la maison maintenant</span></li></ul>
+    </td>
       <td><span class="he">יוֹצֵא</span><span class="tr">yotse</span></td>
       <td><span class="he">יוֹצֵאת</span><span class="tr">yotset</span></td>
       <td><span class="he">יוֹצְאִים</span><span class="tr">yotsim</span></td>
       <td><span class="he">יוֹצְאוֹת</span><span class="tr">yotsot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לְהַגִּיעַ</span><span class="fr">arriver</span></td>
+      <td><span class="he">לְהַגִּיעַ</span><span class="fr">arriver</span>
+      <ul class="exemples"><li><span class="he">הָאוֹטוֹבּוּס מַגִּיעַ עַכְשָׁו</span><span class="tr">ha'otobus magi'a 'akhshav</span><span class="fr">le bus arrive maintenant</span></li></ul>
+    </td>
       <td><span class="he">מַגִּיעַ</span><span class="tr">magi'a</span></td>
       <td><span class="he">מַגִּיעָה</span><span class="tr">magi'ah</span></td>
       <td><span class="he">מַגִּיעִים</span><span class="tr">magi'im</span></td>
@@ -1012,14 +1040,18 @@
       <td><span class="he">שׂוֹחוֹת</span><span class="tr">sochot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָקוּם</span><span class="fr">se lever</span></td>
+      <td><span class="he">לָקוּם</span><span class="fr">se lever</span>
+      <ul class="exemples"><li><span class="he">אֲנִי קָם מֻקְדָּם בַּבֹּקֶר</span><span class="tr">ani kam mukdam baboker</span><span class="fr">je me lève tôt le matin</span></li></ul>
+    </td>
       <td><span class="he">קָם</span><span class="tr">kam</span></td>
       <td><span class="he">קָמָה</span><span class="tr">kamah</span></td>
       <td><span class="he">קָמִים</span><span class="tr">kamim</span></td>
       <td><span class="he">קָמוֹת</span><span class="tr">kamot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָשֶׁבֶת</span><span class="fr">s'asseoir</span></td>
+      <td><span class="he">לָשֶׁבֶת</span><span class="fr">s'asseoir</span>
+      <ul class="exemples"><li><span class="he">אֲנַחְנוּ יוֹשְׁבִים בְּבֵית קָפֶה</span><span class="tr">anachnu yoshvim beveit kafeh</span><span class="fr">nous sommes assis dans un café</span></li></ul>
+    </td>
       <td><span class="he">יוֹשֵׁב</span><span class="tr">yoshev</span></td>
       <td><span class="he">יוֹשֶׁבֶת</span><span class="tr">yoshevet</span></td>
       <td><span class="he">יוֹשְׁבִים</span><span class="tr">yoshvim</span></td>
@@ -1057,21 +1089,27 @@
   </thead>
 <tbody>
     <tr data-niveau="A1">
-      <td><span class="he">לֶאֱכֹל</span><span class="fr">manger</span></td>
+      <td><span class="he">לֶאֱכֹל</span><span class="fr">manger</span>
+      <ul class="exemples"><li><span class="he">אֲנִי אוֹכֵל לֶחֶם עִם גְּבִינָה</span><span class="tr">ani okhel lechem 'im gvinah</span><span class="fr">je mange du pain avec du fromage</span></li></ul>
+    </td>
       <td><span class="he">אוֹכֵל</span><span class="tr">okhel</span></td>
       <td><span class="he">אוֹכֶלֶת</span><span class="tr">okhelet</span></td>
       <td><span class="he">אוֹכְלִים</span><span class="tr">okhlim</span></td>
       <td><span class="he">אוֹכְלוֹת</span><span class="tr">okhlot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִשְׁתּוֹת</span><span class="fr">boire</span></td>
+      <td><span class="he">לִשְׁתּוֹת</span><span class="fr">boire</span>
+      <ul class="exemples"><li><span class="he">הִיא שׁוֹתָה קָפֶה בַּבֹּקֶר</span><span class="tr">hi shotah kafeh baboker</span><span class="fr">elle boit du café le matin</span></li></ul>
+    </td>
       <td><span class="he">שׁוֹתֶה</span><span class="tr">shoteh</span></td>
       <td><span class="he">שׁוֹתָה</span><span class="tr">shotah</span></td>
       <td><span class="he">שׁוֹתִים</span><span class="tr">shotim</span></td>
       <td><span class="he">שׁוֹתוֹת</span><span class="tr">shotot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִישֹׁן</span><span class="fr">dormir</span></td>
+      <td><span class="he">לִישֹׁן</span><span class="fr">dormir</span>
+      <ul class="exemples"><li><span class="he">הַתִּינוֹק יָשֵׁן עַכְשָׁו</span><span class="tr">hatinok yashen 'akhshav</span><span class="fr">le bébé dort maintenant</span></li></ul>
+    </td>
       <td><span class="he">יָשֵׁן</span><span class="tr">yashen</span></td>
       <td><span class="he">יְשֵׁנָה</span><span class="tr">yeshenah</span></td>
       <td><span class="he">יְשֵׁנִים</span><span class="tr">yeshenim</span></td>
@@ -1085,14 +1123,18 @@
       <td><span class="he">מִתְעוֹרְרוֹת</span><span class="tr">mit'orerot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָגוּר</span><span class="fr">habiter</span></td>
+      <td><span class="he">לָגוּר</span><span class="fr">habiter</span>
+      <ul class="exemples"><li><span class="he">אֲנִי גָּר בְּתֵל אָבִיב</span><span class="tr">ani gar beTel Aviv</span><span class="fr">j'habite à Tel-Aviv</span></li></ul>
+    </td>
       <td><span class="he">גָּר</span><span class="tr">gar</span></td>
       <td><span class="he">גָּרָה</span><span class="tr">garah</span></td>
       <td><span class="he">גָּרִים</span><span class="tr">garim</span></td>
       <td><span class="he">גָּרוֹת</span><span class="tr">garot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִקְנוֹת</span><span class="fr">acheter</span></td>
+      <td><span class="he">לִקְנוֹת</span><span class="fr">acheter</span>
+      <ul class="exemples"><li><span class="he">אִמָּא קוֹנָה פֵּרוֹת בַּשּׁוּק</span><span class="tr">ima konah perot bashuk</span><span class="fr">maman achète des fruits au marché</span></li></ul>
+    </td>
       <td><span class="he">קוֹנֶה</span><span class="tr">koneh</span></td>
       <td><span class="he">קוֹנָה</span><span class="tr">konah</span></td>
       <td><span class="he">קוֹנִים</span><span class="tr">konim</span></td>
@@ -1106,7 +1148,9 @@
       <td><span class="he">מוֹכְרוֹת</span><span class="tr">mokhrot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לְשַׁלֵּם</span><span class="fr">payer</span></td>
+      <td><span class="he">לְשַׁלֵּם</span><span class="fr">payer</span>
+      <ul class="exemples"><li><span class="he">אֲנִי מְשַׁלֵּם עַל הַקָּפֶה</span><span class="tr">ani meshalem 'al hakafeh</span><span class="fr">je paie le café</span></li></ul>
+    </td>
       <td><span class="he">מְשַׁלֵּם</span><span class="tr">meshalem</span></td>
       <td><span class="he">מְשַׁלֶּמֶת</span><span class="tr">meshalemet</span></td>
       <td><span class="he">מְשַׁלְּמִים</span><span class="tr">meshalmim</span></td>
@@ -1141,14 +1185,18 @@
       <td><span class="he">לוֹבְשׁוֹת</span><span class="tr">lovshot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִפְתֹּחַ</span><span class="fr">ouvrir</span></td>
+      <td><span class="he">לִפְתֹּחַ</span><span class="fr">ouvrir</span>
+      <ul class="exemples"><li><span class="he">אֲנִי פּוֹתֵחַ אֶת הַחַלּוֹן</span><span class="tr">ani poteach et hachalon</span><span class="fr">j'ouvre la fenêtre</span></li></ul>
+    </td>
       <td><span class="he">פּוֹתֵחַ</span><span class="tr">poteach</span></td>
       <td><span class="he">פּוֹתַחַת</span><span class="tr">potachat</span></td>
       <td><span class="he">פּוֹתְחִים</span><span class="tr">potchim</span></td>
       <td><span class="he">פּוֹתְחוֹת</span><span class="tr">potchot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִסְגֹּר</span><span class="fr">fermer</span></td>
+      <td><span class="he">לִסְגֹּר</span><span class="fr">fermer</span>
+      <ul class="exemples"><li><span class="he">הִיא סוֹגֶרֶת אֶת הַדֶּלֶת</span><span class="tr">hi sogeret et hadelet</span><span class="fr">elle ferme la porte</span></li></ul>
+    </td>
       <td><span class="he">סוֹגֵר</span><span class="tr">soger</span></td>
       <td><span class="he">סוֹגֶרֶת</span><span class="tr">sogeret</span></td>
       <td><span class="he">סוֹגְרִים</span><span class="tr">sogrim</span></td>
@@ -1162,14 +1210,18 @@
       <td><span class="he">שָׂמוֹת</span><span class="tr">samot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָקַחַת</span><span class="fr">prendre</span></td>
+      <td><span class="he">לָקַחַת</span><span class="fr">prendre</span>
+      <ul class="exemples"><li><span class="he">אֲנִי לוֹקֵחַ אֶת הַתִּיק שֶׁלִּי</span><span class="tr">ani lokeach et hatik sheli</span><span class="fr">je prends mon sac</span></li></ul>
+    </td>
       <td><span class="he">לוֹקֵחַ</span><span class="tr">lokeach</span></td>
       <td><span class="he">לוֹקַחַת</span><span class="tr">lokachat</span></td>
       <td><span class="he">לוֹקְחִים</span><span class="tr">lokchim</span></td>
       <td><span class="he">לוֹקְחוֹת</span><span class="tr">lokchot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָתֵת</span><span class="fr">donner</span></td>
+      <td><span class="he">לָתֵת</span><span class="fr">donner</span>
+      <ul class="exemples"><li><span class="he">הוּא נוֹתֵן מַתָּנָה לְאִמָּא</span><span class="tr">hu noten matanah le'ima</span><span class="fr">il offre un cadeau à maman</span></li></ul>
+    </td>
       <td><span class="he">נוֹתֵן</span><span class="tr">noten</span></td>
       <td><span class="he">נוֹתֶנֶת</span><span class="tr">notenet</span></td>
       <td><span class="he">נוֹתְנִים</span><span class="tr">notnim</span></td>
@@ -1228,7 +1280,9 @@
   </thead>
 <tbody>
     <tr data-niveau="A1">
-      <td><span class="he">לְדַבֵּר</span><span class="fr">parler</span></td>
+      <td><span class="he">לְדַבֵּר</span><span class="fr">parler</span>
+      <ul class="exemples"><li><span class="he">אֲנִי מְדַבֵּר קְצָת עִבְרִית</span><span class="tr">ani medaber ktsat 'ivrit</span><span class="fr">je parle un peu hébreu</span></li></ul>
+    </td>
       <td><span class="he">מְדַבֵּר</span><span class="tr">medaber</span></td>
       <td><span class="he">מְדַבֶּרֶת</span><span class="tr">medaberet</span></td>
       <td><span class="he">מְדַבְּרִים</span><span class="tr">medabrim</span></td>
@@ -1242,14 +1296,18 @@
       <td><span class="he">שׁוֹתְקוֹת</span><span class="tr">shotkot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִשְׁאֹל</span><span class="fr">demander</span></td>
+      <td><span class="he">לִשְׁאֹל</span><span class="fr">demander</span>
+      <ul class="exemples"><li><span class="he">הַתַּלְמִיד שׁוֹאֵל שְׁאֵלָה</span><span class="tr">hatalmid sho'el she'elah</span><span class="fr">l'élève pose une question</span></li></ul>
+    </td>
       <td><span class="he">שׁוֹאֵל</span><span class="tr">sho'el</span></td>
       <td><span class="he">שׁוֹאֶלֶת</span><span class="tr">sho'elet</span></td>
       <td><span class="he">שׁוֹאֲלִים</span><span class="tr">sho'alim</span></td>
       <td><span class="he">שׁוֹאֲלוֹת</span><span class="tr">sho'alot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לַעֲנוֹת</span><span class="fr">répondre</span></td>
+      <td><span class="he">לַעֲנוֹת</span><span class="fr">répondre</span>
+      <ul class="exemples"><li><span class="he">הַמּוֹרָה עוֹנָה לַתַּלְמִיד</span><span class="tr">hamorah 'onah latalmid</span><span class="fr">la professeure répond à l'élève</span></li></ul>
+    </td>
       <td><span class="he">עוֹנֶה</span><span class="tr">'oneh</span></td>
       <td><span class="he">עוֹנָה</span><span class="tr">'onah</span></td>
       <td><span class="he">עוֹנִים</span><span class="tr">'onim</span></td>
@@ -1291,14 +1349,18 @@
       <td><span class="he">מַרְאוֹת</span><span class="tr">marot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִשְׁמֹעַ</span><span class="fr">entendre / écouter</span></td>
+      <td><span class="he">לִשְׁמֹעַ</span><span class="fr">entendre / écouter</span>
+      <ul class="exemples"><li><span class="he">אֲנִי שׁוֹמֵעַ מוּזִיקָה בַּמְּכוֹנִית</span><span class="tr">ani shome'a muzikah bamekhonit</span><span class="fr">j'écoute de la musique en voiture</span></li></ul>
+    </td>
       <td><span class="he">שׁוֹמֵעַ</span><span class="tr">shome'a</span></td>
       <td><span class="he">שׁוֹמַעַת</span><span class="tr">shoma'at</span></td>
       <td><span class="he">שׁוֹמְעִים</span><span class="tr">shom'im</span></td>
       <td><span class="he">שׁוֹמְעוֹת</span><span class="tr">shom'ot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִרְאוֹת</span><span class="fr">voir</span></td>
+      <td><span class="he">לִרְאוֹת</span><span class="fr">voir</span>
+      <ul class="exemples"><li><span class="he">אֲנַחְנוּ רוֹאִים סֶרֶט הָעֶרֶב</span><span class="tr">anachnu ro'im seret ha'erev</span><span class="fr">nous voyons un film ce soir</span></li></ul>
+    </td>
       <td><span class="he">רוֹאֶה</span><span class="tr">ro'eh</span></td>
       <td><span class="he">רוֹאָה</span><span class="tr">ro'ah</span></td>
       <td><span class="he">רוֹאִים</span><span class="tr">ro'im</span></td>
@@ -1319,7 +1381,9 @@
       <td><span class="he">מִסְתַּכְּלוֹת</span><span class="tr">mistaklot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לוֹמַר</span><span class="fr">dire (aussi : signifier)</span></td>
+      <td><span class="he">לוֹמַר</span><span class="fr">dire (aussi : signifier)</span>
+      <ul class="exemples"><li><span class="he">מָה אַתָּה אוֹמֵר?</span><span class="tr">mah atah omer?</span><span class="fr">qu'est-ce que tu dis ?</span></li></ul>
+    </td>
       <td><span class="he">אוֹמֵר</span><span class="tr">omer</span></td>
       <td><span class="he">אוֹמֶרֶת</span><span class="tr">omeret</span></td>
       <td><span class="he">אוֹמְרִים</span><span class="tr">omrim</span></td>
@@ -1350,14 +1414,18 @@
   </thead>
 <tbody>
     <tr data-niveau="A1">
-      <td><span class="he">לִרְצוֹת</span><span class="fr">vouloir</span></td>
+      <td><span class="he">לִרְצוֹת</span><span class="fr">vouloir</span>
+      <ul class="exemples"><li><span class="he">אֲנִי רוֹצֶה לִשְׁתּוֹת מַיִם</span><span class="tr">ani rotseh lishtot mayim</span><span class="fr">je veux boire de l'eau</span></li></ul>
+    </td>
       <td><span class="he">רוֹצֶה</span><span class="tr">rotseh</span></td>
       <td><span class="he">רוֹצָה</span><span class="tr">rotsah</span></td>
       <td><span class="he">רוֹצִים</span><span class="tr">rotsim</span></td>
       <td><span class="he">רוֹצוֹת</span><span class="tr">rotsot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לֶאֱהֹב</span><span class="fr">aimer</span></td>
+      <td><span class="he">לֶאֱהֹב</span><span class="fr">aimer</span>
+      <ul class="exemples"><li><span class="he">אֲנִי אוֹהֵב אֶת הַיָּם</span><span class="tr">ani ohev et hayam</span><span class="fr">j'aime la mer</span></li></ul>
+    </td>
       <td><span class="he">אוֹהֵב</span><span class="tr">ohev</span></td>
       <td><span class="he">אוֹהֶבֶת</span><span class="tr">ohevet</span></td>
       <td><span class="he">אוֹהֲבִים</span><span class="tr">ohavim</span></td>
@@ -1371,28 +1439,36 @@
       <td><span class="he">שׂוֹנְאוֹת</span><span class="tr">sonot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לַחְשֹׁב</span><span class="fr">penser</span></td>
+      <td><span class="he">לַחְשֹׁב</span><span class="fr">penser</span>
+      <ul class="exemples"><li><span class="he">אֲנִי חוֹשֵׁב שֶׁזֶּה טוֹב</span><span class="tr">ani choshev shezeh tov</span><span class="fr">je pense que c'est bien</span></li></ul>
+    </td>
       <td><span class="he">חוֹשֵׁב</span><span class="tr">choshev</span></td>
       <td><span class="he">חוֹשֶׁבֶת</span><span class="tr">choshevet</span></td>
       <td><span class="he">חוֹשְׁבִים</span><span class="tr">choshvim</span></td>
       <td><span class="he">חוֹשְׁבוֹת</span><span class="tr">choshvot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָדַעַת</span><span class="fr">savoir</span></td>
+      <td><span class="he">לָדַעַת</span><span class="fr">savoir</span>
+      <ul class="exemples"><li><span class="he">אֲנִי לֹא יוֹדֵעַ אֵיפֹה זֶה</span><span class="tr">ani lo yode'a eifoh zeh</span><span class="fr">je ne sais pas où c'est</span></li></ul>
+    </td>
       <td><span class="he">יוֹדֵעַ</span><span class="tr">yode'a</span></td>
       <td><span class="he">יוֹדַעַת</span><span class="tr">yoda'at</span></td>
       <td><span class="he">יוֹדְעִים</span><span class="tr">yod'im</span></td>
       <td><span class="he">יוֹדְעוֹת</span><span class="tr">yod'ot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לְהָבִין</span><span class="fr">comprendre</span></td>
+      <td><span class="he">לְהָבִין</span><span class="fr">comprendre</span>
+      <ul class="exemples"><li><span class="he">אַתְּ מְבִינָה עִבְרִית?</span><span class="tr">at mevinah 'ivrit?</span><span class="fr">tu comprends l'hébreu ? (à une femme)</span></li></ul>
+    </td>
       <td><span class="he">מֵבִין</span><span class="tr">mevin</span></td>
       <td><span class="he">מְבִינָה</span><span class="tr">mevinah</span></td>
       <td><span class="he">מְבִינִים</span><span class="tr">mevinim</span></td>
       <td><span class="he">מְבִינוֹת</span><span class="tr">mevinot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לְהַכִּיר</span><span class="fr">connaître (qqn)</span></td>
+      <td><span class="he">לְהַכִּיר</span><span class="fr">connaître (qqn)</span>
+      <ul class="exemples"><li><span class="he">אֲנִי מַכִּיר אֶת הָאִישׁ הַזֶּה</span><span class="tr">ani makir et ha'ish hazeh</span><span class="fr">je connais cet homme</span></li></ul>
+    </td>
       <td><span class="he">מַכִּיר</span><span class="tr">makir</span></td>
       <td><span class="he">מַכִּירָה</span><span class="tr">makirah</span></td>
       <td><span class="he">מַכִּירִים</span><span class="tr">makirim</span></td>
@@ -1465,49 +1541,63 @@
   </thead>
 <tbody>
     <tr data-niveau="A1">
-      <td><span class="he">לַעֲשׂוֹת</span><span class="fr">faire</span></td>
+      <td><span class="he">לַעֲשׂוֹת</span><span class="fr">faire</span>
+      <ul class="exemples"><li><span class="he">מָה אַתָּה עוֹשֶׂה הַיּוֹם?</span><span class="tr">mah atah 'oseh hayom?</span><span class="fr">qu'est-ce que tu fais aujourd'hui ?</span></li></ul>
+    </td>
       <td><span class="he">עוֹשֶׂה</span><span class="tr">'oseh</span></td>
       <td><span class="he">עוֹשָׂה</span><span class="tr">'osah</span></td>
       <td><span class="he">עוֹשִׂים</span><span class="tr">'osim</span></td>
       <td><span class="he">עוֹשׂוֹת</span><span class="tr">'osot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִלְמֹד</span><span class="fr">étudier</span></td>
+      <td><span class="he">לִלְמֹד</span><span class="fr">étudier</span>
+      <ul class="exemples"><li><span class="he">אֲנִי לוֹמֵד עִבְרִית בָּאוּלְפָּן</span><span class="tr">ani lomed 'ivrit ba'ulpan</span><span class="fr">j'apprends l'hébreu à l'oulpan</span></li></ul>
+    </td>
       <td><span class="he">לוֹמֵד</span><span class="tr">lomed</span></td>
       <td><span class="he">לוֹמֶדֶת</span><span class="tr">lomedet</span></td>
       <td><span class="he">לוֹמְדִים</span><span class="tr">lomdim</span></td>
       <td><span class="he">לוֹמְדוֹת</span><span class="tr">lomdot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לַעֲבֹד</span><span class="fr">travailler</span></td>
+      <td><span class="he">לַעֲבֹד</span><span class="fr">travailler</span>
+      <ul class="exemples"><li><span class="he">הִיא עוֹבֶדֶת בְּבֵית חוֹלִים</span><span class="tr">hi 'ovedet beveit cholim</span><span class="fr">elle travaille dans un hôpital</span></li></ul>
+    </td>
       <td><span class="he">עוֹבֵד</span><span class="tr">'oved</span></td>
       <td><span class="he">עוֹבֶדֶת</span><span class="tr">'ovedet</span></td>
       <td><span class="he">עוֹבְדִים</span><span class="tr">'ovdim</span></td>
       <td><span class="he">עוֹבְדוֹת</span><span class="tr">'ovdot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִכְתֹּב</span><span class="fr">écrire</span></td>
+      <td><span class="he">לִכְתֹּב</span><span class="fr">écrire</span>
+      <ul class="exemples"><li><span class="he">אֲנִי כּוֹתֵב מִכְתָּב לְסָבְתָא</span><span class="tr">ani kotev mikhtav lesavta</span><span class="fr">j'écris une lettre à grand-mère</span></li></ul>
+    </td>
       <td><span class="he">כּוֹתֵב</span><span class="tr">kotev</span></td>
       <td><span class="he">כּוֹתֶבֶת</span><span class="tr">kotevet</span></td>
       <td><span class="he">כּוֹתְבִים</span><span class="tr">kotvim</span></td>
       <td><span class="he">כּוֹתְבוֹת</span><span class="tr">kotvot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִקְרֹא</span><span class="fr">lire</span></td>
+      <td><span class="he">לִקְרֹא</span><span class="fr">lire</span>
+      <ul class="exemples"><li><span class="he">הוּא קוֹרֵא סֵפֶר בָּעֶרֶב</span><span class="tr">hu kore sefer ba'erev</span><span class="fr">il lit un livre le soir</span></li></ul>
+    </td>
       <td><span class="he">קוֹרֵא</span><span class="tr">kore</span></td>
       <td><span class="he">קוֹרֵאת</span><span class="tr">koret</span></td>
       <td><span class="he">קוֹרְאִים</span><span class="tr">korim</span></td>
       <td><span class="he">קוֹרְאוֹת</span><span class="tr">korot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לְהַתְחִיל</span><span class="fr">commencer</span></td>
+      <td><span class="he">לְהַתְחִיל</span><span class="fr">commencer</span>
+      <ul class="exemples"><li><span class="he">הַשִּׁעוּר מַתְחִיל בְּשָׁלוֹשׁ</span><span class="tr">hashi'ur matchil beshalosh</span><span class="fr">le cours commence à trois heures</span></li></ul>
+    </td>
       <td><span class="he">מַתְחִיל</span><span class="tr">matchil</span></td>
       <td><span class="he">מַתְחִילָה</span><span class="tr">matchilah</span></td>
       <td><span class="he">מַתְחִילִים</span><span class="tr">matchilim</span></td>
       <td><span class="he">מַתְחִילוֹת</span><span class="tr">matchilot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִגְמֹר</span><span class="fr">finir / terminer</span></td>
+      <td><span class="he">לִגְמֹר</span><span class="fr">finir / terminer</span>
+      <ul class="exemples"><li><span class="he">אֲנִי גּוֹמֵר אֶת הָעֲבוֹדָה מָחָר</span><span class="tr">ani gomer et ha'avodah machar</span><span class="fr">je finis le travail demain</span></li></ul>
+    </td>
       <td><span class="he">גּוֹמֵר</span><span class="tr">gomer</span></td>
       <td><span class="he">גּוֹמֶרֶת</span><span class="tr">gomeret</span></td>
       <td><span class="he">גּוֹמְרִים</span><span class="tr">gomrim</span></td>
@@ -1528,14 +1618,18 @@
       <td><span class="he">מְנַסּוֹת</span><span class="tr">menasot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לְחַפֵּשׂ</span><span class="fr">chercher</span></td>
+      <td><span class="he">לְחַפֵּשׂ</span><span class="fr">chercher</span>
+      <ul class="exemples"><li><span class="he">אֲנִי מְחַפֵּשׂ אֶת הַמַּפְתֵּחַ</span><span class="tr">ani mechapes et hamafteach</span><span class="fr">je cherche la clé</span></li></ul>
+    </td>
       <td><span class="he">מְחַפֵּשׂ</span><span class="tr">mechapes</span></td>
       <td><span class="he">מְחַפֶּשֶׂת</span><span class="tr">mechapeset</span></td>
       <td><span class="he">מְחַפְּשִׂים</span><span class="tr">mechapsim</span></td>
       <td><span class="he">מְחַפְּשׂוֹת</span><span class="tr">mechapsot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לִמְצֹא</span><span class="fr">trouver</span></td>
+      <td><span class="he">לִמְצֹא</span><span class="fr">trouver</span>
+      <ul class="exemples"><li><span class="he">הִיא מוֹצֵאת מָקוֹם טוֹב</span><span class="tr">hi motset makom tov</span><span class="fr">elle trouve une bonne place</span></li></ul>
+    </td>
       <td><span class="he">מוֹצֵא</span><span class="tr">motse</span></td>
       <td><span class="he">מוֹצֵאת</span><span class="tr">motset</span></td>
       <td><span class="he">מוֹצְאִים</span><span class="tr">motsim</span></td>
@@ -1549,14 +1643,18 @@
       <td><span class="he">מְקַבְּלוֹת</span><span class="tr">mekablot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לַעֲזֹר</span><span class="fr">aider</span></td>
+      <td><span class="he">לַעֲזֹר</span><span class="fr">aider</span>
+      <ul class="exemples"><li><span class="he">אַתָּה יָכוֹל לַעֲזֹר לִי?</span><span class="tr">atah yakhol la'azor li?</span><span class="fr">tu peux m'aider ?</span></li></ul>
+    </td>
       <td><span class="he">עוֹזֵר</span><span class="tr">'ozer</span></td>
       <td><span class="he">עוֹזֶרֶת</span><span class="tr">'ozeret</span></td>
       <td><span class="he">עוֹזְרִים</span><span class="tr">'ozrim</span></td>
       <td><span class="he">עוֹזְרוֹת</span><span class="tr">'ozrot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לְחַכּוֹת</span><span class="fr">attendre</span></td>
+      <td><span class="he">לְחַכּוֹת</span><span class="fr">attendre</span>
+      <ul class="exemples"><li><span class="he">אֲנִי מְחַכֶּה לָאוֹטוֹבּוּס</span><span class="tr">ani mechakeh la'otobus</span><span class="fr">j'attends le bus</span></li></ul>
+    </td>
       <td><span class="he">מְחַכֶּה</span><span class="tr">mechakeh</span></td>
       <td><span class="he">מְחַכָּה</span><span class="tr">mechakah</span></td>
       <td><span class="he">מְחַכִּים</span><span class="tr">mechakim</span></td>
@@ -1622,7 +1720,9 @@
   </thead>
 <tbody>
     <tr data-niveau="A1">
-      <td><span class="he">לְשַׂחֵק</span><span class="fr">jouer</span></td>
+      <td><span class="he">לְשַׂחֵק</span><span class="fr">jouer</span>
+      <ul class="exemples"><li><span class="he">הַיְּלָדִים מְשַׂחֲקִים בַּגַּן</span><span class="tr">hayeladim mesachakim bagan</span><span class="fr">les enfants jouent au parc</span></li></ul>
+    </td>
       <td><span class="he">מְשַׂחֵק</span><span class="tr">mesachek</span></td>
       <td><span class="he">מְשַׂחֶקֶת</span><span class="tr">mesacheket</span></td>
       <td><span class="he">מְשַׂחֲקִים</span><span class="tr">mesachakim</span></td>
@@ -1666,11 +1766,15 @@
   <li data-note="s'accorde : יָכוֹל / יְכוֹלָה / יְכוֹלִים / יְכוֹלוֹת. Ex. אֲנִי יָכוֹל לָלֶכֶת = je peux aller." data-niveau="A1">
     <span class="word-main"><span class="he">יָכוֹל</span></span>
     <span class="meta"><span class="tr">yakhol</span><span class="fr">pouvoir</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">אֲנִי יָכוֹל לָבוֹא מָחָר</span><span class="tr">ani yakhol lavo machar</span><span class="fr">je peux venir demain</span></li></ul>
+    </li>
   <li data-note="s'accorde : צָרִיךְ / צְרִיכָה / צְרִיכִים / צְרִיכוֹת. Ex. אֲנִי צָרִיךְ לָלֶכֶת = je dois y aller." data-niveau="A1">
     <span class="word-main"><span class="he">צָרִיךְ</span></span>
     <span class="meta"><span class="tr">tsarikh</span><span class="fr">il faut / devoir</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">אֲנִי צָרִיךְ לָלֶכֶת עַכְשָׁו</span><span class="tr">ani tsarikh lalekhet 'akhshav</span><span class="fr">je dois partir maintenant</span></li></ul>
+    </li>
   <li data-note="invariable. Ex. מוּתָּר לְעַשֵּׁן = il est permis de fumer." data-niveau="A2">
     <span class="word-main"><span class="he">מוּתָּר</span></span>
     <span class="meta"><span class="tr">mutar</span><span class="fr">il est permis</span></span>
@@ -3303,31 +3407,41 @@
   </thead>
   <tbody>
     <tr data-niveau="A1">
-      <td><span class="he">גָּדוֹל</span><span class="fr">grand</span></td>
+      <td><span class="he">גָּדוֹל</span><span class="fr">grand</span>
+      <ul class="exemples"><li><span class="he">יֵשׁ לָהֶם בַּיִת גָּדוֹל</span><span class="tr">yesh lahem bayit gadol</span><span class="fr">ils ont une grande maison</span></li></ul>
+    </td>
       <td><span class="he">גְּדוֹלָה</span><span class="tr">gdolah</span></td>
       <td><span class="he">גְּדוֹלִים</span><span class="tr">gdolim</span></td>
       <td><span class="he">גְּדוֹלוֹת</span><span class="tr">gdolot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">קָטָן</span><span class="fr">petit</span></td>
+      <td><span class="he">קָטָן</span><span class="fr">petit</span>
+      <ul class="exemples"><li><span class="he">הַחֶדֶר שֶׁלִּי קָטָן</span><span class="tr">hacheder sheli katan</span><span class="fr">ma chambre est petite</span></li></ul>
+    </td>
       <td><span class="he">קְטַנָּה</span><span class="tr">ktanah</span></td>
       <td><span class="he">קְטַנִּים</span><span class="tr">ktanim</span></td>
       <td><span class="he">קְטַנּוֹת</span><span class="tr">ktanot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">טוֹב</span><span class="fr">bon</span></td>
+      <td><span class="he">טוֹב</span><span class="fr">bon</span>
+      <ul class="exemples"><li><span class="he">זֶה סֵפֶר טוֹב מְאוֹד</span><span class="tr">zeh sefer tov me'od</span><span class="fr">c'est un très bon livre</span></li></ul>
+    </td>
       <td><span class="he">טוֹבָה</span><span class="tr">tovah</span></td>
       <td><span class="he">טוֹבִים</span><span class="tr">tovim</span></td>
       <td><span class="he">טוֹבוֹת</span><span class="tr">tovot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">רַע</span><span class="fr">mauvais</span></td>
+      <td><span class="he">רַע</span><span class="fr">mauvais</span>
+      <ul class="exemples"><li><span class="he">הַסֶּרֶט הַזֶּה רַע</span><span class="tr">haseret hazeh ra'</span><span class="fr">ce film est mauvais</span></li></ul>
+    </td>
       <td><span class="he">רָעָה</span><span class="tr">ra'ah</span></td>
       <td><span class="he">רָעִים</span><span class="tr">ra'im</span></td>
       <td><span class="he">רָעוֹת</span><span class="tr">ra'ot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">יָפֶה</span><span class="fr">beau / joli</span></td>
+      <td><span class="he">יָפֶה</span><span class="fr">beau / joli</span>
+      <ul class="exemples"><li><span class="he">הַיָּם יָפֶה בָּעֶרֶב</span><span class="tr">hayam yafeh ba'erev</span><span class="fr">la mer est belle le soir</span></li></ul>
+    </td>
       <td><span class="he">יָפָה</span><span class="tr">yafah</span></td>
       <td><span class="he">יָפִים</span><span class="tr">yafim</span></td>
       <td><span class="he">יָפוֹת</span><span class="tr">yafot</span></td>
@@ -3339,19 +3453,25 @@
       <td><span class="he">מְכֹעָרוֹת</span><span class="tr">mekho'arot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">חָדָשׁ</span><span class="fr">nouveau</span></td>
+      <td><span class="he">חָדָשׁ</span><span class="fr">nouveau</span>
+      <ul class="exemples"><li><span class="he">יֵשׁ לִי טֶלֶפוֹן חָדָשׁ</span><span class="tr">yesh li telefon chadash</span><span class="fr">j'ai un nouveau téléphone</span></li></ul>
+    </td>
       <td><span class="he">חֲדָשָׁה</span><span class="tr">chadashah</span></td>
       <td><span class="he">חֲדָשִׁים</span><span class="tr">chadashim</span></td>
       <td><span class="he">חֲדָשׁוֹת</span><span class="tr">chadashot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">יָשָׁן</span><span class="fr">vieux, ancien (pour un objet)</span></td>
+      <td><span class="he">יָשָׁן</span><span class="fr">vieux, ancien (pour un objet)</span>
+      <ul class="exemples"><li><span class="he">הַבַּיִת הַזֶּה יָשָׁן מְאוֹד</span><span class="tr">habayit hazeh yashan me'od</span><span class="fr">cette maison est très vieille</span></li></ul>
+    </td>
       <td><span class="he">יְשָׁנָה</span><span class="tr">yeshanah</span></td>
       <td><span class="he">יְשָׁנִים</span><span class="tr">yeshanim</span></td>
       <td><span class="he">יְשָׁנוֹת</span><span class="tr">yeshanot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">עָיֵף</span><span class="fr">fatigué</span></td>
+      <td><span class="he">עָיֵף</span><span class="fr">fatigué</span>
+      <ul class="exemples"><li><span class="he">אֲנִי עָיֵף אַחֲרֵי הָעֲבוֹדָה</span><span class="tr">ani 'ayef acharei ha'avodah</span><span class="fr">je suis fatigué après le travail</span></li></ul>
+    </td>
       <td><span class="he">עֲיֵפָה</span><span class="tr">'ayefah</span></td>
       <td><span class="he">עֲיֵפִים</span><span class="tr">'ayefim</span></td>
       <td><span class="he">עֲיֵפוֹת</span><span class="tr">'ayefot</span></td>
@@ -3363,7 +3483,9 @@
       <td><span class="he">רַעֲנַנּוֹת</span><span class="tr">ra'ananot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">שָׂמֵחַ</span><span class="fr">heureux</span></td>
+      <td><span class="he">שָׂמֵחַ</span><span class="fr">heureux</span>
+      <ul class="exemples"><li><span class="he">הִיא שְׂמֵחָה לִרְאוֹת אוֹתְךָ</span><span class="tr">hi smechah lir'ot otkha</span><span class="fr">elle est heureuse de te voir</span></li></ul>
+    </td>
       <td><span class="he">שְׂמֵחָה</span><span class="tr">smechah</span></td>
       <td><span class="he">שְׂמֵחִים</span><span class="tr">smechim</span></td>
       <td><span class="he">שְׂמֵחוֹת</span><span class="tr">smechot</span></td>
@@ -3375,7 +3497,9 @@
       <td><span class="he">עֲצוּבוֹת</span><span class="tr">'atsuvot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">רָעֵב</span><span class="fr">affamé (avoir faim)</span></td>
+      <td><span class="he">רָעֵב</span><span class="fr">affamé (avoir faim)</span>
+      <ul class="exemples"><li><span class="he">אֲנִי רָעֵב — מָתַי אוֹכְלִים?</span><span class="tr">ani ra'ev — matai okhlim?</span><span class="fr">j'ai faim — quand mange-t-on ?</span></li></ul>
+    </td>
       <td><span class="he">רְעֵבָה</span><span class="tr">re'evah</span></td>
       <td><span class="he">רְעֵבִים</span><span class="tr">re'evim</span></td>
       <td><span class="he">רְעֵבוֹת</span><span class="tr">re'evot</span></td>
@@ -3387,13 +3511,17 @@
       <td><span class="he">צְמֵאוֹת</span><span class="tr">tsme'ot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">נֶחְמָד</span><span class="fr">sympa, agréable</span></td>
+      <td><span class="he">נֶחְמָד</span><span class="fr">sympa, agréable</span>
+      <ul class="exemples"><li><span class="he">הַמּוֹרֶה שֶׁלִּי נֶחְמָד מְאוֹד</span><span class="tr">hamoreh sheli nechmad me'od</span><span class="fr">mon professeur est très sympa</span></li></ul>
+    </td>
       <td><span class="he">נֶחְמָדָה</span><span class="tr">nechmadah</span></td>
       <td><span class="he">נֶחְמָדִים</span><span class="tr">nechmadim</span></td>
       <td><span class="he">נֶחְמָדוֹת</span><span class="tr">nechmadot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">טָעִים</span><span class="fr">savoureux</span></td>
+      <td><span class="he">טָעִים</span><span class="fr">savoureux</span>
+      <ul class="exemples"><li><span class="he">הַמָּרָק שֶׁל סָבְתָא טָעִים</span><span class="tr">hamarak shel savta ta'im</span><span class="fr">la soupe de grand-mère est savoureuse</span></li></ul>
+    </td>
       <td><span class="he">טְעִימָה</span><span class="tr">te'imah</span></td>
       <td><span class="he">טְעִימִים</span><span class="tr">te'imim</span></td>
       <td><span class="he">טְעִימוֹת</span><span class="tr">te'imot</span></td>
@@ -3417,25 +3545,33 @@
       <td><span class="he">חֲכָמוֹת</span><span class="tr">chakhamot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">חַם</span><span class="fr">chaud</span></td>
+      <td><span class="he">חַם</span><span class="fr">chaud</span>
+      <ul class="exemples"><li><span class="he">חַם מְאוֹד בַּקַּיִץ</span><span class="tr">cham me'od bakayits</span><span class="fr">il fait très chaud en été</span></li></ul>
+    </td>
       <td><span class="he">חַמָּה</span><span class="tr">chamah</span></td>
       <td><span class="he">חַמִּים</span><span class="tr">chamim</span></td>
       <td><span class="he">חַמּוֹת</span><span class="tr">chamot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">קַר</span><span class="fr">froid</span></td>
+      <td><span class="he">קַר</span><span class="fr">froid</span>
+      <ul class="exemples"><li><span class="he">קַר בַּחוּץ בַּחֹרֶף</span><span class="tr">kar bachuts bachoref</span><span class="fr">il fait froid dehors en hiver</span></li></ul>
+    </td>
       <td><span class="he">קָרָה</span><span class="tr">karah</span></td>
       <td><span class="he">קָרִים</span><span class="tr">karim</span></td>
       <td><span class="he">קָרוֹת</span><span class="tr">karot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">קַל</span><span class="fr">facile, léger</span></td>
+      <td><span class="he">קַל</span><span class="fr">facile, léger</span>
+      <ul class="exemples"><li><span class="he">הַשִּׁעוּר הַיּוֹם קַל</span><span class="tr">hashi'ur hayom kal</span><span class="fr">le cours d'aujourd'hui est facile</span></li></ul>
+    </td>
       <td><span class="he">קַלָּה</span><span class="tr">kalah</span></td>
       <td><span class="he">קַלִּים</span><span class="tr">kalim</span></td>
       <td><span class="he">קַלּוֹת</span><span class="tr">kalot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">קָשֶׁה</span><span class="fr">difficile, dur (texture)</span></td>
+      <td><span class="he">קָשֶׁה</span><span class="fr">difficile, dur (texture)</span>
+      <ul class="exemples"><li><span class="he">עִבְרִית לֹא כָּל כָּךְ קָשָׁה</span><span class="tr">'ivrit lo kol kakh kashah</span><span class="fr">l'hébreu n'est pas si difficile</span></li></ul>
+    </td>
       <td><span class="he">קָשָׁה</span><span class="tr">kashah</span></td>
       <td><span class="he">קָשִׁים</span><span class="tr">kashim</span></td>
       <td><span class="he">קָשׁוֹת</span><span class="tr">kashot</span></td>
@@ -3489,13 +3625,17 @@
       <td><span class="he">רֵיקוֹת</span><span class="tr">reikot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">יָקָר</span><span class="fr">cher, coûteux</span></td>
+      <td><span class="he">יָקָר</span><span class="fr">cher, coûteux</span>
+      <ul class="exemples"><li><span class="he">הַמָּלוֹן הַזֶּה יָקָר מִדַּי</span><span class="tr">hamalon hazeh yakar midai</span><span class="fr">cet hôtel est trop cher</span></li></ul>
+    </td>
       <td><span class="he">יְקָרָה</span><span class="tr">yekarah</span></td>
       <td><span class="he">יְקָרִים</span><span class="tr">yekarim</span></td>
       <td><span class="he">יְקָרוֹת</span><span class="tr">yekarot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">זוֹל</span><span class="fr">bon marché</span></td>
+      <td><span class="he">זוֹל</span><span class="fr">bon marché</span>
+      <ul class="exemples"><li><span class="he">הַפֵּרוֹת זוֹלִים בַּשּׁוּק</span><span class="tr">haperot zolim bashuk</span><span class="fr">les fruits sont bon marché au marché</span></li></ul>
+    </td>
       <td><span class="he">זוֹלָה</span><span class="tr">zolah</span></td>
       <td><span class="he">זוֹלִים</span><span class="tr">zolim</span></td>
       <td><span class="he">זוֹלוֹת</span><span class="tr">zolot</span></td>
@@ -3543,7 +3683,9 @@
       <td><span class="he">מְשַׁעֲמְמוֹת</span><span class="tr">mesha'amemot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">מְעַנְיֵן</span><span class="fr">intéressant</span></td>
+      <td><span class="he">מְעַנְיֵן</span><span class="fr">intéressant</span>
+      <ul class="exemples"><li><span class="he">הַסִּפּוּר הַזֶּה מְעַנְיֵן</span><span class="tr">hasipur hazeh me'anyen</span><span class="fr">cette histoire est intéressante</span></li></ul>
+    </td>
       <td><span class="he">מְעַנְיֶנֶת</span><span class="tr">me'anyenet</span></td>
       <td><span class="he">מְעַנְיְנִים</span><span class="tr">me'anyenim</span></td>
       <td><span class="he">מְעַנְיְנוֹת</span><span class="tr">me'anyenot</span></td>
@@ -3567,7 +3709,9 @@
       <td><span class="he">זֶהוֹת</span><span class="tr">zehot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">נָכוֹן</span><span class="fr">correct, vrai</span></td>
+      <td><span class="he">נָכוֹן</span><span class="fr">correct, vrai</span>
+      <ul class="exemples"><li><span class="he">הַתְּשׁוּבָה שֶׁלְּךָ נְכוֹנָה</span><span class="tr">hatshuvah shelkha nekhonah</span><span class="fr">ta réponse est correcte</span></li></ul>
+    </td>
       <td><span class="he">נְכוֹנָה</span><span class="tr">nekhonah</span></td>
       <td><span class="he">נְכוֹנִים</span><span class="tr">nekhonim</span></td>
       <td><span class="he">נְכוֹנוֹת</span><span class="tr">nekhonot</span></td>
@@ -3741,7 +3885,9 @@
       <td><span class="he">מוּזָרוֹת</span><span class="tr">muzarot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">חוֹלֶה</span><span class="fr">malade</span></td>
+      <td><span class="he">חוֹלֶה</span><span class="fr">malade</span>
+      <ul class="exemples"><li><span class="he">הוּא חוֹלֶה, הוּא בַּמִּטָּה</span><span class="tr">hu choleh, hu bamitah</span><span class="fr">il est malade, il est au lit</span></li></ul>
+    </td>
       <td><span class="he">חוֹלָה</span><span class="tr">cholah</span></td>
       <td><span class="he">חוֹלִים</span><span class="tr">cholim</span></td>
       <td><span class="he">חוֹלוֹת</span><span class="tr">cholot</span></td>
@@ -3849,37 +3995,49 @@
       <td><span class="he">חֲרוּצוֹת</span><span class="tr">charutsot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">אָדֹם</span><span class="fr">rouge</span></td>
+      <td><span class="he">אָדֹם</span><span class="fr">rouge</span>
+      <ul class="exemples"><li><span class="he">הָעַגְבָנִיָּה אֲדֻמָּה</span><span class="tr">ha'agvaniyah adumah</span><span class="fr">la tomate est rouge</span></li></ul>
+    </td>
       <td><span class="he">אֲדֻמָּה</span><span class="tr">adumah</span></td>
       <td><span class="he">אֲדֻמִּים</span><span class="tr">adumim</span></td>
       <td><span class="he">אֲדֻמּוֹת</span><span class="tr">adumot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">כָּחֹל</span><span class="fr">bleu</span></td>
+      <td><span class="he">כָּחֹל</span><span class="fr">bleu</span>
+      <ul class="exemples"><li><span class="he">הַשָּׁמַיִם כְּחֻלִּים הַיּוֹם</span><span class="tr">hashamayim kchulim hayom</span><span class="fr">le ciel est bleu aujourd'hui</span></li></ul>
+    </td>
       <td><span class="he">כְּחֻלָּה</span><span class="tr">kchulah</span></td>
       <td><span class="he">כְּחֻלִּים</span><span class="tr">kchulim</span></td>
       <td><span class="he">כְּחֻלּוֹת</span><span class="tr">kchulot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">יָרֹק</span><span class="fr">vert</span></td>
+      <td><span class="he">יָרֹק</span><span class="fr">vert</span>
+      <ul class="exemples"><li><span class="he">הַדֶּשֶׁא יָרֹק בָּאָבִיב</span><span class="tr">hadeshe yarok ba'aviv</span><span class="fr">l'herbe est verte au printemps</span></li></ul>
+    </td>
       <td><span class="he">יְרֻקָּה</span><span class="tr">yerukah</span></td>
       <td><span class="he">יְרֻקִּים</span><span class="tr">yerukim</span></td>
       <td><span class="he">יְרֻקּוֹת</span><span class="tr">yerukot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">צָהֹב</span><span class="fr">jaune</span></td>
+      <td><span class="he">צָהֹב</span><span class="fr">jaune</span>
+      <ul class="exemples"><li><span class="he">הַשֶּׁמֶשׁ צְהֻבָּה וְחַמָּה</span><span class="tr">hashemesh tsehubah vechamah</span><span class="fr">le soleil est jaune et chaud</span></li></ul>
+    </td>
       <td><span class="he">צְהֻבָּה</span><span class="tr">tsehubah</span></td>
       <td><span class="he">צְהֻבִּים</span><span class="tr">tsehubim</span></td>
       <td><span class="he">צְהֻבּוֹת</span><span class="tr">tsehubot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">שָׁחוֹר</span><span class="fr">noir</span></td>
+      <td><span class="he">שָׁחוֹר</span><span class="fr">noir</span>
+      <ul class="exemples"><li><span class="he">הֶחָתוּל שֶׁלָּנוּ שָׁחֹר</span><span class="tr">hechatul shelanu shachor</span><span class="fr">notre chat est noir</span></li></ul>
+    </td>
       <td><span class="he">שְׁחוֹרָה</span><span class="tr">shchorah</span></td>
       <td><span class="he">שְׁחוֹרִים</span><span class="tr">shchorim</span></td>
       <td><span class="he">שְׁחוֹרוֹת</span><span class="tr">shchorot</span></td>
     </tr>
     <tr data-niveau="A1">
-      <td><span class="he">לָבָן</span><span class="fr">blanc</span></td>
+      <td><span class="he">לָבָן</span><span class="fr">blanc</span>
+      <ul class="exemples"><li><span class="he">הַשֶּׁלֶג לָבָן וְיָפֶה</span><span class="tr">hasheleg lavan veyafeh</span><span class="fr">la neige est blanche et belle</span></li></ul>
+    </td>
       <td><span class="he">לְבָנָה</span><span class="tr">levanah</span></td>
       <td><span class="he">לְבָנִים</span><span class="tr">levanim</span></td>
       <td><span class="he">לְבָנוֹת</span><span class="tr">levanot</span></td>
@@ -4345,7 +4503,9 @@
   <li data-niveau="A1">
     <span class="word-main"><span class="he">הַרְבֵּה</span></span>
     <span class="meta"><span class="tr">harbeh</span><span class="fr">beaucoup</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">יֵשׁ הַרְבֵּה אֲנָשִׁים בַּשּׁוּק</span><span class="tr">yesh harbeh anashim bashuk</span><span class="fr">il y a beaucoup de monde au marché</span></li></ul>
+    </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he">מְעַט</span></span>
     <span class="meta"><span class="tr">me'at</span><span class="fr">peu</span></span>
@@ -4353,7 +4513,9 @@
   <li data-niveau="A1">
     <span class="word-main"><span class="he">יוֹתֵר</span></span>
     <span class="meta"><span class="tr">yoter</span><span class="fr">plus</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">אֲנִי רוֹצֶה יוֹתֵר מַיִם</span><span class="tr">ani rotseh yoter mayim</span><span class="fr">je veux plus d'eau</span></li></ul>
+    </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he">פָּחוֹת</span></span>
     <span class="meta"><span class="tr">pachot</span><span class="fr">moins</span></span>
@@ -4361,7 +4523,9 @@
   <li data-niveau="A1">
     <span class="word-main"><span class="he">הַכֹּל</span></span>
     <span class="meta"><span class="tr">hakol</span><span class="fr">tout</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">הַכֹּל בְּסֵדֶר, תּוֹדָה</span><span class="tr">hakol beseder, todah</span><span class="fr">tout va bien, merci</span></li></ul>
+    </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he">כְּלוּם</span></span>
     <span class="meta"><span class="tr">klum</span><span class="fr">rien</span></span>
@@ -4369,7 +4533,9 @@
   <li data-fr-court="un peu" data-note="courant à l'oral, = מְעַט" data-niveau="A1">
     <span class="word-main"><span class="he">קְצָת</span></span>
     <span class="meta"><span class="tr">ktsat</span><span class="fr">un peu (courant à l'oral, équivalent de מְעַט)</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">יֵשׁ קְצָת חָלָב בַּמְּקָרֵר</span><span class="tr">yesh ktsat chalav bamekarer</span><span class="fr">il y a un peu de lait dans le réfrigérateur</span></li></ul>
+    </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he">מַסְפִּיק</span></span>
     <span class="meta"><span class="tr">maspik</span><span class="fr">assez, suffisamment</span></span>
@@ -4377,11 +4543,15 @@
   <li data-niveau="A1">
     <span class="word-main"><span class="he">מְאֹד</span></span>
     <span class="meta"><span class="tr">me'od</span><span class="fr">très</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">הָאֹכֶל הַזֶּה טָעִים מְאוֹד</span><span class="tr">ha'okhel hazeh ta'im me'od</span><span class="fr">ce plat est très bon</span></li></ul>
+    </li>
   <li data-niveau="A1">
     <span class="word-main"><span class="he">כָּל</span></span>
     <span class="meta"><span class="tr">kol</span><span class="fr">chaque / tout le, tous les</span></span>
-  </li>
+  
+      <ul class="exemples"><li><span class="he">אֲנִי לוֹמֵד עִבְרִית כָּל יוֹם</span><span class="tr">ani lomed 'ivrit kol yom</span><span class="fr">j'étudie l'hébreu chaque jour</span></li></ul>
+    </li>
 </ul>
 <div class="note" style="border:1px dashed var(--line); border-radius:8px; padding:10px 12px; color:var(--ink);">
   ⚠️ כָּל se colle directement au mot suivant, comme בְּ/לְ/כְּ/מִ vues dans les prépositions.<br>
