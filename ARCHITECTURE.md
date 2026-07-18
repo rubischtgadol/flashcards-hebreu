@@ -78,7 +78,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
-- [index.html:1520](index.html#L1520) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
+- [index.html:1694](index.html#L1694) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
 - [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
@@ -122,16 +122,16 @@ Un seul fichier : CSS inline (l. 1–400 env.), puis quatre écrans, puis le JS.
 
 | Écran | Ligne | Rôle |
 |---|---|---|
-| `#loader` | [index.html:417](index.html#L417) | Spinner pendant le fetch du carnet (absent de la version autonome) |
-| `#setup` | [index.html:418](index.html#L418) | « Révision du jour » (SRS), recherche, catégories (chips) et réglages |
-| `#study` | [index.html:493](index.html#L493) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
-| `#done` | [index.html:543](index.html#L543) | Bilan + liste des cartes ratées (`#missed-list`) + reprise des ratées / de la session |
+| `#loader` | [index.html:444](index.html#L444) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [index.html:445](index.html#L445) | « Révision du jour » (SRS), recherche, catégories (chips), réglages — Ordre/Longueur/Prononciation repliés dans le `<details>` « Réglages avancés » ([index.html:498](index.html#L498)) |
+| `#study` | [index.html:535](index.html#L535) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
+| `#done` | [index.html:590](index.html#L590) | Bilan + liste des cartes ratées (`#missed-list`) + reprise des ratées / de la session |
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([index.html:818](index.html#L818)) dans l'objet `state` ([index.html:557](index.html#L557)) :
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([index.html:871](index.html#L871)) dans l'objet `state` ([index.html:604](index.html#L604)). Chaque groupe est un `role="group"` relié à son `<h2>` (`aria-labelledby`, notes en `aria-describedby`). Les trois groupes « qu'on règle une fois » (Ordre, Longueur, Prononciation) vivent repliés dans le `<details class="adv">` « Réglages avancés », fermé par défaut ; sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce), l'indice de sélection vide étant placé **au-dessus** de lui pour rester visible. Détail des clés :
 
-- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix) ;
+- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([index.html:1032](index.html#L1032)) pioche d'abord dans la même catégorie et **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » ; un dernier recours relâché garantit 4 options) ;
 - **direction** : `he2fr` / `fr2he` ;
 - **script** : nikud, sans nikud, ou cursive ;
 - **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`). Deux valeurs : « Au clic » (seul le bouton haut-parleur déclenche la lecture) et « Automatique » (lecture au rendu de la carte et à la révélation de l'hébreu) — le réglage est respecté dans **tous** les chemins de réponse. Sans voix hébraïque détectée, `reflectVoiceUi()` pose `body.no-he-voice` (boutons haut-parleur masqués) **et** désactive les chips « Prononciation » ;
@@ -151,25 +151,28 @@ Couche de mémorisation persistée, **invisible pour `build.js`** (pur état app
 
 Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, restaurées via `buildChips()` (donc les deux chemins de démarrage) :
 
-- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, mode, dir, script, order, audio, len}`. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), tout est sélectionné — le bouton « Commencer » n'est donc jamais muet. `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
+- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, mode, dir, script, order, audio, len}`. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), `defaultCats()` sélectionne **tout sauf « Phrases »** — le bouton « Commencer » n'est jamais muet, mais un débutant ne tombe pas sur une phrase complète d'entrée (« tout sélectionner » les ramène ; des préférences sauvegardées restent intactes). `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he_plain`) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
-- **Verdict annulable** : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`) ; en mode saisie, le bouton de correction (`fixVerdict` — « J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») restaure cet état (`undoLastRecord`), ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`.
+- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([index.html:1111](index.html#L1111)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([index.html:1283](index.html#L1283)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
+- **Sortie explicite** : « Quitter » affiche sur l'accueil la ligne `#exit-note` (`role="status"`) « Session interrompue — X réponse(s) sur Y déjà comptée(s) dans ta révision » quand au moins une réponse a été donnée (les réponses sont déjà en SRS — le dire) ; masquée au démarrage suivant. Sur l'écran de fin, « Recommencer » est libellé « Rejouer ces N cartes » (même tirage `origQueue`), et une fin de **révision** avec ratées explique qu'elles sont aussitôt redevenues dues (effet Sisyphe du compteur, pas un bug).
 - **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
 
 ### Accessibilité (invariants)
 
 - Tout hébreu généré porte `lang="he"` (`.big-he`, `.sub-he`, `.cursive-line`, `.f-he`, `.qc-he`, `.sr-he`, `.srd-he`, `.answer .he`, `.m-he` de la liste des ratées, marque) — à préserver dans les gabarits de chaînes.
 - Focus clavier : un seul anneau global `:focus-visible` doré (aucun `outline:none` nu).
-- Annonces aux lecteurs d'écran : `#feedback` (`aria-live`), `#quiz-live` (verdict QCM masqué visuellement, écrit dans `quizPick`, vidé dans `setupQuizCard`), `#done-msg` et `#loader-msg` (`role="status"`) ; `.bar` est un `role="progressbar"` mis à jour dans `render()`/`finish()`.
-- Recherche au clavier : `.sr-row` en `role="button"` + `tabindex="0"` + `keydown` (un vrai `<button>` est impossible : le bouton Écouter est imbriqué dedans), `aria-expanded` sur les lignes dépliables.
+- Annonces aux lecteurs d'écran : `#feedback` (`aria-live`), `#quiz-live` (verdict QCM masqué visuellement, écrit dans `quizPick`/`quizFixVerdict`, vidé dans `setupQuizCard`), `#flip-live` (**verso du mode Cartes** — français + translittération, alimenté par `doFlip()`, vidé au recto et à chaque nouvelle carte), `#done-msg`, `#loader-msg` et `#exit-note` (`role="status"`) ; `.bar` est un `role="progressbar"` mis à jour dans `render()`/`finish()`.
+- Clavier, à égalité entre les modes : Cartes = Espace retourner, ←/→ juger ; Saisie = Entrée vérifier/passer ; **QCM = 1–4 choisir, Entrée/Espace « Suivant »** (un bouton focalisé garde la main) ; **P « prononcer »** rejoue l'audio dans tous les modes, aux mêmes conditions de visibilité que le bouton haut-parleur (jamais avant la réponse en fr→he, jamais sans voix). L'indice `#kbd-hint` s'adapte au mode (masqué en saisie), sa mention de P disparaissant sous `body.no-he-voice` (`.spk-hint`).
+- Groupes de réglages : chaque `.seg` (et `#cats`) est un `role="group"` + `aria-labelledby` vers son `<h2>` ; le pli « Réglages avancés » est un `<details>/<summary>` natif (clavier et lecteurs d'écran gérés par le navigateur).
+- Recherche au clavier : `.sr-row` en `role="button"` + `tabindex="0"` + `keydown` (un vrai `<button>` est impossible : le bouton Écouter est imbriqué dedans), `aria-expanded` sur les lignes dépliables ; la requête est échappée (`escapeHtml`) dans le message « Aucun résultat ».
 - Cibles tactiles : `.search-clear` et `.sr-speak` 44 px, `.exit` `min-height:44px`, chips élargies sous `@media (pointer:coarse)` (densité bureau inchangée).
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([index.html:1265](index.html#L1265)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
+`checkAnswer` ([index.html:1392](index.html#L1392)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1407](index.html#L1407)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1257](index.html#L1257)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1195](index.html#L1195)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1537](index.html#L1537)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1384](index.html#L1384)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1322](index.html#L1322)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
@@ -182,7 +185,7 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
 
-1. **`init()` dans index.html** ([index.html:1615](index.html#L1615)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans index.html** ([index.html:1789](index.html#L1789)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
 

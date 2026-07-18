@@ -48,9 +48,9 @@ Le shva initial d'un groupe de consonnes n'est écrit que s'il s'entend (*gdolim
 
 Trois modes de travail, dans les deux sens (hébreu → français ou français → hébreu) :
 
-- **Cartes** recto-verso, avec auto-évaluation (« Je savais » / « À revoir »).
-- **Saisie** où l'on tape la réponse, avec navigation entièrement au clavier (Entrée pour vérifier, Entrée ou Espace pour passer à la suivante) et un bouton « Je ne sais pas ». Réponses en hébreu acceptées **soit en translittération** (graphie à la française tolérée : « chatoul », « khatul »…), **soit via un clavier hébreu virtuel** intégré (disposition israélienne standard). Une réponse à une petite faute près est comptée juste, avec un « Presque ! » qui montre la forme exacte à côté de la tienne.
-- **QCM** : la bonne traduction à retrouver parmi quatre choix (distracteurs tirés de la même catégorie), sans clavier — idéal sur téléphone.
+- **Cartes** recto-verso, avec auto-évaluation (« Je savais » / « À revoir ») — et un discret « Annuler la dernière réponse » si le pouce a glissé.
+- **Saisie** où l'on tape la réponse, avec navigation entièrement au clavier (Entrée pour vérifier, Entrée ou Espace pour passer à la suivante) et un bouton « Je ne sais pas » (valider un champ vide ne compte rien). Réponses en hébreu acceptées **soit en translittération** (graphie à la française tolérée : « chatoul », « khatul »…), **soit via un clavier hébreu virtuel** intégré (disposition israélienne standard). Une réponse à une petite faute près est comptée juste, avec un « Presque ! » qui montre la forme exacte à côté de la tienne.
+- **QCM** : la bonne traduction à retrouver parmi quatre choix (distracteurs tirés de la même catégorie, jamais deux quasi-synonymes) — idéal sur téléphone, et jouable au clavier (touches 1–4, Entrée pour la suivante).
 
 Autres réglages et fonctions :
 
@@ -58,10 +58,10 @@ Autres réglages et fonctions :
 - **Longueur de session** : 10, 20 (par défaut), 50 cartes ou tout le paquet. En ordre aléatoire, chaque session pioche des cartes différentes ; la révision du jour respecte aussi cette limite (les cartes les plus en retard d'abord, le reste attend la prochaine séance). « Rejouer les ratées » n'est jamais limité.
 - Affichage de l'hébreu avec nikud, sans nikud, ou en écriture cursive.
 - Audio avec la voix hébraïque du système — « Au clic » (le bouton haut-parleur uniquement) ou « Automatique » (lecture à chaque carte et à chaque réponse révélée) ; sans voix hébraïque installée, le réglage se désactive au lieu de laisser une voix par défaut prononcer de travers. Ordre aléatoire ou linéaire.
-- En fin de session, le bilan **liste les cartes ratées** (hébreu + français) avant de proposer de les rejouer.
-- **Réglages mémorisés** : mode, direction, écriture, audio, longueur et catégories choisies sont restaurés d'une visite à l'autre. Une session interrompue (rechargement, onglet évincé par iOS) **reprend là où tu t'étais arrêté**.
-- **Accessible** : navigation complète au clavier (anneau de focus doré, recherche incluse), verdicts annoncés aux lecteurs d'écran, hébreu balisé `lang="he"` pour une prononciation correcte, cibles tactiles confortables sur mobile.
-- En mode saisie, le verdict se corrige dans les deux sens : **« J'avais juste »** si le correcteur t'a jugé à tort, **« En fait, je ne savais pas »** si tu as deviné — la progression suit.
+- En fin de session, le bilan **liste les cartes ratées** (hébreu + français) avant de proposer de les rejouer — « Rejouer ces N cartes » relance exactement le même tirage. Après une révision, une ligne rappelle que les ratées redeviennent dues aussitôt : c'est la méthode, pas un bug.
+- **Réglages mémorisés** : mode, direction, écriture, audio, longueur et catégories choisies sont restaurés d'une visite à l'autre. Les réglages qu'on touche une fois (ordre, longueur, prononciation) sont rangés dans un pli « Réglages avancés » ; sur mobile, le bouton « Commencer » reste sous le pouce pendant le défilement. Au tout premier lancement, tout est sélectionné sauf les phrases complètes. Une session interrompue (rechargement, onglet évincé par iOS) **reprend là où tu t'étais arrêté** ; « Quitter » précise combien de réponses sont déjà comptées dans ta révision.
+- **Accessible** : navigation complète au clavier dans les trois modes (anneau de focus doré, recherche incluse, touche **P** pour écouter la carte), verdicts **et versos** annoncés aux lecteurs d'écran, hébreu balisé `lang="he"` pour une prononciation correcte, cibles tactiles confortables sur mobile.
+- Le verdict se corrige dans les trois modes : **« J'avais juste »** si le correcteur (ou le pouce) t'a joué un tour, **« En fait, je ne savais pas »** si tu as deviné — la progression suit, dans les deux sens.
 
 ## Mise à jour automatique
 

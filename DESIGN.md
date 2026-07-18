@@ -253,6 +253,12 @@ Caractère commun : **discrets jusqu'à l'action**. Au repos, un contrôle est t
 ### Navigation
 Pas de barre de navigation : l'app est un flux setup → session → score. Le retour est un bouton « Quitter » discret (couche carte, filet, texte estompé) ; la progression est une fine barre d'or (5px, pilule) + compteur mono.
 
+### Pli « Réglages avancés »
+Les réglages qu'on touche une fois (Ordre, Longueur, Prononciation) vivent dans un `<details>` natif : rangée posée sur la nuit claire, filet, rayon 12px, chevron qui pivote à l'ouverture, sous-titre estompé listant le contenu. Fermé par défaut — l'écran raccourcit, « Commencer » remonte. À l'intérieur, les titres gardent la voix Title : le pli range, il ne rétrograde pas.
+
+### CTA sous le pouce (tactile)
+Sous `pointer:coarse`, « Commencer » est `position:sticky` en bas d'écran : la lampe reste à portée de pouce pendant le défilement, puis reprend sa place naturelle en fin de page (aucun recouvrement final). Il garde sa seule lueur d'or — pas d'ombre supplémentaire. L'indice de sélection vide se place au-dessus du bouton pour rester lisible quand il est collé.
+
 ### Clavier hébreu (composant signature)
 Disposition israélienne en RTL, touches sur nuit claire avec lettres Frank Ruhl Libre 1.35rem, lettres finales en or tendre, touche active en or plein. C'est un objet d'étude à part entière : il doit rester aussi lisible qu'une carte.
 
