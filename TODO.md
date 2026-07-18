@@ -137,10 +137,19 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - **Logique/DOM** : Node + jsdom dans le scratchpad de session
   (`npm i jsdom playwright` — installer les DEUX ensemble, npm évince l'autre sinon),
   booter `flashcards_hebreu.html` avec `runScripts:'dangerously'`.
-- **Rendu visuel mobile** : Playwright + **WebKit** (vrai moteur Safari — les libs
-  système sont installées) avec `devices['iPhone 16 Pro']` ; captures d'écran à l'appui.
-  Premier install : `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 npx playwright install webkit`.
-  Le Chrome système (`google-chrome --headless`) pend en WSL2 — ne pas l'utiliser.
+- **Rendu visuel (mobile ET desktop)** : Playwright + **WebKit** (vrai moteur Safari — les
+  libs système sont installées) avec `devices['iPhone 16 Pro']` ; captures d'écran à
+  l'appui, relues visuellement. Les navigateurs téléchargés **persistent** dans
+  `~/.cache/ms-playwright` (webkit-2311 en place) : en début de session, un simple
+  `npm i playwright` dans le scratchpad suffit — ne relancer
+  `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 npx playwright install webkit` que si le
+  cache a disparu. Le Chrome système (`google-chrome --headless`) pend en WSL2 — ne pas
+  l'utiliser.
+- **Suite de contrôle du portail** : `verifie_portail.js` (scratchpad de session, à
+  recréer au besoin) — 33 contrôles : accueil/portes en desktop (souris, clavier, sans
+  JS, reduced-motion), iPhone 16 Pro (tactile, débordement, chevauchement
+  texte/ménorahs), navigation réelle des deux portes, `start_url`, tirage fr/he
+  (détection hébreu par plage Unicode, pas par mot littéral).
 - **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch le carnet).
 
 ## Rituel à chaque modification

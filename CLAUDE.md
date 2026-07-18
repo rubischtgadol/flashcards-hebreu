@@ -8,6 +8,8 @@ A French-language toolkit for learning modern Hebrew, deployed as static files o
 
 Important: `app.html` uses `fetch()`, so it must be served over HTTP, not opened as a `file://`. Run a local server from the repo root (e.g. `python3 -m http.server`) and open `http://localhost:8000/`.
 
+Verification tooling in this WSL environment: visual checks run through **Playwright + real WebKit** (Safari's engine, matching the target iPhone — `devices['iPhone 16 Pro']` for mobile), pure logic through jsdom; the system headless Chrome hangs in WSL2 — never use it. Browsers persist in `~/.cache/ms-playwright`; only the npm `playwright` lib needs reinstalling per session (in the scratchpad). Operational details in TODO.md § Outillage.
+
 ## The files
 
 - **`vocabulaire_hebreu.html`** — the grammar + vocabulary notebook. This is the **single source of truth** for all content. Editing vocabulary means editing this file.
