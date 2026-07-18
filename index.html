@@ -320,6 +320,7 @@
   .loader .spin{ width:34px; height:34px; margin:0 auto 14px; border:3px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
   .count-note{ text-align:center; color:var(--ink-dim); font-size:.88rem; margin-top:12px; }
+  .exit-note{ text-align:center; color:var(--ink-dim); font-size:.9rem; margin:2px 0 14px; }
   .start-hint{ text-align:center; color:var(--gold); font-size:.86rem; margin-top:10px; }
   .loader .retry{
     margin-top:16px; border:1px solid var(--gold); background:transparent; color:var(--gold);
@@ -424,6 +425,9 @@
     <button class="search-clear hide" id="search-clear" aria-label="Effacer">&times;</button>
   </div>
   <div class="search-results hide" id="search-results"></div>
+
+  <!-- Après « Quitter » : le SRS a déjà enregistré chaque réponse donnée — le dire. -->
+  <div class="exit-note hide" id="exit-note" role="status"></div>
 
   <h2>Révision du jour</h2>
   <button class="review-card" id="review-btn" type="button" disabled>
@@ -553,7 +557,7 @@
   <ul class="missed-list hide" id="missed-list"></ul>
   <div class="again-btns">
     <button class="primary" id="retry-missed">Rejouer les ratées</button>
-    <button id="retry-all">Recommencer</button>
+    <button id="retry-all">Rejouer ces cartes</button>
     <button id="back-setup">Changer de réglages</button>
   </div>
 </section>
@@ -872,6 +876,7 @@ document.getElementById('start').onclick=start;
 function beginSession(pool){
   state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
   cardsUndo=null; lastRecord=null;   // rien d'annulable en début de session
+  document.getElementById('exit-note').classList.add('hide');
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('done').classList.remove('active');
   document.getElementById('study').classList.add('active');
@@ -985,9 +990,25 @@ function quizChoiceHtml(opt){
 function pickDistractors(card, n){
   const key = state.dir==='he2fr' ? (c=>frShort(c).toLowerCase()) : (c=>c.he_plain);
   const answer=key(card), seen=new Set([answer]), out=[];
-  const take=list=>{ for(const c of list){ if(out.length>=n) break; const k=key(c); if(!seen.has(k)){ seen.add(k); out.push(c); } } };
+  // Deux options au français quasi identique (« content »/« contente ») ou au
+  // synonyme partagé rendraient le choix ambigu — en fr→he, un distracteur
+  // synonyme de la carte serait même une deuxième bonne réponse. On écarte tout
+  // candidat dont une variante française frôle celles déjà retenues.
+  const kept=[frVariants(card.fr)];
+  const tooClose=c=>{
+    const vs=frVariants(c.fr);
+    return kept.some(ks=>ks.some(k=>vs.some(v=>v===k || (k.length>4 && editDist(v,k)<=1))));
+  };
+  const take=list=>{ for(const c of list){ if(out.length>=n) break; const k=key(c); if(!seen.has(k) && !tooClose(c)){ seen.add(k); kept.push(frVariants(c.fr)); out.push(c); } } };
   take(shuffle(CARDS.filter(c=>c!==card && c.cat===card.cat)));
   if(out.length<n) take(shuffle(CARDS.filter(c=>c!==card && c.cat!==card.cat)));
+  // Dernier recours (pool minuscule) : mieux vaut un voisin proche que < 4 options.
+  if(out.length<n){
+    for(const c of shuffle(CARDS.filter(c=>c!==card))){
+      if(out.length>=n) break;
+      const k=key(c); if(!seen.has(k)){ seen.add(k); out.push(c); }
+    }
+  }
   return out;
 }
 function setupQuizCard(card){
@@ -1537,7 +1558,16 @@ function finish(){
   if(pct===100) msg='Sans faute. כָּל הַכָּבוֹד !';
   else if(pct>=70) msg='Bien joué ! Plus que '+state.missed.length+' carte'+(state.missed.length>1?'s':'')+' à revoir avant le sans-faute.';
   else msg='Encore un peu d\'entraînement — '+state.missed.length+' à revoir.';
+  // Fin de révision : les ratées sont retombées en boîte 0, donc dues aussitôt —
+  // l'expliquer, sinon le compteur qui ne descend pas ressemble à un bug.
+  if(state.session==='review' && state.missed.length){
+    msg+=' Les ratées sont aussitôt redevenues dues : la révision du jour les repropose jusqu’à ce qu’elles tiennent.';
+  }
   document.getElementById('done-msg').textContent=msg;
+  // « Rejouer ces N cartes » : même tirage (origQueue), le libellé l'explicite.
+  const nOrig=state.origQueue.length;
+  document.getElementById('retry-all').textContent =
+    nOrig===1 ? 'Rejouer cette carte' : 'Rejouer ces '+nOrig+' cartes';
   // Les ratées, listées avant de rejouer : on sait quoi retravailler sans relancer à l'aveugle.
   const list=document.getElementById('missed-list');
   list.classList.toggle('hide', !state.missed.length);
@@ -1563,6 +1593,15 @@ document.getElementById('back-setup').onclick=()=>{
   document.getElementById('setup').classList.remove('hidden');
 };
 document.getElementById('exit').onclick=()=>{
+  // Chaque réponse donnée est déjà écrite dans la révision (recordResult à
+  // chaque carte) : l'accueil le dit, pour que « Quitter » ne semble pas tout jeter.
+  const n = state.idx + (state.answered?1:0);
+  const note=document.getElementById('exit-note');
+  if(n>0){
+    note.textContent='Session interrompue — '+n+' réponse'+(n>1?'s':'')+' sur '
+      +state.total+' déjà comptée'+(n>1?'s':'')+' dans ta révision.';
+    note.classList.remove('hide');
+  }
   sessClear();
   document.body.classList.remove('input-mode','quiz-mode');
   refreshSrsUi();

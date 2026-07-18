@@ -42,7 +42,7 @@ Décisions prises (ne pas re-débattre) :
 - Contrainte : pas de refonte de fond sans décision explicite — le setup premier écran a été
   confirmé au plan précédent, seul son *poids* est en cause.
 
-### 4. Mineures (au fil des passes 1–3, ou en `clarify` dédié)  [ ]
+### 4. Mineures (au fil des passes 1–3, ou en `clarify` dédié)  [x] (sauf bindTap iOS → côté Ruben)
 - « Quitter » : atterrir avec une ligne « Session interrompue — X/Y déjà comptées dans ta
   révision » (le SRS est déjà écrit, le dire).
 - « Recommencer » → « Rejouer ces N cartes » (même tirage, l'expliciter).

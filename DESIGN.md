@@ -206,7 +206,7 @@ Une nuit bleutée en quatre couches tonales, éclairée par un or ancien et lue 
 ### Hierarchy
 - **Display** (3.6rem, lh 1.15, RTL) : le mot hébreu sur la carte — l'élément le plus grand de tout l'écran. Phrases : 2.15rem. Mobile ≤480px : 3.2rem.
 - **Headline** (600, 2.4rem) : le mot français sur la carte. Phrases : 1.5rem.
-- **Title** (700, 0.84rem, capitales, espacement 0.12em, or ancien) : les titres de sections du panneau (« Catégories », « Mode »…). C'est le seul usage de capitales espacées — un système de sections nommé, pas un réflexe décoratif.
+- **Title** (700, 0.84rem, capitales, espacement 0.12em, or ancien) : les titres de sections du panneau (« Catégories », « Mode »…). Les capitales espacées sont la voix des *étiquettes de repère* — toujours en or, toujours minuscules face au contenu — et elle a exactement quatre emplois : les titres de sections du panneau, la catégorie au sommet de la carte (`.face .eyebrow`, 0.8rem/0.14em), la pilule de catégorie des résultats de recherche (`.sr-cat`, 0.76rem/0.08em) et le titre du tiroir de détail (`.srd-title`, 0.76rem/0.1em). Un système de repères nommé, pas un réflexe décoratif ; aucun cinquième emploi sans décision de charte.
 - **Body** (22px de base, Assistant) : interface et contenus. Les contrôles descendent vers 0.9–1.1rem.
 - **Label** (JetBrains Mono, 0.82–1.1rem, LTR, parchemin estompé) : translittérations, compteurs de session, étiquettes d'inflexions.
 
