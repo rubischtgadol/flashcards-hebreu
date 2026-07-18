@@ -10,38 +10,38 @@ page d'accueil commune, voix robotique — voir ci-dessous), du contenu (relectu
 
 ## Fait (historique compact — détail dans les messages de commit)
 
-- **[x] Intégrité du verdict** (`b727bd3`) : verdict annulable dans les trois modes
+- **[x] Intégrité du verdict** (`fd84d94`) : verdict annulable dans les trois modes
   (« Corriger » en QCM, « Annuler la dernière réponse » en Cartes avec restauration
   SRS/compteurs/position), Entrée sur champ vide = no-op, requête de recherche échappée.
-- **[x] Égalité des trois modes** (`66b3264`) : verso annoncé aux lecteurs d'écran
+- **[x] Égalité des trois modes** (`71d6a12`) : verso annoncé aux lecteurs d'écran
   (`#flip-live`), clavier QCM (1–4, Entrée/Espace), `role="group"` sur les `.seg`,
   touche P « prononcer ».
-- **[x] Accueil allégé** (`83c5a0c`) : pli « Réglages avancés » (details natif :
+- **[x] Accueil allégé** (`2fd2efa`) : pli « Réglages avancés » (details natif :
   Ordre/Longueur/Prononciation), « Commencer » collant sous le pouce en tactile,
   premier lancement tout sélectionné sauf Phrases, note pédagogique sous le Mode.
-- **[x] Mineures** (`f4bb468`) : ligne « Session interrompue — X/Y déjà comptées »,
+- **[x] Mineures** (`f5ff87b`) : ligne « Session interrompue — X/Y déjà comptées »,
   « Rejouer ces N cartes », effet Sisyphe expliqué en fin de révision, distracteurs QCM
   sans quasi-synonymes.
-- **[x] Niveaux de difficulté (CECRL)** (`80bb861`) : les 709 mots du carnet classés via
+- **[x] Niveaux de difficulté (CECRL)** (`65d341c`) : les 709 mots du carnet classés via
   `data-niveau` (A1 327 · A2 268 · B1 107 · B2 7 — méthode dans ARCHITECTURE.md §4),
   mappés en quatre paliers dans l'app (Facile = A1, Intermédiaire = A2–B1,
   Difficile = B2–C1, Expert = C2). Chips multi-sélection sous les catégories, construites
   depuis les données (un niveau vide n'affiche pas de chip), filtre croisé
   catégories × niveau dans `start()`, révision du jour volontairement non filtrée,
   préférences rétro-compatibles, garde-fou `EXPECTED_LEVELS` dans build.js.
-- **[x] Exemples en situation** (`38c9261`) : sous-listes `<ul class="exemples">` dans le
+- **[x] Exemples en situation** (`ac784a4`) : sous-listes `<ul class="exemples">` dans le
   carnet (hébreu nikud + translittération + français), extraites en `card.exemples` dans
   les deux implémentations, pli « Voir un exemple » sur le verso des Cartes, le feedback
   de Saisie et le verdict du QCM (jamais côté question en fr→he), exemples dans le tiroir
   de la recherche, bouton Écouter par phrase. Lot pilote : 77 exemples sur les mots A1.
-- **[x] Re-mesure UX + correctifs** (`ed9e51b`) : score 34/40. Le problème majeur trouvé
+- **[x] Re-mesure UX + correctifs** (`5e53e8e`) : score 34/40. Le problème majeur trouvé
   (Entrée/Espace sur un bouton du feedback de Saisie avançaient la carte au lieu d'activer
   le bouton) est corrigé — garde « bouton focalisé » aligné sur celui du QCM, en Saisie et
   en Cartes. Avec lui : « Commencer — N cartes » vivant (croisement catégories × niveau,
   borné par la Longueur), note « mot non classé reste visible » sous le groupe Niveau,
   l'exemple déplié entre dans le champ (`scrollIntoView`), le pli « Réglages avancés »
   affiche ses valeurs mémorisées.
-- **[x] Backlog mineur soldé** (`1021685`) : « tout sélectionner » ↔ « tout
+- **[x] Backlog mineur soldé** (`abce563`) : « tout sélectionner » ↔ « tout
   désélectionner » selon l'état, « Voir un exemple » ↔ « Masquer l'exemple », rangée de
   recherche dépliable qui déplie sans jouer l'audio (une action par geste), touche **C**
   « corriger » dans les trois modes (P et C laissent passer Ctrl/Cmd/Alt), `#flip-live`
