@@ -129,12 +129,13 @@ Un seul fichier : CSS inline (l. 1–370 env.), puis quatre écrans, puis le JS.
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`), câblés par `segPick` ([index.html:666](index.html#L666)) dans l'objet `state` ([index.html:503](index.html#L503)) :
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés par `segPick` ([index.html:666](index.html#L666)) dans l'objet `state` ([index.html:503](index.html#L503)) :
 
 - **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix) ;
 - **direction** : `he2fr` / `fr2he` ;
 - **script** : nikud, sans nikud, ou cursive ;
-- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`).
+- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`) ;
+- **longueur** (`state.len` : `'10'|'20'|'50'|'all'`, défaut `'20'`) : `limitPool()` tronque le jeu **après** le mélange dans `start()` (aléatoire = pioche différente à chaque session ; dans l'ordre = les N premières). `startReview()` l'applique aussi, après tri des cartes dues par retard décroissant — le reste demeure dû et réapparaît sur la carte de révision (sous-titre explicite quand dû > limite). « Rejouer les ratées » n'est volontairement **jamais** limité.
 
 Chaque mode a sa zone dans `#study` (`#controls-cards` / `#input-zone` / `#quiz-zone`) et un `setup*Card()` qui bascule les classes body `input-mode` / `quiz-mode` ; `render()` aiguille selon `state.mode`. Le passage à la carte suivante est mutualisé (`nextAfterInput`, réutilisé par le QCM). Toutes les entrées de session (catégories, révision, rejeu) passent par `beginSession(pool)` ; `state.origQueue` mémorise le jeu de la session pour que « Recommencer » le rejoue tel quel (jamais un re-filtrage — sinon une session de révision repartirait à vide).
 
@@ -150,10 +151,18 @@ Couche de mémorisation persistée, **invisible pour `build.js`** (pur état app
 
 Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, restaurées via `buildChips()` (donc les deux chemins de démarrage) :
 
-- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, mode, dir, script, order, audio}`. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), tout est sélectionné — le bouton « Commencer » n'est donc jamais muet. `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
+- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, mode, dir, script, order, audio, len}`. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), tout est sélectionné — le bouton « Commencer » n'est donc jamais muet. `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he_plain`) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
 - **Verdict annulable** : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`) ; en mode saisie, le bouton « Corriger » (`fixVerdict`) restaure cet état (`undoLastRecord`), ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`.
 - **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
+
+### Accessibilité (invariants)
+
+- Tout hébreu généré porte `lang="he"` (`.big-he`, `.sub-he`, `.cursive-line`, `.f-he`, `.qc-he`, `.sr-he`, `.srd-he`, `.answer .he`, marque) — à préserver dans les gabarits de chaînes.
+- Focus clavier : un seul anneau global `:focus-visible` doré (aucun `outline:none` nu).
+- Annonces aux lecteurs d'écran : `#feedback` (`aria-live`), `#quiz-live` (verdict QCM masqué visuellement, écrit dans `quizPick`, vidé dans `setupQuizCard`), `#done-msg` et `#loader-msg` (`role="status"`) ; `.bar` est un `role="progressbar"` mis à jour dans `render()`/`finish()`.
+- Recherche au clavier : `.sr-row` en `role="button"` + `tabindex="0"` + `keydown` (un vrai `<button>` est impossible : le bouton Écouter est imbriqué dedans), `aria-expanded` sur les lignes dépliables.
+- Cibles tactiles : `.search-clear` et `.sr-speak` 44 px, `.exit` `min-height:44px`, chips élargies sous `@media (pointer:coarse)` (densité bureau inchangée).
 
 ### Correction des réponses tapées (la logique la plus délicate)
 

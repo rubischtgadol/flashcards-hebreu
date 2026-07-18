@@ -30,13 +30,16 @@ Décisions prises (ne pas re-débattre) :
   (tri par retard décroissant, le reste demeure dû, sous-titre l'annonce) ; « Rejouer les ratées »
   **jamais limité** ; `origQueue` = jeu tronqué → « Recommencer » rejoue les mêmes cartes.
 
-### 3. `/impeccable audit index.html` — accessibilité  [ ]
+### 3. `/impeccable audit index.html` — accessibilité  [x]
 - Recherche au clavier : `.sr-row` en vrais `<button>` (ou `role="button"` + `tabindex="0"` + keydown).
 - `aria-live="polite"` : `#feedback`, verdict QCM, titre de `#done`, message du loader.
 - `lang="he"` sur tout l'hébreu (`.big-he`, `.sr-he`, `.f-he`, `.sub-he`…).
 - `:focus-visible{outline:2px solid var(--gold); outline-offset:2px}` global ; supprimer les `outline:none` nus.
 - Cibles ≥44px : `.search-clear` (28px), `.sr-speak` (34px), `.exit`, chips.
 - `role="progressbar"` sur `.bar` ; un `h1` (la marque) ; `dir="auto"` sur `#answer-input`/`#search-input`.
+- Fait : tout ↑ + `aria-expanded` sur les lignes dépliables, `#quiz-live` (verdict QCM annoncé),
+  chips élargies sous `pointer:coarse` (bureau inchangé), invariants notés dans CLAUDE.md.
+  Nuance : `.sr-row` en `role="button"` (vrai `<button>` impossible : bouton Écouter imbriqué).
 
 ### 4. `/impeccable clarify index.html` — libellés & pédagogie  [ ]
 - « tap pour retourner » → français (« touche la carte pour la retourner »).

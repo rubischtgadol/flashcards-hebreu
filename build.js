@@ -205,7 +205,7 @@ function generateStandalone(cards){
 
   // Version autonome : pas de chargement réseau → pas de loader, panneau visible d\'emblée.
   out = mustReplace(out,
-    '<div id="loader" class="loader"><div class="spin"></div><p id="loader-msg">Chargement du vocabulaire…</p></div>\n',
+    '<div id="loader" class="loader"><div class="spin"></div><p id="loader-msg" role="status">Chargement du vocabulaire…</p></div>\n',
     '', 'div #loader');
   out = mustReplace(out,
     '<section class="setup panel hidden" id="setup">',

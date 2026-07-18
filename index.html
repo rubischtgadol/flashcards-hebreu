@@ -40,7 +40,13 @@
   header{ text-align:center; margin-bottom:10px; }
   .brand{
     font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-weight:700;
-    font-size:1.5rem; letter-spacing:.01em;
+    font-size:1.5rem; letter-spacing:.01em; margin:0;
+  }
+  /* Focus clavier : anneau d'or uniforme sur tout l'interactif. */
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
   }
   .brand .he{ color:var(--gold); }
   .tagline{ color:var(--ink-dim); font-size:.92rem; margin-top:1px; }
@@ -64,12 +70,12 @@
   #search-input{
     width:100%; border-radius:12px; border:1px solid var(--line);
     background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1rem;
-    padding:12px 38px 12px 40px; outline:none; transition:border-color .15s ease;
+    padding:12px 48px 12px 40px; transition:border-color .15s ease;
   }
   #search-input:focus{ border-color:var(--gold); }
   .search-clear{
-    position:absolute; right:8px; top:50%; transform:translateY(-50%);
-    width:28px; height:28px; border-radius:50%; border:none; background:transparent;
+    position:absolute; right:2px; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%; border:none; background:transparent;
     color:var(--ink-dim); font-size:1.3rem; line-height:1; cursor:pointer;
   }
   .search-results{ margin:10px 0 4px; display:flex; flex-direction:column; gap:6px; max-height:340px; overflow-y:auto; }
@@ -81,7 +87,7 @@
   }
   .sr-row:hover{ border-color:var(--gold); }
   .sr-speak{
-    flex:none; width:34px; height:34px; border-radius:50%;
+    flex:none; width:44px; height:44px; border-radius:50%;
     border:1px solid var(--line); background:transparent; color:var(--gold);
     display:flex; align-items:center; justify-content:center; padding:0;
   }
@@ -115,6 +121,11 @@
     background:var(--gold); color:#1a1206; border-color:var(--gold); font-weight:600;
   }
   .chip .n{ opacity:.6; font-size:.76em; margin-inline-start:5px; }
+  /* Au doigt : chips à hauteur de cible confortable (~44px), sans épaissir le bureau. */
+  @media (pointer:coarse){
+    .chip{ padding:11px 16px; }
+    .cat-row .chip{ padding:9px 13px; }
+  }
   .chip[aria-pressed="true"] .n{ opacity:.7; }
   .seg{ display:flex; gap:7px; flex-wrap:wrap; }
   .cat-row{ display:flex; align-items:center; gap:8px; margin-bottom:9px; }
@@ -141,7 +152,7 @@
   .bar{ flex:1; height:5px; background:var(--line); border-radius:999px; overflow:hidden; }
   .bar > span{ display:block; height:100%; width:0; background:var(--gold); border-radius:999px; transition:width .35s ease; }
   .counter{ font-family:'JetBrains Mono',monospace; font-size:.88rem; color:var(--ink-dim); white-space:nowrap; }
-  .exit{ display:inline-flex; align-items:center; gap:3px; background:var(--card); border:1px solid var(--card-edge); color:var(--ink-dim); font-family:inherit; font-size:.95rem; line-height:1; cursor:pointer; padding:9px 12px 9px 10px; border-radius:10px; -webkit-tap-highlight-color:transparent; }
+  .exit{ display:inline-flex; align-items:center; gap:3px; min-height:44px; background:var(--card); border:1px solid var(--card-edge); color:var(--ink-dim); font-family:inherit; font-size:.95rem; line-height:1; cursor:pointer; padding:9px 12px 9px 10px; border-radius:10px; -webkit-tap-highlight-color:transparent; }
   .exit > span{ font-size:.82rem; letter-spacing:.02em; }
   .exit:hover, .exit:active{ color:var(--ink); border-color:var(--ink-dim); }
 
@@ -241,7 +252,7 @@
   #answer-input{
     flex:1; border-radius:12px; border:1px solid var(--line);
     background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1.05rem;
-    padding:13px 15px; outline:none; transition:border-color .15s ease;
+    padding:13px 15px; transition:border-color .15s ease;
   }
   #answer-input:focus{ border-color:var(--gold); }
   #answer-input.ok{ border-color:var(--green); }
@@ -384,16 +395,16 @@
 <body>
 
 <header>
-  <div class="brand"><span class="he">כַּרְטִיסִים</span> · Flashcards</div>
+  <h1 class="brand"><span class="he" lang="he">כַּרְטִיסִים</span> · Flashcards</h1>
   <div class="tagline">Entraînement au vocabulaire hébreu</div>
 </header>
 
 <!-- ============ SETUP ============ -->
-<div id="loader" class="loader"><div class="spin"></div><p id="loader-msg">Chargement du vocabulaire…</p></div>
+<div id="loader" class="loader"><div class="spin"></div><p id="loader-msg" role="status">Chargement du vocabulaire…</p></div>
 <section class="setup panel hidden" id="setup">
   <div class="search-wrap">
     <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-    <input id="search-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…">
+    <input id="search-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…" aria-label="Rechercher un mot">
     <button class="search-clear hide" id="search-clear" aria-label="Effacer">&times;</button>
   </div>
   <div class="search-results hide" id="search-results"></div>
@@ -467,7 +478,7 @@
 <section class="study" id="study">
   <div class="progress-wrap">
     <button class="exit" id="exit" title="Quitter la session" aria-label="Quitter la session">&#8249;<span>Quitter</span></button>
-    <div class="bar"><span id="barfill"></span></div>
+    <div class="bar" role="progressbar" aria-label="Progression de la session" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0"><span id="barfill"></span></div>
     <div class="counter" id="counter">1 / 1</div>
   </div>
 
@@ -492,7 +503,7 @@
 
   <div class="input-zone hide" id="input-zone">
     <div class="input-row" id="input-row">
-      <input id="answer-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…">
+      <input id="answer-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…" aria-label="Ta réponse">
       <button id="btn-check">Vérifier</button>
     </div>
         <div class="input-actions hide" id="input-actions">
@@ -500,12 +511,13 @@
       <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
     </div>
     <div class="hebkb hide" id="hebkb"></div>
-    <div class="feedback" id="feedback"></div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
     <button class="btn-next hide" id="btn-next">Suivant →</button>
   </div>
 
   <div class="quiz-zone hide" id="quiz-zone">
     <div class="quiz-choices" id="quiz-choices"></div>
+    <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
     <button class="btn-next hide" id="quiz-next">Suivant →</button>
   </div>
 
@@ -515,7 +527,7 @@
 <!-- ============ DONE ============ -->
 <section class="done" id="done">
   <div class="score" id="score">0<small>/0</small></div>
-  <p id="done-msg"></p>
+  <p id="done-msg" role="status"></p>
   <div class="again-btns">
     <button class="primary" id="retry-missed">Rejouer les ratées</button>
     <button id="retry-all">Recommencer</button>
@@ -710,7 +722,7 @@ function runSearch(){
         const lbl = c.cat==='Verbes' ? 'Présent' : (c.cat==='Noms' ? 'Pluriel' : 'Autres formes');
         detail += '<div class="srd-title">'+lbl+'</div><div class="srd-forms">';
         c.forms.forEach(f=>{
-          detail += '<div class="srd-f"><span class="srd-he">'+f.he+'</span>'
+          detail += '<div class="srd-f"><span class="srd-he" lang="he">'+f.he+'</span>'
                  +  '<span class="srd-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>';
         });
         detail += '</div>';
@@ -718,10 +730,13 @@ function runSearch(){
       if(c.note) detail += '<div class="srd-note">'+c.note+'</div>';
       detail += '</div>';
     }
+    // Un vrai <button> est impossible ici (il contient déjà le bouton Écouter,
+    // et les boutons imbriqués sont invalides) → role="button" + tabindex + keydown.
     return '<div class="sr-item"'+(expandable?' data-exp="1"':'')+' id="sri-'+i+'">'
-      + '<div class="sr-row" id="sr-'+i+'">'
+      + '<div class="sr-row" id="sr-'+i+'" role="button" tabindex="0"'
+      + (expandable?' aria-expanded="false"':'')+'>'
       + '<button class="sr-speak" tabindex="-1" aria-label="Écouter">'+SPK_SVG+'</button>'
-      + '<div class="sr-body"><span class="sr-he">'+c.he+'</span>'+tr+'<div class="sr-fr">'+c.fr+'</div></div>'
+      + '<div class="sr-body"><span class="sr-he" lang="he">'+c.he+'</span>'+tr+'<div class="sr-fr">'+c.fr+'</div></div>'
       + '<span class="sr-cat">'+c.cat+'</span>'+chevron
       + '</div>'+detail+'</div>';
   }).join('');
@@ -733,12 +748,17 @@ function runSearch(){
     const item=document.getElementById('sri-'+i);
     const detail=document.getElementById('srd-'+i);
     if(row){
-      bindTap(row, ()=>{
+      const activate=()=>{
         speak(c.he||c.he_plain);
         if(detail){
-          const open=detail.classList.toggle('hide');
-          item.classList.toggle('open', !open);
+          const hidden=detail.classList.toggle('hide');
+          item.classList.toggle('open', !hidden);
+          row.setAttribute('aria-expanded', String(!hidden));
         }
+      };
+      bindTap(row, activate);
+      row.addEventListener('keydown', e=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); activate(); }
       });
     }
   });
@@ -928,7 +948,7 @@ function quizPrompt(card){
 function quizChoiceHtml(opt){
   if(state.dir==='he2fr') return '<span>'+(opt.cat==='Phrases'?opt.fr:frShort(opt))+'</span>';
   const he = (state.script==='nikud') ? opt.he : opt.he_plain;
-  return '<span class="qc-he">'+he+'</span><span class="qc-tr">'+(opt.tr||he2tr(opt.he))+'</span>';
+  return '<span class="qc-he" lang="he">'+he+'</span><span class="qc-tr">'+(opt.tr||he2tr(opt.he))+'</span>';
 }
 function pickDistractors(card, n){
   const key = state.dir==='he2fr' ? (c=>frShort(c).toLowerCase()) : (c=>c.he_plain);
@@ -947,6 +967,7 @@ function setupQuizCard(card){
   document.getElementById('kbd-hint').classList.add('hide');
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'choisis la traduction' : 'choisis le mot hébreu';
   document.getElementById('quiz-next').classList.add('hide');
+  document.getElementById('quiz-live').textContent='';
   const box=document.getElementById('quiz-choices'); box.innerHTML='';
   const options=shuffle([card, ...pickDistractors(card,3)]);
   state.quizOptions=options;
@@ -970,6 +991,11 @@ function quizPick(btn, chosen, card){
   });
   recordResult(card, correct);
   if(correct) state.goodCount++; else state.missed.push(card);
+  // Verdict du QCM : annoncé aussi aux lecteurs d'écran (les couleurs ne suffisent pas).
+  const goodTxt = state.dir==='he2fr' ? (card.cat==='Phrases'?card.fr:frShort(card))
+                                      : card.he_plain+' ('+(card.tr||he2tr(card.he))+')';
+  document.getElementById('quiz-live').textContent =
+    correct ? 'Exact !' : 'Raté — la bonne réponse était : '+goodTxt;
   document.getElementById('quiz-next').classList.remove('hide');
   updateSpeaker();
   if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
@@ -980,15 +1006,15 @@ bindTap(document.getElementById('quiz-next'), nextAfterInput);
 
 function heFront(card){
   const ph = card.cat==='Phrases' ? ' phrase' : '';
-  if(state.script==='plain') return '<div class="big-he'+ph+'">'+card.he_plain+'</div>';
-  if(state.script==='cursive') return '<div class="big-he cursive'+ph+'">'+card.he_plain+'</div>';
-  return '<div class="big-he'+ph+'">'+card.he+'</div>';
+  if(state.script==='plain') return '<div class="big-he'+ph+'" lang="he">'+card.he_plain+'</div>';
+  if(state.script==='cursive') return '<div class="big-he cursive'+ph+'" lang="he">'+card.he_plain+'</div>';
+  return '<div class="big-he'+ph+'" lang="he">'+card.he+'</div>';
 }
 function bigFr(card){ return '<div class="big-fr'+(card.cat==='Phrases'?' phrase':'')+'">'+card.fr+'</div>'; }
 function formsHtml(card){
   if(!card.forms) return '';
   let h='<div class="forms">';
-  card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
+  card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he" lang="he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
   return h+'</div>';
 }
 
@@ -1008,13 +1034,13 @@ function render(){
     if(state.mode==='input') state.frontHtml += formsHtml(card);
     let b = bigFr(card);
     b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
-    if(state.script!=='nikud') b += '<div class="sub-he">'+card.he+'</div>';
+    if(state.script!=='nikud') b += '<div class="sub-he" lang="he">'+card.he+'</div>';
     b += formsHtml(card) + note;
     state.backHtml = b;
   } else {
     state.frontHtml = bigFr(card) + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
-    let b = '<div class="big-he">'+card.he+'</div>';
-    b += '<div class="cursive-line">'+card.he_plain+'</div>';
+    let b = '<div class="big-he" lang="he">'+card.he+'</div>';
+    b += '<div class="cursive-line" lang="he">'+card.he_plain+'</div>';
     b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
     b += formsHtml(card) + note;
     state.backHtml = b;
@@ -1026,6 +1052,9 @@ function render(){
 
   document.getElementById('counter').textContent=(state.idx+1)+' / '+state.total;
   document.getElementById('barfill').style.width=((state.idx)/state.total*100)+'%';
+  const bar=document.querySelector('.bar');
+  bar.setAttribute('aria-valuemax', state.total);
+  bar.setAttribute('aria-valuenow', state.idx);
 
   if(state.mode==='input') setupInputCard(card);
   else if(state.mode==='quiz') setupQuizCard(card);
@@ -1244,12 +1273,12 @@ function checkAnswer(card, raw){
 function answerHtml(card){
   let h = '<div class="answer">';
   if(state.dir==='he2fr'){
-    h += '<span class="he">'+card.he+'</span>';
+    h += '<span class="he" lang="he">'+card.he+'</span>';
     h += '<div>'+card.fr+'</div>';
     h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
   } else {
     h += '<div>'+card.fr+'</div>';
-    h += '<span class="he">'+card.he+'</span>';
+    h += '<span class="he" lang="he">'+card.he+'</span>';
     h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
   }
   h += '</div>';
@@ -1404,6 +1433,7 @@ function finish(){
   document.getElementById('study').classList.remove('active');
   document.getElementById('done').classList.add('active');
   document.getElementById('barfill').style.width='100%';
+  document.querySelector('.bar').setAttribute('aria-valuenow', state.total);
   const el=document.getElementById('score');
   el.innerHTML=state.goodCount+'<small>/'+state.total+'</small>';
   const pct=Math.round(state.goodCount/state.total*100);
