@@ -24,7 +24,7 @@ Décisions prises (ne pas re-débattre) :
 - Échapper `raw` dans « Aucun résultat pour « … » » (`escapeHtml` existe déjà).
 - `#retry-missed` : passer de `style.display` à `.hide` (vocabulaire interne unique).
 
-### 2. `/impeccable audit index.html` — égalité des trois modes  [ ]
+### 2. `/impeccable audit index.html` — égalité des trois modes  [x]
 - **[P2]** Verso annoncé au lecteur d'écran en mode Cartes : région `aria-live` masquée alimentée
   par `doFlip()` (français + translit), symétrique de `#quiz-live`.
 - Raccourcis clavier du QCM : touches 1–4 pour les choix, Entrée/Espace pour « Suivant »

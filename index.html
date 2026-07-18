@@ -205,7 +205,7 @@
   .speak-btn.hide{ display:none !important; }
   /* Pas de voix hébraïque sur l'appareil : on masque les boutons audio plutôt
      que de laisser la voix par défaut prononcer l'hébreu de travers. */
-  body.no-he-voice .speak-btn, body.no-he-voice .sr-speak{ display:none !important; }
+  body.no-he-voice .speak-btn, body.no-he-voice .sr-speak, body.no-he-voice .spk-hint{ display:none !important; }
   .audio-note, .seg-note{ color:var(--ink-dim); font-size:.76rem; margin-top:8px; }
   .face.flip-anim{ animation:cardIn .26s ease; }
   @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
@@ -439,47 +439,47 @@
     <span class="mbar"><span id="mastery-bar"></span></span>
   </div>
 
-  <h2>Catégories</h2>
+  <h2 id="h-cats">Catégories</h2>
   <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
-  <div class="chips" id="cats"></div>
+  <div class="chips" id="cats" role="group" aria-labelledby="h-cats"></div>
 
-  <h2>Mode</h2>
-  <div class="seg" id="mode">
+  <h2 id="h-mode">Mode</h2>
+  <div class="seg" id="mode" role="group" aria-labelledby="h-mode">
     <button class="chip" data-mode="cards" aria-pressed="true">Cartes</button>
     <button class="chip" data-mode="input" aria-pressed="false">Saisie</button>
     <button class="chip" data-mode="quiz" aria-pressed="false">QCM</button>
   </div>
 
-  <h2>Sens de la carte</h2>
-  <div class="seg" id="dir">
+  <h2 id="h-dir">Sens de la carte</h2>
+  <div class="seg" id="dir" role="group" aria-labelledby="h-dir">
     <button class="chip" data-dir="he2fr" aria-pressed="true">Hébreu → Français</button>
     <button class="chip" data-dir="fr2he" aria-pressed="false">Français → Hébreu</button>
   </div>
 
-  <h2>Écriture au recto</h2>
-  <div class="seg" id="script">
+  <h2 id="h-script">Écriture au recto</h2>
+  <div class="seg" id="script" role="group" aria-labelledby="h-script" aria-describedby="script-note">
     <button class="chip" data-script="nikud" aria-pressed="true">Avec nikud</button>
     <button class="chip" data-script="plain" aria-pressed="false">Sans nikud</button>
     <button class="chip" data-script="cursive" aria-pressed="false">Cursif</button>
   </div>
-  <div class="seg-note">Le nikud, ce sont les points-voyelles sous les lettres ; le cursif, l'écriture manuscrite israélienne.</div>
+  <div class="seg-note" id="script-note">Le nikud, ce sont les points-voyelles sous les lettres ; le cursif, l'écriture manuscrite israélienne.</div>
 
-  <h2>Ordre</h2>
-  <div class="seg" id="order">
+  <h2 id="h-order">Ordre</h2>
+  <div class="seg" id="order" role="group" aria-labelledby="h-order">
     <button class="chip" data-order="shuffle" aria-pressed="true">Aléatoire</button>
     <button class="chip" data-order="linear" aria-pressed="false">Dans l'ordre</button>
   </div>
 
-  <h2>Longueur</h2>
-  <div class="seg" id="len">
+  <h2 id="h-len">Longueur</h2>
+  <div class="seg" id="len" role="group" aria-labelledby="h-len">
     <button class="chip" data-len="10" aria-pressed="false">10</button>
     <button class="chip" data-len="20" aria-pressed="true">20</button>
     <button class="chip" data-len="50" aria-pressed="false">50</button>
     <button class="chip" data-len="all" aria-pressed="false">Tout</button>
   </div>
 
-  <h2>Prononciation</h2>
-  <div class="seg" id="audio">
+  <h2 id="h-audio">Prononciation</h2>
+  <div class="seg" id="audio" role="group" aria-labelledby="h-audio" aria-describedby="audio-note">
     <button class="chip" data-audio="click" aria-pressed="true">Au clic</button>
     <button class="chip" data-audio="auto" aria-pressed="false">Automatique</button>
   </div>
@@ -519,6 +519,8 @@
   </div>
   <!-- Un pouce qui glisse ne doit pas polluer les boîtes : la dernière réponse reste annulable. -->
   <div class="fix-row" id="undo-row"><button class="fix-btn hide" type="button" id="undo-card">‹ Annuler la dernière réponse</button></div>
+  <!-- Verso annoncé aux lecteurs d'écran en mode Cartes (symétrique de #quiz-live). -->
+  <div class="visually-hidden" id="flip-live" aria-live="polite"></div>
 
   <div class="input-zone hide" id="input-zone">
     <div class="input-row" id="input-row">
@@ -541,7 +543,7 @@
     <button class="btn-next hide" id="quiz-next">Suivant →</button>
   </div>
 
-  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais</div>
+  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span></div>
 </section>
 
 <!-- ============ DONE ============ -->
@@ -995,7 +997,9 @@ function setupQuizCard(card){
   document.getElementById('undo-card').classList.add('hide');
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('quiz-zone').classList.remove('hide');
-  document.getElementById('kbd-hint').classList.add('hide');
+  const kh=document.getElementById('kbd-hint');
+  kh.innerHTML='<kbd>1</kbd>–<kbd>4</kbd> choisir · <kbd>entrée</kbd> suivant<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
+  kh.classList.remove('hide');
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'choisis la traduction' : 'choisis le mot hébreu';
   document.getElementById('quiz-next').classList.add('hide');
   const qf=document.getElementById('quiz-fix'); qf.classList.add('hide'); qf.disabled=false;
@@ -1127,7 +1131,10 @@ function setupCardsMode(){
   document.getElementById('undo-card').classList.toggle('hide', !cardsUndo);
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('quiz-zone').classList.add('hide');
-  document.getElementById('kbd-hint').classList.remove('hide');
+  const kh=document.getElementById('kbd-hint');
+  kh.innerHTML='<kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
+  kh.classList.remove('hide');
+  document.getElementById('flip-live').textContent='';
   document.getElementById('face-hint').textContent = 'touche la carte pour la retourner';
   document.getElementById('btn-flip').classList.remove('hide');
   document.getElementById('btn-again').classList.add('hide');
@@ -1170,6 +1177,14 @@ function doFlip(){
   state.flipped=!state.flipped;
   document.getElementById('face-content').innerHTML = state.flipped ? state.backHtml : state.frontHtml;
   document.getElementById('face-hint').textContent = state.flipped ? 'touche pour revenir au recto' : 'touche la carte pour la retourner';
+  // Le verso change par innerHTML, invisible aux lecteurs d'écran sans région
+  // live : on annonce la réponse (français + translittération prononçable).
+  const card=state.queue[state.idx];
+  const live=document.getElementById('flip-live');
+  if(state.flipped && card){
+    const tr=card.tr||he2tr(card.he);
+    live.textContent = state.dir==='he2fr' ? card.fr+' — '+tr : tr+' — '+card.fr;
+  } else live.textContent='';
   animateFace();
   if(state.flipped){
     document.getElementById('btn-flip').classList.add('hide');
@@ -1562,6 +1577,32 @@ document.addEventListener('keydown', e=>{
   if(e.code==='Space'){ e.preventDefault(); doFlip(); }
   else if(state.flipped && e.code==='ArrowRight'){ answer(true); }
   else if(state.flipped && e.code==='ArrowLeft'){ answer(false); }
+});
+// Clavier du QCM : 1–4 choisissent une option, Entrée/Espace passent à la
+// suivante — le mode saisie avait déjà son équivalent, pas le QCM.
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(state.mode!=='quiz') return;
+  if(!state.answered && e.key>='1' && e.key<='4'){
+    const b=document.querySelectorAll('#quiz-choices .qc')[+e.key-1];
+    if(b){ e.preventDefault(); b.click(); }
+  } else if(state.answered && (e.key==='Enter' || e.code==='Space')){
+    // Un bouton focalisé (Corriger, Suivant…) gère Entrée/Espace lui-même.
+    if(e.target && e.target.tagName==='BUTTON') return;
+    e.preventDefault(); nextAfterInput();
+  }
+});
+// P comme « prononcer » : rejoue l'audio de la carte courante dans tous les
+// modes, uniquement quand le haut-parleur est visible (mêmes règles que lui —
+// jamais avant la réponse en fr→he, jamais sans voix hébraïque).
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(e.key!=='p' && e.key!=='P') return;
+  if(e.target && e.target.id==='answer-input') return;   // on est en train de taper
+  const spk=document.getElementById('speak-btn');
+  if(spk && !spk.classList.contains('hide') && !document.body.classList.contains('no-he-voice')){
+    e.preventDefault(); speakCurrent();
+  }
 });
 
 // ===== BUILD:ONLINE-ONLY : bloc remplace par build.js dans le fichier autonome =====
