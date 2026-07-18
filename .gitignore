@@ -1,0 +1,3 @@
+# Cache local de l'outillage design : contient des chemins absolus de la machine
+# de développement — ne doit jamais rejoindre le dépôt public.
+.impeccable/hook.cache.json
