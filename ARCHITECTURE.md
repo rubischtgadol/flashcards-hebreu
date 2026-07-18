@@ -146,6 +146,15 @@ Couche de mémorisation persistée, **invisible pour `build.js`** (pur état app
 - Chaque bonne réponse fait monter la carte d'une « boîte » (intervalle croissant, `SRS_INTERVALS`), un échec la remet à zéro. `dueCards()` renvoie les cartes arrivées à échéance ; le bouton « Révision du jour » (`startReview`) en fait une session tous thèmes confondus.
 - `refreshSrsUi()` met à jour le compteur de cartes dues et la barre de maîtrise. Il est appelé à la fin de `buildChips()` — donc **dans les deux chemins de démarrage** (en ligne et autonome) sans toucher à `build.js` — ainsi qu'après chaque session.
 
+### Persistance des réglages et reprise de session
+
+Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, restaurées via `buildChips()` (donc les deux chemins de démarrage) :
+
+- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, mode, dir, script, order, audio}`. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), tout est sélectionné — le bouton « Commencer » n'est donc jamais muet. `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
+- **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he_plain`) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
+- **Verdict annulable** : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`) ; en mode saisie, le bouton « Corriger » (`fixVerdict`) restaure cet état (`undoLastRecord`), ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`.
+- **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
+
 ### Correction des réponses tapées (la logique la plus délicate)
 
 `checkAnswer` ([index.html:1072](index.html#L1072)) corrige avec tolérance :

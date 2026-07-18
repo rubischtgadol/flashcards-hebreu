@@ -57,6 +57,8 @@ Autres réglages et fonctions :
 - **Révision du jour** : une mémorisation par répétition espacée (système de Leitner). Chaque réponse, dans n'importe quel mode, fait « monter » ou « redescendre » la carte ; celles arrivées à échéance sont regroupées dans une session de révision, tous thèmes confondus. La progression est enregistrée dans le navigateur et **survit entre les sessions** ; une barre de maîtrise indique l'avancement global.
 - Affichage de l'hébreu avec nikud, sans nikud, ou en écriture cursive.
 - Audio avec la voix hébraïque du système, ordre aléatoire ou linéaire, et reprise des cartes ratées.
+- **Réglages mémorisés** : mode, direction, écriture, audio et catégories choisies sont restaurés d'une visite à l'autre. Une session interrompue (rechargement, onglet évincé par iOS) **reprend là où tu t'étais arrêté**.
+- En mode saisie, si le correcteur juge à tort ta réponse fausse, un bouton **« J'avais juste »** rétablit le verdict et la progression.
 
 ## Mise à jour automatique
 
