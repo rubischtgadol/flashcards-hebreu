@@ -359,4 +359,6 @@ function main(){
   }
 }
 
-main();
+// Réutilisable en module (verifie_exemples.js s'appuie sur la même extraction).
+module.exports = { extractCards, NOTEBOOK, APP };
+if (require.main === module) main();
