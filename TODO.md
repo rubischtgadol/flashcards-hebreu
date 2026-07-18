@@ -65,8 +65,9 @@ sans relecture, gardés par `verifie_exemples.js`) et deux pistes de design mine
   (l'icône installée ouvre l'appli ; une PWA installée avant doit être réinstallée une
   fois), lien du carnet retargeté. Parcours complet vérifié en émulation iPhone
   (Playwright/Chromium — voir « Contrôle visuel » ci-dessous).
-- **[x] Salut aléatoire du portail** (`2e21068`) : « Bienvenue ! » ou
-  « בְּרוּכִים הַבָּאִים! » (exclamation collée en hébreu), tiré au sort à chaque ouverture.
+- **[x] Salut aléatoire du portail** (`2e21068`) : « Bienvenue ! » ou « ברוכים הבאים! »
+  (sans nikoud — demande de Ruben — et exclamation collée), tiré au sort à chaque
+  ouverture. Pluriel volontaire : c'est la formule d'accueil des lieux publics.
 - **[x] Place de la recherche tranchée** (`b0c225a`) : la « Révision du jour » ouvre
   l'écran de l'appli, la recherche passe juste dessous — la lampe d'abord.
 - **[x] verifie_exemples.js** (`73d0208`) : filet de sécurité des exemples (champs,
@@ -111,11 +112,11 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 ### Contrôle visuel navigateur (mobile)
 Fait le 2026-07-18 en **émulation iPhone** (Playwright/Chromium headless, viewport
 iPhone 14, tactile) : accueil, pli, zone « Repartir de zéro », carte recto/verso,
-portail, parcours complet — rien à corriger, zéro erreur JS. Pour du **WebKit réel**
-(moteur Safari), installer les libs manquantes puis relancer les mêmes scripts :
-`sudo apt-get install -y libgtk-4-1 libavif13 libgstreamer-plugins-bad1.0-0`.
-Reste à sentir sur le vrai iPhone : la frontière défilement/tap de la carte (`#flip`)
-quand la face déborde, et la réinstallation de la PWA (nouveau `start_url`).
+portail, parcours complet — rien à corriger, zéro erreur JS. Refait ensuite sous
+**WebKit réel** (vrai moteur Safari, libs installées par Ruben) avec le profil
+**iPhone 16 Pro** (son appareil) : tout est vert. Reste à sentir sur le vrai iPhone :
+la frontière défilement/tap de la carte (`#flip`) quand la face déborde, et la
+réinstallation de la PWA (nouveau `start_url`).
 
 ### Pistes de design ouvertes (non tranchées — demandent une décision produit)
 - **Deux « lampes » sur l'accueil** : la carte « Révision du jour » (l'action quotidienne

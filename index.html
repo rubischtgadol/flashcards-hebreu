@@ -106,13 +106,13 @@
 <footer>Un carnet pour apprendre l'hébreu moderne, en français.</footer>
 
 <script>
-// Le salut change de langue au hasard à chaque ouverture. En hébreu, le point
-// d'exclamation se colle au dernier mot (pas d'espace) ; en français, espace
-// insécable à la française. Sans JS, la version française du HTML reste.
+// Le salut change de langue au hasard à chaque ouverture. En hébreu : sans
+// nikoud (demande de Ruben) et point d'exclamation collé au dernier mot ;
+// en français, espace insécable. Sans JS, la version française du HTML reste.
 (function(){
   var el = document.getElementById('welcome');
   if (el && Math.random() < 0.5){
-    el.textContent = 'בְּרוּכִים הַבָּאִים!';
+    el.textContent = 'ברוכים הבאים!';
     el.setAttribute('lang', 'he');
     el.setAttribute('dir', 'rtl');
   }
