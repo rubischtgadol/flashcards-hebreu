@@ -85,6 +85,9 @@ et une méthode de catégorisation robuste et rationnelle (piste : CECRL A1/A2, 
 ### 6. `/impeccable shape exemples` — exemples concrets d'utilisation, puis implémentation  [ ]
 Demande de Ruben (18/07/2026) : sur les flashcards, un lien ou une autre fenêtre avec des
 exemples concrets d'utilisation du mot (phrase en situation, pas juste la traduction).
+**L'exemple est écrit et affiché** — la phrase hébraïque en toutes lettres (nikud), sa
+translittération et sa traduction française lisibles à l'écran ; l'audio n'est qu'un
+complément optionnel, jamais le seul vecteur.
 
 - **Le contenu vit dans le carnet** (source unique de vérité) : chaque exemple = hébreu avec
   nikud + translittération + français. Format à trancher au shape : sous-liste imbriquée
@@ -99,8 +102,9 @@ exemples concrets d'utilisation du mot (phrase en situation, pas juste la traduc
   - et/ou lien profond vers le mot dans le carnet (nécessite des ancres `id` par entrée —
     utile aussi à la recherche) ;
   - la recherche du setup a déjà son tiroir `sr-detail` : y afficher les exemples aussi.
-- **Audio** : bouton Écouter par exemple (la phrase entière — c'est là que la synthèse vocale
-  sert le but conversationnel de PRODUCT.md).
+- **Audio (complément)** : en plus du texte affiché, un bouton Écouter par exemple (la phrase
+  entière — la synthèse vocale au service du but conversationnel de PRODUCT.md) ; masqué
+  comme le reste sous `no-he-voice`, sans jamais priver du texte.
 - **Extraction** : `card.exemples?: [{he, tr, fr, he_plain}]` dans le schéma ; miroir dans
   **les deux** implémentations (`extractCards()` d'index.html + réplique regex de build.js) ;
   champ optionnel — un mot sans exemple reste une carte normale, le contenu s'écrit
