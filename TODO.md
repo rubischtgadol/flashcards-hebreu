@@ -1,8 +1,9 @@
 # Plan d'amélioration UX — suite de la re-critique du 18/07/2026
 
-État au 18/07/2026 au soir : les étapes 1 à 6 sont **faites, vérifiées (jsdom) et poussées** sur
-`main`. Reste la re-mesure (étape 7), et deux chantiers éditoriaux au long cours : la relecture
-du classement CECRL par Ruben, et les lots d'exemples suivants.
+État au 18/07/2026 au soir : les **7 étapes du plan sont faites**, vérifiées (jsdom) et poussées
+sur `main` — re-mesure finale **34/40** (28 → 33 → 34), le P1 découvert ayant été corrigé dans
+la foulée. Restent des chantiers éditoriaux au long cours (relecture du classement CECRL et du
+lot d'exemples par Ruben, lots d'exemples suivants) et des pistes de shape futur (ci-dessous).
 
 ## Fait (historique compact — détail dans les messages de commit)
 
@@ -51,10 +52,27 @@ Décisions prises (ne pas re-débattre) :
 - Priorité SRS → accessibilité → accueil : épuisée, les trois sont faites.
 - Le setup reste le premier écran ; seul son poids était en cause (tranché à l'étape 3).
 
+- **[x] 7. `critique` — re-mesure** : **34/40** (28 → 33 → 34), détecteur 0 finding, snapshot
+  `.impeccable/critique/2026-07-18T19-31-06Z__index-html.md`. Le P1 trouvé (Entrée/Espace volés
+  aux boutons en Saisie — garde `tagName==='BUTTON'` du QCM jamais recopié) a été corrigé
+  aussitôt avec les P2/P3 : garde clavier en Saisie et Cartes (Espace seulement, les flèches
+  jugent toujours), « Commencer — N cartes » vivant dans `updateStart()`, note « non classés »
+  dans `#niv-note`, `scrollIntoView` de l'exemple déplié, `.adv-sub` dynamique
+  (« Aléatoire · 20 cartes · Au clic »). Vérifié jsdom : 11/11 + non-régression des deux suites.
+
 ## Ce qui reste
 
-### 7. `/impeccable critique index.html` — re-mesure  [ ]
-- Objectif : ≥ 33/40 et **0 P1**. Le trend se lit dans `.impeccable/critique/` (28 → 33 → ?).
+### Pistes de shape futur (décisions de Ruben — notées à la re-critique du 18/07, non tranchées)
+- **Les deux lampes de l'accueil** : si la révision Leitner est l'action quotidienne à
+  encourager, « Commencer » (hors SRS) doit-il rester le bouton le plus doré et le plus collé
+  au pouce ? (La hiérarchie actuelle a été tranchée à l'étape 3 — à ne rouvrir que si Ruben veut.)
+- **« Facile » comme vrai contrat** : masquer les mots non classés plutôt que les laisser
+  passer ? (Aujourd'hui théorique : tout le carnet est classé.)
+- **La place de la recherche** : dictionnaire en tête du configurateur — bon premier écran ?
+- Backlog mineur (critique du 18/07) : libellé `#selall` figé, `.ex-toggle` sans état
+  « Masquer », double effet tap des rangées de recherche, raccourci clavier pour
+  Corriger/Annuler, annonce de l'existence d'un exemple dans `#flip-live`, hauteur des boutons
+  QCM × Phrases.
 
 ## Rituel à chaque étape
 1. `node build.js` (régénère `flashcards_hebreu.html` ; échec si une section tombe à 0).

@@ -506,7 +506,7 @@
        non vides apparaissent (« Expert » attendra des mots C2). -->
   <h2 id="h-niv">Niveau</h2>
   <div class="chips" id="niv" role="group" aria-labelledby="h-niv" aria-describedby="niv-note"></div>
-  <div class="seg-note" id="niv-note">Selon le Cadre européen : Facile = A1 · Intermédiaire = A2–B1 · Difficile = B2–C1 · Expert = C2. La révision du jour n'en tient pas compte.</div>
+  <div class="seg-note" id="niv-note">Selon le Cadre européen : Facile = A1 · Intermédiaire = A2–B1 · Difficile = B2–C1 · Expert = C2. Un mot pas encore classé reste visible quel que soit le choix, et la révision du jour n'en tient pas compte.</div>
 
   <h2 id="h-mode">Mode</h2>
   <div class="seg" id="mode" role="group" aria-labelledby="h-mode" aria-describedby="mode-note">
@@ -535,7 +535,7 @@
   <details class="adv" id="adv">
     <summary>
       <span class="adv-lbl">Réglages avancés</span>
-      <span class="adv-sub">Ordre · Longueur · Prononciation</span>
+      <span class="adv-sub" id="adv-sub">Ordre · Longueur · Prononciation</span>
       <span class="adv-chev" aria-hidden="true">›</span>
     </summary>
     <div class="adv-body">
@@ -708,6 +708,7 @@ function applyPrefs(){
     b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
   nivEl.querySelectorAll('.chip').forEach(b=>
     b.setAttribute('aria-pressed', state.niveaux.has(b.dataset.niv) ? 'true':'false'));
+  refreshAdvSub();
 }
 
 // ================= Instantané de session (sessionStorage) =================
@@ -961,7 +962,17 @@ function segPick(container, key, btn){
   btn.setAttribute('aria-pressed','true');
   state[key]=btn.dataset[key];
   savePrefs();
-  if(key==='len') refreshSrsUi();
+  if(key==='len'){ refreshSrsUi(); updateStart(); }   // le compte du bouton dépend de la Longueur
+  refreshAdvSub();
+}
+// Le pli fermé dit ce qu'il contient ET les valeurs mémorisées — la Longueur
+// par défaut (20) ne doit pas être un réglage invisible.
+function refreshAdvSub(){
+  const el=document.getElementById('adv-sub'); if(!el) return;
+  const order = state.order==='shuffle' ? 'Aléatoire' : 'Dans l\'ordre';
+  const len = state.len==='all' ? 'Tout le paquet' : state.len+' cartes';
+  const audio = state.audio==='auto' ? 'Automatique' : 'Au clic';
+  el.textContent = order+' · '+len+' · '+audio;
 }
 SEG_KEYS.forEach(key=>{
   const box=document.getElementById(key);
@@ -982,9 +993,15 @@ function updateStart(){
   const noCat = state.cats.size===0;
   // Le filtre niveau n'existe que si le carnet est annoté ; sinon il est inerte.
   const noNiv = Object.keys(nivCounts).length>0 && state.niveaux.size===0;
-  const noMatch = !noCat && !noNiv && !CARDS.some(c=>state.cats.has(c.cat) && nivOk(c));
+  const poolSize = (noCat || noNiv) ? 0 : CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c)).length;
+  const noMatch = !noCat && !noNiv && poolSize===0;
   const empty = noCat || noNiv || noMatch;
-  document.getElementById('start').disabled = empty;
+  const btn=document.getElementById('start');
+  btn.disabled = empty;
+  // Le volume réel de la session (croisement catégories × niveau, borné par la
+  // Longueur) se lit sur le bouton — pas de surprise au premier compteur.
+  const n = state.len==='all' ? poolSize : Math.min(+state.len, poolSize);
+  btn.textContent = (empty || !CARDS.length) ? 'Commencer' : 'Commencer — '+n+' carte'+(n>1?'s':'');
   const hint=document.getElementById('start-hint');
   if(hint){
     if(noCat) hint.textContent='Choisis au moins une catégorie pour commencer.';
@@ -1262,7 +1279,13 @@ function exActivate(t){
   if(t.classList.contains('ex-toggle')){
     const open=t.getAttribute('aria-expanded')==='true';
     t.setAttribute('aria-expanded', open?'false':'true');
-    const box=t.nextElementSibling; if(box) box.classList.toggle('hide', open);
+    const box=t.nextElementSibling;
+    if(box){
+      box.classList.toggle('hide', open);
+      // La face de carte défile (.face en overflow-y) : l'exemple déplié doit
+      // entrer dans le champ, sinon le tap semble ne rien faire sur mobile.
+      if(!open){ try{ box.scrollIntoView({block:'nearest'}); }catch(e){} }
+    }
   } else speak(t.dataset.he);
 }
 // Délégation façon bindTap (les zones sont réinjectées en innerHTML à chaque carte) :
@@ -1721,6 +1744,9 @@ document.addEventListener('keydown', e=>{
   if(!document.getElementById('study').classList.contains('active')) return;
   if(state.mode!=='input' || !state.answered) return;
   if(e.target && e.target.id==='answer-input') return;  // le champ gère son propre Enter
+  // Un bouton focalisé (Corriger, Voir un exemple, Écouter…) gère Entrée/Espace
+  // lui-même — même garde que le QCM, sinon le bouton devient inatteignable au clavier.
+  if(e.target && e.target.tagName==='BUTTON') return;
   if(e.key==='Enter' || e.code==='Space'){ e.preventDefault(); nextAfterInput(); }
 });
 
@@ -1794,7 +1820,13 @@ document.getElementById('exit').onclick=()=>{
 document.addEventListener('keydown', e=>{
   if(!document.getElementById('study').classList.contains('active')) return;
   if(state.mode!=='cards') return;
-  if(e.code==='Space'){ e.preventDefault(); doFlip(); }
+  if(e.code==='Space'){
+    // Même garde que le QCM : Espace sur un bouton du verso (Voir un exemple,
+    // Écouter) doit activer le bouton, pas re-retourner la carte. Les flèches,
+    // elles, jugent depuis n'importe où.
+    if(e.target && e.target.tagName==='BUTTON') return;
+    e.preventDefault(); doFlip();
+  }
   else if(state.flipped && e.code==='ArrowRight'){ answer(true); }
   else if(state.flipped && e.code==='ArrowLeft'){ answer(false); }
 });
