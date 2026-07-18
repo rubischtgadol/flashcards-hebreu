@@ -54,7 +54,35 @@ Décisions prises (ne pas re-débattre) :
 - DESIGN.md : documenter les trois usages secondaires de capitales espacées (`.face .eyebrow`,
   `.sr-cat`, `.srd-title`) ou unifier avec « Title ».
 
-### 5. `/impeccable critique index.html` — re-mesure  [ ]
+### 5. `/impeccable shape niveaux` — niveaux de difficulté, puis implémentation  [ ]
+Demande de Ruben (18/07/2026) : diviser noms, adjectifs, verbes (et les autres catégories qui
+s'y prêtent) en niveaux **facile / intermédiaire / difficile / expert**, avec un flag par mot
+et une méthode de catégorisation robuste et rationnelle (piste : CECRL A1/A2, B1/B2, C1/C2).
+
+- **Le flag vit dans le carnet** (source unique de vérité, comme `data-fr-court`/`data-note`) :
+  `data-niveau="A1"…"C2"` sur chaque `<li>` de `word-list` et sur chaque `<tr>` des tables
+  (Verbes, Adjectifs, Noms). Stocker le **CECRL fin (6 valeurs)** — standard, vérifiable contre
+  des listes de référence — et mapper vers les 4 libellés dans l'app ; mapping à trancher au
+  shape (proposition : facile = A1, intermédiaire = A2–B1, difficile = B2–C1, expert = C2 ;
+  alternative : facile = A1/A2, intermédiaire = B1, difficile = B2, expert = C1/C2).
+- **Méthode de catégorisation** (robuste et rationnelle, à documenter dans ARCHITECTURE.md) :
+  croiser (a) les listes de vocabulaire des curricula d'oulpan/hébreu L2 alignés CECRL quand
+  elles existent, (b) un classement fréquentiel de l'hébreu moderne (liste de fréquence de
+  corpus, type wordfreq/SUBTLEX-IL) avec seuils de rang par niveau, (c) une passe de jugement
+  par lots (mots du quotidien vs abstraits/idiomatiques), en notant les cas limites. Environ
+  700 mots à classer : procéder par sections, avec relecture de Ruben sur échantillons.
+- **Extraction** : `card.niveau` dans le schéma ; répercuter dans **les deux** implémentations
+  (`extractCards()` d'index.html **et** la réplique regex de build.js), défaut raisonnable si
+  l'attribut manque (ex. non classé = visible partout) pour que le carnet reste éditable
+  progressivement — aucun mot ne doit disparaître des flashcards faute de flag.
+- **UI setup** : un groupe « Niveau » (chips, persisté dans `prefs_v1`, rétro-compatible) qui
+  filtre le pool en croisement avec les catégories ; à trancher au shape : multi-sélection
+  comme les catégories ou seg exclusif, interaction avec « Révision du jour » (probablement
+  non filtrée : une carte apprise reste due) et avec les compteurs des chips.
+- Garde-fous : comptes par niveau affichés par `build.js`, warning si un niveau attendu tombe
+  à 0 ; `--check` couvre la dérive comme d'habitude.
+
+### 6. `/impeccable critique index.html` — re-mesure  [ ]
 - Objectif : ≥ 33/40 et **0 P1**. Le trend se lit dans `.impeccable/critique/` (28 → 33 → ?).
 
 ## Rituel à chaque étape
