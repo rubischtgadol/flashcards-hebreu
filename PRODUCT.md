@@ -10,7 +10,7 @@ web
 
 ## Users
 
-Ruben d'abord, et ses proches (famille, amis) qui apprennent aussi l'hébreu moderne. Contexte d'usage : sessions de révision courtes, souvent sur iPhone (PWA installée), parfois hors connexion. Le travail à accomplir : réviser le vocabulaire et les phrases du carnet jusqu'à ce qu'ils tiennent en conversation. Public francophone exclusivement — toute l'interface est en français.
+Un apprenant francophone et ses proches (famille, amis) qui apprennent l'hébreu moderne. Contexte d'usage : sessions de révision courtes, souvent sur iPhone (PWA installée), parfois hors connexion. Le travail à accomplir : réviser le vocabulaire et les phrases du carnet jusqu'à ce qu'ils tiennent en conversation. Public francophone exclusivement — toute l'interface est en français.
 
 ## Product Purpose
 

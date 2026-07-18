@@ -65,5 +65,5 @@ All UI text and documentation is in **French**. Match that when editing user-fac
 
 Strategic and visual context live at the repo root — read them before any UI/design work:
 
-- **`PRODUCT.md`** — register (product), platform (web/PWA), users (Ruben + proches, francophones), goal (conversational Hebrew), personality (calme, chaleureux, studieux), anti-references (no Duolingo gamification, no generic SaaS, no austere textbook).
+- **`PRODUCT.md`** — register (product), platform (web/PWA), users (a French-speaking learner + close circle), goal (conversational Hebrew), personality (calme, chaleureux, studieux), anti-references (no Duolingo gamification, no generic SaaS, no austere textbook).
 - **`DESIGN.md`** — the visual system ("Le carnet d'étude du soir"): Nuit d'encre/Or ancien palette, the three type voices (Frank Ruhl Libre / Assistant / JetBrains Mono), named rules (lampe, couches, vedette, carte unique). The notebook's `:root` block is the normative token source.

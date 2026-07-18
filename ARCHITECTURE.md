@@ -123,7 +123,7 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans index.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
 
-**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples sur les mots A1 — verbes, modaux, quantité, adjectifs courants) : phrases courtes (4–8 mots), présent, vocabulaire de l'exemple ≤ niveau du mot autant que possible (les niveaux de § 4 disent par où commencer), une situation concrète du quotidien par phrase. Écrire les lots suivants par sections, relecture de Ruben par échantillons.
+**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples sur les mots A1 — verbes, modaux, quantité, adjectifs courants) : phrases courtes (4–8 mots), présent, vocabulaire de l'exemple ≤ niveau du mot autant que possible (les niveaux de § 4 disent par où commencer), une situation concrète du quotidien par phrase. Écrire les lots suivants par sections, avec relecture humaine par échantillons.
 
 ## build.js : la chaîne de génération
 
@@ -218,7 +218,7 @@ L'extraction étant couplée au markup du carnet, trois filets détectent les ca
 ## Développement et déploiement
 
 - **Servir en HTTP** : `index.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
-- **Vérification sans navigateur** (WSL sans Chrome headless, y compris réseau coupé) : Node dans le scratchpad — `build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom (installé dans le scratchpad) pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin).
+- **Vérification sans navigateur** (environnement sans Chrome headless, y compris réseau coupé) : des scripts Node jetables, hors du dépôt — `build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin).
 - **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
 - **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
 
