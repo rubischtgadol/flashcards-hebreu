@@ -4,9 +4,11 @@
 accessibilité des trois modes, allègement de l'accueil, niveaux de difficulté (CECRL),
 exemples en situation, re-mesure UX finale à **34/40** (progression 28 → 33 → 34,
 détecteur de qualité à 0 finding — snapshots dans `.impeccable/critique/`), puis backlog
-mineur soldé. Ce qui reste : **trois fonctionnalités demandées** (remise à zéro du profil,
-page d'accueil commune, voix robotique — voir ci-dessous), du contenu (relectures
-éditoriales, lots d'exemples) et quelques pistes de design non tranchées.
+mineur soldé. Des trois fonctionnalités demandées le 2026-07-18, la **remise à zéro du
+profil est faite** et le chantier voix a son **premier pas de diagnostic** ; restent la
+**page d'accueil commune** (décision d'architecture à trancher), la suite du chantier
+voix, du contenu (relectures éditoriales, lots d'exemples) et quelques pistes de design
+non tranchées.
 
 ## Fait (historique compact — détail dans les messages de commit)
 
@@ -48,6 +50,16 @@ page d'accueil commune, voix robotique — voir ci-dessous), du contenu (relectu
   annonce l'exemple disponible, options « Phrases » du QCM compactées (`.qc.ph`).
   Vérifié en jsdom (24 contrôles) ; comportements documentés dans ARCHITECTURE.md
   et CLAUDE.md.
+- **[x] Remise à zéro du profil** (`6f074d0`) : zone « Repartir de zéro » en bas du pli
+  « Réglages avancés » (action rare et destructrice — jamais en concurrence avec les
+  lampes de l'accueil). Deux temps : confirmation qui nomme la perte (N cartes suivies),
+  « Annuler » en défaut sûr avec le focus. Efface `srs_v1`/`prefs_v1`/`sess_v1` et remet
+  l'état premier lancement en place (`applyPrefs`/`refreshSrsUi`/`updateStart` — y compris
+  les six clés de réglage de `state`, que `applyPrefs` seul ne remettrait pas) ; ligne
+  `role="status"` « Profil effacé ». Vérifié en jsdom (36 contrôles, script conservé en
+  scratchpad de session).
+- **[x] Diagnostic voix — premier pas** (`f8a00fb`) : la note du groupe Prononciation
+  affiche le nom réel de la voix retenue (« Voix hébraïque détectée ✓ — … »).
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - L'écran de réglages reste le premier écran ; la hiérarchie de l'accueil est tranchée.
@@ -59,14 +71,6 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
 ### Fonctionnalités demandées (2026-07-18)
 
-- **[ ] Remise à zéro du profil** : une action pour effacer **entièrement** la mémoire
-  locale de l'utilisateur et recommencer de zéro. Ce que ça couvre : `srs_v1`
-  (boîtes de Leitner — la progression), `prefs_v1` (réglages, catégories, niveaux) et
-  `sess_v1` (session en cours). Exigences : action **destructrice → confirmation
-  explicite** obligatoire (pas un simple bouton) ; après effacement, retomber sur l'état
-  « premier lancement » (`defaultCats()` = tout sauf Phrases) et rafraîchir l'UI
-  (`applyPrefs`, `refreshSrsUi`, `updateStart`). Emplacement à trancher (pli « Réglages
-  avancés » ? sous la barre de maîtrise ?) — passer par un brainstorm/shape avant de coder.
 - **[ ] Page d'accueil commune (portail)** : une porte d'entrée qui oriente vers les deux
   branches — le **carnet** (`vocabulaire_hebreu.html`) et l'**appli flashcards**.
   Aujourd'hui `index.html` **est** l'appli et occupe la racine ; un portail à la racine
@@ -82,8 +86,8 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - **[ ] Voix robotique (option audio)** : la voix hébraïque de la synthèse vocale sonne
   robotique. Le code choisit déjà la « meilleure » voix disponible (`loadVoices` dans
   index.html : score Premium > Enhanced/Neural/Siri > Carmit, `rate` à 0.88) — donc le
-  problème est en aval : diagnostiquer **quelle voix est réellement retenue sur l'appareil
-  concerné** (afficher son nom dans la note audio du setup serait un bon premier pas),
+  problème est en aval. Le premier pas est fait : la note audio du setup **affiche le nom
+  de la voix retenue** (`f8a00fb`) — relever ce nom sur l'appareil concerné, puis
   tester les alternatives par plateforme (iOS : Carmit Enhanced à télécharger dans
   Réglages > Accessibilité > Contenu énoncé > Voix ; Android/desktop : voix Google/
   Microsoft he-IL), ajuster `rate`/`pitch`, et si aucune voix système ne suffit, trancher
@@ -104,6 +108,7 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 ### Contrôle visuel navigateur (mobile)
 Rien n'a été vérifié dans un vrai navigateur depuis la refonte (les vérifications ont été
 faites en DOM simulé). À regarder en priorité : le pli et le bouton collant de l'accueil,
+la nouvelle zone « Repartir de zéro » (rendu du bloc rouge de confirmation, focus),
 et la frontière défilement/tap de la carte (`#flip`) sur iOS quand la face déborde
 (`bindTap` + `preventDefault()` sur `pointerup`).
 
