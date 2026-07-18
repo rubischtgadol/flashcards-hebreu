@@ -65,7 +65,7 @@
   .panel h2:not(:first-of-type){ margin-top:18px; }
 
   /* ---------- Search ---------- */
-  .search-wrap{ position:relative; margin-bottom:4px; }
+  .search-wrap{ position:relative; margin:20px 0 4px; }
   .search-ico{ position:absolute; left:13px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-dim); pointer-events:none; }
   #search-input{
     width:100%; border-radius:12px; border:1px solid var(--line);
@@ -488,13 +488,6 @@
 <!-- ============ SETUP ============ -->
 <div id="loader" class="loader"><div class="spin"></div><p id="loader-msg" role="status">Chargement du vocabulaire…</p></div>
 <section class="setup panel hidden" id="setup">
-  <div class="search-wrap">
-    <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-    <input id="search-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…" aria-label="Rechercher un mot">
-    <button class="search-clear hide" id="search-clear" aria-label="Effacer">&times;</button>
-  </div>
-  <div class="search-results hide" id="search-results"></div>
-
   <!-- Après « Quitter » : le SRS a déjà enregistré chaque réponse donnée — le dire. -->
   <div class="exit-note hide" id="exit-note" role="status"></div>
 
@@ -511,6 +504,15 @@
     <span id="mastery-txt"></span>
     <span class="mbar"><span id="mastery-bar"></span></span>
   </div>
+
+  <!-- Le dictionnaire vit sous l'action quotidienne : outil à portée de main,
+       mais la « Révision du jour » ouvre l'écran. -->
+  <div class="search-wrap">
+    <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…" aria-label="Rechercher un mot">
+    <button class="search-clear hide" id="search-clear" aria-label="Effacer">&times;</button>
+  </div>
+  <div class="search-results hide" id="search-results"></div>
 
   <h2 id="h-cats">Catégories</h2>
   <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
