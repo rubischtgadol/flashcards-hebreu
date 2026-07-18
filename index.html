@@ -45,6 +45,10 @@
   }
   h1 .he{ color:var(--gold); }
   .tagline{ margin:8px 0 0; color:var(--ink-dim); font-size:.95rem; }
+  /* Le salut, une fois en français, une fois en hébreu — l'or tendre des
+     accents chaleureux, jamais la lampe elle-même. */
+  .welcome{ margin:16px 0 0; font-size:1.15rem; font-weight:600; color:var(--gold-soft); }
+  .welcome[lang="he"]{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.4rem; font-weight:500; }
 
   .doors{ display:flex; flex-direction:column; gap:16px; width:100%; max-width:440px; }
   .door{
@@ -81,6 +85,7 @@
 <header>
   <h1><span class="he" lang="he">עִבְרִית</span> · Hébreu</h1>
   <p class="tagline">Le carnet d'étude et son entraînement</p>
+  <p class="welcome" id="welcome">Bienvenue&nbsp;!</p>
 </header>
 
 <nav class="doors" aria-label="Les deux parties du site">
@@ -101,6 +106,18 @@
 <footer>Un carnet pour apprendre l'hébreu moderne, en français.</footer>
 
 <script>
+// Le salut change de langue au hasard à chaque ouverture. En hébreu, le point
+// d'exclamation se colle au dernier mot (pas d'espace) ; en français, espace
+// insécable à la française. Sans JS, la version française du HTML reste.
+(function(){
+  var el = document.getElementById('welcome');
+  if (el && Math.random() < 0.5){
+    el.textContent = 'בְּרוּכִים הַבָּאִים!';
+    el.setAttribute('lang', 'he');
+    el.setAttribute('dir', 'rtl');
+  }
+})();
+
 // PWA : le portail enregistre aussi le service worker — le site complet
 // (portail, appli, carnet) est disponible hors ligne dès la première visite.
 if ('serviceWorker' in navigator){
