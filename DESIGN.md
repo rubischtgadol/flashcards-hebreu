@@ -260,7 +260,7 @@ Les réglages qu'on touche une fois (Ordre, Longueur, Prononciation) vivent dans
 Sous `pointer:coarse`, « Commencer » est `position:sticky` en bas d'écran : la lampe reste à portée de pouce pendant le défilement, puis reprend sa place naturelle en fin de page (aucun recouvrement final). Il garde sa seule lueur d'or — pas d'ombre supplémentaire. L'indice de sélection vide se place au-dessus du bouton pour rester lisible quand il est collé.
 
 ### Clavier hébreu (composant signature)
-Disposition israélienne en RTL, touches sur nuit claire avec lettres Frank Ruhl Libre 1.35rem, lettres finales en or tendre, touche active en or plein. C'est un objet d'étude à part entière : il doit rester aussi lisible qu'une carte.
+Disposition israélienne en RTL, touches sur nuit claire avec lettres Frank Ruhl Libre 1.35rem, lettres finales en or tendre, touche active en or plein. C'est un objet d'étude à part entière : il doit rester aussi lisible qu'une carte. **Bureau uniquement** : replié derrière le bouton « Clavier hébreu », et absent sur tactile (`pointer:coarse`) — l'iPhone a son clavier hébreu système, le virtuel n'existe que pour les claviers physiques AZERTY.
 
 ### Carte de révision (composant signature)
 « Révision du jour » : la seule surface teintée d'or au repos (dégradé 135° d'or à 16 % → 5 %, bordure or). Elle a droit à cette exception parce qu'elle est *l'action* que le système veut encourager chaque jour.

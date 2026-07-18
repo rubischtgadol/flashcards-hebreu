@@ -93,6 +93,13 @@ Puis, le 2026-07-19 (trois problèmes remontés par Ruben) :
   `sw.js` v8. Vérifié en WebKit desktop (souris + clavier + sans JS + reduced-motion)
   et iPhone 16 Pro émulé (tactile, zéro débordement horizontal) — 28 contrôles, tout
   passe ; navigation réelle des deux portes testée.
+- **[x] Clavier virtuel réservé au bureau** (3e demande du 19/07) : sur tactile
+  (`pointer:coarse`), le bouton « Clavier hébreu » et le clavier disparaissent — Ruben
+  ajoute le clavier hébreu iOS lui-même, et la translittération tapée reste acceptée ;
+  le virtuel ne sert que l'AZERTY du bureau (comportement bureau inchangé : replié,
+  ouvert à la demande). CSS pur (`display:none !important` — prime sur les bascules
+  `.hide` du JS). Vérifié WebKit : bureau (bouton, ouverture, frappe ש), iPhone 16 Pro
+  (absent, « Je ne sais pas » et champ intacts), standalone régénéré idem.
 - **[x] Accueil habillé** (2e demande du 19/07) : marque « עברית · Hébreu » retirée de
   l'écran d'accueil (elle reste l'en-tête du second temps), salut personnalisé
   « Ruben vous souhaite la bienvenue ! » / « ראובן מקבל אתכם בברכה! », le א de
