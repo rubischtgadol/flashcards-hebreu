@@ -1,6 +1,6 @@
 # État du projet et travail restant
 
-État au 2026-07-18 (soir). Le plan d'amélioration UX est **terminé** (score final 34/40,
+État au 2026-07-19 (portail refondu en deux temps — voir « Fait »). Le plan d'amélioration UX est **terminé** (score final 34/40,
 progression 28 → 33 → 34, détecteur à 0 finding — snapshots dans `.impeccable/critique/`)
 et les **trois fonctionnalités demandées le 2026-07-18 sont livrées** : remise à zéro du
 profil, portail à la racine (avec salut aléatoire), diagnostic voix (premier pas). La
@@ -32,8 +32,9 @@ WebKit/iPhone 16 Pro. **La prochaine session commence par « Reprendre ici » ci
    Enhanced déçoit.
 
 **Checklist côté Ruben (vrai iPhone)** :
-- [ ] Réinstaller la PWA (l'ancienne garde l'ancien `start_url` → elle ouvrirait le
-      portail au lieu de l'appli).
+- [ ] Réinstaller la PWA / re-sauvegarder l'icône (une icône installée garde le
+      `start_url` de son installation → la refaire pour qu'elle ouvre le **portail**,
+      comme demandé le 2026-07-19).
 - [ ] Relever le **nom de la voix** affiché dans Réglages avancés → Prononciation.
 - [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
@@ -70,9 +71,28 @@ mineur). Puis, le 2026-07-18 au soir :
   (moteur Safari), profil iPhone 16 Pro** (l'appareil de Ruben) — zéro erreur JS, rendu
   conforme (portail, pli, reset, cartes, recherche déplacée).
 
+Puis, le 2026-07-19 (trois problèmes remontés par Ruben) :
+
+- **[x] Portail en deux temps** : accueil plein écran (« Bienvenue » très grand en or
+  tendre, ou « ברוכים הבאים! » — même tirage que le petit salut), « Toucher/Cliquer pour
+  entrer », puis les deux portes. L'accueil est un `<button>` plein écran (Tab + Entrée
+  au clavier, focus rendu à la première porte) ; sans JS il n'existe pas (portes
+  directes) ; `prefers-reduced-motion` respecté.
+- **[x] Portes égales** : suppression de `.door.main` (bordure or + bouton or plein sur
+  les flashcards, lu comme un faux état « sélectionné ») — les deux portes partagent
+  exactement les mêmes styles, l'or n'arrive qu'au survol et sur les liens d'action.
+- **[x] L'icône installée ouvre le portail** : `start_url` → `./` dans le manifest,
+  `sw.js` v8. Vérifié en WebKit desktop (souris + clavier + sans JS + reduced-motion)
+  et iPhone 16 Pro émulé (tactile, zéro débordement horizontal) — 28 contrôles, tout
+  passe ; navigation réelle des deux portes testée.
+
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
-  l'appli directement (`start_url`).
+  le **portail** (`start_url: "./"` — demande de Ruben du 2026-07-19, qui annule le
+  `./app.html` du 18/07 : atterrir directement dans les flashcards le surprenait).
+- Le portail est un **accueil en deux temps** : « Bienvenue » très grand plein écran,
+  un toucher, puis deux portes **strictement égales** (aucune dorée d'avance — l'ancien
+  encadré doré des flashcards se lisait comme un faux état « sélectionné »).
 - L'écran de réglages reste le premier écran de l'appli ; il s'ouvre sur la « Révision
   du jour », la recherche vit dessous.
 - Le salut du portail : aléatoire fr/he, **sans nikoud**, pluriel (formule d'accueil

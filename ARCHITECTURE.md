@@ -37,7 +37,7 @@ Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un po
 | Fichier | Rôle | Édité à la main ? |
 |---|---|---|
 | [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire. Toute modification de contenu se fait ici. | ✅ oui |
-| [index.html](index.html) | Le **portail** : la porte d'entrée à la racine — deux portes (flashcards, carnet), salut aléatoire français/hébreu. Sans vocabulaire ni couplage build. | ✅ oui |
+| [index.html](index.html) | Le **portail** : la porte d'entrée à la racine, en deux temps — accueil plein écran (« Bienvenue » très grand, salut aléatoire français/hébreu), puis le choix entre deux portes égales (flashcards, carnet). Sans JS, l'accueil s'efface et les portes sont directement là. Sans vocabulaire ni couplage build. | ✅ oui |
 | [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
@@ -51,7 +51,7 @@ L'app en ligne est installable (iPhone : Safari → « Sur l'écran d'accueil »
 - **`manifest.webmanifest`** — nom, `display: standalone`, couleurs de la charte, icônes 192/512. `start_url` et `scope` sont **relatifs** (le site vit sous `/flashcards-hebreu/`).
 - **`sw.js`** — service worker en *stale-while-revalidate* : l'app et le carnet sont servis depuis le cache puis rafraîchis en arrière-plan (une mise à jour de contenu est visible au lancement suivant). Les polices Google sont en cache-first. Seules les navigations vers la racine (`/`, `/index.html`) sont rabattues sur la coquille `./` — le **portail** — les autres pages (le carnet !) sont servies telles quelles. Incrémenter `VERSION` en tête de fichier après un changement de stratégie, de liste d'assets ou d'icônes.
 - **L'enregistrement du service worker vit DANS le bloc `BUILD:ONLINE-ONLY` d'`app.html`** : le fichier autonome ne doit pas en hériter (inutile hors ligne, et invalide en `file://`). Le portail (`index.html`) porte son propre petit script d'enregistrement.
-- **`start_url` pointe sur `./app.html`** : l'icône installée ouvre directement l'appli, sans passer par le portail. (Une PWA installée avant le portail garde son ancien `start_url` — la réinstaller une fois.)
+- **`start_url` pointe sur `./`** : l'icône installée ouvre le **portail** (décision du 2026-07-19, qui annule le `./app.html` de la veille — atterrir directement dans les flashcards surprenait). (Une PWA installée avant garde son ancien `start_url` — la réinstaller une fois.)
 - Les icônes sont un א en Frank Ruhl Libre 700 (la police du bandeau de l'app) sur fond `--bg`, or `--gold` ; en cas de changement de palette, les régénérer (ImageMagick) et bumper `VERSION`.
 - Limite iOS : l'icône d'une PWA déjà installée est figée à l'installation — supprimer/réajouter l'app pour la rafraîchir.
 
