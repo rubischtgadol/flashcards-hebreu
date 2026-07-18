@@ -12,7 +12,7 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v7'; // v7 : portail à la racine, l'appli déménage dans app.html
+const VERSION = 'v8'; // v8 : accueil en deux temps, l'icône installée rouvre le portail (start_url "./")
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

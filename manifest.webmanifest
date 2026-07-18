@@ -3,7 +3,7 @@
   "short_name": "Hébreu",
   "description": "Flashcards de vocabulaire hébreu (français ↔ hébreu)",
   "lang": "fr",
-  "start_url": "./app.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#12181f",
