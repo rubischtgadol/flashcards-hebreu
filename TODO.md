@@ -40,6 +40,13 @@ non tranchées.
   borné par la Longueur), note « mot non classé reste visible » sous le groupe Niveau,
   l'exemple déplié entre dans le champ (`scrollIntoView`), le pli « Réglages avancés »
   affiche ses valeurs mémorisées.
+- **[x] Backlog mineur soldé** (`1021685`) : « tout sélectionner » ↔ « tout
+  désélectionner » selon l'état, « Voir un exemple » ↔ « Masquer l'exemple », rangée de
+  recherche dépliable qui déplie sans jouer l'audio (une action par geste), touche **C**
+  « corriger » dans les trois modes (P et C laissent passer Ctrl/Cmd/Alt), `#flip-live`
+  annonce l'exemple disponible, options « Phrases » du QCM compactées (`.qc.ph`).
+  Vérifié en jsdom (24 contrôles) ; comportements documentés dans ARCHITECTURE.md
+  et CLAUDE.md.
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - L'écran de réglages reste le premier écran ; la hiérarchie de l'accueil est tranchée.
@@ -74,15 +81,6 @@ et la frontière défilement/tap de la carte (`#flip`) sur iOS quand la face dé
   coché, plutôt que les laisser passer ? (Théorique tant que tout le carnet est classé.)
 - **La place de la recherche** : le dictionnaire trône en tête de l'écran de réglages —
   est-ce le bon premier écran pour lui ?
-
-### Backlog mineur (issu de la dernière revue UX)
-- Le libellé « tout sélectionner » (`#selall`) ne change pas quand tout est déjà coché.
-- « Voir un exemple » (`.ex-toggle`) ne devient pas « Masquer l'exemple » une fois ouvert.
-- Taper une rangée de résultat de recherche déclenche à la fois l'audio et le dépliage.
-- Pas de raccourci clavier pour « Corriger » / « Annuler la dernière réponse ».
-- `#flip-live` n'annonce pas l'existence d'un exemple à déplier aux lecteurs d'écran.
-- En QCM avec « Phrases » cochée, quatre phrases empilées font des boutons très hauts
-  sur petit écran.
 
 ## Rituel à chaque modification
 
