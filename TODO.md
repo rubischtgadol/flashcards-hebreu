@@ -54,7 +54,7 @@ Décisions prises (ne pas re-débattre) :
   (vert, tentative non barrée) ; note `.seg-note` sous les chips d'écriture ; phrase Leitner dans
   l'état vide de « Révision du jour » ; au passage, entité `&#9000;` littérale du placeholder corrigée.
 
-### 5. `/impeccable polish index.html` — reliquat  [ ]
+### 5. `/impeccable polish index.html` — reliquat  [x]
 - Emojis d'interface (⌨️ ✅ 🔊 🔁 👌 ⚠️) → SVG inline ou texte (seule fuite hors charte).
 - `transition:width` → `transform:scaleX()` sur `.bar > span` et `.mbar > span`.
 - CSS mort `.done .big-he` ; `segPick` sans le global déprécié `event`.
@@ -62,6 +62,14 @@ Décisions prises (ne pas re-débattre) :
 - Scroll imbriqué des résultats de recherche ; écran de fin : lister les ratées avant « Rejouer ».
 - Enrichir le frontmatter de DESIGN.md (style cursive, radius 10/14 ou normalisation, couleurs d'ombre,
   ramp de tailles réel) pour éteindre les ~56 advisories du détecteur.
+- Fait : tout ↑, détecteur 63 → 0. Icône révision en SVG, chips en texte nu (⌨ du bouton clavier
+  retiré aussi) ; « Au clic » désormais respecté dans les trois chemins de réponse (QCM **et** saisie,
+  même exception fr→he supprimée — le haut-parleur reste visible après révélation) ; ratées listées
+  sur l'écran de fin (`#missed-list`, rangées calmes he+fr) ; pas de bump `VERSION` (contenu seul,
+  stale-while-revalidate) ; au passage tailles accidentelles alignées sur le ramp
+  (.72/.74→.76, .78→.8, .92/.96→.95, 1.02→1, 1.05→1.1, 1.6→1.7, 1.85→1.9) et frontmatter DESIGN.md
+  complété (voix cursive, ramp réel, rayons 10/14, encres sur vert/rouge, ombre). Vérifié via jsdom
+  (20 contrôles verts sur le standalone) ; contrôle visuel navigateur → côté Ruben.
 
 ### 6. `/impeccable critique index.html` — re-mesure  [ ]
 - Objectif : > 28/40, 0 P1. Le trend se lit dans `.impeccable/critique/`.

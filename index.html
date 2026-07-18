@@ -49,7 +49,7 @@
     overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
   }
   .brand .he{ color:var(--gold); }
-  .tagline{ color:var(--ink-dim); font-size:.92rem; margin-top:1px; }
+  .tagline{ color:var(--ink-dim); font-size:.95rem; margin-top:1px; }
 
   /* ---------- Setup panel ---------- */
   .panel{
@@ -78,7 +78,8 @@
     width:44px; height:44px; border-radius:50%; border:none; background:transparent;
     color:var(--ink-dim); font-size:1.3rem; line-height:1; cursor:pointer;
   }
-  .search-results{ margin:10px 0 4px; display:flex; flex-direction:column; gap:6px; max-height:340px; overflow-y:auto; }
+  /* Pas de défilement imbriqué : les résultats s'étirent et la page défile. */
+  .search-results{ margin:10px 0 4px; display:flex; flex-direction:column; gap:6px; }
   .sr-count{ font-size:.84rem; color:var(--ink-dim); padding:2px 2px 4px; }
   .sr-row{
     display:flex; align-items:center; gap:11px; padding:9px 11px;
@@ -96,7 +97,7 @@
   .sr-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.3rem; direction:rtl; }
   .sr-tr{ font-family:'JetBrains Mono',monospace; font-size:.84rem; color:var(--ink-dim); margin-inline-start:8px; }
   .sr-fr{ color:var(--ink); font-size:.9rem; margin-top:1px; }
-  .sr-cat{ flex:none; font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:3px 9px; white-space:nowrap; }
+  .sr-cat{ flex:none; font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:3px 9px; white-space:nowrap; }
   .search-empty{ color:var(--ink-dim); font-size:.95rem; padding:10px 2px; }
   .sr-item{ border:1px solid var(--line); border-radius:11px; background:var(--bg2); overflow:hidden; }
   .sr-item .sr-row{ border:none; border-radius:0; background:transparent; }
@@ -108,18 +109,20 @@
   .srd-forms{ display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; direction:rtl; }
   .srd-f{ display:flex; align-items:baseline; gap:7px; }
   .srd-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.15rem; direction:rtl; }
-  .srd-lbl{ font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--ink-dim); direction:ltr; }
+  .srd-lbl{ font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--ink-dim); direction:ltr; }
   .srd-note{ font-size:.8rem; color:var(--ink-dim); font-style:italic; margin-top:10px; direction:ltr; }
   .chips{ display:flex; flex-wrap:wrap; gap:7px; }
   .chip{
     border:1px solid var(--line); background:transparent; color:var(--ink);
-    font-family:inherit; font-size:.96rem; padding:7px 13px; border-radius:999px;
+    font-family:inherit; font-size:.95rem; padding:7px 13px; border-radius:999px;
     cursor:pointer; transition:all .15s ease; user-select:none;
   }
   .chip:hover{ border-color:var(--gold); }
   .chip[aria-pressed="true"]{
     background:var(--gold); color:#1a1206; border-color:var(--gold); font-weight:600;
   }
+  /* Sans voix hébraïque, le réglage « Prononciation » est sans effet → chips inertes. */
+  .chip:disabled{ opacity:.45; cursor:not-allowed; border-color:var(--line); }
   .chip .n{ opacity:.6; font-size:.76em; margin-inline-start:5px; }
   /* Au doigt : chips à hauteur de cible confortable (~44px), sans épaissir le bureau. */
   @media (pointer:coarse){
@@ -137,7 +140,7 @@
   .start{
     margin-top:20px; width:100%; border:none; border-radius:12px;
     background:linear-gradient(180deg, var(--gold-soft), var(--gold));
-    color:#1a1206; font-family:inherit; font-weight:700; font-size:1.02rem;
+    color:#1a1206; font-family:inherit; font-weight:700; font-size:1rem;
     padding:14px; cursor:pointer; letter-spacing:.01em;
     box-shadow:0 6px 18px -8px var(--gold);
   }
@@ -150,7 +153,7 @@
 
   .progress-wrap{ display:flex; align-items:center; gap:12px; margin:6px 2px 16px; }
   .bar{ flex:1; height:5px; background:var(--line); border-radius:999px; overflow:hidden; }
-  .bar > span{ display:block; height:100%; width:0; background:var(--gold); border-radius:999px; transition:width .35s ease; }
+  .bar > span{ display:block; height:100%; width:100%; background:var(--gold); border-radius:999px; transform:scaleX(0); transform-origin:left; transition:transform .35s ease; }
   .counter{ font-family:'JetBrains Mono',monospace; font-size:.88rem; color:var(--ink-dim); white-space:nowrap; }
   .exit{ display:inline-flex; align-items:center; gap:3px; min-height:44px; background:var(--card); border:1px solid var(--card-edge); color:var(--ink-dim); font-family:inherit; font-size:.95rem; line-height:1; cursor:pointer; padding:9px 12px 9px 10px; border-radius:10px; -webkit-tap-highlight-color:transparent; }
   .exit > span{ font-size:.82rem; letter-spacing:.02em; }
@@ -203,7 +206,7 @@
   /* Pas de voix hébraïque sur l'appareil : on masque les boutons audio plutôt
      que de laisser la voix par défaut prononcer l'hébreu de travers. */
   body.no-he-voice .speak-btn, body.no-he-voice .sr-speak{ display:none !important; }
-  .audio-note, .seg-note{ color:var(--ink-dim); font-size:.74rem; margin-top:8px; }
+  .audio-note, .seg-note{ color:var(--ink-dim); font-size:.76rem; margin-top:8px; }
   .face.flip-anim{ animation:cardIn .26s ease; }
   @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
 
@@ -251,7 +254,7 @@
   .input-row{ display:flex; gap:10px; }
   #answer-input{
     flex:1; border-radius:12px; border:1px solid var(--line);
-    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1.05rem;
+    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1.1rem;
     padding:13px 15px; transition:border-color .15s ease;
   }
   #answer-input:focus{ border-color:var(--gold); }
@@ -289,7 +292,17 @@
   .done .score{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.4rem; color:var(--gold); }
   .done .score small{ font-size:1.4rem; color:var(--ink-dim); }
   .done p{ color:var(--ink-dim); margin:6px 0 24px; }
-  .done .big-he{ font-size:2.2rem; margin-bottom:8px; }
+  /* Récapitulatif des ratées : mêmes rangées posées que la recherche, en lecture seule. */
+  .missed-list{
+    list-style:none; margin:0 0 24px; padding:0; width:100%; max-width:420px;
+    display:flex; flex-direction:column; gap:6px; text-align:left;
+  }
+  .missed-list li{
+    display:flex; flex-wrap:wrap; align-items:baseline; column-gap:14px; row-gap:2px;
+    padding:9px 13px; border:1px solid var(--line); border-radius:11px; background:var(--bg2);
+  }
+  .missed-list .m-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.3rem; line-height:1.3; direction:rtl; }
+  .missed-list .m-fr{ color:var(--ink-dim); font-size:.95rem; margin-inline-start:auto; }
   .again-btns{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
   .again-btns button{
     border-radius:12px; font-family:inherit; font-weight:600; font-size:.95rem; padding:12px 20px; cursor:pointer;
@@ -299,7 +312,7 @@
 
   kbd{ font-family:'JetBrains Mono',monospace; font-size:.84rem; background:var(--line); padding:1px 5px; border-radius:4px; color:var(--ink-dim); }
   .kbd-hint{ text-align:center; color:var(--ink-dim); font-size:.84rem; margin-top:12px; }
-  @media (max-width:480px){ .kbd-hint{ display:none; } .big-he{ font-size:3.2rem; } .big-he.cursive{ font-size:2.8rem; } .big-fr{ font-size:2rem; } .forms{ gap:12px 16px; } .forms .f-he{ font-size:1.85rem; } }
+  @media (max-width:480px){ .kbd-hint{ display:none; } .big-he{ font-size:3.2rem; } .big-he.cursive{ font-size:2.8rem; } .big-fr{ font-size:2rem; } .forms{ gap:12px 16px; } .forms .f-he{ font-size:1.9rem; } }
 
   .loader{ max-width:520px; margin:40px auto; text-align:center; color:var(--ink-dim); }
   .loader .spin{ width:34px; height:34px; margin:0 auto 14px; border:3px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
@@ -311,11 +324,11 @@
     border-radius:10px; font-family:inherit; font-weight:600; font-size:.9rem; padding:10px 20px; cursor:pointer; transition:all .13s ease;
   }
   .loader .retry:hover{ background:var(--gold); color:#1a1206; }
-  .loader .loader-title{ color:var(--ink); font-size:1.05rem; font-weight:600; }
+  .loader .loader-title{ color:var(--ink); font-size:1.1rem; font-weight:600; }
   .loader .loader-detail{ font-size:.9rem; opacity:.85; margin-top:6px; }
   .loader .loader-detail code{ font-family:'JetBrains Mono',monospace; font-size:.85em; background:var(--line); padding:1px 5px; border-radius:4px; }
   .src-link{ text-align:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
-  .src-link a{ color:var(--gold); text-decoration:none; font-size:.92rem; }
+  .src-link a{ color:var(--gold); text-decoration:none; font-size:.95rem; }
   .src-link a:hover{ text-decoration:underline; }
   /* ---------- Saisie : passer + clavier hébreu ---------- */
   .input-actions{ display:flex; align-items:center; gap:10px; margin-top:10px; }
@@ -344,7 +357,7 @@
   .feedback .note-line{ margin-top:10px; }
   /* Inflexions sur la carte elle-même (mode saisie, sens hébreu→français) */
   body.input-mode #face-content .forms{ margin:12px auto 0; gap:10px 14px; }
-  body.input-mode #face-content .forms .f-he{ font-size:1.6rem; }
+  body.input-mode #face-content .forms .f-he{ font-size:1.7rem; }
 
   /* ---------- Mode QCM ---------- */
   /* Carte plus compacte : question en haut, réponses cliquables en dessous. */
@@ -379,7 +392,8 @@
   }
   .review-card:hover{ background:linear-gradient(135deg, rgba(212,162,76,.24), rgba(212,162,76,.08)); }
   .review-card:disabled{ opacity:.55; cursor:default; border-color:var(--line); background:var(--bg2); }
-  .review-ico{ flex:none; font-size:1.5rem; line-height:1; }
+  .review-ico{ flex:none; width:24px; height:24px; color:var(--gold); }
+  .review-ico svg{ width:100%; height:100%; }
   .review-body{ flex:1; min-width:0; }
   .review-title{ font-weight:700; font-size:1rem; }
   .review-sub{ font-size:.84rem; color:var(--ink-dim); margin-top:1px; }
@@ -389,7 +403,7 @@
   .mastery{ margin-top:12px; font-size:.9rem; color:var(--ink-dim); }
   .mastery b{ color:var(--gold-soft); font-weight:700; }
   .mastery .mbar{ height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin-top:7px; }
-  .mastery .mbar > span{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); border-radius:999px; transition:width .5s ease; }
+  .mastery .mbar > span{ display:block; height:100%; width:100%; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); border-radius:999px; transform:scaleX(0); transform-origin:left; transition:transform .5s ease; }
 </style>
 </head>
 <body>
@@ -411,7 +425,7 @@
 
   <h2>Révision du jour</h2>
   <button class="review-card" id="review-btn" type="button" disabled>
-    <span class="review-ico">🔁</span>
+    <span class="review-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/></svg></span>
     <span class="review-body">
       <span class="review-title" id="review-title">Rien à réviser pour l'instant</span>
       <span class="review-sub" id="review-sub">Après ta première réponse, chaque carte revient ici juste avant l'oubli : espacée quand tu la sais, vite si tu la rates.</span>
@@ -430,8 +444,8 @@
   <h2>Mode</h2>
   <div class="seg" id="mode">
     <button class="chip" data-mode="cards" aria-pressed="true">Cartes</button>
-    <button class="chip" data-mode="input" aria-pressed="false">Saisie ⌨️</button>
-    <button class="chip" data-mode="quiz" aria-pressed="false">QCM ✅</button>
+    <button class="chip" data-mode="input" aria-pressed="false">Saisie</button>
+    <button class="chip" data-mode="quiz" aria-pressed="false">QCM</button>
   </div>
 
   <h2>Sens de la carte</h2>
@@ -464,7 +478,7 @@
 
   <h2>Prononciation</h2>
   <div class="seg" id="audio">
-    <button class="chip" data-audio="click" aria-pressed="true">Au clic 🔊</button>
+    <button class="chip" data-audio="click" aria-pressed="true">Au clic</button>
     <button class="chip" data-audio="auto" aria-pressed="false">Automatique</button>
   </div>
   <div class="audio-note" id="audio-note"></div>
@@ -508,7 +522,7 @@
       <button id="btn-check">Vérifier</button>
     </div>
         <div class="input-actions hide" id="input-actions">
-      <button class="ghost-btn hide" id="kb-toggle" type="button">&#9000; Clavier hébreu</button>
+      <button class="ghost-btn hide" id="kb-toggle" type="button">Clavier hébreu</button>
       <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
     </div>
     <div class="hebkb hide" id="hebkb"></div>
@@ -529,6 +543,7 @@
 <section class="done" id="done">
   <div class="score" id="score">0<small>/0</small></div>
   <p id="done-msg" role="status"></p>
+  <ul class="missed-list hide" id="missed-list"></ul>
   <div class="again-btns">
     <button class="primary" id="retry-missed">Rejouer les ratées</button>
     <button id="retry-all">Recommencer</button>
@@ -650,10 +665,17 @@ function loadVoices(){
     return s;
   }
   heVoice = heVoices.sort((a,b)=>score(b)-score(a))[0] || null;
-  document.body.classList.toggle('no-he-voice', !heVoice);
+  reflectVoiceUi();
+}
+// Sans voix : boutons haut-parleur masqués (CSS no-he-voice) et chips
+// « Prononciation » désactivées — le réglage n'aurait aucun effet.
+function reflectVoiceUi(){
+  const off = !heVoice;
+  document.body.classList.toggle('no-he-voice', off);
+  document.querySelectorAll('#audio .chip').forEach(b=>b.disabled=off);
 }
 if(TTS_OK){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
-else document.body.classList.add('no-he-voice');
+else reflectVoiceUi();
 function speak(text){
   if(!TTS_OK || !heVoice || !text) return;
   try{
@@ -793,19 +815,17 @@ function buildChips(){
 }
 
 function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
-function segPick(container, key){
+function segPick(container, key, btn){
   container.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
-  event.currentTarget.setAttribute('aria-pressed','true');
-  state[key]=event.currentTarget.dataset[key];
+  btn.setAttribute('aria-pressed','true');
+  state[key]=btn.dataset[key];
   savePrefs();
   if(key==='len') refreshSrsUi();
 }
-document.getElementById('dir').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('dir'),'dir'));
-document.getElementById('script').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('script'),'script'));
-document.getElementById('order').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('order'),'order'));
-document.getElementById('audio').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('audio'),'audio'));
-document.getElementById('len').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('len'),'len'));
-document.getElementById('mode').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('mode'),'mode'));
+SEG_KEYS.forEach(key=>{
+  const box=document.getElementById(key);
+  box.querySelectorAll('.chip').forEach(c=>c.onclick=()=>segPick(box,key,c));
+});
 
 document.getElementById('selall').onclick=()=>{
   const allOn = state.cats.size===Object.keys(catCounts).length;
@@ -917,7 +937,7 @@ function refreshSrsUi(){
       : 'Cartes à revoir aujourd’hui, tous thèmes confondus.';
   } else {
     btn.disabled=true;
-    title.textContent = m.seen ? 'À jour — rien à réviser 👌' : 'Rien à réviser pour l’instant';
+    title.textContent = m.seen ? 'À jour — rien à réviser ✓' : 'Rien à réviser pour l’instant';
     sub.textContent = m.seen ? 'Reviens plus tard : les cartes réapparaîtront à échéance.'
                              : 'Après ta première réponse, chaque carte revient ici juste avant l\'oubli : espacée quand tu la sais, vite si tu la rates.';
   }
@@ -926,7 +946,7 @@ function refreshSrsUi(){
     mEl.classList.remove('hide');
     document.getElementById('mastery-txt').innerHTML='<b>'+m.mastered+'</b> maîtrisée'+(m.mastered>1?'s':'')
       +' · <b>'+m.seen+'</b> vue'+(m.seen>1?'s':'')+' sur '+m.total;
-    document.getElementById('mastery-bar').style.width=(m.total?(m.mastered/m.total*100):0)+'%';
+    document.getElementById('mastery-bar').style.transform='scaleX('+(m.total?m.mastered/m.total:0)+')';
   } else { mEl.classList.add('hide'); }
 }
 function startReview(){
@@ -999,7 +1019,8 @@ function quizPick(btn, chosen, card){
     correct ? 'Exact !' : 'Raté — la bonne réponse était : '+goodTxt;
   document.getElementById('quiz-next').classList.remove('hide');
   updateSpeaker();
-  if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+  // « Automatique » seulement : en « Au clic », le bouton haut-parleur reste le seul déclencheur.
+  if(state.audio==='auto') speakCurrent();
   sessSave();
 }
 // Passage à la carte suivante : identique au mode saisie → on réutilise nextAfterInput.
@@ -1052,7 +1073,7 @@ function render(){
   animateFace();
 
   document.getElementById('counter').textContent=(state.idx+1)+' / '+state.total;
-  document.getElementById('barfill').style.width=((state.idx)/state.total*100)+'%';
+  document.getElementById('barfill').style.transform='scaleX('+(state.idx/state.total)+')';
   const bar=document.querySelector('.bar');
   bar.setAttribute('aria-valuemax', state.total);
   bar.setAttribute('aria-valuenow', state.idx);
@@ -1098,7 +1119,7 @@ function setupInputCard(card){
   const kbT=document.getElementById('kb-toggle');
   const heIn = state.dir==='fr2he';
   kbT.classList.toggle('hide', !heIn);
-  kbT.innerHTML = state.kbOpen ? 'Masquer le clavier' : '&#9000; Clavier hébreu';
+  kbT.textContent = state.kbOpen ? 'Masquer le clavier' : 'Clavier hébreu';
   document.getElementById('hebkb').classList.toggle('hide', !(heIn && state.kbOpen));
   setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 60);
 }
@@ -1348,7 +1369,7 @@ function submitAnswer(){
   document.getElementById('btn-next').classList.remove('hide');
   if(correct) state.goodCount++; else state.missed.push(card);
   updateSpeaker();
-  if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+  if(state.audio==='auto') speakCurrent();
   sessSave();
 }
 function nextAfterInput(){
@@ -1374,7 +1395,7 @@ function skipAnswer(){
   document.getElementById('btn-next').classList.remove('hide');
   state.missed.push(card);
   updateSpeaker();
-  if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+  if(state.audio==='auto') speakCurrent();
   sessSave();
 }
 bindTap(document.getElementById('btn-skip'), skipAnswer);
@@ -1417,7 +1438,7 @@ bindTap(document.getElementById('btn-skip'), skipAnswer);
 document.getElementById('kb-toggle').addEventListener('click', function(){
   state.kbOpen=!state.kbOpen;
   document.getElementById('hebkb').classList.toggle('hide', !state.kbOpen);
-  this.innerHTML = state.kbOpen ? 'Masquer le clavier' : '&#9000; Clavier hébreu';
+  this.textContent = state.kbOpen ? 'Masquer le clavier' : 'Clavier hébreu';
 });
 document.getElementById('answer-input').addEventListener('keydown', e=>{
   if(e.key==='Enter'){
@@ -1440,7 +1461,7 @@ function finish(){
   refreshSrsUi();
   document.getElementById('study').classList.remove('active');
   document.getElementById('done').classList.add('active');
-  document.getElementById('barfill').style.width='100%';
+  document.getElementById('barfill').style.transform='scaleX(1)';
   document.querySelector('.bar').setAttribute('aria-valuenow', state.total);
   const el=document.getElementById('score');
   el.innerHTML=state.goodCount+'<small>/'+state.total+'</small>';
@@ -1450,6 +1471,11 @@ function finish(){
   else if(pct>=70) msg='Bien joué ! Plus que '+state.missed.length+' carte'+(state.missed.length>1?'s':'')+' à revoir avant le sans-faute.';
   else msg='Encore un peu d\'entraînement — '+state.missed.length+' à revoir.';
   document.getElementById('done-msg').textContent=msg;
+  // Les ratées, listées avant de rejouer : on sait quoi retravailler sans relancer à l'aveugle.
+  const list=document.getElementById('missed-list');
+  list.classList.toggle('hide', !state.missed.length);
+  list.innerHTML = state.missed.map(c=>
+    '<li><span class="m-he" lang="he">'+c.he+'</span><span class="m-fr">'+c.fr+'</span></li>').join('');
   document.getElementById('retry-missed').style.display = state.missed.length? 'inline-block':'none';
 }
 
@@ -1610,7 +1636,7 @@ async function init(){
     const missing = catOrder.filter(c=>!counts[c]);
     if(missing.length){
       console.warn('Catégories attendues sans carte :', missing);
-      note.innerHTML += '<br><span style="color:var(--red)">⚠️ Aucune carte dans : '
+      note.innerHTML += '<br><span style="color:var(--red)">Aucune carte dans : '
         + missing.join(', ') + ' — section renommée dans le carnet ?</span>';
     }
   }catch(err){

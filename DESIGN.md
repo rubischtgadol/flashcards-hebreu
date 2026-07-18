@@ -14,6 +14,10 @@ colors:
   vert-juste: "#5bbd7a"
   rouge-a-revoir: "#d96a5b"
   filet: "#2a3440"
+  ombre: "#000000"
+  voile-audio: "rgba(0,0,0,.18)"
+  encre-sur-vert: "#0a1a0f"
+  encre-sur-rouge: "#1a0d0a"
 typography:
   display:
     fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
@@ -39,11 +43,65 @@ typography:
     fontFamily: "JetBrains Mono, monospace"
     fontSize: "0.88rem"
     fontWeight: 400
+  cursive:
+    fontFamily: "Playpen Sans Hebrew, Segoe Script, Comic Sans MS, cursive"
+    fontSize: "3.2rem"
+    fontWeight: 300
+  cursive-mobile:
+    fontFamily: "Playpen Sans Hebrew, Segoe Script, Comic Sans MS, cursive"
+    fontSize: "2.8rem"
+    fontWeight: 300
+  score:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "3.4rem"
+    fontWeight: 400
+  phrase-he:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "2.15rem"
+    lineHeight: 1.45
+  inflexion:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "2rem"
+    lineHeight: 1.1
+  sous-hebreu:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "1.9rem"
+  inflexion-compacte:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "1.7rem"
+  marque:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "1.5rem"
+    fontWeight: 700
+  hebreu-rang:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "1.3rem"
+  sous-titre:
+    fontFamily: "Assistant, Arial Hebrew, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.15rem"
+  saisie:
+    fontFamily: "Assistant, Arial Hebrew, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.1rem"
+  corps-ui:
+    fontFamily: "Assistant, Arial Hebrew, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1rem"
+  controle:
+    fontFamily: "Assistant, Arial Hebrew, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.95rem"
+    fontWeight: 600
+  petite:
+    fontFamily: "Assistant, Arial Hebrew, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.8rem"
+  legende:
+    fontFamily: "Assistant, Arial Hebrew, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.76rem"
 rounded:
   kbd: "4px"
   touche: "9px"
+  bouton-discret: "10px"
   rang: "11px"
   controle: "12px"
+  revision: "14px"
   panneau: "16px"
   carte: "20px"
   pilule: "999px"
@@ -173,14 +231,15 @@ Caractère commun : **discrets jusqu'à l'action**. Au repos, un contrôle est t
 - **Primary** (Commencer, Vérifier, Suivant) : dégradé d'or vertical (or tendre → or ancien), texte Encre sur or 700, padding 14px, pleine largeur dans les panneaux.
 - **Hover / Focus :** bordure vers l'or ancien ; champs : bordure or au focus, pas de glow.
 - **Ghost** (Passer, contrôles secondaires) : fond transparent, filet, texte estompé ; survol : bordure et texte or.
-- **Verdict** (Je savais / À revoir) : posés sur la couche carte, bordure et texte vert juste / rouge à revoir ; le survol inverse (fond plein, texte nuit).
+- **Verdict** (Je savais / À revoir) : posés sur la couche carte, bordure et texte vert juste / rouge à revoir ; le survol inverse (fond plein, texte encre-sur-vert #0a1a0f / encre-sur-rouge #1a0d0a — jamais de blanc sur couleur).
+- **Discrets** (Quitter, Corriger, Réessayer, boutons fantômes) : rayon 10px (`bouton-discret`), filet, texte estompé.
 
 ### Chips
 - **Style :** pilule (999px), fond transparent, filet, texte parchemin, 7px 13px.
 - **State :** sélectionnée = or ancien plein + Encre sur or 600 (`aria-pressed="true"`). Le compteur de cartes s'affiche en opacité réduite dans la chip.
 
 ### Cards / Containers
-- **Corner Style :** flashcard 20px, panneaux 16px, rangées de liste 11px.
+- **Corner Style :** flashcard 20px, panneaux 16px, carte de révision 14px, rangées de liste 11px, boutons discrets 10px.
 - **Background :** dégradés courts carte → nuit claire.
 - **Shadow Strategy :** voir la règle de la carte unique.
 - **Border :** toujours 1px bord-de-carte (surfaces) ou filet (contrôles).
