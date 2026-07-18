@@ -4,8 +4,8 @@
  *
  * Régénère ENTIÈREMENT flashcards_hebreu.html (version autonome, hors ligne) :
  *   - le vocabulaire est extrait de vocabulaire_hebreu.html en répliquant
- *     exactement extractCards() d'index.html ;
- *   - le reste du fichier (HTML, CSS, JS) est copié depuis index.html, dont le
+ *     exactement extractCards() d'app.html ;
+ *   - le reste du fichier (HTML, CSS, JS) est copié depuis app.html, dont le
  *     bloc marqué BUILD:ONLINE-ONLY (fetch + extraction runtime) est remplacé
  *     par le snapshot `const CARDS = [...]` et un démarrage direct.
  * Affiche le compte de cartes par section et échoue bruyamment si une section
@@ -21,7 +21,7 @@ const path = require('path');
 
 const ROOT = __dirname;
 const NOTEBOOK = path.join(ROOT, 'vocabulaire_hebreu.html');
-const APP = path.join(ROOT, 'index.html');
+const APP = path.join(ROOT, 'app.html');
 const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
@@ -69,7 +69,7 @@ function blocksOf(html, re){
   return out;
 }
 
-// ---------- réplique de extractCards() (index.html) ----------
+// ---------- réplique de extractCards() (app.html) ----------
 function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
 
 function parseSections(html){
@@ -218,7 +218,7 @@ function extractCards(html){
   Object.keys(listCats).forEach(sec => {
     lisOf(sections, sec).forEach(li => {
       const he = firstSpanText(li, 'he'); if (!he) return;
-      // data-fr-court / data-note : mêmes attributs que lit extractCards() d'index.html
+      // data-fr-court / data-note : mêmes attributs que lit extractCards() d'app.html
       const card = { cat: listCats[sec], he, tr: firstSpanText(li, 'tr'), fr: attrOf(li, 'data-fr-court') || firstSpanText(li, 'fr') };
       const note = attrOf(li, 'data-note');
       if (note) card.note = note;
@@ -283,11 +283,11 @@ function report(cards){
   }
 }
 
-// ---------- génération du fichier autonome depuis index.html ----------
+// ---------- génération du fichier autonome depuis app.html ----------
 function mustReplace(src, from, to, what){
   const out = typeof from === 'string' ? src.replace(from, to) : src.replace(from, to);
   if (out === src){
-    console.error('✗ Point d\'ancrage introuvable dans index.html : ' + what);
+    console.error('✗ Point d\'ancrage introuvable dans app.html : ' + what);
     process.exit(1);
   }
   return out;
@@ -298,7 +298,7 @@ function generateStandalone(cards){
   let out = app;
 
   out = mustReplace(out, '<!DOCTYPE html>',
-    '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node build.js` depuis index.html + vocabulaire_hebreu.html — ne pas éditer à la main. -->',
+    '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node build.js` depuis app.html + vocabulaire_hebreu.html — ne pas éditer à la main. -->',
     'doctype');
 
   // Version autonome : pas de chargement réseau → pas de loader, panneau visible d\'emblée.
@@ -343,7 +343,7 @@ function main(){
   const onDisk = fs.existsSync(STANDALONE) ? fs.readFileSync(STANDALONE, 'utf8') : '';
 
   if (check){
-    if (generated === onDisk) console.log('\n✓ flashcards_hebreu.html en phase avec le carnet et index.html.');
+    if (generated === onDisk) console.log('\n✓ flashcards_hebreu.html en phase avec le carnet et app.html.');
     else {
       console.error('\n✗ flashcards_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
       process.exit(1);

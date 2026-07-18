@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards Hébreu</title>
+<!-- PWA : installable sur iPhone via Safari → Partager → « Sur l'écran d'accueil ». -->
+<meta name="theme-color" content="#12181f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Hébreu">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playpen+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  /* Charte unifiée carnet + app — ce bloc :root doit rester identique dans
+     vocabulaire_hebreu.html et index.html (référence : le carnet). */
+  :root{
+    --bg:#12181f; --bg2:#161e28; --card:#1a222b; --card-edge:#2c3844;
+    --ink:#ece7dd; --ink-dim:#9aa3ac; --gold:#d4a24c; --gold-soft:#e6c68a;
+    --green:#5bbd7a; --red:#d96a5b; --line:#2a3440;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  ::selection{ background:rgba(212,162,76,.30); color:var(--ink); }
+  html,body{margin:0; height:100%;}
+  body{
+    background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%);
+    color:var(--ink);
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    font-size:22px;
+    min-height:100dvh;
+    display:flex; flex-direction:column;
+    padding:16px 14px 26px;
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+
+  /* ---------- Header ---------- */
+  header{ text-align:center; margin-bottom:10px; }
+  .brand{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-weight:700;
+    font-size:1.5rem; letter-spacing:.01em; margin:0;
+  }
+  /* Focus clavier : anneau d'or uniforme sur tout l'interactif. */
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+  .brand .he{ color:var(--gold); }
+  .tagline{ color:var(--ink-dim); font-size:.95rem; margin-top:1px; }
+
+  /* ---------- Setup panel ---------- */
+  .panel{
+    background:linear-gradient(180deg, var(--card), var(--bg2));
+    border:1px solid var(--card-edge); border-radius:16px;
+    padding:16px 15px; max-width:520px; width:100%; margin:8px auto 0;
+  }
+  .panel h2{
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:.84rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.12em; color:var(--gold);
+    margin:0 0 9px;
+  }
+  .panel h2:not(:first-of-type){ margin-top:18px; }
+
+  /* ---------- Search ---------- */
+  .search-wrap{ position:relative; margin-bottom:4px; }
+  .search-ico{ position:absolute; left:13px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-dim); pointer-events:none; }
+  #search-input{
+    width:100%; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1rem;
+    padding:12px 48px 12px 40px; transition:border-color .15s ease;
+  }
+  #search-input:focus{ border-color:var(--gold); }
+  .search-clear{
+    position:absolute; right:2px; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%; border:none; background:transparent;
+    color:var(--ink-dim); font-size:1.3rem; line-height:1; cursor:pointer;
+  }
+  /* Pas de défilement imbriqué : les résultats s'étirent et la page défile. */
+  .search-results{ margin:10px 0 4px; display:flex; flex-direction:column; gap:6px; }
+  .sr-count{ font-size:.84rem; color:var(--ink-dim); padding:2px 2px 4px; }
+  .sr-row{
+    display:flex; align-items:center; gap:11px; padding:9px 11px;
+    border:1px solid var(--line); border-radius:11px; background:var(--bg2); cursor:pointer;
+    transition:border-color .12s ease;
+  }
+  .sr-row:hover{ border-color:var(--gold); }
+  .sr-speak{
+    flex:none; width:44px; height:44px; border-radius:50%;
+    border:1px solid var(--line); background:transparent; color:var(--gold);
+    display:flex; align-items:center; justify-content:center; padding:0;
+  }
+  .sr-speak svg{ width:17px; height:17px; }
+  .sr-body{ flex:1; min-width:0; }
+  .sr-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.3rem; direction:rtl; }
+  .sr-tr{ font-family:'JetBrains Mono',monospace; font-size:.84rem; color:var(--ink-dim); margin-inline-start:8px; }
+  .sr-fr{ color:var(--ink); font-size:.9rem; margin-top:1px; }
+  .sr-cat{ flex:none; font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:3px 9px; white-space:nowrap; }
+  .search-empty{ color:var(--ink-dim); font-size:.95rem; padding:10px 2px; }
+  .sr-item{ border:1px solid var(--line); border-radius:11px; background:var(--bg2); overflow:hidden; }
+  .sr-item .sr-row{ border:none; border-radius:0; background:transparent; }
+  .sr-item.open{ border-color:var(--gold); }
+  .sr-chev{ flex:none; color:var(--ink-dim); font-size:1.3rem; line-height:1; transition:transform .18s ease; }
+  .sr-item.open .sr-chev{ transform:rotate(90deg); color:var(--gold); }
+  .sr-detail{ padding:2px 12px 12px 12px; border-top:1px dashed var(--line); margin:0 0 2px; }
+  .srd-title{ font-size:.76rem; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); margin:10px 0 7px; }
+  .srd-forms{ display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; direction:rtl; }
+  .srd-f{ display:flex; align-items:baseline; gap:7px; }
+  .srd-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.15rem; direction:rtl; }
+  .srd-lbl{ font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--ink-dim); direction:ltr; }
+  .srd-note{ font-size:.8rem; color:var(--ink-dim); font-style:italic; margin-top:10px; direction:ltr; }
+  .chips{ display:flex; flex-wrap:wrap; gap:7px; }
+  .chip{
+    border:1px solid var(--line); background:transparent; color:var(--ink);
+    font-family:inherit; font-size:.95rem; padding:7px 13px; border-radius:999px;
+    cursor:pointer; transition:all .15s ease; user-select:none;
+  }
+  .chip:hover{ border-color:var(--gold); }
+  .chip[aria-pressed="true"]{
+    background:var(--gold); color:#1a1206; border-color:var(--gold); font-weight:600;
+  }
+  /* Sans voix hébraïque, le réglage « Prononciation » est sans effet → chips inertes. */
+  .chip:disabled{ opacity:.45; cursor:not-allowed; border-color:var(--line); }
+  .chip .n{ opacity:.6; font-size:.76em; margin-inline-start:5px; }
+  /* Au doigt : chips à hauteur de cible confortable (~44px), sans épaissir le bureau. */
+  @media (pointer:coarse){
+    .chip{ padding:11px 16px; }
+    .cat-row .chip{ padding:9px 13px; }
+  }
+  .chip[aria-pressed="true"] .n{ opacity:.7; }
+  .seg{ display:flex; gap:7px; flex-wrap:wrap; }
+  .cat-row{ display:flex; align-items:center; gap:8px; margin-bottom:9px; }
+  .cat-row .chip{ font-size:.9rem; padding:5px 11px; }
+  .selall{
+    background:none; border:none; color:var(--gold); font-family:inherit;
+    font-size:.9rem; cursor:pointer; text-decoration:underline; padding:0;
+  }
+  .start{
+    margin-top:20px; width:100%; border:none; border-radius:12px;
+    background:linear-gradient(180deg, var(--gold-soft), var(--gold));
+    color:#1a1206; font-family:inherit; font-weight:700; font-size:1rem;
+    padding:14px; cursor:pointer; letter-spacing:.01em;
+    box-shadow:0 6px 18px -8px var(--gold);
+  }
+  .start:disabled{ opacity:.4; cursor:not-allowed; box-shadow:none; }
+  /* Au doigt, « Commencer » reste dans la zone du pouce pendant le défilement.
+     sticky : il reprend sa place naturelle en bas de page, aucun recouvrement final. */
+  @media (pointer:coarse){
+    .start{ position:sticky; bottom:12px; z-index:2; }
+  }
+
+  /* ---------- Pli « Réglages avancés » ---------- */
+  /* Ordre/Longueur/Prononciation se règlent une fois (mémorisés) : repliés,
+     l'écran raccourcit et « Commencer » remonte. */
+  .adv{ margin-top:18px; border:1px solid var(--line); border-radius:12px; background:var(--bg2); }
+  .adv summary{
+    display:flex; align-items:baseline; gap:10px; cursor:pointer; list-style:none;
+    padding:12px 14px; border-radius:12px; -webkit-tap-highlight-color:transparent;
+    font-size:.95rem; font-weight:600; color:var(--ink); transition:color .13s ease;
+  }
+  .adv summary::-webkit-details-marker{ display:none; }
+  .adv summary:hover .adv-chev{ color:var(--gold); }
+  .adv-sub{ margin-left:auto; font-weight:400; font-size:.8rem; color:var(--ink-dim);
+    min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .adv-chev{ color:var(--ink-dim); transition:transform .15s ease; align-self:center; }
+  .adv[open] .adv-chev{ transform:rotate(90deg); }
+  .adv-body{ padding:2px 14px 16px; }
+  /* Remise à zéro : discrète au repos, rouge assumé au moment de confirmer. */
+  .reset-zone{ margin-top:20px; padding-top:4px; border-top:1px solid var(--line); }
+  .reset-call:hover{ border-color:var(--red); color:var(--red); }
+  .reset-confirm{ margin-top:10px; padding:12px 14px; border:1px solid var(--red); border-radius:12px; background:rgba(217,106,91,.07); }
+  .reset-confirm p{ margin:0 0 12px; font-size:.9rem; line-height:1.5; }
+  .reset-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  .danger-btn{ background:var(--red); border:1px solid var(--red); border-radius:10px; color:#1a0d0a;
+    font-family:inherit; font-size:.9rem; font-weight:600; padding:9px 14px; cursor:pointer; transition:filter .13s ease; }
+  .danger-btn:hover{ filter:brightness(1.1); }
+  .reset-done{ margin-top:10px; font-size:.9rem; color:var(--green); }
+
+  /* ---------- Study screen ---------- */
+  .study{ display:none; flex-direction:column; flex:1; max-width:520px; width:100%; margin:0 auto; }
+  .study.active{ display:flex; }
+  .setup.hidden{ display:none; }
+
+  .progress-wrap{ display:flex; align-items:center; gap:12px; margin:6px 2px 16px; }
+  .bar{ flex:1; height:5px; background:var(--line); border-radius:999px; overflow:hidden; }
+  .bar > span{ display:block; height:100%; width:100%; background:var(--gold); border-radius:999px; transform:scaleX(0); transform-origin:left; transition:transform .35s ease; }
+  .counter{ font-family:'JetBrains Mono',monospace; font-size:.88rem; color:var(--ink-dim); white-space:nowrap; }
+  .exit{ display:inline-flex; align-items:center; gap:3px; min-height:44px; background:var(--card); border:1px solid var(--card-edge); color:var(--ink-dim); font-family:inherit; font-size:.95rem; line-height:1; cursor:pointer; padding:9px 12px 9px 10px; border-radius:10px; -webkit-tap-highlight-color:transparent; }
+  .exit > span{ font-size:.82rem; letter-spacing:.02em; }
+  .exit:hover, .exit:active{ color:var(--ink); border-color:var(--ink-dim); }
+
+  /* ---------- The card ---------- */
+  .stage{ flex:1; display:flex; align-items:center; justify-content:center; margin-bottom:4px; }
+  .flip{
+    position:relative; width:100%; max-width:420px;
+    display:flex; flex-direction:column;
+    border-radius:20px; border:1px solid var(--card-edge);
+    background:linear-gradient(160deg, var(--card), var(--bg2));
+    box-shadow:0 20px 50px -22px #000, inset 0 1px 0 rgba(255,255,255,.03);
+    cursor:pointer; overflow:hidden;
+    min-height:340px; max-height:520px; height:min(60vh,520px);
+    transition:transform .12s ease;
+  }
+  /* En mode saisie, carte plus compacte pour que réponse + Suivant tiennent à l'écran. */
+  body.input-mode .flip{ min-height:190px; height:min(32vh,290px); }
+  body.input-mode .stage{ flex:0 0 auto; margin-bottom:2px; }
+  .flip:active{ transform:scale(.994); }
+  .face{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:44px 22px 40px; text-align:center; overflow-y:auto;
+  }
+  /* Marges auto : garde le contenu centré, mais si la carte déborde (carte compacte
+     du mode saisie) le haut du texte reste atteignable au défilement. */
+  #face-content{ margin-block:auto; }
+  .face .eyebrow{
+    position:absolute; top:16px; left:0; right:0;
+    font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:600;
+  }
+  .face .hint{
+    position:absolute; bottom:14px; left:0; right:0;
+    font-size:.84rem; color:var(--ink-dim);
+  }
+  .speak-btn{
+    position:absolute; top:12px; right:14px;
+    width:40px; height:40px; border-radius:50%;
+    border:1px solid var(--line); background:rgba(0,0,0,.18);
+    color:var(--gold); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; padding:0; transition:transform .1s ease, color .15s ease, border-color .15s ease;
+    z-index:2;
+  }
+  .speak-btn svg{ width:21px; height:21px; }
+  .speak-btn:active{ transform:scale(.9); }
+  .speak-btn.speaking{ color:var(--gold-soft); border-color:var(--gold); }
+  .speak-btn.hide{ display:none !important; }
+  /* Pas de voix hébraïque sur l'appareil : on masque les boutons audio plutôt
+     que de laisser la voix par défaut prononcer l'hébreu de travers. */
+  body.no-he-voice .speak-btn, body.no-he-voice .sr-speak, body.no-he-voice .spk-hint, body.no-he-voice .ex-speak{ display:none !important; }
+  .audio-note, .seg-note{ color:var(--ink-dim); font-size:.76rem; margin-top:8px; }
+  .face.flip-anim{ animation:cardIn .26s ease; }
+  @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
+
+  /* Tailles uniformes : un même élément (mot, translittération, inflexions…)
+     garde la même taille partout où il apparaît (carte, feedback, les deux sens). */
+  .big-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.6rem; line-height:1.15; direction:rtl; }
+  .big-he.cursive{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:3.2rem; color:var(--gold-soft); }
+  .big-fr{ font-size:2.4rem; font-weight:600; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; }
+  /* Phrases : plus longues qu'un mot → taille réduite et retour à la ligne propre. */
+  .big-he.phrase{ font-size:2.15rem; line-height:1.45; }
+  .big-fr.phrase{ font-size:1.5rem; line-height:1.35; }
+  @media (max-width:480px){ .big-he.phrase{ font-size:1.9rem; } .big-fr.phrase{ font-size:1.35rem; } }
+  .translit{ font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:var(--ink-dim); margin-top:12px; direction:ltr; }
+  .sub-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.9rem; direction:rtl; margin-top:6px; }
+  .sub-fr{ font-size:1.15rem; color:var(--ink); margin-top:10px; }
+  .cursive-line{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:1.7rem; color:var(--gold-soft); direction:rtl; margin-top:8px; }
+  .note-line{ font-size:1rem; color:var(--ink-dim); margin-top:14px; max-width:90%; font-style:italic; }
+  /* --- Exemples en situation : pli « Voir un exemple » (verso, feedback, QCM) --- */
+  .ex-wrap{ margin-top:16px; }
+  .ex-toggle{
+    background:none; border:1px solid var(--line); border-radius:10px;
+    color:var(--ink-dim); font-family:'Assistant',sans-serif; font-size:.88rem;
+    padding:7px 14px; cursor:pointer; transition:border-color .15s ease, color .15s ease;
+  }
+  .ex-toggle:hover{ border-color:var(--gold); color:var(--gold); }
+  .ex-toggle[aria-expanded="true"]{ color:var(--gold); }
+  .ex-box{ margin-top:12px; display:flex; flex-direction:column; gap:10px; }
+  .ex-item{ display:flex; align-items:center; justify-content:center; gap:10px; }
+  .ex-body{ min-width:0; }
+  .ex-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.5rem; line-height:1.45; direction:rtl; }
+  .ex-tr{ font-family:'JetBrains Mono',monospace; font-size:.8rem; color:var(--ink-dim); direction:ltr; margin-top:2px; }
+  .ex-fr{ font-family:'Assistant',sans-serif; font-size:.95rem; margin-top:2px; }
+  .ex-speak{
+    flex:0 0 auto; width:40px; height:40px; padding:9px; border-radius:50%;
+    border:1px solid var(--line); background:none; color:var(--ink-dim); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .ex-speak:hover{ border-color:var(--gold); color:var(--gold); }
+  .ex-speak svg{ width:100%; height:100%; }
+  @media (pointer:coarse){ .ex-speak{ width:44px; height:44px; } }
+  .quiz-ex{ text-align:center; margin-top:4px; }
+  /* Dans le tiroir de la recherche : version compacte, alignée à gauche comme le reste du tiroir. */
+  .srd-ex{ display:flex; align-items:center; gap:8px; margin:6px 0; }
+  .srd-ex .ex-he{ font-size:1.15rem; }
+  .srd-ex .ex-tr{ font-size:.76rem; margin-top:0; }
+  .srd-ex .ex-fr{ font-size:.8rem; margin-top:0; }
+  .srd-ex .ex-speak{ width:34px; height:34px; padding:7px; }
+  /* Inflexions : chaque forme est une cellule empilée (mot au-dessus, étiquette
+     dessous), le tout centré et en retour à la ligne — jamais de mélange rtl/ltr
+     sur une même ligne (source des chevauchements) et une taille lisible. */
+  .forms{
+    margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start;
+    gap:14px 22px; direction:ltr; max-width:100%;
+  }
+  .forms .form-cell{ display:flex; flex-direction:column; align-items:center; gap:3px; min-width:78px; }
+  .forms .f-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:2rem; line-height:1.1; direction:rtl; }
+  .forms .f-lbl{ font-size:.85rem; color:var(--ink-dim); direction:ltr; line-height:1.2; white-space:nowrap; }
+
+  /* ---------- Answer controls ---------- */
+  .controls{ display:flex; gap:10px; margin-top:18px; min-height:52px; }
+  .controls button{
+    flex:1; border-radius:12px; font-family:inherit; font-weight:600; font-size:.95rem;
+    padding:13px; cursor:pointer; border:1px solid var(--line); background:var(--card); color:var(--ink);
+    transition:all .13s ease;
+  }
+  .btn-flip{ background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206; border:none; font-weight:700; }
+  .btn-again{ border-color:var(--red); color:var(--red); }
+  .btn-again:hover{ background:var(--red); color:#1a0d0a; }
+  .btn-good{ border-color:var(--green); color:var(--green); }
+  .btn-good:hover{ background:var(--green); color:#0a1a0f; }
+  .hide{ display:none !important; }
+
+  /* ---------- Input mode ---------- */
+  .input-zone{ margin-top:18px; }
+  .input-row{ display:flex; gap:10px; }
+  #answer-input{
+    flex:1; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1.1rem;
+    padding:13px 15px; transition:border-color .15s ease;
+  }
+  #answer-input:focus{ border-color:var(--gold); }
+  #answer-input.ok{ border-color:var(--green); }
+  #answer-input.no{ border-color:var(--red); }
+  #btn-check{
+    border:none; border-radius:12px; font-family:inherit; font-weight:700; font-size:.95rem;
+    padding:13px 20px; cursor:pointer;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206;
+  }
+  .btn-next{
+    margin-top:14px; width:100%; border:none; border-radius:12px; font-family:inherit;
+    font-weight:700; font-size:.95rem; padding:14px; cursor:pointer;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206;
+  }
+  .feedback{ margin-top:14px; text-align:center; font-size:1rem; min-height:1.2em; }
+  .feedback .verdict{ font-weight:700; font-size:1.1rem; }
+  .feedback .verdict.ok{ color:var(--green); }
+  .feedback .verdict.no{ color:var(--red); }
+  .feedback .answer{ margin-top:8px; color:var(--ink); }
+  .feedback .answer .he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.9rem; direction:rtl; }
+  .feedback .answer .tr{ font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:var(--ink-dim); }
+  .feedback .your-answer{ font-size:.9rem; color:var(--ink-dim); margin-top:6px; }
+  .feedback .your-answer s{ opacity:.7; }
+  /* « Corriger » / « Annuler » : même bouton discret dans les trois modes. */
+  .fix-btn{
+    margin-top:12px; border:1px solid var(--line); background:transparent; color:var(--ink-dim);
+    border-radius:10px; font-family:inherit; font-size:.86rem; padding:8px 14px; cursor:pointer; transition:all .13s ease;
+  }
+  .fix-btn:hover{ color:var(--gold); border-color:var(--gold); }
+  .fix-btn[disabled]{ opacity:.5; cursor:default; }
+  .fix-row{ text-align:center; }
+
+  /* ---------- Done screen ---------- */
+  .done{ display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; max-width:520px; margin:0 auto; }
+  .done.active{ display:flex; }
+  .done .score{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.4rem; color:var(--gold); }
+  .done .score small{ font-size:1.4rem; color:var(--ink-dim); }
+  .done p{ color:var(--ink-dim); margin:6px 0 24px; }
+  /* Récapitulatif des ratées : mêmes rangées posées que la recherche, en lecture seule. */
+  .missed-list{
+    list-style:none; margin:0 0 24px; padding:0; width:100%; max-width:420px;
+    display:flex; flex-direction:column; gap:6px; text-align:left;
+  }
+  .missed-list li{
+    display:flex; flex-wrap:wrap; align-items:baseline; column-gap:14px; row-gap:2px;
+    padding:9px 13px; border:1px solid var(--line); border-radius:11px; background:var(--bg2);
+  }
+  .missed-list .m-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.3rem; line-height:1.3; direction:rtl; }
+  .missed-list .m-fr{ color:var(--ink-dim); font-size:.95rem; margin-inline-start:auto; }
+  .again-btns{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+  .again-btns button{
+    border-radius:12px; font-family:inherit; font-weight:600; font-size:.95rem; padding:12px 20px; cursor:pointer;
+    border:1px solid var(--line); background:var(--card); color:var(--ink);
+  }
+  .again-btns .primary{ background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206; border:none; }
+
+  kbd{ font-family:'JetBrains Mono',monospace; font-size:.84rem; background:var(--line); padding:1px 5px; border-radius:4px; color:var(--ink-dim); }
+  .kbd-hint{ text-align:center; color:var(--ink-dim); font-size:.84rem; margin-top:12px; }
+  @media (max-width:480px){ .kbd-hint{ display:none; } .big-he{ font-size:3.2rem; } .big-he.cursive{ font-size:2.8rem; } .big-fr{ font-size:2rem; } .forms{ gap:12px 16px; } .forms .f-he{ font-size:1.9rem; } }
+
+  .loader{ max-width:520px; margin:40px auto; text-align:center; color:var(--ink-dim); }
+  .loader .spin{ width:34px; height:34px; margin:0 auto 14px; border:3px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .count-note{ text-align:center; color:var(--ink-dim); font-size:.88rem; margin-top:12px; }
+  .exit-note{ text-align:center; color:var(--ink-dim); font-size:.9rem; margin:2px 0 14px; }
+  /* Au-dessus du bouton (et non dessous) : reste visible même quand « Commencer »
+     est collé en bas de l'écran au doigt. */
+  .start-hint{ text-align:center; color:var(--gold); font-size:.86rem; margin:16px 0 -8px; }
+  .loader .retry{
+    margin-top:16px; border:1px solid var(--gold); background:transparent; color:var(--gold);
+    border-radius:10px; font-family:inherit; font-weight:600; font-size:.9rem; padding:10px 20px; cursor:pointer; transition:all .13s ease;
+  }
+  .loader .retry:hover{ background:var(--gold); color:#1a1206; }
+  .loader .loader-title{ color:var(--ink); font-size:1.1rem; font-weight:600; }
+  .loader .loader-detail{ font-size:.9rem; opacity:.85; margin-top:6px; }
+  .loader .loader-detail code{ font-family:'JetBrains Mono',monospace; font-size:.85em; background:var(--line); padding:1px 5px; border-radius:4px; }
+  .src-link{ text-align:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
+  .src-link a{ color:var(--gold); text-decoration:none; font-size:.95rem; }
+  .src-link a:hover{ text-decoration:underline; }
+  /* ---------- Saisie : passer + clavier hébreu ---------- */
+  .input-actions{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+  .ghost-btn{
+    background:none; border:1px solid var(--line); border-radius:10px; color:var(--ink-dim);
+    font-family:inherit; font-size:.9rem; padding:9px 14px; cursor:pointer; transition:all .13s ease;
+  }
+  .ghost-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  #btn-skip{ margin-left:auto; }
+  .hebkb{ margin-top:12px; display:flex; flex-direction:column; gap:6px; }
+  .kb-row{ display:flex; gap:6px; direction:rtl; }
+  .hebkb button{
+    flex:1; min-width:0;
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.35rem;
+    padding:10px 0; border-radius:9px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); cursor:pointer; line-height:1;
+  }
+  .hebkb button:active{ background:var(--gold); color:#1a1206; }
+  .hebkb .kb-final{ color:var(--gold-soft); }
+  .hebkb .kb-ctl{ font-family:inherit; font-size:.9rem; color:var(--ink-dim); }
+  .hebkb .kb-space{ flex:3; }
+  /* Inflexions sous la correction en mode saisie : mêmes cellules empilées,
+     espacement et taille resserrés pour tenir dans la carte compacte. */
+  .feedback .forms{ margin:12px auto 0; gap:10px 16px; }
+  .feedback .forms .f-he{ font-size:1.7rem; }
+  .feedback .note-line{ margin-top:10px; }
+  /* Inflexions sur la carte elle-même (mode saisie, sens hébreu→français) */
+  body.input-mode #face-content .forms{ margin:12px auto 0; gap:10px 14px; }
+  body.input-mode #face-content .forms .f-he{ font-size:1.7rem; }
+
+  /* ---------- Mode QCM ---------- */
+  /* Carte plus compacte : question en haut, réponses cliquables en dessous. */
+  body.quiz-mode .flip{ min-height:150px; height:auto; max-height:none; }
+  body.quiz-mode .stage{ flex:0 0 auto; margin-bottom:6px; }
+  body.quiz-mode .face{ padding:34px 20px 30px; }
+  .quiz-zone{ margin-top:6px; }
+  .quiz-choices{ display:flex; flex-direction:column; gap:10px; }
+  .qc{
+    width:100%; border:1px solid var(--line); background:var(--card); color:var(--ink);
+    font-family:inherit; font-size:1.1rem; padding:14px 16px; border-radius:12px;
+    cursor:pointer; text-align:center; transition:border-color .12s ease, background .12s ease, color .12s ease;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+  }
+  .qc .qc-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.7rem; direction:rtl; line-height:1.15; }
+  .qc .qc-tr{ font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--ink-dim); direction:ltr; }
+  .qc:hover{ border-color:var(--gold); }
+  .qc:disabled{ cursor:default; }
+  .qc.ok{ border-color:var(--green); background:rgba(91,189,122,.14); color:var(--green); }
+  .qc.ok .qc-tr{ color:var(--green); }
+  .qc.no{ border-color:var(--red); background:rgba(217,106,91,.13); color:var(--red); }
+  .qc.no .qc-tr{ color:var(--red); }
+  .qc.dim{ opacity:.5; }
+  /* Options « Phrases » : quatre phrases complètes empilées feraient des boutons
+     très hauts sur petit écran — corps réduit et boutons plus serrés. */
+  .qc.ph{ font-size:.95rem; padding:10px 14px; line-height:1.35; }
+  .qc.ph .qc-he{ font-size:1.15rem; line-height:1.3; }
+  #quiz-next{ margin-top:14px; }
+
+  /* ---------- Révision espacée (SRS) ---------- */
+  .review-card{
+    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    border:1px solid var(--gold); border-radius:14px; cursor:pointer;
+    background:linear-gradient(135deg, rgba(212,162,76,.16), rgba(212,162,76,.05));
+    color:var(--ink); font-family:inherit; padding:13px 15px; transition:all .13s ease;
+  }
+  .review-card:hover{ background:linear-gradient(135deg, rgba(212,162,76,.24), rgba(212,162,76,.08)); }
+  .review-card:disabled{ opacity:.55; cursor:default; border-color:var(--line); background:var(--bg2); }
+  .review-ico{ flex:none; width:24px; height:24px; color:var(--gold); }
+  .review-ico svg{ width:100%; height:100%; }
+  .review-body{ flex:1; min-width:0; }
+  .review-title{ font-weight:700; font-size:1rem; }
+  .review-sub{ font-size:.84rem; color:var(--ink-dim); margin-top:1px; }
+  .review-card:disabled .review-sub{ color:var(--ink-dim); }
+  .review-arrow{ flex:none; color:var(--gold); font-size:1.3rem; }
+  .review-card:disabled .review-arrow{ display:none; }
+  .mastery{ margin-top:12px; font-size:.9rem; color:var(--ink-dim); }
+  .mastery b{ color:var(--gold-soft); font-weight:700; }
+  .mastery .mbar{ height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin-top:7px; }
+  .mastery .mbar > span{ display:block; height:100%; width:100%; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); border-radius:999px; transform:scaleX(0); transform-origin:left; transition:transform .5s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="brand"><span class="he" lang="he">כַּרְטִיסִים</span> · Flashcards</h1>
+  <div class="tagline">Entraînement au vocabulaire hébreu</div>
+</header>
+
+<!-- ============ SETUP ============ -->
+<div id="loader" class="loader"><div class="spin"></div><p id="loader-msg" role="status">Chargement du vocabulaire…</p></div>
+<section class="setup panel hidden" id="setup">
+  <div class="search-wrap">
+    <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…" aria-label="Rechercher un mot">
+    <button class="search-clear hide" id="search-clear" aria-label="Effacer">&times;</button>
+  </div>
+  <div class="search-results hide" id="search-results"></div>
+
+  <!-- Après « Quitter » : le SRS a déjà enregistré chaque réponse donnée — le dire. -->
+  <div class="exit-note hide" id="exit-note" role="status"></div>
+
+  <h2>Révision du jour</h2>
+  <button class="review-card" id="review-btn" type="button" disabled>
+    <span class="review-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/></svg></span>
+    <span class="review-body">
+      <span class="review-title" id="review-title">Rien à réviser pour l'instant</span>
+      <span class="review-sub" id="review-sub">Après ta première réponse, chaque carte revient ici juste avant l'oubli : espacée quand tu la sais, vite si tu la rates.</span>
+    </span>
+    <span class="review-arrow">→</span>
+  </button>
+  <div class="mastery hide" id="mastery">
+    <span id="mastery-txt"></span>
+    <span class="mbar"><span id="mastery-bar"></span></span>
+  </div>
+
+  <h2 id="h-cats">Catégories</h2>
+  <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
+  <div class="chips" id="cats" role="group" aria-labelledby="h-cats"></div>
+
+  <!-- Chips construites depuis les data-niveau du carnet : seuls les niveaux
+       non vides apparaissent (« Expert » attendra des mots C2). -->
+  <h2 id="h-niv">Niveau</h2>
+  <div class="chips" id="niv" role="group" aria-labelledby="h-niv" aria-describedby="niv-note"></div>
+  <div class="seg-note" id="niv-note">Selon le Cadre européen : Facile = A1 · Intermédiaire = A2–B1 · Difficile = B2–C1 · Expert = C2. Un mot pas encore classé reste visible quel que soit le choix, et la révision du jour n'en tient pas compte.</div>
+
+  <h2 id="h-mode">Mode</h2>
+  <div class="seg" id="mode" role="group" aria-labelledby="h-mode" aria-describedby="mode-note">
+    <button class="chip" data-mode="cards" aria-pressed="true">Cartes</button>
+    <button class="chip" data-mode="input" aria-pressed="false">Saisie</button>
+    <button class="chip" data-mode="quiz" aria-pressed="false">QCM</button>
+  </div>
+  <div class="seg-note" id="mode-note">Cartes : je retourne et je me juge · Saisie : je tape la réponse · QCM : je choisis parmi quatre.</div>
+
+  <h2 id="h-dir">Sens de la carte</h2>
+  <div class="seg" id="dir" role="group" aria-labelledby="h-dir">
+    <button class="chip" data-dir="he2fr" aria-pressed="true">Hébreu → Français</button>
+    <button class="chip" data-dir="fr2he" aria-pressed="false">Français → Hébreu</button>
+  </div>
+
+  <h2 id="h-script">Écriture au recto</h2>
+  <div class="seg" id="script" role="group" aria-labelledby="h-script" aria-describedby="script-note">
+    <button class="chip" data-script="nikud" aria-pressed="true">Avec nikud</button>
+    <button class="chip" data-script="plain" aria-pressed="false">Sans nikud</button>
+    <button class="chip" data-script="cursive" aria-pressed="false">Cursif</button>
+  </div>
+  <div class="seg-note" id="script-note">Le nikud, ce sont les points-voyelles sous les lettres ; le cursif, l'écriture manuscrite israélienne.</div>
+
+  <!-- Réglages qu'on touche une fois puis plus jamais (mémorisés) : repliés pour
+       que « Commencer » remonte. Les h2 gardent la voix Title à l'intérieur. -->
+  <details class="adv" id="adv">
+    <summary>
+      <span class="adv-lbl">Réglages avancés</span>
+      <span class="adv-sub" id="adv-sub">Ordre · Longueur · Prononciation</span>
+      <span class="adv-chev" aria-hidden="true">›</span>
+    </summary>
+    <div class="adv-body">
+      <h2 id="h-order">Ordre</h2>
+      <div class="seg" id="order" role="group" aria-labelledby="h-order">
+        <button class="chip" data-order="shuffle" aria-pressed="true">Aléatoire</button>
+        <button class="chip" data-order="linear" aria-pressed="false">Dans l'ordre</button>
+      </div>
+
+      <h2 id="h-len">Longueur</h2>
+      <div class="seg" id="len" role="group" aria-labelledby="h-len">
+        <button class="chip" data-len="10" aria-pressed="false">10</button>
+        <button class="chip" data-len="20" aria-pressed="true">20</button>
+        <button class="chip" data-len="50" aria-pressed="false">50</button>
+        <button class="chip" data-len="all" aria-pressed="false">Tout</button>
+      </div>
+
+      <h2 id="h-audio">Prononciation</h2>
+      <div class="seg" id="audio" role="group" aria-labelledby="h-audio" aria-describedby="audio-note">
+        <button class="chip" data-audio="click" aria-pressed="true">Au clic</button>
+        <button class="chip" data-audio="auto" aria-pressed="false">Automatique</button>
+      </div>
+      <div class="audio-note" id="audio-note"></div>
+
+      <!-- Action rare et destructrice : derrière le pli, jamais en concurrence
+           avec « Commencer » ni la révision du jour. Deux temps obligatoires. -->
+      <div class="reset-zone">
+        <h2 id="h-reset">Repartir de zéro</h2>
+        <button class="ghost-btn reset-call" type="button" id="reset-btn" aria-describedby="reset-note">Effacer toute ma progression…</button>
+        <div class="seg-note" id="reset-note">Progression de révision, réglages et session en cours.</div>
+        <div class="reset-confirm hide" id="reset-confirm" role="group" aria-labelledby="h-reset">
+          <p id="reset-warn"></p>
+          <div class="reset-actions">
+            <button class="ghost-btn" type="button" id="reset-cancel">Annuler</button>
+            <button class="danger-btn" type="button" id="reset-yes">Oui, tout effacer</button>
+          </div>
+        </div>
+        <div class="reset-done hide" id="reset-done" role="status">Profil effacé — l'appli est revenue à son état de départ.</div>
+      </div>
+    </div>
+  </details>
+
+  <div class="start-hint hide" id="start-hint">Choisis au moins une catégorie pour commencer.</div>
+  <button class="start" id="start">Commencer</button>
+  <div class="count-note" id="count-note"></div>
+  <div class="src-link"><a href="./vocabulaire_hebreu.html">Ouvrir le carnet de vocabulaire complet &#8599;</a></div>
+</section>
+
+<!-- ============ STUDY ============ -->
+<section class="study" id="study">
+  <div class="progress-wrap">
+    <button class="exit" id="exit" title="Quitter la session" aria-label="Quitter la session">&#8249;<span>Quitter</span></button>
+    <div class="bar" role="progressbar" aria-label="Progression de la session" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0"><span id="barfill"></span></div>
+    <div class="counter" id="counter">1 / 1</div>
+  </div>
+
+  <div class="stage">
+    <div class="flip" id="flip">
+      <div class="face" id="face">
+        <div class="eyebrow" id="face-cat"></div>
+        <button class="speak-btn hide" id="speak-btn" title="Écouter" aria-label="Écouter la prononciation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg>
+        </button>
+        <div id="face-content"></div>
+        <div class="hint" id="face-hint">touche la carte pour la retourner</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls" id="controls-cards">
+    <button class="btn-flip" id="btn-flip">Voir la réponse</button>
+    <button class="btn-again hide" id="btn-again">À revoir</button>
+    <button class="btn-good hide" id="btn-good">Je savais</button>
+  </div>
+  <!-- Un pouce qui glisse ne doit pas polluer les boîtes : la dernière réponse reste annulable. -->
+  <div class="fix-row" id="undo-row"><button class="fix-btn hide" type="button" id="undo-card">‹ Annuler la dernière réponse</button></div>
+  <!-- Verso annoncé aux lecteurs d'écran en mode Cartes (symétrique de #quiz-live). -->
+  <div class="visually-hidden" id="flip-live" aria-live="polite"></div>
+
+  <div class="input-zone hide" id="input-zone">
+    <div class="input-row" id="input-row">
+      <input id="answer-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…" aria-label="Ta réponse">
+      <button id="btn-check">Vérifier</button>
+    </div>
+        <div class="input-actions hide" id="input-actions">
+      <button class="ghost-btn hide" id="kb-toggle" type="button">Clavier hébreu</button>
+      <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
+    </div>
+    <div class="hebkb hide" id="hebkb"></div>
+    <div class="feedback" id="feedback" aria-live="polite"></div>
+    <button class="btn-next hide" id="btn-next">Suivant →</button>
+  </div>
+
+  <div class="quiz-zone hide" id="quiz-zone">
+    <div class="quiz-choices" id="quiz-choices"></div>
+    <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
+    <div class="fix-row"><button class="fix-btn hide" type="button" id="quiz-fix"></button></div>
+    <div class="quiz-ex" id="quiz-ex"></div>
+    <button class="btn-next hide" id="quiz-next">Suivant →</button>
+  </div>
+
+  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span></div>
+</section>
+
+<!-- ============ DONE ============ -->
+<section class="done" id="done">
+  <div class="score" id="score">0<small>/0</small></div>
+  <p id="done-msg" role="status"></p>
+  <ul class="missed-list hide" id="missed-list"></ul>
+  <div class="again-btns">
+    <button class="primary" id="retry-missed">Rejouer les ratées</button>
+    <button id="retry-all">Rejouer ces cartes</button>
+    <button id="back-setup">Changer de réglages</button>
+  </div>
+</section>
+
+<script>
+let CARDS = [];
+
+const state = {
+  dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards', len:'20',
+  session:'normal', cats:new Set(), niveaux:new Set(),
+  queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
+};
+
+// ================= Niveaux de difficulté (CECRL) =================
+// Le carnet stocke le CECRL fin (data-niveau="A1"…"C2") ; l'app l'affiche en
+// quatre libellés. Un mot sans niveau ignore le filtre : il reste visible
+// partout, le carnet peut donc s'annoter progressivement sans perdre de carte.
+const NIVEAUX = [
+  {key:'facile',    label:'Facile',        cecrl:['A1']},
+  {key:'inter',     label:'Intermédiaire', cecrl:['A2','B1']},
+  {key:'difficile', label:'Difficile',     cecrl:['B2','C1']},
+  {key:'expert',    label:'Expert',        cecrl:['C2']}
+];
+function nivOfCard(c){ const g=NIVEAUX.find(g=>g.cecrl.includes(c.niveau)); return g ? g.key : null; }
+function nivOk(c){ const k=nivOfCard(c); return !k || state.niveaux.has(k); }
+
+// ================= Préférences de réglage (persistées) =================
+// Les choix du panneau de réglages survivent d'une session à l'autre. Restaurés
+// au boot par applyPrefs(), appelé depuis buildChips() → couvre les deux chemins
+// (init() en ligne ET démarrage direct du fichier autonome).
+const PREFS_KEY='prefs_v1';
+const SEG_KEYS=['mode','dir','script','order','audio','len'];
+function prefsLoad(){ try{ return JSON.parse(localStorage.getItem(PREFS_KEY))||null; }catch(e){ return null; } }
+function savePrefs(){
+  try{
+    localStorage.setItem(PREFS_KEY, JSON.stringify({
+      cats:[...state.cats], niveaux:[...state.niveaux], mode:state.mode, dir:state.dir,
+      script:state.script, order:state.order, audio:state.audio, len:state.len
+    }));
+  }catch(e){}
+}
+// Aligne un groupe de chips segmentés sur la valeur courante de state[key].
+function reflectSeg(key){
+  const box=document.getElementById(key); if(!box) return;
+  box.querySelectorAll('.chip').forEach(c=>
+    c.setAttribute('aria-pressed', c.dataset[key]===state[key] ? 'true':'false'));
+}
+// Restaure réglages + catégories, puis reflète le tout dans l'UI. Au 1er lancement
+// (aucune préférence) : tout sélectionné sauf « Phrases » — le bouton « Commencer »
+// n'est jamais muet, mais un débutant ne tombe pas sur une phrase complète à sa
+// troisième carte (elles restent à un tap dans les catégories).
+function defaultCats(){
+  const cats=Object.keys(catCounts).filter(c=>c!=='Phrases');
+  return cats.length ? cats : Object.keys(catCounts);
+}
+function applyPrefs(){
+  const p=prefsLoad();
+  if(p){
+    SEG_KEYS.forEach(k=>{ if(typeof p[k]==='string') state[k]=p[k]; });
+    state.cats.clear();
+    (Array.isArray(p.cats)?p.cats:[]).forEach(cat=>{ if(catCounts[cat]) state.cats.add(cat); });
+    if(state.cats.size===0) defaultCats().forEach(cat=>state.cats.add(cat));
+  } else {
+    state.cats.clear();
+    defaultCats().forEach(cat=>state.cats.add(cat));
+  }
+  // Niveaux : rétro-compatible — préférences d'avant le filtre (pas de champ
+  // `niveaux`) ou sélection devenue vide → tout sélectionné, rien ne disparaît.
+  state.niveaux.clear();
+  (p && Array.isArray(p.niveaux) ? p.niveaux : []).forEach(k=>{ if(nivCounts[k]) state.niveaux.add(k); });
+  if(state.niveaux.size===0) Object.keys(nivCounts).forEach(k=>state.niveaux.add(k));
+  SEG_KEYS.forEach(reflectSeg);
+  catsEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
+  nivEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.niveaux.has(b.dataset.niv) ? 'true':'false'));
+  refreshAdvSub();
+}
+
+// ================= Instantané de session (sessionStorage) =================
+// Une session en cours survit à un rechargement ou à une éviction de l'onglet
+// par iOS. Restauré au boot par sessRestore(), appelé depuis buildChips() → les
+// deux chemins (en ligne et autonome). Les cartes sont référencées par leur id
+// (cat|he_plain) ; si le vocabulaire a changé sous la session, on l'abandonne.
+const SESS_KEY='sess_v1';
+let bootResumed=false;
+function sessSave(){
+  if(!document.getElementById('study').classList.contains('active')) return;
+  try{
+    sessionStorage.setItem(SESS_KEY, JSON.stringify({
+      queueIds: state.queue.map(cardId), origIds: state.origQueue.map(cardId),
+      missedIds: state.missed.map(cardId), idx: state.idx, goodCount: state.goodCount,
+      total: state.total, session: state.session, mode: state.mode, dir: state.dir, script: state.script
+    }));
+  }catch(e){}
+}
+function sessClear(){ try{ sessionStorage.removeItem(SESS_KEY); }catch(e){} }
+function sessRestore(){
+  let s; try{ s=JSON.parse(sessionStorage.getItem(SESS_KEY)); }catch(e){ return false; }
+  if(!s || !Array.isArray(s.queueIds) || !s.queueIds.length) return false;
+  const byId={}; CARDS.forEach(c=>{ byId[cardId(c)]=c; });
+  const map=ids=>(ids||[]).map(id=>byId[id]).filter(Boolean);
+  const queue=map(s.queueIds);
+  if(queue.length!==s.queueIds.length || (s.idx|0)>=queue.length){ sessClear(); return false; }
+  state.queue=queue;
+  state.origQueue = s.origIds ? map(s.origIds) : queue.slice();
+  state.missed = map(s.missedIds);
+  state.idx=s.idx|0; state.goodCount=s.goodCount|0; state.total=s.total||queue.length;
+  state.session=s.session||'normal';
+  if(typeof s.mode==='string') state.mode=s.mode;
+  if(typeof s.dir==='string') state.dir=s.dir;
+  if(typeof s.script==='string') state.script=s.script;
+  state.flipped=false; state.answered=false;
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('done').classList.remove('active');
+  document.getElementById('study').classList.add('active');
+  bootResumed=true;
+  render();
+  return true;
+}
+
+// ----- Speech (Web Speech API) -----
+const TTS_OK = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
+let voicesCache = [];
+let heVoice = null;
+function loadVoices(){
+  if(!TTS_OK) return;
+  voicesCache = window.speechSynthesis.getVoices() || [];
+  // All Hebrew voices (match by BCP-47 lang he/iw, or by name).
+  const heVoices = voicesCache.filter(v=>
+    /^(he|iw)(-|$)/i.test(v.lang) || /hebrew|עברית|carmit/i.test(v.name)
+  );
+  // Rank: prefer higher-quality named variants (Premium > Enhanced > default),
+  // and prefer a real Carmit voice when present.
+  function score(v){
+    const n = (v.name||'').toLowerCase();
+    let s = 0;
+    if(/premium/.test(n)) s += 40;
+    else if(/enhanced|neural|siri/.test(n)) s += 25;
+    if(/carmit/.test(n)) s += 10;
+    if(v.localService) s += 3;      // on-device (Carmit) over remote fallback
+    if(/^he(-|$)/i.test(v.lang)) s += 2;
+    return s;
+  }
+  heVoice = heVoices.sort((a,b)=>score(b)-score(a))[0] || null;
+  reflectVoiceUi();
+}
+// Sans voix : boutons haut-parleur masqués (CSS no-he-voice) et chips
+// « Prononciation » désactivées — le réglage n'aurait aucun effet.
+function reflectVoiceUi(){
+  const off = !heVoice;
+  document.body.classList.toggle('no-he-voice', off);
+  document.querySelectorAll('#audio .chip').forEach(b=>b.disabled=off);
+}
+if(TTS_OK){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
+else reflectVoiceUi();
+function speak(text){
+  if(!TTS_OK || !heVoice || !text) return;
+  try{
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = heVoice ? heVoice.lang : 'he-IL';
+    if(heVoice) u.voice = heVoice;
+    u.rate = 0.88;
+    const btn = document.getElementById('speak-btn');
+    u.onstart = ()=>{ if(btn) btn.classList.add('speaking'); };
+    u.onend   = ()=>{ if(btn) btn.classList.remove('speaking'); };
+    u.onerror = ()=>{ if(btn) btn.classList.remove('speaking'); };
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakCurrent(){
+  const c = state.queue[state.idx];
+  // Prefer the vocalized form (with nikud) so the voice pronounces the exact vowels;
+  // fall back to the plain form if no vocalized text is present.
+  if(c) speak(c.he || c.he_plain);
+}
+function updateSpeaker(){
+  const btn = document.getElementById('speak-btn');
+  if(!btn) return;
+  let hebrewVisible;
+  if(state.mode==='input' || state.mode==='quiz'){
+    hebrewVisible = (state.dir==='he2fr') || (state.dir==='fr2he' && state.answered);
+  } else {
+    hebrewVisible = state.flipped || state.dir==='he2fr';
+  }
+  btn.classList.toggle('hide', !(TTS_OK && hebrewVisible));
+}
+
+// ----- Dynamic search over the word bank -----
+const SPK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg>';
+function searchNorm(s){
+  return (s||'').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f\u0591-\u05C7]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
+function runSearch(){
+  const input = document.getElementById('search-input');
+  const box = document.getElementById('search-results');
+  const clear = document.getElementById('search-clear');
+  const raw = input.value.trim();
+  clear.classList.toggle('hide', raw.length===0);
+  const q = searchNorm(raw);
+  if(!q){ box.innerHTML=''; box.classList.add('hide'); return; }
+  box.classList.remove('hide');
+  const hits=[];
+  for(const c of CARDS){
+    const hay=[c.fr, c.he, c.he_plain, c.tr];
+    if(c.forms) c.forms.forEach(f=>{ hay.push(f.he, f.tr); });
+    if(searchNorm(hay.join(' ')).includes(q)) hits.push(c);
+    if(hits.length>=80) break;
+  }
+  if(!hits.length){ box.innerHTML='<div class="search-empty">Aucun résultat pour « '+escapeHtml(raw)+' ».</div>'; return; }
+  let html = '<div class="sr-count">'+hits.length+(hits.length>=80?'+':'')+' résultat'+(hits.length>1?'s':'')+'</div>';
+  html += hits.map((c,i)=>{
+    const tr = '<span class="sr-tr">'+(c.tr||he2tr(c.he))+'</span>';
+    const expandable = !!(c.forms || c.note || c.exemples);
+    const chevron = expandable ? '<span class="sr-chev" aria-hidden="true">\u203a</span>' : '';
+    let detail = '';
+    if(expandable){
+      detail = '<div class="sr-detail hide" id="srd-'+i+'">';
+      if(c.forms){
+        const lbl = c.cat==='Verbes' ? 'Présent' : (c.cat==='Noms' ? 'Pluriel' : 'Autres formes');
+        detail += '<div class="srd-title">'+lbl+'</div><div class="srd-forms">';
+        c.forms.forEach(f=>{
+          detail += '<div class="srd-f"><span class="srd-he" lang="he">'+f.he+'</span>'
+                 +  '<span class="srd-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>';
+        });
+        detail += '</div>';
+      }
+      if(c.note) detail += '<div class="srd-note">'+c.note+'</div>';
+      if(c.exemples){
+        detail += '<div class="srd-title">Exemple'+(c.exemples.length>1?'s':'')+'</div>';
+        c.exemples.forEach(ex=>{
+          detail += '<div class="srd-ex"><button class="ex-speak" type="button" data-he="'+escapeHtml(ex.he)+'" aria-label="Écouter l\'exemple">'+SPK_SVG+'</button>'
+                 +  '<div class="ex-body"><div class="ex-he" lang="he">'+ex.he+'</div>'
+                 +  '<div class="ex-tr">'+ex.tr+'</div><div class="ex-fr">'+ex.fr+'</div></div></div>';
+        });
+      }
+      detail += '</div>';
+    }
+    // Un vrai <button> est impossible ici (il contient déjà le bouton Écouter,
+    // et les boutons imbriqués sont invalides) → role="button" + tabindex + keydown.
+    return '<div class="sr-item"'+(expandable?' data-exp="1"':'')+' id="sri-'+i+'">'
+      + '<div class="sr-row" id="sr-'+i+'" role="button" tabindex="0"'
+      + (expandable?' aria-expanded="false"':'')+'>'
+      + '<button class="sr-speak" tabindex="-1" aria-label="Écouter">'+SPK_SVG+'</button>'
+      + '<div class="sr-body"><span class="sr-he" lang="he">'+c.he+'</span>'+tr+'<div class="sr-fr">'+c.fr+'</div></div>'
+      + '<span class="sr-cat">'+c.cat+'</span>'+chevron
+      + '</div>'+detail+'</div>';
+  }).join('');
+  box.innerHTML = html;
+  hits.forEach((c,i)=>{
+    const speakBtn=document.querySelector('#sr-'+i+' .sr-speak');
+    if(speakBtn) bindTap(speakBtn, ()=>speak(c.he||c.he_plain));
+    const row=document.getElementById('sr-'+i);
+    const item=document.getElementById('sri-'+i);
+    const detail=document.getElementById('srd-'+i);
+    if(row){
+      // Une action par geste : la rangée dépliable se contente de (dé)plier —
+      // l'audio reste sur le bouton Écouter. Une rangée sans détail, elle,
+      // n'a que l'audio à offrir : le tap prononce.
+      const activate=()=>{
+        if(detail){
+          const hidden=detail.classList.toggle('hide');
+          item.classList.toggle('open', !hidden);
+          row.setAttribute('aria-expanded', String(!hidden));
+        } else speak(c.he||c.he_plain);
+      };
+      bindTap(row, activate);
+      row.addEventListener('keydown', e=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); activate(); }
+      });
+    }
+  });
+}
+document.getElementById('search-input').addEventListener('input', runSearch);
+document.getElementById('search-clear').addEventListener('click', ()=>{
+  const input=document.getElementById('search-input');
+  input.value=''; runSearch(); input.focus();
+});
+
+// ----- build category chips -----
+let catCounts = {};
+let nivCounts = {};
+const catsEl = document.getElementById('cats');
+const nivEl = document.getElementById('niv');
+const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Noms',
+  'Prépositions','Conjonctions','Mots interrogatifs','Existence','Nombres',
+  'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases'];
+function buildChips(){
+  catCounts = {};
+  CARDS.forEach(c=>{ catCounts[c.cat]=(catCounts[c.cat]||0)+1; });
+  catsEl.innerHTML='';
+  catOrder.filter(c=>catCounts[c]).forEach(cat=>{
+    const b=document.createElement('button');
+    b.className='chip'; b.setAttribute('aria-pressed','false'); b.dataset.cat=cat;
+    b.innerHTML=cat+' <span class="n">'+catCounts[cat]+'</span>';
+    b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.cats.add(cat); else state.cats.delete(cat); updateStart(); savePrefs(); };
+    catsEl.appendChild(b);
+  });
+  buildNivChips();
+  applyPrefs();
+  refreshSrsUi();
+  sessRestore();
+}
+// Chips « Niveau » : seuls les niveaux non vides s'affichent (le carnet n'a pas
+// encore de C2 → pas de chip « Expert » fantôme) ; groupe entier masqué si le
+// carnet n'a aucun data-niveau.
+function buildNivChips(){
+  nivCounts = {};
+  CARDS.forEach(c=>{ const k=nivOfCard(c); if(k) nivCounts[k]=(nivCounts[k]||0)+1; });
+  nivEl.innerHTML='';
+  NIVEAUX.filter(g=>nivCounts[g.key]).forEach(g=>{
+    const b=document.createElement('button');
+    b.className='chip'; b.setAttribute('aria-pressed','false'); b.dataset.niv=g.key;
+    b.innerHTML=g.label+' <span class="n">'+nivCounts[g.key]+'</span>';
+    b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.niveaux.add(g.key); else state.niveaux.delete(g.key); updateStart(); savePrefs(); };
+    nivEl.appendChild(b);
+  });
+  const any = Object.keys(nivCounts).length>0;
+  document.getElementById('h-niv').classList.toggle('hide', !any);
+  nivEl.classList.toggle('hide', !any);
+  document.getElementById('niv-note').classList.toggle('hide', !any);
+}
+
+function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
+function segPick(container, key, btn){
+  container.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+  btn.setAttribute('aria-pressed','true');
+  state[key]=btn.dataset[key];
+  savePrefs();
+  if(key==='len'){ refreshSrsUi(); updateStart(); }   // le compte du bouton dépend de la Longueur
+  refreshAdvSub();
+}
+// Le pli fermé dit ce qu'il contient ET les valeurs mémorisées — la Longueur
+// par défaut (20) ne doit pas être un réglage invisible.
+function refreshAdvSub(){
+  const el=document.getElementById('adv-sub'); if(!el) return;
+  const order = state.order==='shuffle' ? 'Aléatoire' : 'Dans l\'ordre';
+  const len = state.len==='all' ? 'Tout le paquet' : state.len+' cartes';
+  const audio = state.audio==='auto' ? 'Automatique' : 'Au clic';
+  el.textContent = order+' · '+len+' · '+audio;
+}
+SEG_KEYS.forEach(key=>{
+  const box=document.getElementById(key);
+  box.querySelectorAll('.chip').forEach(c=>c.onclick=()=>segPick(box,key,c));
+});
+
+document.getElementById('selall').onclick=()=>{
+  const allOn = state.cats.size===Object.keys(catCounts).length;
+  catsEl.querySelectorAll('.chip').forEach(b=>{
+    b.setAttribute('aria-pressed', allOn?'false':'true');
+  });
+  state.cats.clear();
+  if(!allOn) Object.keys(catCounts).forEach(c=>state.cats.add(c));
+  updateStart();
+  savePrefs();
+};
+// Le libellé dit l'action que le clic fera vraiment : « tout désélectionner »
+// quand tout est déjà coché, « tout sélectionner » sinon.
+function refreshSelAll(){
+  const b=document.getElementById('selall'); if(!b) return;
+  const nCats=Object.keys(catCounts).length;
+  b.textContent = (nCats>0 && state.cats.size===nCats) ? 'tout désélectionner' : 'tout sélectionner';
+}
+function updateStart(){
+  refreshSelAll();
+  const noCat = state.cats.size===0;
+  // Le filtre niveau n'existe que si le carnet est annoté ; sinon il est inerte.
+  const noNiv = Object.keys(nivCounts).length>0 && state.niveaux.size===0;
+  const poolSize = (noCat || noNiv) ? 0 : CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c)).length;
+  const noMatch = !noCat && !noNiv && poolSize===0;
+  const empty = noCat || noNiv || noMatch;
+  const btn=document.getElementById('start');
+  btn.disabled = empty;
+  // Le volume réel de la session (croisement catégories × niveau, borné par la
+  // Longueur) se lit sur le bouton — pas de surprise au premier compteur.
+  const n = state.len==='all' ? poolSize : Math.min(+state.len, poolSize);
+  btn.textContent = (empty || !CARDS.length) ? 'Commencer' : 'Commencer — '+n+' carte'+(n>1?'s':'');
+  const hint=document.getElementById('start-hint');
+  if(hint){
+    if(noCat) hint.textContent='Choisis au moins une catégorie pour commencer.';
+    else if(noNiv) hint.textContent='Choisis au moins un niveau pour commencer.';
+    else if(noMatch) hint.textContent='Aucune carte de ce niveau dans les catégories cochées — élargis l\'un ou l\'autre.';
+    hint.classList.toggle('hide', !empty);
+  }
+}
+updateStart();
+
+(function(){
+  const note = document.getElementById('audio-note');
+  if(!note) return;
+  function refresh(){
+    if(!TTS_OK){ note.textContent = "Synthèse vocale non disponible sur ce navigateur."; return; }
+    // Le nom réel de la voix retenue est le premier outil de diagnostic quand
+    // la synthèse sonne robotique : il dit quoi améliorer sur l'appareil.
+    note.textContent = heVoice
+      ? "Voix hébraïque détectée ✓ — " + heVoice.name
+      : "Aucune voix hébraïque installée sur l'appareil — le son peut être approximatif. (iOS : Réglages → Accessibilité → Contenu énoncé → Voix → Hébreu.)";
+  }
+  refresh();
+  if(TTS_OK) window.speechSynthesis.addEventListener('voiceschanged', refresh);
+})();
+
+// ----- start -----
+document.getElementById('start').onclick=start;
+// Transition setup/done → étude, commune à tous les points d'entrée (catégories,
+// révision, rejeu). `origQueue` mémorise le jeu de la session pour « Recommencer ».
+function beginSession(pool){
+  state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
+  cardsUndo=null; lastRecord=null;   // rien d'annulable en début de session
+  document.getElementById('exit-note').classList.add('hide');
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('done').classList.remove('active');
+  document.getElementById('study').classList.add('active');
+  render();
+}
+// Tronque le jeu à la longueur choisie (« Longueur » du panneau). Appliqué après
+// le mélange → en aléatoire, chaque session pioche N cartes différentes.
+function limitPool(pool){
+  return state.len==='all' ? pool : pool.slice(0, +state.len);
+}
+function start(){
+  state.session='normal';
+  // Croisement catégories × niveau. La révision du jour (startReview), elle,
+  // ignore le niveau : une carte apprise reste due.
+  const pool = CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c));
+  const deck = limitPool(state.order==='shuffle' ? shuffle(pool.slice()) : pool.slice());
+  state.origQueue = deck.slice();
+  beginSession(deck);
+}
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+// ================= Révision espacée (système de Leitner) =================
+// Chaque réponse (dans TOUS les modes) fait monter ou redescendre la carte d'une
+// « boîte » ; l'intervalle avant réapparition croît avec la boîte. Persisté en
+// localStorage → la progression survit entre les sessions et les jours.
+const SRS_KEY='srs_v1';
+const SRS_INTERVALS=[0,1,2,4,8,16,32];      // jours avant réapparition, par boîte
+const SRS_MASTER=4;                          // boîte à partir de laquelle « maîtrisée »
+function todayNum(){ return Math.floor(Date.now()/86400000); }
+function cardId(c){ return c.cat+'|'+c.he_plain; }
+function srsLoad(){ try{ return JSON.parse(localStorage.getItem(SRS_KEY))||{}; }catch(e){ return {}; } }
+function srsSave(){ try{ localStorage.setItem(SRS_KEY, JSON.stringify(SRS)); }catch(e){} }
+let SRS=srsLoad();
+// Mémorise l'état SRS d'avant la dernière écriture → le verdict reste annulable
+// (« Corriger ») tant qu'aucune autre carte n'a été jouée.
+let lastRecord=null;
+// Mode Cartes : la carte suivante s'affiche sitôt répondu → on garde de quoi
+// revenir en arrière (carte + verdict) tant que la suivante n'est pas jouée.
+let cardsUndo=null;
+function recordResult(card, good){
+  if(!card) return;
+  const id=cardId(card), t=todayNum();
+  lastRecord={ id, prev: SRS[id] ? JSON.parse(JSON.stringify(SRS[id])) : null };
+  const e=SRS[id]||{box:0,due:t,seen:0,lapses:0};
+  e.seen++;
+  if(good){ e.box=Math.min(e.box+1, SRS_INTERVALS.length-1); }
+  else { if(e.box>0) e.lapses++; e.box=0; }
+  e.due=t+SRS_INTERVALS[e.box];
+  SRS[id]=e; srsSave();
+}
+function undoLastRecord(){
+  if(!lastRecord) return;
+  if(lastRecord.prev) SRS[lastRecord.id]=lastRecord.prev; else delete SRS[lastRecord.id];
+  srsSave(); lastRecord=null;
+}
+function dueCards(){
+  const t=todayNum();
+  return CARDS.filter(c=>{ const e=SRS[cardId(c)]; return e && e.due<=t; });
+}
+function masteryStats(){
+  let seen=0, mastered=0;
+  for(const c of CARDS){ const e=SRS[cardId(c)]; if(e){ seen++; if(e.box>=SRS_MASTER) mastered++; } }
+  return {seen, mastered, total:CARDS.length};
+}
+function refreshSrsUi(){
+  const btn=document.getElementById('review-btn'); if(!btn) return;
+  const due=dueCards().length;
+  const m=masteryStats();
+  const title=document.getElementById('review-title');
+  const sub=document.getElementById('review-sub');
+  if(due>0){
+    btn.disabled=false;
+    title.textContent='Réviser '+due+' carte'+(due>1?'s':'')+' maintenant';
+    sub.textContent = (state.len!=='all' && due>+state.len)
+      ? 'Par séances de '+state.len+', les plus anciennes d’abord — le reste attendra ici.'
+      : 'Cartes à revoir aujourd’hui, tous thèmes confondus.';
+  } else {
+    btn.disabled=true;
+    title.textContent = m.seen ? 'À jour — rien à réviser ✓' : 'Rien à réviser pour l’instant';
+    sub.textContent = m.seen ? 'Reviens plus tard : les cartes réapparaîtront à échéance.'
+                             : 'Après ta première réponse, chaque carte revient ici juste avant l\'oubli : espacée quand tu la sais, vite si tu la rates.';
+  }
+  const mEl=document.getElementById('mastery');
+  if(m.seen>0){
+    mEl.classList.remove('hide');
+    document.getElementById('mastery-txt').innerHTML='<b>'+m.mastered+'</b> maîtrisée'+(m.mastered>1?'s':'')
+      +' · <b>'+m.seen+'</b> vue'+(m.seen>1?'s':'')+' sur '+m.total;
+    document.getElementById('mastery-bar').style.transform='scaleX('+(m.total?m.mastered/m.total:0)+')';
+  } else { mEl.classList.add('hide'); }
+}
+function startReview(){
+  const pool=dueCards(); if(!pool.length) return;
+  state.session='review';
+  // La limite de longueur s'applique aussi ici : les plus en retard d'abord,
+  // le reste demeure dû et réapparaît aussitôt sur la carte de révision.
+  pool.sort((a,b)=>SRS[cardId(a)].due - SRS[cardId(b)].due);
+  const deck = limitPool(pool);
+  state.origQueue = deck.slice();
+  beginSession(shuffle(deck.slice()));
+}
+(function(){ const b=document.getElementById('review-btn'); if(b) b.onclick=startReview; })();
+
+// ================= Remise à zéro du profil =================
+// Efface TOUT le local (srs_v1, prefs_v1, sess_v1) et remet l'appli dans l'état
+// du premier lancement, en place. Deux temps obligatoires : le bouton ouvre une
+// confirmation qui nomme la perte (nombre de cartes suivies), « Annuler » est le
+// défaut sûr et reçoit le focus.
+(function(){
+  const btn=document.getElementById('reset-btn'); if(!btn) return;
+  const confirmBox=document.getElementById('reset-confirm');
+  const done=document.getElementById('reset-done');
+  function resetProfile(){
+    try{ localStorage.removeItem(SRS_KEY); localStorage.removeItem(PREFS_KEY); }catch(e){}
+    sessClear();
+    SRS={}; lastRecord=null; cardsUndo=null;
+    // applyPrefs() sans préférence ne touche pas ces clés : on les remet aux
+    // valeurs de l'objet `state` initial (celles du premier lancement).
+    Object.assign(state, {mode:'cards', dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', len:'20'});
+    applyPrefs();       // catégories = tout sauf Phrases, niveaux = tous, chips reflétées
+    refreshSrsUi();     // barre de maîtrise masquée, révision du jour désactivée
+    updateStart();
+    document.getElementById('exit-note').classList.add('hide');
+  }
+  btn.onclick=()=>{
+    const seen=masteryStats().seen;
+    document.getElementById('reset-warn').textContent = seen
+      ? 'Tout sera effacé : ta progression de révision ('+seen+' carte'+(seen>1?'s':'')
+        +' suivie'+(seen>1?'s':'')+'), tes réglages et la session en cours. Aucun retour possible.'
+      : 'Tes réglages et la session en cours seront effacés (aucune carte suivie pour l\'instant). Aucun retour possible.';
+    btn.classList.add('hide');
+    done.classList.add('hide');
+    confirmBox.classList.remove('hide');
+    document.getElementById('reset-cancel').focus();
+  };
+  function closeConfirm(){
+    confirmBox.classList.add('hide');
+    btn.classList.remove('hide');
+    btn.focus();
+  }
+  document.getElementById('reset-cancel').onclick=closeConfirm;
+  document.getElementById('reset-yes').onclick=()=>{
+    resetProfile();
+    closeConfirm();
+    done.classList.remove('hide');
+  };
+})();
+
+// ================= Mode QCM (choix multiple) =================
+function frShort(card){ return card.fr.split(/[\/,]| ou /)[0].replace(/\([^)]*\)/g,'').trim() || card.fr; }
+function quizPrompt(card){
+  return state.dir==='he2fr' ? heFront(card) : bigFr(card);
+}
+function quizChoiceHtml(opt){
+  if(state.dir==='he2fr') return '<span>'+(opt.cat==='Phrases'?opt.fr:frShort(opt))+'</span>';
+  const he = (state.script==='nikud') ? opt.he : opt.he_plain;
+  return '<span class="qc-he" lang="he">'+he+'</span><span class="qc-tr">'+(opt.tr||he2tr(opt.he))+'</span>';
+}
+function pickDistractors(card, n){
+  const key = state.dir==='he2fr' ? (c=>frShort(c).toLowerCase()) : (c=>c.he_plain);
+  const answer=key(card), seen=new Set([answer]), out=[];
+  // Deux options au français quasi identique (« content »/« contente ») ou au
+  // synonyme partagé rendraient le choix ambigu — en fr→he, un distracteur
+  // synonyme de la carte serait même une deuxième bonne réponse. On écarte tout
+  // candidat dont une variante française frôle celles déjà retenues.
+  const kept=[frVariants(card.fr)];
+  const tooClose=c=>{
+    const vs=frVariants(c.fr);
+    return kept.some(ks=>ks.some(k=>vs.some(v=>v===k || (k.length>4 && editDist(v,k)<=1))));
+  };
+  const take=list=>{ for(const c of list){ if(out.length>=n) break; const k=key(c); if(!seen.has(k) && !tooClose(c)){ seen.add(k); kept.push(frVariants(c.fr)); out.push(c); } } };
+  take(shuffle(CARDS.filter(c=>c!==card && c.cat===card.cat)));
+  if(out.length<n) take(shuffle(CARDS.filter(c=>c!==card && c.cat!==card.cat)));
+  // Dernier recours (pool minuscule) : mieux vaut un voisin proche que < 4 options.
+  if(out.length<n){
+    for(const c of shuffle(CARDS.filter(c=>c!==card))){
+      if(out.length>=n) break;
+      const k=key(c); if(!seen.has(k)){ seen.add(k); out.push(c); }
+    }
+  }
+  return out;
+}
+function setupQuizCard(card){
+  document.body.classList.add('quiz-mode');
+  document.body.classList.remove('input-mode');
+  document.getElementById('controls-cards').classList.add('hide');
+  document.getElementById('undo-card').classList.add('hide');
+  document.getElementById('input-zone').classList.add('hide');
+  document.getElementById('quiz-zone').classList.remove('hide');
+  const kh=document.getElementById('kbd-hint');
+  kh.innerHTML='<kbd>1</kbd>–<kbd>4</kbd> choisir · <kbd>entrée</kbd> suivant · <kbd>c</kbd> corriger<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
+  kh.classList.remove('hide');
+  document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'choisis la traduction' : 'choisis le mot hébreu';
+  document.getElementById('quiz-next').classList.add('hide');
+  const qf=document.getElementById('quiz-fix'); qf.classList.add('hide'); qf.disabled=false;
+  document.getElementById('quiz-ex').innerHTML='';
+  document.getElementById('quiz-live').textContent='';
+  const box=document.getElementById('quiz-choices'); box.innerHTML='';
+  const options=shuffle([card, ...pickDistractors(card,3)]);
+  state.quizOptions=options;
+  options.forEach(opt=>{
+    const b=document.createElement('button'); b.className='qc'; b.type='button';
+    if(opt.cat==='Phrases') b.classList.add('ph');
+    b.innerHTML=quizChoiceHtml(opt);
+    bindTap(b, ()=>quizPick(b, opt, card));
+    box.appendChild(b);
+  });
+}
+function quizPick(btn, chosen, card){
+  if(state.answered) return;
+  state.answered=true;
+  const correct = chosen===card;
+  const opts=state.quizOptions;
+  const btns=[...document.getElementById('quiz-choices').querySelectorAll('.qc')];
+  btns.forEach((b,i)=>{ b.disabled=true;
+    if(opts[i]===card) b.classList.add('ok');
+    else if(b===btn) b.classList.add('no');
+    else b.classList.add('dim');
+  });
+  recordResult(card, correct);
+  if(correct) state.goodCount++; else state.missed.push(card);
+  // Verdict du QCM : annoncé aussi aux lecteurs d'écran (les couleurs ne suffisent pas).
+  const goodTxt = state.dir==='he2fr' ? (card.cat==='Phrases'?card.fr:frShort(card))
+                                      : card.he_plain+' ('+(card.tr||he2tr(card.he))+')';
+  document.getElementById('quiz-live').textContent =
+    correct ? 'Exact !' : 'Raté — la bonne réponse était : '+goodTxt;
+  // Même correction du verdict qu'en mode saisie : un pouce qui glisse s'annule.
+  const fix=document.getElementById('quiz-fix');
+  fix.textContent = correct ? 'En fait, je ne savais pas' : 'J’avais juste →';
+  fix.classList.remove('hide');
+  fix.onclick=()=>quizFixVerdict(card, correct, fix);
+  document.getElementById('quiz-ex').innerHTML = exHtml(card);
+  document.getElementById('quiz-next').classList.remove('hide');
+  updateSpeaker();
+  // « Automatique » seulement : en « Au clic », le bouton haut-parleur reste le seul déclencheur.
+  if(state.audio==='auto') speakCurrent();
+  sessSave();
+}
+// Inverse le dernier verdict du QCM (pendant que la carte est encore affichée) :
+// SRS annulé puis réécrit, compteurs de session réalignés, bouton figé en confirmation.
+function quizFixVerdict(card, wasCorrect, btn){
+  undoLastRecord();
+  const nowGood=!wasCorrect;
+  recordResult(card, nowGood);
+  if(nowGood){
+    state.goodCount++;
+    const i=state.missed.lastIndexOf(card); if(i!==-1) state.missed.splice(i,1);
+  } else {
+    state.goodCount=Math.max(0,state.goodCount-1);
+    state.missed.push(card);
+  }
+  btn.textContent = nowGood ? '✓ Compté comme réussi' : '✗ À revoir';
+  btn.disabled=true;
+  document.getElementById('quiz-live').textContent = nowGood ? 'Compté comme réussi.' : 'Compté à revoir.';
+  sessSave();
+}
+// Passage à la carte suivante : identique au mode saisie → on réutilise nextAfterInput.
+bindTap(document.getElementById('quiz-next'), nextAfterInput);
+
+function heFront(card){
+  const ph = card.cat==='Phrases' ? ' phrase' : '';
+  if(state.script==='plain') return '<div class="big-he'+ph+'" lang="he">'+card.he_plain+'</div>';
+  if(state.script==='cursive') return '<div class="big-he cursive'+ph+'" lang="he">'+card.he_plain+'</div>';
+  return '<div class="big-he'+ph+'" lang="he">'+card.he+'</div>';
+}
+function bigFr(card){ return '<div class="big-fr'+(card.cat==='Phrases'?' phrase':'')+'">'+card.fr+'</div>'; }
+function formsHtml(card){
+  if(!card.forms) return '';
+  let h='<div class="forms">';
+  card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he" lang="he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
+  return h+'</div>';
+}
+// Exemples en situation : pli « Voir un exemple », uniquement là où la réponse est
+// déjà visible (verso des Cartes, feedback de Saisie, verdict du QCM) — jamais
+// côté recto en fr→he, l'exemple contient le mot. Texte toujours affiché ;
+// l'audio (phrase entière) n'est qu'un complément, masqué sous no-he-voice.
+function exHtml(card){
+  if(!card.exemples || !card.exemples.length) return '';
+  const n=card.exemples.length;
+  let h='<div class="ex-wrap"><button class="ex-toggle" type="button" aria-expanded="false">'
+    +(n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')+'</button><div class="ex-box hide">';
+  card.exemples.forEach(ex=>{
+    h+='<div class="ex-item"><button class="ex-speak" type="button" data-he="'+escapeHtml(ex.he)+'" aria-label="Écouter l\'exemple">'+SPK_SVG+'</button>'
+     +'<div class="ex-body"><div class="ex-he" lang="he">'+ex.he+'</div>'
+     +'<div class="ex-tr">'+ex.tr+'</div>'
+     +'<div class="ex-fr">'+ex.fr+'</div></div></div>';
+  });
+  return h+'</div></div>';
+}
+function exActivate(t){
+  if(t.classList.contains('ex-toggle')){
+    const open=t.getAttribute('aria-expanded')==='true';
+    t.setAttribute('aria-expanded', open?'false':'true');
+    const box=t.nextElementSibling;
+    if(box){
+      box.classList.toggle('hide', open);
+      // Le libellé suit l'état : un pli ouvert propose de se refermer.
+      const n=box.querySelectorAll('.ex-item').length;
+      t.textContent = open
+        ? (n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')
+        : (n>1 ? 'Masquer les exemples' : 'Masquer l’exemple');
+      // La face de carte défile (.face en overflow-y) : l'exemple déplié doit
+      // entrer dans le champ, sinon le tap semble ne rien faire sur mobile.
+      if(!open){ try{ box.scrollIntoView({block:'nearest'}); }catch(e){} }
+    }
+  } else speak(t.dataset.he);
+}
+// Délégation façon bindTap (les zones sont réinjectées en innerHTML à chaque carte) :
+// pointerup d'abord avec stopPropagation — sinon le tap remonterait jusqu'au
+// bindTap de #flip et retournerait la carte — puis click en filet (clavier inclus).
+function exBind(el){
+  if(!el) return;
+  let handled=false;
+  const hit=e=>(e.target.closest ? e.target.closest('.ex-toggle,.ex-speak') : null);
+  el.addEventListener('pointerup', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); handled=true; exActivate(t); setTimeout(()=>handled=false,50); });
+  el.addEventListener('click', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); if(!handled) exActivate(t); });
+}
+exBind(document.getElementById('face-content'));
+exBind(document.getElementById('feedback'));
+exBind(document.getElementById('quiz-ex'));
+exBind(document.getElementById('search-results'));
+
+function render(){
+  const card=state.queue[state.idx];
+  state.flipped=false;
+  state.answered=false;
+
+  const note = card.note ? '<div class="note-line">'+card.note+'</div>' : '';
+
+  if(state.mode==='quiz'){
+    state.frontHtml = quizPrompt(card);   // pas de verso en QCM : la carte ne se retourne pas
+  } else if(state.dir==='he2fr'){
+    state.frontHtml = heFront(card);
+    // En mode saisie, inflexions visibles directement sous le mot : elles sont en
+    // hébreu et ne révèlent donc pas la traduction française demandée.
+    if(state.mode==='input') state.frontHtml += formsHtml(card);
+    let b = bigFr(card);
+    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
+    if(state.script!=='nikud') b += '<div class="sub-he" lang="he">'+card.he+'</div>';
+    b += formsHtml(card) + note + exHtml(card);
+    state.backHtml = b;
+  } else {
+    state.frontHtml = bigFr(card) + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
+    let b = '<div class="big-he" lang="he">'+card.he+'</div>';
+    b += '<div class="cursive-line" lang="he">'+card.he_plain+'</div>';
+    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
+    b += formsHtml(card) + note + exHtml(card);
+    state.backHtml = b;
+  }
+
+  document.getElementById('face-cat').textContent = card.cat;
+  document.getElementById('face-content').innerHTML = state.frontHtml;
+  animateFace();
+
+  document.getElementById('counter').textContent=(state.idx+1)+' / '+state.total;
+  document.getElementById('barfill').style.transform='scaleX('+(state.idx/state.total)+')';
+  const bar=document.querySelector('.bar');
+  bar.setAttribute('aria-valuemax', state.total);
+  bar.setAttribute('aria-valuenow', state.idx);
+
+  if(state.mode==='input') setupInputCard(card);
+  else if(state.mode==='quiz') setupQuizCard(card);
+  else setupCardsMode();
+
+  updateSpeaker();
+  if(state.audio==='auto' && state.dir==='he2fr') speakCurrent();
+  sessSave();
+}
+
+function setupCardsMode(){
+  document.body.classList.remove('input-mode','quiz-mode');
+  document.getElementById('controls-cards').classList.remove('hide');
+  document.getElementById('undo-card').classList.toggle('hide', !cardsUndo);
+  document.getElementById('input-zone').classList.add('hide');
+  document.getElementById('quiz-zone').classList.add('hide');
+  const kh=document.getElementById('kbd-hint');
+  kh.innerHTML='<kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais · <kbd>c</kbd> annuler<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
+  kh.classList.remove('hide');
+  document.getElementById('flip-live').textContent='';
+  document.getElementById('face-hint').textContent = 'touche la carte pour la retourner';
+  document.getElementById('btn-flip').classList.remove('hide');
+  document.getElementById('btn-again').classList.add('hide');
+  document.getElementById('btn-good').classList.add('hide');
+}
+
+function setupInputCard(card){
+  document.body.classList.add('input-mode');
+  document.body.classList.remove('quiz-mode');
+  document.getElementById('controls-cards').classList.add('hide');
+  document.getElementById('undo-card').classList.add('hide');
+  document.getElementById('input-zone').classList.remove('hide');
+  document.getElementById('quiz-zone').classList.add('hide');
+  document.getElementById('kbd-hint').classList.add('hide');
+  document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'traduis en français' : 'écris en hébreu';
+  const inp=document.getElementById('answer-input');
+  inp.value=''; inp.className=''; inp.disabled=false;
+  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu ou en translittération (ex. shalom, chaver)…';
+  document.getElementById('input-row').classList.remove('hide');
+  document.getElementById('btn-check').classList.remove('hide');
+  document.getElementById('feedback').innerHTML='';
+  document.getElementById('btn-next').classList.add('hide');
+  // Actions secondaires : passer + clavier hébreu (fr→he uniquement)
+  document.getElementById('input-actions').classList.remove('hide');
+  const kbT=document.getElementById('kb-toggle');
+  const heIn = state.dir==='fr2he';
+  kbT.classList.toggle('hide', !heIn);
+  kbT.textContent = state.kbOpen ? 'Masquer le clavier' : 'Clavier hébreu';
+  document.getElementById('hebkb').classList.toggle('hide', !(heIn && state.kbOpen));
+  setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 60);
+}
+
+function animateFace(){
+  const face=document.getElementById('face');
+  face.classList.remove('flip-anim'); void face.offsetWidth; face.classList.add('flip-anim');
+  face.scrollTop=0;
+}
+
+function doFlip(){
+  state.flipped=!state.flipped;
+  document.getElementById('face-content').innerHTML = state.flipped ? state.backHtml : state.frontHtml;
+  document.getElementById('face-hint').textContent = state.flipped ? 'touche pour revenir au recto' : 'touche la carte pour la retourner';
+  // Le verso change par innerHTML, invisible aux lecteurs d'écran sans région
+  // live : on annonce la réponse (français + translittération prononçable).
+  const card=state.queue[state.idx];
+  const live=document.getElementById('flip-live');
+  if(state.flipped && card){
+    const tr=card.tr||he2tr(card.he);
+    let txt = state.dir==='he2fr' ? card.fr+' — '+tr : tr+' — '+card.fr;
+    // Le pli « Voir un exemple » est invisible à l'oreille : l'annoncer,
+    // sinon un lecteur d'écran ignore que le verso a plus à offrir.
+    if(card.exemples && card.exemples.length){
+      txt += card.exemples.length>1
+        ? '. '+card.exemples.length+' exemples disponibles sur la carte.'
+        : '. Un exemple disponible sur la carte.';
+    }
+    live.textContent = txt;
+  } else live.textContent='';
+  animateFace();
+  if(state.flipped){
+    document.getElementById('btn-flip').classList.add('hide');
+    document.getElementById('btn-again').classList.remove('hide');
+    document.getElementById('btn-good').classList.remove('hide');
+  } else {
+    document.getElementById('btn-flip').classList.remove('hide');
+    document.getElementById('btn-again').classList.add('hide');
+    document.getElementById('btn-good').classList.add('hide');
+  }
+  updateSpeaker();
+  if(state.audio==='auto' && state.flipped && state.dir==='fr2he') speakCurrent();
+}
+function bindTap(el, fn){
+  let handled=false;
+  el.addEventListener('pointerup', (e)=>{ e.preventDefault(); e.stopPropagation(); handled=true; fn(); setTimeout(()=>handled=false,50); });
+  el.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); if(!handled) fn(); });
+}
+bindTap(document.getElementById('flip'), ()=>{ if(state.mode==='cards') doFlip(); });
+bindTap(document.getElementById('btn-flip'), doFlip);
+
+function answer(good){
+  const card=state.queue[state.idx];
+  recordResult(card, good);
+  cardsUndo={ card, good };
+  if(good) state.goodCount++; else state.missed.push(card);
+  state.idx++;
+  if(state.idx>=state.queue.length) finish();
+  else render();
+}
+// Revient à la carte précédente en défaisant tout ce que la réponse a écrit :
+// SRS (undoLastRecord), compteurs de session et position dans la file.
+function undoCardAnswer(){
+  if(!cardsUndo || state.mode!=='cards') return;
+  undoLastRecord();
+  if(cardsUndo.good) state.goodCount=Math.max(0,state.goodCount-1);
+  else { const i=state.missed.lastIndexOf(cardsUndo.card); if(i!==-1) state.missed.splice(i,1); }
+  state.idx=Math.max(0,state.idx-1);
+  cardsUndo=null;
+  render();
+}
+bindTap(document.getElementById('undo-card'), undoCardAnswer);
+bindTap(document.getElementById('btn-good'), ()=>answer(true));
+bindTap(document.getElementById('btn-again'), ()=>answer(false));
+bindTap(document.getElementById('speak-btn'), speakCurrent);
+
+// ---------- Input mode: answer checking ----------
+function normFr(s){
+  return (s||'')
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/\([^)]*\)/g,' ')
+    .replace(/[.!?;:«»"']/g,' ')
+    .replace(/\s+/g,' ')
+    .trim()
+    .replace(/^(le|la|les|l|un|une|des|du|de|d|a|au|aux|se|s|to)\s+/,'');
+}
+function frVariants(fr){
+  return fr.split(/[\/,]| ou /).map(normFr).filter(Boolean);
+}
+function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
+function editDist(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  const d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++)d[0][j]=j;
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  }
+  return d[m][n];
+}
+// ---------- Translittération automatique depuis le nikud ----------
+function he2tr(he){
+  var V={}; V[0x05B7]='a'; V[0x05B8]='a'; V[0x05B2]='a'; V[0x05B5]='e'; V[0x05B6]='e'; V[0x05B1]='e';
+  V[0x05B4]='i'; V[0x05B9]='o'; V[0x05BA]='o'; V[0x05B3]='o'; V[0x05BB]='u';
+  var out='', s=(he||'').trim(), wordStart=true;
+  for(var i=0;i<s.length;i++){
+    var ch=s[i], code=s.charCodeAt(i);
+    if(code>=0x0591&&code<=0x05C7) continue;
+    var j=i+1, marks=[];
+    while(j<s.length){ var c=s.charCodeAt(j); if(c>=0x0591&&c<=0x05C7){ marks.push(c); j++; } else break; }
+    function has(m){ return marks.indexOf(m)!==-1; }
+    var hasVowel=marks.some(function(m){ return V[m]; });
+    var isFinal=(j>=s.length || s[j]===' ');
+    var cons='';
+    switch(ch){
+      // Standard de translittération (cf. carnet) : א = ' entre deux voyelles
+      // seulement (tsme'a) ; ע = ' partout ('ivrit, be'er, rega').
+      case 'א': cons=(hasVowel && !wordStart && /[aeiou]$/.test(out))?"'":''; break;
+      case 'ע': cons="'"; break;
+      case 'ב': cons=has(0x05BC)?'b':'v'; break;
+      case 'ג': cons='g'; break;
+      case 'ד': cons='d'; break;
+      case 'ה': cons='h'; break;
+      case 'ו':
+        if(has(0x05BC) && !hasVowel){ out+='u'; wordStart=false; continue; }
+        if(has(0x05B9)||has(0x05BA)){ out+='o'; wordStart=false; continue; }
+        cons='v'; break;
+      case 'ז': cons='z'; break;
+      case 'ח': cons='ch'; break;                    // standard : ח = ch
+      case 'ט': cons='t'; break;
+      case 'י': cons='y'; break;
+      case 'כ': cons=has(0x05BC)?'k':'kh'; break;    // standard : כ sans daguech = kh
+      case 'ך': cons='kh'; break;
+      case 'ל': cons='l'; break;
+      case 'מ': case 'ם': cons='m'; break;
+      case 'נ': case 'ן': cons='n'; break;
+      case 'ס': cons='s'; break;
+      case 'פ': cons=has(0x05BC)?'p':'f'; break;
+      case 'ף': cons='f'; break;
+      case 'צ': case 'ץ': cons='ts'; break;          // standard : צ = ts
+      case 'ק': cons='k'; break;
+      case 'ר': cons='r'; break;
+      case 'ש': cons=has(0x05C2)?'s':'sh'; break;
+      case 'ת': cons='t'; break;
+      default: cons=(ch===' ')?' ':(/[a-z]/i.test(ch)?ch:''); break;
+    }
+    // Patach furtif : la voyelle se lit avant la gutturale finale (koach, yode'a).
+    if(isFinal && has(0x05B7)){
+      if(ch==='ח'){ out+='ach'; wordStart=false; continue; }
+      if(ch==='ע'){ out+="'a"; wordStart=false; continue; }
+    }
+    out+=cons;
+    var emitted=false;
+    for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
+    // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
+    if(!emitted && wordStart && cons && cons!==' ' && has(0x05B0)) out+='e';
+    if(ch===' ') wordStart=true; else if(cons||emitted) wordStart=false;
+  }
+  out=out.replace(/iy(?![aeiou])/g,'i');
+  out=out.replace(/ey/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
+  // Le hé final se garde (standard : atah, zeh, morah).
+  return out;
+}
+function trKey(s){
+  s=(s||'').toLowerCase().replace(/[^a-z]/g,'');
+  s=s.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
+  s=s.replace(/ou/g,'u').replace(/ch/g,'h');
+  s=s.replace(/(.)\1+/g,'$1');
+  return s;
+}
+// Renvoie 'exact', 'almost' (accepté par tolérance orthographique) ou false.
+function checkAnswer(card, raw){
+  const user = (raw||'').trim();
+  if(!user) return false;
+  if(state.dir==='he2fr'){
+    const u = normFr(user);
+    const variants = frVariants(card.fr);
+    let almost=false;
+    for(const v of variants){
+      if(!v) continue;
+      if(u===v) return 'exact';
+      if(v.length>4 && editDist(u,v)<=1) almost=true;
+    }
+    return almost ? 'almost' : false;
+  } else {
+    const uHe = normHe(user);
+    if(uHe && uHe===normHe(card.he)) return 'exact';
+    // Translittération : celle du carnet si présente, sinon générée depuis le nikud
+    const uTr = trKey(user);
+    let almost=false;
+    if(uTr){
+      const cands = [];
+      if(card.tr) cands.push(trKey(card.tr));
+      cands.push(trKey(he2tr(card.he)));
+      for(const c of cands){
+        if(!c) continue;
+        if(uTr===c) return 'exact';
+        const tol = c.length>=8 ? 2 : (c.length>=4 ? 1 : 0);
+        if(tol && editDist(uTr,c)<=tol) almost=true;
+      }
+    }
+    return almost ? 'almost' : false;
+  }
+}
+function answerHtml(card){
+  let h = '<div class="answer">';
+  if(state.dir==='he2fr'){
+    h += '<span class="he" lang="he">'+card.he+'</span>';
+    h += '<div>'+card.fr+'</div>';
+    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
+  } else {
+    h += '<div>'+card.fr+'</div>';
+    h += '<span class="he" lang="he">'+card.he+'</span>';
+    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
+  }
+  h += '</div>';
+  // Inflexions : en français→hébreu elles n'apparaissent qu'ici (les montrer avant
+  // révélerait la réponse) ; en hébreu→français elles sont déjà sur la carte.
+  if(state.dir==='fr2he') h += formsHtml(card);
+  if(card.note) h += '<div class="note-line">'+card.note+'</div>';
+  return h;
+}
+function escapeHtml(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+// Retour du mode saisie : verdict, tentative barrée si ratée, correction, et un
+// bouton « Corriger » qui inverse le dernier verdict (faux négatif du correcteur
+// indulgent, ou aveu d'une bonne réponse devinée). kind : 'ok' | 'almost' | 'no' | 'skip'.
+function showInputFeedback(card, kind, attempt){
+  const fb=document.getElementById('feedback');
+  const verdict = kind==='ok'     ? '<div class="verdict ok">✓ Correct</div>'
+                : kind==='almost' ? '<div class="verdict ok">✓ Presque ! La forme exacte&nbsp;:</div>'
+                : kind==='no'     ? '<div class="verdict no">✗ Réponse&nbsp;:</div>'
+                :                   '<div class="verdict">La réponse&nbsp;:</div>';
+  const tried = (kind==='no' && attempt)
+    ? '<div class="your-answer">Ta réponse : <s>'+escapeHtml(attempt)+'</s></div>'
+    : (kind==='almost' && attempt)
+    ? '<div class="your-answer">Ta réponse : '+escapeHtml(attempt)+'</div>' : '';
+  const fixLabel = (kind==='ok'||kind==='almost') ? 'En fait, je ne savais pas' : 'J’avais juste →';
+  fb.innerHTML = verdict + tried + answerHtml(card) + exHtml(card)
+    + '<button class="fix-btn" type="button" id="fix-verdict">'+fixLabel+'</button>';
+  const btn=document.getElementById('fix-verdict');
+  if(btn) btn.onclick=()=>fixVerdict(card, kind, btn);
+}
+function fixVerdict(card, kind, btn){
+  undoLastRecord();
+  const nowGood = (kind!=='ok' && kind!=='almost');   // ok/almost→raté ; no/skip→réussi
+  recordResult(card, nowGood);
+  if(nowGood){
+    state.goodCount++;
+    const i=state.missed.lastIndexOf(card); if(i!==-1) state.missed.splice(i,1);
+  } else {
+    state.goodCount=Math.max(0,state.goodCount-1);
+    state.missed.push(card);
+  }
+  const fb=document.getElementById('feedback');
+  const v=fb.querySelector('.verdict');
+  if(v){ v.className='verdict '+(nowGood?'ok':'no'); v.innerHTML = nowGood ? '✓ Compté comme réussi' : '✗ À revoir'; }
+  const ya=fb.querySelector('.your-answer'); if(ya && nowGood) ya.remove();
+  btn.remove();
+  sessSave();
+}
+function submitAnswer(){
+  if(state.answered) return;
+  const card=state.queue[state.idx];
+  const inp=document.getElementById('answer-input');
+  const attempt=inp.value.trim();
+  // Champ vide (Entrée réflexe, pouce qui glisse) : ni raté compté, ni écriture
+  // SRS — « Je ne sais pas » est là pour révéler la réponse volontairement.
+  if(!attempt){ try{ inp.focus(); }catch(e){} return; }
+  const res=checkAnswer(card, inp.value);
+  const correct=!!res;
+  state.answered=true;
+  inp.disabled=true;
+  inp.classList.add(correct?'ok':'no');
+  document.getElementById('input-row').classList.add('hide');
+  document.getElementById('input-actions').classList.add('hide');
+  document.getElementById('hebkb').classList.add('hide');
+  recordResult(card, correct);
+  showInputFeedback(card, correct?(res==='almost'?'almost':'ok'):'no', attempt);
+  document.getElementById('btn-next').classList.remove('hide');
+  if(correct) state.goodCount++; else state.missed.push(card);
+  updateSpeaker();
+  if(state.audio==='auto') speakCurrent();
+  sessSave();
+}
+function nextAfterInput(){
+  state.idx++;
+  if(state.idx>=state.queue.length) finish();
+  else render();
+}
+bindTap(document.getElementById('btn-check'), submitAnswer);
+bindTap(document.getElementById('btn-next'), nextAfterInput);
+
+// ---------- « Je ne sais pas » : révèle la réponse et compte la carte à revoir ----------
+function skipAnswer(){
+  if(state.answered) return;
+  const card=state.queue[state.idx];
+  state.answered=true;
+  const inp=document.getElementById('answer-input');
+  inp.disabled=true;
+  document.getElementById('input-row').classList.add('hide');
+  document.getElementById('input-actions').classList.add('hide');
+  document.getElementById('hebkb').classList.add('hide');
+  recordResult(card, false);
+  showInputFeedback(card, 'skip', null);
+  document.getElementById('btn-next').classList.remove('hide');
+  state.missed.push(card);
+  updateSpeaker();
+  if(state.audio==='auto') speakCurrent();
+  sessSave();
+}
+bindTap(document.getElementById('btn-skip'), skipAnswer);
+
+// ---------- Clavier hébreu virtuel (ordre alphabétique) ----------
+(function(){
+  const kb=document.getElementById('hebkb'); if(!kb) return;
+  // Disposition standard israélienne (3 rangées) ; lettres finales en doré.
+  const ROWS=['קראטוןםפ','שדגכעיחלךף','זסבהנמצתץ'];
+  const FINALS='ךםןףץ';
+  ROWS.forEach(function(row){
+    const r=document.createElement('div'); r.className='kb-row';
+    row.split('').forEach(function(ch){
+      const b=document.createElement('button'); b.type='button';
+      if(FINALS.indexOf(ch)!==-1) b.className='kb-final';
+      b.textContent=ch; b.dataset.ch=ch; r.appendChild(b);
+    });
+    kb.appendChild(r);
+  });
+  const ctl=document.createElement('div'); ctl.className='kb-row';
+  const bsp=document.createElement('button'); bsp.type='button'; bsp.className='kb-ctl'; bsp.dataset.act='bsp'; bsp.textContent='\u232B'; ctl.appendChild(bsp);
+  const spc=document.createElement('button'); spc.type='button'; spc.className='kb-ctl kb-space'; spc.dataset.act='space'; spc.textContent='espace'; ctl.appendChild(spc);
+  kb.appendChild(ctl);
+  kb.addEventListener('pointerdown', function(e){ e.preventDefault(); });
+  kb.addEventListener('click', function(e){
+    const b=e.target.closest('button'); if(!b) return;
+    const inp=document.getElementById('answer-input'); if(inp.disabled) return;
+    let s=inp.selectionStart, en=inp.selectionEnd;
+    if(s==null){ s=inp.value.length; } if(en==null){ en=s; }
+    if(b.dataset.act==='bsp'){
+      if(s===en && s>0){ inp.value=inp.value.slice(0,s-1)+inp.value.slice(en); s=s-1; }
+      else { inp.value=inp.value.slice(0,s)+inp.value.slice(en); }
+    } else {
+      const ch=b.dataset.act==='space'?' ':(b.dataset.ch||'');
+      inp.value=inp.value.slice(0,s)+ch+inp.value.slice(en); s=s+ch.length;
+    }
+    inp.focus(); try{ inp.setSelectionRange(s,s); }catch(err){}
+  });
+})();
+document.getElementById('kb-toggle').addEventListener('click', function(){
+  state.kbOpen=!state.kbOpen;
+  document.getElementById('hebkb').classList.toggle('hide', !state.kbOpen);
+  this.textContent = state.kbOpen ? 'Masquer le clavier' : 'Clavier hébreu';
+});
+document.getElementById('answer-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter'){
+    e.preventDefault(); e.stopPropagation();  // ne pas laisser l'événement atteindre le handler global
+    if(state.answered) nextAfterInput(); else submitAnswer();
+  }
+});
+// Après la réponse (le champ est désactivé et ne capte plus rien), Entrée ou Espace
+// passent à la carte suivante depuis n'importe où sur la page.
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(state.mode!=='input' || !state.answered) return;
+  if(e.target && e.target.id==='answer-input') return;  // le champ gère son propre Enter
+  // Un bouton focalisé (Corriger, Voir un exemple, Écouter…) gère Entrée/Espace
+  // lui-même — même garde que le QCM, sinon le bouton devient inatteignable au clavier.
+  if(e.target && e.target.tagName==='BUTTON') return;
+  if(e.key==='Enter' || e.code==='Space'){ e.preventDefault(); nextAfterInput(); }
+});
+
+function finish(){
+  sessClear();
+  document.body.classList.remove('input-mode','quiz-mode');
+  refreshSrsUi();
+  document.getElementById('study').classList.remove('active');
+  document.getElementById('done').classList.add('active');
+  document.getElementById('barfill').style.transform='scaleX(1)';
+  document.querySelector('.bar').setAttribute('aria-valuenow', state.total);
+  const el=document.getElementById('score');
+  el.innerHTML=state.goodCount+'<small>/'+state.total+'</small>';
+  const pct=Math.round(state.goodCount/state.total*100);
+  let msg;
+  if(pct===100) msg='Sans faute. כָּל הַכָּבוֹד !';
+  else if(pct>=70) msg='Bien joué ! Plus que '+state.missed.length+' carte'+(state.missed.length>1?'s':'')+' à revoir avant le sans-faute.';
+  else msg='Encore un peu d\'entraînement — '+state.missed.length+' à revoir.';
+  // Fin de révision : les ratées sont retombées en boîte 0, donc dues aussitôt —
+  // l'expliquer, sinon le compteur qui ne descend pas ressemble à un bug.
+  if(state.session==='review' && state.missed.length){
+    msg+=' Les ratées sont aussitôt redevenues dues : la révision du jour les repropose jusqu’à ce qu’elles tiennent.';
+  }
+  document.getElementById('done-msg').textContent=msg;
+  // « Rejouer ces N cartes » : même tirage (origQueue), le libellé l'explicite.
+  const nOrig=state.origQueue.length;
+  document.getElementById('retry-all').textContent =
+    nOrig===1 ? 'Rejouer cette carte' : 'Rejouer ces '+nOrig+' cartes';
+  // Les ratées, listées avant de rejouer : on sait quoi retravailler sans relancer à l'aveugle.
+  const list=document.getElementById('missed-list');
+  list.classList.toggle('hide', !state.missed.length);
+  list.innerHTML = state.missed.map(c=>
+    '<li><span class="m-he" lang="he">'+c.he+'</span><span class="m-fr">'+c.fr+'</span></li>').join('');
+  document.getElementById('retry-missed').classList.toggle('hide', !state.missed.length);
+}
+
+document.getElementById('retry-missed').onclick=()=>{
+  beginSession(state.order==='shuffle' ? shuffle(state.missed.slice()) : state.missed.slice());
+};
+// « Recommencer » rejoue les cartes de la session (catégories OU révision), jamais
+// un re-filtrage des catégories — sinon une session de révision repartirait à vide.
+document.getElementById('retry-all').onclick=()=>{
+  const pool = state.origQueue.slice();
+  beginSession(state.order==='shuffle' ? shuffle(pool) : pool);
+};
+document.getElementById('back-setup').onclick=()=>{
+  sessClear();
+  refreshSrsUi();
+  document.getElementById('done').classList.remove('active');
+  document.getElementById('study').classList.remove('active');
+  document.getElementById('setup').classList.remove('hidden');
+};
+document.getElementById('exit').onclick=()=>{
+  // Chaque réponse donnée est déjà écrite dans la révision (recordResult à
+  // chaque carte) : l'accueil le dit, pour que « Quitter » ne semble pas tout jeter.
+  const n = state.idx + (state.answered?1:0);
+  const note=document.getElementById('exit-note');
+  if(n>0){
+    note.textContent='Session interrompue — '+n+' réponse'+(n>1?'s':'')+' sur '
+      +state.total+' déjà comptée'+(n>1?'s':'')+' dans ta révision.';
+    note.classList.remove('hide');
+  }
+  sessClear();
+  document.body.classList.remove('input-mode','quiz-mode');
+  refreshSrsUi();
+  document.getElementById('study').classList.remove('active');
+  document.getElementById('setup').classList.remove('hidden');
+};
+
+// keyboard
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(state.mode!=='cards') return;
+  if(e.code==='Space'){
+    // Même garde que le QCM : Espace sur un bouton du verso (Voir un exemple,
+    // Écouter) doit activer le bouton, pas re-retourner la carte. Les flèches,
+    // elles, jugent depuis n'importe où.
+    if(e.target && e.target.tagName==='BUTTON') return;
+    e.preventDefault(); doFlip();
+  }
+  else if(state.flipped && e.code==='ArrowRight'){ answer(true); }
+  else if(state.flipped && e.code==='ArrowLeft'){ answer(false); }
+});
+// Clavier du QCM : 1–4 choisissent une option, Entrée/Espace passent à la
+// suivante — le mode saisie avait déjà son équivalent, pas le QCM.
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(state.mode!=='quiz') return;
+  if(!state.answered && e.key>='1' && e.key<='4'){
+    const b=document.querySelectorAll('#quiz-choices .qc')[+e.key-1];
+    if(b){ e.preventDefault(); b.click(); }
+  } else if(state.answered && (e.key==='Enter' || e.code==='Space')){
+    // Un bouton focalisé (Corriger, Suivant…) gère Entrée/Espace lui-même.
+    if(e.target && e.target.tagName==='BUTTON') return;
+    e.preventDefault(); nextAfterInput();
+  }
+});
+// P comme « prononcer » : rejoue l'audio de la carte courante dans tous les
+// modes, uniquement quand le haut-parleur est visible (mêmes règles que lui —
+// jamais avant la réponse en fr→he, jamais sans voix hébraïque).
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(e.key!=='p' && e.key!=='P') return;
+  if(e.ctrlKey || e.metaKey || e.altKey) return;         // Ctrl+P (imprimer) reste au navigateur
+  if(e.target && e.target.id==='answer-input') return;   // on est en train de taper
+  const spk=document.getElementById('speak-btn');
+  if(spk && !spk.classList.contains('hide') && !document.body.classList.contains('no-he-voice')){
+    e.preventDefault(); speakCurrent();
+  }
+});
+// C comme « corriger » : active le bouton de correction du mode courant —
+// « Corriger » en Saisie, en QCM, « Annuler la dernière réponse » en Cartes.
+// Uniquement quand ce bouton est visible et actif : mêmes règles que lui.
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(e.key!=='c' && e.key!=='C') return;
+  if(e.ctrlKey || e.metaKey || e.altKey) return;         // Ctrl+C (copier) reste au navigateur
+  if(e.target && (e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA')) return;
+  const btn = state.mode==='cards' ? document.getElementById('undo-card')
+            : state.mode==='input' ? document.getElementById('fix-verdict')
+            :                        document.getElementById('quiz-fix');
+  if(btn && !btn.classList.contains('hide') && !btn.disabled){ e.preventDefault(); btn.click(); }
+});
+
+// ===== BUILD:ONLINE-ONLY : bloc remplace par build.js dans le fichier autonome =====
+// ---------- Runtime extraction from the vocab notebook ----------
+function stripNikud(s){ return s.replace(/[\u0591-\u05C7]/g,''); }
+function firstText(el, sel){ const x = el.querySelector(sel); return x ? x.textContent.trim() : ''; }
+
+function extractCards(doc){
+  const cards = [];
+  const sections = {};
+  doc.querySelectorAll('h2').forEach(h2=>{
+    const c = h2.querySelector('.count'); if(!c) return;
+    const name = c.textContent.trim();
+    const els = []; let n = h2.nextElementSibling;
+    while(n && n.tagName!=='H2'){ els.push(n); n = n.nextElementSibling; }
+    sections[name] = els;
+  });
+  function rowsOf(name){
+    const out=[]; (sections[name]||[]).forEach(el=>{
+      if(el.querySelectorAll) el.querySelectorAll('table tbody tr').forEach(tr=>out.push(tr));
+    }); return out;
+  }
+  function lisOf(name){
+    const out=[]; (sections[name]||[]).forEach(el=>{
+      if(el.matches && el.matches('ul.word-list')) el.querySelectorAll(':scope > li').forEach(li=>out.push(li));
+      else if(el.querySelectorAll) el.querySelectorAll('ul.word-list > li').forEach(li=>out.push(li));
+    }); return out;
+  }
+  // Exemples en situation : sous-liste <ul class="exemples"> dans le <li> du mot
+  // ou dans la première cellule d'une table. Optionnel — mot sans exemple = carte normale.
+  function exOf(el){
+    const out=[];
+    el.querySelectorAll('ul.exemples > li').forEach(x=>{
+      const he=firstText(x,'.he'); if(!he) return;
+      out.push({he, tr:firstText(x,'.tr'), fr:firstText(x,'.fr'), he_plain:stripNikud(he)});
+    });
+    return out;
+  }
+  rowsOf('Verbes').forEach(tr=>{
+    const tds=[...tr.children]; if(tds.length<5) return;
+    const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
+    const labels=['il','elle','ils','elles']; const forms=[];
+    for(let i=1;i<5;i++){ const fhe=firstText(tds[i],'.he'); const ftr=firstText(tds[i],'.tr');
+      forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
+    if(he){ const card={cat:'Verbes',he,tr:'',fr:'(infinitif) '+fr,forms};
+      if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
+      cards.push(card); }
+  });
+  rowsOf('Adjectifs').forEach(tr=>{
+    const tds=[...tr.children]; if(tds.length<4) return;
+    const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
+    const labels=['f. sing.','m. plur.','f. plur.']; const forms=[];
+    for(let i=1;i<4;i++){ const fhe=firstText(tds[i],'.he'); const ftr=firstText(tds[i],'.tr');
+      if(fhe) forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
+    if(he){ const card={cat:'Adjectifs',he,tr:'',fr, forms};
+      if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
+      cards.push(card); }
+  });
+  rowsOf('Noms').forEach(tr=>{
+    const tds=[...tr.children]; if(tds.length<3) return;
+    const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
+    const genre=tds[1].textContent.trim();
+    const plHe=firstText(tds[2],'.he'); const plTr=firstText(tds[2],'.tr');
+    const card={cat:'Noms',he,tr:'',fr:fr+((genre==='m'||genre==='f')?(' ('+genre+')'):'')};
+    if(genre==='m'||genre==='f') card.genre=genre;
+    if(plHe && plHe!=='—'){ card.forms=[{he:plHe,tr:plTr,label:'pluriel',he_plain:stripNikud(plHe)}]; }
+    if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+    const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
+    if(he) cards.push(card);
+  });
+  const listCats={'Pronoms personnels':'Pronoms personnels','Démonstratifs':'Démonstratifs',
+    'Verbes modaux':'Verbes modaux',
+    'Prépositions':'Prépositions','Conjonctions':'Conjonctions','Mots interrogatifs':'Mots interrogatifs',
+    'Nombres (0–10)':'Nombres','Nombres (11 et plus)':'Nombres','Nombres ordinaux':'Nombres',
+    'Jours de la semaine':'Jours de la semaine','Adverbes':'Adverbes','Saisons & mois':'Saisons & mois',
+    'Mots de quantité':'Mots de quantité','Expressions / Divers':'Expressions',
+    'Existence et possession':'Existence','Phrases':'Phrases'};
+  Object.keys(listCats).forEach(sec=>{
+    lisOf(sec).forEach(li=>{
+      const he=firstText(li,'.he'); if(!he) return;
+      // data-fr-court : version courte pour la carte quand le .fr du carnet est trop long ;
+      // data-note : précision affichée sous la réponse.
+      const card={cat:listCats[sec],he,tr:firstText(li,'.tr'),fr:li.dataset.frCourt||firstText(li,'.fr')};
+      if(li.dataset.note) card.note=li.dataset.note;
+      if(li.dataset.niveau) card.niveau=li.dataset.niveau;
+      const ex=exOf(li); if(ex.length) card.exemples=ex;
+      cards.push(card);
+    });
+  });
+  cards.forEach(c=>{ c.he_plain=stripNikud(c.he); });
+  return cards;
+}
+
+function showLoaderError(reason){
+  const loader=document.getElementById('loader');
+  const spin=loader.querySelector('.spin');
+  if(spin) spin.style.display='none';
+  const isFile = location.protocol==='file:';
+  const isOffline = ('onLine' in navigator) && navigator.onLine===false;
+  let title, detail;
+  if(isFile){
+    title="Cette page a besoin d'un petit serveur.";
+    detail="Ouverte directement depuis un fichier, elle ne peut pas charger le carnet. "
+      + "Passe par son adresse en ligne, ou lance un serveur local (par ex. <code>python3 -m http.server</code>).";
+  } else if(isOffline){
+    title="Connexion perdue.";
+    detail="Le carnet n'a pas pu être récupéré — vérifie ta connexion, puis réessaie.";
+  } else {
+    title="Le vocabulaire n'a pas pu être chargé.";
+    detail="Le carnet est peut-être momentanément indisponible. Réessaie dans un instant.";
+  }
+  loader.innerHTML='<p class="loader-title">'+title+'</p>'
+    + '<p class="loader-detail">'+detail+'</p>'
+    + (isFile ? '' : '<button class="retry" type="button" id="loader-retry">Réessayer</button>');
+  const btn=document.getElementById('loader-retry');
+  if(btn) btn.onclick=()=>{
+    loader.innerHTML='<div class="spin"></div><p id="loader-msg">Chargement du vocabulaire…</p>';
+    init();
+  };
+}
+async function init(){
+  const loader=document.getElementById('loader');
+  const msg=document.getElementById('loader-msg');
+  try{
+    const res = await fetch('./vocabulaire_hebreu.html', {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const text = await res.text();
+    const doc = new DOMParser().parseFromString(text, 'text/html');
+    CARDS = extractCards(doc);
+    if(!CARDS.length) throw new Error('empty');
+    buildChips();
+    updateStart();
+    loader.style.display='none';
+    if(!bootResumed) document.getElementById('setup').classList.remove('hidden');
+    const note=document.getElementById('count-note');
+    note.textContent = CARDS.length + ' mots chargés depuis le carnet';
+    // Garde-fou : un titre de section renommé ou une table restructurée dans le
+    // carnet fait disparaître ses cartes sans erreur — signaler toute catégorie vide.
+    const counts={};
+    CARDS.forEach(c=>{ counts[c.cat]=(counts[c.cat]||0)+1; });
+    console.log('Cartes par catégorie :', counts);
+    const missing = catOrder.filter(c=>!counts[c]);
+    if(missing.length){
+      console.warn('Catégories attendues sans carte :', missing);
+      note.innerHTML += '<br><span style="color:var(--red)">Aucune carte dans : '
+        + missing.join(', ') + ' — section renommée dans le carnet ?</span>';
+    }
+  }catch(err){
+    showLoaderError(err);
+  }
+}
+init();
+
+// ---------- PWA : service worker (hors-ligne) ----------
+// Dans le bloc ONLINE-ONLY : le standalone n'a pas besoin de cache et un
+// enregistrement en file:// échouerait de toute façon.
+if ('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./sw.js')
+    .catch(err => console.warn('Service worker non enregistré :', err));
+}
+// ===== /BUILD:ONLINE-ONLY =====
+
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 /*
  * Service worker de la PWA (hors-ligne). Non utilisé par flashcards_hebreu.html
  * (le standalone est déjà autonome) : l'enregistrement vit dans le bloc
- * BUILD:ONLINE-ONLY d'index.html.
+ * BUILD:ONLINE-ONLY d'app.html, et dans le portail (index.html).
  *
  * Stratégie : stale-while-revalidate sur les fichiers de l'app — démarrage
  * instantané depuis le cache, mise à jour en arrière-plan (le nouveau
@@ -12,11 +12,12 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v6'; // v6 : mode QCM, révision espacée (Leitner), section Phrases, inflexions agrandies
+const VERSION = 'v7'; // v7 : portail à la racine, l'appli déménage dans app.html
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
   './',
+  './app.html',
   './vocabulaire_hebreu.html',
   './manifest.webmanifest',
   './icons/icon-192.png',
@@ -47,9 +48,9 @@ self.addEventListener('fetch', (e) => {
   if (url.origin !== location.origin && !isFont) return;
 
   // Seules les navigations vers la racine (/ ou /index.html) sont normalisées
-  // sur la coquille './'. Les autres pages (ex. vocabulaire_hebreu.html) doivent
-  // être servies telles quelles — les rabattre sur './' cassait le lien vers le
-  // carnet depuis l'app.
+  // sur la coquille './' — c'est désormais le PORTAIL. Les autres pages
+  // (app.html, vocabulaire_hebreu.html) doivent être servies telles quelles —
+  // les rabattre sur './' casserait l'appli et le carnet.
   const isRootNav = req.mode === 'navigate' &&
     (url.pathname.endsWith('/') || url.pathname.endsWith('/index.html'));
   const cacheKey = isRootNav ? './' : req.url;
