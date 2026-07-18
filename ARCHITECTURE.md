@@ -12,7 +12,7 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
 ┌─────────────────────────────────────────────────────────────────┐
 │                     vocabulaire_hebreu.html                      │
 │              LE CARNET — source unique de vérité                 │
-│         (grammaire + vocabulaire, ~4900 lignes de HTML)          │
+│         (grammaire + vocabulaire, ~5100 lignes de HTML)          │
 └───────────────┬────────────────────────────────┬────────────────┘
                 │ fetch() + extractCards()       │ lu par build.js
                 │ au chargement, dans le         │ (réplique regex
@@ -85,7 +85,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
 - [app.html:1982](app.html#L1982) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
-- [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
+- [build.js:156](build.js#L156) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
 
@@ -144,7 +144,7 @@ Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, t
 
 ## Anatomie d'app.html (~2140 lignes)
 
-Un seul fichier : CSS inline (l. 1–400 env.), puis quatre écrans, puis le JS.
+Un seul fichier : CSS inline (l. 1–480 env.), puis quatre écrans, puis le JS.
 
 ### Écrans
 
@@ -202,7 +202,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 `checkAnswer` ([app.html:1657](app.html#L1657)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [app.html:1801](app.html#L1801)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([app.html:1649](app.html#L1649)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([app.html:1587](app.html#L1587)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [app.html:1802](app.html#L1802)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([app.html:1649](app.html#L1649)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([app.html:1587](app.html#L1587)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
