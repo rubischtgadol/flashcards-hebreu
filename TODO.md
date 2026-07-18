@@ -16,7 +16,7 @@ Décisions prises (ne pas re-débattre) :
 
 ## Ordre des commandes
 
-### 1. `/impeccable harden index.html` — intégrité du verdict  [ ]
+### 1. `/impeccable harden index.html` — intégrité du verdict  [x]
 - **[P1]** Généraliser `lastRecord`/`undoLastRecord` hors mode saisie : bouton « Corriger » à côté
   de `#quiz-next` en QCM ; affordance discrète « annuler la dernière » en mode Cartes (la carte
   suivante est déjà affichée — restaurer aussi `goodCount`/`missed`/`idx`).

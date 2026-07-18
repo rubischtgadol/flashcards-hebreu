@@ -279,12 +279,14 @@
   .feedback .answer .tr{ font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:var(--ink-dim); }
   .feedback .your-answer{ font-size:.9rem; color:var(--ink-dim); margin-top:6px; }
   .feedback .your-answer s{ opacity:.7; }
-  .feedback .fix-btn{
+  /* « Corriger » / « Annuler » : même bouton discret dans les trois modes. */
+  .fix-btn{
     margin-top:12px; border:1px solid var(--line); background:transparent; color:var(--ink-dim);
     border-radius:10px; font-family:inherit; font-size:.86rem; padding:8px 14px; cursor:pointer; transition:all .13s ease;
   }
-  .feedback .fix-btn:hover{ color:var(--gold); border-color:var(--gold); }
-  .feedback .fix-btn[disabled]{ opacity:.5; cursor:default; }
+  .fix-btn:hover{ color:var(--gold); border-color:var(--gold); }
+  .fix-btn[disabled]{ opacity:.5; cursor:default; }
+  .fix-row{ text-align:center; }
 
   /* ---------- Done screen ---------- */
   .done{ display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; max-width:520px; margin:0 auto; }
@@ -515,6 +517,8 @@
     <button class="btn-again hide" id="btn-again">À revoir</button>
     <button class="btn-good hide" id="btn-good">Je savais</button>
   </div>
+  <!-- Un pouce qui glisse ne doit pas polluer les boîtes : la dernière réponse reste annulable. -->
+  <div class="fix-row" id="undo-row"><button class="fix-btn hide" type="button" id="undo-card">‹ Annuler la dernière réponse</button></div>
 
   <div class="input-zone hide" id="input-zone">
     <div class="input-row" id="input-row">
@@ -533,6 +537,7 @@
   <div class="quiz-zone hide" id="quiz-zone">
     <div class="quiz-choices" id="quiz-choices"></div>
     <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
+    <div class="fix-row"><button class="fix-btn hide" type="button" id="quiz-fix"></button></div>
     <button class="btn-next hide" id="quiz-next">Suivant →</button>
   </div>
 
@@ -732,7 +737,7 @@ function runSearch(){
     if(searchNorm(hay.join(' ')).includes(q)) hits.push(c);
     if(hits.length>=80) break;
   }
-  if(!hits.length){ box.innerHTML='<div class="search-empty">Aucun résultat pour « '+raw+' ».</div>'; return; }
+  if(!hits.length){ box.innerHTML='<div class="search-empty">Aucun résultat pour « '+escapeHtml(raw)+' ».</div>'; return; }
   let html = '<div class="sr-count">'+hits.length+(hits.length>=80?'+':'')+' résultat'+(hits.length>1?'s':'')+'</div>';
   html += hits.map((c,i)=>{
     const tr = '<span class="sr-tr">'+(c.tr||he2tr(c.he))+'</span>';
@@ -864,6 +869,7 @@ document.getElementById('start').onclick=start;
 // révision, rejeu). `origQueue` mémorise le jeu de la session pour « Recommencer ».
 function beginSession(pool){
   state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
+  cardsUndo=null; lastRecord=null;   // rien d'annulable en début de session
   document.getElementById('setup').classList.add('hidden');
   document.getElementById('done').classList.remove('active');
   document.getElementById('study').classList.add('active');
@@ -898,6 +904,9 @@ let SRS=srsLoad();
 // Mémorise l'état SRS d'avant la dernière écriture → le verdict reste annulable
 // (« Corriger ») tant qu'aucune autre carte n'a été jouée.
 let lastRecord=null;
+// Mode Cartes : la carte suivante s'affiche sitôt répondu → on garde de quoi
+// revenir en arrière (carte + verdict) tant que la suivante n'est pas jouée.
+let cardsUndo=null;
 function recordResult(card, good){
   if(!card) return;
   const id=cardId(card), t=todayNum();
@@ -983,11 +992,13 @@ function setupQuizCard(card){
   document.body.classList.add('quiz-mode');
   document.body.classList.remove('input-mode');
   document.getElementById('controls-cards').classList.add('hide');
+  document.getElementById('undo-card').classList.add('hide');
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('quiz-zone').classList.remove('hide');
   document.getElementById('kbd-hint').classList.add('hide');
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'choisis la traduction' : 'choisis le mot hébreu';
   document.getElementById('quiz-next').classList.add('hide');
+  const qf=document.getElementById('quiz-fix'); qf.classList.add('hide'); qf.disabled=false;
   document.getElementById('quiz-live').textContent='';
   const box=document.getElementById('quiz-choices'); box.innerHTML='';
   const options=shuffle([card, ...pickDistractors(card,3)]);
@@ -1017,10 +1028,33 @@ function quizPick(btn, chosen, card){
                                       : card.he_plain+' ('+(card.tr||he2tr(card.he))+')';
   document.getElementById('quiz-live').textContent =
     correct ? 'Exact !' : 'Raté — la bonne réponse était : '+goodTxt;
+  // Même correction du verdict qu'en mode saisie : un pouce qui glisse s'annule.
+  const fix=document.getElementById('quiz-fix');
+  fix.textContent = correct ? 'En fait, je ne savais pas' : 'J’avais juste →';
+  fix.classList.remove('hide');
+  fix.onclick=()=>quizFixVerdict(card, correct, fix);
   document.getElementById('quiz-next').classList.remove('hide');
   updateSpeaker();
   // « Automatique » seulement : en « Au clic », le bouton haut-parleur reste le seul déclencheur.
   if(state.audio==='auto') speakCurrent();
+  sessSave();
+}
+// Inverse le dernier verdict du QCM (pendant que la carte est encore affichée) :
+// SRS annulé puis réécrit, compteurs de session réalignés, bouton figé en confirmation.
+function quizFixVerdict(card, wasCorrect, btn){
+  undoLastRecord();
+  const nowGood=!wasCorrect;
+  recordResult(card, nowGood);
+  if(nowGood){
+    state.goodCount++;
+    const i=state.missed.lastIndexOf(card); if(i!==-1) state.missed.splice(i,1);
+  } else {
+    state.goodCount=Math.max(0,state.goodCount-1);
+    state.missed.push(card);
+  }
+  btn.textContent = nowGood ? '✓ Compté comme réussi' : '✗ À revoir';
+  btn.disabled=true;
+  document.getElementById('quiz-live').textContent = nowGood ? 'Compté comme réussi.' : 'Compté à revoir.';
   sessSave();
 }
 // Passage à la carte suivante : identique au mode saisie → on réutilise nextAfterInput.
@@ -1090,6 +1124,7 @@ function render(){
 function setupCardsMode(){
   document.body.classList.remove('input-mode','quiz-mode');
   document.getElementById('controls-cards').classList.remove('hide');
+  document.getElementById('undo-card').classList.toggle('hide', !cardsUndo);
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('quiz-zone').classList.add('hide');
   document.getElementById('kbd-hint').classList.remove('hide');
@@ -1103,6 +1138,7 @@ function setupInputCard(card){
   document.body.classList.add('input-mode');
   document.body.classList.remove('quiz-mode');
   document.getElementById('controls-cards').classList.add('hide');
+  document.getElementById('undo-card').classList.add('hide');
   document.getElementById('input-zone').classList.remove('hide');
   document.getElementById('quiz-zone').classList.add('hide');
   document.getElementById('kbd-hint').classList.add('hide');
@@ -1158,11 +1194,24 @@ bindTap(document.getElementById('btn-flip'), doFlip);
 function answer(good){
   const card=state.queue[state.idx];
   recordResult(card, good);
+  cardsUndo={ card, good };
   if(good) state.goodCount++; else state.missed.push(card);
   state.idx++;
   if(state.idx>=state.queue.length) finish();
   else render();
 }
+// Revient à la carte précédente en défaisant tout ce que la réponse a écrit :
+// SRS (undoLastRecord), compteurs de session et position dans la file.
+function undoCardAnswer(){
+  if(!cardsUndo || state.mode!=='cards') return;
+  undoLastRecord();
+  if(cardsUndo.good) state.goodCount=Math.max(0,state.goodCount-1);
+  else { const i=state.missed.lastIndexOf(cardsUndo.card); if(i!==-1) state.missed.splice(i,1); }
+  state.idx=Math.max(0,state.idx-1);
+  cardsUndo=null;
+  render();
+}
+bindTap(document.getElementById('undo-card'), undoCardAnswer);
 bindTap(document.getElementById('btn-good'), ()=>answer(true));
 bindTap(document.getElementById('btn-again'), ()=>answer(false));
 bindTap(document.getElementById('speak-btn'), speakCurrent);
@@ -1356,6 +1405,9 @@ function submitAnswer(){
   const card=state.queue[state.idx];
   const inp=document.getElementById('answer-input');
   const attempt=inp.value.trim();
+  // Champ vide (Entrée réflexe, pouce qui glisse) : ni raté compté, ni écriture
+  // SRS — « Je ne sais pas » est là pour révéler la réponse volontairement.
+  if(!attempt){ try{ inp.focus(); }catch(e){} return; }
   const res=checkAnswer(card, inp.value);
   const correct=!!res;
   state.answered=true;
@@ -1476,7 +1528,7 @@ function finish(){
   list.classList.toggle('hide', !state.missed.length);
   list.innerHTML = state.missed.map(c=>
     '<li><span class="m-he" lang="he">'+c.he+'</span><span class="m-fr">'+c.fr+'</span></li>').join('');
-  document.getElementById('retry-missed').style.display = state.missed.length? 'inline-block':'none';
+  document.getElementById('retry-missed').classList.toggle('hide', !state.missed.length);
 }
 
 document.getElementById('retry-missed').onclick=()=>{
