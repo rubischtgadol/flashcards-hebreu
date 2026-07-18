@@ -440,6 +440,10 @@
   .qc.no{ border-color:var(--red); background:rgba(217,106,91,.13); color:var(--red); }
   .qc.no .qc-tr{ color:var(--red); }
   .qc.dim{ opacity:.5; }
+  /* Options « Phrases » : quatre phrases complètes empilées feraient des boutons
+     très hauts sur petit écran — corps réduit et boutons plus serrés. */
+  .qc.ph{ font-size:.95rem; padding:10px 14px; line-height:1.35; }
+  .qc.ph .qc-he{ font-size:1.15rem; line-height:1.3; }
   #quiz-next{ margin-top:14px; }
 
   /* ---------- Révision espacée (SRS) ---------- */
@@ -891,13 +895,15 @@ function runSearch(){
     const item=document.getElementById('sri-'+i);
     const detail=document.getElementById('srd-'+i);
     if(row){
+      // Une action par geste : la rangée dépliable se contente de (dé)plier —
+      // l'audio reste sur le bouton Écouter. Une rangée sans détail, elle,
+      // n'a que l'audio à offrir : le tap prononce.
       const activate=()=>{
-        speak(c.he||c.he_plain);
         if(detail){
           const hidden=detail.classList.toggle('hide');
           item.classList.toggle('open', !hidden);
           row.setAttribute('aria-expanded', String(!hidden));
-        }
+        } else speak(c.he||c.he_plain);
       };
       bindTap(row, activate);
       row.addEventListener('keydown', e=>{
@@ -989,7 +995,15 @@ document.getElementById('selall').onclick=()=>{
   updateStart();
   savePrefs();
 };
+// Le libellé dit l'action que le clic fera vraiment : « tout désélectionner »
+// quand tout est déjà coché, « tout sélectionner » sinon.
+function refreshSelAll(){
+  const b=document.getElementById('selall'); if(!b) return;
+  const nCats=Object.keys(catCounts).length;
+  b.textContent = (nCats>0 && state.cats.size===nCats) ? 'tout désélectionner' : 'tout sélectionner';
+}
 function updateStart(){
+  refreshSelAll();
   const noCat = state.cats.size===0;
   // Le filtre niveau n'existe que si le carnet est annoté ; sinon il est inerte.
   const noNiv = Object.keys(nivCounts).length>0 && state.niveaux.size===0;
@@ -1177,7 +1191,7 @@ function setupQuizCard(card){
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('quiz-zone').classList.remove('hide');
   const kh=document.getElementById('kbd-hint');
-  kh.innerHTML='<kbd>1</kbd>–<kbd>4</kbd> choisir · <kbd>entrée</kbd> suivant<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
+  kh.innerHTML='<kbd>1</kbd>–<kbd>4</kbd> choisir · <kbd>entrée</kbd> suivant · <kbd>c</kbd> corriger<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
   kh.classList.remove('hide');
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'choisis la traduction' : 'choisis le mot hébreu';
   document.getElementById('quiz-next').classList.add('hide');
@@ -1189,6 +1203,7 @@ function setupQuizCard(card){
   state.quizOptions=options;
   options.forEach(opt=>{
     const b=document.createElement('button'); b.className='qc'; b.type='button';
+    if(opt.cat==='Phrases') b.classList.add('ph');
     b.innerHTML=quizChoiceHtml(opt);
     bindTap(b, ()=>quizPick(b, opt, card));
     box.appendChild(b);
@@ -1282,6 +1297,11 @@ function exActivate(t){
     const box=t.nextElementSibling;
     if(box){
       box.classList.toggle('hide', open);
+      // Le libellé suit l'état : un pli ouvert propose de se refermer.
+      const n=box.querySelectorAll('.ex-item').length;
+      t.textContent = open
+        ? (n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')
+        : (n>1 ? 'Masquer les exemples' : 'Masquer l’exemple');
       // La face de carte défile (.face en overflow-y) : l'exemple déplié doit
       // entrer dans le champ, sinon le tap semble ne rien faire sur mobile.
       if(!open){ try{ box.scrollIntoView({block:'nearest'}); }catch(e){} }
@@ -1357,7 +1377,7 @@ function setupCardsMode(){
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('quiz-zone').classList.add('hide');
   const kh=document.getElementById('kbd-hint');
-  kh.innerHTML='<kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
+  kh.innerHTML='<kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais · <kbd>c</kbd> annuler<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
   kh.classList.remove('hide');
   document.getElementById('flip-live').textContent='';
   document.getElementById('face-hint').textContent = 'touche la carte pour la retourner';
@@ -1408,7 +1428,15 @@ function doFlip(){
   const live=document.getElementById('flip-live');
   if(state.flipped && card){
     const tr=card.tr||he2tr(card.he);
-    live.textContent = state.dir==='he2fr' ? card.fr+' — '+tr : tr+' — '+card.fr;
+    let txt = state.dir==='he2fr' ? card.fr+' — '+tr : tr+' — '+card.fr;
+    // Le pli « Voir un exemple » est invisible à l'oreille : l'annoncer,
+    // sinon un lecteur d'écran ignore que le verso a plus à offrir.
+    if(card.exemples && card.exemples.length){
+      txt += card.exemples.length>1
+        ? '. '+card.exemples.length+' exemples disponibles sur la carte.'
+        : '. Un exemple disponible sur la carte.';
+    }
+    live.textContent = txt;
   } else live.textContent='';
   animateFace();
   if(state.flipped){
@@ -1850,11 +1878,25 @@ document.addEventListener('keydown', e=>{
 document.addEventListener('keydown', e=>{
   if(!document.getElementById('study').classList.contains('active')) return;
   if(e.key!=='p' && e.key!=='P') return;
+  if(e.ctrlKey || e.metaKey || e.altKey) return;         // Ctrl+P (imprimer) reste au navigateur
   if(e.target && e.target.id==='answer-input') return;   // on est en train de taper
   const spk=document.getElementById('speak-btn');
   if(spk && !spk.classList.contains('hide') && !document.body.classList.contains('no-he-voice')){
     e.preventDefault(); speakCurrent();
   }
+});
+// C comme « corriger » : active le bouton de correction du mode courant —
+// « Corriger » en Saisie, en QCM, « Annuler la dernière réponse » en Cartes.
+// Uniquement quand ce bouton est visible et actif : mêmes règles que lui.
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('study').classList.contains('active')) return;
+  if(e.key!=='c' && e.key!=='C') return;
+  if(e.ctrlKey || e.metaKey || e.altKey) return;         // Ctrl+C (copier) reste au navigateur
+  if(e.target && (e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA')) return;
+  const btn = state.mode==='cards' ? document.getElementById('undo-card')
+            : state.mode==='input' ? document.getElementById('fix-verdict')
+            :                        document.getElementById('quiz-fix');
+  if(btn && !btn.classList.contains('hide') && !btn.disabled){ e.preventDefault(); btn.click(); }
 });
 
 // ---------- Démarrage (version autonome : vocabulaire intégré ci-dessus) ----------
