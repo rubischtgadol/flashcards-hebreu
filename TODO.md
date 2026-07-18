@@ -32,7 +32,7 @@ Décisions prises (ne pas re-débattre) :
 - Sémantique de groupe sur les `.seg` (`fieldset`/`role="radiogroup"` + libellé).
 - Une touche pour (re)jouer l'audio de la carte courante.
 
-### 3. `/impeccable shape accueil` — puis implémentation  [ ]
+### 3. `/impeccable shape accueil` — puis implémentation  [x] (décisions Ruben 18/07 : pli oui, CTA collant tactile oui, 1er lancement tout sauf Phrases, note Mode oui)
 - La question des deux snapshots : « Révision du jour » est la seule surface d'or au repos, mais
   l'app s'ouvre sur un panneau de réglages ; `#start` n'arrive qu'après un long défilement.
 - À trancher pendant le shape (avec Ruben) : pli « Réglages avancés » (Ordre/Longueur/
