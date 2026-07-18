@@ -30,6 +30,14 @@ WebKit/iPhone 16 Pro. **La prochaine session commence par « Reprendre ici » ci
    Hébreu) ; ajuster `rate`/`pitch` si besoin ; API TTS externe **rejetée** (casse le
    tout-statique hors-ligne) ; audio préenregistré = décision produit, seulement si
    Enhanced déçoit.
+4. **Analyse et audit complet du carnet avec impeccable** (demande du 2026-07-19) :
+   passer `vocabulaire_hebreu.html` au crible — `/impeccable critique` (revue UX avec
+   score, comme celle qui a mené l'app de 28 à 34/40) puis `/impeccable audit`
+   (technique : a11y, perf, responsive), et en tirer un plan de correctifs. Le carnet
+   est la **référence de la charte** (`:root` normatif) : toute retouche visuelle qui
+   en sortirait doit se répercuter sur `app.html` et le portail, et passer par
+   `node build.js` (le carnet est la source des cartes — attention au couplage
+   d'extraction, CLAUDE.md § extraction).
 
 **Checklist côté Ruben (vrai iPhone)** :
 - [ ] Réinstaller la PWA / re-sauvegarder l'icône (une icône installée garde le
