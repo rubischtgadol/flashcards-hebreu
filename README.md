@@ -48,8 +48,8 @@ Le shva initial d'un groupe de consonnes n'est écrit que s'il s'entend (*gdolim
 
 Trois modes de travail, dans les deux sens (hébreu → français ou français → hébreu) :
 
-- **Cartes** recto-verso, avec auto-évaluation (« je savais » / « je savais pas »).
-- **Saisie** où l'on tape la réponse, avec navigation entièrement au clavier (Entrée pour vérifier, Entrée ou Espace pour passer à la suivante) et un bouton « Je ne sais pas ». Réponses en hébreu acceptées **soit en translittération** (graphie à la française tolérée : « chatoul », « khatul »…), **soit via un clavier hébreu virtuel** intégré (disposition israélienne standard).
+- **Cartes** recto-verso, avec auto-évaluation (« Je savais » / « À revoir »).
+- **Saisie** où l'on tape la réponse, avec navigation entièrement au clavier (Entrée pour vérifier, Entrée ou Espace pour passer à la suivante) et un bouton « Je ne sais pas ». Réponses en hébreu acceptées **soit en translittération** (graphie à la française tolérée : « chatoul », « khatul »…), **soit via un clavier hébreu virtuel** intégré (disposition israélienne standard). Une réponse à une petite faute près est comptée juste, avec un « Presque ! » qui montre la forme exacte à côté de la tienne.
 - **QCM** : la bonne traduction à retrouver parmi quatre choix (distracteurs tirés de la même catégorie), sans clavier — idéal sur téléphone.
 
 Autres réglages et fonctions :
@@ -60,7 +60,7 @@ Autres réglages et fonctions :
 - Audio avec la voix hébraïque du système, ordre aléatoire ou linéaire, et reprise des cartes ratées.
 - **Réglages mémorisés** : mode, direction, écriture, audio, longueur et catégories choisies sont restaurés d'une visite à l'autre. Une session interrompue (rechargement, onglet évincé par iOS) **reprend là où tu t'étais arrêté**.
 - **Accessible** : navigation complète au clavier (anneau de focus doré, recherche incluse), verdicts annoncés aux lecteurs d'écran, hébreu balisé `lang="he"` pour une prononciation correcte, cibles tactiles confortables sur mobile.
-- En mode saisie, si le correcteur juge à tort ta réponse fausse, un bouton **« J'avais juste »** rétablit le verdict et la progression.
+- En mode saisie, le verdict se corrige dans les deux sens : **« J'avais juste »** si le correcteur t'a jugé à tort, **« En fait, je ne savais pas »** si tu as deviné — la progression suit.
 
 ## Mise à jour automatique
 

@@ -78,7 +78,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
-- [index.html:1277](index.html#L1277) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
+- [index.html:1494](index.html#L1494) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
 - [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
@@ -114,7 +114,7 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 **Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`index.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
 
-## Anatomie d'index.html (~1390 lignes)
+## Anatomie d'index.html (~1630 lignes)
 
 Un seul fichier : CSS inline (l. 1–370 env.), puis quatre écrans, puis le JS.
 
@@ -122,14 +122,14 @@ Un seul fichier : CSS inline (l. 1–370 env.), puis quatre écrans, puis le JS.
 
 | Écran | Ligne | Rôle |
 |---|---|---|
-| `#loader` | [index.html:375](index.html#L375) | Spinner pendant le fetch du carnet (absent de la version autonome) |
-| `#setup` | [index.html:376](index.html#L376) | « Révision du jour » (SRS), recherche, catégories (chips) et réglages |
-| `#study` | [index.html:441](index.html#L441) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
-| `#done` | [index.html:490](index.html#L490) | Bilan + reprise des cartes ratées / de la session |
+| `#loader` | [index.html:403](index.html#L403) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [index.html:404](index.html#L404) | « Révision du jour » (SRS), recherche, catégories (chips) et réglages |
+| `#study` | [index.html:479](index.html#L479) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
+| `#done` | [index.html:529](index.html#L529) | Bilan + reprise des cartes ratées / de la session |
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés par `segPick` ([index.html:666](index.html#L666)) dans l'objet `state` ([index.html:503](index.html#L503)) :
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés par `segPick` ([index.html:796](index.html#L796)) dans l'objet `state` ([index.html:542](index.html#L542)) :
 
 - **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix) ;
 - **direction** : `he2fr` / `fr2he` ;
@@ -153,7 +153,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 - **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, mode, dir, script, order, audio, len}`. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), tout est sélectionné — le bouton « Commencer » n'est donc jamais muet. `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he_plain`) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
-- **Verdict annulable** : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`) ; en mode saisie, le bouton « Corriger » (`fixVerdict`) restaure cet état (`undoLastRecord`), ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`.
+- **Verdict annulable** : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`) ; en mode saisie, le bouton de correction (`fixVerdict` — « J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») restaure cet état (`undoLastRecord`), ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`.
 - **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
 
 ### Accessibilité (invariants)
@@ -166,10 +166,11 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([index.html:1072](index.html#L1072)) corrige avec tolérance :
+`checkAnswer` ([index.html:1244](index.html#L1244)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1173](index.html#L1173)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1065](index.html#L1065)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1003](index.html#L1003)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1386](index.html#L1386)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1236](index.html#L1236)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1174](index.html#L1174)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
 
@@ -181,7 +182,7 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
 
-1. **`init()` dans index.html** ([index.html:1345](index.html#L1345)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans index.html** ([index.html:1589](index.html#L1589)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
 
