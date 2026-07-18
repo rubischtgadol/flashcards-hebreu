@@ -204,7 +204,7 @@
   /* Pas de voix hébraïque sur l'appareil : on masque les boutons audio plutôt
      que de laisser la voix par défaut prononcer l'hébreu de travers. */
   body.no-he-voice .speak-btn, body.no-he-voice .sr-speak{ display:none !important; }
-  .audio-note{ color:var(--ink-dim); font-size:.74rem; margin-top:8px; }
+  .audio-note, .seg-note{ color:var(--ink-dim); font-size:.74rem; margin-top:8px; }
   .face.flip-anim{ animation:cardIn .26s ease; }
   @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
 
@@ -414,7 +414,7 @@
     <span class="review-ico">🔁</span>
     <span class="review-body">
       <span class="review-title" id="review-title">Rien à réviser pour l'instant</span>
-      <span class="review-sub" id="review-sub">Les cartes reviennent ici au bon moment, après ta première réponse.</span>
+      <span class="review-sub" id="review-sub">Après ta première réponse, chaque carte revient ici juste avant l'oubli : espacée quand tu la sais, vite si tu la rates.</span>
     </span>
     <span class="review-arrow">→</span>
   </button>
@@ -446,6 +446,7 @@
     <button class="chip" data-script="plain" aria-pressed="false">Sans nikud</button>
     <button class="chip" data-script="cursive" aria-pressed="false">Cursif</button>
   </div>
+  <div class="seg-note">Le nikud, ce sont les points-voyelles sous les lettres ; le cursif, l'écriture manuscrite israélienne.</div>
 
   <h2>Ordre</h2>
   <div class="seg" id="order">
@@ -490,14 +491,14 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg>
         </button>
         <div id="face-content"></div>
-        <div class="hint" id="face-hint">tap pour retourner</div>
+        <div class="hint" id="face-hint">touche la carte pour la retourner</div>
       </div>
     </div>
   </div>
 
   <div class="controls" id="controls-cards">
     <button class="btn-flip" id="btn-flip">Voir la réponse</button>
-    <button class="btn-again hide" id="btn-again">Je savais pas</button>
+    <button class="btn-again hide" id="btn-again">À revoir</button>
     <button class="btn-good hide" id="btn-good">Je savais</button>
   </div>
 
@@ -521,7 +522,7 @@
     <button class="btn-next hide" id="quiz-next">Suivant →</button>
   </div>
 
-  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> je savais pas · <kbd>&rarr;</kbd> je savais</div>
+  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais</div>
 </section>
 
 <!-- ============ DONE ============ -->
@@ -918,7 +919,7 @@ function refreshSrsUi(){
     btn.disabled=true;
     title.textContent = m.seen ? 'À jour — rien à réviser 👌' : 'Rien à réviser pour l’instant';
     sub.textContent = m.seen ? 'Reviens plus tard : les cartes réapparaîtront à échéance.'
-                             : 'Les cartes reviennent ici au bon moment, après ta première réponse.';
+                             : 'Après ta première réponse, chaque carte revient ici juste avant l\'oubli : espacée quand tu la sais, vite si tu la rates.';
   }
   const mEl=document.getElementById('mastery');
   if(m.seen>0){
@@ -1071,7 +1072,7 @@ function setupCardsMode(){
   document.getElementById('input-zone').classList.add('hide');
   document.getElementById('quiz-zone').classList.add('hide');
   document.getElementById('kbd-hint').classList.remove('hide');
-  document.getElementById('face-hint').textContent = 'tap pour retourner';
+  document.getElementById('face-hint').textContent = 'touche la carte pour la retourner';
   document.getElementById('btn-flip').classList.remove('hide');
   document.getElementById('btn-again').classList.add('hide');
   document.getElementById('btn-good').classList.add('hide');
@@ -1087,7 +1088,7 @@ function setupInputCard(card){
   document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'traduis en français' : 'écris en hébreu';
   const inp=document.getElementById('answer-input');
   inp.value=''; inp.className=''; inp.disabled=false;
-  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu (clavier &#9000;) ou en translittération…';
+  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu ou en translittération (ex. shalom, chaver)…';
   document.getElementById('input-row').classList.remove('hide');
   document.getElementById('btn-check').classList.remove('hide');
   document.getElementById('feedback').innerHTML='';
@@ -1111,7 +1112,7 @@ function animateFace(){
 function doFlip(){
   state.flipped=!state.flipped;
   document.getElementById('face-content').innerHTML = state.flipped ? state.backHtml : state.frontHtml;
-  document.getElementById('face-hint').textContent = state.flipped ? 'tap pour revenir' : 'tap pour retourner';
+  document.getElementById('face-hint').textContent = state.flipped ? 'touche pour revenir au recto' : 'touche la carte pour la retourner';
   animateFace();
   if(state.flipped){
     document.getElementById('btn-flip').classList.add('hide');
@@ -1239,35 +1240,38 @@ function trKey(s){
   s=s.replace(/(.)\1+/g,'$1');
   return s;
 }
+// Renvoie 'exact', 'almost' (accepté par tolérance orthographique) ou false.
 function checkAnswer(card, raw){
   const user = (raw||'').trim();
   if(!user) return false;
   if(state.dir==='he2fr'){
     const u = normFr(user);
     const variants = frVariants(card.fr);
+    let almost=false;
     for(const v of variants){
       if(!v) continue;
-      if(u===v) return true;
-      if(v.length>4 && editDist(u,v)<=1) return true;
+      if(u===v) return 'exact';
+      if(v.length>4 && editDist(u,v)<=1) almost=true;
     }
-    return false;
+    return almost ? 'almost' : false;
   } else {
     const uHe = normHe(user);
-    if(uHe && uHe===normHe(card.he)) return true;
+    if(uHe && uHe===normHe(card.he)) return 'exact';
     // Translittération : celle du carnet si présente, sinon générée depuis le nikud
     const uTr = trKey(user);
+    let almost=false;
     if(uTr){
       const cands = [];
       if(card.tr) cands.push(trKey(card.tr));
       cands.push(trKey(he2tr(card.he)));
       for(const c of cands){
         if(!c) continue;
-        if(uTr===c) return true;
+        if(uTr===c) return 'exact';
         const tol = c.length>=8 ? 2 : (c.length>=4 ? 1 : 0);
-        if(tol && editDist(uTr,c)<=tol) return true;
+        if(tol && editDist(uTr,c)<=tol) almost=true;
       }
     }
-    return false;
+    return almost ? 'almost' : false;
   }
 }
 function answerHtml(card){
@@ -1291,15 +1295,18 @@ function answerHtml(card){
 function escapeHtml(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 // Retour du mode saisie : verdict, tentative barrée si ratée, correction, et un
 // bouton « Corriger » qui inverse le dernier verdict (faux négatif du correcteur
-// indulgent, ou aveu d'une bonne réponse devinée). kind : 'ok' | 'no' | 'skip'.
+// indulgent, ou aveu d'une bonne réponse devinée). kind : 'ok' | 'almost' | 'no' | 'skip'.
 function showInputFeedback(card, kind, attempt){
   const fb=document.getElementById('feedback');
-  const verdict = kind==='ok' ? '<div class="verdict ok">✓ Correct</div>'
-                : kind==='no' ? '<div class="verdict no">✗ Réponse&nbsp;:</div>'
-                :               '<div class="verdict">La réponse&nbsp;:</div>';
+  const verdict = kind==='ok'     ? '<div class="verdict ok">✓ Correct</div>'
+                : kind==='almost' ? '<div class="verdict ok">✓ Presque ! La forme exacte&nbsp;:</div>'
+                : kind==='no'     ? '<div class="verdict no">✗ Réponse&nbsp;:</div>'
+                :                   '<div class="verdict">La réponse&nbsp;:</div>';
   const tried = (kind==='no' && attempt)
-    ? '<div class="your-answer">Ta réponse : <s>'+escapeHtml(attempt)+'</s></div>' : '';
-  const fixLabel = kind==='ok' ? 'En fait, je ne savais pas' : 'J’avais juste →';
+    ? '<div class="your-answer">Ta réponse : <s>'+escapeHtml(attempt)+'</s></div>'
+    : (kind==='almost' && attempt)
+    ? '<div class="your-answer">Ta réponse : '+escapeHtml(attempt)+'</div>' : '';
+  const fixLabel = (kind==='ok'||kind==='almost') ? 'En fait, je ne savais pas' : 'J’avais juste →';
   fb.innerHTML = verdict + tried + answerHtml(card)
     + '<button class="fix-btn" type="button" id="fix-verdict">'+fixLabel+'</button>';
   const btn=document.getElementById('fix-verdict');
@@ -1307,7 +1314,7 @@ function showInputFeedback(card, kind, attempt){
 }
 function fixVerdict(card, kind, btn){
   undoLastRecord();
-  const nowGood = (kind!=='ok');   // ok→raté ; no/skip→réussi
+  const nowGood = (kind!=='ok' && kind!=='almost');   // ok/almost→raté ; no/skip→réussi
   recordResult(card, nowGood);
   if(nowGood){
     state.goodCount++;
@@ -1328,7 +1335,8 @@ function submitAnswer(){
   const card=state.queue[state.idx];
   const inp=document.getElementById('answer-input');
   const attempt=inp.value.trim();
-  const correct=checkAnswer(card, inp.value);
+  const res=checkAnswer(card, inp.value);
+  const correct=!!res;
   state.answered=true;
   inp.disabled=true;
   inp.classList.add(correct?'ok':'no');
@@ -1336,7 +1344,7 @@ function submitAnswer(){
   document.getElementById('input-actions').classList.add('hide');
   document.getElementById('hebkb').classList.add('hide');
   recordResult(card, correct);
-  showInputFeedback(card, correct?'ok':'no', attempt);
+  showInputFeedback(card, correct?(res==='almost'?'almost':'ok'):'no', attempt);
   document.getElementById('btn-next').classList.remove('hide');
   if(correct) state.goodCount++; else state.missed.push(card);
   updateSpeaker();
@@ -1439,7 +1447,7 @@ function finish(){
   const pct=Math.round(state.goodCount/state.total*100);
   let msg;
   if(pct===100) msg='Sans faute. כָּל הַכָּבוֹד !';
-  else if(pct>=70) msg=state.missed.length+' carte'+(state.missed.length>1?'s':'')+' à revoir.';
+  else if(pct>=70) msg='Bien joué ! Plus que '+state.missed.length+' carte'+(state.missed.length>1?'s':'')+' à revoir avant le sans-faute.';
   else msg='Encore un peu d\'entraînement — '+state.missed.length+' à revoir.';
   document.getElementById('done-msg').textContent=msg;
   document.getElementById('retry-missed').style.display = state.missed.length? 'inline-block':'none';

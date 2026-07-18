@@ -41,7 +41,7 @@ Décisions prises (ne pas re-débattre) :
   chips élargies sous `pointer:coarse` (bureau inchangé), invariants notés dans CLAUDE.md.
   Nuance : `.sr-row` en `role="button"` (vrai `<button>` impossible : bouton Écouter imbriqué).
 
-### 4. `/impeccable clarify index.html` — libellés & pédagogie  [ ]
+### 4. `/impeccable clarify index.html` — libellés & pédagogie  [x]
 - « tap pour retourner » → français (« touche la carte pour la retourner »).
 - Désambiguïser « Je savais pas » (cartes) vs « Je ne sais pas → » (saisie).
 - Un mot d'explication du nikud sur les chips « Écriture au recto ».
@@ -49,6 +49,10 @@ Décisions prises (ne pas re-débattre) :
 - « Presque ! » quand `editDist` = 1 (le moteur mesure déjà la distance).
 - Réchauffer le message de fin 70–99 % (actuellement le plus froid : « 3 cartes à revoir. ») — peak-end.
 - Expliquer Leitner en une phrase (état vide ou « maîtrisée »).
+- Fait : tout ↑. Cartes : « À revoir / Je savais » (aligné sur DESIGN.md et `rouge-a-revoir`) ;
+  `checkAnswer` renvoie `'exact' | 'almost' | false` → verdict « ✓ Presque ! La forme exacte : »
+  (vert, tentative non barrée) ; note `.seg-note` sous les chips d'écriture ; phrase Leitner dans
+  l'état vide de « Révision du jour » ; au passage, entité `&#9000;` littérale du placeholder corrigée.
 
 ### 5. `/impeccable polish index.html` — reliquat  [ ]
 - Emojis d'interface (⌨️ ✅ 🔊 🔁 👌 ⚠️) → SVG inline ou texte (seule fuite hors charte).
