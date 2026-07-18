@@ -1,12 +1,14 @@
 # État du projet et travail restant
 
-État au 2026-07-19 (portail refondu en deux temps — voir « Fait »). Le plan d'amélioration UX est **terminé** (score final 34/40,
-progression 28 → 33 → 34, détecteur à 0 finding — snapshots dans `.impeccable/critique/`)
-et les **trois fonctionnalités demandées le 2026-07-18 sont livrées** : remise à zéro du
-profil, portail à la racine (avec salut aléatoire), diagnostic voix (premier pas). La
-place de la recherche est tranchée, le workflow « lots d'exemples sans relecture » est
-outillé (`verifie_exemples.js`), et le contrôle visuel mobile est couvert par l'émulation
-WebKit/iPhone 16 Pro. **La prochaine session commence par « Reprendre ici » ci-dessous.**
+État au 2026-07-19 au soir. Les **quatre demandes du 19/07 sont livrées et poussées**
+(voir « Fait ») : portail refondu en accueil deux temps (« Bienvenue » personnalisé,
+א, ménorahs, portes égales, hébreu idiomatique), `start_url` revenu au portail
+(sw v8 — Ruben doit re-sauvegarder l'icône), clavier virtuel réservé au bureau, et
+audit de péremption des six documents (ancres de lignes recalées). Acquis des sessions
+précédentes : plan UX terminé (34/40, snapshots dans `.impeccable/critique/`), remise à
+zéro du profil, diagnostic voix (premier pas), workflow « lots d'exemples sans
+relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16 Pro.
+**La prochaine session commence par « Reprendre ici » ci-dessous.**
 
 ## Reprendre ici (prochaine session)
 
