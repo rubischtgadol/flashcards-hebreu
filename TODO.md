@@ -1,10 +1,12 @@
 # État du projet et travail restant
 
-État au 2026-07-19 au soir. Les **quatre demandes du 19/07 sont livrées et poussées**
+État au 2026-07-19 au soir. Les **cinq demandes du 19/07 sont livrées et poussées**
 (voir « Fait ») : portail refondu en accueil deux temps (« Bienvenue » personnalisé,
 א, ménorahs, portes égales, hébreu idiomatique), `start_url` revenu au portail
-(sw v8 — Ruben doit re-sauvegarder l'icône), clavier virtuel réservé au bureau, et
-audit de péremption des six documents (ancres de lignes recalées). Acquis des sessions
+(sw v8 — Ruben doit re-sauvegarder l'icône), clavier virtuel réservé au bureau,
+audit de péremption des six documents (ancres de lignes recalées), et **premier
+lancement vierge** : plus aucune catégorie ni niveau présélectionné (`defaultCats`
+supprimé, l'utilisateur choisit lui-même ; rétro-compat des anciens profils gardée). Acquis des sessions
 précédentes : plan UX terminé (34/40, snapshots dans `.impeccable/critique/`), remise à
 zéro du profil, diagnostic voix (premier pas), workflow « lots d'exemples sans
 relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16 Pro.

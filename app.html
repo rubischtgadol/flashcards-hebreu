@@ -717,29 +717,21 @@ function reflectSeg(key){
     c.setAttribute('aria-pressed', c.dataset[key]===state[key] ? 'true':'false'));
 }
 // Restaure réglages + catégories, puis reflète le tout dans l'UI. Au 1er lancement
-// (aucune préférence) : tout sélectionné sauf « Phrases » — le bouton « Commencer »
-// n'est jamais muet, mais un débutant ne tombe pas sur une phrase complète à sa
-// troisième carte (elles restent à un tap dans les catégories).
-function defaultCats(){
-  const cats=Object.keys(catCounts).filter(c=>c!=='Phrases');
-  return cats.length ? cats : Object.keys(catCounts);
-}
+// (aucune préférence) : aucune catégorie ni aucun niveau présélectionné — le choix
+// appartient à l'utilisateur ; « Commencer » reste muet et #start-hint guide
+// (décision du 19/07/2026). Les autres réglages gardent leurs valeurs initiales.
 function applyPrefs(){
   const p=prefsLoad();
+  state.cats.clear();
+  state.niveaux.clear();
   if(p){
     SEG_KEYS.forEach(k=>{ if(typeof p[k]==='string') state[k]=p[k]; });
-    state.cats.clear();
     (Array.isArray(p.cats)?p.cats:[]).forEach(cat=>{ if(catCounts[cat]) state.cats.add(cat); });
-    if(state.cats.size===0) defaultCats().forEach(cat=>state.cats.add(cat));
-  } else {
-    state.cats.clear();
-    defaultCats().forEach(cat=>state.cats.add(cat));
+    // Niveaux : rétro-compatible — préférences d'avant le filtre (pas de champ
+    // `niveaux`) → tout sélectionné, rien ne disparaît pour un profil existant.
+    if(Array.isArray(p.niveaux)) p.niveaux.forEach(k=>{ if(nivCounts[k]) state.niveaux.add(k); });
+    else Object.keys(nivCounts).forEach(k=>state.niveaux.add(k));
   }
-  // Niveaux : rétro-compatible — préférences d'avant le filtre (pas de champ
-  // `niveaux`) ou sélection devenue vide → tout sélectionné, rien ne disparaît.
-  state.niveaux.clear();
-  (p && Array.isArray(p.niveaux) ? p.niveaux : []).forEach(k=>{ if(nivCounts[k]) state.niveaux.add(k); });
-  if(state.niveaux.size===0) Object.keys(nivCounts).forEach(k=>state.niveaux.add(k));
   SEG_KEYS.forEach(reflectSeg);
   catsEl.querySelectorAll('.chip').forEach(b=>
     b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
@@ -1200,7 +1192,7 @@ function startReview(){
     // applyPrefs() sans préférence ne touche pas ces clés : on les remet aux
     // valeurs de l'objet `state` initial (celles du premier lancement).
     Object.assign(state, {mode:'cards', dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', len:'20'});
-    applyPrefs();       // catégories = tout sauf Phrases, niveaux = tous, chips reflétées
+    applyPrefs();       // aucune catégorie ni niveau sélectionné (état 1er lancement), chips reflétées
     refreshSrsUi();     // barre de maîtrise masquée, révision du jour désactivée
     updateStart();
     document.getElementById('exit-note').classList.add('hide');
