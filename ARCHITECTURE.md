@@ -78,7 +78,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
-- [index.html:1494](index.html#L1494) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
+- [index.html:1520](index.html#L1520) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
 - [build.js:111](build.js#L111) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
@@ -114,27 +114,27 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 **Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`index.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
 
-## Anatomie d'index.html (~1630 lignes)
+## Anatomie d'index.html (~1660 lignes)
 
-Un seul fichier : CSS inline (l. 1–370 env.), puis quatre écrans, puis le JS.
+Un seul fichier : CSS inline (l. 1–400 env.), puis quatre écrans, puis le JS.
 
 ### Écrans
 
 | Écran | Ligne | Rôle |
 |---|---|---|
-| `#loader` | [index.html:403](index.html#L403) | Spinner pendant le fetch du carnet (absent de la version autonome) |
-| `#setup` | [index.html:404](index.html#L404) | « Révision du jour » (SRS), recherche, catégories (chips) et réglages |
-| `#study` | [index.html:479](index.html#L479) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
-| `#done` | [index.html:529](index.html#L529) | Bilan + reprise des cartes ratées / de la session |
+| `#loader` | [index.html:417](index.html#L417) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [index.html:418](index.html#L418) | « Révision du jour » (SRS), recherche, catégories (chips) et réglages |
+| `#study` | [index.html:493](index.html#L493) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
+| `#done` | [index.html:543](index.html#L543) | Bilan + liste des cartes ratées (`#missed-list`) + reprise des ratées / de la session |
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés par `segPick` ([index.html:796](index.html#L796)) dans l'objet `state` ([index.html:542](index.html#L542)) :
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([index.html:818](index.html#L818)) dans l'objet `state` ([index.html:557](index.html#L557)) :
 
 - **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix) ;
 - **direction** : `he2fr` / `fr2he` ;
 - **script** : nikud, sans nikud, ou cursive ;
-- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`) ;
+- **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`). Deux valeurs : « Au clic » (seul le bouton haut-parleur déclenche la lecture) et « Automatique » (lecture au rendu de la carte et à la révélation de l'hébreu) — le réglage est respecté dans **tous** les chemins de réponse. Sans voix hébraïque détectée, `reflectVoiceUi()` pose `body.no-he-voice` (boutons haut-parleur masqués) **et** désactive les chips « Prononciation » ;
 - **longueur** (`state.len` : `'10'|'20'|'50'|'all'`, défaut `'20'`) : `limitPool()` tronque le jeu **après** le mélange dans `start()` (aléatoire = pioche différente à chaque session ; dans l'ordre = les N premières). `startReview()` l'applique aussi, après tri des cartes dues par retard décroissant — le reste demeure dû et réapparaît sur la carte de révision (sous-titre explicite quand dû > limite). « Rejouer les ratées » n'est volontairement **jamais** limité.
 
 Chaque mode a sa zone dans `#study` (`#controls-cards` / `#input-zone` / `#quiz-zone`) et un `setup*Card()` qui bascule les classes body `input-mode` / `quiz-mode` ; `render()` aiguille selon `state.mode`. Le passage à la carte suivante est mutualisé (`nextAfterInput`, réutilisé par le QCM). Toutes les entrées de session (catégories, révision, rejeu) passent par `beginSession(pool)` ; `state.origQueue` mémorise le jeu de la session pour que « Recommencer » le rejoue tel quel (jamais un re-filtrage — sinon une session de révision repartirait à vide).
@@ -158,7 +158,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 ### Accessibilité (invariants)
 
-- Tout hébreu généré porte `lang="he"` (`.big-he`, `.sub-he`, `.cursive-line`, `.f-he`, `.qc-he`, `.sr-he`, `.srd-he`, `.answer .he`, marque) — à préserver dans les gabarits de chaînes.
+- Tout hébreu généré porte `lang="he"` (`.big-he`, `.sub-he`, `.cursive-line`, `.f-he`, `.qc-he`, `.sr-he`, `.srd-he`, `.answer .he`, `.m-he` de la liste des ratées, marque) — à préserver dans les gabarits de chaînes.
 - Focus clavier : un seul anneau global `:focus-visible` doré (aucun `outline:none` nu).
 - Annonces aux lecteurs d'écran : `#feedback` (`aria-live`), `#quiz-live` (verdict QCM masqué visuellement, écrit dans `quizPick`, vidé dans `setupQuizCard`), `#done-msg` et `#loader-msg` (`role="status"`) ; `.bar` est un `role="progressbar"` mis à jour dans `render()`/`finish()`.
 - Recherche au clavier : `.sr-row` en `role="button"` + `tabindex="0"` + `keydown` (un vrai `<button>` est impossible : le bouton Écouter est imbriqué dedans), `aria-expanded` sur les lignes dépliables.
@@ -166,10 +166,10 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([index.html:1244](index.html#L1244)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
+`checkAnswer` ([index.html:1265](index.html#L1265)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1386](index.html#L1386)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1236](index.html#L1236)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1174](index.html#L1174)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [index.html:1407](index.html#L1407)), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([index.html:1257](index.html#L1257)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([index.html:1195](index.html#L1195)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
@@ -182,14 +182,14 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
 
-1. **`init()` dans index.html** ([index.html:1589](index.html#L1589)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans index.html** ([index.html:1615](index.html#L1615)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
 
 ## Développement et déploiement
 
 - **Servir en HTTP** : `index.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
-- **Vérification sans navigateur** (WSL sans Chrome headless, y compris réseau coupé) : Node dans le scratchpad — `build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, et de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation).
+- **Vérification sans navigateur** (WSL sans Chrome headless, y compris réseau coupé) : Node dans le scratchpad — `build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom (installé dans le scratchpad) pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin).
 - **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
 - **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
 
