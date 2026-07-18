@@ -419,6 +419,11 @@
   .hebkb .kb-final{ color:var(--gold-soft); }
   .hebkb .kb-ctl{ font-family:inherit; font-size:.9rem; color:var(--ink-dim); }
   .hebkb .kb-space{ flex:3; }
+  /* Sur tactile (iPhone), le clavier virtuel est superflu et encombrant : le
+     système fournit un clavier hébreu natif, et la translittération tapée est
+     acceptée. Il n'existe que sur pointeur fin — l'AZERTY du bureau, lui, ne
+     sait pas taper l'hébreu. (!important : prime sur les bascules .hide du JS.) */
+  @media (pointer:coarse){ #kb-toggle, .hebkb{ display:none !important; } }
   /* Inflexions sous la correction en mode saisie : mêmes cellules empilées,
      espacement et taille resserrés pour tenir dans la carte compacte. */
   .feedback .forms{ margin:12px auto 0; gap:10px 16px; }
