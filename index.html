@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hébreu — carnet &amp; flashcards</title>
-<!-- Portail : la porte d'entrée commune vers le carnet et l'appli d'entraînement.
-     L'appli vit dans app.html ; le manifest y envoie directement l'icône installée. -->
+<!-- Portail : la porte d'entrée commune, en deux temps — un accueil plein écran
+     (« Bienvenue » très gros, au hasard en hébreu), puis le choix des deux côtés
+     (flashcards, carnet). L'icône installée ouvre ce portail (start_url: "./"). -->
 <meta name="theme-color" content="#12181f">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -15,6 +16,7 @@
 <meta name="apple-mobile-web-app-title" content="Hébreu">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
   /* Charte unifiée carnet + app — ce bloc :root doit rester identique dans
      vocabulaire_hebreu.html, app.html et ici (référence : le carnet). */
@@ -38,6 +40,45 @@
   @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
   :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:6px; }
 
+  /* ————— Premier temps : l'accueil plein écran —————
+     Un seul grand bouton par-dessus la page ; sans JS il n'existe pas
+     (les portes restent directement accessibles). */
+  #accueil{
+    position:fixed; inset:0; z-index:1; /* seule couche empilée de la page */
+    display:none;
+    width:100%; border:0; margin:0; padding:28px 22px;
+    background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%);
+    color:var(--ink); font-family:inherit; cursor:pointer; text-align:center;
+    flex-direction:column; align-items:center; justify-content:center;
+    transition:opacity .4s ease, visibility 0s .4s;
+  }
+  html.js #accueil{ display:flex; }
+  body.entree #accueil{ opacity:0; visibility:hidden; pointer-events:none; }
+  .acc-marque{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-size:1.05rem; font-weight:700; color:var(--ink);
+  }
+  .acc-marque .he{ color:var(--gold); }
+  .acc-mot{
+    display:block; margin-top:22px; max-width:15ch;
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-size:clamp(3rem, 13vw, 5.6rem); font-weight:500; line-height:1.12;
+    color:var(--gold-soft); text-wrap:balance;
+    animation:acc-in .7s ease-out;
+  }
+  @keyframes acc-in{ from{ opacity:0; transform:translateY(10px); } }
+  .acc-entrer{
+    display:block; margin-top:34px; font-size:.95rem; font-weight:600;
+    color:var(--ink-dim); animation:acc-pouls 2.6s ease-in-out infinite alternate;
+  }
+  @keyframes acc-pouls{ from{ opacity:.55; } to{ opacity:1; } }
+  .acc-entrer .tactile{ display:none; }
+  @media (pointer:coarse){
+    .acc-entrer .souris{ display:none; }
+    .acc-entrer .tactile{ display:inline; }
+  }
+
+  /* ————— Second temps : le choix des deux côtés ————— */
   header{ text-align:center; margin-bottom:34px; }
   h1{
     margin:0; font-size:2.1rem; font-weight:700; letter-spacing:.01em;
@@ -45,11 +86,13 @@
   }
   h1 .he{ color:var(--gold); }
   .tagline{ margin:8px 0 0; color:var(--ink-dim); font-size:.95rem; }
-  /* Le salut, une fois en français, une fois en hébreu — l'or tendre des
-     accents chaleureux, jamais la lampe elle-même. */
+  /* Le salut, une fois en français, une fois en hébreu — le même tirage que
+     l'accueil plein écran. L'or tendre des accents chaleureux. */
   .welcome{ margin:16px 0 0; font-size:1.15rem; font-weight:600; color:var(--gold-soft); }
   .welcome[lang="he"]{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.4rem; font-weight:500; }
 
+  /* Deux portes strictement égales — aucune n'est « sélectionnée » d'avance ;
+     l'or n'arrive qu'au survol et sur le petit lien d'action. */
   .doors{ display:flex; flex-direction:column; gap:16px; width:100%; max-width:440px; }
   .door{
     display:block; text-decoration:none; color:var(--ink);
@@ -59,28 +102,32 @@
   }
   .door:hover{ border-color:var(--gold); }
   .door:active{ transform:scale(.99); }
-  /* La lampe : une seule porte dorée — l'entraînement, l'action quotidienne. */
-  .door.main{ border-color:var(--gold); box-shadow:0 20px 50px -28px #000; }
+  body.entree .door{ animation:porte-in .5s ease-out backwards; }
+  body.entree .door + .door{ animation-delay:.08s; }
+  @keyframes porte-in{ from{ opacity:0; transform:translateY(10px); } }
   .door-he{
     display:block; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-    font-size:1.9rem; font-weight:500; line-height:1.25;
+    font-size:1.9rem; font-weight:500; line-height:1.25; color:var(--gold-soft);
   }
-  .door.main .door-he{ color:var(--gold-soft); }
   .door-fr{ display:block; margin-top:2px; font-size:1.05rem; font-weight:700; }
   .door-sub{ display:block; margin-top:6px; color:var(--ink-dim); font-size:.88rem; line-height:1.5; }
   .door-go{
     display:inline-block; margin-top:14px; font-size:.9rem; font-weight:600;
     color:var(--gold); border:1px solid var(--line); border-radius:10px; padding:8px 14px;
   }
-  .door.main .door-go{
-    background:linear-gradient(180deg, var(--gold-soft), var(--gold));
-    color:#1a1206; border-color:var(--gold);
-  }
   footer{ margin-top:30px; color:var(--ink-dim); font-size:.8rem; text-align:center; }
   @media (pointer:coarse){ .door{ padding:24px 22px 22px; } }
 </style>
 </head>
 <body>
+
+<button id="accueil" type="button">
+  <span class="acc-marque"><span class="he" lang="he">עִבְרִית</span> · Hébreu</span>
+  <span class="acc-mot" id="acc-mot">Bienvenue&nbsp;!</span>
+  <span class="acc-entrer">
+    <span class="souris">Cliquer pour entrer</span><span class="tactile">Toucher pour entrer</span>
+  </span>
+</button>
 
 <header>
   <h1><span class="he" lang="he">עִבְרִית</span> · Hébreu</h1>
@@ -89,7 +136,7 @@
 </header>
 
 <nav class="doors" aria-label="Les deux parties du site">
-  <a class="door main" href="./app.html">
+  <a class="door" href="./app.html">
     <span class="door-he" lang="he">כַּרְטִיסִים</span>
     <span class="door-fr">Les flashcards</span>
     <span class="door-sub">S'entraîner sur tout le vocabulaire — cartes à retourner, réponse tapée ou QCM, avec révision espacée, niveaux et audio.</span>
@@ -106,16 +153,31 @@
 <footer>Un carnet pour apprendre l'hébreu moderne, en français.</footer>
 
 <script>
-// Le salut change de langue au hasard à chaque ouverture. En hébreu : sans
+// Le salut change de langue au hasard à chaque ouverture — le même tirage pour
+// l'accueil plein écran et le petit salut du second temps. En hébreu : sans
 // nikoud (demande de Ruben) et point d'exclamation collé au dernier mot ;
 // en français, espace insécable. Sans JS, la version française du HTML reste.
 (function(){
-  var el = document.getElementById('welcome');
-  if (el && Math.random() < 0.5){
-    el.textContent = 'ברוכים הבאים!';
-    el.setAttribute('lang', 'he');
-    el.setAttribute('dir', 'rtl');
+  if (Math.random() < 0.5){
+    ['acc-mot', 'welcome'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = 'ברוכים הבאים!';
+      el.setAttribute('lang', 'he');
+      el.setAttribute('dir', 'rtl');
+    });
   }
+
+  // L'accueil s'efface au clic ; activé au clavier (detail === 0), le focus
+  // passe à la première porte pour que Tab reparte du bon endroit.
+  var accueil = document.getElementById('accueil');
+  accueil.addEventListener('click', function(e){
+    document.body.classList.add('entree');
+    if (e.detail === 0){
+      var porte = document.querySelector('.door');
+      if (porte) porte.focus({preventScroll:true});
+    }
+  });
 })();
 
 // PWA : le portail enregistre aussi le service worker — le site complet
