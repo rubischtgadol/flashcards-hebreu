@@ -71,8 +71,14 @@ Décisions prises (ne pas re-débattre) :
   complété (voix cursive, ramp réel, rayons 10/14, encres sur vert/rouge, ombre). Vérifié via jsdom
   (20 contrôles verts sur le standalone) ; contrôle visuel navigateur → côté Ruben.
 
-### 6. `/impeccable critique index.html` — re-mesure  [ ]
+### 6. `/impeccable critique index.html` — re-mesure  [x]
 - Objectif : > 28/40, 0 P1. Le trend se lit dans `.impeccable/critique/`.
+- Fait : **33/40** (28 → 33), détecteur 0 finding, les 3 P1 d'origine résolus. La critique en
+  double-agent a levé **1 nouveau P1** (pas de « Corriger » hors mode saisie : un fat-finger en
+  Cartes/QCM écrit définitivement en SRS) + 4 P2/P3 et des questions d'accueil — snapshot complet
+  dans `.impeccable/critique/2026-07-18T17-37-33Z__index-html.md`. Prochaine passe éventuelle :
+  `/impeccable harden` (undo généralisé + Entrée sur champ vide), `/impeccable audit` (verso muet
+  au lecteur d'écran en Cartes), puis re-critique — à décider avec Ruben.
 
 ## Rituel à chaque étape
 1. `node build.js` (régénère `flashcards_hebreu.html` ; échec si une section tombe à 0).
