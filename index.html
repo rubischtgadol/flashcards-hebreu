@@ -201,12 +201,13 @@
 <script>
 // Le salut change de langue au hasard à chaque ouverture — le même tirage pour
 // l'accueil plein écran (formule complète, « ראובן » pour le prénom) et le petit
-// salut du second temps (formule courte). En hébreu : sans nikoud (demande de
-// Ruben) et point d'exclamation collé au dernier mot ; en français, espace
-// insécable. Sans JS, la version française du HTML reste.
+// salut du second temps (formule courte). L'hébreu emploie la tournure
+// idiomatique לקבל בברכה (« accueillir avec bénédiction » = souhaiter la
+// bienvenue) ; sans nikoud (demande de Ruben) et point d'exclamation collé au
+// dernier mot ; en français, espace insécable. Sans JS, le français du HTML reste.
 (function(){
   if (Math.random() < 0.5){
-    var textes = { 'acc-mot': 'ראובן מאחל לכם ברוכים הבאים!', 'welcome': 'ברוכים הבאים!' };
+    var textes = { 'acc-mot': 'ראובן מקבל אתכם בברכה!', 'welcome': 'ברוכים הבאים!' };
     Object.keys(textes).forEach(function(id){
       var el = document.getElementById(id);
       if (!el) return;

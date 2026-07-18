@@ -87,7 +87,7 @@ Puis, le 2026-07-19 (trois problèmes remontés par Ruben) :
   passe ; navigation réelle des deux portes testée.
 - **[x] Accueil habillé** (2e demande du 19/07) : marque « עברית · Hébreu » retirée de
   l'écran d'accueil (elle reste l'en-tête du second temps), salut personnalisé
-  « Ruben vous souhaite la bienvenue ! » / « ראובן מאחל לכם ברוכים הבאים! », le א de
+  « Ruben vous souhaite la bienvenue ! » / « ראובן מקבל אתכם בברכה! », le א de
   l'icône en glyphe vectoriel doré centré dessous, et deux **ménorahs à sept branches**
   (SVG inline `<symbol>` + `<use>`, flammes or tendre, halo en pseudo-élément qui
   respire — figé sous reduced-motion) qui éclairent les côtés. 33 contrôles WebKit
@@ -103,9 +103,11 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - L'écran de réglages reste le premier écran de l'appli ; il s'ouvre sur la « Révision
   du jour », la recherche vit dessous.
 - Le salut du portail : **personnalisé** depuis le 2026-07-19 — « Ruben vous souhaite
-  la bienvenue ! » / « ראובן מאחל לכם ברוכים הבאים! » (prénom adapté ראובן), tiré au
-  sort fr/he, toujours **sans nikoud** et exclamation collée en hébreu ; l'écho du
-  second temps garde la formule courte. Le prénom sur la page publique est une
+  la bienvenue ! » / « ראובן מקבל אתכם בברכה! » (prénom adapté ראובן ; tournure
+  idiomatique לקבל בברכה, corrigée le même jour sur question de Ruben — מאחל +
+  ברוכים הבאים ne se dit pas), tiré au sort fr/he, toujours **sans nikoud** et
+  exclamation collée en hébreu ; l'écho du second temps garde la formule courte
+  « ברוכים הבאים! ». Le prénom sur la page publique est une
   **exception assumée** (demande explicite du 19/07) à la neutralité du dépôt — les
   docs, l'historique git et la config restent au pseudonyme.
 - Les **lots d'exemples s'écrivent sans relecture humaine**, gardés par

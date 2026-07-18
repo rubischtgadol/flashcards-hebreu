@@ -37,7 +37,7 @@ Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un po
 | Fichier | Rôle | Édité à la main ? |
 |---|---|---|
 | [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire. Toute modification de contenu se fait ici. | ✅ oui |
-| [index.html](index.html) | Le **portail** : la porte d'entrée à la racine, en deux temps — accueil plein écran (« Ruben vous souhaite la bienvenue ! » / « ראובן מאחל לכם ברוכים הבאים! » au hasard, le א doré de l'icône en vectoriel, deux ménorahs à sept branches qui éclairent les côtés), puis le choix entre deux portes égales (flashcards, carnet). Sans JS, l'accueil s'efface et les portes sont directement là. Sans vocabulaire ni couplage build. | ✅ oui |
+| [index.html](index.html) | Le **portail** : la porte d'entrée à la racine, en deux temps — accueil plein écran (« Ruben vous souhaite la bienvenue ! » / « ראובן מקבל אתכם בברכה! » au hasard, le א doré de l'icône en vectoriel, deux ménorahs à sept branches qui éclairent les côtés), puis le choix entre deux portes égales (flashcards, carnet). Sans JS, l'accueil s'efface et les portes sont directement là. Sans vocabulaire ni couplage build. | ✅ oui |
 | [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
