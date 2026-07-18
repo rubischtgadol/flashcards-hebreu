@@ -1,0 +1,7 @@
+{
+  "files": ["index.html", "vocabulaire_hebreu.html"],
+  "exclude": ["flashcards_hebreu.html"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

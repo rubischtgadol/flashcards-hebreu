@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-18T12:49:24Z",
+  "title": "Design System : Flashcards Hébreu",
+  "extensions": {
+    "colorMeta": {
+      "nuit-encre": { "role": "neutral", "displayName": "Nuit d'encre", "canonical": "#12181f", "tonalRamp": ["#0b0f14", "#12181f", "#1a222b", "#2c3844", "#46566a", "#6b7d92", "#9db0c2", "#d5dfe8"] },
+      "nuit-encre-claire": { "role": "neutral", "displayName": "Nuit d'encre claire", "canonical": "#161e28", "tonalRamp": ["#0c1016", "#161e28", "#20293a", "#30405a", "#48597a", "#6d7f9e", "#9fb0c8", "#d7dfeb"] },
+      "carte": { "role": "neutral", "displayName": "Carte", "canonical": "#1a222b", "tonalRamp": ["#0e1318", "#1a222b", "#26313e", "#364656", "#4d6076", "#71859c", "#a2b4c6", "#d8e1ea"] },
+      "bord-de-carte": { "role": "neutral", "displayName": "Bord de carte", "canonical": "#2c3844", "tonalRamp": ["#131920", "#1f2833", "#2c3844", "#3e4f60", "#566c82", "#7a8ea3", "#a8b8c9", "#dae2ea"] },
+      "parchemin": { "role": "neutral", "displayName": "Parchemin", "canonical": "#ece7dd", "tonalRamp": ["#2b2822", "#4d483e", "#6f695b", "#918a79", "#b3ab97", "#d0c8b6", "#ece7dd", "#f9f7f1"] },
+      "parchemin-estompe": { "role": "neutral", "displayName": "Parchemin estompé", "canonical": "#9aa3ac", "tonalRamp": ["#1d2125", "#363d43", "#515a62", "#6c7780", "#87929c", "#9aa3ac", "#bcc3ca", "#e0e4e8"] },
+      "or-ancien": { "role": "primary", "displayName": "Or ancien", "canonical": "#d4a24c", "tonalRamp": ["#241a09", "#45330f", "#674d17", "#8a6722", "#ad8230", "#d4a24c", "#e6c68a", "#f5e3c2"] },
+      "or-tendre": { "role": "primary", "displayName": "Or tendre", "canonical": "#e6c68a", "tonalRamp": ["#2a2110", "#4e3f1e", "#725d2e", "#967c41", "#baa05c", "#d8bb75", "#e6c68a", "#f5e6c6"] },
+      "encre-sur-or": { "role": "neutral", "displayName": "Encre sur or", "canonical": "#1a1206", "tonalRamp": ["#1a1206", "#332508", "#4d380d", "#684c13", "#84611a", "#a17823", "#c0912f", "#e0ac3f"] },
+      "vert-juste": { "role": "secondary", "displayName": "Vert juste", "canonical": "#5bbd7a", "tonalRamp": ["#0e2416", "#1b4429", "#28643c", "#35854f", "#42a563", "#5bbd7a", "#8ed2a2", "#c5e9d0"] },
+      "rouge-a-revoir": { "role": "secondary", "displayName": "Rouge à revoir", "canonical": "#d96a5b", "tonalRamp": ["#2b120d", "#4f211a", "#733026", "#973f33", "#bb4e40", "#d96a5b", "#e59a8f", "#f2ccc6"] },
+      "filet": { "role": "neutral", "displayName": "Filet", "canonical": "#2a3440", "tonalRamp": ["#12171d", "#1e252e", "#2a3440", "#3c4a5b", "#54677d", "#78899e", "#a6b5c5", "#d9e0e8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display (hébreu)", "purpose": "Le mot hébreu sur la carte, RTL, toujours l'élément le plus grand de l'écran. Phrases : 2.15rem." },
+      "headline": { "displayName": "Headline (français)", "purpose": "Le mot français sur la carte, en sérif comme l'hébreu." },
+      "title": { "displayName": "Titres de sections", "purpose": "Capitales espacées en or — uniquement les titres du panneau de réglages." },
+      "body": { "displayName": "Corps", "purpose": "Assistant 22px de base ; les contrôles descendent vers 0.9–1.1rem." },
+      "label": { "displayName": "Mono", "purpose": "Translittérations (LTR), compteurs, raccourcis kbd." }
+    },
+    "shadows": [
+      { "name": "carte-unique", "value": "0 20px 50px -22px #000, inset 0 1px 0 rgba(255,255,255,.03)", "purpose": "Réservée à la flashcard — le seul objet avec une vraie ombre portée." },
+      { "name": "lueur-or", "value": "0 6px 18px -8px #d4a24c", "purpose": "Lueur sous le bouton de démarrage : une lumière, pas une élévation." }
+    ],
+    "motion": [
+      { "name": "etat", "value": "all .13s ease", "purpose": "Transitions d'état des contrôles (bordure, fond, couleur) : 120–150 ms." },
+      { "name": "carte-entree", "value": "cardIn .26s ease (opacity .4→1, translateY 4px→0)", "purpose": "Entrée d'une nouvelle face de carte." },
+      { "name": "progression", "value": "width .35s ease", "purpose": "Barre de progression de session ; barre de maîtrise : .5s." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "L'action d'or : Commencer, Vérifier, Suivant. Dégradé or tendre → or ancien, texte encre.",
+      "html": "<button class=\"ds-btn-primary\">Commencer</button>",
+      "css": ".ds-btn-primary { border: none; border-radius: 12px; background: linear-gradient(180deg, #e6c68a, #d4a24c); color: #1a1206; font-family: Assistant, Arial, sans-serif; font-weight: 700; font-size: 1.02rem; padding: 14px 28px; cursor: pointer; letter-spacing: .01em; box-shadow: 0 6px 18px -8px #d4a24c; transition: transform .12s ease; } .ds-btn-primary:active { transform: scale(.98); } .ds-btn-primary:focus-visible { outline: 2px solid #e6c68a; outline-offset: 2px; }"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Sélecteur pilule : transparent au repos, or plein quand sélectionné.",
+      "html": "<span><button class=\"ds-chip\">Verbes <span class=\"ds-chip-n\">94</span></button> <button class=\"ds-chip ds-chip-on\">Noms <span class=\"ds-chip-n\">120</span></button></span>",
+      "css": ".ds-chip { border: 1px solid #2a3440; background: transparent; color: #ece7dd; font-family: Assistant, Arial, sans-serif; font-size: .96rem; padding: 7px 13px; border-radius: 999px; cursor: pointer; transition: all .15s ease; } .ds-chip:hover { border-color: #d4a24c; } .ds-chip:focus-visible { outline: 2px solid #e6c68a; outline-offset: 2px; } .ds-chip-on { background: #d4a24c; color: #1a1206; border-color: #d4a24c; font-weight: 600; } .ds-chip-n { opacity: .6; font-size: .76em; margin-inline-start: 5px; }"
+    },
+    {
+      "name": "Boutons de verdict",
+      "kind": "button",
+      "refersTo": "button-good",
+      "description": "Je savais / À revoir : posés sur la couche carte, teintés du verdict ; le survol inverse.",
+      "html": "<span style=\"display:flex;gap:10px\"><button class=\"ds-btn-again\">À revoir</button><button class=\"ds-btn-good\">Je savais</button></span>",
+      "css": ".ds-btn-good, .ds-btn-again { flex: 1; border-radius: 12px; font-family: Assistant, Arial, sans-serif; font-weight: 600; font-size: .95rem; padding: 13px 24px; cursor: pointer; background: #1a222b; transition: all .13s ease; } .ds-btn-good { border: 1px solid #5bbd7a; color: #5bbd7a; } .ds-btn-good:hover { background: #5bbd7a; color: #0a1a0f; } .ds-btn-again { border: 1px solid #d96a5b; color: #d96a5b; } .ds-btn-again:hover { background: #d96a5b; color: #1a0d0a; }"
+    },
+    {
+      "name": "Champ de saisie",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Champ de réponse : nuit claire, filet, bordure or au focus, verte/rouge après correction.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Ta réponse…\">",
+      "css": ".ds-input { width: 100%; border-radius: 12px; border: 1px solid #2a3440; background: #161e28; color: #ece7dd; font-family: Assistant, Arial, sans-serif; font-size: 1.05rem; padding: 13px 15px; outline: none; transition: border-color .15s ease; } .ds-input::placeholder { color: #9aa3ac; } .ds-input:focus { border-color: #d4a24c; }"
+    },
+    {
+      "name": "Choix de QCM",
+      "kind": "button",
+      "refersTo": "quiz-choice",
+      "description": "Réponse de QCM : hébreu sérif au centre, translittération mono dessous ; verte ou rouge après le choix.",
+      "html": "<button class=\"ds-qc\"><span class=\"ds-qc-he\">שָׁלוֹם</span><span class=\"ds-qc-tr\">shalom</span></button>",
+      "css": ".ds-qc { width: 100%; border: 1px solid #2a3440; background: #1a222b; color: #ece7dd; font-family: Assistant, Arial, sans-serif; font-size: 1.1rem; padding: 14px 16px; border-radius: 12px; cursor: pointer; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: border-color .12s ease, background .12s ease; } .ds-qc:hover { border-color: #d4a24c; } .ds-qc-he { font-family: 'Frank Ruhl Libre', 'Times New Roman', serif; font-size: 1.7rem; direction: rtl; line-height: 1.15; } .ds-qc-tr { font-family: 'JetBrains Mono', monospace; font-size: .82rem; color: #9aa3ac; direction: ltr; }"
+    },
+    {
+      "name": "Flashcard",
+      "kind": "card",
+      "refersTo": "quiz-choice",
+      "description": "L'objet central : la seule surface avec une vraie ombre. Hébreu display, translittération mono, indication en capitales or.",
+      "html": "<div class=\"ds-flip\"><div class=\"ds-flip-eyebrow\">Hébreu → Français</div><div class=\"ds-flip-he\">מַחְבֶּרֶת</div><div class=\"ds-flip-tr\">machberet</div><div class=\"ds-flip-hint\">Touche la carte pour la retourner</div></div>",
+      "css": ".ds-flip { position: relative; width: 100%; max-width: 420px; border-radius: 20px; border: 1px solid #2c3844; background: linear-gradient(160deg, #1a222b, #161e28); box-shadow: 0 20px 50px -22px #000, inset 0 1px 0 rgba(255,255,255,.03); padding: 52px 22px 46px; text-align: center; cursor: pointer; transition: transform .12s ease; } .ds-flip:active { transform: scale(.994); } .ds-flip-eyebrow { position: absolute; top: 16px; left: 0; right: 0; font-family: Assistant, Arial, sans-serif; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: #d4a24c; font-weight: 600; } .ds-flip-he { font-family: 'Frank Ruhl Libre', 'Times New Roman', serif; font-size: 3.6rem; line-height: 1.15; direction: rtl; color: #ece7dd; } .ds-flip-tr { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #9aa3ac; margin-top: 12px; } .ds-flip-hint { position: absolute; bottom: 14px; left: 0; right: 0; font-family: Assistant, Arial, sans-serif; font-size: .84rem; color: #9aa3ac; }"
+    },
+    {
+      "name": "Carte de révision du jour",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "La seule surface teintée d'or au repos : l'action quotidienne que le système encourage (révision Leitner).",
+      "html": "<button class=\"ds-review\"><span class=\"ds-review-ico\">🔁</span><span class=\"ds-review-body\"><span class=\"ds-review-title\">12 cartes à réviser</span><span class=\"ds-review-sub\">Révision du jour — méthode Leitner</span></span><span class=\"ds-review-arrow\">→</span></button>",
+      "css": ".ds-review { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; border: 1px solid #d4a24c; border-radius: 14px; cursor: pointer; background: linear-gradient(135deg, rgba(212,162,76,.16), rgba(212,162,76,.05)); color: #ece7dd; font-family: Assistant, Arial, sans-serif; padding: 13px 15px; transition: all .13s ease; } .ds-review:hover { background: linear-gradient(135deg, rgba(212,162,76,.24), rgba(212,162,76,.08)); } .ds-review-ico { flex: none; font-size: 1.5rem; line-height: 1; } .ds-review-body { flex: 1; display: flex; flex-direction: column; } .ds-review-title { font-weight: 700; font-size: 1rem; } .ds-review-sub { font-size: .84rem; color: #9aa3ac; margin-top: 1px; } .ds-review-arrow { flex: none; color: #d4a24c; font-size: 1.3rem; }"
+    },
+    {
+      "name": "Touches du clavier hébreu",
+      "kind": "custom",
+      "refersTo": "input-field",
+      "description": "Clavier israélien intégré : lettres sérif sur nuit claire, finales en or tendre, touche active en or plein.",
+      "html": "<span style=\"display:flex;gap:6px;direction:rtl\"><button class=\"ds-kb\">ש</button><button class=\"ds-kb\">ל</button><button class=\"ds-kb ds-kb-final\">ם</button></span>",
+      "css": ".ds-kb { min-width: 44px; font-family: 'Frank Ruhl Libre', 'Times New Roman', serif; font-size: 1.35rem; padding: 10px 0; border-radius: 9px; border: 1px solid #2a3440; background: #161e28; color: #ece7dd; cursor: pointer; line-height: 1; } .ds-kb:active { background: #d4a24c; color: #1a1206; } .ds-kb-final { color: #e6c68a; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le carnet d'étude du soir",
+    "overview": "Tout le système découle d'une scène : on révise son hébreu le soir, à la lampe, dans un carnet qu'on aime rouvrir. Le fond est une nuit d'encre bleutée, le texte un parchemin doux, et l'or n'est pas un décor — c'est la lumière de la lampe, posée uniquement sur ce qui compte : l'hébreu de la marque, l'action principale, la sélection en cours. L'ambiance est calme, chaleureuse, studieuse ; l'interface s'efface pour que les caractères hébreux et leur nikoud restent la vedette.\n\nCe système rejette explicitement trois familles : la gamification façon Duolingo (mascottes, confettis, streaks), l'esthétique SaaS générique (dégradés violets, cards partout), et le manuel scolaire austère (sec, gris, intimidant). La chaleur vient de l'or et des sérifs hébraïques, jamais d'artifices.\n\nLe carnet (vocabulaire_hebreu.html) est la référence visuelle ; l'app en hérite. Le bloc :root doit rester strictement identique dans les deux fichiers.",
+    "keyCharacteristics": [
+      "Sombre par vocation (étude du soir), jamais par mode.",
+      "L'hébreu toujours en sérif Frank Ruhl Libre, toujours plus grand que sa traduction.",
+      "Or réservé à la lumière : actions, sélection, identité — environ 10 % de l'écran.",
+      "Plat par défaut ; une seule vraie ombre, sous la flashcard.",
+      "Base typographique généreuse (22px) : lisibilité du nikoud avant densité."
+    ],
+    "rules": [
+      { "name": "La règle de la lampe", "body": "L'or est une lumière rare : actions primaires, sélection, identité — jamais plus d'environ 10 % de l'écran. Si l'or devient un fond ambiant, la lampe éblouit et n'éclaire plus rien.", "section": "colors" },
+      { "name": "La règle des couches", "body": "La profondeur se dit d'abord par la couleur : nuit d'encre → nuit claire → carte, chaque couche bordée d'un filet. On ne saute jamais une couche et on n'invente pas de cinquième gris.", "section": "colors" },
+      { "name": "La règle des trois voix", "body": "Frank Ruhl Libre pour l'hébreu et les grands mots, Assistant pour l'outil, JetBrains Mono pour la translittération. Aucune quatrième famille, jamais de sérif dans les boutons.", "section": "typography" },
+      { "name": "La règle de la vedette", "body": "À l'écran, l'hébreu est toujours plus grand que sa traduction et que tout élément d'interface. Si un contrôle rivalise visuellement avec le mot hébreu, le contrôle a tort.", "section": "typography" },
+      { "name": "La règle de la carte unique", "body": "Seule la flashcard a droit à une vraie ombre portée. Panneaux, chips, champs, choix de QCM restent plats : bordure + couche tonale. Ajouter une ombre à un deuxième objet, c'est retirer sa singularité au premier.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do garder le bloc :root strictement identique entre vocabulaire_hebreu.html et index.html — le carnet est la référence ; si --bg/--gold changent, régénérer les icônes et manifest.webmanifest.",
+      "Do poser Encre sur or (#1a1206) sur tout fond or — jamais de blanc sur or.",
+      "Do écrire l'hébreu en Frank Ruhl Libre, en RTL, plus grand que tout le reste (règle de la vedette), nikoud net.",
+      "Do réserver vert juste et rouge à revoir au seul feedback de réponse.",
+      "Do garder les transitions à 120–350 ms, ease, et l'alternative prefers-reduced-motion globale.",
+      "Do utiliser JetBrains Mono (LTR) pour toute translittération, au standard maison (kh/ch/ts, ' pour ayin)."
+    ],
+    "donts": [
+      "Don't introduire de gamification façon Duolingo : mascottes, confettis, XP, streaks culpabilisants.",
+      "Don't glisser vers l'app SaaS générique : dégradés violets, cards partout, glassmorphism, esthétique start-up interchangeable.",
+      "Don't retomber dans le manuel scolaire austère : pas d'écrans gris, secs, intimidants.",
+      "Don't donner une ombre portée à autre chose que la flashcard (règle de la carte unique).",
+      "Don't utiliser l'or en fond ambiant ou sur des états inactifs — la lampe éclaire, elle ne tapisse pas (règle de la lampe).",
+      "Don't ajouter une quatrième famille de caractères, ni de sérif dans les boutons (règle des trois voix).",
+      "Don't ajouter de nouvelle dépendance réseau (script, icône ou image distante) : chaque fichier doit marcher dans l'avion. Seule exception existante : les polices Google Fonts, avec fallbacks système hors-ligne.",
+      "Don't utiliser border-left épais comme accent coloré, ni de texte en dégradé (background-clip: text)."
+    ]
+  }
+}

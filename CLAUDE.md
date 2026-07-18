@@ -48,3 +48,10 @@ The setup screen uses `.chip` segmented toggles carrying `data-*` attributes (`d
 ## Content note
 
 All UI text and documentation is in **French**. Match that when editing user-facing strings.
+
+## Design Context
+
+Strategic and visual context live at the repo root — read them before any UI/design work:
+
+- **`PRODUCT.md`** — register (product), platform (web/PWA), users (Ruben + proches, francophones), goal (conversational Hebrew), personality (calme, chaleureux, studieux), anti-references (no Duolingo gamification, no generic SaaS, no austere textbook).
+- **`DESIGN.md`** — the visual system ("Le carnet d'étude du soir"): Nuit d'encre/Or ancien palette, the three type voices (Frank Ruhl Libre / Assistant / JetBrains Mono), named rules (lampe, couches, vedette, carte unique). The notebook's `:root` block is the normative token source.
