@@ -442,6 +442,14 @@
     <button class="chip" data-order="linear" aria-pressed="false">Dans l'ordre</button>
   </div>
 
+  <h2>Longueur</h2>
+  <div class="seg" id="len">
+    <button class="chip" data-len="10" aria-pressed="false">10</button>
+    <button class="chip" data-len="20" aria-pressed="true">20</button>
+    <button class="chip" data-len="50" aria-pressed="false">50</button>
+    <button class="chip" data-len="all" aria-pressed="false">Tout</button>
+  </div>
+
   <h2>Prononciation</h2>
   <div class="seg" id="audio">
     <button class="chip" data-audio="click" aria-pressed="true">Au clic 🔊</button>
@@ -519,7 +527,7 @@
 let CARDS = [];
 
 const state = {
-  dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards',
+  dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards', len:'20',
   session:'normal', cats:new Set(),
   queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
 };
@@ -529,13 +537,13 @@ const state = {
 // au boot par applyPrefs(), appelé depuis buildChips() → couvre les deux chemins
 // (init() en ligne ET démarrage direct du fichier autonome).
 const PREFS_KEY='prefs_v1';
-const SEG_KEYS=['mode','dir','script','order','audio'];
+const SEG_KEYS=['mode','dir','script','order','audio','len'];
 function prefsLoad(){ try{ return JSON.parse(localStorage.getItem(PREFS_KEY))||null; }catch(e){ return null; } }
 function savePrefs(){
   try{
     localStorage.setItem(PREFS_KEY, JSON.stringify({
       cats:[...state.cats], mode:state.mode, dir:state.dir,
-      script:state.script, order:state.order, audio:state.audio
+      script:state.script, order:state.order, audio:state.audio, len:state.len
     }));
   }catch(e){}
 }
@@ -769,11 +777,13 @@ function segPick(container, key){
   event.currentTarget.setAttribute('aria-pressed','true');
   state[key]=event.currentTarget.dataset[key];
   savePrefs();
+  if(key==='len') refreshSrsUi();
 }
 document.getElementById('dir').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('dir'),'dir'));
 document.getElementById('script').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('script'),'script'));
 document.getElementById('order').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('order'),'order'));
 document.getElementById('audio').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('audio'),'audio'));
+document.getElementById('len').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('len'),'len'));
 document.getElementById('mode').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('mode'),'mode'));
 
 document.getElementById('selall').onclick=()=>{
@@ -818,11 +828,17 @@ function beginSession(pool){
   document.getElementById('study').classList.add('active');
   render();
 }
+// Tronque le jeu à la longueur choisie (« Longueur » du panneau). Appliqué après
+// le mélange → en aléatoire, chaque session pioche N cartes différentes.
+function limitPool(pool){
+  return state.len==='all' ? pool : pool.slice(0, +state.len);
+}
 function start(){
   state.session='normal';
   const pool = CARDS.filter(c=>state.cats.has(c.cat));
-  state.origQueue = pool.slice();
-  beginSession(state.order==='shuffle' ? shuffle(pool.slice()) : pool);
+  const deck = limitPool(state.order==='shuffle' ? shuffle(pool.slice()) : pool.slice());
+  state.origQueue = deck.slice();
+  beginSession(deck);
 }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
@@ -875,7 +891,9 @@ function refreshSrsUi(){
   if(due>0){
     btn.disabled=false;
     title.textContent='Réviser '+due+' carte'+(due>1?'s':'')+' maintenant';
-    sub.textContent='Cartes à revoir aujourd’hui, tous thèmes confondus.';
+    sub.textContent = (state.len!=='all' && due>+state.len)
+      ? 'Par séances de '+state.len+', les plus anciennes d’abord — le reste attendra ici.'
+      : 'Cartes à revoir aujourd’hui, tous thèmes confondus.';
   } else {
     btn.disabled=true;
     title.textContent = m.seen ? 'À jour — rien à réviser 👌' : 'Rien à réviser pour l’instant';
@@ -893,8 +911,12 @@ function refreshSrsUi(){
 function startReview(){
   const pool=dueCards(); if(!pool.length) return;
   state.session='review';
-  state.origQueue = pool.slice();
-  beginSession(shuffle(pool.slice()));
+  // La limite de longueur s'applique aussi ici : les plus en retard d'abord,
+  // le reste demeure dû et réapparaît aussitôt sur la carte de révision.
+  pool.sort((a,b)=>SRS[cardId(a)].due - SRS[cardId(b)].due);
+  const deck = limitPool(pool);
+  state.origQueue = deck.slice();
+  beginSession(shuffle(deck.slice()));
 }
 (function(){ const b=document.getElementById('review-btn'); if(b) b.onclick=startReview; })();
 

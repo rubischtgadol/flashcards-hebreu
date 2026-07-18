@@ -23,9 +23,12 @@ Décisions prises (ne pas re-débattre) :
 - Verdict annulable : bouton « Corriger » sur le feedback qui inverse le dernier `recordResult`
   (stocker l'entrée SRS précédente avant écriture).
 
-### 2. `/impeccable shape taille de session` — puis implémentation  [ ]
+### 2. `/impeccable shape taille de session` — puis implémentation  [x]
 - Groupe « Longueur » au setup : 10 / 20 / 50 / tout, appliqué au pool après shuffle.
 - À trancher pendant le shape : interaction avec « Révision du jour » (limite aussi ?) et « Rejouer les ratées ».
+- Tranché : défaut **20** (sessions courtes, PRODUCT.md) ; « Révision du jour » **limitée aussi**
+  (tri par retard décroissant, le reste demeure dû, sous-titre l'annonce) ; « Rejouer les ratées »
+  **jamais limité** ; `origQueue` = jeu tronqué → « Recommencer » rejoue les mêmes cartes.
 
 ### 3. `/impeccable audit index.html` — accessibilité  [ ]
 - Recherche au clavier : `.sr-row` en vrais `<button>` (ou `role="button"` + `tabindex="0"` + keydown).
