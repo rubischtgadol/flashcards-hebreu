@@ -10,7 +10,7 @@ Décisions prises (ne pas re-débattre) :
 
 ## Ordre des commandes
 
-### 1. `/impeccable harden index.html` — friction quotidienne + robustesse  [ ]
+### 1. `/impeccable harden index.html` — friction quotidienne + robustesse  [x]
 - Persistance `prefs_v1` en localStorage : `{cats, mode, dir, script, order, audio}`, restaurée au boot
   (les deux chemins : `init()` en ligne **et** boot standalone — attention au bloc `BUILD:ONLINE-ONLY`).
 - Snapshot de session en `sessionStorage` (`{queueIds, idx, score}`) restauré après reload/éviction iOS.

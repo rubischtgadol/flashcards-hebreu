@@ -263,6 +263,14 @@
   .feedback .answer{ margin-top:8px; color:var(--ink); }
   .feedback .answer .he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.9rem; direction:rtl; }
   .feedback .answer .tr{ font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:var(--ink-dim); }
+  .feedback .your-answer{ font-size:.9rem; color:var(--ink-dim); margin-top:6px; }
+  .feedback .your-answer s{ opacity:.7; }
+  .feedback .fix-btn{
+    margin-top:12px; border:1px solid var(--line); background:transparent; color:var(--ink-dim);
+    border-radius:10px; font-family:inherit; font-size:.86rem; padding:8px 14px; cursor:pointer; transition:all .13s ease;
+  }
+  .feedback .fix-btn:hover{ color:var(--gold); border-color:var(--gold); }
+  .feedback .fix-btn[disabled]{ opacity:.5; cursor:default; }
 
   /* ---------- Done screen ---------- */
   .done{ display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; max-width:520px; margin:0 auto; }
@@ -286,6 +294,15 @@
   .loader .spin{ width:34px; height:34px; margin:0 auto 14px; border:3px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
   .count-note{ text-align:center; color:var(--ink-dim); font-size:.88rem; margin-top:12px; }
+  .start-hint{ text-align:center; color:var(--gold); font-size:.86rem; margin-top:10px; }
+  .loader .retry{
+    margin-top:16px; border:1px solid var(--gold); background:transparent; color:var(--gold);
+    border-radius:10px; font-family:inherit; font-weight:600; font-size:.9rem; padding:10px 20px; cursor:pointer; transition:all .13s ease;
+  }
+  .loader .retry:hover{ background:var(--gold); color:#1a1206; }
+  .loader .loader-title{ color:var(--ink); font-size:1.05rem; font-weight:600; }
+  .loader .loader-detail{ font-size:.9rem; opacity:.85; margin-top:6px; }
+  .loader .loader-detail code{ font-family:'JetBrains Mono',monospace; font-size:.85em; background:var(--line); padding:1px 5px; border-radius:4px; }
   .src-link{ text-align:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
   .src-link a{ color:var(--gold); text-decoration:none; font-size:.92rem; }
   .src-link a:hover{ text-decoration:underline; }
@@ -433,6 +450,7 @@
   <div class="audio-note" id="audio-note"></div>
 
   <button class="start" id="start">Commencer</button>
+  <div class="start-hint hide" id="start-hint">Choisis au moins une catégorie pour commencer.</div>
   <div class="count-note" id="count-note"></div>
   <div class="src-link"><a href="./vocabulaire_hebreu.html">Ouvrir le carnet de vocabulaire complet &#8599;</a></div>
 </section>
@@ -505,6 +523,87 @@ const state = {
   session:'normal', cats:new Set(),
   queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
 };
+
+// ================= Préférences de réglage (persistées) =================
+// Les choix du panneau de réglages survivent d'une session à l'autre. Restaurés
+// au boot par applyPrefs(), appelé depuis buildChips() → couvre les deux chemins
+// (init() en ligne ET démarrage direct du fichier autonome).
+const PREFS_KEY='prefs_v1';
+const SEG_KEYS=['mode','dir','script','order','audio'];
+function prefsLoad(){ try{ return JSON.parse(localStorage.getItem(PREFS_KEY))||null; }catch(e){ return null; } }
+function savePrefs(){
+  try{
+    localStorage.setItem(PREFS_KEY, JSON.stringify({
+      cats:[...state.cats], mode:state.mode, dir:state.dir,
+      script:state.script, order:state.order, audio:state.audio
+    }));
+  }catch(e){}
+}
+// Aligne un groupe de chips segmentés sur la valeur courante de state[key].
+function reflectSeg(key){
+  const box=document.getElementById(key); if(!box) return;
+  box.querySelectorAll('.chip').forEach(c=>
+    c.setAttribute('aria-pressed', c.dataset[key]===state[key] ? 'true':'false'));
+}
+// Restaure réglages + catégories, puis reflète le tout dans l'UI. Au 1er lancement
+// (aucune préférence) : tout sélectionné → le bouton « Commencer » n'est jamais muet.
+function applyPrefs(){
+  const p=prefsLoad();
+  if(p){
+    SEG_KEYS.forEach(k=>{ if(typeof p[k]==='string') state[k]=p[k]; });
+    state.cats.clear();
+    (Array.isArray(p.cats)?p.cats:[]).forEach(cat=>{ if(catCounts[cat]) state.cats.add(cat); });
+    if(state.cats.size===0) Object.keys(catCounts).forEach(cat=>state.cats.add(cat));
+  } else {
+    state.cats.clear();
+    Object.keys(catCounts).forEach(cat=>state.cats.add(cat));
+  }
+  SEG_KEYS.forEach(reflectSeg);
+  catsEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
+}
+
+// ================= Instantané de session (sessionStorage) =================
+// Une session en cours survit à un rechargement ou à une éviction de l'onglet
+// par iOS. Restauré au boot par sessRestore(), appelé depuis buildChips() → les
+// deux chemins (en ligne et autonome). Les cartes sont référencées par leur id
+// (cat|he_plain) ; si le vocabulaire a changé sous la session, on l'abandonne.
+const SESS_KEY='sess_v1';
+let bootResumed=false;
+function sessSave(){
+  if(!document.getElementById('study').classList.contains('active')) return;
+  try{
+    sessionStorage.setItem(SESS_KEY, JSON.stringify({
+      queueIds: state.queue.map(cardId), origIds: state.origQueue.map(cardId),
+      missedIds: state.missed.map(cardId), idx: state.idx, goodCount: state.goodCount,
+      total: state.total, session: state.session, mode: state.mode, dir: state.dir, script: state.script
+    }));
+  }catch(e){}
+}
+function sessClear(){ try{ sessionStorage.removeItem(SESS_KEY); }catch(e){} }
+function sessRestore(){
+  let s; try{ s=JSON.parse(sessionStorage.getItem(SESS_KEY)); }catch(e){ return false; }
+  if(!s || !Array.isArray(s.queueIds) || !s.queueIds.length) return false;
+  const byId={}; CARDS.forEach(c=>{ byId[cardId(c)]=c; });
+  const map=ids=>(ids||[]).map(id=>byId[id]).filter(Boolean);
+  const queue=map(s.queueIds);
+  if(queue.length!==s.queueIds.length || (s.idx|0)>=queue.length){ sessClear(); return false; }
+  state.queue=queue;
+  state.origQueue = s.origIds ? map(s.origIds) : queue.slice();
+  state.missed = map(s.missedIds);
+  state.idx=s.idx|0; state.goodCount=s.goodCount|0; state.total=s.total||queue.length;
+  state.session=s.session||'normal';
+  if(typeof s.mode==='string') state.mode=s.mode;
+  if(typeof s.dir==='string') state.dir=s.dir;
+  if(typeof s.script==='string') state.script=s.script;
+  state.flipped=false; state.answered=false;
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('done').classList.remove('active');
+  document.getElementById('study').classList.add('active');
+  bootResumed=true;
+  render();
+  return true;
+}
 
 // ----- Speech (Web Speech API) -----
 const TTS_OK = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
@@ -656,10 +755,12 @@ function buildChips(){
     const b=document.createElement('button');
     b.className='chip'; b.setAttribute('aria-pressed','false'); b.dataset.cat=cat;
     b.innerHTML=cat+' <span class="n">'+catCounts[cat]+'</span>';
-    b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.cats.add(cat); else state.cats.delete(cat); updateStart(); };
+    b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.cats.add(cat); else state.cats.delete(cat); updateStart(); savePrefs(); };
     catsEl.appendChild(b);
   });
+  applyPrefs();
   refreshSrsUi();
+  sessRestore();
 }
 
 function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
@@ -667,6 +768,7 @@ function segPick(container, key){
   container.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
   event.currentTarget.setAttribute('aria-pressed','true');
   state[key]=event.currentTarget.dataset[key];
+  savePrefs();
 }
 document.getElementById('dir').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('dir'),'dir'));
 document.getElementById('script').querySelectorAll('.chip').forEach(c=>c.onclick=e=>segPick(document.getElementById('script'),'script'));
@@ -682,8 +784,14 @@ document.getElementById('selall').onclick=()=>{
   state.cats.clear();
   if(!allOn) Object.keys(catCounts).forEach(c=>state.cats.add(c));
   updateStart();
+  savePrefs();
 };
-function updateStart(){ document.getElementById('start').disabled = state.cats.size===0; }
+function updateStart(){
+  const empty = state.cats.size===0;
+  document.getElementById('start').disabled = empty;
+  const hint=document.getElementById('start-hint');
+  if(hint) hint.classList.toggle('hide', !empty);
+}
 updateStart();
 
 (function(){
@@ -730,15 +838,24 @@ function cardId(c){ return c.cat+'|'+c.he_plain; }
 function srsLoad(){ try{ return JSON.parse(localStorage.getItem(SRS_KEY))||{}; }catch(e){ return {}; } }
 function srsSave(){ try{ localStorage.setItem(SRS_KEY, JSON.stringify(SRS)); }catch(e){} }
 let SRS=srsLoad();
+// Mémorise l'état SRS d'avant la dernière écriture → le verdict reste annulable
+// (« Corriger ») tant qu'aucune autre carte n'a été jouée.
+let lastRecord=null;
 function recordResult(card, good){
   if(!card) return;
   const id=cardId(card), t=todayNum();
+  lastRecord={ id, prev: SRS[id] ? JSON.parse(JSON.stringify(SRS[id])) : null };
   const e=SRS[id]||{box:0,due:t,seen:0,lapses:0};
   e.seen++;
   if(good){ e.box=Math.min(e.box+1, SRS_INTERVALS.length-1); }
   else { if(e.box>0) e.lapses++; e.box=0; }
   e.due=t+SRS_INTERVALS[e.box];
   SRS[id]=e; srsSave();
+}
+function undoLastRecord(){
+  if(!lastRecord) return;
+  if(lastRecord.prev) SRS[lastRecord.id]=lastRecord.prev; else delete SRS[lastRecord.id];
+  srsSave(); lastRecord=null;
 }
 function dueCards(){
   const t=todayNum();
@@ -834,6 +951,7 @@ function quizPick(btn, chosen, card){
   document.getElementById('quiz-next').classList.remove('hide');
   updateSpeaker();
   if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+  sessSave();
 }
 // Passage à la carte suivante : identique au mode saisie → on réutilise nextAfterInput.
 bindTap(document.getElementById('quiz-next'), nextAfterInput);
@@ -893,6 +1011,7 @@ function render(){
 
   updateSpeaker();
   if(state.audio==='auto' && state.dir==='he2fr') speakCurrent();
+  sessSave();
 }
 
 function setupCardsMode(){
@@ -1118,10 +1237,46 @@ function answerHtml(card){
   if(card.note) h += '<div class="note-line">'+card.note+'</div>';
   return h;
 }
+function escapeHtml(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+// Retour du mode saisie : verdict, tentative barrée si ratée, correction, et un
+// bouton « Corriger » qui inverse le dernier verdict (faux négatif du correcteur
+// indulgent, ou aveu d'une bonne réponse devinée). kind : 'ok' | 'no' | 'skip'.
+function showInputFeedback(card, kind, attempt){
+  const fb=document.getElementById('feedback');
+  const verdict = kind==='ok' ? '<div class="verdict ok">✓ Correct</div>'
+                : kind==='no' ? '<div class="verdict no">✗ Réponse&nbsp;:</div>'
+                :               '<div class="verdict">La réponse&nbsp;:</div>';
+  const tried = (kind==='no' && attempt)
+    ? '<div class="your-answer">Ta réponse : <s>'+escapeHtml(attempt)+'</s></div>' : '';
+  const fixLabel = kind==='ok' ? 'En fait, je ne savais pas' : 'J’avais juste →';
+  fb.innerHTML = verdict + tried + answerHtml(card)
+    + '<button class="fix-btn" type="button" id="fix-verdict">'+fixLabel+'</button>';
+  const btn=document.getElementById('fix-verdict');
+  if(btn) btn.onclick=()=>fixVerdict(card, kind, btn);
+}
+function fixVerdict(card, kind, btn){
+  undoLastRecord();
+  const nowGood = (kind!=='ok');   // ok→raté ; no/skip→réussi
+  recordResult(card, nowGood);
+  if(nowGood){
+    state.goodCount++;
+    const i=state.missed.lastIndexOf(card); if(i!==-1) state.missed.splice(i,1);
+  } else {
+    state.goodCount=Math.max(0,state.goodCount-1);
+    state.missed.push(card);
+  }
+  const fb=document.getElementById('feedback');
+  const v=fb.querySelector('.verdict');
+  if(v){ v.className='verdict '+(nowGood?'ok':'no'); v.innerHTML = nowGood ? '✓ Compté comme réussi' : '✗ À revoir'; }
+  const ya=fb.querySelector('.your-answer'); if(ya && nowGood) ya.remove();
+  btn.remove();
+  sessSave();
+}
 function submitAnswer(){
   if(state.answered) return;
   const card=state.queue[state.idx];
   const inp=document.getElementById('answer-input');
+  const attempt=inp.value.trim();
   const correct=checkAnswer(card, inp.value);
   state.answered=true;
   inp.disabled=true;
@@ -1129,15 +1284,13 @@ function submitAnswer(){
   document.getElementById('input-row').classList.add('hide');
   document.getElementById('input-actions').classList.add('hide');
   document.getElementById('hebkb').classList.add('hide');
-  const fb=document.getElementById('feedback');
-  fb.innerHTML = (correct
-      ? '<div class="verdict ok">✓ Correct</div>'
-      : '<div class="verdict no">✗ Réponse&nbsp;:</div>') + answerHtml(card);
-  document.getElementById('btn-next').classList.remove('hide');
   recordResult(card, correct);
+  showInputFeedback(card, correct?'ok':'no', attempt);
+  document.getElementById('btn-next').classList.remove('hide');
   if(correct) state.goodCount++; else state.missed.push(card);
   updateSpeaker();
   if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+  sessSave();
 }
 function nextAfterInput(){
   state.idx++;
@@ -1157,12 +1310,13 @@ function skipAnswer(){
   document.getElementById('input-row').classList.add('hide');
   document.getElementById('input-actions').classList.add('hide');
   document.getElementById('hebkb').classList.add('hide');
-  document.getElementById('feedback').innerHTML='<div class="verdict">La réponse&nbsp;:</div>'+answerHtml(card);
-  document.getElementById('btn-next').classList.remove('hide');
   recordResult(card, false);
+  showInputFeedback(card, 'skip', null);
+  document.getElementById('btn-next').classList.remove('hide');
   state.missed.push(card);
   updateSpeaker();
   if(TTS_OK && (state.audio==='auto' || state.dir==='fr2he')) speakCurrent();
+  sessSave();
 }
 bindTap(document.getElementById('btn-skip'), skipAnswer);
 
@@ -1222,6 +1376,7 @@ document.addEventListener('keydown', e=>{
 });
 
 function finish(){
+  sessClear();
   document.body.classList.remove('input-mode','quiz-mode');
   refreshSrsUi();
   document.getElementById('study').classList.remove('active');
@@ -1248,12 +1403,14 @@ document.getElementById('retry-all').onclick=()=>{
   beginSession(state.order==='shuffle' ? shuffle(pool) : pool);
 };
 document.getElementById('back-setup').onclick=()=>{
+  sessClear();
   refreshSrsUi();
   document.getElementById('done').classList.remove('active');
   document.getElementById('study').classList.remove('active');
   document.getElementById('setup').classList.remove('hidden');
 };
 document.getElementById('exit').onclick=()=>{
+  sessClear();
   document.body.classList.remove('input-mode','quiz-mode');
   refreshSrsUi();
   document.getElementById('study').classList.remove('active');
@@ -1342,6 +1499,33 @@ function extractCards(doc){
   return cards;
 }
 
+function showLoaderError(reason){
+  const loader=document.getElementById('loader');
+  const spin=loader.querySelector('.spin');
+  if(spin) spin.style.display='none';
+  const isFile = location.protocol==='file:';
+  const isOffline = ('onLine' in navigator) && navigator.onLine===false;
+  let title, detail;
+  if(isFile){
+    title="Cette page a besoin d'un petit serveur.";
+    detail="Ouverte directement depuis un fichier, elle ne peut pas charger le carnet. "
+      + "Passe par son adresse en ligne, ou lance un serveur local (par ex. <code>python3 -m http.server</code>).";
+  } else if(isOffline){
+    title="Connexion perdue.";
+    detail="Le carnet n'a pas pu être récupéré — vérifie ta connexion, puis réessaie.";
+  } else {
+    title="Le vocabulaire n'a pas pu être chargé.";
+    detail="Le carnet est peut-être momentanément indisponible. Réessaie dans un instant.";
+  }
+  loader.innerHTML='<p class="loader-title">'+title+'</p>'
+    + '<p class="loader-detail">'+detail+'</p>'
+    + (isFile ? '' : '<button class="retry" type="button" id="loader-retry">Réessayer</button>');
+  const btn=document.getElementById('loader-retry');
+  if(btn) btn.onclick=()=>{
+    loader.innerHTML='<div class="spin"></div><p id="loader-msg">Chargement du vocabulaire…</p>';
+    init();
+  };
+}
 async function init(){
   const loader=document.getElementById('loader');
   const msg=document.getElementById('loader-msg');
@@ -1355,7 +1539,7 @@ async function init(){
     buildChips();
     updateStart();
     loader.style.display='none';
-    document.getElementById('setup').classList.remove('hidden');
+    if(!bootResumed) document.getElementById('setup').classList.remove('hidden');
     const note=document.getElementById('count-note');
     note.textContent = CARDS.length + ' mots chargés depuis le carnet';
     // Garde-fou : un titre de section renommé ou une table restructurée dans le
@@ -1370,8 +1554,7 @@ async function init(){
         + missing.join(', ') + ' — section renommée dans le carnet ?</span>';
     }
   }catch(err){
-    msg.innerHTML = "Impossible de charger le vocabulaire.<br><span style='font-size:.8rem;opacity:.7'>Ouvre cette page via son lien en ligne (GitHub Pages), pas en fichier local.</span>";
-    document.querySelector('#loader .spin').style.display='none';
+    showLoaderError(err);
   }
 }
 init();
