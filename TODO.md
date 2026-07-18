@@ -85,6 +85,13 @@ Puis, le 2026-07-19 (trois problèmes remontés par Ruben) :
   `sw.js` v8. Vérifié en WebKit desktop (souris + clavier + sans JS + reduced-motion)
   et iPhone 16 Pro émulé (tactile, zéro débordement horizontal) — 28 contrôles, tout
   passe ; navigation réelle des deux portes testée.
+- **[x] Accueil habillé** (2e demande du 19/07) : marque « עברית · Hébreu » retirée de
+  l'écran d'accueil (elle reste l'en-tête du second temps), salut personnalisé
+  « Ruben vous souhaite la bienvenue ! » / « ראובן מאחל לכם ברוכים הבאים! », le א de
+  l'icône en glyphe vectoriel doré centré dessous, et deux **ménorahs à sept branches**
+  (SVG inline `<symbol>` + `<use>`, flammes or tendre, halo en pseudo-élément qui
+  respire — figé sous reduced-motion) qui éclairent les côtés. 33 contrôles WebKit
+  (desktop + iPhone 16 Pro), dont non-chevauchement texte/ménorahs — tout passe.
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
@@ -95,8 +102,12 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   encadré doré des flashcards se lisait comme un faux état « sélectionné »).
 - L'écran de réglages reste le premier écran de l'appli ; il s'ouvre sur la « Révision
   du jour », la recherche vit dessous.
-- Le salut du portail : aléatoire fr/he, **sans nikoud**, pluriel (formule d'accueil
-  standard), exclamation collée en hébreu.
+- Le salut du portail : **personnalisé** depuis le 2026-07-19 — « Ruben vous souhaite
+  la bienvenue ! » / « ראובן מאחל לכם ברוכים הבאים! » (prénom adapté ראובן), tiré au
+  sort fr/he, toujours **sans nikoud** et exclamation collée en hébreu ; l'écho du
+  second temps garde la formule courte. Le prénom sur la page publique est une
+  **exception assumée** (demande explicite du 19/07) à la neutralité du dépôt — les
+  docs, l'historique git et la config restent au pseudonyme.
 - Les **lots d'exemples s'écrivent sans relecture humaine**, gardés par
   `verifie_exemples.js` (0 erreur exigé avant commit).
 - La révision du jour ignore le filtre Niveau ; un mot sans `data-niveau` reste visible

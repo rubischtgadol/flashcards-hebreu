@@ -76,7 +76,7 @@ Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html`
 
 ## Fichiers
 
-- `index.html` — le portail : la porte d'entrée à la racine — un accueil plein écran (« Bienvenue », en français ou en hébreu au hasard), puis le choix entre l'application et le carnet
+- `index.html` — le portail : la porte d'entrée à la racine — un accueil plein écran (message de bienvenue en français ou en hébreu au hasard, le א doré de l'icône, deux ménorahs qui éclairent l'écran), puis le choix entre l'application et le carnet
 - `app.html` — l'application de flashcards en ligne (reconstruit le vocabulaire depuis le carnet)
 - `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire (source unique de vérité)
 - `flashcards_hebreu.html` — version autonome des flashcards, **générée par `build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
