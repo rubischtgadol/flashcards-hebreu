@@ -2,10 +2,11 @@
 
 État au 2026-07-18. Le plan d'amélioration UX est **terminé** : intégrité du verdict,
 accessibilité des trois modes, allègement de l'accueil, niveaux de difficulté (CECRL),
-exemples en situation, puis re-mesure UX finale à **34/40** (progression 28 → 33 → 34,
-détecteur de qualité à 0 finding — snapshots dans `.impeccable/critique/`). Ce qui reste
-relève du contenu (relectures éditoriales, lots d'exemples) et de quelques pistes de design
-non tranchées.
+exemples en situation, re-mesure UX finale à **34/40** (progression 28 → 33 → 34,
+détecteur de qualité à 0 finding — snapshots dans `.impeccable/critique/`), puis backlog
+mineur soldé. Ce qui reste : **trois fonctionnalités demandées** (remise à zéro du profil,
+page d'accueil commune, voix robotique — voir ci-dessous), du contenu (relectures
+éditoriales, lots d'exemples) et quelques pistes de design non tranchées.
 
 ## Fait (historique compact — détail dans les messages de commit)
 
@@ -55,6 +56,39 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   progressivement sans jamais perdre une carte) — et l'interface le dit.
 
 ## Ce qui reste
+
+### Fonctionnalités demandées (2026-07-18)
+
+- **[ ] Remise à zéro du profil** : une action pour effacer **entièrement** la mémoire
+  locale de l'utilisateur et recommencer de zéro. Ce que ça couvre : `srs_v1`
+  (boîtes de Leitner — la progression), `prefs_v1` (réglages, catégories, niveaux) et
+  `sess_v1` (session en cours). Exigences : action **destructrice → confirmation
+  explicite** obligatoire (pas un simple bouton) ; après effacement, retomber sur l'état
+  « premier lancement » (`defaultCats()` = tout sauf Phrases) et rafraîchir l'UI
+  (`applyPrefs`, `refreshSrsUi`, `updateStart`). Emplacement à trancher (pli « Réglages
+  avancés » ? sous la barre de maîtrise ?) — passer par un brainstorm/shape avant de coder.
+- **[ ] Page d'accueil commune (portail)** : une porte d'entrée qui oriente vers les deux
+  branches — le **carnet** (`vocabulaire_hebreu.html`) et l'**appli flashcards**.
+  Aujourd'hui `index.html` **est** l'appli et occupe la racine ; un portail à la racine
+  impose de trancher l'architecture : soit déplacer l'appli (ex. `app.html`) avec un
+  portail léger en `index.html`, soit garder l'appli en racine et faire du portail une
+  page à part. Impacts à traiter quel que soit le choix : `sw.js` (les navigations
+  **racine** sont rabattues sur la coquille `./` — un portail change ce que « racine »
+  veut dire, et la liste d'assets + `VERSION` bougent), `manifest.webmanifest`
+  (`start_url` : l'icône installée doit-elle ouvrir le portail ou l'appli ?), `build.js`
+  (remplacements par correspondance exacte dans `index.html`), les liens croisés existants
+  app ↔ carnet, et l'URL GitHub Pages publiée. Décision produit + design (DESIGN.md :
+  même charte, le portail est une « porte », pas un troisième univers).
+- **[ ] Voix robotique (option audio)** : la voix hébraïque de la synthèse vocale sonne
+  robotique. Le code choisit déjà la « meilleure » voix disponible (`loadVoices` dans
+  index.html : score Premium > Enhanced/Neural/Siri > Carmit, `rate` à 0.88) — donc le
+  problème est en aval : diagnostiquer **quelle voix est réellement retenue sur l'appareil
+  concerné** (afficher son nom dans la note audio du setup serait un bon premier pas),
+  tester les alternatives par plateforme (iOS : Carmit Enhanced à télécharger dans
+  Réglages > Accessibilité > Contenu énoncé > Voix ; Android/desktop : voix Google/
+  Microsoft he-IL), ajuster `rate`/`pitch`, et si aucune voix système ne suffit, trancher
+  la piste lourde : audio préenregistré ou API TTS externe — en tension avec le
+  tout-statique hors-ligne (PRODUCT.md), donc décision produit.
 
 ### Relectures éditoriales (contenu, par échantillons)
 - **Classement CECRL** : relire des échantillons par section et corriger les
