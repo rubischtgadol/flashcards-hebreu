@@ -82,7 +82,37 @@ et une méthode de catégorisation robuste et rationnelle (piste : CECRL A1/A2, 
 - Garde-fous : comptes par niveau affichés par `build.js`, warning si un niveau attendu tombe
   à 0 ; `--check` couvre la dérive comme d'habitude.
 
-### 6. `/impeccable critique index.html` — re-mesure  [ ]
+### 6. `/impeccable shape exemples` — exemples concrets d'utilisation, puis implémentation  [ ]
+Demande de Ruben (18/07/2026) : sur les flashcards, un lien ou une autre fenêtre avec des
+exemples concrets d'utilisation du mot (phrase en situation, pas juste la traduction).
+
+- **Le contenu vit dans le carnet** (source unique de vérité) : chaque exemple = hébreu avec
+  nikud + translittération + français. Format à trancher au shape : sous-liste imbriquée
+  `<ul class="exemples"><li>` avec les spans `.he`/`.tr`/`.fr` habituels (plusieurs exemples
+  possibles, cohérent avec le markup existant) plutôt que des `data-*` (trois champs × N
+  exemples ne tiennent pas dans des attributs).
+- **Affordance côté app** — à trancher au shape, dans l'esprit de la charte (pas de modale
+  par réflexe, divulgation progressive) :
+  - pli inline « Voir un exemple » (ghost) sur le **verso** de la carte et dans le feedback
+    de saisie/QCM — jamais sur le recto en fr→he (l'exemple contient le mot : il révélerait
+    la réponse) ;
+  - et/ou lien profond vers le mot dans le carnet (nécessite des ancres `id` par entrée —
+    utile aussi à la recherche) ;
+  - la recherche du setup a déjà son tiroir `sr-detail` : y afficher les exemples aussi.
+- **Audio** : bouton Écouter par exemple (la phrase entière — c'est là que la synthèse vocale
+  sert le but conversationnel de PRODUCT.md).
+- **Extraction** : `card.exemples?: [{he, tr, fr, he_plain}]` dans le schéma ; miroir dans
+  **les deux** implémentations (`extractCards()` d'index.html + réplique regex de build.js) ;
+  champ optionnel — un mot sans exemple reste une carte normale, le contenu s'écrit
+  progressivement.
+- **Contenu** (~700 mots, gros chantier éditorial) : par lots, en commençant par les mots
+  A1/A2 (synergie avec l'étape 5 — les niveaux disent par où commencer) et les verbes/noms
+  du quotidien ; exemples courts (5–8 mots), vocabulaire de l'exemple ≤ niveau du mot autant
+  que possible, relecture de Ruben par échantillons.
+- Garde-fous : compte d'exemples par section dans la sortie de `build.js` ; `--check` couvre
+  la dérive.
+
+### 7. `/impeccable critique index.html` — re-mesure  [ ]
 - Objectif : ≥ 33/40 et **0 P1**. Le trend se lit dans `.impeccable/critique/` (28 → 33 → ?).
 
 ## Rituel à chaque étape
