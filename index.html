@@ -46,7 +46,7 @@
   #accueil{
     position:fixed; inset:0; z-index:1; /* seule couche empilée de la page */
     display:none;
-    width:100%; border:0; margin:0; padding:28px 22px;
+    width:100%; border:0; margin:0; padding:28px clamp(84px, 18vw, 210px);
     background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%);
     color:var(--ink); font-family:inherit; cursor:pointer; text-align:center;
     flex-direction:column; align-items:center; justify-content:center;
@@ -54,19 +54,41 @@
   }
   html.js #accueil{ display:flex; }
   body.entree #accueil{ opacity:0; visibility:hidden; pointer-events:none; }
-  .acc-marque{
-    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-    font-size:1.05rem; font-weight:700; color:var(--ink);
+  /* Les deux ménorahs à sept branches qui éclairent l'accueil — la lampe de la
+     charte, prise au pied de la lettre. Or sur la nuit, flammes en or tendre,
+     halo qui respire doucement (immobile sous prefers-reduced-motion). */
+  .menorah{
+    position:absolute; top:50%; transform:translateY(-55%);
+    width:clamp(60px, 13vw, 150px); color:var(--gold); pointer-events:none;
   }
-  .acc-marque .he{ color:var(--gold); }
+  .menorah-g{ left:clamp(8px, 3.5vw, 64px); }
+  .menorah-d{ right:clamp(8px, 3.5vw, 64px); }
+  .menorah svg{ display:block; width:100%; height:auto; overflow:visible; }
+  .menorah::before{
+    content:""; position:absolute; inset:-55% -70%; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(212,162,76,.16), rgba(212,162,76,0) 72%);
+    animation:lueur 4.5s ease-in-out infinite alternate;
+  }
+  .flammes{
+    fill:var(--gold-soft); stroke:none;
+    filter:drop-shadow(0 0 5px rgba(230,198,138,.85)) drop-shadow(0 0 16px rgba(212,162,76,.5));
+  }
+  @keyframes lueur{ from{ opacity:.6; } to{ opacity:1; } }
   .acc-mot{
-    display:block; margin-top:22px; max-width:15ch;
+    display:block; max-width:22ch;
     font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-    font-size:clamp(3rem, 13vw, 5.6rem); font-weight:500; line-height:1.12;
+    font-size:clamp(2rem, 7.5vw, 4.2rem); font-weight:500; line-height:1.18;
     color:var(--gold-soft); text-wrap:balance;
     animation:acc-in .7s ease-out;
   }
   @keyframes acc-in{ from{ opacity:0; transform:translateY(10px); } }
+  /* Le א de l'icône, en vectoriel (glyphe Frank Ruhl 700, net à toute taille). */
+  .acc-alef{
+    display:block; margin-top:28px; line-height:1;
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-weight:700; font-size:clamp(4.2rem, 16vw, 6.4rem);
+    color:var(--gold); text-shadow:0 0 34px rgba(212,162,76,.28);
+  }
   .acc-entrer{
     display:block; margin-top:34px; font-size:.95rem; font-weight:600;
     color:var(--ink-dim); animation:acc-pouls 2.6s ease-in-out infinite alternate;
@@ -122,8 +144,32 @@
 <body>
 
 <button id="accueil" type="button">
-  <span class="acc-marque"><span class="he" lang="he">עִבְרִית</span> · Hébreu</span>
-  <span class="acc-mot" id="acc-mot">Bienvenue&nbsp;!</span>
+  <!-- La ménorah à sept branches : tracé unique réutilisé de part et d'autre. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="menorah-7" viewBox="0 0 120 152">
+      <g fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round">
+        <path d="M60 32 V140"/>
+        <path d="M46 32 V74 A14 14 0 0 0 74 74 V32"/>
+        <path d="M30 32 V74 A30 30 0 0 0 90 74 V32"/>
+        <path d="M16 32 V74 A44 44 0 0 0 104 74 V32"/>
+        <path d="M42 140 H78"/>
+        <path d="M11 30 H21 M25 30 H35 M41 30 H51 M55 30 H65 M69 30 H79 M85 30 H95 M99 30 H109"/>
+      </g>
+      <g class="flammes">
+        <ellipse cx="16" cy="20" rx="3.2" ry="6.5"/>
+        <ellipse cx="30" cy="20" rx="3.2" ry="6.5"/>
+        <ellipse cx="46" cy="20" rx="3.2" ry="6.5"/>
+        <ellipse cx="60" cy="18" rx="3.4" ry="7.5"/>
+        <ellipse cx="74" cy="20" rx="3.2" ry="6.5"/>
+        <ellipse cx="90" cy="20" rx="3.2" ry="6.5"/>
+        <ellipse cx="104" cy="20" rx="3.2" ry="6.5"/>
+      </g>
+    </symbol>
+  </svg>
+  <span class="menorah menorah-g" aria-hidden="true"><svg><use href="#menorah-7"/></svg></span>
+  <span class="menorah menorah-d" aria-hidden="true"><svg><use href="#menorah-7"/></svg></span>
+  <span class="acc-mot" id="acc-mot">Ruben vous souhaite la bienvenue&nbsp;!</span>
+  <span class="acc-alef" aria-hidden="true">א</span>
   <span class="acc-entrer">
     <span class="souris">Cliquer pour entrer</span><span class="tactile">Toucher pour entrer</span>
   </span>
@@ -154,15 +200,17 @@
 
 <script>
 // Le salut change de langue au hasard à chaque ouverture — le même tirage pour
-// l'accueil plein écran et le petit salut du second temps. En hébreu : sans
-// nikoud (demande de Ruben) et point d'exclamation collé au dernier mot ;
-// en français, espace insécable. Sans JS, la version française du HTML reste.
+// l'accueil plein écran (formule complète, « ראובן » pour le prénom) et le petit
+// salut du second temps (formule courte). En hébreu : sans nikoud (demande de
+// Ruben) et point d'exclamation collé au dernier mot ; en français, espace
+// insécable. Sans JS, la version française du HTML reste.
 (function(){
   if (Math.random() < 0.5){
-    ['acc-mot', 'welcome'].forEach(function(id){
+    var textes = { 'acc-mot': 'ראובן מאחל לכם ברוכים הבאים!', 'welcome': 'ברוכים הבאים!' };
+    Object.keys(textes).forEach(function(id){
       var el = document.getElementById(id);
       if (!el) return;
-      el.textContent = 'ברוכים הבאים!';
+      el.textContent = textes[id];
       el.setAttribute('lang', 'he');
       el.setAttribute('dir', 'rtl');
     });
