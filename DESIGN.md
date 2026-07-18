@@ -159,7 +159,7 @@ Tout le système découle d'une scène : on révise son hébreu le soir, à la l
 
 Ce système rejette explicitement trois familles (les anti-références de PRODUCT.md) : la gamification façon Duolingo (mascottes, confettis, streaks), l'esthétique SaaS générique (dégradés violets, cards partout), et le manuel scolaire austère (sec, gris, intimidant). La chaleur vient de l'or et des sérifs hébraïques, jamais d'artifices.
 
-Le carnet (`vocabulaire_hebreu.html`) est la **référence visuelle** ; l'app en hérite. Le bloc `:root` doit rester strictement identique dans les deux fichiers.
+Le carnet (`vocabulaire_hebreu.html`) est la **référence visuelle** ; l'app (`app.html`) et le portail (`index.html`) en héritent. Le bloc `:root` doit rester strictement identique dans les trois fichiers. Le portail est une **porte**, pas un troisième univers : deux cartes dans les couches de la nuit d'encre, la lampe (or) posée sur la seule porte de l'entraînement, l'hébreu de chaque porte en Frank Ruhl vedette.
 
 **Key Characteristics:**
 - Sombre par vocation (étude du soir), jamais par mode.
@@ -268,7 +268,7 @@ Disposition israélienne en RTL, touches sur nuit claire avec lettres Frank Ruhl
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** garder le bloc `:root` strictement identique entre `vocabulaire_hebreu.html` et `index.html` — le carnet est la référence ; si `--bg`/`--gold` changent, régénérer les icônes et `manifest.webmanifest`.
+- **Do** garder le bloc `:root` strictement identique entre `vocabulaire_hebreu.html`, `app.html` et `index.html` (le portail) — le carnet est la référence ; si `--bg`/`--gold` changent, régénérer les icônes et `manifest.webmanifest`.
 - **Do** poser **Encre sur or** (#1a1206) sur tout fond or — jamais de blanc sur or.
 - **Do** écrire l'hébreu en Frank Ruhl Libre, en RTL, plus grand que tout le reste (règle de la vedette), nikoud net.
 - **Do** réserver vert juste et rouge à revoir au seul feedback de réponse.

@@ -1,139 +1,115 @@
 # État du projet et travail restant
 
-État au 2026-07-18. Le plan d'amélioration UX est **terminé** : intégrité du verdict,
-accessibilité des trois modes, allègement de l'accueil, niveaux de difficulté (CECRL),
-exemples en situation, re-mesure UX finale à **34/40** (progression 28 → 33 → 34,
-détecteur de qualité à 0 finding — snapshots dans `.impeccable/critique/`), puis backlog
-mineur soldé. Les trois fonctionnalités demandées le 2026-07-18 sont **faites** (remise à
-zéro du profil, portail à la racine, premier pas du chantier voix) ; reste la **suite du
-chantier voix** (relever le nom affiché sur l'appareil), les **lots d'exemples** (désormais
-sans relecture, gardés par `verifie_exemples.js`) et deux pistes de design mineures.
+État au 2026-07-18 (soir). Le plan d'amélioration UX est **terminé** (score final 34/40,
+progression 28 → 33 → 34, détecteur à 0 finding — snapshots dans `.impeccable/critique/`)
+et les **trois fonctionnalités demandées le 2026-07-18 sont livrées** : remise à zéro du
+profil, portail à la racine (avec salut aléatoire), diagnostic voix (premier pas). La
+place de la recherche est tranchée, le workflow « lots d'exemples sans relecture » est
+outillé (`verifie_exemples.js`), et le contrôle visuel mobile est couvert par l'émulation
+WebKit/iPhone 16 Pro. **La prochaine session commence par « Reprendre ici » ci-dessous.**
+
+## Reprendre ici (prochaine session)
+
+1. **Lots d'exemples A1** — le chantier principal. **250 mots A1 sans exemple** :
+   Noms 130 · Expressions 22 · Nombres 14 · Saisons & mois 12 · Pronoms personnels 10 ·
+   Mots interrogatifs 9 · Adverbes 9 · Prépositions 8 · Jours de la semaine 7 ·
+   Conjonctions 5 · Démonstratifs 3 · Existence 2 (+ 19 « Phrases », à **exclure** : ce
+   sont déjà des phrases complètes). Commencer par les **Noms** (gros du lot, fort impact).
+   Méthode par lot : lister les mots sans exemple (`extractCards` exporté par build.js —
+   filtrer `niveau==='A1' && !exemples`), écrire les `<ul class="exemples">` dans le
+   carnet (ligne éditoriale ARCHITECTURE.md §5 : 3–8 mots, présent, vocabulaire ≤ A1,
+   une situation concrète du quotidien), puis `node verifie_exemples.js` (**0 erreur
+   exigé** — c'est le filet qui remplace la relecture), `node build.js`, commit.
+   Ensuite : les 268 mots A2.
+2. **Solder les 36 avertissements du validateur** sur le lot pilote : mots hors carnet
+   (souvent des mots utiles à AJOUTER au carnet — עברית « hébreu », עכשיו en ktiv malé…),
+   écarts de translittération distance 2, quelques mots d'un niveau au-dessus.
+3. **Voix robotique — en attente d'une donnée de Ruben** : le nom de voix affiché dans la
+   note Prononciation de son iPhone. Selon la réponse : si « Carmit » simple →
+   recommander Carmit Enhanced (Réglages > Accessibilité > Contenu énoncé > Voix >
+   Hébreu) ; ajuster `rate`/`pitch` si besoin ; API TTS externe **rejetée** (casse le
+   tout-statique hors-ligne) ; audio préenregistré = décision produit, seulement si
+   Enhanced déçoit.
+
+**Checklist côté Ruben (vrai iPhone)** :
+- [ ] Réinstaller la PWA (l'ancienne garde l'ancien `start_url` → elle ouvrirait le
+      portail au lieu de l'appli).
+- [ ] Relever le **nom de la voix** affiché dans Réglages avancés → Prononciation.
+- [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
 ## Fait (historique compact — détail dans les messages de commit)
 
-- **[x] Intégrité du verdict** (`fd84d94`) : verdict annulable dans les trois modes
-  (« Corriger » en QCM, « Annuler la dernière réponse » en Cartes avec restauration
-  SRS/compteurs/position), Entrée sur champ vide = no-op, requête de recherche échappée.
-- **[x] Égalité des trois modes** (`71d6a12`) : verso annoncé aux lecteurs d'écran
-  (`#flip-live`), clavier QCM (1–4, Entrée/Espace), `role="group"` sur les `.seg`,
-  touche P « prononcer ».
-- **[x] Accueil allégé** (`2fd2efa`) : pli « Réglages avancés » (details natif :
-  Ordre/Longueur/Prononciation), « Commencer » collant sous le pouce en tactile,
-  premier lancement tout sélectionné sauf Phrases, note pédagogique sous le Mode.
-- **[x] Mineures** (`f5ff87b`) : ligne « Session interrompue — X/Y déjà comptées »,
-  « Rejouer ces N cartes », effet Sisyphe expliqué en fin de révision, distracteurs QCM
-  sans quasi-synonymes.
-- **[x] Niveaux de difficulté (CECRL)** (`65d341c`) : les 709 mots du carnet classés via
-  `data-niveau` (A1 327 · A2 268 · B1 107 · B2 7 — méthode dans ARCHITECTURE.md §4),
-  mappés en quatre paliers dans l'app (Facile = A1, Intermédiaire = A2–B1,
-  Difficile = B2–C1, Expert = C2). Chips multi-sélection sous les catégories, construites
-  depuis les données (un niveau vide n'affiche pas de chip), filtre croisé
-  catégories × niveau dans `start()`, révision du jour volontairement non filtrée,
-  préférences rétro-compatibles, garde-fou `EXPECTED_LEVELS` dans build.js.
-- **[x] Exemples en situation** (`ac784a4`) : sous-listes `<ul class="exemples">` dans le
-  carnet (hébreu nikud + translittération + français), extraites en `card.exemples` dans
-  les deux implémentations, pli « Voir un exemple » sur le verso des Cartes, le feedback
-  de Saisie et le verdict du QCM (jamais côté question en fr→he), exemples dans le tiroir
-  de la recherche, bouton Écouter par phrase. Lot pilote : 77 exemples sur les mots A1.
-- **[x] Re-mesure UX + correctifs** (`5e53e8e`) : score 34/40. Le problème majeur trouvé
-  (Entrée/Espace sur un bouton du feedback de Saisie avançaient la carte au lieu d'activer
-  le bouton) est corrigé — garde « bouton focalisé » aligné sur celui du QCM, en Saisie et
-  en Cartes. Avec lui : « Commencer — N cartes » vivant (croisement catégories × niveau,
-  borné par la Longueur), note « mot non classé reste visible » sous le groupe Niveau,
-  l'exemple déplié entre dans le champ (`scrollIntoView`), le pli « Réglages avancés »
-  affiche ses valeurs mémorisées.
-- **[x] Backlog mineur soldé** (`abce563`) : « tout sélectionner » ↔ « tout
-  désélectionner » selon l'état, « Voir un exemple » ↔ « Masquer l'exemple », rangée de
-  recherche dépliable qui déplie sans jouer l'audio (une action par geste), touche **C**
-  « corriger » dans les trois modes (P et C laissent passer Ctrl/Cmd/Alt), `#flip-live`
-  annonce l'exemple disponible, options « Phrases » du QCM compactées (`.qc.ph`).
-  Vérifié en jsdom (24 contrôles) ; comportements documentés dans ARCHITECTURE.md
-  et CLAUDE.md.
+Plan UX en 7 étapes, terminé (`fd84d94` verdict annulable + no-op champ vide,
+`71d6a12` a11y des trois modes + clavier QCM, `2fd2efa` accueil allégé (pli « Réglages
+avancés », Commencer collant, 1er lancement tout sauf Phrases), `f5ff87b` mineures,
+`65d341c` niveaux CECRL (709 mots classés `data-niveau`, chips Niveau, garde-fou
+`EXPECTED_LEVELS`), `ac784a4` exemples en situation (extraction ×2, plis « Voir un
+exemple », lot pilote 77), `5e53e8e` re-critique 34/40 + correctifs, `abce563` backlog
+mineur). Puis, le 2026-07-18 au soir :
+
 - **[x] Remise à zéro du profil** (`6f074d0`) : zone « Repartir de zéro » en bas du pli
-  « Réglages avancés » (action rare et destructrice — jamais en concurrence avec les
-  lampes de l'accueil). Deux temps : confirmation qui nomme la perte (N cartes suivies),
-  « Annuler » en défaut sûr avec le focus. Efface `srs_v1`/`prefs_v1`/`sess_v1` et remet
-  l'état premier lancement en place (`applyPrefs`/`refreshSrsUi`/`updateStart` — y compris
-  les six clés de réglage de `state`, que `applyPrefs` seul ne remettrait pas) ; ligne
-  `role="status"` « Profil effacé ». Vérifié en jsdom (36 contrôles, script conservé en
-  scratchpad de session).
-- **[x] Diagnostic voix — premier pas** (`f8a00fb`) : la note du groupe Prononciation
-  affiche le nom réel de la voix retenue (« Voix hébraïque détectée ✓ — … »).
-- **[x] Portail à la racine** (`ba93e32`, décision actée) : `index.html` devient la porte
-  d'entrée (deux portes dans la charte, la lampe sur les flashcards), l'appli déménage
-  dans `app.html`, `build.js` la suit, `sw.js` passe en v7, `start_url` → `./app.html`
-  (l'icône installée ouvre l'appli ; une PWA installée avant doit être réinstallée une
-  fois), lien du carnet retargeté. Parcours complet vérifié en émulation iPhone
-  (Playwright/Chromium — voir « Contrôle visuel » ci-dessous).
-- **[x] Salut aléatoire du portail** (`2e21068`) : « Bienvenue ! » ou « ברוכים הבאים! »
-  (sans nikoud — demande de Ruben — et exclamation collée), tiré au sort à chaque
-  ouverture. Pluriel volontaire : c'est la formule d'accueil des lieux publics.
+  « Réglages avancés », confirmation en deux temps qui nomme la perte (N cartes suivies),
+  « Annuler » = défaut sûr focalisé. Efface `srs_v1`/`prefs_v1`/`sess_v1` et remet l'état
+  premier lancement **en place** (y compris les six clés de réglage de `state`, que
+  `applyPrefs` seul ne toucherait pas) ; ligne `role="status"`. jsdom 36/36.
+- **[x] Diagnostic voix — premier pas** (`f8a00fb`) : la note Prononciation affiche le
+  nom réel de la voix retenue (« Voix hébraïque détectée ✓ — … »).
+- **[x] Portail à la racine** (`ba93e32`) : `index.html` = porte d'entrée (deux portes,
+  la lampe sur les flashcards), l'appli déménage dans **`app.html`**, `build.js` la suit,
+  `sw.js` v7 (app.html dans les assets, la coquille racine sert le portail), `start_url`
+  → `./app.html`, lien du carnet retargeté.
+- **[x] Salut aléatoire du portail** (`2e21068`, sans nikoud `f1004d2`) : « Bienvenue ! »
+  ou « ברוכים הבאים! » (exclamation collée), tiré au sort à chaque ouverture.
 - **[x] Place de la recherche tranchée** (`b0c225a`) : la « Révision du jour » ouvre
-  l'écran de l'appli, la recherche passe juste dessous — la lampe d'abord.
-- **[x] verifie_exemples.js** (`73d0208`) : filet de sécurité des exemples (champs,
-  3–8 mots, nikoud, translittération concordante avec he2tr/trKey extraits d'app.html,
-  vocabulaire ≤ niveau). Calibré sur le lot pilote : 0 erreur, 36 avertissements
-  éditoriaux. Condition du nouveau workflow « lots sans relecture ».
+  l'écran, la recherche passe sous la barre de maîtrise — la lampe d'abord.
+- **[x] verifie_exemples.js** (`73d0208`) : filet de sécurité des exemples — champs,
+  3–8 mots, nikoud par mot, translittération concordante avec `he2tr`/`trKey` **extraits
+  d'app.html**, vocabulaire de la phrase ≤ niveau du mot (avertissement, `--strict` pour
+  bloquer). Calibré sur le pilote : 0 erreur, 36 avertissements.
+- **[x] Contrôle visuel mobile** : parcours complet vérifié en émulation **WebKit réel
+  (moteur Safari), profil iPhone 16 Pro** (l'appareil de Ruben) — zéro erreur JS, rendu
+  conforme (portail, pli, reset, cartes, recherche déplacée).
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
-- L'écran de réglages reste le premier écran ; la hiérarchie de l'accueil est tranchée.
-- La révision du jour ignore le filtre Niveau : une carte apprise reste due.
-- Un mot sans `data-niveau` reste visible quel que soit le filtre (le carnet s'annote
-  progressivement sans jamais perdre une carte) — et l'interface le dit.
+- Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
+  l'appli directement (`start_url`).
+- L'écran de réglages reste le premier écran de l'appli ; il s'ouvre sur la « Révision
+  du jour », la recherche vit dessous.
+- Le salut du portail : aléatoire fr/he, **sans nikoud**, pluriel (formule d'accueil
+  standard), exclamation collée en hébreu.
+- Les **lots d'exemples s'écrivent sans relecture humaine**, gardés par
+  `verifie_exemples.js` (0 erreur exigé avant commit).
+- La révision du jour ignore le filtre Niveau ; un mot sans `data-niveau` reste visible
+  quel que soit le filtre — et l'interface le dit.
+- API TTS externe rejetée pour la voix (le tout-statique hors-ligne prime).
 
-## Ce qui reste
+## Pistes de design ouvertes (mineures, non tranchées)
 
-### Fonctionnalités demandées (2026-07-18)
-
-- **[ ] Voix robotique (option audio)** : la voix hébraïque de la synthèse vocale sonne
-  robotique. Le code choisit déjà la « meilleure » voix disponible (`loadVoices` dans
-  app.html : score Premium > Enhanced/Neural/Siri > Carmit, `rate` à 0.88) — donc le
-  problème est en aval. Le premier pas est fait : la note audio du setup **affiche le nom
-  de la voix retenue** (`f8a00fb`) — relever ce nom sur l'appareil concerné, puis
-  tester les alternatives par plateforme (iOS : Carmit Enhanced à télécharger dans
-  Réglages > Accessibilité > Contenu énoncé > Voix ; Android/desktop : voix Google/
-  Microsoft he-IL), ajuster `rate`/`pitch`, et si aucune voix système ne suffit, trancher
-  la piste lourde : audio préenregistré ou API TTS externe — en tension avec le
-  tout-statique hors-ligne (PRODUCT.md), donc décision produit.
-
-### Contenu (workflow acté le 2026-07-18 : lots sans relecture humaine)
-- **Lots d'exemples suivants** : d'abord les mots A1 restants (noms, expressions,
-  interrogatifs…), puis A2 — ligne éditoriale dans ARCHITECTURE.md §5 (3–8 mots, présent,
-  vocabulaire ≤ niveau du mot, une situation concrète par phrase). **Chaque lot doit
-  passer `node verifie_exemples.js` (0 erreur) avant commit** — c'est le filet qui
-  remplace la relecture ; les avertissements s'arbitrent au fil de l'eau.
-- **Avertissements du pilote (36)** : mots hors carnet (souvent des mots utiles absents
-  du carnet — עברית, עכשיו en ktiv malé… — les ajouter au carnet est souvent la bonne
-  réponse), écarts de translittération distance 2, mots d'un niveau au-dessus. À solder
-  progressivement.
-- **Classement CECRL** : corrections ponctuelles quand un mot semble mal classé à
-  l'usage (éditer `data-niveau` dans le carnet, puis `node build.js`).
-
-### Contrôle visuel navigateur (mobile)
-Fait le 2026-07-18 en **émulation iPhone** (Playwright/Chromium headless, viewport
-iPhone 14, tactile) : accueil, pli, zone « Repartir de zéro », carte recto/verso,
-portail, parcours complet — rien à corriger, zéro erreur JS. Refait ensuite sous
-**WebKit réel** (vrai moteur Safari, libs installées par Ruben) avec le profil
-**iPhone 16 Pro** (son appareil) : tout est vert. Reste à sentir sur le vrai iPhone :
-la frontière défilement/tap de la carte (`#flip`) quand la face déborde, et la
-réinstallation de la PWA (nouveau `start_url`).
-
-### Pistes de design ouvertes (non tranchées — demandent une décision produit)
-- **Deux « lampes » sur l'accueil** : la carte « Révision du jour » (l'action quotidienne
-  que le système veut encourager) rivalise avec « Commencer », qui reste le bouton le plus
-  doré et le plus accessible au pouce. Faut-il inverser la hiérarchie ?
+- **Deux « lampes » sur l'accueil de l'appli** : « Révision du jour » vs « Commencer ».
+  Piste recommandée si on y touche : emphase **selon l'état** (des cartes dues → la
+  révision est la lampe ; sinon Commencer). Raffinement, pas urgent.
 - **« Facile » comme vrai contrat** : masquer les mots non classés quand un niveau est
-  coché, plutôt que les laisser passer ? (Théorique tant que tout le carnet est classé.)
+  coché ? Théorique — tout le carnet est classé (0 mot sans `data-niveau`).
+
+## Outillage (WSL, à recréer en début de session si besoin)
+
+- **Logique/DOM** : Node + jsdom dans le scratchpad de session
+  (`npm i jsdom playwright` — installer les DEUX ensemble, npm évince l'autre sinon),
+  booter `flashcards_hebreu.html` avec `runScripts:'dangerously'`.
+- **Rendu visuel mobile** : Playwright + **WebKit** (vrai moteur Safari — les libs
+  système sont installées) avec `devices['iPhone 16 Pro']` ; captures d'écran à l'appui.
+  Premier install : `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 npx playwright install webkit`.
+  Le Chrome système (`google-chrome --headless`) pend en WSL2 — ne pas l'utiliser.
+- **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch le carnet).
 
 ## Rituel à chaque modification
 
 1. `node build.js` — régénère `flashcards_hebreu.html` ; échec si une section ou un
    niveau attendu tombe à 0 ; vérifier les comptes affichés (sections, niveaux, exemples).
-   Si des exemples ont changé : `node verifie_exemples.js` (0 erreur exigé).
-2. Vérifier le comportement : dans un navigateur (`python3 -m http.server` puis
-   `http://localhost:8000/`), ou sans navigateur avec un script Node + jsdom jetable qui
-   boote `flashcards_hebreu.html` (cf. ARCHITECTURE.md « Développement et déploiement »).
-3. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
-4. Commit par changement, messages en français (comme l'historique), puis push sur `main`
+2. Si des exemples ont changé : `node verifie_exemples.js` — **0 erreur exigé**.
+3. Vérifier le comportement : navigateur local, jsdom, ou émulation WebKit (ci-dessus).
+4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
+5. Commit par changement, messages en français (comme l'historique), puis push sur `main`
    (GitHub Pages redéploie automatiquement).
-5. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, et ce fichier.
+6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
+   fichier (surtout « Reprendre ici »).

@@ -36,7 +36,7 @@ Calme, chaleureux, studieux. L'ambiance d'un carnet d'étude du soir : fond somb
 2. **Le calme soutient l'étude** — pas d'agitation visuelle ni de célébrations bruyantes ; le feedback est net (vert/rouge) mais serein.
 3. **Taillé pour un francophone** — translittération au standard maison, correction tolérante, clavier israélien intégré : rien n'est traduit de l'anglais, tout est pensé en français.
 4. **Ça marche dans l'avion** — chaque choix de design doit survivre au hors-ligne total : pas de ressource distante, pas de compte, pas de dépendance.
-5. **Carnet et app, une seule charte** — le carnet est la référence visuelle ; l'app en hérite (`:root` identique) pour que réviser et consulter soient un même lieu.
+5. **Carnet et app, une seule charte** — le carnet est la référence visuelle ; l'app et le portail (la porte d'entrée commune, à la racine) en héritent (`:root` identique) pour que réviser et consulter soient un même lieu.
 
 ## Accessibility & Inclusion
 
