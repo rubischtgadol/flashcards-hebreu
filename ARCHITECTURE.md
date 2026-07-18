@@ -67,10 +67,11 @@ Deux formats d'entrées :
 - **Tables** (`<table><tbody><tr>`) pour Verbes, Adjectifs, Noms. Lecture **positionnelle** : Verbes exige ≥ 5 colonnes (infinitif + il/elle/ils/elles), Adjectifs ≥ 4 (m. sing. + f. sing./m. plur./f. plur.), Noms ≥ 3 (mot, genre `m`/`f`, pluriel). Ajouter une colonne casse l'extraction.
 - **Listes** (`<ul class="word-list"><li>`) pour pronoms, prépositions, nombres, expressions, **phrases**, etc. (voir la map `listCats`). La section **Phrases** (label `.count` = `Phrases`) contient des phrases entières du quotidien : elles deviennent des cartes ordinaires (catégorie `Phrases`) et traversent tous les modes. Ajouter une entrée `listCats` impose de la répercuter dans `build.js` (objet `listCats` **et** `EXPECTED_CATS`).
 
-Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr` (translittération), `.fr` (français). Un `<li>` peut porter deux attributs qui pilotent la carte sans toucher au code de l'app :
+Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr` (translittération), `.fr` (français). Un `<li>` peut porter des attributs qui pilotent la carte sans toucher au code de l'app :
 
 - `data-fr-court` — français court affiché sur la carte à la place du `.fr` long du carnet ;
-- `data-note` — précision affichée sous la réponse.
+- `data-note` — précision affichée sous la réponse ;
+- `data-niveau` — niveau CECRL fin (`A1`…`C2`) du mot, porté aussi par les `<tr>` des trois tables (voir § 4). Attribut **optionnel** : un mot sans niveau reste visible quel que soit le filtre de l'app — le carnet peut s'annoter progressivement sans jamais perdre une carte.
 
 Les sections purement grammaticales (racine, passé, futur, binyanim, article, smikhut, prépositions fléchies) ont un label `.count` **sans** entrée dans les maps d'extraction : elles sont volontairement exclues des flashcards.
 
@@ -93,6 +94,7 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
   fr,         // français (préfixé '(infinitif) ' pour les verbes, suffixé ' (m)'/' (f)' pour les noms)
   he_plain,   // he sans nikud (stripNikud)
   note?,      // depuis data-note
+  niveau?,    // depuis data-niveau ('A1'…'C2' — absent si le mot n'est pas classé)
   genre?,     // 'm' | 'f' (noms)
   forms?: [{ he, tr, label, he_plain }]  // conjugaisons, accords, pluriel
 }
@@ -100,11 +102,23 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
 
 Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2tr(card.he)`. Les cartes de catégorie `Phrases` reçoivent un affichage réduit (`.big-he.phrase` / `.big-fr.phrase`) pour que les longues phrases passent à la ligne proprement.
 
+### 4. Les niveaux de difficulté (CECRL)
+
+Le carnet stocke le **CECRL fin** (six valeurs, `data-niveau="A1"…"C2"`) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'index.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet actuel n'ayant rien au-delà de B2, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un carnet sans aucun `data-niveau` masque le groupe entier.
+
+**Méthode de classement** (passe initiale du 2026-07-18, 709 mots, distribution A1 327 / A2 268 / B1 107 / B2 7) — trois critères croisés, dans cet ordre :
+
+1. **Curricula d'hébreu L2 alignés CECRL** : le vocabulaire des niveaux d'oulpan (alef ≈ A1–A2, bet ≈ B1) et des manuels d'hébreu moderne pour débutants ; les listes de survie (salutations, nombres, jours, famille proche, nourriture de base) sont A1 par convention.
+2. **Fréquence en hébreu moderne parlé** : un mot du top courant de la conversation quotidienne descend d'un cran (ex. `lehargish`, `beseder`), un mot rare ou littéraire monte (`tachat` littéraire → B2, `be'ad` → B2).
+3. **Jugement quotidien vs abstrait/idiomatique** : concret du quotidien ≤ A2 ; abstractions (`emet`, `matarah`, `regesh`) ≥ B1 ; argot fin (`valah`) et mots de précision (`mikhshol`, `tsiporen`) B2.
+
+Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut découvrir un mot « trop tôt » que de ne jamais le croiser). La relecture humaine se fait par échantillons, section par section — le classement vit dans le carnet, donc se corrige comme le reste du contenu : en éditant l'attribut, puis `node build.js`.
+
 ## build.js : la chaîne de génération
 
 `node build.js` (ou `--check` pour vérifier sans écrire) :
 
-1. Lit le carnet, extrait les cartes, **affiche le compte par section** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) est vide.
+1. Lit le carnet, extrait les cartes, **affiche le compte par section et par niveau CECRL** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide.
 2. Copie `index.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
    - bannière « fichier généré » après le doctype ;
    - suppression du loader, panneau setup visible d'emblée ;
@@ -133,6 +147,7 @@ L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`dat
 
 - **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([index.html:1032](index.html#L1032)) pioche d'abord dans la même catégorie et **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » ; un dernier recours relâché garantit 4 options) ;
 - **direction** : `he2fr` / `fr2he` ;
+- **niveau** (hors `SEG_KEYS` — multi-sélection comme les catégories) : le groupe « Niveau » (`#niv`, chips construites par `buildNivChips`) filtre le pool de `start()` en **croisement** avec les catégories (`nivOk(card)`). La « Révision du jour » l'ignore volontairement : une carte apprise reste due quel que soit le filtre. `updateStart()` distingue trois vides — aucune catégorie, aucun niveau, croisement sans carte — avec un indice dédié pour chacun ;
 - **script** : nikud, sans nikud, ou cursive ;
 - **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`). Deux valeurs : « Au clic » (seul le bouton haut-parleur déclenche la lecture) et « Automatique » (lecture au rendu de la carte et à la révélation de l'hébreu) — le réglage est respecté dans **tous** les chemins de réponse. Sans voix hébraïque détectée, `reflectVoiceUi()` pose `body.no-he-voice` (boutons haut-parleur masqués) **et** désactive les chips « Prononciation » ;
 - **longueur** (`state.len` : `'10'|'20'|'50'|'all'`, défaut `'20'`) : `limitPool()` tronque le jeu **après** le mélange dans `start()` (aléatoire = pioche différente à chaque session ; dans l'ordre = les N premières). `startReview()` l'applique aussi, après tri des cartes dues par retard décroissant — le reste demeure dû et réapparaît sur la carte de révision (sous-titre explicite quand dû > limite). « Rejouer les ratées » n'est volontairement **jamais** limité.
@@ -151,7 +166,7 @@ Couche de mémorisation persistée, **invisible pour `build.js`** (pur état app
 
 Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, restaurées via `buildChips()` (donc les deux chemins de démarrage) :
 
-- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, mode, dir, script, order, audio, len}`. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), `defaultCats()` sélectionne **tout sauf « Phrases »** — le bouton « Commencer » n'est jamais muet, mais un débutant ne tombe pas sur une phrase complète d'entrée (« tout sélectionner » les ramène ; des préférences sauvegardées restent intactes). `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
+- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, niveaux, mode, dir, script, order, audio, len}` — `niveaux` est **rétro-compatible** : absent des anciennes préférences (ou vidé), il redevient « tout sélectionné », rien ne disparaît. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), `defaultCats()` sélectionne **tout sauf « Phrases »** — le bouton « Commencer » n'est jamais muet, mais un débutant ne tombe pas sur une phrase complète d'entrée (« tout sélectionner » les ramène ; des préférences sauvegardées restent intactes). `updateStart()` affiche l'indice « Choisis au moins une catégorie » et désactive le CTA quand la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he_plain`) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
 - **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([index.html:1111](index.html#L1111)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([index.html:1283](index.html#L1283)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
 - **Sortie explicite** : « Quitter » affiche sur l'accueil la ligne `#exit-note` (`role="status"`) « Session interrompue — X réponse(s) sur Y déjà comptée(s) dans ta révision » quand au moins une réponse a été donnée (les réponses sont déjà en SRS — le dire) ; masquée au démarrage suivant. Sur l'écran de fin, « Recommencer » est libellé « Rejouer ces N cartes » (même tirage `origQueue`), et une fin de **révision** avec ratées explique qu'elles sont aussitôt redevenues dues (effet Sisyphe du compteur, pas un bug).

@@ -28,6 +28,9 @@ const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
   'Prépositions','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine','Adverbes','Saisons & mois',
   'Mots de quantité','Expressions','Existence','Phrases'];
+// Niveaux CECRL (data-niveau du carnet) dont la disparition doit faire échouer le
+// build — le carnet actuel n'a rien au-delà de B2 ; étendre quand il grandira.
+const EXPECTED_LEVELS = ['A1','A2','B1','B2'];
 
 // ---------- mini-parsing HTML (zéro dépendance) ----------
 const NAMED_ENTITIES = { amp:'&', lt:'<', gt:'>', quot:'"', apos:"'", nbsp:' ',
@@ -85,10 +88,12 @@ function parseSections(html){
   return sections;
 }
 function rowsOf(sections, name){
+  // renvoie chaque <tr> COMPLET (balise ouvrante incluse, pour lire son data-niveau)
   const body = sections[name] || '';
   const rows = [];
   blocksOf(body, /<tbody\b[^>]*>([\s\S]*?)<\/tbody>/g).forEach(tb => {
-    blocksOf(tb, /<tr\b[^>]*>([\s\S]*?)<\/tr>/g).forEach(tr => rows.push(tr));
+    let m; const re = /<tr\b[^>]*>[\s\S]*?<\/tr>/g;
+    while ((m = re.exec(tb))) rows.push(m[0]);
   });
   return rows;
 }
@@ -102,8 +107,9 @@ function lisOf(sections, name){
   });
   return lis;
 }
-function attrOf(liFragment, name){
-  const m = new RegExp('^<li\\b[^>]*\\s' + name + '="([^"]*)"').exec(liFragment);
+function attrOf(fragment, name){
+  // attribut de la balise ouvrante d'un fragment <li>/<tr> complet
+  const m = new RegExp('^<(?:li|tr)\\b[^>]*\\s' + name + '="([^"]*)"').exec(fragment);
   return m ? decodeEntities(m[1]).trim() : '';
 }
 function tdsOf(tr){ return blocksOf(tr, /<td\b[^>]*>([\s\S]*?)<\/td>/g); }
@@ -120,7 +126,12 @@ function extractCards(html){
       const fhe = firstSpanText(tds[i], 'he'); const ftr = firstSpanText(tds[i], 'tr');
       forms.push({ he: fhe, tr: ftr, label: labels[i-1], he_plain: stripNikud(fhe) });
     }
-    if (he) cards.push({ cat: 'Verbes', he, tr: '', fr: '(infinitif) ' + fr, forms });
+    if (he){
+      const card = { cat: 'Verbes', he, tr: '', fr: '(infinitif) ' + fr, forms };
+      const niveau = attrOf(tr, 'data-niveau');
+      if (niveau) card.niveau = niveau;
+      cards.push(card);
+    }
   });
 
   rowsOf(sections, 'Adjectifs').forEach(tr => {
@@ -131,7 +142,12 @@ function extractCards(html){
       const fhe = firstSpanText(tds[i], 'he'); const ftr = firstSpanText(tds[i], 'tr');
       if (fhe) forms.push({ he: fhe, tr: ftr, label: labels[i-1], he_plain: stripNikud(fhe) });
     }
-    if (he) cards.push({ cat: 'Adjectifs', he, tr: '', fr, forms });
+    if (he){
+      const card = { cat: 'Adjectifs', he, tr: '', fr, forms };
+      const niveau = attrOf(tr, 'data-niveau');
+      if (niveau) card.niveau = niveau;
+      cards.push(card);
+    }
   });
 
   rowsOf(sections, 'Noms').forEach(tr => {
@@ -142,6 +158,8 @@ function extractCards(html){
     const card = { cat: 'Noms', he, tr: '', fr: fr + ((genre === 'm' || genre === 'f') ? (' (' + genre + ')') : '') };
     if (genre === 'm' || genre === 'f') card.genre = genre;
     if (plHe && plHe !== '—'){ card.forms = [{ he: plHe, tr: plTr, label: 'pluriel', he_plain: stripNikud(plHe) }]; }
+    const niveau = attrOf(tr, 'data-niveau');
+    if (niveau) card.niveau = niveau;
     if (he) cards.push(card);
   });
 
@@ -159,6 +177,8 @@ function extractCards(html){
       const card = { cat: listCats[sec], he, tr: firstSpanText(li, 'tr'), fr: attrOf(li, 'data-fr-court') || firstSpanText(li, 'fr') };
       const note = attrOf(li, 'data-note');
       if (note) card.note = note;
+      const niveau = attrOf(li, 'data-niveau');
+      if (niveau) card.niveau = niveau;
       cards.push(card);
     });
   });
@@ -183,6 +203,21 @@ function report(cards){
     process.exit(1);
   }
   if (!cards.length){ console.error('\n✗ Aucune carte extraite.'); process.exit(1); }
+
+  // Niveaux CECRL (étape 5 du plan UX) : comptes + garde-fou anti-dérive.
+  const levels = {};
+  cards.forEach(c => { const k = c.niveau || 'non classé'; levels[k] = (levels[k] || 0) + 1; });
+  console.log('\nNiveaux CECRL (data-niveau) :');
+  const lw = Math.max(...Object.keys(levels).map(k => k.length));
+  Object.keys(levels).sort().forEach(k => {
+    console.log('  ' + k.padEnd(lw) + '  ' + levels[k]);
+  });
+  const missingLevels = EXPECTED_LEVELS.filter(l => !levels[l]);
+  if (missingLevels.length){
+    console.error('\n✗ Niveaux attendus sans aucune carte : ' + missingLevels.join(', '));
+    console.error('  (data-niveau retirés ou renommés dans le carnet ?)');
+    process.exit(1);
+  }
 }
 
 // ---------- génération du fichier autonome depuis index.html ----------

@@ -1,8 +1,8 @@
 # Plan d'amélioration UX — suite de la re-critique du 18/07/2026
 
-État au 18/07/2026 au soir : les étapes 1 à 4 sont **faites, vérifiées (jsdom) et poussées** sur
-`main`. Restent les deux chantiers de contenu (niveaux, exemples) — chacun ouvre par un shape
-avec décisions de Ruben — puis la re-mesure.
+État au 18/07/2026 au soir : les étapes 1 à 5 sont **faites, vérifiées (jsdom) et poussées** sur
+`main`. Reste le chantier des exemples (ouvre par un shape avec décisions de Ruben) puis la
+re-mesure.
 
 ## Fait (historique compact — détail dans les messages de commit)
 
@@ -20,6 +20,16 @@ avec décisions de Ruben — puis la re-mesure.
 - **[x] 4. Mineures** (`f4bb468`) : ligne « Session interrompue — X/Y déjà comptées »,
   « Rejouer ces N cartes », effet Sisyphe expliqué en fin de révision, distracteurs QCM
   sans quasi-synonymes, DESIGN.md (les quatre emplois des capitales espacées).
+- **[x] 5. Niveaux de difficulté (CECRL)** — shape validé par Ruben le 18/07 (mapping
+  Facile = A1 / Intermédiaire = A2–B1 / Difficile = B2–C1 / Expert = C2 ; chips
+  multi-sélection ; groupe sous les catégories). Les 709 mots classés dans le carnet
+  (`data-niveau`, distribution A1 327 / A2 268 / B1 107 / B2 7 — méthode dans
+  ARCHITECTURE.md §4), `card.niveau` extrait dans les deux implémentations, chips
+  construites depuis les données (pas de chip « Expert » tant que 0 mot C2), filtre croisé
+  catégories × niveau dans `start()` (révision du jour non filtrée), `prefs_v1.niveaux`
+  rétro-compatible, trois indices de sélection vide distincts, comptes + garde-fou
+  `EXPECTED_LEVELS` dans build.js. Vérifié jsdom : 20/20. **Relecture du classement par
+  Ruben : par échantillons, en corrigeant `data-niveau` directement dans le carnet.**
 
 Reste transverse : **contrôle visuel navigateur (mobile) côté Ruben** — rien n'a été vu dans
 un vrai navigateur depuis la refonte. Points à regarder en priorité : le pli et le bouton
@@ -31,34 +41,6 @@ Décisions prises (ne pas re-débattre) :
 - Le setup reste le premier écran ; seul son poids était en cause (tranché à l'étape 3).
 
 ## Ce qui reste
-
-### 5. `/impeccable shape niveaux` — niveaux de difficulté, puis implémentation  [ ]
-Demande de Ruben (18/07/2026) : diviser noms, adjectifs, verbes (et les autres catégories qui
-s'y prêtent) en niveaux **facile / intermédiaire / difficile / expert**, avec un flag par mot
-et une méthode de catégorisation robuste et rationnelle (piste : CECRL A1/A2, B1/B2, C1/C2).
-
-- **Le flag vit dans le carnet** (source unique de vérité, comme `data-fr-court`/`data-note`) :
-  `data-niveau="A1"…"C2"` sur chaque `<li>` de `word-list` et sur chaque `<tr>` des tables
-  (Verbes, Adjectifs, Noms). Stocker le **CECRL fin (6 valeurs)** — standard, vérifiable contre
-  des listes de référence — et mapper vers les 4 libellés dans l'app ; mapping à trancher au
-  shape (proposition : facile = A1, intermédiaire = A2–B1, difficile = B2–C1, expert = C2 ;
-  alternative : facile = A1/A2, intermédiaire = B1, difficile = B2, expert = C1/C2).
-- **Méthode de catégorisation** (robuste et rationnelle, à documenter dans ARCHITECTURE.md) :
-  croiser (a) les listes de vocabulaire des curricula d'oulpan/hébreu L2 alignés CECRL quand
-  elles existent, (b) un classement fréquentiel de l'hébreu moderne (liste de fréquence de
-  corpus, type wordfreq/SUBTLEX-IL) avec seuils de rang par niveau, (c) une passe de jugement
-  par lots (mots du quotidien vs abstraits/idiomatiques), en notant les cas limites. Environ
-  700 mots à classer : procéder par sections, avec relecture de Ruben sur échantillons.
-- **Extraction** : `card.niveau` dans le schéma ; répercuter dans **les deux** implémentations
-  (`extractCards()` d'index.html **et** la réplique regex de build.js), défaut raisonnable si
-  l'attribut manque (ex. non classé = visible partout) pour que le carnet reste éditable
-  progressivement — aucun mot ne doit disparaître des flashcards faute de flag.
-- **UI setup** : un groupe « Niveau » (chips, persisté dans `prefs_v1`, rétro-compatible) qui
-  filtre le pool en croisement avec les catégories ; à trancher au shape : multi-sélection
-  comme les catégories ou seg exclusif, interaction avec « Révision du jour » (probablement
-  non filtrée : une carte apprise reste due) et avec les compteurs des chips.
-- Garde-fous : comptes par niveau affichés par `build.js`, warning si un niveau attendu tombe
-  à 0 ; `--check` couvre la dérive comme d'habitude.
 
 ### 6. `/impeccable shape exemples` — exemples concrets d'utilisation, puis implémentation  [ ]
 Demande de Ruben (18/07/2026) : sur les flashcards, un lien ou une autre fenêtre avec des

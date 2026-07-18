@@ -471,6 +471,12 @@
   <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
   <div class="chips" id="cats" role="group" aria-labelledby="h-cats"></div>
 
+  <!-- Chips construites depuis les data-niveau du carnet : seuls les niveaux
+       non vides apparaissent (« Expert » attendra des mots C2). -->
+  <h2 id="h-niv">Niveau</h2>
+  <div class="chips" id="niv" role="group" aria-labelledby="h-niv" aria-describedby="niv-note"></div>
+  <div class="seg-note" id="niv-note">Selon le Cadre européen : Facile = A1 · Intermédiaire = A2–B1 · Difficile = B2–C1 · Expert = C2. La révision du jour n'en tient pas compte.</div>
+
   <h2 id="h-mode">Mode</h2>
   <div class="seg" id="mode" role="group" aria-labelledby="h-mode" aria-describedby="mode-note">
     <button class="chip" data-mode="cards" aria-pressed="true">Cartes</button>
@@ -603,9 +609,22 @@ let CARDS = [];
 
 const state = {
   dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards', len:'20',
-  session:'normal', cats:new Set(),
+  session:'normal', cats:new Set(), niveaux:new Set(),
   queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
 };
+
+// ================= Niveaux de difficulté (CECRL) =================
+// Le carnet stocke le CECRL fin (data-niveau="A1"…"C2") ; l'app l'affiche en
+// quatre libellés. Un mot sans niveau ignore le filtre : il reste visible
+// partout, le carnet peut donc s'annoter progressivement sans perdre de carte.
+const NIVEAUX = [
+  {key:'facile',    label:'Facile',        cecrl:['A1']},
+  {key:'inter',     label:'Intermédiaire', cecrl:['A2','B1']},
+  {key:'difficile', label:'Difficile',     cecrl:['B2','C1']},
+  {key:'expert',    label:'Expert',        cecrl:['C2']}
+];
+function nivOfCard(c){ const g=NIVEAUX.find(g=>g.cecrl.includes(c.niveau)); return g ? g.key : null; }
+function nivOk(c){ const k=nivOfCard(c); return !k || state.niveaux.has(k); }
 
 // ================= Préférences de réglage (persistées) =================
 // Les choix du panneau de réglages survivent d'une session à l'autre. Restaurés
@@ -617,7 +636,7 @@ function prefsLoad(){ try{ return JSON.parse(localStorage.getItem(PREFS_KEY))||n
 function savePrefs(){
   try{
     localStorage.setItem(PREFS_KEY, JSON.stringify({
-      cats:[...state.cats], mode:state.mode, dir:state.dir,
+      cats:[...state.cats], niveaux:[...state.niveaux], mode:state.mode, dir:state.dir,
       script:state.script, order:state.order, audio:state.audio, len:state.len
     }));
   }catch(e){}
@@ -647,9 +666,16 @@ function applyPrefs(){
     state.cats.clear();
     defaultCats().forEach(cat=>state.cats.add(cat));
   }
+  // Niveaux : rétro-compatible — préférences d'avant le filtre (pas de champ
+  // `niveaux`) ou sélection devenue vide → tout sélectionné, rien ne disparaît.
+  state.niveaux.clear();
+  (p && Array.isArray(p.niveaux) ? p.niveaux : []).forEach(k=>{ if(nivCounts[k]) state.niveaux.add(k); });
+  if(state.niveaux.size===0) Object.keys(nivCounts).forEach(k=>state.niveaux.add(k));
   SEG_KEYS.forEach(reflectSeg);
   catsEl.querySelectorAll('.chip').forEach(b=>
     b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
+  nivEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.niveaux.has(b.dataset.niv) ? 'true':'false'));
 }
 
 // ================= Instantané de session (sessionStorage) =================
@@ -847,7 +873,9 @@ document.getElementById('search-clear').addEventListener('click', ()=>{
 
 // ----- build category chips -----
 let catCounts = {};
+let nivCounts = {};
 const catsEl = document.getElementById('cats');
+const nivEl = document.getElementById('niv');
 const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Noms',
   'Prépositions','Conjonctions','Mots interrogatifs','Existence','Nombres',
   'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases'];
@@ -862,9 +890,29 @@ function buildChips(){
     b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.cats.add(cat); else state.cats.delete(cat); updateStart(); savePrefs(); };
     catsEl.appendChild(b);
   });
+  buildNivChips();
   applyPrefs();
   refreshSrsUi();
   sessRestore();
+}
+// Chips « Niveau » : seuls les niveaux non vides s'affichent (le carnet n'a pas
+// encore de C2 → pas de chip « Expert » fantôme) ; groupe entier masqué si le
+// carnet n'a aucun data-niveau.
+function buildNivChips(){
+  nivCounts = {};
+  CARDS.forEach(c=>{ const k=nivOfCard(c); if(k) nivCounts[k]=(nivCounts[k]||0)+1; });
+  nivEl.innerHTML='';
+  NIVEAUX.filter(g=>nivCounts[g.key]).forEach(g=>{
+    const b=document.createElement('button');
+    b.className='chip'; b.setAttribute('aria-pressed','false'); b.dataset.niv=g.key;
+    b.innerHTML=g.label+' <span class="n">'+nivCounts[g.key]+'</span>';
+    b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.niveaux.add(g.key); else state.niveaux.delete(g.key); updateStart(); savePrefs(); };
+    nivEl.appendChild(b);
+  });
+  const any = Object.keys(nivCounts).length>0;
+  document.getElementById('h-niv').classList.toggle('hide', !any);
+  nivEl.classList.toggle('hide', !any);
+  document.getElementById('niv-note').classList.toggle('hide', !any);
 }
 
 function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
@@ -891,10 +939,19 @@ document.getElementById('selall').onclick=()=>{
   savePrefs();
 };
 function updateStart(){
-  const empty = state.cats.size===0;
+  const noCat = state.cats.size===0;
+  // Le filtre niveau n'existe que si le carnet est annoté ; sinon il est inerte.
+  const noNiv = Object.keys(nivCounts).length>0 && state.niveaux.size===0;
+  const noMatch = !noCat && !noNiv && !CARDS.some(c=>state.cats.has(c.cat) && nivOk(c));
+  const empty = noCat || noNiv || noMatch;
   document.getElementById('start').disabled = empty;
   const hint=document.getElementById('start-hint');
-  if(hint) hint.classList.toggle('hide', !empty);
+  if(hint){
+    if(noCat) hint.textContent='Choisis au moins une catégorie pour commencer.';
+    else if(noNiv) hint.textContent='Choisis au moins un niveau pour commencer.';
+    else if(noMatch) hint.textContent='Aucune carte de ce niveau dans les catégories cochées — élargis l\'un ou l\'autre.';
+    hint.classList.toggle('hide', !empty);
+  }
 }
 updateStart();
 
@@ -931,7 +988,9 @@ function limitPool(pool){
 }
 function start(){
   state.session='normal';
-  const pool = CARDS.filter(c=>state.cats.has(c.cat));
+  // Croisement catégories × niveau. La révision du jour (startReview), elle,
+  // ignore le niveau : une carte apprise reste due.
+  const pool = CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c));
   const deck = limitPool(state.order==='shuffle' ? shuffle(pool.slice()) : pool.slice());
   state.origQueue = deck.slice();
   beginSession(deck);
@@ -1718,7 +1777,9 @@ function extractCards(doc){
     const labels=['il','elle','ils','elles']; const forms=[];
     for(let i=1;i<5;i++){ const fhe=firstText(tds[i],'.he'); const ftr=firstText(tds[i],'.tr');
       forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
-    if(he) cards.push({cat:'Verbes',he,tr:'',fr:'(infinitif) '+fr,forms});
+    if(he){ const card={cat:'Verbes',he,tr:'',fr:'(infinitif) '+fr,forms};
+      if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      cards.push(card); }
   });
   rowsOf('Adjectifs').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<4) return;
@@ -1726,7 +1787,9 @@ function extractCards(doc){
     const labels=['f. sing.','m. plur.','f. plur.']; const forms=[];
     for(let i=1;i<4;i++){ const fhe=firstText(tds[i],'.he'); const ftr=firstText(tds[i],'.tr');
       if(fhe) forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
-    if(he) cards.push({cat:'Adjectifs',he,tr:'',fr, forms});
+    if(he){ const card={cat:'Adjectifs',he,tr:'',fr, forms};
+      if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      cards.push(card); }
   });
   rowsOf('Noms').forEach(tr=>{
     const tds=[...tr.children]; if(tds.length<3) return;
@@ -1736,6 +1799,7 @@ function extractCards(doc){
     const card={cat:'Noms',he,tr:'',fr:fr+((genre==='m'||genre==='f')?(' ('+genre+')'):'')};
     if(genre==='m'||genre==='f') card.genre=genre;
     if(plHe && plHe!=='—'){ card.forms=[{he:plHe,tr:plTr,label:'pluriel',he_plain:stripNikud(plHe)}]; }
+    if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
     if(he) cards.push(card);
   });
   const listCats={'Pronoms personnels':'Pronoms personnels','Démonstratifs':'Démonstratifs',
@@ -1752,6 +1816,7 @@ function extractCards(doc){
       // data-note : précision affichée sous la réponse.
       const card={cat:listCats[sec],he,tr:firstText(li,'.tr'),fr:li.dataset.frCourt||firstText(li,'.fr')};
       if(li.dataset.note) card.note=li.dataset.note;
+      if(li.dataset.niveau) card.niveau=li.dataset.niveau;
       cards.push(card);
     });
   });
