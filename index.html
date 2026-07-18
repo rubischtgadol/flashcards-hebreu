@@ -1057,8 +1057,10 @@ updateStart();
   if(!note) return;
   function refresh(){
     if(!TTS_OK){ note.textContent = "Synthèse vocale non disponible sur ce navigateur."; return; }
+    // Le nom réel de la voix retenue est le premier outil de diagnostic quand
+    // la synthèse sonne robotique : il dit quoi améliorer sur l'appareil.
     note.textContent = heVoice
-      ? "Voix hébraïque détectée ✓"
+      ? "Voix hébraïque détectée ✓ — " + heVoice.name
       : "Aucune voix hébraïque installée sur l'appareil — le son peut être approximatif. (iOS : Réglages → Accessibilité → Contenu énoncé → Voix → Hébreu.)";
   }
   refresh();
