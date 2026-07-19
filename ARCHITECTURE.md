@@ -8,7 +8,7 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
 
 **Aucune dépendance, aucun test, aucun gestionnaire de paquets.** Chaque fichier déployé est un document HTML autonome (CSS et JS inline, vanilla). Le seul outillage est `build.js` et `verifie_exemples.js`, deux scripts Node zéro-dépendance, utilisés uniquement en développement et jamais déployés.
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                     vocabulaire_hebreu.html                      │
 │              LE CARNET — source unique de vérité                 │
@@ -35,7 +35,7 @@ Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un po
 ## Les fichiers
 
 | Fichier | Rôle | Édité à la main ? |
-|---|---|---|
+| --- | --- | --- |
 | [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire. Toute modification de contenu se fait ici. | ✅ oui |
 | [index.html](index.html) | Le **portail** : la porte d'entrée à la racine, en deux temps — accueil plein écran (« Ruben vous souhaite la bienvenue ! » / « ראובן מקבל אתכם בברכה! » au hasard, le א doré de l'icône en vectoriel, deux ménorahs à sept branches qui éclairent les côtés), puis le choix entre deux portes égales (flashcards, carnet). Sans JS, l'accueil s'efface et les portes sont directement là. Sans vocabulaire ni couplage build. | ✅ oui |
 | [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
@@ -149,7 +149,7 @@ Un seul fichier : CSS inline (l. 1–485 env.), puis quatre écrans, puis le JS.
 ### Écrans
 
 | Écran | Ligne | Rôle |
-|---|---|---|
+| --- | --- | --- |
 | `#loader` | [app.html:494](app.html#L494) | Spinner pendant le fetch du carnet (absent de la version autonome) |
 | `#setup` | [app.html:495](app.html#L495) | « Révision du jour » (SRS) en tête, recherche sous la barre de maîtrise, catégories (chips), réglages — Ordre/Longueur/Prononciation repliés dans le `<details>` « Réglages avancés » ([app.html:556](app.html#L556)) |
 | `#study` | [app.html:609](app.html#L609) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |

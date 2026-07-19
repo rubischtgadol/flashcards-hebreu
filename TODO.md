@@ -49,6 +49,7 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    d'extraction, CLAUDE.md § extraction).
 
 **Checklist côté Ruben (vrai iPhone)** :
+
 - [ ] Réinstaller la PWA / re-sauvegarder l'icône (une icône installée garde le
       `start_url` de son installation → la refaire pour qu'elle ouvre le **portail**,
       comme demandé le 2026-07-19).
@@ -118,6 +119,7 @@ Puis, le 2026-07-19 (trois problèmes remontés par Ruben) :
   (desktop + iPhone 16 Pro), dont non-chevauchement texte/ménorahs — tout passe.
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
+
 - Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
   le **portail** (`start_url: "./"` — demande de Ruben du 2026-07-19, qui annule le
   `./app.html` du 18/07 : atterrir directement dans les flashcards le surprenait).
