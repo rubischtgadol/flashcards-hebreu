@@ -327,6 +327,18 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   JS, reduced-motion), iPhone 16 Pro (tactile, débordement, chevauchement
   texte/ménorahs), navigation réelle des deux portes, `start_url`, tirage fr/he
   (détection hébreu par plage Unicode, pas par mot littéral).
+- **Suite d'audit** (scratchpad, à recréer au besoin — écrite le 19/07 pour l'audit du
+  carnet, réutilisable sur n'importe quelle page) : `audit_carnet.js` mesure en un passage
+  le contraste réel de chaque nœud texte (composition alpha comprise, seuils AA 4,5:1/3:1),
+  la hiérarchie des titres et les sauts de niveau, les landmarks, la **couverture `lang="he"`**
+  (parcours du DOM avec remontée d'ancêtres), l'anneau de focus sous vraie tabulation, le
+  débordement horizontal à 320/375/402/430/768 px et les cibles tactiles sur iPhone 16 Pro.
+  ⚠️ Piège Playwright : la forme **chaîne** d'`evaluate()` attend une *expression* — envelopper
+  le corps dans `(()=>{ … })()`, sinon `SyntaxError: Unexpected keyword 'function'`.
+- **Détecteur impeccable** (sans réseau, lit HTML/CSS local) :
+  `node <base-skill>/scripts/detect.mjs --json <fichier>`. Ses findings sont des *signaux*,
+  pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est
+  un faux positif — la règle vise l'anglais).
 - **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch le carnet).
 
 ## Rituel à chaque modification
@@ -340,3 +352,10 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
    (GitHub Pages redéploie automatiquement).
 6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
    fichier (surtout « Reprendre ici »).
+7. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
+   **deux fois** (audit de péremption du 19/07 au matin, puis retrouvées toutes fausses le
+   soir : les 16 ancres d'ARCHITECTURE.md étaient décalées de +25, et les 3 « near line » de
+   CLAUDE.md avec). Une ancre fausse est pire qu'absente — elle envoie lire le mauvais code
+   avec assurance. Contrôle en une commande :
+   `for l in $(grep -o 'app.html#L[0-9]*' ARCHITECTURE.md | grep -o '[0-9]*' | sort -u); do printf '%5s: %s\n' "$l" "$(sed -n "${l}p" app.html | cut -c1-60)"; done`
+   — chaque ligne affichée doit correspondre à ce que le document annonce.

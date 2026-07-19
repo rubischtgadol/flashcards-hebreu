@@ -192,6 +192,8 @@ Une nuit bleutée en quatre couches tonales, éclairée par un or ancien et lue 
 ### Named Rules
 **La règle de la lampe.** L'or est une lumière rare : actions primaires, sélection, identité — jamais plus d'environ 10 % de l'écran. Si l'or devient un fond ambiant, la lampe éblouit et n'éclaire plus rien.
 
+*Test pratique, appris à la mesure le 2026-07-19 sur le séparateur `.part` du carnet* : avant de teinter une surface d'or au repos, il faut pouvoir répondre « action, sélection ou identité ? ». Un séparateur de partie n'est aucun des trois — il était pourtant bordé et teinté d'or, et pesait à l'écran **plus lourd que le vrai bouton d'action situé juste au-dessus de lui**. C'est le symptôme exact de la règle enfreinte : la lampe éclairait le décor et laissait l'action dans l'ombre. Ramené à `--bg2` + `--card-edge`, l'or ne subsistant que sur le numéro de partie. La seule surface teintée d'or au repos que la charte licencie reste la carte « Révision du jour », et précisément parce qu'elle *est* l'action encouragée.
+
 **La règle des couches.** La profondeur se dit d'abord par la couleur : nuit d'encre → nuit claire → carte, chaque couche bordée d'un filet. On ne saute jamais une couche et on n'invente pas de cinquième gris.
 
 ## 3. Typography
@@ -274,7 +276,8 @@ Disposition israélienne en RTL, touches sur nuit claire avec lettres Frank Ruhl
 - **Do** poser **Encre sur or** (#1a1206) sur tout fond or — jamais de blanc sur or.
 - **Do** écrire l'hébreu en Frank Ruhl Libre, en RTL, plus grand que tout le reste (règle de la vedette), nikoud net.
 - **Do** réserver vert juste et rouge à revoir au seul feedback de réponse.
-- **Do** garder les transitions à 120–350 ms, ease, et l'alternative `prefers-reduced-motion` globale.
+- **Do** garder les transitions à 120–350 ms, ease, et l'alternative `prefers-reduced-motion` globale — **dans les trois fichiers** : le carnet l'a reçue le 2026-07-19, et sa garde doit inclure `scroll-behavior:auto` (le `transition:none` global ne couvre pas le défilement doux).
+- **Do** énumérer les propriétés animées (`background, color, border-color, opacity`) — **jamais `transition:all`** : le raccourci capture les longhands `outline-*` et WebKit fige alors l'anneau de focus sur les valeurs UA, tout en matchant `:focus-visible`. Piège mesuré le 2026-07-19 (cf. ARCHITECTURE.md § Accessibilité).
 - **Do** utiliser JetBrains Mono (LTR) pour toute translittération, au standard maison (`kh`/`ch`/`ts`, `'` pour ayin).
 
 ### Don't:

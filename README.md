@@ -32,6 +32,8 @@ Le carnet est organisé en trois parties, avec un sommaire cliquable et une rech
 
 Chaque mot hébreu est affiché avec nikud, sa translittération, sa traduction, et une ligne en écriture cursive.
 
+Le carnet est lui aussi **accessible** : tout l'hébreu y est balisé `lang="he"` — y compris les mots glissés au fil d'une phrase française —, pour qu'un lecteur d'écran le prononce en hébreu et non à la française ; les cibles tactiles sont confortables au doigt, et l'animation de défilement du sommaire s'efface si le système demande un mouvement réduit.
+
 ## Translittération : le standard du carnet
 
 Toutes les translittérations suivent la même convention, pensée pour une lecture à la française :

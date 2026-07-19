@@ -40,4 +40,4 @@ Calme, chaleureux, studieux. L'ambiance d'un carnet d'étude du soir : fond somb
 
 ## Accessibility & Inclusion
 
-Pas d'exigence WCAG formelle, mais une priorité absolue : la lisibilité de l'hébreu et du nikoud (grands caractères — base 22px, contraste élevé sur fond sombre). Les bonnes pratiques standard s'appliquent : `prefers-reduced-motion` déjà respecté globalement, cibles tactiles confortables sur mobile, contraste AA quand c'est naturel.
+Pas d'exigence WCAG formelle, mais une priorité absolue : la lisibilité de l'hébreu et du nikoud (grands caractères — base 22px, contraste élevé sur fond sombre). Les bonnes pratiques standard s'appliquent, et depuis le 2026-07-19 **dans les trois fichiers** (le carnet accusait un retard qu'un audit a soldé) : `prefers-reduced-motion` respecté globalement, cibles tactiles à 44 px sur mobile, contraste AA vérifié à la mesure, et **tout l'hébreu balisé `lang="he"`** — sur un produit dont l'hébreu *est* le contenu, c'est ce qui distingue un lecteur d'écran qui enseigne d'un lecteur d'écran qui écorche.
