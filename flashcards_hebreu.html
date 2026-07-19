@@ -182,6 +182,18 @@
   .adv-chev{ color:var(--ink-dim); transition:transform .15s ease; align-self:center; }
   .adv[open] .adv-chev{ transform:rotate(90deg); }
   .adv-body{ padding:2px 14px 16px; }
+  /* « Catégories » et « Niveau » se replient dans le même pli. Leur <h2> devient la
+     rangée du summary (il reste le nom accessible du role="group") : il prend donc la
+     voix du libellé de pli, et non la voix Title des sections restées dépliées — un
+     groupe replié se lit comme un pli, pas comme une section. */
+  .adv summary h2.adv-lbl{
+    font-family:inherit; font-size:inherit; font-weight:600; text-transform:none;
+    letter-spacing:0; color:var(--ink); margin:0;
+  }
+  /* Le summary est la seule cible tactile du groupe replié. */
+  @media (pointer:coarse){
+    .adv summary{ min-height:44px; box-sizing:border-box; align-items:center; }
+  }
   /* Remise à zéro : discrète au repos, rouge assumé au moment de confirmer. */
   .reset-zone{ margin-top:20px; padding-top:4px; border-top:1px solid var(--line); }
   .reset-call:hover{ border-color:var(--red); color:var(--red); }
@@ -544,15 +556,39 @@
   </div>
   <div class="search-results hide" id="search-results"></div>
 
-  <h2 id="h-cats">Catégories</h2>
-  <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
-  <div class="chips" id="cats" role="group" aria-labelledby="h-cats"></div>
+  <!-- Les deux plus gros points de décision de l'écran (17 chips à eux deux) passent
+       sous un pli, sur le modèle des réglages avancés. Le summary porte la sélection
+       en cours : replier ne cache donc aucune information, il la condense.
+       ⚠️ L'état ouvert/replié se décide au chargement seulement (applyFoldState) :
+       ouvert tant que la sélection est vide — sinon un profil vierge, qui n'a par
+       décision aucune catégorie cochée, n'offrirait plus rien à faire et #start-hint
+       désignerait des chips invisibles. Une fois l'écran affiché, le pli n'obéit plus
+       qu'à l'utilisateur : le refermer sous son doigt au premier choix serait hostile. -->
+  <details class="adv" id="fold-cats">
+    <summary>
+      <h2 class="adv-lbl" id="h-cats">Catégories</h2>
+      <span class="adv-sub" id="cats-sub"></span>
+      <span class="adv-chev" aria-hidden="true">&rsaquo;</span>
+    </summary>
+    <div class="adv-body">
+      <div class="cat-row"><button class="selall" id="selall">tout sélectionner</button></div>
+      <div class="chips" id="cats" role="group" aria-labelledby="h-cats"></div>
+    </div>
+  </details>
 
   <!-- Chips construites depuis les data-niveau du carnet : seuls les niveaux
        non vides apparaissent (« Expert » attendra des mots C2). -->
-  <h2 id="h-niv">Niveau</h2>
-  <div class="chips" id="niv" role="group" aria-labelledby="h-niv" aria-describedby="niv-note"></div>
-  <div class="seg-note" id="niv-note">Selon le Cadre européen : Facile = A1 · Intermédiaire = A2–B1 · Difficile = B2–C1 · Expert = C2. Un mot pas encore classé reste visible quel que soit le choix, et la révision du jour n'en tient pas compte.</div>
+  <details class="adv" id="fold-niv">
+    <summary>
+      <h2 class="adv-lbl" id="h-niv">Niveau</h2>
+      <span class="adv-sub" id="niv-sub"></span>
+      <span class="adv-chev" aria-hidden="true">&rsaquo;</span>
+    </summary>
+    <div class="adv-body">
+      <div class="chips" id="niv" role="group" aria-labelledby="h-niv" aria-describedby="niv-note"></div>
+      <div class="seg-note" id="niv-note">Selon le Cadre européen : Facile = A1 · Intermédiaire = A2–B1 · Difficile = B2–C1 · Expert = C2. Un mot pas encore classé reste visible quel que soit le choix, et la révision du jour n'en tient pas compte.</div>
+    </div>
+  </details>
 
   <h2 id="h-mode">Mode</h2>
   <div class="seg" id="mode" role="group" aria-labelledby="h-mode" aria-describedby="mode-note">
@@ -763,6 +799,8 @@ function applyPrefs(){
   nivEl.querySelectorAll('.chip').forEach(b=>
     b.setAttribute('aria-pressed', state.niveaux.has(b.dataset.niv) ? 'true':'false'));
   refreshAdvSub();
+  refreshFoldSubs();
+  applyFoldState();
 }
 
 // ================= Instantané de session (sessionStorage) =================
@@ -1006,10 +1044,9 @@ function buildNivChips(){
     b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.niveaux.add(g.key); else state.niveaux.delete(g.key); updateStart(); savePrefs(); };
     nivEl.appendChild(b);
   });
+  // Carnet sans aucun data-niveau : c'est le pli entier qui disparaît, titre compris.
   const any = Object.keys(nivCounts).length>0;
-  document.getElementById('h-niv').classList.toggle('hide', !any);
-  nivEl.classList.toggle('hide', !any);
-  document.getElementById('niv-note').classList.toggle('hide', !any);
+  document.getElementById('fold-niv').classList.toggle('hide', !any);
 }
 
 function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
@@ -1029,6 +1066,31 @@ function refreshAdvSub(){
   const len = state.len==='all' ? 'Tout le paquet' : state.len+' cartes';
   const audio = state.audio==='auto' ? 'Automatique' : 'Au clic';
   el.textContent = order+' · '+len+' · '+audio;
+}
+// Résumé d'un pli de sélection multiple. Au-delà de deux entrées la liste ne tient
+// pas sur la rangée (elle serait coupée à l'ellipse, donc mensongère) : on compte.
+function foldSub(sel, entries, none, allWord, plural){
+  if(sel.size===0) return none;
+  if(sel.size===entries.length) return allWord+' ('+entries.length+')';
+  const names = entries.filter(e=>sel.has(e.key)).map(e=>e.label);
+  return names.length<=2 ? names.join(', ') : names.length+' '+plural;
+}
+function refreshFoldSubs(){
+  const cs=document.getElementById('cats-sub');
+  if(cs) cs.textContent = foldSub(state.cats,
+    catOrder.filter(c=>catCounts[c]).map(c=>({key:c,label:c})),
+    'Aucune — à choisir', 'Toutes', 'catégories');
+  const ns=document.getElementById('niv-sub');
+  if(ns) ns.textContent = foldSub(state.niveaux,
+    NIVEAUX.filter(g=>nivCounts[g.key]),
+    'Aucun — à choisir', 'Tous', 'niveaux');
+}
+// Décidé au chargement seulement (et après une remise à zéro, qui repasse par
+// applyPrefs) : un groupe dont la sélection est vide s'ouvre, puisque c'est là que
+// tout reste à faire. Ensuite le pli n'obéit qu'à l'utilisateur.
+function applyFoldState(){
+  const fc=document.getElementById('fold-cats'); if(fc) fc.open = state.cats.size===0;
+  const fn=document.getElementById('fold-niv');  if(fn) fn.open = state.niveaux.size===0;
 }
 SEG_KEYS.forEach(key=>{
   const box=document.getElementById(key);
@@ -1054,6 +1116,7 @@ function refreshSelAll(){
 }
 function updateStart(){
   refreshSelAll();
+  refreshFoldSubs();   // toute voie qui change la sélection passe ici
   const noCat = state.cats.size===0;
   // Le filtre niveau n'existe que si le carnet est annoté ; sinon il est inerte.
   const noNiv = Object.keys(nivCounts).length>0 && state.niveaux.size===0;
