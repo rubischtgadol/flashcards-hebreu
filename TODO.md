@@ -1,6 +1,12 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Deux acquis du jour.** (1) **L'anneau de focus doré rendu
+État au 2026-07-19, fin de journée. **Dernier acquis : les points 2 et 5 de « Reprendre
+ici » sont soldés.** Les avertissements du validateur passent de **31 à 2** (les deux
+restants sont légitimes et documentés), le carnet gagne 3 mots qui lui manquaient
+(**713 cartes, 510 exemples**), la **fourmi cesse de vouloir dire « port »**, et le
+portail revient au barème des jetons. Aucun des 29 avertissements soldés n'était un
+mauvais exemple : c'étaient de la dérive orthographique, des trous de lexique, et deux
+règles du validateur mal calibrées. **Deux acquis antérieurs du jour.** (1) **L'anneau de focus doré rendu
 à tout l'interactif de l'app** — cause racine trouvée (`transition:all` fige les `outline-*`, et
 non la piste `-webkit-appearance` qui est réfutée), six règles corrigées, 58 arrêts de
 tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). (2) **L'audit du carnet est
@@ -43,12 +49,17 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    Expressions 35 · Adverbes 19 · Saisons & mois 16 · Mots interrogatifs 12 ·
    Pronoms 10 · Prépositions 23 · Jours 7 · le reste ≤ 6 (+ 22 « Phrases », à
    exclure : déjà des phrases complètes).
-2. **Solder les 31 avertissements du validateur** sur le lot pilote : mots hors carnet
-   (souvent des mots utiles à AJOUTER au carnet, comme עַכְשָׁיו en ktiv malé — עברית
-   est **fait**, ajoutée aux Noms le 19/07), écarts de translittération distance 2,
-   quelques mots d'un niveau au-dessus. **À vérifier aussi** : l'entrée fourmi est
-   écrite נָמָל (= port !) — le singulier attendu est נְמָלָה ; changer le mot change
-   l'identité SRS de la carte (`cat|he_plain`), à faire en connaissance de cause.
+2. **[FAIT le 19/07 au soir] Les avertissements du validateur soldés : 31 → 2.**
+   Détail en « Fait ». Quatre causes, dont **aucune n'était un mauvais exemple** :
+   dérive orthographique ktiv malé/chaser sur 4 mots (10 avert.), 3 vrais trous du
+   lexique désormais comblés (אוּלְפָּן, מִדַּי, כָּל כָּךְ), un lexique de validateur qui
+   ne lisait que les cartes et ignorait les sections de grammaire (4 avert.), et un
+   seuil de niveau qui alertait à +1 alors que +1 est inévitable (13 avert.).
+   La **fourmi est corrigée** : נָמָל (= port) → נְמָלָה, seule identité SRS déplacée.
+   **Les 2 restants sont légitimes**, à ne pas « corriger » à l'aveugle :
+   הַבַּיְתָה (hé directionnel, réellement absent du carnet — décision de contenu :
+   l'enseigner, ou récrire l'exemple de לַחֲזֹר sans lui) et le `.tr` « bamekarer »
+   à distance 2 de `he2tr`, où le `.tr` écrit à la main fait foi.
 3. **Voix robotique — en attente d'une donnée de Ruben** : le nom de voix affiché dans la
    note Prononciation de son iPhone. Selon la réponse : si « Carmit » simple →
    recommander Carmit Enhanced (Réglages > Accessibilité > Contenu énoncé > Voix >
@@ -104,11 +115,11 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    ⚠️ Le carnet est la source des cartes : tout passe par `node build.js` puis
    `node verifie_exemples.js`. Les correctifs sont presque tous en CSS/`<head>` (faible risque
    d'extraction) **sauf** l'ajout de `lang="he"`, qui touche les `<span class="he">`.
-5. **`.door{border-radius:18px}` dans le portail** ([index.html:122](index.html#L122)) :
-   ni `panneau:16px` ni `carte:20px` — les deux seuls jetons du barème `rounded` qui
-   s'appliquent à une porte. Seul finding du détecteur réellement actionnable sur les
-   fichiers en périmètre (`app.html` en compte **0**). Un caractère, laissé hors du
-   périmètre validé le 19/07.
+5. **[FAIT le 19/07 au soir] `.door` prend le jeton `carte` (20px)**, et le
+   `border-radius:6px` parasite de la règle `:focus-visible` du portail est supprimé
+   (détail en « Fait »). Il ne reste dans les fichiers en périmètre que des findings
+   de la famille **rampe typographique** — c'est-à-dire le point 4 ci-dessous, pas
+   des tickets séparés.
 6. **Densité de l'écran de configuration — option restée ouverte.** La critique posait un
    P1 (1633 px pour 681 px de viewport, 10 `<h2>` de poids identique, 43 focusables, un
    point de décision à 17 chips). Ruben a choisi **la typographie seule** : « Révision du
@@ -274,6 +285,45 @@ l'audit + le bloc tactile) :
 - **Contrôlé après coup** : 0 erreur JS, 0 échec de contraste, 0 débordement horizontal,
   710 cartes et 507 exemples intacts.
 
+Puis, le 2026-07-19 au soir — **les avertissements du validateur soldés (31 → 2)**
+et le portail remis au barème (points 2 et 5 de « Reprendre ici ») :
+
+- **[x] Orthographe : quatre mots écrits de deux façons** (`41cf08c`). מְאוֹד→מְאֹד,
+  עַכְשָׁו→עַכְשָׁיו, שָׁחֹר→שָׁחוֹר, בַּחֹרֶף→בַּחוֹרֶף — à chaque fois une poignée d'exemples
+  dérivaient contre leur propre entrée et la grande majorité des autres. L'exemple de
+  la carte שחור écrivait même son mot vedette autrement que son entrée. **Direction du
+  correctif, à garder** : aligner les exemples sur l'entrée, **jamais l'inverse** —
+  l'identité SRS est `cat|he_plain`, toucher une entrée réinitialise sa progression.
+  Vérifié : 0 identité déplacée. 10 avertissements de moins.
+- **[x] La fourmi n'était pas une fourmi** (`302d4ec`) : l'entrée portait נָמָל, qui
+  veut dire *port*. Tout le reste de la ligne décrivait pourtant la fourmi (genre f,
+  pluriel נְמָלִים, exemple « les fourmis travaillent… ») — seul le mot vedette était
+  faux. `Noms|נמל` → `Noms|נמלה`, seule identité SRS déplacée des 713.
+- **[x] Portail au barème** (`ea3eab5`) : `.door` 18px → **20px**, tranché par le
+  voisinage (c'est une quasi-copie de `.flip`, la carte de l'appli : même dégradé
+  `160deg`, même bordure `--card-edge`). Et suppression du `border-radius:6px` de la
+  règle globale `:focus-visible` — un rayon posé là ne décore pas l'anneau, il
+  **redessine l'élément** focalisé ; en pratique il n'atteignait personne (les portes
+  gagnaient la cascade) et app.html, l'idiome de référence, ne le pose pas.
+- **[x] Les 21 avertissements restants soldés** (`436e3a4`), trois groupes :
+  **(a)** trois vrais trous du lexique comblés — אוּלְפָּן (Noms A2, avec son exemple,
+  règle de couverture oblige), מִדַּי et כָּל כָּךְ (Mots de quantité A2) ; 710 → **713
+  cartes**, 507 → **510 exemples**, aucune identité perdue. **(b)** le lexique du
+  validateur ne lisait que les cartes : שֶׁלְּךָ, שֶׁלָּנוּ, אוֹתְךָ étaient dits « hors
+  carnet » alors qu'ils figurent en toutes lettres dans « Prépositions fléchies », une
+  section de grammaire sans cartes. Il verse maintenant aussi l'hébreu de grammaire,
+  avec **deux garde-fous à ne pas retirer** : exclusion des `<ul class="exemples">`
+  (sinon chaque phrase validerait son propre vocabulaire) et ajout *uniquement* de
+  mots inconnus au niveau 0 — un mot de grammaire ne doit jamais abaisser le niveau
+  d'une carte, ce qui neutraliserait le contrôle 5 en silence. **(c)** le seuil de
+  niveau passe de +1 à **+2** : les 13 avertissements étaient tous à +1 exactement, et
+  une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה,
+  מִכְתָּב) qui sont A2 par nature — le signal se noyait dans l'inévitable.
+- **Vérifié** : WebKit réel iPhone 16 Pro, app.html **et** fichier autonome à
+  l'identique — « אולפן »/« oulpan » trouvent la nouvelle carte, « fourmi » renvoie
+  נְמָלָה, 0 erreur JS ; portes à 20px, anneau d'or `rgb(212,162,76)` sur chaque arrêt
+  de tabulation, 0 débordement horizontal.
+
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
 - Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
@@ -294,6 +344,12 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   docs, l'historique git et la config restent au pseudonyme.
 - Les **lots d'exemples s'écrivent sans relecture humaine**, gardés par
   `verifie_exemples.js` (0 erreur exigé avant commit).
+- **Une incohérence entre un exemple et son entrée se corrige dans l'exemple**, jamais
+  dans l'entrée : l'identité SRS d'une carte est `cat|he_plain`, donc toucher un mot
+  vedette remet sa progression Leitner à zéro. On ne déplace une entrée que pour une
+  vraie faute de sens (cf. נָמָל → נְמָלָה), et en le disant.
+- **Le validateur alerte sur le vocabulaire à +2 niveaux, pas à +1** : +1 est la
+  texture normale d'une phrase du quotidien, pas un défaut.
 - La révision du jour ignore le filtre Niveau ; un mot sans `data-niveau` reste visible
   quel que soit le filtre — et l'interface le dit.
 - API TTS externe rejetée pour la voix (le tout-statique hors-ligne prime).
