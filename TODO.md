@@ -14,25 +14,26 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-1. **Lots d'exemples A1** — le chantier principal. **Le lot Noms est fait** (19/07 au
-   soir : 130 noms + la nouvelle entrée עִבְרִית = 131 exemples, 0 erreur, 0 nouvel
-   avertissement). Reste **101 mots A1 sans exemple** : Expressions 22 · Nombres 14 ·
-   Saisons & mois 12 · Pronoms personnels 10 · Mots interrogatifs 9 · Adverbes 9 ·
-   Prépositions 8 · Jours de la semaine 7 · Conjonctions 5 · Démonstratifs 3 ·
-   Existence 2 (+ 19 « Phrases », à **exclure** : ce sont déjà des phrases complètes).
-   Méthode par lot : lister les mots sans exemple (`extractCards` exporté par build.js —
-   filtrer `niveau==='A1' && !exemples`), écrire les `<ul class="exemples">` dans le
-   carnet (ligne éditoriale ARCHITECTURE.md §5 : 3–8 mots, présent, vocabulaire ≤ A1,
-   une situation concrète du quotidien), puis `node verifie_exemples.js` (**0 erreur
-   exigé** — c'est le filet qui remplace la relecture), `node build.js`, commit.
-   Outillage réutilisable du lot Noms : les phrases en JSON + un script d'insertion
-   qui génère la `.tr` avec le `he2tr` de l'appli (concordance par construction) et
-   quelques retouches d'affichage (kol, akhshav, chva sonore, noms propres en capitale).
-   Ensuite : les 268 mots A2.
+1. **Exemples en situation — les trois tables sont couvertes à 100 %** (19/07 au
+   soir, demande de Ruben) : chaque **nom (300), adjectif (102) et verbe (97)** porte
+   un exemple du quotidien (verbes : phrase au présent), soit **507 exemples**.
+   La règle est **verrouillée dans `verifie_exemples.js`** : un mot ajouté à l'une de
+   ces trois tables sans son `<ul class="exemples">` fait échouer le contrôle (erreur
+   bloquante, pas un avertissement). Méthode d'un futur lot : écrire les phrases en
+   JSON, script d'insertion qui génère la `.tr` avec le `he2tr` de l'appli
+   (concordance par construction) + retouches d'affichage (kol, akhshav, chva sonore,
+   noms propres en capitale), puis `node verifie_exemples.js` (**0 erreur exigé**),
+   `node build.js`, commit. **Resterait, si on veut aller plus loin** (hors règle,
+   décision produit à prendre) : 203 mots des catégories-outils — Nombres 41 ·
+   Expressions 35 · Adverbes 19 · Saisons & mois 16 · Mots interrogatifs 12 ·
+   Pronoms 10 · Prépositions 23 · Jours 7 · le reste ≤ 6 (+ 22 « Phrases », à
+   exclure : déjà des phrases complètes).
 2. **Solder les 31 avertissements du validateur** sur le lot pilote : mots hors carnet
    (souvent des mots utiles à AJOUTER au carnet, comme עַכְשָׁיו en ktiv malé — עברית
    est **fait**, ajoutée aux Noms le 19/07), écarts de translittération distance 2,
-   quelques mots d'un niveau au-dessus.
+   quelques mots d'un niveau au-dessus. **À vérifier aussi** : l'entrée fourmi est
+   écrite נָמָל (= port !) — le singulier attendu est נְמָלָה ; changer le mot change
+   l'identité SRS de la carte (`cat|he_plain`), à faire en connaissance de cause.
 3. **Voix robotique — en attente d'une donnée de Ruben** : le nom de voix affiché dans la
    note Prononciation de son iPhone. Selon la réponse : si « Carmit » simple →
    recommander Carmit Enhanced (Réglages > Accessibilité > Contenu énoncé > Voix >

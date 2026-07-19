@@ -1,3 +1,7 @@
 # Cache local de l'outillage design : contient des chemins absolus de la machine
 # de développement — ne doit jamais rejoindre le dépôt public.
 .impeccable/hook.cache.json
+
+# Boîte de dépôt locale (captures d'écran, fichiers de travail personnels) —
+# jamais dans le dépôt public (décision d'anonymisation).
+inbox/

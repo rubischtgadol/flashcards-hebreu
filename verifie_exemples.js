@@ -132,6 +132,14 @@ cards.forEach(card => {
   });
 });
 
+// ---------- règle de couverture (décision du 2026-07-19) ----------
+// Chaque nom, adjectif et verbe du carnet doit porter au moins un exemple en
+// situation (verbes : phrase au présent). Un mot ajouté sans son exemple est
+// une ERREUR bloquante — la couverture complète ne doit jamais régresser.
+const CATS_COUVERTES = ['Noms', 'Adjectifs', 'Verbes'];
+cards.filter(c => CATS_COUVERTES.includes(c.cat) && !c.exemples).forEach(c =>
+  errors.push('[' + c.cat + ' · ' + c.he_plain + '] mot sans exemple en situation (couverture obligatoire)'));
+
 console.log(nbEx + ' exemple(s) sur ' + nbWords + ' mot(s) contrôlés.');
 if (warnings.length){
   console.log('\nAvertissements (' + warnings.length + ') :');
