@@ -40,7 +40,7 @@ typography:
     fontWeight: 400
     lineHeight: 1.5
   label:
-    fontFamily: "JetBrains Mono, monospace"
+    fontFamily: "JetBrains Mono, Courier New, monospace"
     fontSize: "0.88rem"
     fontWeight: 400
   cursive:
@@ -349,7 +349,7 @@ Second défaut au même endroit : `.review-card:disabled` porte encore un `opaci
   'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive
   ```
 
-  Corollaire direct du principe « ça marche dans l'avion ». Le carnet a été recalé le 2026-07-19 ; **`app.html` garde 11 déclarations tronquées** (9 mono, 2 Assistant) — dette connue, notée dans TODO.md.
+  Corollaire direct du principe « ça marche dans l'avion ». Le carnet a été recalé le 2026-07-19, **et `app.html` le même jour** : ses 11 déclarations tronquées (9 mono, 2 Assistant) sont complétées. **Les trois fichiers écrivent désormais les quatre piles en entier** — un `font-family` qui n'a pas au moins deux replis est un défaut.
 
   ⚠️ *Leçon de la même journée* : la première rédaction de cette règle a été écrite d'après la prose du §3 ci-dessus et s'est révélée fausse sur deux piles (`Arial` manquant dans Assistant, Playpen absente). Les piles normatives se relèvent **dans le code**, pas dans la charte — c'est le code qui les porte.
 - **Do** poser l'anneau `:focus-visible` doré global dans **les trois fichiers** — le carnet l'a reçu le 2026-07-19 (22 arrêts de tabulation mesurés, 0 sans anneau). Un indicateur maison qui contraste bien n'est pas une faute d'accessibilité, mais c'est une rupture de charte : l'anneau doit être le même partout.
