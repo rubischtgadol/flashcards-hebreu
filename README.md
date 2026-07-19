@@ -80,7 +80,7 @@ Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html`
 
 - `index.html` — le portail : la porte d'entrée à la racine — un accueil plein écran (message de bienvenue en français ou en hébreu au hasard, le א doré de l'icône, deux ménorahs qui éclairent l'écran), puis le choix entre l'application et le carnet
 - `app.html` — l'application de flashcards en ligne (reconstruit le vocabulaire depuis le carnet)
-- `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire (source unique de vérité)
+- `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire (source unique de vérité ; hors connexion, l'hébreu retombe sur David Libre plutôt que sur une police système générique, qui rend mal le nikoud)
 - `flashcards_hebreu.html` — version autonome des flashcards, **générée par `build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
 - `build.js` — outil de développement (non déployé) : régénère `flashcards_hebreu.html` depuis le carnet et `app.html`
 - `verifie_exemples.js` — outil de développement (non déployé) : contrôle les exemples en situation du carnet (longueur, nikoud, translittération, niveau du vocabulaire) et exige qu'aucun nom, adjectif ou verbe ne reste sans exemple

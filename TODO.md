@@ -23,8 +23,8 @@ non la piste `-webkit-appearance` qui est réfutée), six règles corrigées, 58
 tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). (2) **L'audit du carnet est
 fait** (13/20, 4 P1, aucun P0) **et ses 4 P1 sont corrigés** : le carnet a reçu les passes qui
 lui manquaient — `lang="he"` de 0 à **100 %** (5003 nœuds), garde `prefers-reduced-motion`, or
-ambiant de `.part` retiré, cibles tactiles de 21 défauts à 0. Reste du plan (P2/P3 de charte et
-consolidation typographique) volontairement non engagé : point 4 ci-dessous. Avant cela : **critique
+ambiant de `.part` retiré, cibles tactiles de 21 défauts à 0. (Les P2/P3 de charte, alors non
+engagés, ont été soldés depuis — voir le point 4 ; seule la consolidation typographique reste.) Avant cela : **critique
 impeccable du portail et de l'app (30/40), P0 et P2 corrigés et vérifiés en WebKit** — le
 bouton « Commencer » désactivé ne recouvre plus les chips, les dix cibles tactiles sous
 44 px sont soldées, « Révision du jour » sort de la voix Title, la copie du verdict raté
@@ -137,9 +137,20 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 5. **[FAIT le 19/07 au soir] `.door` prend le jeton `carte` (20px)**, et le
    `border-radius:6px` parasite de la règle `:focus-visible` du portail est supprimé
    (détail en « Fait »). Il ne reste dans les fichiers en périmètre que des findings
-   de la famille **rampe typographique** — c'est-à-dire le point 4 ci-dessous, pas
+   de la famille **rampe typographique** — c'est-à-dire le point 4 **ci-dessus**, pas
    des tickets séparés.
-6. **Densité de l'écran de configuration — option restée ouverte.** La critique posait un
+6. **Piles de polices tronquées dans `app.html` — dette ouverte, trouvée le 19/07 au soir.**
+   En recalant la documentation je me suis aperçu que la règle que je venais d'écrire dans
+   DESIGN.md §6 était **fausse sur deux piles** : je l'avais rédigée d'après la prose du §3 au
+   lieu de la relever dans le code (`Arial` manquait dans la pile Assistant, la pile Playpen
+   était absente). Corrigé, et le carnet aligné sur la forme réelle d'`app.html`. **Mais
+   `app.html` garde 11 déclarations tronquées** : 9 `'JetBrains Mono',monospace` et 2
+   `'Assistant',sans-serif`. Sans conséquence visuelle en ligne (les polices Google chargent),
+   mais contraire au principe « ça marche dans l'avion » — et le fichier autonome, qui *est* la
+   version hors-ligne, en hérite. Travail : 11 remplacements, `node build.js` (qui régénère
+   `flashcards_hebreu.html`, donc contrôle navigateur ensuite), commit.
+   **Leçon à garder** : une règle de charte se relève **dans le code**, jamais dans la charte.
+7. **Densité de l'écran de configuration — option restée ouverte.** La critique posait un
    P1 (1633 px pour 681 px de viewport, 10 `<h2>` de poids identique, 43 focusables, un
    point de décision à 17 chips). Ruben a choisi **la typographie seule** : « Révision du
    jour » sort de la voix Title, aucun contrôle déplacé. **La restructuration reste

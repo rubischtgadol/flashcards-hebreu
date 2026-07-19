@@ -299,7 +299,18 @@ Disposition israélienne en RTL, touches sur nuit claire avec lettres Frank Ruhl
 - **Do** garder les transitions à 120–350 ms, ease, et l'alternative `prefers-reduced-motion` globale — **dans les trois fichiers** : le carnet l'a reçue le 2026-07-19, et sa garde doit inclure `scroll-behavior:auto` (le `transition:none` global ne couvre pas le défilement doux).
 - **Do** énumérer les propriétés animées (`background, color, border-color, opacity`) — **jamais `transition:all`** : le raccourci capture les longhands `outline-*` et WebKit fige alors l'anneau de focus sur les valeurs UA, tout en matchant `:focus-visible`. Piège mesuré le 2026-07-19 (cf. ARCHITECTURE.md § Accessibilité).
 - **Do** utiliser JetBrains Mono (LTR) pour toute translittération, au standard maison (`kh`/`ch`/`ts`, `'` pour ayin).
-- **Do** écrire les piles de polices **en entier**, jamais `'Frank Ruhl Libre',serif` : les polices Google sont la seule dépendance réseau, donc hors-ligne c'est le fallback qui rend le nikoud — et le `serif` générique le rend nettement moins bien que David Libre. Les trois piles complètes sont `'Frank Ruhl Libre','David Libre','Times New Roman',serif`, `'Assistant','Arial Hebrew','Helvetica Neue',sans-serif` et `'JetBrains Mono','Courier New',monospace`. Corollaire direct du principe « ça marche dans l'avion » ; le carnet a été recalé le 2026-07-19.
+- **Do** écrire les piles de polices **en entier**, jamais `'Frank Ruhl Libre',serif` : les polices Google sont la seule dépendance réseau, donc hors-ligne c'est le fallback qui rend le nikoud — et le `serif` générique le rend nettement moins bien que David Libre. Les **quatre piles normatives**, telles qu'elles s'écrivent dans le code :
+
+  ```css
+  'Frank Ruhl Libre','David Libre','Times New Roman',serif
+  'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif
+  'JetBrains Mono','Courier New',monospace
+  'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive
+  ```
+
+  Corollaire direct du principe « ça marche dans l'avion ». Le carnet a été recalé le 2026-07-19 ; **`app.html` garde 11 déclarations tronquées** (9 mono, 2 Assistant) — dette connue, notée dans TODO.md.
+
+  ⚠️ *Leçon de la même journée* : la première rédaction de cette règle a été écrite d'après la prose du §3 ci-dessus et s'est révélée fausse sur deux piles (`Arial` manquant dans Assistant, Playpen absente). Les piles normatives se relèvent **dans le code**, pas dans la charte — c'est le code qui les porte.
 - **Do** poser l'anneau `:focus-visible` doré global dans **les trois fichiers** — le carnet l'a reçu le 2026-07-19 (22 arrêts de tabulation mesurés, 0 sans anneau). Un indicateur maison qui contraste bien n'est pas une faute d'accessibilité, mais c'est une rupture de charte : l'anneau doit être le même partout.
 
 ### Don't:

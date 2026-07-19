@@ -82,6 +82,34 @@ décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 - **Bloc `@media (pointer:coarse)`** tenant les cibles à 44 px : pastilles du sommaire, `.app-link`,
   `.search-clear` (elle était à 28 px alors que son jumeau dans l'app était déjà à 44).
 - Le champ de recherche porte un `aria-label` (il n'avait qu'un `placeholder`).
+- **Anneau `:focus-visible` doré global**, identique à celui des deux autres fichiers
+  (`outline:2px solid var(--gold)`, offset 2px, **jamais de `border-radius`**). Posé le
+  2026-07-19 ; le carnet utilisait jusque-là un indicateur maison bordure+halo sur le seul champ
+  de recherche. ⚠️ Les deux `transition:all` du carnet ont été corrigés **avant** de poser
+  l'anneau : dans l'autre ordre il serait né déjà cassé (voir le piège décrit plus bas, il vaut
+  pour les trois fichiers et pas seulement pour `app.html`). Mesuré sous vraie tabulation :
+  23 focusables déclarés, 1 masqué, **22 arrêts, 0 sans anneau d'or**.
+- **`<main>`** autour des trois parties. Le `<nav class="toc">` et la barre de recherche restent
+  **hors** du landmark : l'un est une navigation, l'autre un outil global.
+- **`theme-color`** et `-webkit-tap-highlight-color:transparent` alignés sur les deux autres
+  fichiers (la chrome Safari changeait de couleur en passant du portail au carnet).
+
+### Conventions visuelles propres au carnet (2026-07-19)
+
+Trois règles nées de la passe de charte, à ne pas défaire par inadvertance :
+
+- **Deux voix de micro-titre, pas quatre.** `thead th, .subtheme` portent la voix Title
+  (Assistant 700 / 0,84rem / 0,12em / or) ; `.toc-group-label, .part .part-num` portent la voix
+  Repère-mono (JetBrains Mono / 0,7rem / 0,14em). Elles remplacent quatre specs ad hoc. Une
+  nouvelle étiquette rejoint l'une des deux — on n'en invente pas une troisième.
+- **`border:1px dashed` ne veut dire qu'une chose : « rien ici »** (`.empty`, section vidée par la
+  recherche). Un encadré important prend un filet **plein** : c'est la classe `.attention` (×4).
+  Le pointillé portait auparavant les deux sens opposés.
+- **Aucune surface n'est teintée d'or au repos** : `.part` puis `.tip` ont été éteints, chacun
+  après le test « action, sélection ou identité ? ». Seule la carte « Révision du jour » de l'app
+  garde cette licence. Deux composants extraits au passage : `.attention` (×4) et `.gram-title`
+  (×5, titres de sous-section de grammaire) — ces cinq-là vivaient dans des attributs `style=`
+  du corps du document et **échappaient au détecteur**, qui ne lit que le CSS.
 
 **Sûreté vis-à-vis de l'extraction** : ajouter `lang` aux spans est sans risque, `firstSpanText`
 ([build.js:52](build.js#L52)) cherchant `class="he"` par correspondance exacte et tolérant les
@@ -244,14 +272,20 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 ### Accessibilité (invariants)
 
 - Tout hébreu généré porte `lang="he"` (`.big-he`, `.sub-he`, `.cursive-line`, `.f-he`, `.qc-he`, `.sr-he`, `.srd-he`, `.answer .he`, `.m-he` de la liste des ratées, marque) — à préserver dans les gabarits de chaînes.
-- Focus clavier : un seul anneau global `:focus-visible` doré (aucun `outline:none` nu).
-  ⚠️ **Ne jamais écrire `transition:all` dans `app.html`** : le raccourci capture les longhands
+- Focus clavier : un seul anneau global `:focus-visible` doré (aucun `outline:none` nu). Les
+  **trois** fichiers le portent depuis le 2026-07-19, et aucun ne pose de `border-radius` dessus
+  (ce rayon ne décorerait pas l'anneau : il redessinerait l'élément tant qu'il est focalisé).
+  ⚠️ **Ne jamais écrire `transition:all`** — dans `app.html` ni ailleurs : le raccourci capture les longhands
   `outline-*`, et WebKit les fige alors à leurs valeurs initiales (`medium` = 3 px, `currentColor`,
   offset 0) — l'élément rend l'anneau UA du navigateur *tout en matchant `:focus-visible`*. Le
   symptôme fait croire à un problème de cascade alors que les règles gagnent : c'est l'animation
   qui n'arrive pas à destination. Ce piège a coûté leur anneau aux 40+ `.chip` et aux boutons du
-  mode Cartes jusqu'au 2026-07-19 (corrigé sur six règles). Toujours énumérer les propriétés
-  animées : `background, color, border-color, opacity`.
+  mode Cartes jusqu'au 2026-07-19 (corrigé sur six règles dans `app.html`, deux dans le carnet).
+  Toujours énumérer les propriétés animées : `background, color, border-color, opacity`.
+  ⚠️ *Piège de mesure jumeau, appris le même jour* : lire `borderTopColor` **juste après** un
+  `.focus()` par API renvoie encore la couleur de repos — la transition de 150 ms est **en vol**,
+  et ça se lit à tort comme une règle qui ne s'applique pas. Attendre la fin de la transition
+  (ou déclencher le focus par un vrai clic) avant de conclure à un défaut.
 - Annonces aux lecteurs d'écran : `#feedback` (`aria-live`), `#quiz-live` (verdict QCM masqué visuellement, écrit dans `quizPick`/`quizFixVerdict`, vidé dans `setupQuizCard`), `#flip-live` (**verso du mode Cartes** — français + translittération, plus l'annonce « exemple disponible » quand la carte en a, alimenté par `doFlip()`, vidé au recto et à chaque nouvelle carte), `#done-msg`, `#loader-msg` et `#exit-note` (`role="status"`) ; `.bar` est un `role="progressbar"` mis à jour dans `render()`/`finish()`.
 - Clavier, à égalité entre les modes : Cartes = Espace retourner, ←/→ juger ; Saisie = Entrée vérifier/passer ; **QCM = 1–4 choisir, Entrée/Espace « Suivant »** (un bouton focalisé garde la main) ; **P « prononcer »** rejoue l'audio dans tous les modes, aux mêmes conditions de visibilité que le bouton haut-parleur (jamais avant la réponse en fr→he, jamais sans voix) ; **C « corriger »** active le bouton de correction du mode courant (« Corriger » en Saisie et QCM, « Annuler la dernière réponse » en Cartes), seulement quand il est visible et actif — P et C ignorent les combinaisons Ctrl/Cmd/Alt (copier, imprimer restent au navigateur). L'indice `#kbd-hint` s'adapte au mode (masqué en saisie), sa mention de P disparaissant sous `body.no-he-voice` (`.spk-hint`).
 - Groupes de réglages : chaque `.seg` (et `#cats`) est un `role="group"` + `aria-labelledby` vers son `<h2>` ; le pli « Réglages avancés » est un `<details>/<summary>` natif (clavier et lecteurs d'écran gérés par le navigateur).
