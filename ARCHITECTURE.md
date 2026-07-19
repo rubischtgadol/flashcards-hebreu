@@ -160,7 +160,7 @@ Les sections purement grammaticales (racine, passé, futur, binyanim, article, s
 
 `extractCards()` existe **deux fois** et doit rester identique en comportement :
 
-- [app.html:2086](app.html#L2086) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
+- [app.html:2097](app.html#L2097) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
 - [build.js:156](build.js#L156) — réplique en parsing regex (pas de DOM sous Node).
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
@@ -266,7 +266,7 @@ L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`dat
 
 Sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce) **tant qu'il est actif** (`.start:enabled`), l'indice de sélection vide (`role="status"`) étant placé **au-dessus** de lui pour rester visible. Désactivé, il quitte le sticky *et* l'or pour une peau pleine et opaque : collant et translucide, il recouvrait quatre chips de catégories au premier écran en interceptant leurs taps (mesuré en WebKit le 2026-07-19, cf. DESIGN.md § CTA sous le pouce). Détail des clés :
 
-- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([app.html:1341](app.html#L1341)) pioche d'abord dans la même catégorie et **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » ; un dernier recours relâché garantit 4 options ; les options de la catégorie « Phrases » portent la classe `.qc.ph` — corps réduit et boutons resserrés, pour que quatre phrases complètes empilées restent lisibles sur petit écran) ;
+- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([app.html:1352](app.html#L1352)) pioche d'abord dans la même catégorie et **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » ; un dernier recours relâché garantit 4 options ; les options de la catégorie « Phrases » portent la classe `.qc.ph` — corps réduit et boutons resserrés, pour que quatre phrases complètes empilées restent lisibles sur petit écran) ;
 - **direction** : `he2fr` / `fr2he` ;
 - **niveau** (hors `SEG_KEYS` — multi-sélection comme les catégories) : le groupe « Niveau » (`#niv`, chips construites par `buildNivChips`) filtre le pool de `start()` en **croisement** avec les catégories (`nivOk(card)`). La « Révision du jour » l'ignore volontairement : une carte apprise reste due quel que soit le filtre. `updateStart()` distingue trois vides — aucune catégorie, aucun niveau, croisement sans carte — avec un indice dédié pour chacun ;
 - **script** : nikud, sans nikud, ou cursive ;
@@ -292,7 +292,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 - **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, niveaux, mode, dir, script, order, audio, len}` — `niveaux` est **rétro-compatible** : absent des anciennes préférences (profil d'avant le filtre), il redevient « tout sélectionné », rien ne disparaît — mais un tableau présent et vide reste vide. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), **aucune catégorie ni aucun niveau n'est présélectionné** — le choix appartient à l'utilisateur (décision du 19/07/2026, qui remplace l'ancien défaut « tout sauf Phrases » de `defaultCats()`) ; les six autres réglages gardent leurs valeurs initiales. `updateStart()` guide alors : indice « Choisis au moins une catégorie » (ou niveau) dans `#start-hint` et CTA désactivé tant que la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he_plain`) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
-- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([app.html:1423](app.html#L1423)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([app.html:1652](app.html#L1652)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
+- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([app.html:1434](app.html#L1434)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([app.html:1652](app.html#L1652)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
 - **Sortie explicite** : « Quitter » affiche sur l'accueil la ligne `#exit-note` (`role="status"`) « Session interrompue — X réponse(s) sur Y déjà comptée(s) dans ta révision » quand au moins une réponse a été donnée (les réponses sont déjà en SRS — le dire) ; masquée au démarrage suivant. Sur l'écran de fin, « Recommencer » est libellé « Rejouer ces N cartes » (même tirage `origQueue`), et une fin de **révision** avec ratées explique qu'elles sont aussitôt redevenues dues (effet Sisyphe du compteur, pas un bug).
 - **Remise à zéro du profil** : la zone « Repartir de zéro » ferme le pli « Réglages avancés » (action rare et destructrice — jamais en concurrence avec « Commencer » ni la révision du jour ; le sous-titre du pli continue de n'annoncer que les valeurs mémorisées). Deux temps obligatoires : le bouton `#reset-btn` ouvre un bloc de confirmation qui **nomme la perte** (nombre de cartes suivies, via `masteryStats().seen`), « Annuler » est le défaut sûr et reçoit le focus. Confirmer efface `srs_v1`, `prefs_v1` (localStorage) et `sess_v1` (sessionStorage), remet en mémoire `SRS={}`, `lastRecord`/`cardsUndo` à `null` **et les six clés de réglage de `state` à leurs valeurs initiales** (`applyPrefs()` sans préférences ne les touche pas), puis rafraîchit l'UI en place — `applyPrefs()` (aucune catégorie ni niveau sélectionné, l'état du premier lancement), `refreshSrsUi()`, `updateStart()`, `#exit-note` masqué — sans recharger la page. Une ligne `role="status"` (`#reset-done`) annonce « Profil effacé », et le focus revient sur le bouton d'appel.
 - **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
@@ -322,10 +322,10 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([app.html:1761](app.html#L1761)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
+`checkAnswer` ([app.html:1772](app.html#L1772)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [app.html:1906](app.html#L1906) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`, décision du 2026-07-19) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([app.html:1753](app.html#L1753)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([app.html:1691](app.html#L1691)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [app.html:1917](app.html#L1917) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`, décision du 2026-07-19) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([app.html:1764](app.html#L1764)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([app.html:1691](app.html#L1691)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
@@ -338,7 +338,7 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
 
-1. **`init()` dans app.html** ([app.html:2201](app.html#L2201)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans app.html** ([app.html:2212](app.html#L2212)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
 
@@ -349,10 +349,83 @@ L'extraction étant couplée au markup du carnet, trois filets détectent les ca
 - **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
 - **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
 
+## Le graphe de connaissance du dépôt
+
+Depuis le 2026-07-20, le dépôt embarque une **cartographie de lui-même** dans `graphify-out/`,
+produite par [graphify](https://github.com/safishamsi/graphify). Elle existe pour une raison
+précise : `app.html` fait plus de 2 000 lignes et le carnet plus de 6 000 — les lire pour
+répondre à une question coûte des dizaines de milliers de tokens, là où une interrogation du
+graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
+baisse quand le graphe grossit — `graphify benchmark` le remesure.
+
+**Ce que contient le graphe** — 357 nœuds, 604 arêtes, 18 communautés. Les six plus grosses
+couvrent 90 % des nœuds :
+
+| Communauté | Contenu |
+| --- | --- |
+| Moteur d'étude : correction, verdicts et Leitner | `checkAnswer`, `trKey`, `he2tr`, `editDist`, `render`, `recordResult`, l'annulation de verdict |
+| Cartographie documentaire du dépôt | la vue *prose* : ce qu'ARCHITECTURE.md et CLAUDE.md disent des fichiers, des pièges et du graphe lui-même |
+| Génération et validation | `build.js`, `verifie_exemples.js` et leurs fonctions (extraction AST) |
+| Le carnet : balisage et accessibilité | contrat de balisage, couche a11y, scripts du carnet |
+| Critiques design et correctifs | l'historique daté des audits `.impeccable/critique/` |
+| Amorçage, préférences et filtres | `init`, `applyPrefs`, `buildChips`, les niveaux CECRL |
+
+Les douze restantes sont petites et thématiques : portail et icônes PWA, voix typographiques
+et rampe, règle de la lampe, palette et règles de surface, registre produit, service worker.
+
+**Comment l'interroger** (depuis la racine du dépôt) :
+
+```bash
+graphify explain "checkAnswer"                   # ligne source exacte + appelants/appelés
+graphify query "comment le verdict est-il annulable ?"
+graphify path "extractCards" "recordResult"      # comment deux choses se relient
+```
+
+`graphify explain` remplace les ancres `near line NNN` que CLAUDE.md portait : celles-ci
+avaient **dérivé trois fois** et étaient toutes fausses (+11) au moment de leur retrait, tandis
+que le graphe redérive les numéros de ligne mécaniquement. Les sept ancres `app.html#L`
+d'ARCHITECTURE.md ont été recalées le même jour et pointent de nouveau sur de vraies
+définitions.
+
+⚠️ **Le graphe est un instantané, pas une vérité vivante.** Il se périme exactement comme les
+ancres — la différence est qu'il se régénère en une commande au lieu de se vérifier à la main.
+En cas de contradiction entre le graphe et le fichier, **le fichier fait foi**, et le graphe
+doit être reconstruit :
+
+```bash
+/graphify . --update      # ne réextrait que les fichiers modifiés
+```
+
+**Ce qui est versionné** : `graph.json` (le graphe interrogeable) et `GRAPH_REPORT.md` (la
+piste d'audit : god nodes, ponts entre communautés, provenance EXTRACTED/INFERRED/AMBIGUOUS).
+`graph.html` (visualisation interactive), le cache et les fichiers techniques restent locaux —
+ces derniers contiennent des chemins absolus de la machine de développement, contraires à la
+décision d'anonymisation du dépôt.
+
+**Deux limites connues**, mesurées à la construction du 20/07 — les deux découlent du même
+mécanisme : l'extraction est découpée en lots confiés à des agents parallèles, qui ne voient
+pas les identifiants forgés par les autres.
+
+- **Dérive d'identifiants entre lots** : environ 26 arêtes visent un nœud qui n'existe pas,
+  parce que deux lots ont nommé le même concept différemment (`architecture_piege_transition_all`
+  contre l'identifiant retenu ailleurs). Ces arêtes sont **écartées à la construction** — elles
+  n'entrent jamais dans `graph.json`, qui n'en contient aucune ; c'est du signal perdu, pas du
+  graphe corrompu. Deux cas seulement relèvent d'une autre cause (`manifest.webmanifest`, dont
+  graphify ne reconnaît pas l'extension) et trois des modules Node (`fs`, `path`, `vm`) que
+  l'AST référence sans les définir. Le diagnostic `graphify.diagnostics` compte l'extraction
+  **brute** : un écart entre son total d'arêtes et celui de `graph.json` est normal.
+- **Chaque fichier déployé apparaît en double** — une fois extrait du fichier lui-même, une
+  fois extrait de la description qu'en fait la doc (`index_portal` contre
+  `architecture_index_html`). Ce n'est pas une erreur : les communautés documentaires sont la
+  vue *prose*, les autres la vue *code*. Mais le degré des nœuds-fichiers est de ce fait
+  sous-estimé, chaque moitié comptant seule — n'en tirez pas de conclusion sur l'importance
+  relative d'un fichier.
+
 ## Check-list d'une modification de contenu
 
 1. Éditer `vocabulaire_hebreu.html` (et lui seul pour le vocabulaire).
 2. `node build.js` — vérifier les comptes par section.
 3. Si du vocabulaire ou des exemples ont changé : `node verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
 4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
-5. Committer le carnet **et** `flashcards_hebreu.html` régénéré, pousser sur `main`.
+5. `/graphify . --update` — recaler le graphe, sinon CLAUDE.md envoie interroger un instantané périmé.
+6. Committer le carnet, `flashcards_hebreu.html` régénéré **et** `graphify-out/graph.json`, pousser sur `main`.
