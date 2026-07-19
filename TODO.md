@@ -1,9 +1,11 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Dernier acquis : l'anneau de focus doré rendu à tout
-l'interactif de l'app** — cause racine trouvée (`transition:all` fige les `outline-*`, et
+État au 2026-07-19, fin de journée. **Deux acquis du jour.** (1) **L'anneau de focus doré rendu
+à tout l'interactif de l'app** — cause racine trouvée (`transition:all` fige les `outline-*`, et
 non la piste `-webkit-appearance` qui est réfutée), six règles corrigées, 58 arrêts de
-tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). Avant cela : **critique
+tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). (2) **L'audit du carnet est
+fait** (13/20, 4 P1, aucun P0) : le plan de correctifs est écrit et chiffré, **rien n'est encore
+appliqué** — c'est le point 4 ci-dessous, et c'est le prochain vrai chantier. Avant cela : **critique
 impeccable du portail et de l'app (30/40), P0 et P2 corrigés et vérifiés en WebKit** — le
 bouton « Commencer » désactivé ne recouvre plus les chips, les dix cibles tactiles sous
 44 px sont soldées, « Révision du jour » sort de la voix Title, la copie du verdict raté
@@ -51,25 +53,43 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    Hébreu) ; ajuster `rate`/`pitch` si besoin ; API TTS externe **rejetée** (casse le
    tout-statique hors-ligne) ; audio préenregistré = décision produit, seulement si
    Enhanced déçoit.
-4. **Analyse et audit complet du carnet avec impeccable** (demande du 2026-07-19,
-   explicitement **reportée** lors de la critique du même jour, qui s'est limitée au
-   portail et à l'app) : passer `vocabulaire_hebreu.html` au crible — `/impeccable critique`
-   puis `/impeccable audit`, et en tirer un plan de correctifs. **Point de départ déjà
-   mesuré** : le détecteur y relève **24 findings**, tous `advisory` (18 `design-system-font-size`,
-   5 `design-system-radius`, 1 `em-dash-overuse`). Ils ont été **laissés tels quels et non
-   silencés** : DESIGN.md documente des *rôles* typographiques, pas une rampe fermée, donc
-   une taille littérale hors liste n'est pas automatiquement un défaut — c'est précisément
-   ce qu'il faut trancher lors de l'audit (soit on ferme la rampe dans DESIGN.md, soit on
-   pose un `ignore` de règle). Le carnet est la **référence de la charte** (`:root` normatif) :
-   toute retouche visuelle qui en sortirait doit se répercuter sur `app.html` et le portail,
-   et passer par `node build.js` (le carnet est la source des cartes — attention au couplage
-   d'extraction, CLAUDE.md § extraction).
-   **Deux points relevés au passage le 19/07** (en enquêtant sur l'anneau de focus, hors
-   périmètre d'alors, donc non corrigés) : le carnet **ne déclare aucune règle
-   `:focus-visible`** — l'anneau d'or de la charte s'arrête à `app.html` et au portail, le
-   carnet laisse l'anneau UA du navigateur ; et [vocabulaire_hebreu.html:209](vocabulaire_hebreu.html#L209)
-   porte un **`outline:none` nu** sur le champ de recherche, exactement ce que les invariants
-   d'accessibilité interdisent ailleurs. À trancher pendant l'audit.
+4. **Correctifs du carnet — l'audit est FAIT, le plan est écrit, rien n'est encore appliqué.**
+   `/impeccable audit vocabulaire_hebreu.html` a tourné le 19/07 : **13/20**, 4 P1, 9 P2, 7 P3,
+   aucun P0. Rapport complet :
+   `.impeccable/critique/2026-07-19T09-57-31Z__vocabulaire-hebreu-html__audit.md`.
+   Méthode : détecteur + lecture CSS intégrale + **mesures en WebKit réel** (desktop + iPhone 16 Pro).
+   **Le constat systémique** : le carnet n'a jamais reçu les trois passes que l'app a reçues.
+   Il a **zéro `@media`, zéro `lang`, zéro `:focus-visible`, zéro `prefers-reduced-motion`**
+   pendant que `app.html` et `index.html` ont les quatre. Ce n'est pas 20 tickets, c'est un
+   décalage de passes — à traiter en lot.
+   **Les quatre P1** : (a) `lang="he"` absent des **4903** nœuds hébreux (l'app est à 100 % ;
+   un lecteur d'écran prononce donc tout l'hébreu en phonétique française — le défaut le plus
+   lourd, sur un document dont l'hébreu *est* le produit) ; (b) `.part` (L294–298) est une
+   surface **dorée au repos** sur un séparateur structurel, contre la règle de la lampe —
+   vérifié à l'écran, le bandeau pèse plus lourd que le vrai bouton d'action ; (c) aucun
+   `prefers-reduced-motion` alors que `scroll-behavior:smooth` (L290) pilote les 27 liens du
+   sommaire — et la garde de l'app ne suffirait pas, `scroll-behavior` exige son propre `auto` ;
+   (d) `rgba(18,24,31,.86)` (L201) est un doublon non tokenisé de `--bg`.
+   **La question « fermer la rampe ou poser un `ignore` » est tranchée : ni l'un ni l'autre.**
+   Les deux options partaient d'une prémisse fausse (des tailles « hors liste mais légitimes »).
+   Mesure : **24 tailles distinctes pour 52 déclarations** — `1.12rem`, `0.92rem`, `0.82rem`,
+   `0.66rem`, `1.35rem`… Ce n'est pas un système de rôles, c'est de la dérive accumulée. Un
+   `ignore` ferait taire un capteur qui a raison ; fermer la rampe sur les 24 valeurs actuelles
+   documenterait la dérive comme un dessein. Il faut **consolider en 6–8 pas, puis** fermer la
+   rampe dans DESIGN.md. Les deux autres familles du détecteur : les `radius` sont un symptôme
+   des 4 encadrés inline dupliqués (le défaut est l'absence de classe, pas le rayon) ; et
+   `em-dash-overuse` (164) est un **faux positif** — la règle vise l'anglais, le tiret d'incise
+   est une ponctuation française standard.
+   **Ordre recommandé** : `harden` (lot des passes manquantes) → `quieter` (or de `.part`) →
+   `colorize` (11 littéraux dérivés de jetons) → `adapt` (44 px) → `typeset` → `extract` → `polish`.
+   **Rectification d'une note antérieure** : j'avais écrit ici que l'`outline:none` de la L209
+   violait les invariants d'accessibilité. **C'est faux, mesuré** : il est remplacé par un
+   indicateur bordure+halo à **9,07:1** (minimum requis 3:1). C'est une divergence d'idiome avec
+   l'app, pas une faute. En revanche l'absence de `:focus-visible` global est réelle (29 arrêts
+   sur l'anneau UA) — rupture de charte, pas d'accessibilité.
+   ⚠️ Le carnet est la source des cartes : tout passe par `node build.js` puis
+   `node verifie_exemples.js`. Les correctifs sont presque tous en CSS/`<head>` (faible risque
+   d'extraction) **sauf** l'ajout de `lang="he"`, qui touche les `<span class="he">`.
 5. **`.door{border-radius:18px}` dans le portail** ([index.html:122](index.html#L122)) :
    ni `panneau:16px` ni `carte:20px` — les deux seuls jetons du barème `rounded` qui
    s'appliquent à une porte. Seul finding du détecteur réellement actionnable sur les
