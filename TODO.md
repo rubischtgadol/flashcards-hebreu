@@ -1,6 +1,24 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Dernier acquis : le point 4 est ENTIÈREMENT soldé —
+État au 2026-07-19, fin de journée. **Dernier acquis : les quatre chantiers demandés
+par Ruben — points 7, 3, 6 et la garde de couverture — sont soldés.**
+L'écran de départ **se replie** : « Catégories » et « Niveau » rejoignent le pli des
+« Réglages avancés », 1278 → 874 px de panneau (−32 %) et 43 → 35 arrêts de tabulation.
+Le `<summary>` porte la sélection en cours, donc replier condense au lieu de cacher ;
+au-delà de deux entrées on compte plutôt que de lister, une liste coupée à l'ellipse
+étant mensongère. Deux pièges tenus : l'état ouvert/replié se décide **au chargement
+seulement** (ouvert tant que la sélection est vide — sinon un profil vierge n'offre plus
+rien à faire), et le `<h2>` **devient** la rangée du `<summary>` au lieu d'un titre
+dupliqué, ce qui lui fait quitter la voix Title (règle inscrite dans DESIGN.md § Le pli).
+La note Prononciation affiche désormais le **`voiceURI`** sous le nom de la voix : c'est
+le seul champ qui porte la qualité, donc le dernier test du dossier « voix robotique » —
+**il attend maintenant une lecture de Ruben sur son iPhone** (voir la checklist).
+Les **11 piles de polices tronquées** d'`app.html` sont complétées : les trois fichiers
+écrivent enfin les quatre piles en entier. Et `build.js` **tient** la couverture des
+niveaux au lieu de la supposer — 713/713 était vrai par chance, c'est désormais une
+erreur bloquante qui nomme le mot fautif. 56 contrôles WebKit au vert, 0 au rouge ;
+713 cartes, 510 exemples, 2 avertissements (les deux légitimes documentés).
+**Acquis précédent : le point 4 est ENTIÈREMENT soldé —
 la consolidation typographique est faite, et elle a mis au jour la cause de la dérive.**
 Le carnet passe de **24 tailles distinctes à une rampe de 8 pas nommés**, mais le vrai
 résultat est ailleurs : `font-size:22px` est posé sur **`body`**, jamais sur `html`, dans
@@ -106,7 +124,23 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    הַבַּיְתָה (hé directionnel, réellement absent du carnet — décision de contenu :
    l'enseigner, ou récrire l'exemple de לַחֲזֹר sans lui) et le `.tr` « bamekarer »
    à distance 2 de `he2tr`, où le `.tr` écrit à la main fait foi.
-3. **Voix robotique — la piste « Carmit Enhanced » est MORTE, et c'est documenté.**
+3. **[FAIT le 19/07 au soir — la balle est dans le camp de Ruben] Voix robotique : la
+   piste « Carmit Enhanced » est morte, et le test qui restait est livré.**
+   `#audio-note` affiche maintenant le **`voiceURI`** sous le nom de la voix, sur une
+   ligne `.voice-id` en voix Label et en LTR (« identifiant :
+   com.apple.ttsbundle.Carmit-compact »). C'était le seul point empirique du dossier :
+   tout le reste était de la déduction. **Ce qui reste à faire ne dépend plus du code** —
+   Ruben lit l'identifiant sur son iPhone et le rapporte (voir la checklist en bas).
+   Grille de lecture, à appliquer telle quelle :
+   - se termine par `-compact` → confirmé, on est au plafond de ce que le web permet
+     sur iOS, **dossier clos** ; passer alors aux options (a)/(b)/(c) ci-dessous ;
+   - contient `.enhanced.` ou `.premium.` → le filtre de WebKit aurait changé depuis
+     2019, information neuve qui **rouvre** la piste.
+
+   Le reste du dossier, ci-dessous, est conservé : c'est lui qui explique pourquoi
+   ce test est le dernier, et pourquoi il ne faut plus rien tenter d'autre.
+
+   **Voix robotique — la piste « Carmit Enhanced » est MORTE, et c'est documenté.**
    Donnée relevée par Ruben le 19/07 : la note affiche **« Carmit »**, alors qu'il avait
    bien installé Carmit Enhanced. Recherche faite le même jour — **ce n'est ni un bug ni
    un échec d'installation** : WebKit *filtre délibérément* les voix par qualité et
@@ -122,14 +156,9 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    la PWA ne pourra jamais s'en servir.** C'est une contrainte de plateforme, pas un
    réglage à trouver.
 
-   **Le seul test qui reste à faire (court)** : afficher `voice.voiceURI` à côté de
-   `voice.name` dans `#audio-note`. L'identifiant AVFoundation, lui, porte la qualité :
-   - se termine par `-compact` (`com.apple.ttsbundle.Carmit-compact`) → confirmé, on est
-     au plafond de ce que le web permet sur iOS, dossier clos ;
-   - contient `.enhanced.` ou `.premium.` → le filtre aurait changé depuis 2019, et c'est
-     une information neuve qui rouvre la piste.
-   Un champ à ajouter, rien de plus. C'est empirique sur l'appareil réel, là où le reste
-   est de la déduction.
+   *~~Le seul test qui reste à faire (court) : afficher `voice.voiceURI` à côté de
+   `voice.name` dans `#audio-note`.~~* **Livré le 19/07 au soir** — voir la grille de
+   lecture en tête de point.
 
    **Si le test confirme `-compact`, les options restantes sont, dans l'ordre :**
    (a) ajuster `rate`/`pitch` — gain réel mais modeste sur une voix compacte ;
@@ -211,7 +240,14 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    (détail en « Fait »). Il ne reste dans les fichiers en périmètre que des findings
    de la famille **rampe typographique** — c'est-à-dire le point 4 **ci-dessus**, pas
    des tickets séparés.
-6. **Piles de polices tronquées dans `app.html` — dette ouverte, trouvée le 19/07 au soir.**
+6. **[FAIT le 19/07 au soir] Les 11 piles de polices tronquées d'`app.html` complétées.**
+   9 `'JetBrains Mono',monospace` et 2 `'Assistant',sans-serif` → forme entière.
+   **Les trois fichiers écrivent désormais les quatre piles normatives en entier** ;
+   DESIGN.md §6 est recalé (la dette n'y est plus annoncée comme ouverte) et la voix
+   `label` de son bloc de tête, qui reproduisait la forme tronquée, est corrigée.
+   Vérifié : 0 pile tronquée dans `app.html` et `flashcards_hebreu.html`, toute pile a
+   au moins deux replis, familles calculées en WebKit conformes.
+   *Contexte d'origine, à garder pour la leçon :*
    En recalant la documentation je me suis aperçu que la règle que je venais d'écrire dans
    DESIGN.md §6 était **fausse sur deux piles** : je l'avais rédigée d'après la prose du §3 au
    lieu de la relever dans le code (`Arial` manquait dans la pile Assistant, la pile Playpen
@@ -222,34 +258,33 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    version hors-ligne, en hérite. Travail : 11 remplacements, `node build.js` (qui régénère
    `flashcards_hebreu.html`, donc contrôle navigateur ensuite), commit.
    **Leçon à garder** : une règle de charte se relève **dans le code**, jamais dans la charte.
-7. **➤ DEMANDÉ par Ruben le 19/07 au soir : replier « Catégories » et « Niveau ».**
-   La nouvelle demande que le point attendait. Contexte : la critique posait un P1 de
-   densité (1633 px pour 681 px de viewport, 10 `<h2>` de poids identique, 43 focusables,
-   un point de décision à 17 chips) ; Ruben avait alors choisi la typographie seule
-   (« Révision du jour » sort de la voix Title). L'écran pèse toujours — on passe à la
-   restructuration.
-
-   **Forme retenue** : un `<details>` par groupe, sur le modèle exact du pli « Réglages
-   avancés » qui existe déjà (`<details class="adv" id="adv">`, [app.html:581](app.html#L581))
-   — même rangée sur nuit claire, même filet, même chevron qui pivote. Le `<summary>`
-   **résume la sélection en cours** (`Noms, Verbes · Facile · 20 cartes`), de sorte que
-   replier ne cache aucune information : c'est le principe déjà tenu par le sous-titre
-   du pli avancé. Gain estimé : ~2,4 → ~1,2 écran.
-
-   **Points d'attention repérés en lisant le code** :
-   - ⚠️ **Ne pas replier par défaut au premier lancement.** Depuis le 19/07, un profil
-     vierge n'a **aucune catégorie ni niveau sélectionné** et `#start` est désactivé :
-     si les deux groupes sont fermés, l'écran n'offre plus rien à faire et l'indice
-     `#start-hint` désigne des contrôles invisibles. Régle : **ouvert tant que la
-     sélection est vide, replié dès qu'elle ne l'est plus.**
-   - Le `<summary>` doit rester une cible ≥ 44 px sous `pointer:coarse` (le bloc existe,
-     y ajouter le nouveau sélecteur).
-   - `buildChips()` et `applyPrefs()` alimentent `#cats`/`#niv` : vérifier que le résumé
-     se recalcule à chaque `segPick`/`savePrefs`, sinon il mentira silencieusement.
-   - Les deux groupes sont des `role="group"` + `aria-labelledby` : en passant sous un
-     `<summary>`, contrôler que le nom accessible ne se dédouble pas.
-   - Contrôle final : nombre d'arrêts de tabulation avant/après (43 aujourd'hui), et
-     0 débordement horizontal à 320 px.
+7. **[FAIT le 19/07 au soir — demande de Ruben] « Catégories » et « Niveau » repliés.**
+   Détail en « Fait ». Les cinq points d'attention notés en lisant le code ont tous été
+   tenus, et deux d'entre eux ont changé de forme à l'écriture :
+   - **Gain mesuré** : panneau 1278 → 874 px (−32 %), arrêts de tabulation 43 → 35.
+     L'estimation « ~2,4 → ~1,2 écran » était optimiste : c'est un écran de moins,
+     pas la moitié.
+   - **La règle « replié dès que la sélection n'est plus vide » a été restreinte à
+     l'instant du chargement.** Appliquée en continu, elle referme le groupe sous le
+     doigt au moment même où l'on vient d'y choisir quelque chose — on est puni de son
+     geste. `applyFoldState()` ne tourne donc qu'au boot (et après une remise à zéro,
+     qui repasse par `applyPrefs`) ; ensuite le pli n'obéit qu'à l'utilisateur.
+     Inscrit comme règle de charte dans DESIGN.md § Le pli.
+   - **Le `<h2>` devient la rangée du `<summary>`** au lieu d'un titre dupliqué au-dessus.
+     Il reste la cible de l'`aria-labelledby` (nom accessible non dédoublé, vérifié) mais
+     **quitte la voix Title** pour celle du libellé de pli — un groupe replié se lit comme
+     un pli, un groupe déplié comme une section. DESIGN.md a été corrigé en conséquence :
+     sa voix Title déclarait « Catégories » parmi ses emplois, ce qui était devenu faux.
+   - Le résumé se recalcule depuis `updateStart()`, par où passent **toutes** les voies
+     qui changent la sélection (chips, `#selall`, remise à zéro, restauration des prefs).
+     Au-delà de deux entrées il compte au lieu de lister (`3 catégories`, `Toutes (17)`) :
+     une liste coupée à l'ellipse mentirait. L'ordre suit `catOrder`, donc celui des
+     chips à l'écran — et non l'ordre des clics.
+   - `<summary>` à 44 px sous `pointer:coarse` (mesuré 340×44 sur iPhone 16 Pro).
+   ⚠️ *Piège de mesure payé en route, à retenir* : pour compter les arrêts de tabulation,
+   ne pas dédupliquer sur `tag+id+class`. Les `<summary>` n'ont ni id ni classe, donc les
+   trois plis se confondent et le parcours se coupe au second en croyant boucler — il
+   annonçait « 1 SUMMARY » sur 3. Estampiller l'**élément** (attribut posé sur le nœud).
 
 8. **Largeur de lecture non bornée — dette ouverte, écartée du périmètre le 19/07.**
    Relevé en mesurant pour le point 4, et **délibérément non traité** : Ruben a choisi
@@ -275,6 +310,11 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 - [x] ~~Relever le **nom de la voix** affiché dans Réglages avancés → Prononciation.~~
       **Fait le 19/07 : « Carmit »**, alors que Carmit Enhanced était installée. Dossier
       instruit au point 3 — c'est une restriction de WebKit, pas un réglage manqué.
+- [ ] **➤ Relever l'`identifiant` de la voix**, ligne du dessous, même écran (Réglages
+      avancés → Prononciation). C'est le dernier point empirique du dossier « voix » et
+      il ne dépend plus que de ça. Se termine par `-compact` → dossier clos, on passe aux
+      options (a)/(b)/(c) du point 3 ; contient `.enhanced.` ou `.premium.` → la piste
+      se rouvre. ⚠️ Nécessite d'avoir rechargé l'app (le SW sert une version en cache).
 - [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
 ## Fait (historique compact — détail dans les messages de commit)
@@ -579,6 +619,47 @@ déjà à jour »** : le fichier autonome est **inchangé au octet**, 713 cartes
   compter comme un arrêt de tabulation fabrique un faux défaut (il n'est jamais focalisé,
   donc rend l'anneau UA). C'est le « 1 masqué » déjà documenté le matin.
 
+Puis, le 2026-07-19 au soir — **les quatre chantiers demandés par Ruben** (points 7, 3, 6
+et la garde de couverture). Aucun n'a touché au vocabulaire : 713 cartes, 510 exemples,
+2 avertissements (les deux légitimes). 56 contrôles WebKit au vert, 0 au rouge :
+
+- **[x] L'écran de départ se replie** (point 7). « Catégories » et « Niveau » passent sous
+  deux `<details class="adv">` identiques au pli « Réglages avancés » : **1278 → 874 px**
+  de panneau (−32 %), **43 → 35 arrêts de tabulation**. Le `<summary>` porte la sélection
+  (« Verbes, Noms », « Toutes (17) », « Facile ») ; au-delà de deux entrées on compte
+  plutôt que de lister, une liste coupée à l'ellipse étant mensongère ; l'ordre suit
+  celui des chips à l'écran, pas celui des clics. **Deux décisions prises à l'écriture** :
+  l'état ouvert/replié ne se décide **qu'au chargement** (ouvert tant que la sélection est
+  vide) — en continu, le pli se refermerait sous le doigt au moment du premier choix ; et
+  le `<h2>` **devient** la rangée du `<summary>`, ce qui lui fait quitter la voix Title
+  tout en restant le nom accessible du `role="group"`. Les deux sont inscrites dans
+  DESIGN.md § Le pli, et la voix Title y a été corrigée : elle déclarait « Catégories »
+  parmi ses emplois, ce qui était devenu faux.
+- **[x] La note Prononciation affiche le `voiceURI`** (point 3), sous le nom de la voix,
+  en voix Label et en LTR. Dernier test du dossier « voix robotique » : `name` ne dit
+  jamais la qualité (deux champs distincts au niveau système, un seul exposé par l'API),
+  l'identifiant si. Quatre scénarios vérifiés — voix compacte, `voiceURI` absent (repli
+  explicite, pas de ligne vide), aucune voix hébraïque (message et `body.no-he-voice`
+  inchangés, pas de ligne orpheline), identifiant très long sur iPhone 16 Pro (0
+  débordement). **La suite ne dépend plus du code** : Ruben lit l'identifiant.
+- **[x] Les 11 piles de polices tronquées d'`app.html` complétées** (point 6) : 9 mono,
+  2 Assistant. Les trois fichiers écrivent enfin les quatre piles normatives en entier.
+  DESIGN.md §6 recalé (la dette n'y est plus annoncée comme ouverte) et sa voix `label`
+  corrigée — elle reproduisait justement la forme tronquée relevée dans `app.html`,
+  nouvelle illustration de la leçon « une règle de charte se relève dans le code ».
+- **[x] `build.js` tient la couverture des niveaux** au lieu de la supposer. 713/713
+  n'était vrai que par chance : le garde-fou existant n'attrapait qu'une disparition de
+  niveau *entier*, si bien qu'un mot ajouté sans `data-niveau` passait en silence et
+  serait apparu jusque dans « Facile ». Le build échoue désormais en nommant les mots,
+  et affiche une ligne « couverture N/N ». Vérifié en retirant un `data-niveau` : code
+  de sortie 1 en mode normal **et** `--check`, fichier autonome non réécrit.
+- **Contrôlé au passage** : les **19 ancres de lignes** des quatre documents étaient
+  toutes fausses (dérive de +22 à +82 selon l'endroit) ; recalées et vérifiées une à une.
+  ⚠️ *Piège de mesure à retenir* : pour compter les arrêts de tabulation, ne pas
+  dédupliquer sur `tag+id+class` — les `<summary>` n'ayant ni id ni classe, les trois
+  plis se confondent et le parcours se coupe au second en croyant boucler (il annonçait
+  « 1 SUMMARY » sur 3). Estampiller l'élément lui-même.
+
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
 - Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
@@ -611,6 +692,20 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   la lumière.
 - **Le pointillé signifie « rien ici », et rien d'autre** (`.empty` seul). Un encadré
   important prend un filet plein.
+- **Un pli ne se referme jamais sous le doigt de l'utilisateur** : l'état ouvert/replié
+  se décide au chargement (ouvert tant que la sélection du groupe est vide), jamais en
+  réaction à un clic. Refermer un groupe au moment où l'on vient d'y choisir quelque
+  chose donne l'impression d'être puni de son geste.
+- **Un pli condense, il ne cache pas** : sa rangée porte toujours un résumé véridique de
+  ce qu'elle contient. Au-delà de deux entrées, un compte plutôt qu'une liste — une liste
+  coupée à l'ellipse en dit moins que rien, elle ment.
+- **Un `<h2>` qui devient la rangée d'un pli quitte la voix Title** pour celle du libellé
+  de pli, tout en restant le nom accessible du `role="group"`. Un groupe replié se lit
+  comme un pli, un groupe déplié comme une section. (À l'*intérieur* d'un pli, en
+  revanche, les titres gardent la voix Title : le pli range, il ne rétrograde pas.)
+- **Tout mot du carnet doit porter `data-niveau`** — `build.js` échoue sinon, en nommant
+  le mot. La tolérance de l'appli (un mot non classé reste visible partout) reste un
+  filet de robustesse, pas une licence pour omettre l'attribut.
 - **`.subtheme` et `thead th` sont des emplois déclarés de la voix Title** (DESIGN.md §3,
   19/07) : la charte avait un angle mort — elle n'avait inventorié que `app.html`.
 - La révision du jour ignore le filtre Niveau ; un mot sans `data-niveau` reste visible
@@ -646,7 +741,7 @@ voici ce qu'elles valent réellement.
 Le problème est réel et mesurable dans le CSS. Quand des cartes sont dues, **deux surfaces
 dorées coexistent** sur le même écran :
 
-- `.review-card` ([app.html:489](app.html#L489)) — bordure `--gold` pleine + dégradé d'or
+- `.review-card` ([app.html:511](app.html#L511)) — bordure `--gold` pleine + dégradé d'or
   135° (16 % → 5 %), icône et flèche en or ;
 - `.start` ([app.html:148](app.html#L148)) — dégradé d'or **plein** + lueur portée
   `0 6px 18px -8px var(--gold)`.
@@ -672,7 +767,7 @@ texte `--ink` plein + bordure qui passe à l'or au survol), et **le vérifier à
 d'affordance — ce qui serait pire.
 
 🔎 **Trouvé en explorant, à traiter avec** : `.review-card:disabled` porte `opacity:.55`
-([app.html:496](app.html#L496)) — or DESIGN.md §5 interdit désormais d'exprimer un état
+([app.html:518](app.html#L518)) — or DESIGN.md §5 interdit désormais d'exprimer un état
 désactivé par une opacité, règle apprise en juillet sur ce même bouton « Commencer ». Ici
 le fond doré *est* bien remplacé par `--bg2`, donc le symptôme grave (l'or translucide)
 n'existe pas ; mais l'opacité fait aussi pâlir le texte et l'icône, qui restent en or. À
@@ -692,11 +787,16 @@ disparaît (`EXPECTED_LEVELS`, [build.js:33](build.js#L33)) ; un mot ajouté **s
 « Facile ». C'est précisément le scénario qui rendrait la piste A pertinente, sauf qu'on ne
 le verrait jamais venir.
 
-**➤ Action recommandée, à la place de la piste d'origine** : ajouter à `build.js` une
-**garde de couverture des niveaux**, sur le modèle exact de la règle de couverture des
-exemples déjà appliquée par `verifie_exemples.js` — si une carte sort de l'extraction sans
-`niveau`, le build échoue en nommant le mot. Court, sans effet visuel, et cela transforme
-une propriété qui n'est vraie que par chance en propriété tenue par l'outillage.
+**➤ [FAIT le 19/07 au soir] La garde de couverture des niveaux est en place** dans
+`build.js`, sur le modèle exact de la règle de couverture des exemples de
+`verifie_exemples.js` : une carte sans `niveau` fait échouer le build, qui **nomme** les
+mots fautifs, et une ligne « couverture 713/713 » s'ajoute au tableau des niveaux pour
+que le contrôle annonce ce qu'il mesure (un contrôle muet passe toujours au vert).
+Vérifié en retirant un `data-niveau` du carnet : le build nomme la carte
+(« Verbes — לָרוּץ »), sort avec le code **1** en mode normal *et* `--check`, et ne
+réécrit pas `flashcards_hebreu.html`. La propriété n'est plus vraie par chance.
+La tolérance de l'appli (un mot non classé reste visible partout) **reste** : c'est un
+filet, et cette garde vise à ce qu'il ne serve jamais.
 La piste de design d'origine, elle, est **close** : le filtre garde sa sémantique actuelle
 (un mot non classé reste visible partout), qui est déjà une décision actée plus haut.
 
@@ -753,9 +853,12 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
    entrée ajoutée crée aussi ses `span.cursive` générés, donc elle pèse plus d'un nœud
    (5003 → 5015 pour 3 mots, le 19/07, là où le calcul de tête donnait 5010).
 7. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
-   **deux fois** (audit de péremption du 19/07 au matin, puis retrouvées toutes fausses le
-   soir : les 16 ancres d'ARCHITECTURE.md étaient décalées de +25, et les 3 « near line » de
-   CLAUDE.md avec). Une ancre fausse est pire qu'absente — elle envoie lire le mauvais code
-   avec assurance. Contrôle en une commande :
-   `for l in $(grep -o 'app.html#L[0-9]*' ARCHITECTURE.md | grep -o '[0-9]*' | sort -u); do printf '%5s: %s\n' "$l" "$(sed -n "${l}p" app.html | cut -c1-60)"; done`
-   — chaque ligne affichée doit correspondre à ce que le document annonce.
+   **trois fois** (audit de péremption du 19/07 au matin ; retrouvées toutes fausses le
+   soir, +25 ; puis de nouveau après les plis, de +22 à +82 selon l'endroit — le décalage
+   n'est **pas** uniforme, chaque ancre se vérifie). Une ancre fausse est pire qu'absente
+   — elle envoie lire le mauvais code avec assurance. Contrôle en une commande, sur les
+   **quatre** documents (et non ARCHITECTURE.md seul, comme le disait cette note) :
+   `for l in $(grep -o 'app.html#L[0-9]*' ARCHITECTURE.md DESIGN.md TODO.md CLAUDE.md | grep -o '[0-9]*$' | sort -un); do printf '%5s: %s\n' "$l" "$(sed -n "${l}p" app.html | cut -c1-64)"; done`
+   — chaque ligne affichée doit correspondre à ce que le document annonce. Ne pas oublier
+   les `near line NNN` de CLAUDE.md, qui ne sont pas des liens :
+   `grep -o 'near line [0-9]*' CLAUDE.md`.
