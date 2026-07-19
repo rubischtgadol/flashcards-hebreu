@@ -12,7 +12,7 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
 ┌─────────────────────────────────────────────────────────────────┐
 │                     vocabulaire_hebreu.html                      │
 │              LE CARNET — source unique de vérité                 │
-│         (grammaire + vocabulaire, ~5100 lignes de HTML)          │
+│         (grammaire + vocabulaire, ~6000 lignes de HTML)          │
 └───────────────┬────────────────────────────────┬────────────────┘
                 │ fetch() + extractCards()       │ lu par build.js
                 │ au chargement, dans le         │ (réplique regex
@@ -41,7 +41,7 @@ Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un po
 | [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
-| [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, vocabulaire ≤ niveau). | ✅ oui |
+| [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, vocabulaire ≤ niveau) + règle de couverture : tout nom, adjectif ou verbe sans exemple est une erreur bloquante. | ✅ oui |
 | [manifest.webmanifest](manifest.webmanifest), [sw.js](sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
 ## La couche PWA
@@ -230,6 +230,6 @@ L'extraction étant couplée au markup du carnet, trois filets détectent les ca
 
 1. Éditer `vocabulaire_hebreu.html` (et lui seul pour le vocabulaire).
 2. `node build.js` — vérifier les comptes par section.
-3. Si des exemples ont changé : `node verifie_exemples.js` — 0 erreur exigé.
+3. Si du vocabulaire ou des exemples ont changé : `node verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
 4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
 5. Committer le carnet **et** `flashcards_hebreu.html` régénéré, pousser sur `main`.
