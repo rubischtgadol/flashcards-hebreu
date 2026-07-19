@@ -71,6 +71,25 @@ cards.forEach(c => {
   (c.forms || []).forEach(f => feed(f.he_plain, c.niveau));
 });
 
+// Les cartes ne couvrent pas tout ce que le carnet enseigne : les sections de
+// grammaire (prépositions fléchies, conjugaisons, article…) ne produisent
+// aucune carte, mais leurs formes sont bel et bien enseignées — שֶׁלְּךָ et
+// שֶׁלָּנוּ y figurent en toutes lettres, et étaient pourtant signalées « hors
+// carnet ». On les verse donc au lexique, avec deux garde-fous :
+//   1. on exclut les <ul class="exemples"> — sinon le contrôle deviendrait
+//      circulaire, chaque phrase validant son propre vocabulaire ;
+//   2. on n'ajoute qu'un mot *inconnu*, au niveau 0 (non classé = toujours
+//      permis) — jamais d'écrasement, sans quoi un mot de grammaire
+//      rabaisserait à 0 le niveau d'une carte et neutraliserait le contrôle 5.
+const horsExemples = fs.readFileSync(NOTEBOOK, 'utf8')
+  .replace(/<ul class="exemples">[\s\S]*?<\/ul>/g, ' ');
+for (const m of horsExemples.matchAll(/<span class="he"[^>]*>([^<]*)<\/span>/g)) {
+  stripNikud(m[1]).split(/[\s־]+/).forEach(w => {
+    const clean = w.replace(/[^א-ת]/g, '');
+    if (clean.length > 1 && !lexicon.has(clean)) lexicon.set(clean, 0);
+  });
+}
+
 // Un token de phrase peut porter des préfixes agglutinés (ו, ה, ב, ל, מ, ש, כ,
 // et leurs combinaisons courtes). On cherche le token entier, puis en pelant
 // jusqu'à deux préfixes d'une lettre.
@@ -126,8 +145,12 @@ cards.forEach(card => {
       if (clean.length <= 1) return;                    // lettres seules (ו…) : toujours permises
       const hit = lookup(clean);
       if (!hit) flag('warn', card, ex, 'mot hors carnet : ' + clean);
-      else if (wordLevel && hit.level > wordLevel)
-        flag('warn', card, ex, 'mot ' + clean + ' d\'un niveau supérieur (' + hit.level + ' > ' + wordLevel + ')');
+      // Tolérance d'un niveau : une phrase du quotidien pour un verbe A1 a
+      // besoin de noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב), qui sont A2 par
+      // nature. Alerter à +1 noyait le signal dans l'inévitable ; on n'alerte
+      // qu'à partir de +2, où l'écart devient un vrai défaut de calibrage.
+      else if (wordLevel && hit.level > wordLevel + 1)
+        flag('warn', card, ex, 'mot ' + clean + ' de plus d\'un niveau au-dessus (' + hit.level + ' > ' + wordLevel + ')');
     });
   });
 });
