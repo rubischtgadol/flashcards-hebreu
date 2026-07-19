@@ -8,6 +8,13 @@ extraite, anneau `:focus-visible` global, `theme-color`, tap-highlight, les deux
 `transition:all`, `<main>`). **Le fichier autonome est inchangé au octet** : rien du
 vocabulaire n'a bougé. 22 contrôles WebKit au vert, et le détecteur passe de 24 à 10
 findings — les 10 restants *sont* le chantier typographique, seul reliquat du point 4.
+**Périmètre arrêté avec Ruben le même soir**, qui rouvre trois chantiers et en ferme deux :
+le prochain lot d'exemples se limite à **Prépositions, Adverbes et Mots interrogatifs**
+(54 mots — le reste est abandonné) ; « Catégories » et « Niveau » **seront repliés** ;
+les deux pistes de design ont été **explorées** (l'une confirmée et enrichie d'un défaut
+de charte trouvé au passage, l'autre périmée mais remplacée par une garde d'outillage
+utile) ; et la **piste « Carmit Enhanced » est morte** — WebKit n'expose délibérément que
+les voix compactes, ce n'est pas un réglage à trouver.
 **Acquis précédent : les points 2 et 5 de « Reprendre ici » sont soldés.** Les avertissements du validateur passent de **31 à 2** (les deux
 restants sont légitimes et documentés), le carnet gagne 3 mots qui lui manquaient
 (**713 cartes, 510 exemples**), la **fourmi cesse de vouloir dire « port »**, et le
@@ -56,13 +63,23 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    JSON, script d'insertion qui génère la `.tr` avec le `he2tr` de l'appli
    (concordance par construction) + retouches d'affichage (kol, akhshav, chva sonore,
    noms propres en capitale), puis `node verifie_exemples.js` (**0 erreur exigé**),
-   `node build.js`, commit. **Resterait, si on veut aller plus loin** (hors règle,
-   décision produit à prendre) : **181** mots des catégories-outils sans exemple
-   (recompté le 19/07 au soir — le « 203 » noté ici auparavant *incluait* les 22
-   « Phrases » que la même phrase disait d'exclure ; 181 + 22 = 203) — Nombres 41 ·
-   Expressions 35 · Prépositions 23 · Adverbes 19 · Saisons & mois 16 · Mots
-   interrogatifs 12 · Pronoms 10 · Jours 7 · le reste ≤ 6. Les 22 « Phrases » sont
-   hors sujet : ce sont déjà des phrases complètes.
+   `node build.js`, commit.
+
+   **➤ PROCHAIN LOT D'EXEMPLES — périmètre arrêté par Ruben le 19/07 au soir :
+   Prépositions (23) · Adverbes (19) · Mots interrogatifs (12) = 54 mots.**
+   Ce sont les trois catégories où un exemple *apprend* vraiment quelque chose : une
+   préposition ou un mot interrogatif ne s'emploie qu'en contexte, et la traduction
+   seule (« sur », « pourquoi ») ne dit pas comment la placer. Méthode identique au lot
+   précédent (JSON → script d'insertion → `verifie_exemples.js` 0 erreur → `build.js`).
+   ⚠️ Attention au piège du contrôle 5 : ces mots sont majoritairement A1, donc leurs
+   phrases tireront des noms A2 — c'est normal, le seuil est à +2 depuis le 19/07.
+
+   **Le reste est abandonné, décision de Ruben** — Nombres 41 · Expressions 35 ·
+   Saisons & mois 16 · Pronoms 10 · Jours 7 · le reste ≤ 6. Ne pas les reproposer :
+   un nombre, un jour ou une saison se comprend sans mise en situation, et les
+   « Expressions » sont déjà des formules autonomes. Les 22 « Phrases » restent hors
+   sujet (ce sont déjà des phrases complètes). Après ce lot, la question des exemples
+   est **close**.
 2. **[FAIT le 19/07 au soir] Les avertissements du validateur soldés : 31 → 2.**
    Détail en « Fait ». Quatre causes, dont **aucune n'était un mauvais exemple** :
    dérive orthographique ktiv malé/chaser sur 4 mots (10 avert.), 3 vrais trous du
@@ -74,12 +91,47 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    הַבַּיְתָה (hé directionnel, réellement absent du carnet — décision de contenu :
    l'enseigner, ou récrire l'exemple de לַחֲזֹר sans lui) et le `.tr` « bamekarer »
    à distance 2 de `he2tr`, où le `.tr` écrit à la main fait foi.
-3. **Voix robotique — en attente d'une donnée de Ruben** : le nom de voix affiché dans la
-   note Prononciation de son iPhone. Selon la réponse : si « Carmit » simple →
-   recommander Carmit Enhanced (Réglages > Accessibilité > Contenu énoncé > Voix >
-   Hébreu) ; ajuster `rate`/`pitch` si besoin ; API TTS externe **rejetée** (casse le
-   tout-statique hors-ligne) ; audio préenregistré = décision produit, seulement si
-   Enhanced déçoit.
+3. **Voix robotique — la piste « Carmit Enhanced » est MORTE, et c'est documenté.**
+   Donnée relevée par Ruben le 19/07 : la note affiche **« Carmit »**, alors qu'il avait
+   bien installé Carmit Enhanced. Recherche faite le même jour — **ce n'est ni un bug ni
+   un échec d'installation** : WebKit *filtre délibérément* les voix par qualité et
+   n'expose que les `compact`. Le code (bug WebKit 203689, r251960, nov. 2019) ne garde
+   dans `getVoices()` que `voice.quality == AVSpeechSynthesisVoiceQualityDefault`, motif
+   déclaré « réduire la surface de fingerprinting ». Apple le confirme en toutes lettres
+   sur son forum développeurs (thread 723503) : *« with Web Speech APIs only the
+   pre-installed voices are available. Optionally downloadable voices are not
+   available. »* Et le nom ne dira jamais « Enhanced » : au niveau système,
+   `AVSpeechSynthesisVoice` sépare `name` et `quality` en deux champs, et l'API Web
+   Speech n'a aucun champ pour la qualité.
+   **Conséquence directe : ne plus recommander à Ruben d'installer une voix Enhanced —
+   la PWA ne pourra jamais s'en servir.** C'est une contrainte de plateforme, pas un
+   réglage à trouver.
+
+   **Le seul test qui reste à faire (court)** : afficher `voice.voiceURI` à côté de
+   `voice.name` dans `#audio-note`. L'identifiant AVFoundation, lui, porte la qualité :
+   - se termine par `-compact` (`com.apple.ttsbundle.Carmit-compact`) → confirmé, on est
+     au plafond de ce que le web permet sur iOS, dossier clos ;
+   - contient `.enhanced.` ou `.premium.` → le filtre aurait changé depuis 2019, et c'est
+     une information neuve qui rouvre la piste.
+   Un champ à ajouter, rien de plus. C'est empirique sur l'appareil réel, là où le reste
+   est de la déduction.
+
+   **Si le test confirme `-compact`, les options restantes sont, dans l'ordre :**
+   (a) ajuster `rate`/`pitch` — gain réel mais modeste sur une voix compacte ;
+   (b) audio préenregistré (décision produit lourde : ~713 fichiers, mais c'est la seule
+   voie vers une vraie qualité hors-ligne) ; (c) rien, et l'assumer.
+   **API TTS externe reste rejetée** (casse le tout-statique hors-ligne).
+
+   ⚠️ **Risque à surveiller** : plusieurs rapports (dont la doc Readium) signalent
+   qu'installer une variante Enhanced peut faire **disparaître** la voix de base de
+   Safari, jusqu'à vider une langue entière. Ce n'est pas arrivé chez Ruben (Carmit
+   répond toujours). Mais si l'hébreu disparaissait un jour de `getVoices()` après une
+   mise à jour iOS, ce serait **cette régression-là** et non une panne de l'app — le
+   `body.no-he-voice` s'activerait proprement. À ne pas debugger dans l'app.
+
+   Sources : [WebKit bug 203689](https://bugs.webkit.org/show_bug.cgi?id=203689) ·
+   [Apple Developer Forums 723503](https://developer.apple.com/forums/thread/723503) ·
+   [Readium — SpeechSynthesis in browsers and OSes](https://readium.org/speech/docs/WebSpeech.html)
 4. **Correctifs du carnet — les 4 P1, le bloc tactile ET tous les P2/P3 de charte sont
    FAITS. Il ne reste que la consolidation typographique.**
    Appliqué le 19/07 (détail en « Fait ») : `lang="he"` à **100 %**, garde
@@ -150,21 +202,43 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    version hors-ligne, en hérite. Travail : 11 remplacements, `node build.js` (qui régénère
    `flashcards_hebreu.html`, donc contrôle navigateur ensuite), commit.
    **Leçon à garder** : une règle de charte se relève **dans le code**, jamais dans la charte.
-7. **Densité de l'écran de configuration — option restée ouverte.** La critique posait un
-   P1 (1633 px pour 681 px de viewport, 10 `<h2>` de poids identique, 43 focusables, un
-   point de décision à 17 chips). Ruben a choisi **la typographie seule** : « Révision du
-   jour » sort de la voix Title, aucun contrôle déplacé. **La restructuration reste
-   disponible si l'écran pèse encore à l'usage** : replier « Catégories » + « Niveau »
-   dans un `<details>` résumant la sélection (`Noms, Verbes · Facile · 20 cartes`), comme
-   le fait déjà le pli « Réglages avancés » — l'écran passerait de ~2,4 à ~1,2 écran.
-   Ne pas l'engager sans nouvelle demande.
+7. **➤ DEMANDÉ par Ruben le 19/07 au soir : replier « Catégories » et « Niveau ».**
+   La nouvelle demande que le point attendait. Contexte : la critique posait un P1 de
+   densité (1633 px pour 681 px de viewport, 10 `<h2>` de poids identique, 43 focusables,
+   un point de décision à 17 chips) ; Ruben avait alors choisi la typographie seule
+   (« Révision du jour » sort de la voix Title). L'écran pèse toujours — on passe à la
+   restructuration.
+
+   **Forme retenue** : un `<details>` par groupe, sur le modèle exact du pli « Réglages
+   avancés » qui existe déjà (`<details class="adv" id="adv">`, [app.html:581](app.html#L581))
+   — même rangée sur nuit claire, même filet, même chevron qui pivote. Le `<summary>`
+   **résume la sélection en cours** (`Noms, Verbes · Facile · 20 cartes`), de sorte que
+   replier ne cache aucune information : c'est le principe déjà tenu par le sous-titre
+   du pli avancé. Gain estimé : ~2,4 → ~1,2 écran.
+
+   **Points d'attention repérés en lisant le code** :
+   - ⚠️ **Ne pas replier par défaut au premier lancement.** Depuis le 19/07, un profil
+     vierge n'a **aucune catégorie ni niveau sélectionné** et `#start` est désactivé :
+     si les deux groupes sont fermés, l'écran n'offre plus rien à faire et l'indice
+     `#start-hint` désigne des contrôles invisibles. Régle : **ouvert tant que la
+     sélection est vide, replié dès qu'elle ne l'est plus.**
+   - Le `<summary>` doit rester une cible ≥ 44 px sous `pointer:coarse` (le bloc existe,
+     y ajouter le nouveau sélecteur).
+   - `buildChips()` et `applyPrefs()` alimentent `#cats`/`#niv` : vérifier que le résumé
+     se recalcule à chaque `segPick`/`savePrefs`, sinon il mentira silencieusement.
+   - Les deux groupes sont des `role="group"` + `aria-labelledby` : en passant sous un
+     `<summary>`, contrôler que le nom accessible ne se dédouble pas.
+   - Contrôle final : nombre d'arrêts de tabulation avant/après (43 aujourd'hui), et
+     0 débordement horizontal à 320 px.
 
 **Checklist côté Ruben (vrai iPhone)** :
 
 - [ ] Réinstaller la PWA / re-sauvegarder l'icône (une icône installée garde le
       `start_url` de son installation → la refaire pour qu'elle ouvre le **portail**,
       comme demandé le 2026-07-19).
-- [ ] Relever le **nom de la voix** affiché dans Réglages avancés → Prononciation.
+- [x] ~~Relever le **nom de la voix** affiché dans Réglages avancés → Prononciation.~~
+      **Fait le 19/07 : « Carmit »**, alors que Carmit Enhanced était installée. Dossier
+      instruit au point 3 — c'est une restriction de WebKit, pas un réglage manqué.
 - [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
 ## Fait (historique compact — détail dans les messages de commit)
@@ -446,17 +520,77 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - La révision du jour ignore le filtre Niveau ; un mot sans `data-niveau` reste visible
   quel que soit le filtre — et l'interface le dit.
 - API TTS externe rejetée pour la voix (le tout-statique hors-ligne prime).
+- **Les voix « Enhanced » sont hors de portée du web sur iOS** (mesuré et sourcé le
+  19/07) : WebKit ne publie que les voix compactes préinstallées. Ne plus proposer à
+  Ruben d'en installer une — ce n'est pas un réglage, c'est un plafond de plateforme.
+- **Le périmètre des exemples est arrêté** : après le lot Prépositions / Adverbes /
+  Mots interrogatifs (54 mots), la question est close. Nombres, Expressions, Saisons &
+  mois, Pronoms et Jours **n'auront pas d'exemples** — décision de Ruben du 19/07,
+  motif : ces mots-là se comprennent sans mise en situation.
 
-## Pistes de design ouvertes (mineures, non tranchées)
+## Pistes de design ouvertes — explorées le 19/07 au soir
 
-- **Deux « lampes » sur l'accueil de l'appli** : « Révision du jour » vs « Commencer ».
-  Piste recommandée si on y touche : emphase **selon l'état** (des cartes dues → la
-  révision est la lampe ; sinon Commencer). Raffinement, pas urgent. *Partiellement
-  adressé le 19/07* : « Révision du jour » a gagné la voix display, donc la hiérarchie
-  n'est plus une égalité — mais l'emphase reste **statique**, pas encore fonction de
-  `dueCards()`.
-- **« Facile » comme vrai contrat** : masquer les mots non classés quand un niveau est
-  coché ? Théorique — tout le carnet est classé (0 mot sans `data-niveau`).
+Les deux étaient notées en une ligne d'intention. Lecture du code faite, mesures prises ;
+voici ce qu'elles valent réellement.
+
+### A. Les deux « lampes » de l'accueil — **piste confirmée, et elle cache un défaut de charte**
+
+Le problème est réel et mesurable dans le CSS. Quand des cartes sont dues, **deux surfaces
+dorées coexistent** sur le même écran :
+
+- `.review-card` ([app.html:489](app.html#L489)) — bordure `--gold` pleine + dégradé d'or
+  135° (16 % → 5 %), icône et flèche en or ;
+- `.start` ([app.html:148](app.html#L148)) — dégradé d'or **plein** + lueur portée
+  `0 6px 18px -8px var(--gold)`.
+
+C'est exactement ce que la règle de la lampe interdit : deux lumières d'égale intensité,
+donc aucune hiérarchie. La voix display gagnée le 19/07 par « Révision du jour » a réglé la
+*typographie*, pas la *lumière*.
+
+**Forme proposée — une seule lampe à la fois, choisie par l'état** :
+`refreshSrsUi()` connaît déjà `due` ; il suffit qu'il pose un drapeau
+(`document.body.classList.toggle('has-due', due>0)`), et que le CSS fasse le reste :
+
+- `due > 0` → la révision garde l'or ; « Commencer » passe en **secondaire actif** ;
+- `due === 0` → la révision est déjà éteinte (elle est `:disabled`), « Commencer » reprend
+  l'or plein. Aucun changement dans ce cas.
+
+⚠️ **Le vrai risque, à ne pas sous-estimer** : le « Commencer » désactivé porte déjà
+`background:none; border-color:var(--line); color:var(--ink-dim)`. Un « Commencer »
+*secondaire mais actif* lui ressemblerait à s'y méprendre — seule la couleur du texte
+changerait. Il faut donc un troisième registre lisible (piste : filet `--card-edge` +
+texte `--ink` plein + bordure qui passe à l'or au survol), et **le vérifier à l'écran côte
+à côte avec l'état désactivé**, sinon on troque un défaut de hiérarchie contre un défaut
+d'affordance — ce qui serait pire.
+
+🔎 **Trouvé en explorant, à traiter avec** : `.review-card:disabled` porte `opacity:.55`
+([app.html:496](app.html#L496)) — or DESIGN.md §5 interdit désormais d'exprimer un état
+désactivé par une opacité, règle apprise en juillet sur ce même bouton « Commencer ». Ici
+le fond doré *est* bien remplacé par `--bg2`, donc le symptôme grave (l'or translucide)
+n'existe pas ; mais l'opacité fait aussi pâlir le texte et l'icône, qui restent en or. À
+remplacer par une peau pleine, comme `.start:disabled`.
+
+### B. « Facile » comme vrai contrat — **question périmée, mais elle en a révélé une vraie**
+
+La piste demandait s'il fallait masquer les mots non classés quand un niveau est coché.
+**Mesuré : la question ne se pose pas.** 213 `<li>` + 500 `<tr>` portent `data-niveau`,
+soit **713 sur 713 cartes** — couverture stricte à 100 %, aucun mot non classé. Changer la
+sémantique du filtre n'aurait donc *aucun effet observable* aujourd'hui.
+
+**En revanche l'exploration a mis au jour un vrai trou** : rien ne garantit que cette
+couverture tienne. `build.js` compte les niveaux et n'échoue que si un niveau **entier**
+disparaît (`EXPECTED_LEVELS`, [build.js:33](build.js#L33)) ; un mot ajouté **sans**
+`data-niveau` passe donc en silence — et il sera visible sous tous les filtres, y compris
+« Facile ». C'est précisément le scénario qui rendrait la piste A pertinente, sauf qu'on ne
+le verrait jamais venir.
+
+**➤ Action recommandée, à la place de la piste d'origine** : ajouter à `build.js` une
+**garde de couverture des niveaux**, sur le modèle exact de la règle de couverture des
+exemples déjà appliquée par `verifie_exemples.js` — si une carte sort de l'extraction sans
+`niveau`, le build échoue en nommant le mot. Court, sans effet visuel, et cela transforme
+une propriété qui n'est vraie que par chance en propriété tenue par l'outillage.
+La piste de design d'origine, elle, est **close** : le filtre garde sa sémantique actuelle
+(un mot non classé reste visible partout), qui est déjà une décision actée plus haut.
 
 ## Outillage (WSL, à recréer en début de session si besoin)
 

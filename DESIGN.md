@@ -289,6 +289,10 @@ Disposition israélienne en RTL, touches sur nuit claire avec lettres Frank Ruhl
 ### Carte de révision (composant signature)
 « Révision du jour » : la seule surface teintée d'or au repos (dégradé 135° d'or à 16 % → 5 %, bordure or). Elle a droit à cette exception parce qu'elle est *l'action* que le système veut encourager chaque jour.
 
+**Défaut connu, non corrigé (relevé le 2026-07-19)** : quand des cartes sont dues, cette carte **et** « Commencer » sont dorées en même temps — deux lumières d'égale intensité sur le même écran, donc aucune hiérarchie. C'est la règle de la lampe prise en défaut à l'échelle de l'écran, là où on l'a jusqu'ici appliquée composant par composant. La voix display gagnée par « Révision du jour » a réglé la *typographie*, pas la *lumière*. Correctif proposé et ses pièges : TODO.md, « Pistes de design ouvertes », piste A. Principe visé : **une seule lampe allumée à la fois, choisie par l'état** (des cartes dues → la révision ; sinon « Commencer »).
+
+Second défaut au même endroit : `.review-card:disabled` porte encore un `opacity:.55`, alors que la charte interdit désormais d'exprimer un état inerte par une opacité. Le cas est moins grave que celui de « Commencer » en juillet — le fond doré *est* remplacé par `--bg2`, donc pas d'or translucide — mais le texte et l'icône pâlissent au lieu de prendre une peau pleine.
+
 ## 6. Do's and Don'ts
 
 ### Do:
