@@ -1,7 +1,22 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Dernier acquis : le point 4 est soldé sauf la
-consolidation typographique** — les dix P2/P3 de charte du carnet traités d'un lot
+État au 2026-07-19, fin de journée. **Dernier acquis : le point 4 est ENTIÈREMENT soldé —
+la consolidation typographique est faite, et elle a mis au jour la cause de la dérive.**
+Le carnet passe de **24 tailles distinctes à une rampe de 8 pas nommés**, mais le vrai
+résultat est ailleurs : `font-size:22px` est posé sur **`body`**, jamais sur `html`, dans
+les trois fichiers — donc **1rem vaut 16px, pas 22px** (mesuré en WebKit). Le commentaire
+du carnet qui affirmait le contraire était faux depuis toujours, et c'est lui qui
+expliquait les 24 valeurs : chacune avait été poussée à tâtons contre une base qui ne
+réagissait pas comme annoncé. La prose grammaticale sortait ainsi à **15,2 px** et le nom
+français des sections à **11,2 px**. Corrigé avec la rampe : interlignage 1.55 sur `body`
+(le carnet n'en avait aucun, alors que le nikoud se compose *sous* la ligne), prose à 16 px,
+nom de section à 13,4 px en parchemin plein, et **152 hébreux de prose rendus au serif**
+(ils héritaient d'Assistant, contre la règle des trois voix *et* celle de la vedette).
+17 contrôles WebKit au vert, `flashcards_hebreu.html` **inchangé au octet**, 713 cartes et
+510 exemples intacts. **Périmètre arrêté avec Ruben** avant l'écriture : rampe + défauts
+mesurés, mais **pas** le bornage de la largeur de lecture (166 caractères par ligne en
+desktop) — reste ouvert, voir le point 8.
+**Acquis précédent** — les dix P2/P3 de charte du carnet traités d'un lot
 (`.tip` éteint, quatre micro-titres ad hoc ramenés à deux voix nommées, le voile noir
 des exemples remplacé par une vraie couche, piles de polices complétées, `.attention`
 extraite, anneau `:focus-visible` global, `theme-color`, tap-highlight, les deux
@@ -132,8 +147,14 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    Sources : [WebKit bug 203689](https://bugs.webkit.org/show_bug.cgi?id=203689) ·
    [Apple Developer Forums 723503](https://developer.apple.com/forums/thread/723503) ·
    [Readium — SpeechSynthesis in browsers and OSes](https://readium.org/speech/docs/WebSpeech.html)
-4. **Correctifs du carnet — les 4 P1, le bloc tactile ET tous les P2/P3 de charte sont
-   FAITS. Il ne reste que la consolidation typographique.**
+4. **[FAIT le 19/07 au soir] Correctifs du carnet — TOUT est soldé, consolidation
+   typographique comprise.** Détail en « Fait ». La rampe de 8 pas est en place, la
+   cause racine de la dérive est trouvée et documentée (le `22px` sur `body` ne
+   déplace pas la racine des rem), et la rampe est **fermée dans DESIGN.md §3**.
+   Ce qui suit est conservé comme contexte d'origine de l'audit.
+
+   *Ancien libellé : « les 4 P1, le bloc tactile ET tous les P2/P3 de charte sont
+   FAITS, il ne reste que la consolidation typographique. »*
    Appliqué le 19/07 (détail en « Fait ») : `lang="he"` à **100 %**, garde
    `prefers-reduced-motion` + `scroll-behavior:auto`, or ambiant de `.part` retiré,
    `--bg` tokenisé, cibles tactiles à 44 px, nom accessible du champ de recherche.
@@ -142,12 +163,11 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    `rgba(0,0,0,.14)` remplacé par une couche tonale, piles de fallback complétées,
    `.attention` extraite, anneau `:focus-visible` global, `theme-color`, tap-highlight,
    les 2 `transition:all`, `<main>`.
-   **Reste, et seulement cela : la consolidation typographique** (24 → 6–8 pas),
-   volontairement reportée — elle retouche l'apparence de tout le document et mérite
-   d'être vue avant/après. Le lot de charte en a déjà résorbé une partie en unifiant
-   les micro-titres : le détecteur est passé de **24 à 10 findings**, tous de la famille
-   rampe. Ces 10 sont donc **attendus, pas un oubli** — ils *sont* le chantier restant.
-   ⚠️ Ne pas poser d'`ignore` dessus : le capteur a raison, cf. l'analyse ci-dessous.
+   Puis, le soir même, **la consolidation typographique** (24 → **8 pas**), qui était le
+   dernier reliquat : les 10 findings de rampe qui restaient sont tombés à **0**, sans
+   aucun `ignore` — le capteur avait raison, comme annoncé. Il ne subsiste dans le carnet
+   qu'un finding `radius` (`mark.hl`, 3px, le surlignage de recherche), hors sujet
+   typographique et non traité.
 
    *Contexte d'origine de l'audit :*
    `/impeccable audit vocabulaire_hebreu.html` a tourné le 19/07 : **13/20**, 4 P1, 9 P2, 7 P3,
@@ -230,6 +250,22 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
      `<summary>`, contrôler que le nom accessible ne se dédouble pas.
    - Contrôle final : nombre d'arrêts de tabulation avant/après (43 aujourd'hui), et
      0 débordement horizontal à 320 px.
+
+8. **Largeur de lecture non bornée — dette ouverte, écartée du périmètre le 19/07.**
+   Relevé en mesurant pour le point 4, et **délibérément non traité** : Ruben a choisi
+   « rampe + défauts mesurés » sans le bornage. `grep max-width` ne trouve **qu'une**
+   occurrence dans tout le carnet (`.search-inner{max-width:560px}`) — ni `body`, ni
+   `<main>`, ni `.note` n'ont de largeur maximale. Mesuré en desktop 1280 : la prose
+   grammaticale court sur **158 caractères par ligne** (cible confortable 45–75), et les
+   rangées de table laissent ~1000 px de vide entre l'hébreu calé à droite et le français
+   calé à gauche. **Le mobile est épargné** (le viewport borne naturellement), ce qui
+   explique que le défaut n'ait jamais été vu : tous les contrôles visuels du projet se
+   font en iPhone 16 Pro émulé.
+   Travail : `main{max-width:~34rem; margin-inline:auto}`. ⚠️ Piège repéré en lisant le
+   code : les `.table-wrap` portent `min-width:640px` sur leur table et sont déjà dans un
+   défileur horizontal — il faut les autoriser à déborder de la colonne de texte, sinon on
+   déclenche un scroll horizontal sur des tables qui tenaient auparavant. C'est un
+   changement d'allure du document, à voir avant/après.
 
 **Checklist côté Ruben (vrai iPhone)** :
 
@@ -483,6 +519,66 @@ la plus courte que l'extraction n'a pas bougé. 713 cartes, 510 exemples, 2 aver
   par API renvoie encore `--line` et se lit à tort comme un défaut — la transition de 150 ms
   est **en vol**. Il faut attendre sa fin (ou cliquer pour de vrai) avant de conclure.
 
+Puis, le 2026-07-19 au soir — **la consolidation typographique du carnet, et la cause de
+la dérive** (dernier reliquat du point 4). `node build.js` répond **« flashcards_hebreu.html
+déjà à jour »** : le fichier autonome est **inchangé au octet**, 713 cartes, 510 exemples,
+2 avertissements (les deux légitimes). 17 contrôles WebKit au vert, 0 au rouge :
+
+- **[x] La cause racine, trouvée en mesurant avant d'écrire.** `font-size:22px` est posé
+  sur **`body`**, jamais sur `html` — dans les trois fichiers. Il ne déplace donc pas la
+  racine des `rem` : **1rem vaut 16px**, et le commentaire du carnet (« *base agrandie
+  (+12 %) — tout le reste est en rem/em et suit* ») était faux. **C'est lui qui expliquait
+  les 24 valeurs** : chacune avait été poussée à tâtons contre une base qui ne réagissait
+  pas comme annoncé. Ce n'était donc pas de la négligence, et c'est pourquoi il ne fallait
+  surtout pas se contenter de regrouper les valeurs. ⚠️ **Ne pas « corriger » en déplaçant
+  le 22px sur `html`** : ×1,375 sur chaque `rem` du carnet *et* d'`app.html`, dont les
+  tailles sont réglées sur ce qu'elles rendent vraiment. Le commentaire était faux, pas le CSS.
+- **[x] Rampe de 8 pas** dans un **second bloc `:root` local** (le premier reste le jeu de
+  jetons partagé, identique au caractère près) : `--pas-titre` 2.3rem … `--pas-micro`
+  0.7rem. **44 remplacements**, aucune taille littérale hors rampe. Exception unique et
+  nommée : `1.15em` sur l'hébreu de prose (« un cran au-dessus de ce qui m'entoure »),
+  qui produit 3 valeurs dérivées tombant d'elles-mêmes près des pas voisins.
+  Rampe **fermée dans DESIGN.md §3** (tableau + 4 entrées de frontmatter).
+- **[x] Trois défauts que seule la mesure révélait**, et que la rampe seule n'aurait pas
+  corrigés : (a) `body` n'avait **aucun `line-height`** et héritait de `normal` (~1,2),
+  trop serré pour du nikoud qui se compose **sous** la ligne de base — passé à `1.55`,
+  valeur que `.steps li` et `.tip p` avaient déjà choisie chacun de son côté sans qu'elle
+  remonte jamais à la racine ; (b) la prose grammaticale sortait à **15,2 px** (0.95rem
+  contre une base qu'on croyait à 22px) → 16 px ; (c) le **nom français de chaque section**
+  (`h2 .count`) sortait à **11,2 px en gris** — le seul repère de navigation d'un
+  francophone dans un document dont tous les titres sont en hébreu → 13,4 px, parchemin plein.
+- **[x] 152 hébreux de prose rendus au serif.** Sur les 204 `span[lang="he"]` **sans
+  classe** (les suites hébraïques enveloppées au milieu d'un paragraphe français, posées
+  par la passe a11y du matin), 152 vivent dans de la prose et héritaient d'**Assistant à
+  15,2 px** — soit exactement la taille et la famille du français qui les entoure. Deux
+  règles de charte tombaient d'un coup : les **trois voix** (« Frank Ruhl pour *tout*
+  l'hébreu ») et la **vedette** (« toujours plus grand que sa traduction »). Pire, à cette
+  échelle en sans, le nikoud devient illisible — or ces passages sont précisément ceux qui
+  l'enseignent. Réparé en **CSS pur**, sans toucher au HTML, via
+  `span[lang="he"]:not([class])` : le sélecteur ne peut pas atteindre `.he`, `.cursive`,
+  `.toc-he`, `.part-he` ni `.ex-he`, qui ont chacun leur voix. **`thead th` et `.tr` sont
+  explicitement exclus** — leurs voix déclarées (Title, mono) gardent la main sur leur
+  hébreu. Captures avant/après : le paragraphe des binyanim passe de blocs illisibles à
+  du nikoud net.
+- **[x] La règle de la vedette rendue visible** sur `.part` : `.part-name` (1.45rem) et
+  `.part-he` (1.5rem) n'étaient séparés que de **1,1 px**. L'intention était écrite mais
+  invisible. Les deux ont été **écartés d'un vrai pas** (compagnon / vedette) plutôt que
+  fusionnés — une hiérarchie qu'on ne voit pas n'est pas une hiérarchie.
+- **[x] Quatre `style=` inline supprimés** : les trois `font-size:1.2rem` des binyanim
+  (ils compensaient à la main un `1.15em` jugé trop faible — la rampe absorbe le besoin)
+  et le sous-titre du `<h1>`, extrait en `.h1-sub`.
+- **Vérifié en WebKit réel** (desktop 1280 + iPhone 16 Pro), 17 contrôles : 12 tailles
+  rendues = 9 pas + 3 dérivées `em`, **0 intruse** ; interlignage 1.55 hérité ; **0 échec
+  de contraste sur 42 paires notées** (pire 6,28:1) ; recherche intacte (« fourmi » → 1,
+  « אולפן » → 2, « maison » → 16) ; **23 focusables déclarés, 22 arrêts, 0 sans anneau
+  d'or** ; 0 débordement de 320 à 1280 px ; **0 cible tactile sous 44 px** ; 0 erreur JS.
+  ⚠️ *Deux pièges de mesure payés en route, à retenir* : (1) un contrôle de contraste dont
+  la regex était `[\d.]` mal échappé **notait zéro paire** et affichait un vert — un
+  contrôle qui ne mesure rien passe toujours ; vérifier qu'il annonce le **nombre de paires
+  réellement notées**. (2) `#voc-search-clear` n'existe que si le champ est rempli : le
+  compter comme un arrêt de tabulation fabrique un faux défaut (il n'est jamais focalisé,
+  donc rend l'anneau UA). C'est le « 1 masqué » déjà documenté le matin.
+
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
 - Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
@@ -523,6 +619,18 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - **Les voix « Enhanced » sont hors de portée du web sur iOS** (mesuré et sourcé le
   19/07) : WebKit ne publie que les voix compactes préinstallées. Ne plus proposer à
   Ruben d'en installer une — ce n'est pas un réglage, c'est un plafond de plateforme.
+- **`font-size:22px` est sur `body`, pas sur `html` — donc 1rem vaut 16px**, dans les
+  trois fichiers. Mesuré le 19/07. Ne pas « réparer » en déplaçant la déclaration sur
+  `html` : ×1,375 sur chaque `rem` du carnet *et* d'`app.html`, dont les tailles sont
+  réglées sur leur rendu réel. Le commentaire qui prétendait l'inverse était faux ; il
+  a été corrigé, et c'est lui qui expliquait la dérive des 24 tailles.
+- **Le carnet a sa propre rampe de 8 pas**, dans un **second** bloc `:root` local — le
+  premier reste le jeu de jetons partagé, identique au caractère près entre les trois
+  fichiers. Aucune taille littérale hors rampe ; seule exception nommée, le `1.15em` de
+  l'hébreu en prose, relatif par nature.
+- **Tout hébreu se compose en Frank Ruhl**, y compris celui inséré au milieu d'un
+  paragraphe français (`span[lang="he"]:not([class])`). Deux voix déclarées gardent la
+  main sur le leur et sont explicitement exclues : `thead th` (voix Title) et `.tr` (mono).
 - **Le périmètre des exemples est arrêté** : après le lot Prépositions / Adverbes /
   Mots interrogatifs (54 mots), la question est close. Nombres, Expressions, Saisons &
   mois, Pronoms et Jours **n'auront pas d'exemples** — décision de Ruben du 19/07,

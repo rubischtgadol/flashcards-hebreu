@@ -95,6 +95,20 @@ typography:
   legende:
     fontFamily: "Assistant, Arial Hebrew, Helvetica Neue, Arial, sans-serif"
     fontSize: "0.76rem"
+  carnet-titre:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "2.3rem"
+    fontWeight: 700
+  carnet-vedette:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "1.6rem"
+  carnet-compagnon:
+    fontFamily: "Frank Ruhl Libre, David Libre, Times New Roman, serif"
+    fontSize: "1.45rem"
+  carnet-micro:
+    fontFamily: "JetBrains Mono, Courier New, monospace"
+    fontSize: "0.7rem"
+    letterSpacing: "0.14em"
 rounded:
   kbd: "4px"
   touche: "9px"
@@ -229,6 +243,29 @@ Une nuit bleutée en quatre couches tonales, éclairée par un or ancien et lue 
 **La règle des trois voix.** Frank Ruhl Libre pour l'hébreu et les grands mots, Assistant pour l'outil, JetBrains Mono pour la translittération. Aucune quatrième famille, jamais de sérif dans les boutons.
 
 **La règle de la vedette.** À l'écran, l'hébreu est toujours plus grand que sa traduction et que tout élément d'interface. Si un contrôle rivalise visuellement avec le mot hébreu, le contrôle a tort.
+
+**La rampe du carnet, et le socle qu'elle corrige (2026-07-19).** `vocabulaire_hebreu.html` déclarait **24 tailles distinctes pour 52 déclarations** (`1.12rem`, `0.92rem`, `0.82rem`, `1.35rem`…). Ce n'était pas de la négligence : c'était le symptôme d'un socle mal compris, et il faut connaître la cause avant de toucher aux valeurs.
+
+⚠️ **`font-size:22px` est posé sur `body`, jamais sur `html` — dans les trois fichiers.** Il ne déplace donc **pas** la racine des `rem` : **1rem vaut 16px**, mesuré en WebKit. Le commentaire du carnet qui affirmait « tout le reste est en rem/em et suit » était faux, et c'est lui qui expliquait la dérive — chaque valeur avait été poussée un peu plus haut, à tâtons, contre une base qui ne réagissait pas comme annoncé. Seul le texte qui ne déclare **rien** hérite réellement des 22px (`.steps li`, `.tip p`, la prose nue).
+
+**Ne pas « corriger » en déplaçant le 22px sur `html`** : cela multiplierait chaque `rem` par 1,375 ici *comme dans `app.html`*, dont les tailles sont réglées sur ce qu'elles rendent vraiment et validées par plusieurs critiques. C'est le commentaire qui était faux, pas le CSS.
+
+La rampe du carnet vit donc dans un **second bloc `:root`, local au fichier** — le premier reste le jeu de jetons partagé, identique au caractère près entre les trois fichiers (§6). Huit pas, resserrés en haut parce que l'hébreu demande une gradation fine, plus ouverts en bas :
+
+| Jeton | Valeur | Rendu | Rôle |
+|---|---|---|---|
+| `--pas-titre` | 2.3rem | 36,8px | titre de page |
+| `--pas-vedette` | 1.6rem | 25,6px | hébreu vedette, titres de section |
+| `--pas-compagnon` | 1.45rem | 23,2px | cursive, français de partie |
+| `--pas-hebreu-2` | 1.3rem | 20,8px | hébreu secondaire (exemples) |
+| `--pas-glose` | 1.15rem | 18,4px | français attaché à un mot, titres de bloc |
+| `--pas-corps` | 1rem | 16px | prose, interface, translittération |
+| `--pas-petite` | 0.84rem | 13,4px | légendes, voix Title, translittération d'exemple |
+| `--pas-micro` | 0.7rem | 11,2px | voix Repère-mono |
+
+**Aucune taille littérale hors de cette rampe.** Exception unique et nommée : l'hébreu inséré dans la prose française garde un `em` (`1.15em`), parce que son rôle est « un cran au-dessus de ce qui m'entoure » quel que soit le contexte — un pas absolu le casserait. Il produit trois valeurs dérivées (25,3 / 21,2 / 15,5px) qui tombent d'elles-mêmes près des pas voisins.
+
+*Deux corollaires appris en mesurant, le même jour* : (a) le carnet n'avait **aucun `line-height`** et héritait de `normal` (~1,2) — trop serré pour du nikoud, qui se compose **sous** la ligne de base ; `1.55` est passé sur `body`, valeur que `.steps li` et `.tip p` avaient déjà choisie chacun de son côté sans qu'elle remonte jamais à la racine. (b) `.part-name` (1.45rem) et `.part-he` (1.5rem) n'étaient séparés que de **1,1 px** : l'intention — la règle de la vedette — était écrite mais invisible. Les deux ont été **écartés d'un vrai pas** plutôt que fusionnés. Une hiérarchie qu'on ne voit pas n'est pas une hiérarchie.
 
 ## 4. Elevation
 

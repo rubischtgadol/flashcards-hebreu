@@ -15,6 +15,36 @@
     --ink:#ece7dd; --ink-dim:#9aa3ac; --gold:#d4a24c; --gold-soft:#e6c68a;
     --green:#5bbd7a; --red:#d96a5b; --line:#2a3440;
   }
+  /* --- Rampe typographique — LOCALE AU CARNET --------------------------------
+     Volontairement hors du bloc ci-dessus : celui-là est le jeu de jetons
+     partagé, qui doit rester identique au caractère près entre les trois
+     fichiers (DESIGN.md §6). Cette rampe-ci ne décrit que ce document.
+
+     ⚠️ 1rem vaut 16px, PAS 22px. Le `font-size:22px` de `body` ne déplace pas
+     la racine des rem — il faudrait le poser sur `html` — si bien que toute
+     règle déclarant une taille en rem retombe sur l'échelle par défaut du
+     navigateur. Mesuré en WebKit le 2026-07-19 ; le commentaire qui affirmait
+     l'inverse était faux, et c'est lui qui expliquait la dérive : les 24 valeurs
+     distinctes de ce fichier étaient des retouches successives contre un socle
+     mal compris. Les px en regard sont donc les tailles réellement rendues.
+     Ne pas « corriger » en déplaçant le 22px sur html : cela multiplierait
+     chaque rem par 1,375 ici comme dans app.html, dont les tailles sont réglées
+     sur ce qu'elles rendent vraiment.
+
+     Huit pas, resserrés en haut (l'hébreu demande une gradation fine) et plus
+     ouverts en bas. Aucune taille littérale ne doit subsister hors de cette
+     rampe — les deux `em` de la prose sont la seule exception, et elles sont
+     relatives par nature (voir « un cran au-dessus de ce qui m'entoure »). */
+  :root{
+    --pas-titre:2.3rem;      /* 36.8px — titre de page                           */
+    --pas-vedette:1.6rem;    /* 25.6px — hébreu vedette, titres de section       */
+    --pas-compagnon:1.45rem; /* 23.2px — cursive, français de partie             */
+    --pas-hebreu-2:1.3rem;   /* 20.8px — hébreu secondaire (exemples)            */
+    --pas-glose:1.15rem;     /* 18.4px — français attaché à un mot, titres de bloc */
+    --pas-corps:1rem;        /* 16px   — prose, interface, translittération      */
+    --pas-petite:0.84rem;    /* 13.4px — légendes, voix Title, translit. d'exemple */
+    --pas-micro:0.7rem;      /* 11.2px — voix Repère-mono                        */
+  }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   /* Anneau de focus doré, idiome commun aux trois fichiers (app.html est la référence).
      Jamais de border-radius ici : il ne décorerait pas l'anneau, il redessinerait
@@ -26,7 +56,16 @@
     background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%) fixed;
     color:var(--ink);
     font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
-    font-size:22px;   /* base agrandie (+12% vs 16px par défaut) — tout le reste est en rem/em et suit */
+    /* Base du texte qui ne déclare rien (prose nue, .steps li, .tip p).
+       ⚠️ Ne déplace PAS la racine des rem : posé sur body, il ne vaut que par
+       héritage — voir la rampe ci-dessus. */
+    font-size:22px;
+    /* Interlignage du corps : le carnet n'en avait aucun et héritait de `normal`
+       (~1,2), trop serré pour du nikoud, dont les points se composent SOUS la
+       ligne de base. 1.55 est la valeur que .steps li et .tip p avaient déjà
+       choisie chacun de leur côté — l'intention existait, elle n'avait jamais
+       été portée à la racine. */
+    line-height:1.55;
     padding:28px 18px 60px;
   }
   header{
@@ -36,19 +75,22 @@
   }
   h1{
     font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-    font-size:2.3rem;
+    font-size:var(--pas-titre);
     font-weight:700;
     margin:0 0 4px;
     color:var(--ink);
   }
+  /* Le français qui accompagne l'hébreu du titre — troisième composant qui
+     s'ignorait, jusqu'ici un `style=` inline dans le <h1>. */
+  .h1-sub{ color:var(--ink-dim); font-size:var(--pas-corps); }
   .subtitle{
     color:var(--ink-dim);
-    font-size:1rem;
+    font-size:var(--pas-corps);
     letter-spacing:0.02em;
   }
   h2{
     font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-    font-size:1.55rem;
+    font-size:var(--pas-vedette);
     font-weight:500;
     color:var(--gold);
     margin:38px 0 4px;
@@ -58,8 +100,8 @@
   }
   h2 .count{
     font-family:'JetBrains Mono','Courier New',monospace;
-    font-size:0.7rem;
-    color:var(--ink-dim);
+    font-size:var(--pas-petite);
+    color:var(--ink);
     font-weight:400;
   }
   /* Filet fondu après le titre — purement décoratif */
@@ -69,7 +111,7 @@
   }
   .note{
     color:var(--ink-dim);
-    font-size:0.95rem;
+    font-size:var(--pas-corps);
     margin-bottom:16px;
   }
   /* --- Tableau verbes, vrai RTL --- */
@@ -102,13 +144,13 @@
      déclare au cas par cas ci-dessous. */
   thead th, .subtheme{
     font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
-    font-size:0.84rem; font-weight:700;
+    font-size:var(--pas-petite); font-weight:700;
     text-transform:uppercase; letter-spacing:0.12em;
     color:var(--gold);
   }
   .toc-group-label, .part .part-num{
     font-family:'JetBrains Mono','Courier New',monospace;
-    font-size:0.7rem; font-weight:400;
+    font-size:var(--pas-micro); font-weight:400;
     text-transform:uppercase; letter-spacing:0.14em;
   }
   thead th{ background:var(--card); }
@@ -117,20 +159,45 @@
   tbody tr:hover{ background:rgba(212,162,76,0.06); }
   .he{
     font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-    font-size:1.6rem;
+    font-size:var(--pas-vedette);
+  }
+  /* --- L'hébreu inséré dans la prose française -------------------------------
+     La passe a11y du 2026-07-19 a posé `lang="he"` sur 100 % des nœuds hébreux,
+     mais 204 d'entre eux n'ont AUCUNE classe : ce sont les suites hébraïques
+     enveloppées au milieu d'un paragraphe français (notes, gloses, en-têtes de
+     conjugaison). Faute de classe, ils héritaient d'Assistant — mesuré à 15,2px
+     en sans-serif, soit exactement la taille du français qui les entoure. Deux
+     règles de charte tombaient d'un coup : la règle des trois voix (« Frank Ruhl
+     pour TOUT l'hébreu ») et la règle de la vedette (« l'hébreu est toujours
+     plus grand que sa traduction »). Et à cette échelle, en sans, le nikoud
+     devient illisible — or ces passages sont précisément ceux qui l'enseignent.
+     Le sélecteur cible les spans nus : il ne peut pas atteindre .he, .cursive,
+     .toc-he, .part-he ni .ex-he, qui ont chacun leur voix déclarée. */
+  span[lang="he"]:not([class]){
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  }
+  /* Deux voix gardent délibérément la main sur leur hébreu : la voix Title des
+     en-têtes de colonnes, et la mono des translittérations. */
+  thead th span[lang="he"]:not([class]),
+  .tr span[lang="he"]:not([class]){ font-family:inherit; }
+  /* Un cran au-dessus de ce qui l'entoure — même idiome relatif que .note .he,
+     et volontairement en `em` : le rôle est « plus grand que mon contexte »,
+     quel qu'il soit. Hors titres, qui portent déjà leur propre taille. */
+  :is(.note, .ex-gloss, .ex-title, .steps li, .fr, .ex-fr) span[lang="he"]:not([class]){
+    font-size:1.15em;
   }
   .cursive{
     display:block;
     font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive;
     font-weight:300;
-    font-size:1.45rem;
+    font-size:var(--pas-compagnon);
     color:var(--gold);
     margin-top:2px;
   }
   .tr{
     display:block;
     font-family:'JetBrains Mono','Courier New',monospace;
-    font-size:1rem;
+    font-size:var(--pas-corps);
     color:var(--ink-dim);
     margin-top:3px;
     direction:ltr;
@@ -138,15 +205,15 @@
   td:first-child{
     text-align:right;
     color:var(--ink-dim);
-    font-size:1.15rem;
+    font-size:var(--pas-glose);
   }
-  td:first-child .he{ color:var(--ink); font-size:1.55rem; }
-  td:first-child .cursive{ font-size:1.4rem; }
+  td:first-child .he{ color:var(--ink); font-size:var(--pas-vedette); }
+  td:first-child .cursive{ font-size:var(--pas-compagnon); }
   td:first-child .fr{
     display:block;
     font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
     color:var(--ink-dim);
-    font-size:1.15rem;
+    font-size:var(--pas-glose);
     margin-top:3px;
   }
 
@@ -174,8 +241,8 @@
     flex-direction:column;
     align-items:flex-end;
   }
-  .word-list .he{ font-size:1.6rem; }
-  .word-list .cursive{ font-size:1.45rem; margin-top:1px; }
+  .word-list .he{ font-size:var(--pas-vedette); }
+  .word-list .cursive{ font-size:var(--pas-compagnon); margin-top:1px; }
   .word-list .meta{
     direction:ltr;
     text-align:right;
@@ -185,7 +252,7 @@
   }
   .word-list .fr{
     font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
-    font-size:1.12rem;
+    font-size:var(--pas-glose);
     color:var(--ink-dim);
   }
 
@@ -203,17 +270,17 @@
   }
   /* Neutralise le survol doré de la rangée parente sur les exemples. */
   .word-list .exemples li:hover, .exemples li:hover{ background:var(--card); }
-  td:first-child .exemples .he, .word-list .exemples .he{ font-size:1.3rem; color:var(--ink); }
-  .exemples .tr{ font-size:.88rem; margin-top:1px; text-align:right; }
+  td:first-child .exemples .he, .word-list .exemples .he{ font-size:var(--pas-hebreu-2); color:var(--ink); }
+  .exemples .tr{ font-size:var(--pas-petite); margin-top:1px; text-align:right; }
   td:first-child .exemples .fr, .word-list .exemples .fr{
-    display:block; font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:1rem;
+    display:block; font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:var(--pas-corps);
     color:var(--ink-dim); direction:ltr; text-align:right; margin-top:1px;
   }
   /* Le pointillé ne dit plus qu'une chose : « rien ici ». */
   .empty{
     color:var(--ink-dim);
     font-style:italic;
-    font-size:0.85rem;
+    font-size:var(--pas-petite);
     padding:14px 16px;
     border:1px dashed var(--line);
     border-radius:10px;
@@ -229,7 +296,7 @@
      Second composant qui s'ignorait : 5 duplications d'un même style inline,
      que l'audit du 2026-07-19 n'avait pas relevées. */
   .gram-title{
-    color:var(--gold); font-size:1.05rem; margin:26px 0 6px;
+    color:var(--gold); font-size:var(--pas-glose); margin:26px 0 6px;
     font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
   }
 
@@ -248,7 +315,7 @@
   .search-ico{ position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-dim); pointer-events:none; }
   #voc-search{
     width:100%; box-sizing:border-box; border-radius:12px; border:1px solid var(--line);
-    background:var(--card); color:var(--ink); font-family:inherit; font-size:1rem;
+    background:var(--card); color:var(--ink); font-family:inherit; font-size:var(--pas-corps);
     padding:12px 42px 12px 42px; transition:border-color .15s ease;
   }
   /* Bordure or au focus, pas de glow (DESIGN.md §5) — et plus d'`outline:none` :
@@ -257,9 +324,9 @@
   .search-clear{
     position:absolute; right:10px; top:50%; transform:translateY(-50%);
     width:28px; height:28px; border-radius:50%; border:none; background:transparent;
-    color:var(--ink-dim); font-size:1.4rem; line-height:1; cursor:pointer;
+    color:var(--ink-dim); font-size:var(--pas-compagnon); line-height:1; cursor:pointer;
   }
-  .search-count{ display:block; margin-top:8px; font-size:0.8rem; color:var(--ink-dim); min-height:1em; }
+  .search-count{ display:block; margin-top:8px; font-size:var(--pas-petite); color:var(--ink-dim); min-height:1em; }
   /* Filtering: hide non-matching entries and emptied sections */
   .search-hidden{ display:none !important; }
   mark.hl{ background:rgba(212,162,76,.28); color:var(--ink); border-radius:3px; padding:0 1px; }
@@ -275,17 +342,17 @@
     content:counter(step); position:absolute; left:0; top:0;
     width:26px; height:26px; border-radius:50%;
     background:var(--gold); color:#1a1206; font-family:'JetBrains Mono','Courier New',monospace;
-    font-size:0.8rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+    font-size:var(--pas-petite); font-weight:700; display:flex; align-items:center; justify-content:center;
   }
   .example{
     background:var(--card); border:1px solid var(--line);
     border-radius:10px; padding:12px 16px; margin:10px 0;
   }
-  .example .ex-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.35rem; direction:rtl; }
-  .example .ex-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:0.88rem; color:var(--ink-dim); margin-top:2px; }
-  .example .ex-fr{ font-size:1rem; color:var(--ink); margin-top:4px; }
-  .example .ex-gloss{ font-size:0.88rem; color:var(--ink-dim); margin-top:6px; font-style:italic; }
-  .ex-title{ color:var(--gold); font-size:0.9rem; font-weight:600; margin:16px 0 4px; }
+  .example .ex-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:var(--pas-hebreu-2); direction:rtl; }
+  .example .ex-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:var(--pas-petite); color:var(--ink-dim); margin-top:2px; }
+  .example .ex-fr{ font-size:var(--pas-corps); color:var(--ink); margin-top:4px; }
+  .example .ex-gloss{ font-size:var(--pas-petite); color:var(--ink-dim); margin-top:6px; font-style:italic; }
+  .ex-title{ color:var(--gold); font-size:var(--pas-petite); font-weight:600; margin:16px 0 4px; }
   /* Encadré astuce / point-clé — même arbitrage que `.part` le 2026-07-19 :
      le test de la lampe demande « action, sélection ou identité ? ». Un encadré
      pédagogique n'est aucun des trois, donc pas d'or ambiant. L'or ne subsiste
@@ -297,17 +364,17 @@
   }
   .tip-title{
     display:flex; align-items:center; gap:8px;
-    color:var(--gold); font-weight:700; font-size:0.95rem; margin-bottom:8px;
+    color:var(--gold); font-weight:700; font-size:var(--pas-corps); margin-bottom:8px;
   }
   .tip p{ margin:6px 0; line-height:1.55; color:var(--ink); }
-  .tip .he{ font-size:1.1em; }
+  .tip .he{ font-size:1.15em; }
 
   /* ---------- Sommaire (table des matières) ---------- */
   .app-link{
     display:inline-block; margin-top:14px;
     text-decoration:none; color:var(--gold);
     background:var(--card); border:1px solid var(--gold); border-radius:999px;
-    padding:8px 18px; font-size:0.95rem; font-weight:600;
+    padding:8px 18px; font-size:var(--pas-corps); font-weight:600;
     /* Jamais `transition:all` : le raccourci capture les longhands outline-* et
        WebKit fige alors l'anneau de focus sur les valeurs UA (DESIGN.md §6). */
     transition:background .15s ease, color .15s ease;
@@ -319,7 +386,7 @@
   }
   .toc-title{
     font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; color:var(--gold);
-    font-size:1.1rem; font-weight:600; margin:0 0 12px;
+    font-size:var(--pas-glose); font-weight:600; margin:0 0 12px;
     display:flex; align-items:center; gap:8px;
   }
   .toc-group{ margin-bottom:14px; }
@@ -330,11 +397,11 @@
     display:inline-flex; align-items:baseline; gap:7px;
     text-decoration:none; color:var(--ink);
     background:var(--bg); border:1px solid var(--line); border-radius:999px;
-    padding:6px 13px; font-size:0.95rem;
+    padding:6px 13px; font-size:var(--pas-corps);
     transition:border-color .13s ease, color .13s ease;
   }
   .toc-links a:hover{ border-color:var(--gold); color:var(--gold); }
-  .toc-links a .toc-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.05rem; color:var(--gold); }
+  .toc-links a .toc-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:var(--pas-glose); color:var(--gold); }
   html{ scroll-behavior:smooth; }
   :target{ scroll-margin-top:80px; }
 
@@ -363,10 +430,10 @@
   }
   .part .part-num{ display:block; color:var(--gold); margin-bottom:4px; }
   .part .part-name{
-    display:block; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.45rem; color:var(--ink);
+    display:block; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:var(--pas-compagnon); color:var(--ink);
   }
-  .part .part-name .part-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; color:var(--gold); font-size:1.5rem; }
-  .part .part-sub{ display:block; color:var(--ink-dim); font-size:0.85rem; margin-top:3px; }
+  .part .part-name .part-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; color:var(--gold); font-size:var(--pas-vedette); }
+  .part .part-sub{ display:block; color:var(--ink-dim); font-size:var(--pas-petite); margin-top:3px; }
   /* Filet plein, non pointillé : le pointillé ne dit plus qu'une chose dans ce
      carnet — « rien ici » (.empty). Voir la note de .attention. */
   .subtheme{ margin:26px 0 8px; padding-bottom:5px; border-bottom:1px solid var(--line); }
@@ -375,7 +442,7 @@
 <body>
 
 <header>
-  <h1><span lang="he">אוֹצַר מִלִּים</span> <span style="color:var(--ink-dim);font-size:1rem;">— Vocabulaire Hébreu</span></h1>
+  <h1><span lang="he">אוֹצַר מִלִּים</span> <span class="h1-sub">— Vocabulaire Hébreu</span></h1>
   <div class="subtitle">Grammaire et vocabulaire de base de l'hébreu moderne</div>
   <a class="app-link" id="app-link" href="./app.html">🎴 S'entraîner avec les flashcards &#8599;</a>
 </header>
@@ -828,9 +895,9 @@
 </div>
 <div class="note">
   Exemple avec la racine <span lang="he">כ־ת־ב</span> (« écrire ») dans 3 patrons différents :<br><br>
-  <span class="he" lang="he" style="font-size:1.2rem;">כָּתַב</span> (katav) — a écrit (<span lang="he">פָּעַל</span>, actif simple ; déjà rencontré : <span lang="he">לִכְתֹּב</span>)<br>
-  <span class="he" lang="he" style="font-size:1.2rem;">נִכְתַּב</span> (nichtav) — a été écrit (<span lang="he">נִפְעַל</span>, passif)<br>
-  <span class="he" lang="he" style="font-size:1.2rem;">הִכְתִּיב</span> (hichtiv) — a dicté (<span lang="he">הִפְעִיל</span>, causatif : littéralement "a fait écrire")<br><br>
+  <span class="he" lang="he">כָּתַב</span> (katav) — a écrit (<span lang="he">פָּעַל</span>, actif simple ; déjà rencontré : <span lang="he">לִכְתֹּב</span>)<br>
+  <span class="he" lang="he">נִכְתַּב</span> (nichtav) — a été écrit (<span lang="he">נִפְעַל</span>, passif)<br>
+  <span class="he" lang="he">הִכְתִּיב</span> (hichtiv) — a dicté (<span lang="he">הִפְעִיל</span>, causatif : littéralement "a fait écrire")<br><br>
   Reconnaître le patron d'un verbe permet souvent de deviner ses voyelles même sans nikud.
 </div>
 

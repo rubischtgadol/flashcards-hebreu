@@ -96,7 +96,24 @@ décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 
 ### Conventions visuelles propres au carnet (2026-07-19)
 
-Trois règles nées de la passe de charte, à ne pas défaire par inadvertance :
+Cinq règles nées des passes de charte et de typographie, à ne pas défaire par inadvertance :
+
+- **La rampe de 8 pas, et le socle qu'elle corrige.** ⚠️ `font-size:22px` est posé sur
+  **`body`**, jamais sur `html` — dans les trois fichiers — donc **1rem vaut 16px**, pas
+  22px (mesuré en WebKit le 19/07). Le commentaire qui affirmait « tout le reste est en
+  rem/em et suit » était faux, et c'est ce malentendu qui avait produit 24 tailles
+  distinctes : chacune poussée à tâtons contre une base inerte. Le carnet porte désormais
+  une rampe de 8 pas (`--pas-titre` … `--pas-micro`) dans un **second** bloc `:root`, local
+  au fichier — le premier reste le jeu de jetons partagé, identique au caractère près.
+  Aucune taille littérale hors rampe ; seule exception nommée, le `1.15em` de l'hébreu en
+  prose, relatif par nature. **Ne pas déplacer le 22px sur `html`** pour « réparer » :
+  ×1,375 sur chaque `rem` d'ici *et* d'`app.html`. Détail : DESIGN.md §3.
+- **Tout hébreu se compose en Frank Ruhl**, y compris les 152 suites insérées au milieu
+  d'un paragraphe français, atteintes par `span[lang="he"]:not([class])` (serif + 1,15em).
+  Elles héritaient d'Assistant, ce qui violait la règle des trois voix *et* celle de la
+  vedette, et rendait le nikoud illisible dans les passages qui l'enseignent. Deux voix
+  déclarées sont **explicitement exclues** et gardent la main sur leur hébreu : `thead th`
+  (voix Title) et `.tr` (mono).
 
 - **Deux voix de micro-titre, pas quatre.** `thead th, .subtheme` portent la voix Title
   (Assistant 700 / 0,84rem / 0,12em / or) ; `.toc-group-label, .part .part-num` portent la voix
