@@ -1,10 +1,13 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Dernier acquis : critique impeccable du portail et
-de l'app (30/40), P0 et P2 corrigés et vérifiés en WebKit** — le bouton « Commencer »
-désactivé ne recouvre plus les chips, les dix cibles tactiles sous 44 px sont soldées,
-« Révision du jour » sort de la voix Title, la copie du verdict raté est réécrite
-(détail en « Fait »). Snapshot : `.impeccable/critique/2026-07-19T09-14-04Z__app-html.md`
+État au 2026-07-19, fin de journée. **Dernier acquis : l'anneau de focus doré rendu à tout
+l'interactif de l'app** — cause racine trouvée (`transition:all` fige les `outline-*`, et
+non la piste `-webkit-appearance` qui est réfutée), six règles corrigées, 58 arrêts de
+tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). Avant cela : **critique
+impeccable du portail et de l'app (30/40), P0 et P2 corrigés et vérifiés en WebKit** — le
+bouton « Commencer » désactivé ne recouvre plus les chips, les dix cibles tactiles sous
+44 px sont soldées, « Révision du jour » sort de la voix Title, la copie du verdict raté
+est réécrite. Snapshot : `.impeccable/critique/2026-07-19T09-14-04Z__app-html.md`
 (nouveau slug `app-html` — les anciens `index-html` critiquaient l'app quand elle vivait
 à la racine ; la tendance repart de 30, ce n'est pas une régression).
 
@@ -61,24 +64,18 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    toute retouche visuelle qui en sortirait doit se répercuter sur `app.html` et le portail,
    et passer par `node build.js` (le carnet est la source des cartes — attention au couplage
    d'extraction, CLAUDE.md § extraction).
-5. **Anneau de focus doré absent des chips** (P2 de la critique du 19/07, **non corrigé
-   volontairement**) : `app.html` ne déclare qu'une seule règle d'`outline`
-   (`:focus-visible` → 2 px or, offset 2), mais mesuré pendant une vraie tabulation
-   WebKit, les 40+ `.chip` et les boutons du mode Cartes (`#btn-flip`/`#btn-good`/`#btn-again`)
-   rendent `3px solid currentColor` offset 0 — l'anneau UA de WebKit — alors qu'ils
-   *matchent* bien `:focus-visible`. Sur une chip sélectionnée, `currentColor` vaut
-   `#1a1206` : sombre sur sombre (1,04:1 contre le fond de page), collé au bord. Le focus
-   reste **toujours visible** (ce n'est pas une régression d'accessibilité), mais ce n'est
-   pas l'anneau prévu, et sur iPhone c'est le cas majoritaire. **Le symptôme est mesuré,
-   le mécanisme de cascade ne l'est pas** (corrélé à `-webkit-appearance:auto` + absence de
-   `background-image`, causalité non prouvée) : à investiguer avant de corriger, pas de
-   correctif à l'aveugle.
-6. **`.door{border-radius:18px}` dans le portail** ([index.html:122](index.html#L122)) :
+   **Deux points relevés au passage le 19/07** (en enquêtant sur l'anneau de focus, hors
+   périmètre d'alors, donc non corrigés) : le carnet **ne déclare aucune règle
+   `:focus-visible`** — l'anneau d'or de la charte s'arrête à `app.html` et au portail, le
+   carnet laisse l'anneau UA du navigateur ; et [vocabulaire_hebreu.html:209](vocabulaire_hebreu.html#L209)
+   porte un **`outline:none` nu** sur le champ de recherche, exactement ce que les invariants
+   d'accessibilité interdisent ailleurs. À trancher pendant l'audit.
+5. **`.door{border-radius:18px}` dans le portail** ([index.html:122](index.html#L122)) :
    ni `panneau:16px` ni `carte:20px` — les deux seuls jetons du barème `rounded` qui
    s'appliquent à une porte. Seul finding du détecteur réellement actionnable sur les
    fichiers en périmètre (`app.html` en compte **0**). Un caractère, laissé hors du
    périmètre validé le 19/07.
-7. **Densité de l'écran de configuration — option restée ouverte.** La critique posait un
+6. **Densité de l'écran de configuration — option restée ouverte.** La critique posait un
    P1 (1633 px pour 681 px de viewport, 10 `<h2>` de poids identique, 43 focusables, un
    point de décision à 17 chips). Ruben a choisi **la typographie seule** : « Révision du
    jour » sort de la voix Title, aucun contrôle déplacé. **La restructuration reste
@@ -189,6 +186,29 @@ WebKit réel iPhone 16 Pro, 17 états capturés :
   derrière une transition qui ne se déclenche pas ; 39 arrêts de tabulation, 0 piège,
   ordre = ordre visuel ; les deux portes du portail sont **bien identiques au repos**
   (l'or observé au premier passage n'était qu'un `:hover` retenu par le curseur de test).
+
+Puis, le 2026-07-19 — **l'anneau de focus doré rendu à tout l'interactif** (ex-point 5,
+qui n'attendait qu'un mécanisme prouvé) :
+
+- **[x] Cause racine trouvée, et ce n'était pas la piste notée.** La corrélation supposée
+  (`-webkit-appearance:auto` + absence de `background-image`) est **réfutée par la mesure** :
+  `#selall` est un `<button>` qui a exactement ces deux propriétés et rend l'or. Le vrai
+  coupable est **`transition:all`** : le raccourci capture les sous-propriétés `outline-*`,
+  et WebKit les fige à leurs valeurs initiales — `medium` (=3 px), `currentColor`, offset 0,
+  soit *précisément* l'« anneau UA » observé. Ce n'était donc jamais une affaire de cascade :
+  les règles gagnaient bien, c'est l'animation qui n'arrivait pas à destination. Preuve par
+  variable unique : `transition:none` sur la seule `.chip` → l'or apparaît immédiatement ;
+  et une mesure iPhone a attrapé un état en vol (`2.666667px … off=0.006729px`).
+- **[x] Correctif** : les **six** `transition:all` d'`app.html` remplacés par la liste
+  explicite `background, color, border-color, opacity` — les seules propriétés que ces
+  règles animent réellement. Aucun `transition:all` ne subsiste dans l'app ni dans le
+  fichier autonome.
+- **[x] Vérifié en WebKit réel** (desktop + iPhone 16 Pro) : **58 arrêts de tabulation,
+  0 sans anneau d'or** (18 avant), test rejoué sur les cinq écrans ; les trois boutons du
+  mode Cartes nommés dans la critique (`#btn-flip`/`#btn-good`/`#btn-again`) mesurés un par
+  un dans l'état où ils sont visibles. **Non-régression du survol** contrôlée : la chip
+  passe toujours par une valeur intermédiaire (`rgb(168,134,73)`) entre repos et or.
+  `node build.js --check` en phase, 710 cartes, 507 exemples.
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
