@@ -265,6 +265,23 @@ function report(cards){
     console.error('  (data-niveau retirés ou renommés dans le carnet ?)');
     process.exit(1);
   }
+  // Garde de couverture des niveaux, sur le modèle de la règle de couverture des
+  // exemples tenue par verifie_exemples.js. Le garde-fou ci-dessus n'échoue que si un
+  // niveau ENTIER disparaît : un mot ajouté sans data-niveau passait donc en silence,
+  // et l'appli, qui laisse volontairement les cartes non classées franchir tous les
+  // filtres, l'aurait montré jusque dans « Facile » sans que rien ne le signale.
+  // La couverture est à 100 % depuis le 19/07 — ceci la rend tenue par l'outillage
+  // plutôt que vraie par chance. (La tolérance de l'appli reste, comme filet.)
+  const unclassified = cards.filter(c => !c.niveau);
+  console.log('  ' + 'couverture'.padEnd(lw) + '  ' +
+    (cards.length - unclassified.length) + '/' + cards.length);
+  if (unclassified.length){
+    console.error('\n✗ ' + unclassified.length + ' carte(s) sans data-niveau :');
+    unclassified.slice(0, 15).forEach(c => console.error('    ' + c.cat + ' — ' + c.he + ' (' + c.fr + ')'));
+    if (unclassified.length > 15) console.error('    … et ' + (unclassified.length - 15) + ' autre(s)');
+    console.error('  Chaque entrée du carnet doit porter data-niveau="A1"…"C2".');
+    process.exit(1);
+  }
 
   // Exemples en situation (étape 6 du plan UX) : comptes par section.
   const exCounts = {};
