@@ -38,7 +38,7 @@
     padding:28px 18px 34px;
   }
   @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
-  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:6px; }
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
 
   /* ————— Premier temps : l'accueil plein écran —————
      Un seul grand bouton par-dessus la page ; sans JS il n'existe pas
@@ -119,7 +119,7 @@
   .door{
     display:block; text-decoration:none; color:var(--ink);
     background:linear-gradient(160deg, var(--card), var(--bg2));
-    border:1px solid var(--card-edge); border-radius:18px;
+    border:1px solid var(--card-edge); border-radius:20px;  /* jeton rounded.carte */
     padding:22px 22px 20px; transition:transform .12s ease, border-color .13s ease;
   }
   .door:hover{ border-color:var(--gold); }
