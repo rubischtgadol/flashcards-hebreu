@@ -147,6 +147,11 @@ components:
     textColor: "{colors.parchemin}"
     rounded: "{rounded.controle}"
     padding: "14px 16px"
+  porte:
+    backgroundColor: "{colors.carte}"
+    textColor: "{colors.parchemin}"
+    rounded: "{rounded.carte}"
+    padding: "22px 22px 20px"
 ---
 
 # Design System : Flashcards Hébreu
@@ -231,7 +236,7 @@ Caractère commun : **discrets jusqu'à l'action**. Au repos, un contrôle est t
 ### Buttons
 - **Shape :** coins nets et amicaux (12px).
 - **Primary** (Commencer, Vérifier, Suivant) : dégradé d'or vertical (or tendre → or ancien), texte Encre sur or 700, padding 14px, pleine largeur dans les panneaux.
-- **Hover / Focus :** bordure vers l'or ancien ; champs : bordure or au focus, pas de glow.
+- **Hover / Focus :** bordure vers l'or ancien ; champs : bordure or au focus, pas de glow. L'anneau global est `outline:2px solid var(--gold)` **et rien d'autre** : une règle `:focus-visible` ne doit **jamais** poser de `border-radius`, car ce rayon ne décore pas l'anneau — il redessine l'élément tant qu'il est focalisé, et le fait sauter d'une forme à l'autre. L'outline suit déjà le rayon propre de l'élément. (Le portail en portait un, supprimé le 2026-07-19 ; `app.html` est l'idiome de référence.)
 - **Ghost** (Passer, contrôles secondaires) : fond transparent, filet, texte estompé ; survol : bordure et texte or.
 - **Verdict** (Je savais / À revoir) : posés sur la couche carte, bordure et texte vert juste / rouge à revoir ; le survol inverse (fond plein, texte encre-sur-vert #0a1a0f / encre-sur-rouge #1a0d0a — jamais de blanc sur couleur).
 - **Discrets** (Quitter, Corriger, Réessayer, boutons fantômes) : rayon 10px (`bouton-discret`), filet, texte estompé.

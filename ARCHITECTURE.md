@@ -41,7 +41,7 @@ Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un po
 | [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
-| [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, vocabulaire ≤ niveau) + règle de couverture : tout nom, adjectif ou verbe sans exemple est une erreur bloquante. | ✅ oui |
+| [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, niveau du vocabulaire) + règle de couverture : tout nom, adjectif ou verbe sans exemple est une erreur bloquante. Son lexique lit **les cartes et les sections de grammaire** — voir § 5.1 pour les deux garde-fous qui l'empêchent de devenir circulaire. | ✅ oui |
 | [manifest.webmanifest](manifest.webmanifest), [sw.js](sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
 ## La couche PWA
@@ -67,7 +67,9 @@ aucune garde de mouvement, là où `app.html` et `index.html` avaient les trois.
 (`.impeccable/critique/2026-07-19T09-57-31Z__vocabulaire-hebreu-html__audit.md`) a traité ce
 décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 
-- **`lang="he"` sur 100 % des nœuds hébreux** (5003). Trois familles à connaître quand on ajoute
+- **`lang="he"` sur 100 % des nœuds hébreux** (5015 au 2026-07-19 — le compte **se mesure dans le
+  navigateur, il ne se calcule pas** : ajouter une entrée au carnet crée aussi ses `span.cursive`,
+  donc un mot ajouté pèse plus d'un nœud). Trois familles à connaître quand on ajoute
   du contenu : les éléments purement hébreux portent l'attribut **directement** dans la source
   (`span.he`, `span.toc-he`, `span.part-he`, `div.ex-he`, les `<h2>` de section, le `<h1>`) ; les
   `span.cursive` sont **générés par le JS** du carnet, qui pose `cursive.lang = 'he'` à la création ;
@@ -143,7 +145,7 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 Le carnet stocke le **CECRL fin** (six valeurs, `data-niveau="A1"…"C2"`) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'app.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet actuel n'ayant rien au-delà de B2, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un carnet sans aucun `data-niveau` masque le groupe entier.
 
-**Méthode de classement** (passe initiale du 2026-07-18, 709 mots, distribution A1 327 / A2 268 / B1 107 / B2 7) — trois critères croisés, dans cet ordre :
+**Méthode de classement** (passe initiale du 2026-07-18, 709 mots, distribution A1 327 / A2 268 / B1 107 / B2 7 ; état au 2026-07-19 après les ajouts : **713 mots**, A1 328 / A2 271 / B1 107 / B2 7) — trois critères croisés, dans cet ordre :
 
 1. **Curricula d'hébreu L2 alignés CECRL** : le vocabulaire des niveaux d'oulpan (alef ≈ A1–A2, bet ≈ B1) et des manuels d'hébreu moderne pour débutants ; les listes de survie (salutations, nombres, jours, famille proche, nourriture de base) sont A1 par convention.
 2. **Fréquence en hébreu moderne parlé** : un mot du top courant de la conversation quotidienne descend d'un cran (ex. `lehargish`, `beseder`), un mot rare ou littéraire monte (`tachat` littéraire → B2, `be'ad` → B2).
@@ -155,7 +157,30 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans app.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Le libellé du pli suit son état (« Voir un exemple » ↔ « Masquer l'exemple », géré dans `exActivate`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
 
-**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples ; lots du 2026-07-19 : 430 de plus, soit **507 au total** — les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec ; verbes = phrase au présent) : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple ≤ niveau du mot autant que possible (les niveaux de § 4 disent par où commencer), une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node build.js`, avant commit.
+**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples ; lots du 2026-07-19 : 430 de plus, soit **510 au total** — les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec ; verbes = phrase au présent) : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple proche du niveau du mot (les niveaux de § 4 disent par où commencer) — **le validateur tolère +1 niveau et n'alerte qu'à +2**, calibrage du 2026-07-19 : une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב) qui sont A2 par nature, alerter à +1 noyait le signal dans l'inévitable —, une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node build.js`, avant commit.
+
+### 5.1 Le lexique du validateur (deux garde-fous à ne pas retirer)
+
+Le contrôle « ce mot est-il enseigné par le carnet ? » repose sur un lexique que
+`verifie_exemples.js` construit en deux temps.
+
+1. **Les cartes** (`extractCards`), avec leur `data-niveau` et leurs formes conjuguées.
+2. **L'hébreu des sections de grammaire** — ajout du 2026-07-19. Les prépositions fléchies,
+   les conjugaisons et l'article ne produisent **aucune carte**, mais leurs formes sont bel et
+   bien enseignées : שֶׁלְּךָ et שֶׁלָּנוּ figurent en toutes lettres dans le carnet et étaient
+   pourtant signalés « hors carnet ». Le validateur posait la question « ce mot est-il une
+   carte ? » quand la vraie question est « le carnet l'enseigne-t-il ? ».
+
+Les deux garde-fous de l'étape 2, chacun contre un mode de panne silencieuse :
+
+- **Les `<ul class="exemples">` sont exclus du balayage.** Sans quoi le contrôle deviendrait
+  circulaire : chaque phrase validerait son propre vocabulaire, et le capteur ne dirait plus
+  jamais rien.
+- **Un mot de grammaire ne peut qu'*ajouter* une entrée inconnue, au niveau 0** (non classé =
+  toujours permis) — jamais abaisser le niveau d'un mot déjà connu. La fonction `feed()` des
+  cartes retient volontairement le niveau **le plus bas** ; réutilisée telle quelle ici, elle
+  aurait rabaissé à 0 le niveau de toute carte citée en grammaire et neutralisé le contrôle de
+  niveau sans qu'aucun test n'échoue.
 
 ## build.js : la chaîne de génération
 

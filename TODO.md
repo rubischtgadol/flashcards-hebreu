@@ -6,7 +6,11 @@ restants sont légitimes et documentés), le carnet gagne 3 mots qui lui manquai
 (**713 cartes, 510 exemples**), la **fourmi cesse de vouloir dire « port »**, et le
 portail revient au barème des jetons. Aucun des 29 avertissements soldés n'était un
 mauvais exemple : c'étaient de la dérive orthographique, des trous de lexique, et deux
-règles du validateur mal calibrées. **Deux acquis antérieurs du jour.** (1) **L'anneau de focus doré rendu
+règles du validateur mal calibrées. **Toute la documentation est recalée** sur ce nouvel
+état (comptes, règles du validateur, jeton de la porte, idiome de l'anneau de focus), et
+deux chiffres qui étaient faux depuis un moment sont corrigés : les nœuds `lang="he"`
+(5015, à mesurer et non à calculer) et les mots-outils sans exemple (181, pas 203).
+**Deux acquis antérieurs du jour.** (1) **L'anneau de focus doré rendu
 à tout l'interactif de l'app** — cause racine trouvée (`transition:all` fige les `outline-*`, et
 non la piste `-webkit-appearance` qui est réfutée), six règles corrigées, 58 arrêts de
 tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). (2) **L'audit du carnet est
@@ -36,8 +40,9 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 ## Reprendre ici (prochaine session)
 
 1. **Exemples en situation — les trois tables sont couvertes à 100 %** (19/07 au
-   soir, demande de Ruben) : chaque **nom (300), adjectif (102) et verbe (97)** porte
-   un exemple du quotidien (verbes : phrase au présent), soit **507 exemples**.
+   soir, demande de Ruben) : chaque **nom (301), adjectif (102) et verbe (97)** porte
+   un exemple du quotidien (verbes : phrase au présent) — plus 8 Mots de quantité et
+   2 Verbes modaux hors règle, soit **510 exemples** pour 713 cartes.
    La règle est **verrouillée dans `verifie_exemples.js`** : un mot ajouté à l'une de
    ces trois tables sans son `<ul class="exemples">` fait échouer le contrôle (erreur
    bloquante, pas un avertissement). Méthode d'un futur lot : écrire les phrases en
@@ -45,10 +50,12 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    (concordance par construction) + retouches d'affichage (kol, akhshav, chva sonore,
    noms propres en capitale), puis `node verifie_exemples.js` (**0 erreur exigé**),
    `node build.js`, commit. **Resterait, si on veut aller plus loin** (hors règle,
-   décision produit à prendre) : 203 mots des catégories-outils — Nombres 41 ·
-   Expressions 35 · Adverbes 19 · Saisons & mois 16 · Mots interrogatifs 12 ·
-   Pronoms 10 · Prépositions 23 · Jours 7 · le reste ≤ 6 (+ 22 « Phrases », à
-   exclure : déjà des phrases complètes).
+   décision produit à prendre) : **181** mots des catégories-outils sans exemple
+   (recompté le 19/07 au soir — le « 203 » noté ici auparavant *incluait* les 22
+   « Phrases » que la même phrase disait d'exclure ; 181 + 22 = 203) — Nombres 41 ·
+   Expressions 35 · Prépositions 23 · Adverbes 19 · Saisons & mois 16 · Mots
+   interrogatifs 12 · Pronoms 10 · Jours 7 · le reste ≤ 6. Les 22 « Phrases » sont
+   hors sujet : ce sont déjà des phrases complètes.
 2. **[FAIT le 19/07 au soir] Les avertissements du validateur soldés : 31 → 2.**
    Détail en « Fait ». Quatre causes, dont **aucune n'était un mauvais exemple** :
    dérive orthographique ktiv malé/chaser sur 4 mots (10 avert.), 3 vrais trous du
@@ -396,6 +403,11 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est
   un faux positif — la règle vise l'anglais).
 - **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch le carnet).
+- **Piège jsdom** : `const CARDS` au premier niveau d'un script **n'apparaît pas** sur
+  `window` (les `const` ne créent pas de propriété globale) — inutile de chercher
+  `w.CARDS` après un boot. Pour vérifier le contenu chargé, passer par le DOM (la
+  recherche est le plus court chemin : remplir `#search-input` — et non `#search` —
+  puis lire `#search-results`).
 
 ## Rituel à chaque modification
 
@@ -407,7 +419,11 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 5. Commit par changement, messages en français (comme l'historique), puis push sur `main`
    (GitHub Pages redéploie automatiquement).
 6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
-   fichier (surtout « Reprendre ici »).
+   fichier (surtout « Reprendre ici »). ⚠️ Les **comptes** cités dans les docs (cartes,
+   exemples, nœuds `lang="he"`) se recalent à chaque ajout de vocabulaire — et le compte
+   de nœuds `lang="he"` se **mesure dans le navigateur, il ne se calcule pas** : une
+   entrée ajoutée crée aussi ses `span.cursive` générés, donc elle pèse plus d'un nœud
+   (5003 → 5015 pour 3 mots, le 19/07, là où le calcul de tête donnait 5010).
 7. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
    **deux fois** (audit de péremption du 19/07 au matin, puis retrouvées toutes fausses le
    soir : les 16 ancres d'ARCHITECTURE.md étaient décalées de +25, et les 3 « near line » de
