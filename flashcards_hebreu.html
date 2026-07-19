@@ -64,6 +64,14 @@
     margin:0 0 9px;
   }
   .panel h2:not(:first-of-type){ margin-top:18px; }
+  /* L'action du jour n'est pas un réglage : elle sort de la voix Title (étiquette de
+     repère) pour la voix display, au pas « marque » du barème. Pas d'or ajouté — la
+     carte de révision porte déjà la seule teinte dorée au repos. */
+  .panel h2.lead{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-size:1.5rem; font-weight:700; text-transform:none; letter-spacing:0;
+    color:var(--ink); margin-bottom:12px;
+  }
 
   /* ---------- Search ---------- */
   .search-wrap{ position:relative; margin:20px 0 4px; }
@@ -139,17 +147,23 @@
     font-size:.9rem; cursor:pointer; text-decoration:underline; padding:0;
   }
   .start{
-    margin-top:20px; width:100%; border:none; border-radius:12px;
+    margin-top:20px; width:100%; border:1px solid transparent; border-radius:12px;
     background:linear-gradient(180deg, var(--gold-soft), var(--gold));
     color:#1a1206; font-family:inherit; font-weight:700; font-size:1rem;
     padding:14px; cursor:pointer; letter-spacing:.01em;
     box-shadow:0 6px 18px -8px var(--gold);
   }
-  .start:disabled{ opacity:.4; cursor:not-allowed; box-shadow:none; }
-  /* Au doigt, « Commencer » reste dans la zone du pouce pendant le défilement.
-     sticky : il reprend sa place naturelle en bas de page, aucun recouvrement final. */
+  /* Désactivé, « Commencer » quitte l'or : la lampe n'éclaire jamais un état inerte
+     (règle de la lampe). Peau pleine et opaque plutôt qu'une opacité, qui laissait
+     le contenu de la page transparaître à travers le bouton. */
+  .start:disabled{
+    background:none; border-color:var(--line); color:var(--ink-dim);
+    cursor:not-allowed; box-shadow:none;
+  }
+  /* Au doigt, « Commencer » reste dans la zone du pouce pendant le défilement —
+     mais seulement une fois actif : désactivé, il n'a rien à recouvrir. */
   @media (pointer:coarse){
-    .start{ position:sticky; bottom:12px; z-index:2; }
+    .start:enabled{ position:sticky; bottom:12px; z-index:2; }
   }
 
   /* ---------- Pli « Réglages avancés » ---------- */
@@ -280,7 +294,18 @@
   }
   .ex-speak:hover{ border-color:var(--gold); color:var(--gold); }
   .ex-speak svg{ width:100%; height:100%; }
-  @media (pointer:coarse){ .ex-speak{ width:44px; height:44px; } }
+  /* Au doigt, toute la famille passe la barre des 44px — pas seulement les deux
+     contrôles traités au premier passage. .ex-toggle et les boutons de correction
+     comptent double : ce sont ceux qu'on vise juste après s'être trompé. */
+  @media (pointer:coarse){
+    .ex-speak, #speak-btn{ width:44px; height:44px; }
+    .ex-toggle, #fix-verdict, #quiz-fix, #btn-skip, #reset-btn{
+      min-height:44px; padding-block:10px;
+    }
+    #selall, .src-link a{
+      display:inline-flex; align-items:center; min-height:44px;
+    }
+  }
   .quiz-ex{ text-align:center; margin-top:4px; }
   /* Dans le tiroir de la recherche : version compacte, alignée à gauche comme le reste du tiroir. */
   .srd-ex{ display:flex; align-items:center; gap:8px; margin:6px 0; }
@@ -496,7 +521,7 @@
   <!-- Après « Quitter » : le SRS a déjà enregistré chaque réponse donnée — le dire. -->
   <div class="exit-note hide" id="exit-note" role="status"></div>
 
-  <h2>Révision du jour</h2>
+  <h2 class="lead">Révision du jour</h2>
   <button class="review-card" id="review-btn" type="button" disabled>
     <span class="review-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/></svg></span>
     <span class="review-body">
@@ -599,7 +624,7 @@
     </div>
   </details>
 
-  <div class="start-hint hide" id="start-hint">Choisis au moins une catégorie pour commencer.</div>
+  <div class="start-hint hide" id="start-hint" role="status">Choisis au moins une catégorie pour commencer.</div>
   <button class="start" id="start">Commencer</button>
   <div class="count-note" id="count-note"></div>
   <div class="src-link"><a href="./vocabulaire_hebreu.html">Ouvrir le carnet de vocabulaire complet &#8599;</a></div>
@@ -1710,7 +1735,7 @@ function showInputFeedback(card, kind, attempt){
   const fb=document.getElementById('feedback');
   const verdict = kind==='ok'     ? '<div class="verdict ok">✓ Correct</div>'
                 : kind==='almost' ? '<div class="verdict ok">✓ Presque ! La forme exacte&nbsp;:</div>'
-                : kind==='no'     ? '<div class="verdict no">✗ Réponse&nbsp;:</div>'
+                : kind==='no'     ? '<div class="verdict no">✗ Pas tout à fait — la réponse&nbsp;:</div>'
                 :                   '<div class="verdict">La réponse&nbsp;:</div>';
   const tried = (kind==='no' && attempt)
     ? '<div class="your-answer">Ta réponse : <s>'+escapeHtml(attempt)+'</s></div>'
