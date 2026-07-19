@@ -1,7 +1,14 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Dernier acquis : les points 2 et 5 de « Reprendre
-ici » sont soldés.** Les avertissements du validateur passent de **31 à 2** (les deux
+État au 2026-07-19, fin de journée. **Dernier acquis : le point 4 est soldé sauf la
+consolidation typographique** — les dix P2/P3 de charte du carnet traités d'un lot
+(`.tip` éteint, quatre micro-titres ad hoc ramenés à deux voix nommées, le voile noir
+des exemples remplacé par une vraie couche, piles de polices complétées, `.attention`
+extraite, anneau `:focus-visible` global, `theme-color`, tap-highlight, les deux
+`transition:all`, `<main>`). **Le fichier autonome est inchangé au octet** : rien du
+vocabulaire n'a bougé. 22 contrôles WebKit au vert, et le détecteur passe de 24 à 10
+findings — les 10 restants *sont* le chantier typographique, seul reliquat du point 4.
+**Acquis précédent : les points 2 et 5 de « Reprendre ici » sont soldés.** Les avertissements du validateur passent de **31 à 2** (les deux
 restants sont légitimes et documentés), le carnet gagne 3 mots qui lui manquaient
 (**713 cartes, 510 exemples**), la **fourmi cesse de vouloir dire « port »**, et le
 portail revient au barème des jetons. Aucun des 29 avertissements soldés n'était un
@@ -73,17 +80,22 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    Hébreu) ; ajuster `rate`/`pitch` si besoin ; API TTS externe **rejetée** (casse le
    tout-statique hors-ligne) ; audio préenregistré = décision produit, seulement si
    Enhanced déçoit.
-4. **Correctifs du carnet — les 4 P1 et le bloc tactile sont FAITS ; le reste attend.**
+4. **Correctifs du carnet — les 4 P1, le bloc tactile ET tous les P2/P3 de charte sont
+   FAITS. Il ne reste que la consolidation typographique.**
    Appliqué le 19/07 (détail en « Fait ») : `lang="he"` à **100 %**, garde
    `prefers-reduced-motion` + `scroll-behavior:auto`, or ambiant de `.part` retiré,
    `--bg` tokenisé, cibles tactiles à 44 px, nom accessible du champ de recherche.
-   **Reste du plan, non engagé** : les P2/P3 de charte — `.tip` (2ᵉ surface dorée, à
-   trancher), `.subtheme` (5ᵉ emploi non déclaré de la voix Title, ×21), les 4 formulations
-   ad hoc de micro-titre, `rgba(0,0,0,.14)`, les piles de fallback tronquées, les 4 encadrés
-   inline sans classe, `theme-color`, tap-highlight, `transition:all` (×2), `<main>`.
-   **Et surtout la consolidation typographique** (24 tailles → 6–8 pas), volontairement
-   reportée : elle retouche l'apparence de tout le document et mérite d'être vue avant/après.
-   Les 24 findings du détecteur sont donc **inchangés** — c'est attendu, pas un oubli.
+   Puis, le même jour, **les dix P2/P3 de charte soldés d'un lot** (détail en « Fait ») :
+   `.tip` éteint, deux voix de micro-titre à la place de quatre specs ad hoc,
+   `rgba(0,0,0,.14)` remplacé par une couche tonale, piles de fallback complétées,
+   `.attention` extraite, anneau `:focus-visible` global, `theme-color`, tap-highlight,
+   les 2 `transition:all`, `<main>`.
+   **Reste, et seulement cela : la consolidation typographique** (24 → 6–8 pas),
+   volontairement reportée — elle retouche l'apparence de tout le document et mérite
+   d'être vue avant/après. Le lot de charte en a déjà résorbé une partie en unifiant
+   les micro-titres : le détecteur est passé de **24 à 10 findings**, tous de la famille
+   rampe. Ces 10 sont donc **attendus, pas un oubli** — ils *sont* le chantier restant.
+   ⚠️ Ne pas poser d'`ignore` dessus : le capteur a raison, cf. l'analyse ci-dessous.
 
    *Contexte d'origine de l'audit :*
    `/impeccable audit vocabulaire_hebreu.html` a tourné le 19/07 : **13/20**, 4 P1, 9 P2, 7 P3,
@@ -331,6 +343,61 @@ et le portail remis au barème (points 2 et 5 de « Reprendre ici ») :
   נְמָלָה, 0 erreur JS ; portes à 20px, anneau d'or `rgb(212,162,76)` sur chaque arrêt
   de tabulation, 0 débordement horizontal.
 
+Puis, le 2026-07-19 — **les dix P2/P3 de charte du carnet soldés d'un lot** (le reste du
+point 4). Aucun n'a touché au vocabulaire : `node build.js` répond **« flashcards_hebreu.html
+déjà à jour »**, c'est-à-dire que le fichier autonome est **inchangé au octet** — la preuve
+la plus courte que l'extraction n'a pas bougé. 713 cartes, 510 exemples, 2 avertissements
+(les deux légitimes déjà documentés) :
+
+- **[x] `.tip` éteint** (choix de Ruben) — la seconde surface dorée au repos rejoint `.part` :
+  `--bg2` + `--card-edge`, l'or ne subsistant que sur le texte de `.tip-title`. Hors de la
+  carte « Révision du jour », plus **aucune** surface n'est teintée d'or au repos dans les
+  trois fichiers. Mesuré après : `background-image:none`, bordure `rgb(44,56,68)`.
+- **[x] Quatre micro-titres ad hoc → deux voix nommées** (choix de Ruben). Il n'y avait pas
+  quatre idées mais deux rôles : la **voix Title** (Assistant 700 / 0,84rem / 0,12em / or)
+  pour `thead th` et `.subtheme` (×21), et une **voix Repère-mono** (JetBrains Mono /
+  0,7rem / 0,14em) pour `.toc-group-label` et `.part-num`. Vérifié en WebKit : les deux
+  paires ont des specs calculées **identiques**. `.subtheme` est du même coup **inscrit dans
+  DESIGN.md §3** comme emploi déclaré de la voix Title, et non « toléré » : la contradiction
+  code/charte venait d'un angle mort de la charte (ses quatre emplois d'origine vivaient
+  tous dans `app.html`, le carnet n'avait jamais été inventorié), pas d'une dérive du carnet.
+  Effet de bord mesuré : le détecteur passe de **24 à 10 findings** de rampe typographique.
+- **[x] `rgba(0,0,0,.14)` → couche `carte`** : un cinquième gris inventé (règle des couches),
+  qui rendait en plus les blocs d'exemples presque indiscernables de leur rangée. Ils passent
+  à `var(--card)` — la même couche que l'encadré `.example` de la grammaire, si bien que les
+  **deux familles d'exemples du carnet se lisent enfin pareil**. C'est le seul changement
+  visible du lot sur les 510 exemples : ils cessent d'être un creux pour devenir une surface
+  posée. Captures avant/après à l'appui.
+- **[x] Piles de fallback complétées** — `'Frank Ruhl Libre',serif` partout devenait, hors
+  ligne, un `serif` générique qui rend mal le nikoud, alors que la charte spécifiait David
+  Libre. Les trois piles sont désormais écrites en entier. Règle inscrite dans DESIGN.md §6
+  (corollaire de « ça marche dans l'avion »).
+- **[x] Deux composants qui s'ignoraient extraits** : `.attention` (les 4 `style=` inline
+  identiques de l'audit) **et `.gram-title`** — 5 duplications d'un même titre de
+  sous-section de grammaire (« שֶׁל — possessif », « לְ — datif »…) que **l'audit n'avait
+  pas relevées**, trouvées en relisant le diff. À retenir : relire son propre diff attrape
+  ce qu'un détecteur qui ne lit que le CSS ne peut pas voir — ces cinq-là vivaient dans
+  des attributs `style=` du corps du document. Il ne reste **0 `<div style="color:var(--gold)…`**.
+  Et le **pointillé ne dit plus qu'une chose** — « rien ici » (`.empty`) : il portait deux
+  sens opposés, les encadrés d'avertissement et le soulignement des sous-thèmes passent au
+  filet plein. Supprime aussi 4 des 5 findings `radius` du détecteur.
+- **[x] Anneau `:focus-visible` doré global** — le carnet était le seul des trois fichiers
+  sans. Mesuré sous vraie tabulation : **23 focusables déclarés, 1 masqué, 22 arrêts
+  parcourus, 0 sans anneau d'or**. Le champ de recherche perd son `outline:none` et son glow
+  (DESIGN.md §5 : « bordure or au focus, pas de glow ») et reçoit les deux idiomes de l'app.
+  ⚠️ Les deux `transition:all` ont été corrigés **d'abord** : dans l'autre ordre, le nouvel
+  anneau serait né déjà cassé (le raccourci fige les `outline-*`).
+- **[x] P3 restants** : `<meta name="theme-color">`, `-webkit-tap-highlight-color` dans le
+  `*{}`, et `<main>` autour des trois parties (le sommaire et la recherche restent dehors —
+  l'un est une navigation, l'autre un outil global).
+- **Vérifié en WebKit réel** (22 contrôles, desktop 1280 + iPhone 16 Pro) : 0 erreur JS,
+  **0 échec de contraste**, 0 débordement horizontal, **0 cible tactile sous 44 px**,
+  `scroll-behavior:auto` sous reduced-motion, et la **recherche intacte** — « fourmi » → 1,
+  « אולפן » → 2, « maison » → 16.
+  ⚠️ *Piège de mesure rencontré, à retenir* : lire `borderTopColor` juste après un `.focus()`
+  par API renvoie encore `--line` et se lit à tort comme un défaut — la transition de 150 ms
+  est **en vol**. Il faut attendre sa fin (ou cliquer pour de vrai) avant de conclure.
+
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
 - Le **portail est la racine** ; l'appli vit dans `app.html` ; l'icône installée ouvre
@@ -357,6 +424,14 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
   vraie faute de sens (cf. נָמָל → נְמָלָה), et en le disant.
 - **Le validateur alerte sur le vocabulaire à +2 niveaux, pas à +1** : +1 est la
   texture normale d'une phrase du quotidien, pas un défaut.
+- **Hors « Révision du jour », aucune surface n'est teintée d'or au repos** — `.part`
+  puis `.tip` ont été éteints le 19/07, chacun après le même test : « action, sélection
+  ou identité ? ». L'emphase d'un contenu se dit par la position et le titre, pas par
+  la lumière.
+- **Le pointillé signifie « rien ici », et rien d'autre** (`.empty` seul). Un encadré
+  important prend un filet plein.
+- **`.subtheme` et `thead th` sont des emplois déclarés de la voix Title** (DESIGN.md §3,
+  19/07) : la charte avait un angle mort — elle n'avait inventorié que `app.html`.
 - La révision du jour ignore le filtre Niveau ; un mot sans `data-niveau` reste visible
   quel que soit le filtre — et l'interface le dit.
 - API TTS externe rejetée pour la voix (le tout-statique hors-ligne prime).
