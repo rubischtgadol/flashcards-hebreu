@@ -85,6 +85,7 @@ Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html`
 - `build.js` — outil de développement (non déployé) : régénère `flashcards_hebreu.html` depuis le carnet et `app.html`
 - `verifie_exemples.js` — outil de développement (non déployé) : contrôle les exemples en situation du carnet (longueur, nikoud, translittération, niveau du vocabulaire) et exige qu'aucun nom, adjectif ou verbe ne reste sans exemple
 - `manifest.webmanifest`, `sw.js`, `icons/` — la couche PWA : manifeste d'installation, service worker hors-ligne, icônes א aux couleurs de la charte
+- `graphify-out/` — aide au développement (non déployée, sans effet sur le site) : une cartographie du dépôt qui permet à un assistant de code de retrouver une fonction ou une règle sans relire les gros fichiers. `graph.json` et `GRAPH_REPORT.md` sont versionnés ; le reste se régénère localement
 
 ## Modifier le contenu
 

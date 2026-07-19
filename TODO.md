@@ -877,6 +877,15 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
   `node <base-skill>/scripts/detect.mjs --json <fichier>`. Ses findings sont des *signaux*,
   pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est
   un faux positif — la règle vise l'anglais).
+- **Graphe de connaissance** (`graphify-out/`, versionné depuis le 20/07) : cartographie du
+  dépôt — 357 nœuds, 604 arêtes, 18 communautés. **À interroger avant d'ouvrir un gros
+  fichier** : `graphify explain "checkAnswer"` donne la ligne source exacte et les
+  appelants/appelés en ~15 lignes, `graphify query "…"` répond en ~2 300 tokens là où lire
+  `app.html` en coûte des dizaines de milliers (10,5× d'économie, mesurée le 20/07 par
+  `graphify benchmark`). Se reconstruit par
+  `/graphify . --update`. ⚠️ C'est un **instantané** : en cas de contradiction avec le fichier,
+  le fichier fait foi. Détail et limites connues dans ARCHITECTURE.md § Le graphe de
+  connaissance du dépôt.
 - **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch le carnet).
 - **Piège jsdom** : `const CARDS` au premier niveau d'un script **n'apparaît pas** sur
   `window` (les `const` ne créent pas de propriété globale) — inutile de chercher
@@ -893,19 +902,26 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
 4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
 5. Commit par changement, messages en français (comme l'historique), puis push sur `main`
    (GitHub Pages redéploie automatiquement).
-6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
+6. **Recaler le graphe** : `/graphify . --update`. Sans ça, CLAUDE.md — dont toute la
+   première section dit « interroge le graphe avant de lire les fichiers » — envoie
+   consulter un instantané périmé. Committer `graphify-out/graph.json` avec le reste.
+7. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
    fichier (surtout « Reprendre ici »). ⚠️ Les **comptes** cités dans les docs (cartes,
    exemples, nœuds `lang="he"`) se recalent à chaque ajout de vocabulaire — et le compte
    de nœuds `lang="he"` se **mesure dans le navigateur, il ne se calcule pas** : une
    entrée ajoutée crée aussi ses `span.cursive` générés, donc elle pèse plus d'un nœud
    (5003 → 5015 pour 3 mots, le 19/07, là où le calcul de tête donnait 5010).
-7. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
-   **trois fois** (audit de péremption du 19/07 au matin ; retrouvées toutes fausses le
-   soir, +25 ; puis de nouveau après les plis, de +22 à +82 selon l'endroit — le décalage
-   n'est **pas** uniforme, chaque ancre se vérifie). Une ancre fausse est pire qu'absente
-   — elle envoie lire le mauvais code avec assurance. Contrôle en une commande, sur les
-   **quatre** documents (et non ARCHITECTURE.md seul, comme le disait cette note) :
-   `for l in $(grep -o 'app.html#L[0-9]*' ARCHITECTURE.md DESIGN.md TODO.md CLAUDE.md | grep -o '[0-9]*$' | sort -un); do printf '%5s: %s\n' "$l" "$(sed -n "${l}p" app.html | cut -c1-64)"; done`
-   — chaque ligne affichée doit correspondre à ce que le document annonce. Ne pas oublier
-   les `near line NNN` de CLAUDE.md, qui ne sont pas des liens :
-   `grep -o 'near line [0-9]*' CLAUDE.md`.
+8. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
+   **quatre fois** (19/07 au matin ; retrouvées toutes fausses le soir, +25 ; de nouveau
+   après les plis, de +22 à +82 selon l'endroit ; puis +11 uniforme, constaté le 20/07).
+   Le décalage n'est **pas** toujours uniforme — chaque ancre se vérifie. Une ancre fausse
+   est pire qu'absente : elle envoie lire le mauvais code avec assurance.
+
+   Depuis le 20/07 la surface a beaucoup réduit : **CLAUDE.md et DESIGN.md n'en portent
+   plus aucune** (CLAUDE.md déléguant au graphe, dont `graphify explain "<symbole>"` redonne
+   la ligne exacte sans entretien manuel). Restent ARCHITECTURE.md (16) et TODO.md (3) :
+
+   `for l in $(grep -o 'app\.html#L[0-9][0-9]*' ARCHITECTURE.md TODO.md | grep -o '[0-9]*$' | sort -un); do printf '%5s: %s\n' "$l" "$(sed -n "${l}p" app.html | cut -c1-64)"; done`
+
+   — chaque ligne affichée doit correspondre à ce que le document annonce. En cas de doute
+   sur la vraie position d'un symbole : `graphify explain "<symbole>"`.
