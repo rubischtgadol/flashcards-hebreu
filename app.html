@@ -862,18 +862,29 @@ let heVoice = null;
 function loadVoices(){
   if(!TTS_OK) return;
   voicesCache = window.speechSynthesis.getVoices() || [];
-  // All Hebrew voices (match by BCP-47 lang he/iw, or by name).
+  // Voix hébraïques : le `lang` BCP-47 est le critère fiable ; le nom n'est qu'un
+  // filet. ⚠️ `name` est LOCALISÉ par iOS (relevé le 19/07 sur l'iPhone de Ruben,
+  // réglé en norvégien : « Carmit (forbedret) » dans les Réglages). Chercher
+  // « hebrew » dans le nom ne marche donc que sur un appareil anglophone —
+  // d'où l'ajout du `voiceURI`, qui est un identifiant technique jamais traduit.
   const heVoices = voicesCache.filter(v=>
-    /^(he|iw)(-|$)/i.test(v.lang) || /hebrew|עברית|carmit/i.test(v.name)
+    /^(he|iw)(-|$)/i.test(v.lang) || /hebrew|עברית|carmit/i.test(v.name || '') ||
+    /(^|\.)(he|iw)([-_.]|$)|carmit/i.test(v.voiceURI || '')
   );
-  // Rank: prefer higher-quality named variants (Premium > Enhanced > default),
-  // and prefer a real Carmit voice when present.
+  // Classement : qualité décroissante (Premium > Enhanced > défaut), puis Carmit.
+  // ⚠️ Le score se lit d'abord sur `voiceURI` et seulement ensuite sur `name`, pour
+  // la même raison : sur un téléphone non anglophone, une voix améliorée ne contient
+  // pas le mot « enhanced » dans son nom (norvégien : « forbedret ») et le classement
+  // la manquerait en silence. L'identifiant, lui, reste « …enhanced… » partout.
+  // (Aujourd'hui WebKit ne publie que les voix compactes, donc ces branches ne se
+  // déclenchent pas sur iOS — c'est un filet pour le jour où son filtre changerait.)
   function score(v){
-    const n = (v.name||'').toLowerCase();
+    const n = (v.name || '').toLowerCase();
+    const u = (v.voiceURI || '').toLowerCase();
     let s = 0;
-    if(/premium/.test(n)) s += 40;
-    else if(/enhanced|neural|siri/.test(n)) s += 25;
-    if(/carmit/.test(n)) s += 10;
+    if(/premium/.test(u) || /premium/.test(n)) s += 40;
+    else if(/enhanced|neural|siri/.test(u) || /enhanced|neural|siri/.test(n)) s += 25;
+    if(/carmit/.test(u) || /carmit/.test(n)) s += 10;
     if(v.localService) s += 3;      // on-device (Carmit) over remote fallback
     if(/^he(-|$)/i.test(v.lang)) s += 2;
     return s;
