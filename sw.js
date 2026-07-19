@@ -12,7 +12,13 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
-const VERSION = 'v8'; // v8 : accueil en deux temps, l'icône installée rouvre le portail (start_url "./")
+// v9 : l'écran de départ se replie (Catégories/Niveau) + la note Prononciation affiche
+// le voiceURI. Le bump n'est pas cosmétique : la stratégie est du stale-while-revalidate,
+// donc sans lui l'ancien app.html serait servi au premier lancement et le nouveau
+// seulement au second — or c'est précisément sur ce nouvel écran que l'identifiant de
+// la voix doit être relevé. Un diagnostic qu'on demande à quelqu'un doit être visible
+// du premier coup.
+const VERSION = 'v9';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

@@ -314,7 +314,9 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
       avancés → Prononciation). C'est le dernier point empirique du dossier « voix » et
       il ne dépend plus que de ça. Se termine par `-compact` → dossier clos, on passe aux
       options (a)/(b)/(c) du point 3 ; contient `.enhanced.` ou `.premium.` → la piste
-      se rouvre. ⚠️ Nécessite d'avoir rechargé l'app (le SW sert une version en cache).
+      se rouvre. (Le SW passe en **v9** pour que le nouvel écran arrive dès le premier
+      lancement : en stale-while-revalidate, sans bump, l'ancienne version aurait été
+      servie une fois de plus.)
 - [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
 ## Fait (historique compact — détail dans les messages de commit)
