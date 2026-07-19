@@ -14,20 +14,25 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-1. **Lots d'exemples A1** — le chantier principal. **250 mots A1 sans exemple** :
-   Noms 130 · Expressions 22 · Nombres 14 · Saisons & mois 12 · Pronoms personnels 10 ·
-   Mots interrogatifs 9 · Adverbes 9 · Prépositions 8 · Jours de la semaine 7 ·
-   Conjonctions 5 · Démonstratifs 3 · Existence 2 (+ 19 « Phrases », à **exclure** : ce
-   sont déjà des phrases complètes). Commencer par les **Noms** (gros du lot, fort impact).
+1. **Lots d'exemples A1** — le chantier principal. **Le lot Noms est fait** (19/07 au
+   soir : 130 noms + la nouvelle entrée עִבְרִית = 131 exemples, 0 erreur, 0 nouvel
+   avertissement). Reste **101 mots A1 sans exemple** : Expressions 22 · Nombres 14 ·
+   Saisons & mois 12 · Pronoms personnels 10 · Mots interrogatifs 9 · Adverbes 9 ·
+   Prépositions 8 · Jours de la semaine 7 · Conjonctions 5 · Démonstratifs 3 ·
+   Existence 2 (+ 19 « Phrases », à **exclure** : ce sont déjà des phrases complètes).
    Méthode par lot : lister les mots sans exemple (`extractCards` exporté par build.js —
    filtrer `niveau==='A1' && !exemples`), écrire les `<ul class="exemples">` dans le
    carnet (ligne éditoriale ARCHITECTURE.md §5 : 3–8 mots, présent, vocabulaire ≤ A1,
    une situation concrète du quotidien), puis `node verifie_exemples.js` (**0 erreur
    exigé** — c'est le filet qui remplace la relecture), `node build.js`, commit.
+   Outillage réutilisable du lot Noms : les phrases en JSON + un script d'insertion
+   qui génère la `.tr` avec le `he2tr` de l'appli (concordance par construction) et
+   quelques retouches d'affichage (kol, akhshav, chva sonore, noms propres en capitale).
    Ensuite : les 268 mots A2.
-2. **Solder les 36 avertissements du validateur** sur le lot pilote : mots hors carnet
-   (souvent des mots utiles à AJOUTER au carnet — עברית « hébreu », עכשיו en ktiv malé…),
-   écarts de translittération distance 2, quelques mots d'un niveau au-dessus.
+2. **Solder les 31 avertissements du validateur** sur le lot pilote : mots hors carnet
+   (souvent des mots utiles à AJOUTER au carnet, comme עַכְשָׁיו en ktiv malé — עברית
+   est **fait**, ajoutée aux Noms le 19/07), écarts de translittération distance 2,
+   quelques mots d'un niveau au-dessus.
 3. **Voix robotique — en attente d'une donnée de Ruben** : le nom de voix affiché dans la
    note Prononciation de son iPhone. Selon la réponse : si « Carmit » simple →
    recommander Carmit Enhanced (Réglages > Accessibilité > Contenu énoncé > Voix >
