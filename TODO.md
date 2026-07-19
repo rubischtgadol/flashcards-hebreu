@@ -1,6 +1,18 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Dernier acquis : les quatre chantiers demandés
+État au 2026-07-19, fin de journée. **Dernier acquis : le dossier « voix robotique »
+est CLOS, et par une preuve et non plus par déduction.** Donnée apportée par Ruben :
+son iPhone est réglé **en norvégien**, et les Réglages iOS y nomment la voix
+**« Carmit (forbedret) »** — pendant que l'app, elle, n'affiche que **« Carmit »**.
+L'écart entre les deux écrans *est* le filtre de WebKit pris en flagrant délit : le
+système sait que la voix installée est l'améliorée, l'API web ne le dit pas. Une phrase
+de notre documentation était fausse et a été corrigée — le nom **porte** bien la qualité,
+mais **traduit** dans la langue du téléphone ; ce qui est vrai, c'est que le nom renvoyé
+par `getVoices()` ne la porte pas. Cette donnée a aussi révélé un **défaut de code réel** :
+`loadVoices()` classait les voix en cherchant « enhanced »/« premium »/« hebrew » dans un
+champ localisé, donc en silence sur tout téléphone non anglophone — le score se lit
+désormais d'abord sur `voiceURI`, que le système ne traduit jamais.
+**Acquis du même soir : les quatre chantiers demandés
 par Ruben — points 7, 3, 6 et la garde de couverture — sont soldés.**
 L'écran de départ **se replie** : « Catégories » et « Niveau » rejoignent le pli des
 « Réglages avancés », 1278 → 874 px de panneau (−32 %) et 43 → 35 arrêts de tabulation.
@@ -124,43 +136,51 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    הַבַּיְתָה (hé directionnel, réellement absent du carnet — décision de contenu :
    l'enseigner, ou récrire l'exemple de לַחֲזֹר sans lui) et le `.tr` « bamekarer »
    à distance 2 de `he2tr`, où le `.tr` écrit à la main fait foi.
-3. **[FAIT le 19/07 au soir — la balle est dans le camp de Ruben] Voix robotique : la
-   piste « Carmit Enhanced » est morte, et le test qui restait est livré.**
-   `#audio-note` affiche maintenant le **`voiceURI`** sous le nom de la voix, sur une
-   ligne `.voice-id` en voix Label et en LTR (« identifiant :
-   com.apple.ttsbundle.Carmit-compact »). C'était le seul point empirique du dossier :
-   tout le reste était de la déduction. **Ce qui reste à faire ne dépend plus du code** —
-   Ruben lit l'identifiant sur son iPhone et le rapporte (voir la checklist en bas).
-   Grille de lecture, à appliquer telle quelle :
-   - se termine par `-compact` → confirmé, on est au plafond de ce que le web permet
-     sur iOS, **dossier clos** ; passer alors aux options (a)/(b)/(c) ci-dessous ;
-   - contient `.enhanced.` ou `.premium.` → le filtre de WebKit aurait changé depuis
-     2019, information neuve qui **rouvre** la piste.
+3. **[DOSSIER CLOS le 19/07 au soir — le plafond de plateforme est prouvé, plus déduit]**
+   **La preuve, apportée par Ruben** : son iPhone est réglé **en norvégien**, et les
+   Réglages iOS y nomment la voix **« Carmit (forbedret) »** (= « améliorée »). La même
+   voix, vue par l'app, s'appelle **« Carmit »** tout court. **C'est le filtre de WebKit
+   pris en flagrant délit** : le système sait parfaitement que la voix installée est
+   l'améliorée — il l'écrit dans ses propres Réglages — et l'API web ne le dit pas.
+   Jusque-là nous le déduisions d'un rapport de bug de 2019 ; nous le mesurons
+   maintenant sur l'appareil, par la différence entre les deux écrans.
+   **Ne plus rien tenter du côté « installer une meilleure voix ».**
 
-   Le reste du dossier, ci-dessous, est conservé : c'est lui qui explique pourquoi
-   ce test est le dernier, et pourquoi il ne faut plus rien tenter d'autre.
+   ⚠️ **Une phrase de cette note était fausse, et elle est corrigée** : nous avions écrit
+   que « le nom ne dira jamais Enhanced ». C'est inexact — **iOS écrit bien la qualité
+   dans le nom, mais traduite dans la langue du téléphone** (« forbedret » en norvégien,
+   « Erweitert » en allemand, « Enhanced » en anglais). Ce qui est vrai, et qui suffit à
+   la conclusion, c'est que **le nom renvoyé par `getVoices()` ne la porte pas** : WebKit
+   ne publie que la variante compacte, dont le nom est nu. Distinguer les deux écrans est
+   essentiel — c'est justement leur écart qui fait la preuve.
 
-   **Voix robotique — la piste « Carmit Enhanced » est MORTE, et c'est documenté.**
-   Donnée relevée par Ruben le 19/07 : la note affiche **« Carmit »**, alors qu'il avait
-   bien installé Carmit Enhanced. Recherche faite le même jour — **ce n'est ni un bug ni
-   un échec d'installation** : WebKit *filtre délibérément* les voix par qualité et
-   n'expose que les `compact`. Le code (bug WebKit 203689, r251960, nov. 2019) ne garde
-   dans `getVoices()` que `voice.quality == AVSpeechSynthesisVoiceQualityDefault`, motif
-   déclaré « réduire la surface de fingerprinting ». Apple le confirme en toutes lettres
-   sur son forum développeurs (thread 723503) : *« with Web Speech APIs only the
-   pre-installed voices are available. Optionally downloadable voices are not
-   available. »* Et le nom ne dira jamais « Enhanced » : au niveau système,
-   `AVSpeechSynthesisVoice` sépare `name` et `quality` en deux champs, et l'API Web
-   Speech n'a aucun champ pour la qualité.
-   **Conséquence directe : ne plus recommander à Ruben d'installer une voix Enhanced —
-   la PWA ne pourra jamais s'en servir.** C'est une contrainte de plateforme, pas un
-   réglage à trouver.
+   🔎 **Défaut de code révélé par cette donnée, corrigé le même soir** : `loadVoices()`
+   cherchait « enhanced », « premium » et « hebrew » dans `name`, un champ **localisé**.
+   Sur tout téléphone non anglophone — celui de Ruben, donc — une voix améliorée aurait
+   été classée comme ordinaire, en silence. Le score se lit désormais d'abord sur
+   `voiceURI`, identifiant reverse-DNS que le système ne traduit jamais. Défaut dormant
+   aujourd'hui (WebKit ne publie que les compactes), filet pour le jour où ce serait
+   faux. **Leçon à garder : ne jamais brancher une logique sur un libellé destiné à
+   l'utilisateur — il est traduit.**
 
-   *~~Le seul test qui reste à faire (court) : afficher `voice.voiceURI` à côté de
-   `voice.name` dans `#audio-note`.~~* **Livré le 19/07 au soir** — voir la grille de
-   lecture en tête de point.
+   **La ligne « identifiant » reste à l'écran** (`#audio-note`, voix Label, LTR). Elle ne
+   sert plus à trancher — c'est fait — mais de **détecteur permanent** : si un jour elle
+   affiche `.enhanced.` ou `.premium.` au lieu de `…-compact`, c'est que le filtre de
+   WebKit a changé, et le dossier se rouvre de lui-même. Reste à relever une fois, sans
+   urgence, pour archiver la valeur exacte (checklist en bas).
 
-   **Si le test confirme `-compact`, les options restantes sont, dans l'ordre :**
+   *Le dossier documentaire, conservé — c'est lui qui explique pourquoi il ne faut plus
+   rien tenter :* WebKit *filtre délibérément* les voix par qualité et n'expose que les
+   `compact`. Le code (bug WebKit 203689, r251960, nov. 2019) ne garde dans `getVoices()`
+   que `voice.quality == AVSpeechSynthesisVoiceQualityDefault`, motif déclaré « réduire
+   la surface de fingerprinting ». Apple le confirme en toutes lettres sur son forum
+   développeurs (thread 723503) : *« with Web Speech APIs only the pre-installed voices
+   are available. Optionally downloadable voices are not available. »* Au niveau système,
+   `AVSpeechSynthesisVoice` sépare `name` et `quality` en deux champs, et l'API Web Speech
+   n'a aucun champ pour la qualité — elle ne peut donc pas la transmettre autrement que
+   par l'identifiant.
+
+   **Le dossier étant clos, les options restantes sont, dans l'ordre :**
    (a) ajuster `rate`/`pitch` — gain réel mais modeste sur une voix compacte ;
    (b) audio préenregistré (décision produit lourde : ~713 fichiers, mais c'est la seule
    voie vers une vraie qualité hors-ligne) ; (c) rien, et l'assumer.
@@ -310,13 +330,18 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 - [x] ~~Relever le **nom de la voix** affiché dans Réglages avancés → Prononciation.~~
       **Fait le 19/07 : « Carmit »**, alors que Carmit Enhanced était installée. Dossier
       instruit au point 3 — c'est une restriction de WebKit, pas un réglage manqué.
-- [ ] **➤ Relever l'`identifiant` de la voix**, ligne du dessous, même écran (Réglages
-      avancés → Prononciation). C'est le dernier point empirique du dossier « voix » et
-      il ne dépend plus que de ça. Se termine par `-compact` → dossier clos, on passe aux
-      options (a)/(b)/(c) du point 3 ; contient `.enhanced.` ou `.premium.` → la piste
-      se rouvre. (Le SW passe en **v9** pour que le nouvel écran arrive dès le premier
-      lancement : en stale-while-revalidate, sans bump, l'ancienne version aurait été
-      servie une fois de plus.)
+- [x] ~~Relever la voix dans les Réglages iOS.~~ **Fait le 19/07 au soir : « Carmit
+      (forbedret) »** — le téléphone est en norvégien, et iOS y écrit la qualité dans
+      le nom, traduite. L'app, elle, n'affiche que « Carmit ». **Cet écart entre les
+      deux écrans est la preuve du filtre de WebKit** : le dossier voix est CLOS
+      (point 3), et un défaut de code en a été tiré (classement des voix qui lisait un
+      libellé traduit).
+- [ ] Relever une fois l'`identifiant` affiché **dans l'app** (Réglages avancés →
+      Prononciation, ligne sous le nom), pour archiver la valeur exacte. **Sans
+      urgence** — la conclusion ne l'attend plus. La ligne reste un détecteur : si elle
+      affiche un jour `.enhanced.`/`.premium.` au lieu de `…-compact`, le filtre de
+      WebKit aura changé et le dossier se rouvrira. (Le SW est en **v9** pour que
+      l'écran arrive dès le premier lancement.)
 - [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
 ## Fait (historique compact — détail dans les messages de commit)
@@ -637,6 +662,18 @@ et la garde de couverture). Aucun n'a touché au vocabulaire : 713 cartes, 510 e
   tout en restant le nom accessible du `role="group"`. Les deux sont inscrites dans
   DESIGN.md § Le pli, et la voix Title y a été corrigée : elle déclarait « Catégories »
   parmi ses emplois, ce qui était devenu faux.
+- **[x] Le dossier « voix robotique » est CLOS par une preuve** (voir point 3). Ruben
+  relève « Carmit (forbedret) » dans les Réglages iOS — téléphone en norvégien — quand
+  l'app affiche « Carmit ». L'écart entre les deux écrans démontre le filtre de WebKit,
+  là où nous n'avions qu'un rapport de bug de 2019. Corrige au passage une phrase fausse
+  de notre note (« le nom ne dira jamais Enhanced » : il le dit, traduit — c'est le nom
+  vu par `getVoices()` qui ne le dit pas).
+- **[x] Le classement des voix ne dépend plus de la langue du téléphone** — défaut réel
+  révélé par cette donnée. `loadVoices()` testait « enhanced »/« premium »/« hebrew »
+  sur `name`, champ localisé : sur un appareil non anglophone, une voix améliorée aurait
+  été classée comme ordinaire, en silence. Score et filtre lisent maintenant d'abord
+  `voiceURI`. Dormant aujourd'hui, filet pour demain. 9 contrôles WebKit (noms norvégien,
+  allemand, anglais, cas réel, voix reconnue par son seul identifiant, absence de voix).
 - **[x] La note Prononciation affiche le `voiceURI`** (point 3), sous le nom de la voix,
   en voix Label et en LTR. Dernier test du dossier « voix robotique » : `name` ne dit
   jamais la qualité (deux champs distincts au niveau système, un seul exposé par l'API),
@@ -713,9 +750,17 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - La révision du jour ignore le filtre Niveau ; un mot sans `data-niveau` reste visible
   quel que soit le filtre — et l'interface le dit.
 - API TTS externe rejetée pour la voix (le tout-statique hors-ligne prime).
-- **Les voix « Enhanced » sont hors de portée du web sur iOS** (mesuré et sourcé le
-  19/07) : WebKit ne publie que les voix compactes préinstallées. Ne plus proposer à
-  Ruben d'en installer une — ce n'est pas un réglage, c'est un plafond de plateforme.
+- **Les voix « Enhanced » sont hors de portée du web sur iOS** (sourcé *et prouvé sur
+  l'appareil* le 19/07) : WebKit ne publie que les voix compactes préinstallées. Ne plus
+  proposer à Ruben d'en installer une — ce n'est pas un réglage, c'est un plafond de
+  plateforme. **La preuve tient en une comparaison** : les Réglages iOS affichent
+  « Carmit (forbedret) », l'app « Carmit ». Ne pas confondre les deux écrans : c'est leur
+  écart qui démontre le filtre, et le nom vu dans iOS n'infirme rien.
+- **Le `name` d'une voix est LOCALISÉ, jamais une donnée à tester en code.** iOS écrit la
+  qualité dedans, mais traduite (« forbedret », « Erweitert », « Enhanced »). Toute
+  logique de détection ou de classement se branche sur `voiceURI`, identifiant
+  reverse-DNS non traduit. Règle générale : **ne jamais brancher une logique sur un
+  libellé destiné à l'utilisateur.**
 - **`font-size:22px` est sur `body`, pas sur `html` — donc 1rem vaut 16px**, dans les
   trois fichiers. Mesuré le 19/07. Ne pas « réparer » en déplaçant la déclaration sur
   `html` : ×1,375 sur chaque `rem` du carnet *et* d'`app.html`, dont les tailles sont
