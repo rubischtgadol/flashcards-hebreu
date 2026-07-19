@@ -4,8 +4,10 @@
 à tout l'interactif de l'app** — cause racine trouvée (`transition:all` fige les `outline-*`, et
 non la piste `-webkit-appearance` qui est réfutée), six règles corrigées, 58 arrêts de
 tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). (2) **L'audit du carnet est
-fait** (13/20, 4 P1, aucun P0) : le plan de correctifs est écrit et chiffré, **rien n'est encore
-appliqué** — c'est le point 4 ci-dessous, et c'est le prochain vrai chantier. Avant cela : **critique
+fait** (13/20, 4 P1, aucun P0) **et ses 4 P1 sont corrigés** : le carnet a reçu les passes qui
+lui manquaient — `lang="he"` de 0 à **100 %** (5003 nœuds), garde `prefers-reduced-motion`, or
+ambiant de `.part` retiré, cibles tactiles de 21 défauts à 0. Reste du plan (P2/P3 de charte et
+consolidation typographique) volontairement non engagé : point 4 ci-dessous. Avant cela : **critique
 impeccable du portail et de l'app (30/40), P0 et P2 corrigés et vérifiés en WebKit** — le
 bouton « Commencer » désactivé ne recouvre plus les chips, les dix cibles tactiles sous
 44 px sont soldées, « Révision du jour » sort de la voix Title, la copie du verdict raté
@@ -53,7 +55,19 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    Hébreu) ; ajuster `rate`/`pitch` si besoin ; API TTS externe **rejetée** (casse le
    tout-statique hors-ligne) ; audio préenregistré = décision produit, seulement si
    Enhanced déçoit.
-4. **Correctifs du carnet — l'audit est FAIT, le plan est écrit, rien n'est encore appliqué.**
+4. **Correctifs du carnet — les 4 P1 et le bloc tactile sont FAITS ; le reste attend.**
+   Appliqué le 19/07 (détail en « Fait ») : `lang="he"` à **100 %**, garde
+   `prefers-reduced-motion` + `scroll-behavior:auto`, or ambiant de `.part` retiré,
+   `--bg` tokenisé, cibles tactiles à 44 px, nom accessible du champ de recherche.
+   **Reste du plan, non engagé** : les P2/P3 de charte — `.tip` (2ᵉ surface dorée, à
+   trancher), `.subtheme` (5ᵉ emploi non déclaré de la voix Title, ×21), les 4 formulations
+   ad hoc de micro-titre, `rgba(0,0,0,.14)`, les piles de fallback tronquées, les 4 encadrés
+   inline sans classe, `theme-color`, tap-highlight, `transition:all` (×2), `<main>`.
+   **Et surtout la consolidation typographique** (24 tailles → 6–8 pas), volontairement
+   reportée : elle retouche l'apparence de tout le document et mérite d'être vue avant/après.
+   Les 24 findings du détecteur sont donc **inchangés** — c'est attendu, pas un oubli.
+
+   *Contexte d'origine de l'audit :*
    `/impeccable audit vocabulaire_hebreu.html` a tourné le 19/07 : **13/20**, 4 P1, 9 P2, 7 P3,
    aucun P0. Rapport complet :
    `.impeccable/critique/2026-07-19T09-57-31Z__vocabulaire-hebreu-html__audit.md`.
@@ -229,6 +243,36 @@ qui n'attendait qu'un mécanisme prouvé) :
   un dans l'état où ils sont visibles. **Non-régression du survol** contrôlée : la chip
   passe toujours par une valeur intermédiaire (`rgb(168,134,73)`) entre repos et or.
   `node build.js --check` en phase, 710 cartes, 507 exemples.
+
+Puis, le 2026-07-19 — **le carnet reçoit les passes qui lui manquaient** (les 4 P1 de
+l'audit + le bloc tactile) :
+
+- **[x] `lang="he"` : 0 % → 100 %** sur 5003 nœuds hébreux. Deux temps : les éléments
+  purement hébreux reçoivent l'attribut directement (2419 `span.he`, 20 `toc-he`, 3
+  `part-he`, 7 `ex-he`, 26 `h2`, le `h1`, et les 2350 `span.cursive` **générés par le JS**,
+  d'où `cursive.lang='he'` à la création) ; les **177 suites hébraïques insérées dans de la
+  prose française** (notes, en-têtes `Présent (הֹוֶה)`, gloses) sont enveloppées dans
+  `<span lang="he">` par un scanner sur le HTML brut — sans parseur, pour ne rien altérer
+  d'autre. **Couplage d'extraction vérifié** : `build.js --check` reste en phase et le
+  fichier autonome est **inchangé au octet** ; la recherche fonctionne toujours en hébreu
+  comme en français (3 et 16 résultats mesurés), ce qui était le vrai risque puisque son
+  filtre travaille sur `textContent`.
+- **[x] Garde `prefers-reduced-motion`** — le carnet n'avait **aucune** règle `@media`. La
+  garde inclut `scroll-behavior:auto`, sans quoi elle serait décorative : c'est le
+  défilement doux qui anime les 27 liens du sommaire, et le `transition:none` de l'app ne
+  l'aurait pas couvert. Vérifié sous `reducedMotion:'reduce'` : `scroll-behavior` = `auto`.
+- **[x] Or ambiant de `.part` retiré** (règle de la lampe) : un séparateur structurel n'est
+  ni une action, ni une sélection, ni l'identité. Passé à `--bg2` + `--card-edge` ; l'or ne
+  subsiste que sur le numéro de partie. Vérifié à l'écran — le bouton d'action redevient
+  l'élément le plus lumineux de la page.
+- **[x] `--bg` tokenisé** : `rgba(18,24,31,.86)` → `color-mix(in srgb, var(--bg) 86%, transparent)`,
+  avec repli plein pour les moteurs sans `color-mix`.
+- **[x] Cibles tactiles : 21 sous 44 px → 0** (iPhone 16 Pro mesuré) — bloc
+  `@media (pointer:coarse)` sur les 27 pastilles du sommaire, `.app-link` et `.search-clear`
+  (28→44, son jumeau dans l'app était déjà à 44).
+- **[x] Champ de recherche nommé** (`aria-label`) : il n'avait qu'un `placeholder`.
+- **Contrôlé après coup** : 0 erreur JS, 0 échec de contraste, 0 débordement horizontal,
+  710 cartes et 507 exemples intacts.
 
 Décisions actées (ne pas re-débattre sans nouvelle demande) :
 
