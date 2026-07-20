@@ -166,20 +166,55 @@ Deux chantiers sont ouverts, dans cet ordre :
    rendu (`fonts.googleapis.com` puis `fonts.gstatic.com` = deux allers-retours réseau
    avant le premier pixel), sur le portail **et** sur l'app, une fois par page —
    exactement la forme du symptôme. À instruire avant de corriger, comme le précédent.
-2. 🔶 **Audit complet du carnet** — **le plan est écrit et prêt à exécuter** :
-   [`docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`](docs/superpowers/specs/2026-07-20-audit-carnet-plan.md).
-   Angle tranché par Ruben : **les trois en séquence** (justesse de l'hébreu → pédagogie
-   et progression → présentation), en **fan-out multi-agents**, avec un point d'arrêt et
-   une validation entre chaque phase. Le plan est autoportant : il ne suppose rien de la
-   session qui l'a écrit.
+2. 🔶 **Audit complet du carnet** — **phase 1 EN COURS d'exécution, interrompue
+   proprement le 20/07 au milieu de l'étalonnage** (départ de Ruben). Plan :
+   [`docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`](docs/superpowers/specs/2026-07-20-audit-carnet-plan.md)
+   — son « Journal d'exécution — session 3 » (avant l'annexe) porte l'état fin et la
+   marche à suivre. Angle tranché par Ruben : **les trois en séquence** (justesse de
+   l'hébreu → pédagogie et progression → présentation), en **fan-out multi-agents**,
+   avec un point d'arrêt et une validation entre chaque phase.
+
+   **État exact au 20/07 :**
+   - ✅ Étage 0 : `audit_carnet_mecanique.js` (racine, versionné) écrit et exécuté —
+     **0 erreur d'intégrité, 209 drapeaux distincts** (C7 genre : 33, C8 pluriel : 62,
+     C10 cohérence : 108, C11 tr : 1, C12 vedette : 5), 17 données C14. Le contrôle 10
+     a été **raffiné** (3 restrictions décidables, commentées dans le script : la
+     version naïve rendait 1073 drapeaux de bruit structurel ; les 4 cas historiques
+     de `41cf08c` passent les filtres — vérifié).
+   - ✅ Découpe : 28 tranches `audit/sNN.json`, **somme = 713 vérifiée par le script**
+     (il échoue sinon), 0 recouvrement, bornes 17–28. Drapeaux injectés dans les
+     tranches (champ `flags`). Étage Haiku **non déclenché** : 209 > ~150, mais la
+     majorité des drapeaux (C10) porte sur du nikoud/morphologie que le plan interdit
+     à Haiku, et la charge par tranche reste digeste (médiane ~11, max 33) — décision
+     à publier dans le rapport.
+   - 🔶 Étalonnage : **20 fautes injectées** (s29 ← s12, Noms : 2 nikoud, 3 genres,
+     3 pluriels, 1 traduction, 1 exemple ; s30 ← s03, Verbes : 3 nikoud, 4 formes,
+     1 traduction, 2 exemples — le mélange du plan, adapté par catégorie). Corrigé et
+     script d'injection : `audit/_etalonnage_corrige.json` / `_injecte_etalonnage.js`
+     (gitignorés). **Les 4 auditeurs Sonnet ont été lancés puis stoppés avant tout
+     résultat : AUCUN rappel mesuré — relancer l'étalonnage tel quel** (gabarit A
+     littéral, sortie contrainte par schéma, Sonnet effort haut ; seuil 16/20).
+   - ⏳ Ensuite, dans l'ordre du plan : dépouillement (rappel /20, faux positifs
+     **adjugés** sur s12/s03), fan-out 28 auditeurs, contre-expertise 2 lentilles par
+     lots de 8, arbitrage Opus (contestés **et** réfutés bloquants), rapport priorisé
+     avec rappel publié et coût SRS chiffré (seules les anomalies `field: he` changent
+     l'identité d'une carte).
+   - ⚠️ Reprise pratique : `node audit_carnet_mecanique.js` régénère `audit/` **mais
+     efface s29/s30** ; les refabriquer par `node audit/_injecte_etalonnage.js`. Le
+     fil principal ne lit jamais les tranches (s12/s03 déjà consommées pour
+     l'injection — ne pas en relire d'autres) ; il PEUT lire le corrigé.
+   - ⚠️ Graphe : l'ajout du script racine est **structurel** → `/graphify . --update`
+     est dû ; **différé volontairement** pour être payé une seule fois, avec le lot de
+     correction (décision notée dans `.gitignore`).
 
    ⚠️ **Trois sessions distinctes, décidées par Ruben** : (1) l'écriture du plan — faite
    le 20/07 ; (2) la **review complète du plan par Fable 5** — **faite le 20/07**, ses
    corrections sont marquées ✎R2 dans le plan (récapitulatif en tête de fichier :
    étalonnage refondu à 2×10 erreurs, asymétrie de la contre-expertise corrigée, Haiku
    rétrogradé en option, contrôles 9/10/12 opérationnalisés, gabarit Opus ajouté) ;
-   (3) une session d'**exécution** — la prochaine. Ne pas fusionner : relire un plan et
-   l'appliquer dans la même fenêtre, c'est se relire soi-même en ayant déjà commencé.
+   (3) la session d'**exécution** — **commencée le 20/07 et interrompue pendant
+   l'étalonnage** : la reprise continue la phase 1 là où le journal la laisse, elle ne
+   repart pas de zéro.
 
    Les trois choses à savoir avant d'ouvrir le plan :
    - il tient en **quatre étages d'instrument** (script à 0 token → Haiku en option

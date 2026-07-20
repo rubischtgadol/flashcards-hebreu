@@ -5,8 +5,10 @@
 **Origine** : demande de Ruben le 20/07 au soir. Angle retenu : **les trois, en
 séquence** (justesse → pédagogie → présentation), méthode : **fan-out multi-agents**,
 avec un **point d'arrêt entre chaque phase** pour validation.
-**État** : ⏳ PLAN — rien n'a été exécuté. Les tranches de données ont été préparées
-puis abandonnées avec la session ; l'étape 1.1 les régénère en une commande.
+**État** : 🔶 **PHASE 1 EN COURS** (session 3, 20/07) — étages 0 et 1.1 faits,
+étalonnage injecté mais **non mesuré** (session interrompue au départ de Ruben,
+auditeurs stoppés avant résultat). L'état fin et la marche à suivre sont dans le
+**« Journal d'exécution — session 3 »** juste avant l'annexe.
 **Review (session 2)** : ✅ faite le 20/07 par Fable 5. Les corrections sont marquées
 **✎R2** dans le corps du texte ; le récapitulatif est dans la section « Révision de la
 session 2 » ci-dessous.
@@ -555,6 +557,75 @@ L'angle le plus abouti : on cherche le reliquat, pas la refonte.
   mais les écrire est un autre chantier, avec son propre lot d'exemples et sa relecture.
 - **Le chantier du premier affichage** (lenteur à l'ouverture du portail puis de l'app,
   signalée le 20/07) : sans rapport, instruit séparément — voir TODO.md « Reprendre ici ».
+
+---
+
+## Journal d'exécution — session 3 (20/07, Fable 5) : interrompue pendant l'étalonnage
+
+**Contexte de l'arrêt** : Ruben a demandé un arrêt propre en cours de route. Les
+4 auditeurs d'étalonnage (lancés en Workflow) ont été **stoppés avant tout résultat** :
+**aucun chiffre de rappel n'existe**. Rien du carnet n'a été modifié ; aucun sous-agent
+n'a écrit quoi que ce soit.
+
+### Fait, et vérifié
+
+- **1.0 — `audit_carnet_mecanique.js`** écrit (racine, versionné — il produit AUSSI les
+  tranches de 1.1) et exécuté : **0 erreur d'intégrité, 209 drapeaux distincts**
+  (C7 : 33, C8 : 62, C10 : 108, C11 : 1, C12 : 5), 17 données C14, dans
+  `audit/mecanique.json`.
+- **Contrôle 10 raffiné en cours de route** (à publier au rapport — règle « aucun
+  plafond silencieux ») : la version écrite au plan produisait **1073 drapeaux-cartes**
+  de bruit structurel (participes m/f d'une même carte, tokens d'exemples préfixés,
+  flexions ־וֹת/־ת). Trois restrictions **décidables**, commentées dans le script :
+  filet a limité aux vedettes+formes ; constat mono-carte exclu (paradigme il/elle) ;
+  filet b limité aux insertions intérieures hors alternances flexionnelles. Les 4 cas
+  de `41cf08c` passent tous les filtres (vérifié). Limite assumée inchangée : une vraie
+  flexion échappe aux filets, c'est l'étage 2 qui la voit.
+- **1.1 — Découpe** : 28 tranches `audit/sNN.json`, **somme = 713 vérifiée par le
+  script** (échec sinon), 0 recouvrement, bornes 17–28. s01–s04 Verbes, s05–s08
+  Adjectifs, s09–s19 Noms, s20–s21 Nombres, s22–s23 Expressions, s24–s28 mixtes
+  (empaquetage first-fit-decreasing des 12 petites catégories).
+- **Routage des drapeaux** : injectés dans les tranches (champ `flags` ; un constat
+  C10 multi-cartes est injecté dans la tranche de CHAQUE carte impliquée). **Étage 1
+  Haiku non déclenché**, décision motivée : 209 > ~150, mais 114 drapeaux (C10/C11/C12)
+  portent sur du nikoud/de la morphologie **interdits à Haiku par ce plan**, et la
+  charge réelle par tranche est digeste (médiane ~11, max 33 sur s10). À publier au
+  rapport.
+- **Étape 0 — étalonnage, moitié faite** : les **20 fautes sont injectées** — copies
+  fautées `audit/s29.json` (← s12, Noms) et `audit/s30.json` (← s03, Verbes). Le
+  mélange du plan est **adapté par catégorie** (une tranche Noms n'a pas de formes
+  verbales, une tranche Verbes n'a ni genre ni pluriel) : s29 = 2 nikoud, 3 genres,
+  3 pluriels, 1 traduction, 1 exemple ; s30 = 3 nikoud, 4 formes, 1 traduction,
+  2 exemples. Les trois règles d'injection ✎R2 sont respectées (fil principal, pas de
+  décalque des calibrants, subtiles) + une quatrième apprise en route : **aucune
+  injection sur une carte dont un drapeau existant contredirait la valeur retouchée**
+  (le drapeau trahirait la retouche). Corrigé : `audit/_etalonnage_corrige.json` ;
+  script : `audit/_injecte_etalonnage.js` (tous deux gitignorés, hors du contexte des
+  auditeurs).
+
+### À faire à la reprise (dans cet ordre)
+
+1. **Relancer l'étalonnage tel quel** : 4 auditeurs Sonnet (effort haut), gabarit A
+   littéral, sortie contrainte par schéma, sur s29 + s30 (fautées) et s12 + s03
+   (originales). Dépouiller : rappel /20 contre le corrigé ; chaque signalement sur
+   les originales est **adjugé** (fil principal, Opus si besoin), pas compté faux
+   positif d'office. Appliquer la table de seuils (≥ 16/20 → fan-out).
+2. Fan-out 28 auditeurs (1.2), contre-expertise 2 lentilles par lots de 8 (1.3),
+   arbitrage Opus des contestés ET des réfutés bloquants (1.3/3b), rapport (1.4).
+3. S'arrêter au ⛔ point d'arrêt — les corrections sont un lot séparé, déclenché par
+   Ruben.
+
+**Pièges de reprise** :
+
+- `node audit_carnet_mecanique.js` régénère `audit/` mais **efface s29/s30** (purge
+  `sNN.json`) ; les refabriquer par `node audit/_injecte_etalonnage.js` (ses assertions
+  échouent si s12/s03 ont changé entre-temps — c'est voulu).
+- Le fil principal ne lit jamais les tranches ; s12 et s03 ont déjà été consommées
+  pour écrire les injections (licencié par le protocole), ne pas en relire d'autres.
+  Le corrigé, lui, se lit librement au dépouillement.
+- `/graphify . --update` est **dû** (script racine ajouté = structurel) mais **différé
+  volontairement** : à payer une seule fois, avec le lot de correction (décision notée
+  dans `.gitignore`).
 
 ---
 
