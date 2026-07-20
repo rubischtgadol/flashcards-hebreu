@@ -1,6 +1,21 @@
 # État du projet et travail restant
 
-État au 2026-07-20. **Dernier acquis : le lot de clôture des exemples est livré — la
+État au 2026-07-20. **Dernier acquis : la largeur de lecture du carnet est bornée, et le
+hé directionnel est enseigné — la dernière dette de mise en page est soldée, et les
+avertissements du validateur tombent de 2 à 1.** La prose du carnet passe de **158 à 67
+caractères par ligne** (cible 45–75, 0 bloc sur 13 hors cible), avec **le mobile inchangé
+au pixel** — le défaut n'existait qu'en desktop, et nos contrôles se font en iPhone
+émulé, ce qui l'avait rendu structurellement invisible. Le hé directionnel entre comme
+**section de grammaire** : il enseigne הַבַּיְתָה sans créer de carte (713 cartes et 564
+exemples inchangés, `flashcards_hebreu.html` inchangé au octet), mécanisme qui n'était
+écrit nulle part et l'est maintenant. **Ce chantier s'est joué en quatre passes WebKit
+dont deux au rouge** : la campagne a rattrapé deux erreurs de raisonnement — une colonne
+calibrée sur la largeur d'un chiffre au lieu de l'avance réelle de la prose, et un cadre
+de tables déduit d'un `min-width` qui n'est qu'un plancher mobile — plus une **règle CSS
+inerte** qui serait partie en commit avec un commentaire affirmant qu'elle agissait.
+Détail et les trois pièges au point 8, règle dans DESIGN.md §3.
+
+**Acquis précédent : le lot de clôture des exemples est livré — la
 question des exemples en situation est CLOSE.** Les 54 mots-outils dont le sens ne
 s'attrape qu'en contexte (Prépositions 23, Adverbes 19, Mots interrogatifs 12) portent
 désormais leur phrase du quotidien : **510 → 564 exemples**, 713 cartes inchangées,
@@ -108,6 +123,23 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
+**Ce qui reste vraiment ouvert, au 20/07 au soir — les huit points ci-dessous sont tous
+soldés.** Un seul chantier subsiste dans le code, et il n'a pas été engagé par décision :
+
+- **Les deux « lampes » de l'accueil** (piste A, § Pistes de design ouvertes). Explorée,
+  confirmée, chiffrée — mais **délibérément écartée le 20/07** : Ruben a demandé la
+  largeur de lecture et le hé directionnel, « on ne touche pas aux lampes pour
+  l'instant ». À reprendre telle qu'elle est écrite, avec son risque documenté (un
+  « Commencer » secondaire actif ressemble à s'y méprendre à son état désactivé, il faut
+  un troisième registre vérifié à l'écran côte à côte) et le `.review-card:disabled`
+  à `opacity:.55` à traiter avec, contraire à DESIGN.md §5.
+- **Le dernier avertissement du validateur** (« bamekarer », point 2) est **légitime** :
+  le `.tr` écrit à la main fait foi. Ne pas le « corriger ».
+- **La checklist côté Ruben** (vrai iPhone), inchangée, en bas de cette section.
+
+Le reste de cette section est l'historique des huit chantiers soldés : à lire pour les
+leçons qu'ils portent, pas comme du travail en attente.
+
 1. **Exemples en situation — les trois tables sont couvertes à 100 %** (19/07 au
    soir, demande de Ruben) : chaque **nom (301), adjectif (102) et verbe (97)** porte
    un exemple du quotidien (verbes : phrase au présent) — plus 8 Mots de quantité et
@@ -161,10 +193,26 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    ne lisait que les cartes et ignorait les sections de grammaire (4 avert.), et un
    seuil de niveau qui alertait à +1 alors que +1 est inévitable (13 avert.).
    La **fourmi est corrigée** : נָמָל (= port) → נְמָלָה, seule identité SRS déplacée.
-   **Les 2 restants sont légitimes**, à ne pas « corriger » à l'aveugle :
-   הַבַּיְתָה (hé directionnel, réellement absent du carnet — décision de contenu :
-   l'enseigner, ou récrire l'exemple de לַחֲזֹר sans lui) et le `.tr` « bamekarer »
-   à distance 2 de `he2tr`, où le `.tr` écrit à la main fait foi.
+   **[20/07 — la question ouverte est tranchée : 2 → 1 avertissement.]** Ruben a choisi
+   **d'enseigner le hé directionnel** plutôt que de récrire l'exemple de לַחֲזֹר. Une
+   section de grammaire `הֵא הַמְּגַמָּה` (Partie 1, après les prépositions fléchies)
+   enseigne les trois choses qui comptent : le mouvement **vers** et jamais le lieu où
+   l'on est (`אֲנִי בַּבַּיִת` contre `אֲנִי חוֹזֵר הַבַּיְתָה` — c'est l'encadré
+   `.attention`, et c'est ce qui justifie l'exemple), le `ָה־` qui n'est **pas** le
+   féminin (non accentué, ne change pas le genre), et la **liste fermée** : hors des cinq
+   formes du tableau, on revient à `לְ`. Cinq formes retenues (הַבַּיְתָה, יָמִינָה,
+   שְׂמֹאלָה, קָדִימָה, אָחוֹרָה), dont trois appuyées sur des mots que le carnet
+   connaissait déjà. Nord/sud **écartés** : leurs mots de départ sont absents du carnet,
+   les enseigner en passant serait le reproche que la note d'אֶתְמוֹל s'était fait.
+
+   ⚠️ **Le mécanisme à retenir, il n'était écrit nulle part** (il l'est maintenant dans
+   ARCHITECTURE.md §1) : une section de grammaire **enseigne un mot sans créer de carte**.
+   Son label `.count` n'a pas d'entrée dans les maps d'extraction, mais son hébreu alimente
+   le lexique du validateur. Résultat mesuré : l'avertissement tombe, et le carnet reste
+   à **713 cartes et 564 exemples**, `flashcards_hebreu.html` inchangé au octet.
+
+   **Le dernier avertissement est légitime**, à ne pas « corriger » à l'aveugle : le `.tr`
+   « bamekarer » à distance 2 de `he2tr`, où le `.tr` écrit à la main fait foi.
 3. **[DOSSIER CLOS le 19/07 au soir — le plafond de plateforme est prouvé, plus déduit]**
    **La preuve, apportée par Ruben** : son iPhone est réglé **en norvégien**, et les
    Réglages iOS y nomment la voix **« Carmit (forbedret) »** (= « améliorée »). La même
@@ -209,10 +257,13 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    n'a aucun champ pour la qualité — elle ne peut donc pas la transmettre autrement que
    par l'identifiant.
 
-   **Le dossier étant clos, les options restantes sont, dans l'ordre :**
+   **[20/07 — Ruben tranche : « on est bon pour la voix ».]** C'est l'option (c) :
+   la voix compacte est assumée telle quelle. **Ne plus rouvrir le sujet**, ni côté
+   réglages, ni côté audio préenregistré, sauf demande explicite de sa part.
+   *Les options sont conservées pour mémoire, au cas où la demande reviendrait :*
    (a) ajuster `rate`/`pitch` — gain réel mais modeste sur une voix compacte ;
    (b) audio préenregistré (décision produit lourde : ~713 fichiers, mais c'est la seule
-   voie vers une vraie qualité hors-ligne) ; (c) rien, et l'assumer.
+   voie vers une vraie qualité hors-ligne) ; (c) rien, et l'assumer — **retenue**.
    **API TTS externe reste rejetée** (casse le tout-statique hors-ligne).
 
    ⚠️ **Risque à surveiller** : plusieurs rapports (dont la doc Readium) signalent
@@ -335,21 +386,39 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    trois plis se confondent et le parcours se coupe au second en croyant boucler — il
    annonçait « 1 SUMMARY » sur 3. Estampiller l'**élément** (attribut posé sur le nœud).
 
-8. **Largeur de lecture non bornée — dette ouverte, écartée du périmètre le 19/07.**
-   Relevé en mesurant pour le point 4, et **délibérément non traité** : Ruben a choisi
-   « rampe + défauts mesurés » sans le bornage. `grep max-width` ne trouve **qu'une**
-   occurrence dans tout le carnet (`.search-inner{max-width:560px}`) — ni `body`, ni
-   `<main>`, ni `.note` n'ont de largeur maximale. Mesuré en desktop 1280 : la prose
-   grammaticale court sur **158 caractères par ligne** (cible confortable 45–75), et les
-   rangées de table laissent ~1000 px de vide entre l'hébreu calé à droite et le français
-   calé à gauche. **Le mobile est épargné** (le viewport borne naturellement), ce qui
-   explique que le défaut n'ait jamais été vu : tous les contrôles visuels du projet se
-   font en iPhone 16 Pro émulé.
-   Travail : `main{max-width:~34rem; margin-inline:auto}`. ⚠️ Piège repéré en lisant le
-   code : les `.table-wrap` portent `min-width:640px` sur leur table et sont déjà dans un
-   défileur horizontal — il faut les autoriser à déborder de la colonne de texte, sinon on
-   déclenche un scroll horizontal sur des tables qui tenaient auparavant. C'est un
-   changement d'allure du document, à voir avant/après.
+8. **[FAIT le 20/07] Largeur de lecture bornée — la dette est soldée.**
+   La prose passe de **158 à 67 caractères par ligne** (médiane ; étendue 50–69, cible
+   45–75, **0 bloc sur 13 hors cible** aux cinq largeurs desktop), et la mesure est
+   désormais **indépendante du viewport** de 768 à 1440. **Le mobile ne bouge pas d'un
+   pixel** : vérifié au comparatif JSON exact sur iPhone 16 Pro, 0 écart sur les 29 tables,
+   les 6 axes et les 13 blocs de prose. Deux jetons dans un **troisième bloc `:root`**
+   (`--colonne:28rem`, `--colonne-large:56rem`), mise en œuvre par le `padding-inline` de
+   `main` — et non par `max-width` + marges auto, qui aurait cassé la fusion des marges
+   verticales, c'est-à-dire tout le rythme du document. Règle complète dans DESIGN.md §3.
+
+   ⚠️ **Trois pièges payés en route, tous par la mesure, aucun par le raisonnement.**
+   Ils valent d'être lus avant de retoucher ce bloc :
+   - **Une colonne se calibre sur l'avance réelle de la prose, pas sur la largeur d'un
+     chiffre.** Le « 0 » d'Assistant fait 7,87px, la prose française avance de 6,63px :
+     la première version visait 69 caractères et en rendait **82**. Le commentaire que
+     je venais d'écrire était faux — exactement le mécanisme du « 1rem = 22px ».
+   - **`--colonne-large` est un plancher mesuré (55,6rem), pas un confort.** L'avoir
+     resserré à 44rem « puisque les tables portent `min-width:640px` » a mis **7 tables
+     sur 29 en défilement** : ce `min-width` est lui aussi un plancher, qui ne joue que
+     sur mobile. Les tables se posent en réalité à 759–890px. `56rem` était juste à 6px.
+   - **`main > *:not(.table-wrap)` (0,1,1) fait plancher de spécificité.** Un
+     `main > h2` (0,0,2) est ignoré **en silence** : la règle des titres est partie en
+     vérification morte, avec un commentaire de sept lignes affirmant qu'elle agissait.
+     Une règle inerte est pire qu'une règle absente — elle attend qu'on réordonne le
+     bloc pour s'appliquer d'un coup.
+
+   Le critère final des titres n'est pas « porte un filet » mais **« porte un filet ET
+   ouvre sur un objet au cadre »** : élargir tous les sous-thèmes corrigeait 17 cas et en
+   créait 4 (Temps, Lieu & direction, Saisons, Mois, qui ouvrent sur une liste). D'où
+   `main > .subtheme:has(+ .table-wrap)`. Décalage filet/contenu résiduel : **0 sur 21**.
+   Vérifié en **WebKit réel** en quatre passes (1440/1280/992/900/768 + iPhone 16 Pro),
+   dont deux au rouge : la campagne a rattrapé deux de mes erreurs de raisonnement que la
+   relecture n'aurait pas vues.
 
 **Checklist côté Ruben (vrai iPhone)** :
 
