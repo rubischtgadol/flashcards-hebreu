@@ -118,8 +118,10 @@ place, il rapporte des chiffres et des images.
 1. **Les trois états de « Commencer » capturés côte à côte** — lampe, secondaire actif,
    désactivé. Question tranchée à l'écran : le secondaire actif est-il distinguable du
    désactivé sans hésitation ? Si non, la spec échoue et on remonte au registre.
-2. **Anneau de focus doré présent** sur `#start` dans ses trois états et sur
-   `#review-btn` dans ses deux états — **5 arrêts de tabulation, 0 défaut**.
+2. **Anneau de focus doré présent** sur `#start` et `#review-btn` **dans leurs états
+   focusables** — 0 défaut. ⚠️ *Critère corrigé après mesure* : il exigeait d'abord les
+   états désactivés, or WebKit exclut les boutons `disabled` de l'ordre de tabulation.
+   Ils ne peuvent pas porter de `:focus-visible` ; le critère était mal écrit, pas violé.
 3. **Aucun pixel d'or dans `#review-btn` désactivé** — l'icône est le point à vérifier.
 4. **Le sticky suit l'état** : à `due > 0`, `#start` n'est plus épinglé au défilement ;
    à `due === 0`, il l'est encore.
@@ -138,3 +140,39 @@ place, il rapporte des chiffres et des images.
   CSS. Le graphe reste exact ; ~235k tokens ne sont pas dus. À dire dans le commit.
 - Docs : DESIGN.md §5 (le paragraphe « Défaut connu, non corrigé » devient le registre
   documenté), TODO.md (piste A soldée, « Reprendre ici » recalé).
+
+---
+
+## ➤ LIVRÉ le 2026-07-20 au soir
+
+Vérifié en WebKit réel (`devices['iPhone 16 Pro']`), état « cartes dues » obtenu par
+injection propre dans `srs_v1` (12 cartes à échéance passée), pas par un
+`classList.add` de complaisance.
+
+| mesure | attendu | relevé |
+| --- | --- | --- |
+| arrêts de tabulation testés | — | 50 |
+| défauts d'anneau de focus | 0 | **0** |
+| px dorés sur `#start` secondaire | 0 | **0** / 246 825 |
+| px dorés sur `#review-btn` désactivé | 0 | **0** / 344 736 |
+| écart R−B max, review désactivé | < 40 | **−17** |
+| `opacity` du review désactivé | 1 | **1** |
+| `position` de `#start` à `due>0` | `static` | **`static`** |
+| `position` de `#start` à `due=0` | `sticky` | **`sticky`** |
+| différences de style à 1440/1280/992/768 | 0 hors `pointer:coarse` | **0** |
+
+Verdict à l'œil sur les trois captures au cadrage identique : **le secondaire actif se
+distingue du désactivé sans hésitation.** La peau se détache du fond, le texte est à
+pleine intensité contre un gris franc. Un renfort non conçu s'y ajoute : le libellé
+diffère toujours (« Commencer — 10 cartes » contre « Commencer »), l'état désactivé ne
+survenant que faute de sélection, donc ne pouvant jamais porter de compte.
+
+**Deux enseignements dépassent ce chantier.**
+
+1. *Deux jetons nommés différemment ne sont pas nécessairement deux valeurs
+   différentes.* La piste bâtissait sa distinction sur `--card-edge` contre `--line` ;
+   ils diffèrent de deux points par canal. À vérifier avant de fonder quoi que ce soit
+   sur un écart de jetons.
+2. *Un critère d'acceptation peut être mal écrit sans être violé.* Exiger un
+   `:focus-visible` sur un bouton `disabled` demande à WebKit une chose qu'il ne fait
+   pas. Le distinguer d'un vrai défaut est ce qui sépare une vérification d'un rituel.

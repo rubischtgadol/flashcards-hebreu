@@ -151,18 +151,37 @@
     color:#1a1206; font-family:inherit; font-weight:700; font-size:1rem;
     padding:14px; cursor:pointer; letter-spacing:.01em;
     box-shadow:0 6px 18px -8px var(--gold);
+    /* Propriétés listées une à une, jamais `all` : le raccourci capture les
+       longhands `outline-*`, que WebKit fige alors sur leurs valeurs initiales —
+       l'anneau de focus doré disparaît sans qu'aucun sélecteur cesse de matcher. */
+    transition:background .13s ease, border-color .13s ease, color .13s ease, box-shadow .13s ease;
   }
+  /* Une seule lampe à la fois. Des cartes sont dues → la révision est l'action
+     encouragée, et « Commencer » lui cède la lumière sans cesser d'être offert.
+     Il prend la peau de `.exit` (--card plein + --card-edge), l'or ne revenant
+     qu'au survol et au focus, donc jamais sur un état au repos. */
+  body.has-due .start:enabled{
+    background:var(--card); border-color:var(--card-edge); color:var(--ink);
+    box-shadow:none;
+  }
+  body.has-due .start:enabled:hover{ border-color:var(--gold); }
   /* Désactivé, « Commencer » quitte l'or : la lampe n'éclaire jamais un état inerte
      (règle de la lampe). Peau pleine et opaque plutôt qu'une opacité, qui laissait
-     le contenu de la page transparaître à travers le bouton. */
+     le contenu de la page transparaître à travers le bouton.
+     ⚠️ Ce qui le sépare du secondaire actif ci-dessus n'est PAS le filet — --line
+     (#2a3440) et --card-edge (#2c3844) sont indiscernables à l'écran — mais la
+     surface (aucune contre une peau pleine) et le texte (estompé contre plein). */
   .start:disabled{
     background:none; border-color:var(--line); color:var(--ink-dim);
     cursor:not-allowed; box-shadow:none;
   }
   /* Au doigt, « Commencer » reste dans la zone du pouce pendant le défilement —
-     mais seulement une fois actif : désactivé, il n'a rien à recouvrir. */
+     mais seulement une fois actif ET seul allumé. Épinglé alors que la révision
+     est la lampe, il resterait la seule action visible pendant que la lampe
+     défile hors de vue : la hiérarchie corrigée dans l'espace, réintroduite dans
+     le temps. La carte de révision, elle, est en tête — elle n'a rien à épingler. */
   @media (pointer:coarse){
-    .start:enabled{ position:sticky; bottom:12px; z-index:2; }
+    body:not(.has-due) .start:enabled{ position:sticky; bottom:12px; z-index:2; }
   }
 
   /* ---------- Pli « Réglages avancés » ---------- */
@@ -512,10 +531,14 @@
     display:flex; align-items:center; gap:12px; width:100%; text-align:left;
     border:1px solid var(--gold); border-radius:14px; cursor:pointer;
     background:linear-gradient(135deg, rgba(212,162,76,.16), rgba(212,162,76,.05));
-    color:var(--ink); font-family:inherit; padding:13px 15px; transition:background .13s ease, color .13s ease, border-color .13s ease, opacity .13s ease;
+    color:var(--ink); font-family:inherit; padding:13px 15px; transition:background .13s ease, color .13s ease, border-color .13s ease;
   }
   .review-card:hover{ background:linear-gradient(135deg, rgba(212,162,76,.24), rgba(212,162,76,.08)); }
-  .review-card:disabled{ opacity:.55; cursor:default; border-color:var(--line); background:var(--bg2); }
+  /* Peau pleine, pas d'opacité : `opacity:.55` enfreignait DESIGN.md §5 deux fois —
+     il disait l'état inerte par une transparence, et laissait l'icône en or PÂLI
+     plutôt que de la sortir de l'or. Un état inactif n'est jamais éclairé. */
+  .review-card:disabled{ cursor:default; border-color:var(--line); background:var(--bg2); color:var(--ink-dim); }
+  .review-card:disabled .review-ico{ color:var(--ink-dim); }
   .review-ico{ flex:none; width:24px; height:24px; color:var(--gold); }
   .review-ico svg{ width:100%; height:100%; }
   .review-body{ flex:1; min-width:0; }
@@ -1259,6 +1282,9 @@ function masteryStats(){
 function refreshSrsUi(){
   const btn=document.getElementById('review-btn'); if(!btn) return;
   const due=dueCards().length;
+  // Une seule lampe à la fois : ce drapeau est la source de vérité unique de
+  // l'état d'éclairage de l'accueil, et le CSS fait le reste (voir `.start`).
+  document.body.classList.toggle('has-due', due>0);
   const m=masteryStats();
   const title=document.getElementById('review-title');
   const sub=document.getElementById('review-sub');

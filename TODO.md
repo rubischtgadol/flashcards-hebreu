@@ -123,16 +123,27 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-**Ce qui reste vraiment ouvert, au 20/07 au soir — les huit points ci-dessous sont tous
-soldés.** Un seul chantier subsiste dans le code, et il n'a pas été engagé par décision :
+**Plus aucun chantier de code n'est ouvert au 20/07 au soir.** Les huit points ci-dessous
+sont soldés, et la piste A l'a été en fin de journée :
 
-- **Les deux « lampes » de l'accueil** (piste A, § Pistes de design ouvertes). Explorée,
-  confirmée, chiffrée — mais **délibérément écartée le 20/07** : Ruben a demandé la
-  largeur de lecture et le hé directionnel, « on ne touche pas aux lampes pour
-  l'instant ». À reprendre telle qu'elle est écrite, avec son risque documenté (un
-  « Commencer » secondaire actif ressemble à s'y méprendre à son état désactivé, il faut
-  un troisième registre vérifié à l'écran côte à côte) et le `.review-card:disabled`
-  à `opacity:.55` à traiter avec, contraire à DESIGN.md §5.
+- **Les deux « lampes » de l'accueil — FAIT le 20/07 au soir.** Le principe visé par
+  DESIGN.md §5 est tenu : une seule lampe allumée à la fois, choisie par l'état. Un
+  commutateur `body.has-due`, posé par `refreshSrsUi()` qui connaît déjà le compte, fait
+  céder la lumière à « Commencer » quand des cartes sont dues, et lui fait **abandonner
+  le sticky** avec — sans quoi la hiérarchie corrigée dans l'espace serait revenue dans
+  le temps (l'action secondaire épinglée pendant que la lampe défile hors de vue). Le
+  `.review-card:disabled` à `opacity:.55` est traité dans le même geste : son icône
+  restait **en or pâli**, donc de la lumière sur un état inactif. Spec :
+  `docs/superpowers/specs/2026-07-20-lampes-accueil-design.md`.
+
+  ⚠️ **La leçon du chantier, à garder** : le risque documenté par la piste était réel
+  mais mal localisé. Elle proposait de distinguer le « Commencer » secondaire par un
+  `filet --card-edge` — or `--card-edge` (#2c3844) et `--line` (#2a3440), le filet de
+  l'état désactivé, **diffèrent de deux points sur chaque canal**. Le filet ne pouvait
+  pas porter la distinction. Il ne restait que la surface et la couleur du texte, ce qui
+  rendait la vérification côte à côte non négociable — elle l'a validée. *Deux valeurs
+  nommées différemment ne sont pas nécessairement deux valeurs différentes : le vérifier
+  avant de bâtir une distinction dessus.*
 - **Le dernier avertissement du validateur** (« bamekarer », point 2) est **légitime** :
   le `.tr` écrit à la main fait foi. Ne pas le « corriger ».
 - **La checklist côté Ruben** (vrai iPhone), inchangée, en bas de cette section.
@@ -438,7 +449,7 @@ leçons qu'ils portent, pas comme du travail en attente.
       Prononciation, ligne sous le nom), pour archiver la valeur exacte. **Sans
       urgence** — la conclusion ne l'attend plus. La ligne reste un détecteur : si elle
       affiche un jour `.enhanced.`/`.premium.` au lieu de `…-compact`, le filtre de
-      WebKit aura changé et le dossier se rouvrira. (Le SW est en **v9** pour que
+      WebKit aura changé et le dossier se rouvrira. (Le SW est en **v11** pour que
       l'écran arrive dès le premier lancement.)
 - [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
@@ -881,7 +892,32 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 Les deux étaient notées en une ligne d'intention. Lecture du code faite, mesures prises ;
 voici ce qu'elles valent réellement.
 
-### A. Les deux « lampes » de l'accueil — **piste confirmée, et elle cache un défaut de charte**
+### A. Les deux « lampes » de l'accueil — **➤ [FAIT le 20/07 au soir] LIVRÉ ET VÉRIFIÉ**
+
+**Livré.** `body.has-due` posé par `refreshSrsUi()`, « Commencer » à trois registres,
+sticky conditionnel, `.review-card:disabled` sans opacité. Vérifié en WebKit réel
+(iPhone 16 Pro) : **50 arrêts de tabulation, 0 défaut d'anneau de focus** ; **0 pixel
+doré** sur `#start` secondaire (0/246 825) comme sur `#review-btn` désactivé
+(0/344 736) ; `position` = `static` à `due>0` et `sticky` à `due=0`, relevé à cinq
+hauteurs de défilement ; **aucune différence** de style calculé à 1440/1280/992/768
+hors la règle `pointer:coarse` elle-même. Spec complète :
+`docs/superpowers/specs/2026-07-20-lampes-accueil-design.md`, décision consignée dans
+DESIGN.md §5.
+
+⚠️ **Ce que la piste avait faux, et qui vaut plus que ce qu'elle avait juste** : elle
+proposait le `filet --card-edge` comme distinction du secondaire actif. `--card-edge`
+(#2c3844) et `--line` (#2a3440) sont indiscernables — la distinction repose en réalité
+sur la **surface** et le **texte** seuls. Deux jetons nommés différemment ne sont pas
+nécessairement deux valeurs différentes.
+
+⚠️ **Deux mesures se sont révélées impossibles, et ce ne sont pas des défauts** : WebKit
+exclut les boutons `disabled` de l'ordre de tabulation, donc `#start` désactivé et
+`#review-btn` désactivé ne peuvent pas porter de `:focus-visible`. Un critère
+d'acceptation qui les exigeait était mal écrit, pas violé.
+
+*Texte d'origine de la piste, conservé pour l'analyse qui l'a produite :*
+
+**Piste confirmée, et elle cache un défaut de charte**
 
 Le problème est réel et mesurable dans le CSS. Quand des cartes sont dues, **deux surfaces
 dorées coexistent** sur le même écran :

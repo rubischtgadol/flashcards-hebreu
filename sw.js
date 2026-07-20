@@ -24,7 +24,7 @@
 // seulement au second — or c'est précisément sur ce nouvel écran que l'identifiant de
 // la voix doit être relevé. Un diagnostic qu'on demande à quelqu'un doit être visible
 // du premier coup.
-const VERSION = 'v10';
+const VERSION = 'v11';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
