@@ -7,6 +7,9 @@ séquence** (justesse → pédagogie → présentation), méthode : **fan-out mu
 avec un **point d'arrêt entre chaque phase** pour validation.
 **État** : ⏳ PLAN — rien n'a été exécuté. Les tranches de données ont été préparées
 puis abandonnées avec la session ; l'étape 1.1 les régénère en une commande.
+**Review (session 2)** : ✅ faite le 20/07 par Fable 5. Les corrections sont marquées
+**✎R2** dans le corps du texte ; le récapitulatif est dans la section « Révision de la
+session 2 » ci-dessous.
 
 **Séquence décidée par Ruben — trois sessions distinctes, une par nature de travail** :
 
@@ -21,6 +24,62 @@ faits contre le dépôt (comptes, gardes, péremption) peut partir en sous-agent
 mécanique. **Le jugement sur la méthode, non** — c'est exactement le genre de travail
 que ce plan garde en haut de la pile, et le déléguer vers le bas contredirait sa propre
 règle d'étagement.
+
+---
+
+## ✎R2 — Révision de la session 2 (20/07, Fable 5) : ce qui a changé et pourquoi
+
+**Vérifié exact contre le dépôt** (trois sous-agents, rien à corriger) : 713 cartes,
+564 exemples, 27 labels `.count` ; Noms 301 / Verbes 97 / Phrases 22 / A1 328 ;
+0 doublon `cat|he` et exactement les 3 doublons `cat|he_plain` attendus (les
+homographes) ; 0 carte sans nikoud ; `cardId = cat+'|'+he` (`app.html:1307`) et
+`srsMigrateIds` (`app.html:1315-1328`) qui, mécanisme vérifié, **ne rattrape pas** une
+correction de nikoud ; toutes les gardes de `build.js` (EXPECTED_CATS/LEVELS,
+`data-niveau` nominatif, `--check` octet à octet) ; `verifie_exemples.js` (exemple
+manquant bloquant, alerte niveau à +2, contrôle `he2tr` sur les exemples seuls) ; les
+4 mots de `41cf08c` ; le sidecar impeccable réellement périmé (18/07 vs 20/07).
+
+**Corrigé — chaque point est marqué ✎R2 à l'endroit du texte** :
+
+1. **Contrainte SRS resserrée** : seule une correction du `he` **vedette** change
+   l'identité — `forms`, `exemples`, `fr`, `genre`, `niveau` ne coûtent rien. Le N à
+   chiffrer est le nombre d'anomalies confirmées avec `field: he`, pas le total.
+2. **Étalonnage refondu** : 2 tranches × 10 erreurs (le seuil 8/10 sur un seul tirage
+   de 10 est du bruit binomial), règles d'injection anti-biais, et surtout : un
+   signalement sur la tranche originale n'est pas mécaniquement un faux positif — il
+   doit être adjugé, car le carnet peut contenir de vraies erreurs (c'est la prémisse
+   de l'audit).
+3. **L'asymétrie de la contre-expertise était fausse** telle qu'énoncée : une anomalie
+   réfutée à tort ne laisse pas « un mot correct », elle laisse **l'erreur en place**.
+   Le défaut de réfutation est conservé, mais les réfutés de sévérité `bloquant`
+   passent désormais devant Opus.
+4. **L'étage 1 (Haiku) devient conditionnel** : Sonnet lit déjà chaque carte en 1.2 —
+   par défaut les drapeaux sont injectés dans les tranches et tranchés là, à coût
+   marginal nul. Haiku ne sert que si les drapeaux dépassent ~150.
+5. **Contrôles 9, 10 et 12 opérationnalisés** — tels qu'écrits ils n'étaient pas
+   décidables par script. Le contrôle 10 corrigé en profondeur : les quatre cas de
+   `41cf08c` sont des variations de **lettre de lecture** (מאוד/מאד — le `he_plain`
+   change aussi), pas du nikoud à consonnes égales ; le contrôle initial ne les aurait
+   **pas vus**. Il faut deux filets, et une liste blanche pour les 3 homographes.
+6. **Incohérence `tr` résolue** : le schéma de 1.2 offrait `tr` comme champ signalable
+   et la table de sévérité citait « `.tr` divergent » en mineur, alors que le prompt
+   l'interdit. `tr` retiré partout — c'est l'affaire du contrôle 11, étage 0.
+7. **Phase 3** : le « hook qui signale le sidecar périmé » n'existe pas (aucun hook
+   dans le dépôt) — la péremption est réelle mais silencieuse. Liste des règles
+   nommées alignée sur DESIGN.md réel (« le pli » est un composant, pas une règle).
+8. **Annexe étoffée** : exemple calibrant « champ exemple » ajouté au gabarit A (les
+   points 4-5 de sa liste n'en avaient aucun), exemple de réfutation type ajouté au
+   gabarit B (לַיְלָה), garde « un oui doit nommer son exception » au gabarit D, et
+   gabarit E (l'arbitre Opus, qui n'avait pas de prompt).
+9. **Précisions** : la garde « toute entrée exige un exemple » ne couvre que
+   Noms/Adjectifs/Verbes (`CATS_COUVERTES`) ; les petites catégories (Existence,
+   2 cartes) se regroupent en tranche mixte ; cardinalités des `forms` resserrées sur
+   la distribution mesurée (Adjectifs : exactement 3, pas ≤ 3).
+
+**Jugé et laissé tel quel** : le grain de 28 tranches (~25 cartes/agent, bon
+équilibre attention/amorçage), les deux lentilles de contre-expertise (suffisantes une
+fois le filet Opus ajouté), le verdict à trois niveaux, la séquence des trois phases,
+le budget (~1,5 M).
 
 ---
 
@@ -50,6 +109,17 @@ VOCALISÉE.** Corriger un nikoud change donc l'identité de la carte, et
 `cat|he_plain`, pas une correction orthographique. La progression Leitner de ce mot
 repart à zéro, silencieusement.
 
+✎R2 — **Périmètre précisé après lecture du code** (`cardId`, `app.html:1307`) : la clé
+ne lit que `cat` et `he`. Donc **seule une correction du `he` de la carte vedette change
+l'identité** — corriger une forme fléchie, un exemple, une traduction, un genre ou un
+niveau ne coûte rien au SRS. Le N à chiffrer en 1.4 est exactement le nombre d'anomalies
+confirmées portant `field: he`, pas le total des corrections. Deux détails pour l'issue
+« table de migration » : `sess_v1` (la session en cours, sessionStorage) référence aussi
+`cardId`, mais il est volatile — la session est simplement abandonnée au rechargement,
+rien à migrer ; et la purge des clés orphelines de `srsMigrateIds` ne tourne que si
+`moved > 0`, donc `SRS_RENAMES` doit s'appliquer avant ce comptage (ou purger
+elle-même), sinon l'ancienne entrée traîne dans `localStorage`.
+
 Cela veut dire qu'un audit qui corrigerait 40 nikouds **effacerait la progression de 40
 mots** sans que rien ne le signale. Trois issues, à trancher **avant** d'écrire la
 première correction :
@@ -77,10 +147,10 @@ fiabilité — un script ne se trompe pas deux fois différemment.
 | Étage | Instrument | Ce qu'il traite | Ce qu'il ne doit JAMAIS traiter |
 | --- | --- | --- | --- |
 | **0** | Script Node, 0 dépendance, **0 token** | Tout ce qui est décidable : intégrité, cardinalité, doublons, accords réguliers, cohérence intra-famille, écarts `he2tr` | — |
-| **1** | **Haiku** | Tri de masse des drapeaux de l'étage 0 : « cette exception au genre est-elle connue ? », plausibilité brute d'une traduction | ⚠️ **Aucun jugement de nikoud ni de morphologie.** Haiku hallucine sur la vocalisation |
+| **1** | **Haiku** (✎R2 : **conditionnel** — voir le routage des drapeaux en 1.0) | Tri de masse des drapeaux de l'étage 0, **seulement s'ils dépassent ~150**. En deçà, les drapeaux partent dans les tranches de l'étage 2, qui les tranche pour zéro token de plus | ⚠️ **Aucun jugement de nikoud ni de morphologie.** Haiku hallucine sur la vocalisation. Un « oui » sans exception nommée vaut « incertain » |
 | **2** | **Sonnet** (effort moyen→haut) | L'audit réel : nikoud, morphologie, conjugaison, naturel des exemples, registre parlé | La synthèse, l'arbitrage, la décision de corriger |
 | **3** | **Sonnet** (effort haut, prompts à *lentilles* distinctes) | Contre-expertise adversariale de chaque anomalie, **par défaut réfutée** | — |
-| **3b** | **Opus** | Uniquement les anomalies *contestées* (1 réfutation sur 2), qui sont une minorité | Le volume — c'est un arbitre, pas un auditeur |
+| **3b** | **Opus** | Les anomalies *contestées* (1 réfutation sur 2) **et, ✎R2, les réfutées de sévérité `bloquant`** — deux minorités | Le volume — c'est un arbitre, pas un auditeur |
 | **4** | **Fable 5**, fil principal | Orchestration, synthèse, priorisation, voix du projet, rédaction des docs et des commits | Lire les tranches — c'est précisément ce qu'on délègue |
 
 **Règle de qualité non négociable** : le passage à un modèle inférieur se justifie par la
@@ -95,24 +165,43 @@ Sonnet même s'il y en a 713.
 Le projet a déjà payé cette leçon deux fois (« un contrôle muet passe toujours au vert »
 pour la couverture des niveaux ; l'émulation qui a inventé un défaut de 329 ms).
 
-**Protocole** (1 à 2 agents, ~30k tokens) :
+**Protocole** (✎R2 : 4 passes d'agent, ~50k tokens — passé de 1 tranche × 10 erreurs à
+**2 tranches × 10**. Un instrument à 80 % de rappel réel ne franchit un seuil de 8/10
+qu'environ 2 fois sur 3 : sur dix tirages, le bruit binomial mange la mesure. À 20
+injections, le seuil discrimine vraiment, pour deux passes d'agent de plus) :
 
-1. Prendre une tranche de 25 cartes et en fabriquer une copie **fautée** : y injecter
-   **10 erreurs de nature connue et documentée** — 2 nikouds, 2 genres, 2 pluriels
-   irréguliers, 2 formes verbales, 1 traduction française fausse, 1 exemple
-   agrammatical.
-2. Lancer le prompt d'audit de l'étage 2 sur la copie fautée **et** sur l'originale.
+1. Prendre **deux** tranches (✎R2 : une de Noms — genre + pluriel, les contrôles les
+   plus riches — et une de Verbes) et en fabriquer des copies **fautées** : y injecter
+   **10 erreurs chacune, de nature connue et documentée** — par tranche : 2 nikouds,
+   2 genres, 2 pluriels irréguliers mal formés, 2 formes verbales, 1 traduction
+   française fausse, 1 exemple agrammatical.
+
+   ✎R2 — **trois règles d'injection, sans lesquelles la mesure est biaisée** :
+   - les erreurs sont **écrites par le fil principal**, et le corrigé ne figure nulle
+     part dans le contexte de l'auditeur — qui ne sait pas qu'il est testé ;
+   - **aucune erreur ne décalque un exemple calibrant de l'annexe** (le genre de
+     יַלְדָּה et le participe de לְלַמֵּד sont déjà dans le prompt : les retrouver
+     prouverait le pattern-matching, pas le rappel) ;
+   - **subtiles et réalistes** : un patah pour un kamats, un participe du binyan
+     voisin, un pluriel plausible mais faux — pas des corruptions visibles à l'œil nu.
+2. Lancer le prompt d'audit de l'étage 2 (gabarit A, tel quel) sur les copies fautées
+   **et** sur les originales.
 3. Relever :
-   - **rappel** = erreurs injectées retrouvées / 10 ;
-   - **précision** = anomalies signalées sur l'originale qui sont de vraies anomalies.
+   - **rappel** = erreurs injectées retrouvées / 20 ;
+   - **précision** — ✎R2 : un signalement sur l'originale n'est **pas** mécaniquement
+     un faux positif. Le carnet n'a jamais été relu : il peut contenir de vraies
+     erreurs, c'est la prémisse même de l'audit. Chaque signalement sur l'originale
+     est donc **adjugé** (fil principal, Opus si besoin) : vraie erreur → découverte
+     anticipée, versée à la phase 1 ; fausse → compte comme faux positif.
 
-**Seuils de décision** :
+**Seuils de décision** (✎R2 : recalés sur 20 injections et des faux positifs *adjugés*) :
 
 | Résultat | Décision |
 | --- | --- |
-| Rappel ≥ 8/10 **et** ≤ 3 faux positifs sur l'originale | Lancer le fan-out tel quel |
-| Rappel ≥ 8/10 mais > 3 faux positifs | Lancer, mais **durcir la contre-expertise** (3 lentilles au lieu de 2) |
-| Rappel < 6/10 | **Ne pas lancer.** Le prompt ne voit pas ce qu'on cherche : le réécrire et réétalonner |
+| Rappel ≥ 16/20 **et** ≤ 6 faux positifs adjugés | Lancer le fan-out tel quel |
+| Rappel ≥ 16/20 mais > 6 faux positifs | Lancer, mais **durcir la contre-expertise** (3 lentilles au lieu de 2) |
+| Rappel 12–15/20 | Réécrire le prompt, réétalonner **une** fois ; sous 16 au second essai, remonter à Ruben avant de brûler 1 M de tokens |
+| Rappel < 12/20 | **Ne pas lancer.** Le prompt ne voit pas ce qu'on cherche : le réécrire et réétalonner |
 
 Ce chiffre de rappel doit **figurer dans le rapport final**. Un audit qui ne sait pas ce
 qu'il rate annonce une exhaustivité qu'il n'a pas.
@@ -134,8 +223,9 @@ trier par l'étage 1). Quatorze contrôles :
 3. Doublons de `cat|he` (doit rester **0**) et de `cat|he_plain` (doit rester
    **exactement les 3 homographes connus** : לספר, ללמד, מה שלומך — toute quatrième
    collision est une nouveauté à instruire).
-4. Cardinalité des formes : Verbes exactement 4 (`il`/`elle`/`ils`/`elles`), Adjectifs
-   ≤ 3 (`f. sing.`/`m. plur.`/`f. plur.`), Noms 0 ou 1 (`pluriel`).
+4. Cardinalité des formes — ✎R2 : resserrée sur la distribution mesurée le 20/07
+   (0 écart) : Verbes **exactement 4** (`il`/`elle`/`ils`/`elles`), Adjectifs
+   **exactement 3** (`f. sing.`/`m. plur.`/`f. plur.`), Noms **0 ou 1** (`pluriel`).
 5. Pluriel identique au singulier.
 6. Lettres finales (ך ם ן ף ץ) en position non finale ; nikoud doublé ; maqaf U+05BE
    confondu avec un trait d'union ASCII.
@@ -145,20 +235,40 @@ trier par l'étage 1). Quatorze contrôles :
 7. Nom marqué `m` finissant par ־ָה / ־ת, ou marqué `f` ne finissant pas ainsi.
 8. Nom `m` dont le pluriel ne finit pas par ־ִים, nom `f` dont le pluriel ne finit pas
    par ־וֹת (שולחנות, נשים… sont des exceptions vraies : c'est l'étage 1 qui tranche).
-9. Adjectif dont les trois formes ne suivent pas le schéma d'accord attendu.
+9. Adjectif dont les trois formes ne portent pas les terminaisons attendues — ✎R2,
+   opérationnalisé : heuristique de suffixe et rien de plus (f. sing. en ־ָה ou ־ת,
+   m. plur. en ־ִים, f. plur. en ־וֹת) ; tout écart est un drapeau, jamais une erreur.
 
 **Cohérence et translittération**
 
-10. **Cohérence intra-famille** : un même lemme écrit différemment entre son entrée et
-    un exemple, ou entre deux exemples. ⚠️ C'est *exactement* le défaut qui avait produit
-    les quatre corrections orthographiques de `41cf08c` (מְאוֹד/מְאֹד, עַכְשָׁו/עַכְשָׁיו…),
-    trouvées à la main. **L'automatiser est le meilleur rapport valeur/coût du plan.**
+10. **Cohérence intra-famille** — ✎R2, entièrement réécrit : « reconnaître un lemme
+    sous ses flexions » n'est pas décidable par script, et le contrôle tel qu'il était
+    pensé (même consonnes, nikoud divergent) **n'aurait pas vu les quatre cas de
+    `41cf08c`** — vérification faite au diff (מְאוֹד→מְאֹד, עַכְשָׁיו→עַכְשָׁו,
+    שָׁחֹר→שָׁחוֹר, בַּחֹרֶף→בַּחוֹרֶף), ce sont des variations de **lettre de
+    lecture** : le ו/י change, donc le `he_plain` change aussi. Deux filets décidables,
+    sur l'ensemble du carnet (entrées, formes, exemples) :
+    - **a.** un même `he_plain` porté par ≥ 2 vocalisations distinctes — ⚠️ liste
+      blanche obligatoire pour les 3 homographes, qui sont *voulus* et matcheraient ;
+    - **b.** deux tokens dont les `he_plain` ne diffèrent que par l'insertion d'un ו
+      ou d'un י (ktiv malé vs ktiv haser) — c'est le filet qui attrape les quatre cas
+      historiques. Drapeau, pas erreur : deux mots réellement différents peuvent ne
+      différer que d'un vav.
+
+    **Limite assumée, à écrire dans le rapport** (règle « aucun plafond silencieux ») :
+    une vraie flexion — pluriel, participe, conjugaison — échappe aux deux filets ;
+    c'est l'étage 2 qui la voit. Reste le meilleur rapport valeur/coût du plan.
 11. Écart `tr` ↔ `he2tr` par distance d'édition, sur les **entrées et les formes**
     (`verifie_exemples.js` ne le fait que sur les exemples). Distance > 2 = drapeau.
     ⚠️ Sévérité **basse par principe** : le carnet fait foi sur les `.tr` écrits à la
     main, `trKey` replie les variantes, l'affichage seul est concerné.
-12. L'exemple contient-il réellement le mot vedette (ou une variante partageant sa
-    racine consonantique) ? Sinon, drapeau.
+12. L'exemple contient-il réellement le mot vedette ? ✎R2, opérationnalisé —
+    « une variante partageant sa racine consonantique » n'est pas extractible par
+    script (lettres faibles, préfixes de binyan) : le contrôle réel est une recherche
+    de sous-chaîne sur le `he_plain` de l'entrée **et de chacune de ses `forms`**,
+    après retrait des préfixes agglutinés (ו, ה, ב, ל, כ, מ, ש) et normalisation des
+    lettres finales. Aucune correspondance → drapeau, tranché par l'auditeur de
+    l'étage 2 (qui lit la tranche de toute façon), pas par Haiku.
 13. Exemple sans traduction française, ou ratio de longueur hébreu/français aberrant.
 14. Vocabulaire d'un exemple absent du carnet **à +1 niveau** (le validateur n'alerte
     qu'à +2) — donnée, pas erreur.
@@ -166,12 +276,25 @@ trier par l'étage 1). Quatorze contrôles :
 **Sortie** : `audit/mecanique.json` — `{erreurs:[], drapeaux:[]}`, chaque entrée portant
 l'index de carte, la catégorie, le mot, le contrôle déclencheur.
 
+✎R2 — **Routage des drapeaux (remplace l'étage 1 systématique)** : Sonnet lit déjà
+chaque carte en 1.2 — un étage de tri séparé est donc largement redondant, et c'est un
+endroit de plus où perdre un drapeau. Par défaut, chaque drapeau est **injecté dans la
+tranche `sNN.json` de sa carte** (champ `flags`), et le gabarit A exige un verdict
+explicite par drapeau : le tri coûte zéro token de plus. L'étage 1 (Haiku, gabarit D)
+ne se déclenche **que si les drapeaux dépassent ~150** — à ce volume, les faire tous
+trancher dans les tranches diluerait l'attention de l'audit ; on fait alors dégrossir
+Haiku d'abord, et seuls les « non » et « incertain » entrent dans les tranches.
+
 ### 1.1 — Préparation des tranches (0 token)
 
 Extraire `CARDS` de `flashcards_hebreu.html` (il porte déjà les 713 cartes avec formes,
 notes et exemples — inutile de faire lire 450 Ko de HTML à 28 agents) et découper en
 **28 tranches équilibrées de 17 à 28 cartes**, une catégorie par tranche, index de carte
 `__i` conservé pour la traçabilité. Écrire `audit/sNN.json` + `audit/_index.json`.
+✎R2 : « une catégorie par tranche » vaut pour les grandes catégories ; les petites
+(Existence : 2 cartes, Démonstratifs : 3, Verbes modaux : 5…) se **regroupent en
+tranches mixtes** plutôt que de payer l'amorçage d'un agent pour deux cartes — chaque
+carte gardant son `cat`, l'auditeur n'y perd rien.
 
 *(Le script de découpe a été écrit et validé le 20/07 — 28 tranches, 713 cartes
 couvertes, vérifié — mais vit dans un scratchpad de session. Le réécrire prend deux
@@ -185,7 +308,7 @@ Un agent par tranche. **Sortie structurée obligatoire** (`schema`), pas de pros
 { "checked": 25,
   "findings": [{
     "card_index": 412, "he": "מִלָּה", "cat": "Noms",
-    "field": "genre|he|fr|forms|exemple|niveau|tr|note",
+    "field": "genre|he|fr|forms|exemple|niveau|note",
     "severity": "bloquant|majeur|mineur",
     "claim": "…ce qui est faux, en français",
     "correction": "…la valeur juste proposée",
@@ -197,13 +320,19 @@ Un agent par tranche. **Sortie structurée obligatoire** (`schema`), pas de pros
 la règle violée n'a pas trouvé d'erreur, il a eu une impression. À exiger explicitement
 dans le prompt — *« si tu ne peux pas énoncer la règle, ne signale rien »*.
 
+✎R2 — `tr` a été **retiré** de l'énumération `field` : le prompt interdit de signaler
+les écarts de translittération (le carnet fait foi), l'annexe l'excluait déjà, et le
+corps du plan se contredisait. Les écarts `tr` sont l'affaire du contrôle 11, étage 0.
+Si la tranche porte un champ `flags` (drapeaux du script mécanique — cf. 1.0), la
+sortie comprend aussi un verdict par drapeau (`flags_cleared`).
+
 Échelle de sévérité, à fixer dans le prompt :
 
 | Sévérité | Définition | Exemple |
 | --- | --- | --- |
 | **bloquant** | Ruben apprendrait quelque chose de faux | genre inversé, pluriel inexistant, forme verbale d'un autre binyan, traduction fausse |
 | **majeur** | Juste mais trompeur ou non idiomatique | tournure livresque là où l'oral dit autre chose, nikoud d'un registre différent |
-| **mineur** | Cosmétique ou éditorial | `.tr` divergent, ponctuation, niveau CECRL discutable d'un cran |
+| **mineur** | Cosmétique ou éditorial | ponctuation, niveau CECRL discutable d'un cran, note ambiguë (✎R2 : « `.tr` divergent » retiré — hors périmètre de l'auditeur) |
 
 **À dire au prompt, sinon on récolte du bruit** :
 - le standard de translittération du projet (CLAUDE.md § Transliteration standard) ;
@@ -224,9 +353,19 @@ Chaque anomalie passe devant **deux relecteurs indépendants aux lentilles disti
 - **lentille usage** : « un Israélien dirait-il cela ? la correction proposée est-elle
   meilleure que l'original, ou seulement différente ? »
 
-**Consigne par défaut : réfuter.** *« En cas de doute, réfute. Une anomalie confirmée à
-tort coûte une correction fausse dans la source de vérité ; une anomalie réfutée à tort
-ne coûte qu'un mot resté correct. »* L'asymétrie est réelle et doit être dite.
+**Consigne par défaut : réfuter** — parce que le mode de défaillance dominant d'un
+auditeur LLM est le faux positif plausible, pas l'aveuglement.
+
+✎R2 — **l'asymétrie telle que ce plan la formulait était fausse.** « Une anomalie
+réfutée à tort ne coûte qu'un mot resté correct » suppose que l'original est correct —
+or la prémisse de l'audit est l'inverse : le carnet a été écrit sans relecture. Une
+réfutation à tort laisse **l'erreur en place**, c'est-à-dire exactement ce que l'audit
+existe pour empêcher. L'asymétrie honnête : une confirmation à tort **écrit une faute
+neuve** dans la source (plus le coût SRS, plus le risque d'édition) ; une réfutation à
+tort **conserve une faute existante**, redécouvrable grâce au registre des réfutées. Le
+défaut de réfutation reste le bon choix, mais il exige le filet du tableau ci-dessous
+(réfutés bloquants → Opus) — sans lui, deux relecteurs biaisés vers le refus peuvent
+tuer les vraies erreurs les plus graves.
 
 **Économie** : vérifier par **lots de 8 anomalies** par agent plutôt qu'une par agent —
 même indépendance de jugement, ~4× moins de tokens d'amorçage. Deux passes de lots, une
@@ -238,7 +377,7 @@ par lentille.
 | --- | --- | --- |
 | **CONFIRMÉ** | aucune des 2 lentilles ne réfute | entre dans le lot de correction |
 | **CONTESTÉ** | 1 réfutation sur 2 | monte à l'étage 3b (Opus), puis à Ruben si Opus hésite |
-| **RÉFUTÉ** | les 2 réfutent | écarté — **mais consigné**, pour ne pas le retrouver au prochain audit |
+| **RÉFUTÉ** | les 2 réfutent | écarté et **consigné** — ✎R2 : **sauf sévérité `bloquant`, qui passe quand même devant Opus.** Une vraie erreur bloquante est ce qu'on ne peut pas se permettre de perdre, et les réfutés bloquants sont peu nombreux par construction |
 
 ### 1.4 — Arbitrage et rapport (étage 4 — fil principal, Fable)
 
@@ -254,10 +393,13 @@ SRS** (combien de cartes changent d'identité — cf. la contrainte en tête de 
 ### Critère d'acceptation — Phase 1
 
 - [ ] 713 cartes couvertes, **somme des tranches vérifiée** (pas « ~toutes »).
-- [ ] Rappel d'étalonnage **≥ 8/10**, chiffre publié dans le rapport.
+- [ ] Rappel d'étalonnage **≥ 16/20** (✎R2), chiffre publié dans le rapport.
 - [ ] 100 % des anomalies portent une `rule` nommée ; celles sans règle sont écartées
       **avant** la contre-expertise (elles ne méritent pas son coût).
 - [ ] Chaque anomalie retenue a **deux verdicts** de lentilles distinctes.
+- [ ] ✎R2 : chaque drapeau de l'étage 0 a un **verdict explicite** (devenu finding, ou
+      levé dans `flags_cleared` avec sa raison) — le compte des drapeaux émis doit
+      égaler le compte des verdicts rendus.
 - [ ] Les 3 homographes connus sont toujours exactement 3 (garde de non-régression).
 - [ ] Le coût SRS du lot de correction est **chiffré**, et l'issue choisie parmi les
       trois de la table.
@@ -314,18 +456,23 @@ l'hébreu moderne, référentiels CECRL). À déléguer, jamais en session princ
 
 L'angle le plus abouti : on cherche le reliquat, pas la refonte.
 
-1. **Rafraîchir le sidecar** : `.impeccable/design.json` est **périmé** face à DESIGN.md
-   (le hook le signale à chaque édition). `/impeccable document` d'abord — sinon
-   l'audit juge le carnet contre une charte qui n'est plus la sienne.
+1. **Rafraîchir le sidecar** : `.impeccable/design.json` est **périmé** face à DESIGN.md.
+   ✎R2 — vérifié au git : sidecar commité le 18/07 15:53, DESIGN.md modifié le 20/07
+   12:40. En revanche **le « hook qui le signale » n'existe pas** (aucun hook dans le
+   dépôt — l'affirmation venait de mémoire) : la péremption est réelle mais
+   *silencieuse*, raison de plus pour ne pas sauter l'étape. `/impeccable document`
+   d'abord — sinon l'audit juge le carnet contre une charte qui n'est plus la sienne.
 2. **Passe impeccable** sur `vocabulaire_hebreu.html`, comme celle qu'a reçue le portail
    le 18/07 (le carnet n'a jamais eu d'équivalent aussi poussé).
 3. **Vérification aux deux bouts** — ⚠️ **piège n°13** : nos contrôles sont
    iPhone-émulés, un défaut desktop y est structurellement invisible ; c'est ainsi que
    les 158 caractères par ligne ont traversé toutes les critiques du projet. Mesurer à
    **1440/1280/992/900/768 + iPhone 16 Pro**, et prouver que le mobile reste identique.
-4. **Contrôle des règles nommées de DESIGN.md** : règle de la lampe, les couches, la
-   vedette, la carte unique, le pli, les deux voix de micro-titre, le pointillé réservé
-   au vide.
+4. **Contrôle des règles nommées de DESIGN.md** — ✎R2, liste alignée sur le fichier
+   réel : la lampe, les couches, les trois voix, la vedette, les deux colonnes, la
+   carte unique, les trois registres de « Commencer », le sticky qui suit la lampe, le
+   pointillé réservé au vide. (« Le pli » est un *composant* de DESIGN.md, pas une
+   règle nommée — il se contrôle à travers la règle des couches.)
 
 ### Critère d'acceptation — Phase 3
 
@@ -357,7 +504,7 @@ L'angle le plus abouti : on cherche le reliquat, pas la refonte.
 | Poste | Modèle | Estimation |
 | --- | --- | --- |
 | Étage 0 (scripts) | — | **0 token**, quelques secondes |
-| Étalonnage | Sonnet × 2 | ~30k |
+| Étalonnage | Sonnet × 4 (✎R2 : 2 tranches × fautée+originale) | ~50k |
 | Phase 1 audit | Sonnet × 28 | ~600k |
 | Phase 1 contre-expertise | Sonnet × ~30 (lots de 8) | ~350k |
 | Phase 1 arbitrage contestés | Opus × quelques-uns | ~50k |
@@ -369,7 +516,7 @@ L'angle le plus abouti : on cherche le reliquat, pas la refonte.
 - ⚠️ **Aucun plafond silencieux.** Si une limite est posée (top-N anomalies,
   échantillonnage), elle doit être **écrite dans le rapport**. Une troncature muette se
   lit comme une couverture complète — c'est la même faute que le contrôle muet.
-- Arrêt si le rappel d'étalonnage est sous 6/10 : on répare l'instrument, on ne produit
+- Arrêt si le rappel d'étalonnage est sous 12/20 (✎R2) : on répare l'instrument, on ne produit
   pas un rapport dont on sait qu'il ment par omission.
 - Les sous-agents ne commitent pas et ne modifient pas le carnet : ils **rapportent**.
   L'écriture reste au fil principal.
@@ -388,8 +535,10 @@ L'angle le plus abouti : on cherche le reliquat, pas la refonte.
    parseurs, une section renommée perd toutes ses cartes en silence.
 5. **`data-niveau` est obligatoire** sur chaque `<li>` et chaque `<tr>` — `build.js`
    échoue en nommant le mot fautif. Un ajout de vocabulaire sans niveau bloque le build.
-6. **Toute entrée ajoutée exige un exemple** (verbes : au présent), sinon
-   `verifie_exemples.js` bloque.
+6. **Toute entrée ajoutée aux tables Noms/Adjectifs/Verbes exige un exemple** (verbes :
+   au présent), sinon `verifie_exemples.js` bloque. ✎R2 : la garde ne couvre que ces
+   trois catégories (`CATS_COUVERTES`), pas les listes — une entrée de liste sans
+   exemple passe au vert.
 7. **L'ordre d'insertion des propriétés** des objets carte doit rester identique entre
    les deux extracteurs — `build.js --check` compare octet à octet.
 
@@ -474,7 +623,13 @@ Si tu ne peux pas l'énoncer, tu n'as pas trouvé d'erreur : tu as eu une impres
 Ne la signale pas. Une tranche sans anomalie est un résultat normal et attendu —
 rends une liste vide sans t'excuser et sans meubler.
 
-Retourne : le nombre de cartes examinées et la liste des anomalies.
+SI LE FICHIER CONTIENT UN TABLEAU `flags` (drapeaux d'un contrôle mécanique) :
+rends un verdict EXPLICITE pour chacun — soit il devient une anomalie (→ findings),
+soit tu le lèves en une phrase (→ flags_cleared, avec la raison : exception attestée,
+faux positif du script…). Un drapeau sans verdict est une faute de sortie.
+
+Retourne : le nombre de cartes examinées, la liste des anomalies, et le verdict de
+chaque drapeau.
 ```
 
 **Exemples calibrants — à inclure dans le prompt tels quels.**
@@ -494,6 +649,14 @@ Retourne : le nombre de cartes examinées et la liste des anomalies.
 > `rule`: « לְלַמֵּד est au binyan piel : son participe présent prend le préfixe מ־
 > (מְלַמֵּד). לוֹמֵד est le présent de לִלְמֹד (paal, "étudier") — c'est la forme de
 > l'autre membre de la paire d'homographes consonantiques. »
+
+*À SIGNALER (bon signalement — champ exemple ; ✎R2, ajouté : les points 4-5 de la
+liste n'avaient aucun calibrant)* :
+
+> Carte `Noms` — סֵפֶר « livre » ; exemple : הַסֵּפֶר הַזֹּאת מְעַנְיֶנֶת
+> → `field`: exemple · `severity`: bloquant · `correction`: הַסֵּפֶר הַזֶּה מְעַנְיֵן
+> `rule`: « סֵפֶר est masculin : le démonstratif et l'adjectif attribut s'accordent au
+> masculin (הַזֶּה, מְעַנְיֵן). L'exemple accorde les deux au féminin. »
 
 *À NE PAS SIGNALER (faux positif classique)* :
 
@@ -519,8 +682,12 @@ Retourne : le nombre de cartes examinées et la liste des anomalies.
   "findings": [{ "card_index": 412, "he": "…", "cat": "…",
     "field": "he|fr|genre|forms|exemple|niveau|note",
     "severity": "bloquant|majeur|mineur",
-    "claim": "…", "correction": "…", "rule": "…" }] }
+    "claim": "…", "correction": "…", "rule": "…" }],
+  "flags_cleared": [{ "card_index": 88, "check": "…", "reason": "…" }] }
 ```
+
+✎R2 : `flags_cleared` ajouté — il porte le verdict des drapeaux mécaniques levés
+(cf. routage des drapeaux, 1.0). Vide si la tranche n'a pas de `flags`.
 
 ---
 
@@ -555,6 +722,14 @@ Anomalies à examiner ({N}) : {LOT_JSON}
 **Schéma** : `{ "verdicts": [{ "card_index": 412, "refuted": true,
 "reason": "…", "confidence": 0.0-1.0 }] }`
 
+**Exemple calibrant — la réfutation type (✎R2, ajouté ; à inclure dans le prompt)** :
+
+> Anomalie soumise : « לַיְלָה est marqué `m` ; les noms en ־ָה sont féminins → corriger
+> le genre en "f" ». → `refuted`: **true**.
+> `reason`: « Règle énoncée trop largement : לַיְלָה est un masculin attesté et
+> parfaitement courant (לַיְלָה טוֹב, pluriel לֵילוֹת mais accord masculin). L'auditeur
+> a appliqué une heuristique de terminaison, pas une règle. »
+
 ---
 
 ## C — Étage 3 : vérificateur, lentille USAGE (Sonnet)
@@ -580,7 +755,10 @@ PAR DÉFAUT, RÉFUTE.
 
 ---
 
-## D — Étage 1 : trieur de drapeaux (Haiku)
+## D — Étage 1 : trieur de drapeaux (Haiku) — ✎R2 : gabarit CONDITIONNEL
+
+✎R2 — Ne sert que si les drapeaux de l'étage 0 dépassent ~150 (cf. routage des
+drapeaux, 1.0). En deçà, les drapeaux vont directement dans les tranches de l'étage 2.
 
 ⚠️ **La tâche de Haiku doit être une question FERMÉE.** Aucun jugement de nikoud,
 aucune morphologie ouverte — c'est écrit comme interdit dans le corps du plan.
@@ -612,3 +790,40 @@ Mots à trier ({N}) : {LOT_JSON}
 ⚠️ **Un « incertain » ne se jette pas : il escalade.** Un trieur bon marché qui
 n'aurait pas le droit d'hésiter mentirait pour se conformer — et un drapeau perdu à
 cet étage ne sera jamais rattrapé aux étages suivants, puisqu'ils ne le verront pas.
+
+✎R2 — **Un « oui » sans exception nommée vaut « incertain ».** C'est le même garde-fou
+que la `rule` de l'étage 2 : pas de nom, pas de savoir. Le collecteur applique la
+requalification mécaniquement (`answer === "oui" && !exception → "incertain"`) — c'est
+le « oui » confiant et faux qui fait tomber un drapeau à tort, et Haiku sur la
+morphologie hébraïque est exactement le modèle dont il faut se méfier là-dessus.
+
+---
+
+## E — Étage 3b : arbitre des contestés et des réfutés-bloquants (Opus) — ✎R2, ajouté
+
+✎R2 — Le corps du plan donnait un rôle à Opus sans lui écrire de prompt.
+
+```
+Tu es l'ARBITRE FINAL d'un différend sur une carte d'un carnet d'hébreu moderne
+(cible : l'hébreu parlé en Israël aujourd'hui ; but : l'aisance orale d'un
+apprenant francophone).
+
+Tu reçois : l'anomalie signalée par un auditeur (avec la règle qu'il invoque) et
+le ou les verdicts de réfutation (avec leurs raisons). Les deux camps peuvent se
+tromper : l'auditeur sur-signale, et les relecteurs ont pour consigne de réfuter
+par défaut — leur réfutation n'est donc pas une preuve.
+
+Tranche : "confirme", "refute", ou "escalade" si l'incertitude est réelle — la
+décision revient alors à l'humain, et tu dis exactement quoi vérifier et où
+(dictionnaire, corpus, locuteur natif).
+
+Ta décision doit REDIRE la règle en jeu dans tes propres termes et donner la forme
+correcte. Une décision sans règle énoncée est une escalade déguisée : choisis
+"escalade" franchement à la place.
+
+Cas à arbitrer ({N}) : {LOT_JSON}
+```
+
+**Schéma** : `{ "decisions": [{ "card_index": 412,
+"decision": "confirme|refute|escalade", "rule": "…", "correct_form": "…",
+"a_verifier": "… (si escalade, sinon null)" }] }`

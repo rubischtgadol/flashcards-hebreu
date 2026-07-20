@@ -172,19 +172,21 @@ Deux chantiers sont ouverts, dans cet ordre :
    session qui l'a écrit.
 
    ⚠️ **Trois sessions distinctes, décidées par Ruben** : (1) l'écriture du plan — faite
-   le 20/07 ; (2) une session de **review complète du plan par Fable 5**, qui met le plan
-   à jour **et s'arrête là, sans rien exécuter** ; (3) une session d'**exécution**. Ne
-   pas fusionner (2) et (3) : relire un plan et l'appliquer dans la même fenêtre, c'est
-   se relire soi-même en ayant déjà commencé.
+   le 20/07 ; (2) la **review complète du plan par Fable 5** — **faite le 20/07**, ses
+   corrections sont marquées ✎R2 dans le plan (récapitulatif en tête de fichier :
+   étalonnage refondu à 2×10 erreurs, asymétrie de la contre-expertise corrigée, Haiku
+   rétrogradé en option, contrôles 9/10/12 opérationnalisés, gabarit Opus ajouté) ;
+   (3) une session d'**exécution** — la prochaine. Ne pas fusionner : relire un plan et
+   l'appliquer dans la même fenêtre, c'est se relire soi-même en ayant déjà commencé.
 
    Les trois choses à savoir avant d'ouvrir le plan :
-   - il tient en **quatre étages d'instrument** (script à 0 token → Haiku pour le tri de
-     masse → Sonnet pour tout jugement d'hébreu → Fable en chef d'orchestre qui ne lit
-     jamais les tranches), sur la règle « ne jamais demander à un modèle ce qu'un script
-     décide mieux et gratuitement » ;
-   - il **commence par un étalonnage** de l'auditeur sur 10 erreurs injectées, avec un
-     seuil de rappel qui autorise ou interdit le lancement — un contrôle muet passe
-     toujours au vert ;
+   - il tient en **quatre étages d'instrument** (script à 0 token → Haiku en option
+     pour le tri de masse → Sonnet pour tout jugement d'hébreu → Fable en chef
+     d'orchestre qui ne lit jamais les tranches), sur la règle « ne jamais demander à
+     un modèle ce qu'un script décide mieux et gratuitement » ;
+   - il **commence par un étalonnage** de l'auditeur sur 2 tranches × 10 erreurs
+     injectées, avec un seuil de rappel (16/20) qui autorise ou interdit le lancement —
+     un contrôle muet passe toujours au vert ;
    - ⚠️ il porte une contrainte que rien d'autre ne signale : **depuis `cb44367`,
      corriger un nikoud change l'identité SRS de la carte et efface sa progression
      Leitner.** Le coût doit être chiffré et l'issue choisie *avant* la première
