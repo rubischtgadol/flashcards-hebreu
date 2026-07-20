@@ -389,3 +389,212 @@ L'angle le plus abouti : on cherche le reliquat, pas la refonte.
   mais les écrire est un autre chantier, avec son propre lot d'exemples et sa relecture.
 - **Le chantier du premier affichage** (lenteur à l'ouverture du portail puis de l'app,
   signalée le 20/07) : sans rapport, instruit séparément — voir TODO.md « Reprendre ici ».
+
+---
+
+# ANNEXE — Gabarits de prompts (à utiliser littéralement)
+
+⚠️ **Pourquoi cette annexe existe.** Le corps du plan *décrit* ce que les prompts doivent
+contenir. Cela suffit à un modèle fort, qui comble les trous ; **cela ne suffit pas à un
+modèle de gamme inférieure**, et c'est précisément là que le plan les envoie. Un critère
+flou produit une anomalie floue, et une anomalie floue coûte le double : la fenêtre de
+l'auditeur, puis celle du vérificateur qui la réfute.
+
+Les gabarits ci-dessous sont donc **à copier tels quels**, en substituant les
+`{PLACEHOLDERS}`. Trois propriétés les rendent robustes :
+
+1. **La sortie est contrainte par `schema`**, pas par la politesse — la validation se
+   fait à la couche outil, le modèle re-tente jusqu'à se conformer. Le format ne peut
+   pas dériver, quel que soit le modèle.
+2. **Les exemples calibrants font le gros du travail.** Sur un modèle faible, deux
+   bons cas et trois mauvais valent plus que dix lignes de consignes.
+3. **Chaque tâche a une porte de sortie explicite** (« si tu ne peux pas nommer la
+   règle, ne signale rien »). Sans elle, un modèle sous pression invente plutôt que
+   de rendre une liste vide.
+
+---
+
+## A — Étage 2 : auditeur d'une tranche (Sonnet)
+
+```
+Tu audites la JUSTESSE d'une tranche du carnet de vocabulaire hébreu d'un
+apprenant francophone. Tu ne corriges rien : tu signales.
+
+Lis UNIQUEMENT ce fichier : {CHEMIN_TRANCHE}
+N'ouvre aucun autre fichier du dépôt. Tout ce dont tu as besoin y est.
+
+Chaque carte est un objet : cat (catégorie), he (hébreu VOCALISÉ, avec nikoud),
+he_plain (sans nikoud), tr (translittération), fr (français), niveau (CECRL),
+genre (m/f, noms uniquement), forms (formes fléchies), exemples, __i (index
+stable — à reporter tel quel dans tes signalements).
+
+Structure attendue selon la catégorie :
+- Verbes : `he` est l'INFINITIF, `forms` = 4 formes du PRÉSENT (il, elle, ils, elles)
+- Adjectifs : `forms` = 3 accords (f. sing., m. plur., f. plur.)
+- Noms : `genre` (m/f) + `forms` = le pluriel
+
+CE QUE TU CHERCHES (par ordre d'importance) :
+1. Hébreu faux : nikoud fautif, orthographe consonantique fautive, forme verbale
+   d'un autre binyan, pluriel inexistant, accord d'adjectif faux
+2. Genre déclaré faux
+3. Traduction française fausse ou trompeuse
+4. Exemple agrammatical, ou dont le français ne correspond pas à l'hébreu, ou qui
+   n'emploie pas le mot vedette
+5. Exemple juste mais qu'un Israélien ne dirait pas (registre livresque)
+
+LA CIBLE EST L'HÉBREU MODERNE PARLÉ EN ISRAËL. Ni biblique, ni littéraire.
+Le but du carnet est l'aisance orale.
+
+CE QUE TU NE SIGNALES JAMAIS :
+- Les écarts de translittération (`tr`). Le carnet FAIT FOI sur ces valeurs, elles
+  sont écrites à la main et l'appli replie toutes les variantes à la saisie. Un `tr`
+  qui s'écarte d'une norme n'est pas une erreur.
+- Le style. Un exemple juste et un peu plat reste. Tu cherches le FAUX, pas le
+  perfectible. Aucune proposition de réécriture.
+- Une préférence personnelle de vocabulaire ou de nikoud quand les deux formes
+  existent réellement.
+
+RÈGLE ANTI-INVENTION, LA PLUS IMPORTANTE :
+Chaque signalement doit nommer la RÈGLE grammaticale précise qui est violée.
+Si tu ne peux pas l'énoncer, tu n'as pas trouvé d'erreur : tu as eu une impression.
+Ne la signale pas. Une tranche sans anomalie est un résultat normal et attendu —
+rends une liste vide sans t'excuser et sans meubler.
+
+Retourne : le nombre de cartes examinées et la liste des anomalies.
+```
+
+**Exemples calibrants — à inclure dans le prompt tels quels.**
+
+*À SIGNALER (bon signalement)* :
+
+> Carte `Noms` — `he`: יַלְדָּה, `fr`: « fille », `genre`: **"m"**, pluriel: יְלָדוֹת
+> → `field`: genre · `severity`: bloquant · `correction`: "f"
+> `rule`: « Nom à terminaison ־ָה accentuée, féminin sans exception ici ; le pluriel
+> יְלָדוֹת en ־וֹת le confirme. **La carte se contredit elle-même** : son pluriel est
+> féminin et son genre déclaré masculin. »
+
+*À SIGNALER (bon signalement)* :
+
+> Carte `Verbes` — `he`: לְלַמֵּד « enseigner », forme *il* : **לוֹמֵד**
+> → `field`: forms · `severity`: bloquant · `correction`: מְלַמֵּד
+> `rule`: « לְלַמֵּד est au binyan piel : son participe présent prend le préfixe מ־
+> (מְלַמֵּד). לוֹמֵד est le présent de לִלְמֹד (paal, "étudier") — c'est la forme de
+> l'autre membre de la paire d'homographes consonantiques. »
+
+*À NE PAS SIGNALER (faux positif classique)* :
+
+> Carte `Noms` — שֻׁלְחָן « table », `genre`: "m", pluriel: שֻׁלְחָנוֹת
+> ✗ Ne signale PAS « pluriel en ־וֹת pour un masculin ». שולחן est un masculin à
+> pluriel en ־ות parfaitement régulier dans l'usage. **La règle m→־ִים a des
+> exceptions nombreuses et attestées** ; ne signaler que si le mot n'en est pas une.
+
+*À NE PAS SIGNALER* :
+
+> `tr`: « yesh ktsat chalav bamekarer » là où une norme donnerait « ketsat ».
+> ✗ Hors périmètre : le carnet fait foi sur les `tr`.
+
+*À NE PAS SIGNALER* :
+
+> Un exemple correct et banal (« אֲנִי אוֹכֵל לֶחֶם » — « je mange du pain »).
+> ✗ Il est juste. Le manque de relief n'est pas une anomalie.
+
+**Schéma de sortie** (contraint par l'outil) :
+
+```json
+{ "checked": 25,
+  "findings": [{ "card_index": 412, "he": "…", "cat": "…",
+    "field": "he|fr|genre|forms|exemple|niveau|note",
+    "severity": "bloquant|majeur|mineur",
+    "claim": "…", "correction": "…", "rule": "…" }] }
+```
+
+---
+
+## B — Étage 3 : vérificateur, lentille GRAMMAIRE (Sonnet)
+
+```
+Tu es un RELECTEUR ADVERSARIAL. On te soumet des anomalies signalées par un
+auditeur dans un carnet d'hébreu. Ton rôle n'est pas de les confirmer : c'est
+d'essayer de les RÉFUTER.
+
+Pour chacune, une seule question : la règle grammaticale invoquée existe-t-elle
+vraiment, et s'applique-t-elle vraiment à CE mot ?
+
+Motifs de réfutation les plus fréquents, à chercher activement :
+- la règle est inventée, ou énoncée trop largement
+- la règle existe mais le mot en est une exception attestée
+- les deux formes existent réellement en hébreu moderne
+- l'auditeur a confondu deux lemmes (racines consonantiques homographes)
+- la « correction » proposée est fausse, ou pas meilleure que l'original
+
+⚠️ PAR DÉFAUT, RÉFUTE. En cas de doute, réfute.
+L'asymétrie est réelle et voulue : une anomalie confirmée à tort fait entrer une
+correction FAUSSE dans la source de vérité d'un apprenant ; une anomalie réfutée à
+tort laisse seulement un mot correct en place. Le second coût est très inférieur.
+
+Ne confirme que si tu peux redire la règle toi-même, dans tes propres termes,
+et montrer qu'elle s'applique.
+
+Anomalies à examiner ({N}) : {LOT_JSON}
+```
+
+**Schéma** : `{ "verdicts": [{ "card_index": 412, "refuted": true,
+"reason": "…", "confidence": 0.0-1.0 }] }`
+
+---
+
+## C — Étage 3 : vérificateur, lentille USAGE (Sonnet)
+
+Même ossature que B, **question différente** — c'est la diversité des lentilles qui
+attrape ce que la redondance manque :
+
+```
+Ton angle n'est PAS la règle grammaticale : c'est l'usage réel en Israël aujourd'hui.
+
+Pour chaque anomalie, deux questions :
+1. Un Israélien dirait-il ce que dit le carnet ? (si oui → réfute : ce n'est pas
+   une erreur, même si une autre forme est plus « correcte » sur le papier)
+2. La correction proposée est-elle réellement MEILLEURE, ou seulement différente ?
+   (si seulement différente → réfute)
+
+⚠️ Le carnet vise l'aisance ORALE. Une forme parlée courante n'est jamais une
+erreur, même si la grammaire prescriptive préfère autre chose. Une correction qui
+rend le carnet plus livresque est une régression, pas un correctif.
+
+PAR DÉFAUT, RÉFUTE.
+```
+
+---
+
+## D — Étage 1 : trieur de drapeaux (Haiku)
+
+⚠️ **La tâche de Haiku doit être une question FERMÉE.** Aucun jugement de nikoud,
+aucune morphologie ouverte — c'est écrit comme interdit dans le corps du plan.
+
+```
+Un script a signalé des noms hébreux dont l'accord genre/pluriel s'écarte du schéma
+régulier (masculin → ־ִים, féminin → ־וֹת).
+
+Pour chacun, réponds à UNE question fermée : ce mot est-il une exception CONNUE et
+courante de l'hébreu moderne ?
+
+- "oui"      → c'est une irrégularité attestée (ex. שולחן/שולחנות, אישה/נשים,
+               שנה/שנים). Le drapeau tombe.
+- "non"      → aucune irrégularité connue, l'écart est suspect. Le drapeau monte
+               à l'auditeur Sonnet.
+- "incertain" → tu n'en es pas sûr. DIS-LE. Ne devine pas, ne raisonne pas sur la
+               morphologie : "incertain" est une réponse juste et utile, elle fait
+               monter le drapeau d'un étage.
+
+Tu ne juges NI le nikoud, NI la traduction, NI l'exemple. Uniquement : exception
+connue, oui / non / incertain.
+
+Mots à trier ({N}) : {LOT_JSON}
+```
+
+**Schéma** : `{ "answers": [{ "card_index": 412, "answer": "oui|non|incertain",
+"exception": "nom de l'irrégularité si connue, sinon null" }] }`
+
+⚠️ **Un « incertain » ne se jette pas : il escalade.** Un trieur bon marché qui
+n'aurait pas le droit d'hésiter mentirait pour se conformer — et un drapeau perdu à
+cet étage ne sera jamais rattrapé aux étages suivants, puisqu'ils ne le verront pas.
