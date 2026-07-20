@@ -123,11 +123,83 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-## 🔴 CHANTIER OUVERT — Lag sur iPhone réel (ouvert le 20/07 au soir)
+## 🔴 CHANTIER OUVERT — Lag sur iPhone réel (ouvert le 20/07 au soir, instruit le 20/07 dans la nuit)
 
-**Plan d'analyse pour une session neuve. À traiter en premier, avant tout le reste.**
-Rien n'est diagnostiqué : ce qui suit est un dossier d'instruction, pas une conclusion.
-⚠️ *Ne pas commencer par corriger. La cause racine n'est pas trouvée.*
+**État : l'enquête côté code est terminée, l'instrumentation est déployée (SW v12).
+La prochaine mesure ne peut être prise que par Ruben, sur le téléphone.**
+
+### Ce que la session d'instruction a établi (20/07, nuit)
+
+La campagne de mesure en WebKit réel (iPhone 16 Pro émulé, Playwright, médianes sur
+20 répétitions minimum) **réfute les quatre hypothèses du dossier, en émulation** :
+
+1. **H1 travail synchrone par clic — réfutée.** Le gestionnaire complet d'un clic de
+   chip tient sous la résolution d'horloge (≤ 1 ms), `updateStart()` < 1 ms,
+   `savePrefs()` < 1 ms, `localStorage.setItem` ~0 ms sur 100 répétitions, `srsSave()`
+   avec 198 entrées (11,4 Ko) idem.
+2. **H2 relayout du sticky — réfutée en émulation.** Clic → peinture : médiane 23 ms,
+   soit le plancher du double-rAF à 60 Hz, pas du travail. Le face-à-face avec
+   l'`app.html` de `3a7ab38` (avant lampes et sticky conditionnel) donne 22/23 ms —
+   delta +1 ms, et le pire max était côté *ancien*.
+3. **H3 le carnet au chargement — hors de cause pour un lag au tap.** fetch 9 ms +
+   DOMParser 14 ms + extractCards 7 ms ≈ 30 ms, boot total 344 ms à froid (dev). La
+   part qui dépend du CPU du téléphone (parse + extraction ≈ 21 ms) est minime.
+4. **H4 `body.has-due` — réfutée.** À due=200 (`has-due` posé et vérifié), gestionnaire
+   et peinture identiques à due=0 (23 ms contre 23 ms, contre-mesure 30+30 taps).
+
+Aucun chemin ne produit plus d'1 ms de travail ni plus d'une trame de délai. **Si le
+lag est réel, il vit en dehors de ces quatre chemins, ou n'existe que sur le vrai
+matériel** (plancher rAF, thermique, synthèse vocale, contention du SW, cache froid).
+L'émulation ne peut pas trancher plus loin — c'est exactement le piège n°1 du dossier
+d'origine, et la raison de l'instrumentation ci-dessous.
+
+**Un seul poste dépasse 100 ms dans tout le parcours émulé, et il colle au rapport** :
+le **premier rendu de l'écran d'étude** — « Départ de session : travail 7 ms ·
+affichage **329 ms** » (les départs suivants ~23 ms ; une chip peint en 51 ms). C'est
+du rendu, pas du JS, et c'est précisément le geste « quand je quitte l'écran
+d'accueil ». Sur le CPU du téléphone ce coût ne peut qu'enfler. Piste sérieuse mais
+non prouvée sur l'appareil : la ligne « Départ de session » du diagnostic tranchera —
+si « affichage » y domine largement, c'est elle.
+
+**Prise au passage** : la campagne a débusqué une vraie faute sans lien avec le lag —
+`cardId` (`cat|he_plain`) n'était pas unique. Corrigée le soir même, voir « Fait ».
+
+### L'instrumentation livrée (SW v12) — ce que Ruben doit faire
+
+« Réglages avancés » porte désormais un bloc **« Diagnostic de latence »** qui affiche
+en clair, sur l'appareil, sans inspecteur :
+
+- **Chargement** : `carnet (réseau) · extraction · construction · total` — mesuré à
+  chaque boot en ligne (masqué dans le standalone) ;
+- **le dernier geste** (chips catégories/niveaux, « tout sélectionner », réglages,
+  « Commencer », « Révision du jour ») : `attente · travail (état · bouton ·
+  sauvegarde) · affichage · total`.
+
+Grille de lecture, à garder pour la prochaine session :
+
+| Si domine… | Alors la cause est… |
+| --- | --- |
+| **attente** | le fil principal occupé avant le geste, ou le délai de synthèse du clic iOS — pas le gestionnaire |
+| **travail** | H1 enfin prouvée — le segment affiché nomme le coupable |
+| **affichage** | le rendu (style/mise en page/compositing) — H2 et parentes |
+| **aucun** (tout < ~30 ms) | le lag n'est pas dans l'app : cache froid de la PWA réinstallée, thermique, iOS |
+
+Protocole : **fermer et relancer l'app une fois** (le SW v12 doit servir le nouveau
+`app.html` — un seul relancement suffit après le bump), ouvrir « Réglages avancés »,
+toucher deux ou trois chips puis « Commencer », et **noter les lignes affichées**.
+Faire confirmer aussi que le lag persiste après plusieurs lancements — la
+réinstallation d'aujourd'hui reste le facteur confondant n°1.
+
+### Si les chiffres on-device sont sains
+
+Le lag serait alors hors de l'app : dans l'ordre, (1) refaire les gestes après deux
+jours d'usage (cache chaud, indexations iOS terminées) ; (2) la bissection par
+déploiement du dossier d'origine (servir l'`app.html` de la veille contre le carnet
+du jour, puis l'inverse) ; (3) regarder la concurrence du SW (re-téléchargement de
+443 Ko en arrière-plan à chaque lancement) — mesurable en posant un marqueur dans le
+SW, pas encore instrumenté.
+
+### Le dossier d'origine (conservé pour mémoire — l'instruction ci-dessus l'a suivi)
 
 ### Le rapport
 

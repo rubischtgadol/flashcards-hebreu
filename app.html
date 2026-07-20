@@ -284,6 +284,8 @@
      que de laisser la voix par défaut prononcer l'hébreu de travers. */
   body.no-he-voice .speak-btn, body.no-he-voice .sr-speak, body.no-he-voice .spk-hint, body.no-he-voice .ex-speak{ display:none !important; }
   .audio-note, .seg-note{ color:var(--ink-dim); font-size:.76rem; margin-top:8px; }
+  /* Vide dans la version autonome (pas de chargement réseau à mesurer) : masqué. */
+  #perf-boot:empty{ display:none; }
   /* Identifiant AVFoundation de la voix retenue. C'est lui, et non `name`, qui porte
      la qualité (« …-compact » / « .enhanced. ») : au niveau système ce sont deux champs
      distincts, et l'API Web Speech n'expose pas le second. Seul diagnostic possible
@@ -675,6 +677,13 @@
       </div>
       <div class="audio-note" id="audio-note"></div>
 
+      <!-- Dossier « lag iPhone » (TODO.md, 20/07/2026) : la seule mesure qui fasse
+           foi est prise sur l'appareil réel, et il n'a pas d'inspecteur — les
+           millisecondes s'affichent donc ici, comme le nom de la voix ci-dessus. -->
+      <h2 id="h-perf">Diagnostic de latence</h2>
+      <div class="seg-note" id="perf-boot"></div>
+      <div class="seg-note" id="perf-note">Touche une chip ou « Commencer » : les temps du dernier geste s'affichent ici.</div>
+
       <!-- Action rare et destructrice : derrière le pli, jamais en concurrence
            avec « Commencer » ni la révision du jour. Deux temps obligatoires. -->
       <div class="reset-zone">
@@ -878,6 +887,28 @@ function sessRestore(){
   return true;
 }
 
+// ================= Diagnostic de latence (dossier « lag iPhone », 20/07/2026) =================
+// Trois temps par geste, affichés dans « Réglages avancés » : « attente » (dernier
+// doigt levé → le gestionnaire démarre — c'est là que vivrait un délai de synthèse
+// du clic ou un fil principal occupé), « travail » (le gestionnaire, décomposé),
+// « affichage » (gestionnaire terminé → image peinte, via double
+// requestAnimationFrame). L'écriture du texte se fait APRÈS la capture du temps
+// de peinture, pour ne pas mesurer sa propre mise à jour.
+let lastPointerUp=0;
+document.addEventListener('pointerup', e=>{ lastPointerUp=e.timeStamp; }, {capture:true, passive:true});
+function fmtMs(v){ return (v>=100 ? ''+Math.round(v) : v.toFixed(1).replace('.', ','))+'\u202fms'; }   // espace fine insécable avant l'unité (convention fr), en escape \u pour rester visible dans la source
+function perfReport(label, segs, t0, tEnd){
+  const base = (lastPointerUp && lastPointerUp<=t0) ? lastPointerUp : t0;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const tPaint=performance.now();
+    const el=document.getElementById('perf-note'); if(!el) return;
+    const detail = segs.map(s=>s[0]+' '+fmtMs(s[1])).join(' · ');
+    el.textContent = label+' : attente '+fmtMs(t0-base)+' · travail '+fmtMs(tEnd-t0)
+      + (detail ? ' ('+detail+')' : '')
+      + ' · affichage '+fmtMs(tPaint-tEnd)+' · total '+fmtMs(tPaint-base);
+  }));
+}
+
 // ----- Speech (Web Speech API) -----
 const TTS_OK = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
 let voicesCache = [];
@@ -1066,7 +1097,14 @@ function buildChips(){
     const b=document.createElement('button');
     b.className='chip'; b.setAttribute('aria-pressed','false'); b.dataset.cat=cat;
     b.innerHTML=cat+' <span class="n">'+catCounts[cat]+'</span>';
-    b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.cats.add(cat); else state.cats.delete(cat); updateStart(); savePrefs(); };
+    b.onclick=()=>{
+      const t0=performance.now();
+      toggle(b); if(b.getAttribute('aria-pressed')==='true') state.cats.add(cat); else state.cats.delete(cat);
+      const t1=performance.now(); updateStart();
+      const t2=performance.now(); savePrefs();
+      const t3=performance.now();
+      perfReport('Chip « '+cat+' »', [['état',t1-t0],['bouton',t2-t1],['sauvegarde',t3-t2]], t0, t3);
+    };
     catsEl.appendChild(b);
   });
   buildNivChips();
@@ -1086,7 +1124,14 @@ function buildNivChips(){
     const b=document.createElement('button');
     b.className='chip'; b.setAttribute('aria-pressed','false'); b.dataset.niv=g.key;
     b.innerHTML=g.label+' <span class="n">'+nivCounts[g.key]+'</span>';
-    b.onclick=()=>{ toggle(b); if(b.getAttribute('aria-pressed')==='true') state.niveaux.add(g.key); else state.niveaux.delete(g.key); updateStart(); savePrefs(); };
+    b.onclick=()=>{
+      const t0=performance.now();
+      toggle(b); if(b.getAttribute('aria-pressed')==='true') state.niveaux.add(g.key); else state.niveaux.delete(g.key);
+      const t1=performance.now(); updateStart();
+      const t2=performance.now(); savePrefs();
+      const t3=performance.now();
+      perfReport('Chip « '+g.label+' »', [['état',t1-t0],['bouton',t2-t1],['sauvegarde',t3-t2]], t0, t3);
+    };
     nivEl.appendChild(b);
   });
   // Carnet sans aucun data-niveau : c'est le pli entier qui disparaît, titre compris.
@@ -1096,12 +1141,14 @@ function buildNivChips(){
 
 function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
 function segPick(container, key, btn){
+  const t0=performance.now();
   container.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
   btn.setAttribute('aria-pressed','true');
   state[key]=btn.dataset[key];
   savePrefs();
   if(key==='len'){ refreshSrsUi(); updateStart(); }   // le compte du bouton dépend de la Longueur
   refreshAdvSub();
+  perfReport('Réglage', [], t0, performance.now());
 }
 // Le pli fermé dit ce qu'il contient ET les valeurs mémorisées — la Longueur
 // par défaut (20) ne doit pas être un réglage invisible.
@@ -1143,14 +1190,17 @@ SEG_KEYS.forEach(key=>{
 });
 
 document.getElementById('selall').onclick=()=>{
+  const t0=performance.now();
   const allOn = state.cats.size===Object.keys(catCounts).length;
   catsEl.querySelectorAll('.chip').forEach(b=>{
     b.setAttribute('aria-pressed', allOn?'false':'true');
   });
   state.cats.clear();
   if(!allOn) Object.keys(catCounts).forEach(c=>state.cats.add(c));
-  updateStart();
-  savePrefs();
+  const t1=performance.now(); updateStart();
+  const t2=performance.now(); savePrefs();
+  const t3=performance.now();
+  perfReport('« Tout (dé)sélectionner »', [['état',t1-t0],['bouton',t2-t1],['sauvegarde',t3-t2]], t0, t3);
 };
 // Le libellé dit l'action que le clic fera vraiment : « tout désélectionner »
 // quand tout est déjà coché, « tout sélectionner » sinon.
@@ -1227,13 +1277,17 @@ function limitPool(pool){
   return state.len==='all' ? pool : pool.slice(0, +state.len);
 }
 function start(){
+  const t0=performance.now();
   state.session='normal';
   // Croisement catégories × niveau. La révision du jour (startReview), elle,
   // ignore le niveau : une carte apprise reste due.
   const pool = CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c));
   const deck = limitPool(state.order==='shuffle' ? shuffle(pool.slice()) : pool.slice());
   state.origQueue = deck.slice();
+  const t1=performance.now();
   beginSession(deck);
+  const t2=performance.now();
+  perfReport('Départ de session', [['préparation',t1-t0],['rendu',t2-t1]], t0, t2);
 }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
@@ -1333,6 +1387,7 @@ function refreshSrsUi(){
   } else { mEl.classList.add('hide'); }
 }
 function startReview(){
+  const t0=performance.now();
   const pool=dueCards(); if(!pool.length) return;
   state.session='review';
   // La limite de longueur s'applique aussi ici : les plus en retard d'abord,
@@ -1340,7 +1395,10 @@ function startReview(){
   pool.sort((a,b)=>SRS[cardId(a)].due - SRS[cardId(b)].due);
   const deck = limitPool(pool);
   state.origQueue = deck.slice();
+  const t1=performance.now();
   beginSession(shuffle(deck.slice()));
+  const t2=performance.now();
+  perfReport('Révision du jour', [['préparation',t1-t0],['rendu',t2-t1]], t0, t2);
 }
 (function(){ const b=document.getElementById('review-btn'); if(b) b.onclick=startReview; })();
 
@@ -2263,14 +2321,24 @@ async function init(){
   const loader=document.getElementById('loader');
   const msg=document.getElementById('loader-msg');
   try{
+    const tB0=performance.now();
     const res = await fetch('./vocabulaire_hebreu.html', {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const text = await res.text();
+    const tB1=performance.now();
     const doc = new DOMParser().parseFromString(text, 'text/html');
     CARDS = extractCards(doc);
+    const tB2=performance.now();
     if(!CARDS.length) throw new Error('empty');
     buildChips();
     updateStart();
+    const tB3=performance.now();
+    // Décomposition du démarrage pour le diagnostic de latence : c'est ici que
+    // vivrait un boot lent (H3 du dossier — le carnet, pas l'app).
+    const pb=document.getElementById('perf-boot');
+    if(pb) pb.textContent='Chargement : carnet (réseau) '+fmtMs(tB1-tB0)
+      +' · extraction '+fmtMs(tB2-tB1)+' · construction '+fmtMs(tB3-tB2)
+      +' · total '+fmtMs(tB3-tB0);
     loader.style.display='none';
     if(!bootResumed) document.getElementById('setup').classList.remove('hidden');
     const note=document.getElementById('count-note');

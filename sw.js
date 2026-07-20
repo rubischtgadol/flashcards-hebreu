@@ -24,7 +24,12 @@
 // seulement au second — or c'est précisément sur ce nouvel écran que l'identifiant de
 // la voix doit être relevé. Un diagnostic qu'on demande à quelqu'un doit être visible
 // du premier coup.
-const VERSION = 'v11';
+// v12 : le diagnostic de latence (dossier « lag iPhone ») s'affiche dans
+// « Réglages avancés ». Le bump est la condition de l'enquête : la mesure doit
+// être sur le téléphone au premier lancement, pas au second — c'est exactement
+// le cas « un diagnostic qu'on demande à quelqu'un doit être visible du
+// premier coup » de v9.
+const VERSION = 'v12';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
