@@ -70,7 +70,7 @@ nom de section à 13,4 px en parchemin plein, et **152 hébreux de prose rendus 
 17 contrôles WebKit au vert, `flashcards_hebreu.html` **inchangé au octet**, 713 cartes et
 510 exemples intacts. **Périmètre arrêté avec Ruben** avant l'écriture : rampe + défauts
 mesurés, mais **pas** le bornage de la largeur de lecture (166 caractères par ligne en
-desktop) — reste ouvert, voir le point 8.
+desktop) — **soldé depuis, le 20/07, voir le point 8**.
 **Acquis précédent** — les dix P2/P3 de charte du carnet traités d'un lot
 (`.tip` éteint, quatre micro-titres ad hoc ramenés à deux voix nommées, le voile noir
 des exemples remplacé par une vraie couche, piles de polices complétées, `.attention`
@@ -972,6 +972,21 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
   débordement horizontal à 320/375/402/430/768 px et les cibles tactiles sur iPhone 16 Pro.
   ⚠️ Piège Playwright : la forme **chaîne** d'`evaluate()` attend une *expression* — envelopper
   le corps dans `(()=>{ … })()`, sinon `SyntaxError: Unexpected keyword 'function'`.
+- **Suite de mise en page** (scratchpad, à recréer au besoin — écrite le 20/07 pour le
+  bornage de la largeur de lecture, réutilisable sur tout changement de layout). Elle
+  compare **deux copies du fichier**, l'une avec le bloc CSS en cause retiré, aux six
+  largeurs 1440/1280/992/900/768 + iPhone 16 Pro, et mesure : débordement horizontal du
+  document (`scrollWidth` vs `clientWidth`), `clientWidth`/`scrollWidth` de **chacune**
+  des 29 `.table-wrap` — c'est le contrôle qui a attrapé les deux régressions du jour —,
+  les axes de centrage, et les **caractères par ligne** de la prose.
+  ⚠️ **La mesure des caractères par ligne ne peut pas se faire au plus long nœud texte** :
+  la prose du carnet est fragmentée par des `<span>` hébreux et des `<b>`, si bien que le
+  plus long nœud isolé ne fait que 176 caractères pour des lignes réelles bien plus
+  longues. Il faut un `Range` caractère par caractère sur **tous** les nœuds texte de
+  l'élément, regroupés par `top` de rectangle via `getClientRects()`.
+  ⚠️ Et comparer **avant/après**, pas seulement après : c'est le comparatif qui prouve que
+  le mobile n'a pas bougé et qu'aucune table n'a gagné de défilement. Un contrôle qui ne
+  mesure que l'état final ne sait pas ce qu'il a cassé.
 - **Détecteur impeccable** (sans réseau, lit HTML/CSS local) :
   `node <base-skill>/scripts/detect.mjs --json <fichier>`. Ses findings sont des *signaux*,
   pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est

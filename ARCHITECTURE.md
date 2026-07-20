@@ -94,9 +94,24 @@ décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 - **`theme-color`** et `-webkit-tap-highlight-color:transparent` alignés sur les deux autres
   fichiers (la chrome Safari changeait de couleur en passant du portail au carnet).
 
-### Conventions visuelles propres au carnet (2026-07-19)
+### Conventions visuelles propres au carnet (2026-07-19, complété le 20-07)
 
-Cinq règles nées des passes de charte et de typographie, à ne pas défaire par inadvertance :
+Six règles nées des passes de charte, de typographie et de mise en page, à ne pas défaire
+par inadvertance :
+
+- **Les deux colonnes, et le troisième bloc `:root`.** Le carnet porte une colonne de
+  lecture (`--colonne` 28rem pour la prose, `--colonne-large` 56rem pour le cadre : tables,
+  en-tête, sommaire), dans un **troisième** bloc `:root` local — les trois ne se fusionnent
+  jamais. La mise en œuvre passe par le `padding-inline` de `main`, **et non par
+  `max-width` + marges auto** : le padding centre le cadre sans toucher aux marges
+  verticales des enfants, dont la fusion règle tout le rythme du document.
+  ⚠️ **Les deux valeurs sont mesurées, pas choisies** : `--colonne-large` est un plancher
+  (la table la plus large se pose à 890px ; sous 55,6rem, 7 tables sur 29 gagnent un
+  défilement), et `--colonne` se calibre sur l'avance réelle de la prose (6,63px par
+  caractère), jamais sur la largeur d'un chiffre (7,87px, soit 19 % de trop).
+  ⚠️ **Piège de cascade** : `main > *:not(.table-wrap)` pèse 0,1,1 et fait **plancher de
+  spécificité** — tout sélecteur d'élément nu qui voudrait le contredire (`main > h2`,
+  `main > ol`…) est ignoré **en silence**. Détail et les trois pièges : DESIGN.md §3.
 
 - **La rampe de 8 pas, et le socle qu'elle corrige.** ⚠️ `font-size:22px` est posé sur
   **`body`**, jamais sur `html` — dans les trois fichiers — donc **1rem vaut 16px**, pas

@@ -26,7 +26,7 @@ L'application est une **PWA installable** : sur iPhone, ouvrir un des liens dans
 
 Le carnet est organisé en trois parties, avec un sommaire cliquable et une recherche instantanée (français, hébreu avec ou sans nikud, translittération) :
 
-- **Partie 1 — Grammaire** : pronoms, démonstratifs, la racine (clé des verbes), le passé, le futur, patrons de conjugaison (binyanim), l'article défini, l'état construit, prépositions fléchies, existence & possession.
+- **Partie 1 — Grammaire** : pronoms, démonstratifs, la racine (clé des verbes), le passé, le futur, patrons de conjugaison (binyanim), l'article défini, l'état construit, prépositions fléchies, le hé directionnel, existence & possession.
 - **Partie 2 — Vocabulaire, le dictionnaire** : verbes, noms et adjectifs, regroupés par thèmes.
 - **Partie 3 — Mots-outils & expressions** : prépositions, conjonctions, mots interrogatifs, nombres, jours de la semaine, mots de quantité, expressions courantes et **phrases utiles du quotidien** (« Combien ça coûte ? », « L'addition, s'il te plaît »…).
 
