@@ -123,8 +123,99 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-**Plus aucun chantier de code n'est ouvert au 20/07 au soir.** Les huit points ci-dessous
-sont soldés, et la piste A l'a été en fin de journée :
+## 🔴 CHANTIER OUVERT — Lag sur iPhone réel (ouvert le 20/07 au soir)
+
+**Plan d'analyse pour une session neuve. À traiter en premier, avant tout le reste.**
+Rien n'est diagnostiqué : ce qui suit est un dossier d'instruction, pas une conclusion.
+⚠️ *Ne pas commencer par corriger. La cause racine n'est pas trouvée.*
+
+### Le rapport
+
+Ruben, sur son iPhone réel, PWA fraîchement réinstallée (SW v11) : **« tout lag un peu,
+par exemple quand je quitte l'écran d'accueil ou que je sélectionne des catégories »**.
+
+Deux précisions obtenues, toutes deux décisives :
+
+1. **C'est une régression** — l'app était fluide avant, elle lague depuis aujourd'hui.
+2. **Le symptôme est une LATENCE, pas une saccade** — « le geste met du temps à
+   répondre », un délai avant que quoi que ce soit ne bouge. ⚠️ **Cette distinction
+   commande toute l'enquête** : une latence est du travail synchrone qui bloque le fil
+   principal, pas un problème de rendu ni de compositing. Les pistes « transition
+   coûteuse », « box-shadow », « couche de compositing » expliquent une saccade et **pas**
+   un délai — elles sont donc secondaires, contre-intuitivement.
+
+### Établi (et comment)
+
+- **Le chemin d'un clic de chip ne passe PAS par `refreshSrsUi()`** — lu dans
+  `buildChips()` : le `onclick` d'une chip fait `toggle` → `state` → `updateStart()` →
+  `savePrefs()`. Le drapeau `body.has-due` n'est donc pas sur ce chemin.
+- **Sur un profil fraîchement réinstallé, `SRS` est vide → `due=0` → `body` n'a pas
+  `has-due` → `body:not(.has-due)` matche exactement comme l'ancien `.start:enabled`.**
+  Autrement dit, dans l'état où Ruben est aujourd'hui, les sélecteurs livrés le 20/07
+  sont **quasi inertes**. C'est l'argument le plus gênant contre l'hypothèse évidente.
+- **`app.html` n'a été touché aujourd'hui que par `336def7`** (les lampes). Le commit
+  précédent sur ce fichier date du 19/07 16:25.
+- **Aucune inflation de taille** : carnet 444 697 → 452 828 o (+1,8 %), `app.html`
+  119 513 → 121 442 o (+1,9 Ko). Le volume n'explique rien.
+- **Aucun rapport de lenteur n'existe dans l'historique du projet** — ce qui ne prouve
+  pas que c'est nouveau, seulement que ça n'a jamais été signalé.
+
+### Non éliminé, et à ne pas oublier
+
+Trois commits du 20/07 touchent le **carnet**, que `app.html` va chercher par `fetch()`
+et reparse à chaque chargement (`extractCards`) : `cafa245` (54 exemples), `0970245` (la
+colonne de lecture), `1aafb0f` (le hé directionnel). Le lag est peut-être **côté carnet,
+pas côté app** — et personne n'y penserait en lisant « lag de l'app ».
+
+Autre piste non explorée : le **service worker en stale-while-revalidate** re-télécharge
+le carnet (443 Ko) en arrière-plan à chaque lancement. Sur réseau mobile, cela pourrait
+concurrencer le fil principal au moment précis où l'utilisateur touche l'écran.
+
+### Hypothèses, classées
+
+1. **Quelque chose de synchrone et coûteux tourne à chaque clic.** `updateStart()`
+   appelle `refreshSelAll()`, `refreshFoldSubs()`, un `CARDS.filter` sur 713 cartes, puis
+   `savePrefs()` qui **écrit dans localStorage** — une opération synchrone et bloquante,
+   candidate n°1 pour une latence. À mesurer avant tout.
+2. **Le relayout d'un élément `sticky`.** `updateStart()` change le `textContent` du
+   bouton (« Commencer — 12 cartes ») à chaque clic ; sous `pointer:coarse` ce bouton est
+   `position:sticky`, donc chaque changement peut forcer un recalcul de mise en page du
+   conteneur défilant. Préexistant, mais possiblement aggravé.
+3. **Le carnet**, via `fetch` + `extractCards` au chargement (voir ci-dessus).
+4. **Le drapeau `body.has-due`** invalide le style du document entier. Faible : il n'est
+   pas sur le chemin des chips, et il est inerte à `due=0`.
+
+### Les expériences qui discriminent, du moins cher au plus cher
+
+1. **Instrumenter, ne pas deviner.** Poser des `performance.now()` autour des trois
+   segments du clic (état, `updateStart()`, `savePrefs()`) et autour du départ de
+   session, et **afficher les millisecondes à l'écran** — Ruben n'a pas d'inspecteur
+   Safari sous la main. C'est la seule mesure prise sur le vrai matériel, donc la seule
+   qui fasse foi. ⚠️ *Ce point vient en premier : les quatre hypothèses ci-dessus sont
+   toutes plausibles et une seule mesure les départage.*
+2. **Bissection par déploiement.** Servir sur le téléphone l'`app.html` de `3a7ab38`
+   (la veille) **contre le carnet d'aujourd'hui** : si le lag persiste, mon commit est
+   hors de cause et c'est le carnet. Puis l'inverse. Deux essais, la moitié de l'espace
+   éliminée à chaque fois.
+3. **Rejouer en WebKit** seulement ensuite, et en sachant que le bureau ne reproduira
+   probablement pas une latence liée au CPU du téléphone. Ne pas conclure « pas de
+   défaut » d'une machine de dev fluide.
+
+### Pièges de cette enquête
+
+- ⚠️ **Ne pas conclure de la fluidité en émulation.** Le grief est sur un iPhone réel,
+  et la contrainte est le CPU, pas le moteur de rendu.
+- ⚠️ **La réinstallation de la PWA est un facteur confondant** : SW v11 tout neuf, cache
+  à reconstituer, premiers lancements légitimement lourds. Faire confirmer par Ruben que
+  le lag **persiste après plusieurs lancements**, sinon on débogue un cache froid.
+- ⚠️ **Mon commit du jour est le suspect commode, pas forcément le coupable.** Les faits
+  établis ci-dessus le disculpent en partie (sélecteurs inertes à `due=0`, absent du
+  chemin des chips). Résister au réflexe de défaire le dernier changement.
+
+---
+
+**Le reste de cette section est soldé.** Les huit points ci-dessous
+sont clos, et la piste A l'a été le 20/07 en fin de journée :
 
 - **Les deux « lampes » de l'accueil — FAIT le 20/07 au soir.** Le principe visé par
   DESIGN.md §5 est tenu : une seule lampe allumée à la fois, choisie par l'état. Un
