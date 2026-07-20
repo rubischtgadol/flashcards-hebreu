@@ -1,6 +1,16 @@
 # État du projet et travail restant
 
-État au 2026-07-19, fin de journée. **Dernier acquis : le dossier « voix robotique »
+État au 2026-07-20. **Dernier acquis : le lot de clôture des exemples est livré — la
+question des exemples en situation est CLOSE.** Les 54 mots-outils dont le sens ne
+s'attrape qu'en contexte (Prépositions 23, Adverbes 19, Mots interrogatifs 12) portent
+désormais leur phrase du quotidien : **510 → 564 exemples**, 713 cartes inchangées,
+`verifie_exemples.js` à **0 erreur et 0 avertissement nouveau**, et 20 versos sur 20
+vérifiés en WebKit réel. Le lot a été écrit **contre un contrôle à blanc** — les cinq
+contrôles du validateur rejoués sur le JSON avant d'écrire une seule ligne dans le
+carnet —, ce qui a arrêté trois phrases sur du vocabulaire hors carnet avant qu'elles
+n'entrent dans la source de vérité. Détail et arbitrages de contenu au point 1.
+
+**Acquis précédent : le dossier « voix robotique »
 est CLOS, et par une preuve et non plus par déduction.** Donnée apportée par Ruben :
 son iPhone est réglé **en norvégien**, et les Réglages iOS y nomment la voix
 **« Carmit (forbedret) »** — pendant que l'app, elle, n'affiche que **« Carmit »**.
@@ -101,7 +111,8 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 1. **Exemples en situation — les trois tables sont couvertes à 100 %** (19/07 au
    soir, demande de Ruben) : chaque **nom (301), adjectif (102) et verbe (97)** porte
    un exemple du quotidien (verbes : phrase au présent) — plus 8 Mots de quantité et
-   2 Verbes modaux hors règle, soit **510 exemples** pour 713 cartes.
+   2 Verbes modaux hors règle. Avec le lot de clôture du 20/07 (ci-dessous),
+   le carnet porte **564 exemples** pour 713 cartes.
    La règle est **verrouillée dans `verifie_exemples.js`** : un mot ajouté à l'une de
    ces trois tables sans son `<ul class="exemples">` fait échouer le contrôle (erreur
    bloquante, pas un avertissement). Méthode d'un futur lot : écrire les phrases en
@@ -110,14 +121,32 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
    noms propres en capitale), puis `node verifie_exemples.js` (**0 erreur exigé**),
    `node build.js`, commit.
 
-   **➤ PROCHAIN LOT D'EXEMPLES — périmètre arrêté par Ruben le 19/07 au soir :
-   Prépositions (23) · Adverbes (19) · Mots interrogatifs (12) = 54 mots.**
-   Ce sont les trois catégories où un exemple *apprend* vraiment quelque chose : une
-   préposition ou un mot interrogatif ne s'emploie qu'en contexte, et la traduction
-   seule (« sur », « pourquoi ») ne dit pas comment la placer. Méthode identique au lot
-   précédent (JSON → script d'insertion → `verifie_exemples.js` 0 erreur → `build.js`).
-   ⚠️ Attention au piège du contrôle 5 : ces mots sont majoritairement A1, donc leurs
-   phrases tireront des noms A2 — c'est normal, le seuil est à +2 depuis le 19/07.
+   **➤ [FAIT le 20/07] LOT DE CLÔTURE LIVRÉ — Prépositions (23) · Adverbes (19) ·
+   Mots interrogatifs (12) = 54 mots. La question des exemples est CLOSE.**
+   **510 → 564 exemples**, 713 cartes inchangées, `verifie_exemples.js` **0 erreur et
+   aucun avertissement nouveau** (les 2 restants sont les deux légitimes d'avant le lot).
+   Méthode conforme à l'annonce : JSON → contrôle **à blanc** → insertion → `build.js`.
+   ⚠️ *La leçon du lot, à garder :* le contrôle à blanc **avant** d'écrire dans le carnet
+   a payé. Il rejoue les 5 contrôles du validateur sur le JSON, sans toucher aux 431 ko de
+   la source de vérité — et il a arrêté trois phrases sur un vocabulaire hors carnet
+   (הָיָה, נִמְצָא ×2) qui seraient sinon parties en avertissements dans le fichier réel,
+   à défaire ensuite. Écrire d'abord, valider ensuite, aurait coûté un aller-retour sur
+   un fichier qu'on ne veut toucher qu'une fois.
+   Trois arbitrages de contenu pris en route, tous dictés par le lexique du carnet :
+   - **אֶתְמוֹל** (hier) réclame un passé, et le carnet n'enseigne qu'**une** forme du
+     passé hors section de grammaire : אָכַלְתִּי. La phrase l'utilise donc
+     (« hier j'ai mangé au restaurant ») au lieu d'introduire un הָיָה que le carnet
+     n'a pas. Un exemple ne doit pas enseigner en douce un mot absent.
+   - **יָמִין / שְׂמֹאל** devaient éviter נִמְצָא (hors carnet). Rendus en phrase
+     nominale — « le magasin est à droite de la station » —, ce qui est de l'hébreu plus
+     idiomatique que le verbe, et non un pis-aller.
+   - **הַבַּיְתָה soigneusement évité** dans les phrases de אַחֲרֵי et de מָחָר : c'est
+     l'un des 2 avertissements légitimes ouverts (point 2), on ne l'aggrave pas.
+   Quatre retouches d'affichage sur la `.tr` générée, là où le carnet fait foi :
+   `'akhshayv → 'akhshav` (×2), `matay → matai`, `leiad → leyad`, `kevar → kvar`.
+   Vérifié en **WebKit réel (iPhone 16 Pro)** : session tirée des trois catégories,
+   **20 versos sur 20** portent leur pli « Voir un exemple », le pli révèle bien
+   hébreu + translittération + français, et l'hébreu révélé porte son `lang="he"`.
 
    **Le reste est abandonné, décision de Ruben** — Nombres 41 · Expressions 35 ·
    Saisons & mois 16 · Pronoms 10 · Jours 7 · le reste ≤ 6. Ne pas les reproposer :
@@ -878,7 +907,7 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
   pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est
   un faux positif — la règle vise l'anglais).
 - **Graphe de connaissance** (`graphify-out/`, versionné depuis le 20/07) : cartographie du
-  dépôt — 357 nœuds, 604 arêtes, 18 communautés. **À interroger avant d'ouvrir un gros
+  dépôt — 438 nœuds, 658 arêtes, 31 communautés. **À interroger avant d'ouvrir un gros
   fichier** : `graphify explain "checkAnswer"` donne la ligne source exacte et les
   appelants/appelés en ~15 lignes, `graphify query "…"` répond en ~2 300 tokens là où lire
   `app.html` en coûte des dizaines de milliers (10,5× d'économie, mesurée le 20/07 par

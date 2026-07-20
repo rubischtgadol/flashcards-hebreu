@@ -202,7 +202,7 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans app.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Le libellé du pli suit son état (« Voir un exemple » ↔ « Masquer l'exemple », géré dans `exActivate`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
 
-**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples ; lots du 2026-07-19 : 430 de plus, soit **510 au total** — les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec ; verbes = phrase au présent) : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple proche du niveau du mot (les niveaux de § 4 disent par où commencer) — **le validateur tolère +1 niveau et n'alerte qu'à +2**, calibrage du 2026-07-19 : une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב) qui sont A2 par nature, alerter à +1 noyait le signal dans l'inévitable —, une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node build.js`, avant commit.
+**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples ; lots du 2026-07-19 : 430 de plus ; lot de clôture du 2026-07-20 : les 54 mots-outils de Prépositions, Adverbes et Mots interrogatifs, soit **564 au total** — les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec ; verbes = phrase au présent) : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple proche du niveau du mot (les niveaux de § 4 disent par où commencer) — **le validateur tolère +1 niveau et n'alerte qu'à +2**, calibrage du 2026-07-19 : une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב) qui sont A2 par nature, alerter à +1 noyait le signal dans l'inévitable —, une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node build.js`, avant commit.
 
 ### 5.1 Le lexique du validateur (deux garde-fous à ne pas retirer)
 
@@ -358,8 +358,11 @@ répondre à une question coûte des dizaines de milliers de tokens, là où une
 graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
 baisse quand le graphe grossit — `graphify benchmark` le remesure.
 
-**Ce que contient le graphe** — 357 nœuds, 604 arêtes, 18 communautés. Les six plus grosses
-couvrent 90 % des nœuds :
+**Ce que contient le graphe** — 438 nœuds, 658 arêtes, 31 communautés (état du 2026-07-20,
+après le lot de clôture des exemples). Le nombre de communautés a presque doublé sans que
+le graphe grossisse d'autant : la passe incrémentale a détaché en communautés d'une à trois
+entrées des principes de charte qui vivaient jusque-là noyés dans de plus gros blocs. Les
+sept plus grosses couvrent l'essentiel des nœuds :
 
 | Communauté | Contenu |
 | --- | --- |
@@ -369,6 +372,7 @@ couvrent 90 % des nœuds :
 | Le carnet : balisage et accessibilité | contrat de balisage, couche a11y, scripts du carnet |
 | Critiques design et correctifs | l'historique daté des audits `.impeccable/critique/` |
 | Amorçage, préférences et filtres | `init`, `applyPrefs`, `buildChips`, les niveaux CECRL |
+| Exemples en situation et validateur | `verifie_exemples.js`, son lexique et ses deux garde-fous, la ligne éditoriale, le contrôle à blanc, le lot de clôture du 20/07 |
 
 Les douze restantes sont petites et thématiques : portail et icônes PWA, voix typographiques
 et rampe, règle de la lampe, palette et règles de surface, registre produit, service worker.
