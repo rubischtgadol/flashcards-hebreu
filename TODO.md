@@ -123,8 +123,10 @@ deux chiffres qui étaient faux depuis un moment sont corrigés : les nœuds `la
 **Deux acquis antérieurs du jour.** (1) **L'anneau de focus doré rendu
 à tout l'interactif de l'app** — cause racine trouvée (`transition:all` fige les `outline-*`, et
 non la piste `-webkit-appearance` qui est réfutée), six règles corrigées, 58 arrêts de
-tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). (2) **L'audit du carnet est
-fait** (13/20, 4 P1, aucun P0) **et ses 4 P1 sont corrigés** : le carnet a reçu les passes qui
+tabulation vérifiés en WebKit réel, 0 défaut (détail en « Fait »). (2) **L'audit de charte du
+carnet est fait** (13/20, 4 P1, aucun P0) **et ses 4 P1 sont corrigés** — ⚠️ à ne pas confondre
+avec l'**audit de contenu** du carnet (justesse de l'hébreu), qui est un chantier distinct,
+encore ouvert, et dont le plan est en « Reprendre ici » : le carnet a reçu les passes qui
 lui manquaient — `lang="he"` de 0 à **100 %** (5003 nœuds), garde `prefers-reduced-motion`, or
 ambiant de `.part` retiré, cibles tactiles de 21 défauts à 0. (Les P2/P3 de charte, alors non
 engagés, ont été soldés depuis — voir le point 4 ; seule la consolidation typographique reste.) Avant cela : **critique

@@ -6,6 +6,15 @@
 # jamais dans le dépôt public (décision d'anonymisation).
 inbox/
 
+# Pièces de travail de l'audit du carnet (tranches sNN.json, _index.json,
+# mecanique.json) : elles se régénèrent en une commande depuis le carnet et
+# `flashcards_hebreu.html`, et ne valent rien hors de la session qui les lit.
+# ⚠️ Le SCRIPT qui les produit (`audit_carnet_mecanique.js`), lui, se versionne :
+# il vit à la racine, pas ici — et son ajout est un changement structurel, donc
+# il redonne droit à `/graphify . --update` (plan d'audit, § « Comment les
+# corrections entrent »).
+audit/
+
 # Graphe de connaissance (graphify) : on versionne le graphe interrogeable et sa
 # piste d'audit, car CLAUDE.md envoie les interroger. Tout le reste reste local —
 # le cache et les fichiers techniques contiennent des chemins absolus de la

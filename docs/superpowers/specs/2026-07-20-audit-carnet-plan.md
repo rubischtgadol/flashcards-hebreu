@@ -291,6 +291,9 @@ Extraire `CARDS` de `flashcards_hebreu.html` (il porte déjà les 713 cartes ave
 notes et exemples — inutile de faire lire 450 Ko de HTML à 28 agents) et découper en
 **28 tranches équilibrées de 17 à 28 cartes**, une catégorie par tranche, index de carte
 `__i` conservé pour la traçabilité. Écrire `audit/sNN.json` + `audit/_index.json`.
+✎R2 : `audit/` est **ignoré par git** (ligne posée le 20/07) — ce sont des pièces de
+travail régénérables, pas un livrable, et le dépôt est public. Le script qui les produit,
+lui, se versionne à la racine.
 ✎R2 : « une catégorie par tranche » vaut pour les grandes catégories ; les petites
 (Existence : 2 cartes, Démonstratifs : 3, Verbes modaux : 5…) se **regroupent en
 tranches mixtes** plutôt que de payer l'amorçage d'un agent pour deux cartes — chaque
