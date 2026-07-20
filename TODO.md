@@ -1,8 +1,11 @@
 # État du projet et travail restant
 
-État au 2026-07-20, tard dans la nuit. **Dernier acquis : le chantier du lag iPhone est
-CLOS, et clos par une mesure prise sur l'appareil de Ruben — pas par déduction.** Les
-trois gestes relevés tiennent tous sous le seuil de perception : chargement **31 ms**
+État au 2026-07-20, tard dans la nuit. **Dernier acquis : le lag *à l'usage* est CLOS,
+et clos par une mesure prise sur l'appareil de Ruben — pas par déduction.** (⚠️ Un
+second symptôme, distinct, a été signalé dans la foulée et **reste entier** : la lenteur
+du **premier affichage** à l'ouverture du portail puis de l'app. Le diagnostic ne le
+couvre pas — son chronomètre démarre après l'arrivée des polices. Voir « Reprendre ici ».)
+Les trois gestes relevés tiennent tous sous le seuil de perception : chargement **31 ms**
 (carnet 8 · extraction 18), tap de chip **49 ms** (dont 1 ms de JavaScript), départ de
 session **82 ms**. Aucun chemin de l'app n'est lent ; le cache froid de la PWA
 fraîchement réinstallée, facteur confondant annoncé dès le premier jour du dossier,
@@ -146,25 +149,30 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-**Rien n'est ouvert côté code.** Le chantier du lag est clos par la mesure on-device
-(ci-dessous) : aucun chemin de l'app ne dépasse le seuil de perception sur l'appareil
-de Ruben, et le cache froid de la PWA réinstallée reste la seule explication debout.
+**La checklist côté Ruben est soldée** (les trois cases restantes fermées le 20/07,
+identifiant de voix archivé compris) et **le bloc « Diagnostic de latence » est gardé**,
+sur décision de Ruben. Le chantier du lag *à l'usage* est clos par la mesure on-device.
 
-Il reste trois choses, toutes sans urgence et aucune bloquante :
+Deux chantiers sont ouverts, dans cet ordre :
 
-1. **Décider du sort du bloc « Diagnostic de latence »** — le garder (recommandé) ou le
-   retirer. Voir la section dédiée dans le chantier : ne pas le retirer tant qu'une
-   piste de lenteur reste soupçonnée.
-2. **Relever une fois l'`identifiant` de voix** affiché dans l'app (Réglages avancés →
-   Prononciation) — pur archivage, le dossier voix est clos ; la ligne reste un
-   détecteur si le filtre de WebKit changeait.
-3. **Sentir la frontière défilement/tap de la carte** (`#flip`) quand la face déborde.
+1. 🔶 **Le premier affichage** — signalé par Ruben le 20/07, **non instruit**. « C'est
+   surtout au tout début, à l'ouverture de la page d'accueil de la racine puis de la
+   page d'accueil de l'app ; sinon c'est ok. » ⚠️ **C'est un symptôme distinct de celui
+   qu'on vient de clore** : le diagnostic démarre son chronomètre quand le script
+   s'exécute, donc *après* HTML + CSS + polices — il ne voit pas cette phase. Suspect
+   n°1 non vérifié : les polices Google, chargées par une feuille externe bloquant le
+   rendu (`fonts.googleapis.com` puis `fonts.gstatic.com` = deux allers-retours réseau
+   avant le premier pixel), sur le portail **et** sur l'app, une fois par page —
+   exactement la forme du symptôme. À instruire avant de corriger, comme le précédent.
+2. 🔶 **Audit du carnet** — souhait de Ruben, **périmètre à définir** (il pensait à
+   `impeccable`). Le carnet a déjà reçu sa passe de charte, sa rampe typographique et sa
+   colonne de lecture : l'angle *présentation* est largement soldé, l'angle *contenu et
+   pédagogie* ne l'a jamais été. Trancher l'angle avant de lancer quoi que ce soit.
 
-⚠️ Si Ruben resignale un ralentissement : **ne rien corriger avant de lire les trois
-lignes du diagnostic** et de les comparer au tableau de référence du chantier. Le
+⚠️ Si un ralentissement *à l'usage* est resignalé : **ne rien corriger avant de lire les
+trois lignes du diagnostic** et de les comparer au tableau de référence du chantier. Le
 premier réflexe utile est de vérifier si « attente » domine — c'est le seul segment
-réductible, et la manière de le faire (ainsi que son risque d'accessibilité) est déjà
-écrite.
+réductible, et la manière de le faire (ainsi que son risque d'accessibilité) est écrite.
 
 ## ✅ CHANTIER CLOS PAR LA MESURE — Lag sur iPhone réel (ouvert le 20/07 au soir, clos la nuit même)
 
@@ -290,22 +298,20 @@ Protocole (reproductible) : **fermer et relancer l'app une fois** (le SW doit se
 nouveau `app.html` après un bump), ouvrir « Réglages avancés », toucher deux ou trois
 chips puis « Commencer », revenir par « ‹ Quitter » et lire la ligne du bas.
 
-### Le sort du bloc de diagnostic — décision à prendre, pas urgente
+### Le sort du bloc de diagnostic — **TRANCHÉ le 20/07 : il reste**
 
-Il a fait son travail. Deux issues, et **aucune n'est à trancher à chaud** :
+**Décision de Ruben : on garde le bloc** (« toujours utile »). Il ne coûte rien au repos,
+vit à l'intérieur d'un pli fermé, et c'est le seul instrument dont on dispose si un
+ralentissement est signalé — sans lui, une prochaine plainte repartirait de zéro,
+c'est-à-dire d'une session entière d'instrumentation.
 
-- **Le garder** (défaut recommandé) : il ne coûte rien au repos, ne s'affiche qu'à
-  l'intérieur d'un pli fermé, et c'est le seul instrument dont on disposerait si un
-  ralentissement était signalé à nouveau — sans lui, une prochaine plainte repartirait
-  de zéro, c'est-à-dire d'une session entière d'instrumentation.
-- **Le retirer** : l'app redevient sans échafaudage. À faire d'un seul geste (le bloc
-  markup, `perfReport`/`fmtMs`, les appels dans les six gestes, la décomposition de
-  `init()`, la règle `#perf-boot:empty`), avec bump du SW.
+**Il cesse donc d'être un échafaudage pour devenir un élément d'interface** : à traiter
+comme tel (charte, a11y, libellés) si l'écran des réglages est retouché. Ce n'est pas
+une dette, c'est un choix.
 
-⚠️ **Si les pistes non explorées devaient un jour rouvrir** (concurrence du service
-worker qui re-télécharge 443 Ko à chaque lancement, bissection par déploiement), elles
-supposent le bloc encore en place. Ne pas le retirer le jour où l'on soupçonne quelque
-chose — le retirer quand on est sûr de ne plus rien soupçonner.
+⚠️ Le corollaire vaut d'être écrit : **il ne mesure pas tout**. Son chronomètre démarre
+quand le script s'exécute, donc **après** l'arrivée du HTML, du CSS et des polices — la
+phase d'ouverture de page lui est invisible (voir le chantier « premier affichage »).
 
 ### Le dossier d'origine (conservé pour mémoire — l'instruction ci-dessus l'a suivi)
 
@@ -523,10 +529,14 @@ leçons qu'ils portent, pas comme du travail en attente.
    l'utilisateur — il est traduit.**
 
    **La ligne « identifiant » reste à l'écran** (`#audio-note`, voix Label, LTR). Elle ne
-   sert plus à trancher — c'est fait — mais de **détecteur permanent** : si un jour elle
-   affiche `.enhanced.` ou `.premium.` au lieu de `…-compact`, c'est que le filtre de
-   WebKit a changé, et le dossier se rouvre de lui-même. Reste à relever une fois, sans
-   urgence, pour archiver la valeur exacte (checklist en bas).
+   sert plus à trancher — c'est fait — mais de **détecteur permanent**. ✅ **Valeur
+   relevée le 20/07 : `com.apple.voice.super-compact.he-IL.Carmit`.** Elle est **pire que
+   ce que le dossier supposait** : nous écrivions « la compacte », l'appareil sert la
+   *super*-compacte, un cran en dessous. La conclusion ne bouge pas (c'est le filtre de
+   WebKit, pas un réglage manqué) mais elle gagne en netteté : le « robotique » ressenti
+   par Ruben n'était pas une impression, c'est le plus bas palier de la famille. Cette
+   chaîne est désormais la **référence du détecteur** : si elle devient un jour
+   `.compact.`, `.enhanced.` ou `.premium.`, le filtre a changé et le dossier se rouvre.
 
    *Le dossier documentaire, conservé — c'est lui qui explique pourquoi il ne faut plus
    rien tenter :* WebKit *filtre délibérément* les voix par qualité et n'expose que les
@@ -702,11 +712,11 @@ leçons qu'ils portent, pas comme du travail en attente.
    dont deux au rouge : la campagne a rattrapé deux de mes erreurs de raisonnement que la
    relecture n'aurait pas vues.
 
-**Checklist côté Ruben (vrai iPhone)** :
+**Checklist côté Ruben (vrai iPhone) — SOLDÉE le 20/07** :
 
-- [ ] Réinstaller la PWA / re-sauvegarder l'icône (une icône installée garde le
-      `start_url` de son installation → la refaire pour qu'elle ouvre le **portail**,
-      comme demandé le 2026-07-19).
+- [x] ~~Réinstaller la PWA / re-sauvegarder l'icône~~ (pour que l'icône ouvre le
+      **portail** et non l'app : une icône installée garde le `start_url` de son
+      installation). **Fait de longue date.**
 - [x] ~~Relever le **nom de la voix** affiché dans Réglages avancés → Prononciation.~~
       **Fait le 19/07 : « Carmit »**, alors que Carmit Enhanced était installée. Dossier
       instruit au point 3 — c'est une restriction de WebKit, pas un réglage manqué.
@@ -716,14 +726,25 @@ leçons qu'ils portent, pas comme du travail en attente.
       deux écrans est la preuve du filtre de WebKit** : le dossier voix est CLOS
       (point 3), et un défaut de code en a été tiré (classement des voix qui lisait un
       libellé traduit).
-- [ ] Relever une fois l'`identifiant` affiché **dans l'app** (Réglages avancés →
-      Prononciation, ligne sous le nom), pour archiver la valeur exacte. **Sans
-      urgence** — la conclusion ne l'attend plus. La ligne reste un détecteur : si elle
-      affiche un jour `.enhanced.`/`.premium.` au lieu de `…-compact`, le filtre de
-      WebKit aura changé et le dossier se rouvrira. (L'écran est sur l'appareil
-      depuis le bump v11 ; le SW est depuis passé en **v12** avec le diagnostic
-      de latence.)
-- [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
+- [x] ~~Relever l'`identifiant` affiché dans l'app.~~ **Fait le 20/07. Valeur archivée :**
+
+      ```
+      Voix hébraïque détectée — Carmit
+      identifiant : com.apple.voice.super-compact.he-IL.Carmit
+      ```
+
+      ⚠️ **C'est plus dur que ce que le dossier supposait** : nous attendions
+      `…compact…` et l'appareil sert `…super-compact…`, un cran **en dessous** encore.
+      La voix réellement jouée n'est donc pas seulement « pas l'améliorée » : c'est la
+      plus comprimée de la famille. Le dossier voix reste **CLOS** et la conclusion ne
+      change pas (c'est le filtre de WebKit, pas un réglage manqué) — mais cette valeur
+      explique mieux le « robotique » ressenti, et elle **disculpe définitivement** toute
+      idée d'aller chercher un réglage côté iOS.
+      **Cette chaîne est désormais la valeur de référence du détecteur** : si la ligne
+      affiche un jour `.compact.`, `.enhanced.` ou `.premium.` à la place, le filtre de
+      WebKit aura changé et le dossier se rouvrira de lui-même.
+- [x] ~~Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.~~
+      **Éprouvé à l'usage, rien à corriger** (20/07).
 
 ## Fait (historique compact — détail dans les messages de commit)
 
