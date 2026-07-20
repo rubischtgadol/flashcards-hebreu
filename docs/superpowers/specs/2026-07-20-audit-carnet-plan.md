@@ -5,10 +5,13 @@
 **Origine** : demande de Ruben le 20/07 au soir. Angle retenu : **les trois, en
 séquence** (justesse → pédagogie → présentation), méthode : **fan-out multi-agents**,
 avec un **point d'arrêt entre chaque phase** pour validation.
-**État** : 🔶 **PHASE 1 EN COURS** (session 3, 20/07) — étages 0 et 1.1 faits,
-étalonnage injecté mais **non mesuré** (session interrompue au départ de Ruben,
-auditeurs stoppés avant résultat). L'état fin et la marche à suivre sont dans le
-**« Journal d'exécution — session 3 »** juste avant l'annexe.
+**État** : ⛔ **PHASE 1 TERMINÉE (session 4, 20/07) — en attente de validation de
+Ruben.** Rappel d'étalonnage 17/20, 3 anomalies confirmées, 1 escalade, 18 réfutées
+consignées, coût SRS N = 2. Rapport :
+[`2026-07-20-audit-carnet-rapport-phase1.md`](2026-07-20-audit-carnet-rapport-phase1.md).
+Aucune correction appliquée — le lot de correction et la phase 2 attendent le feu
+vert. Le déroulé exact est dans le **« Journal d'exécution — session 4 »** juste
+avant l'annexe.
 **Review (session 2)** : ✅ faite le 20/07 par Fable 5. Les corrections sont marquées
 **✎R2** dans le corps du texte ; le récapitulatif est dans la section « Révision de la
 session 2 » ci-dessous.
@@ -626,6 +629,39 @@ n'a écrit quoi que ce soit.
 - `/graphify . --update` est **dû** (script racine ajouté = structurel) mais **différé
   volontairement** : à payer une seule fois, avec le lot de correction (décision notée
   dans `.gitignore`).
+
+---
+
+## Journal d'exécution — session 4 (20/07, Fable 5) : phase 1 achevée, point d'arrêt atteint
+
+Reprise exactement où le journal de la session 3 s'arrêtait. Tout le détail est dans
+le rapport ([`2026-07-20-audit-carnet-rapport-phase1.md`](2026-07-20-audit-carnet-rapport-phase1.md)) ;
+ici, le déroulé et ce qui ne se rejoue pas :
+
+1. **Étalonnage relancé et dépouillé** : 4 auditeurs Sonnet (gabarit A littéral,
+   schéma contraint, effort haut) sur s29/s30/s12/s03. **Rappel 17/20, 0 signalement
+   sur les originales** (donc 0 faux positif à adjuger) → fan-out tel quel, 2
+   lentilles. Les 3 ratés sont tous des injections vocaliques subtiles de s30 —
+   l'angle mort est publié au rapport § 1.
+2. **Fan-out 26 tranches** (s12/s03 réutilisées de l'étalonnage — écart publié),
+   26/26 rendues, 713 cartes couvertes, **22 anomalies brutes**, toutes avec `rule`.
+3. **Contre-expertise 2 lentilles par lots de 8** (id de jointure ajouté aux schémas
+   B/C/E — écart publié) : 12 confirmés, 10 contestés, 0 réfuté direct.
+4. **Arbitrage Opus** : les 10 contestés → 9 réfutés, 1 escalade (גַּב). Puis un
+   **second lot Opus non prévu au plan** (écart publié) : 9 « confirmés » reposant
+   sur le même mécanisme que des jumeaux réfutés (classe ktiv haser du `he_plain`)
+   → 9 réfutés, règle concordante.
+5. **Bilan** : 3 confirmées (מְלוֹן nikoud, סְפְרִיָּה nikoud, סַכָּנָה genre),
+   1 escalade (pluriel de גַּב), 18 réfutées consignées, 320/320 drapeaux couverts.
+   **Coût SRS : N = 2** (les deux `field: he`) — recommandation : accepter la remise
+   à zéro. Coût réel de la phase : ~1,80 M tokens de sous-agents (estimé : ~1,05 M).
+6. ⛔ **Arrêt au point d'arrêt.** En attente de Ruben : valider les 3 corrections,
+   trancher גַּב, choisir l'issue SRS, statuer sur la note systémique ktiv malé.
+   Le lot de correction paiera aussi le `/graphify . --update` différé.
+
+**Pièges pour la suite** (inchangés) : `node audit_carnet_mecanique.js` efface
+s29/s30 (refabriquer par `node audit/_injecte_etalonnage.js`) ; le fil principal ne
+lit jamais les tranches ; toute écriture reste dans le fil principal.
 
 ---
 
