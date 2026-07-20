@@ -1,18 +1,27 @@
 # État du projet et travail restant
 
-État au 2026-07-20, tard dans la nuit. **Dernier acquis : le lag iPhone est instruit
-jusqu'au bout de ce que l'émulation peut prouver, et l'appareil est équipé pour la
-suite.** Les quatre hypothèses du dossier sont **réfutées en WebKit émulé** (gestionnaire
-de clic ≤ 1 ms, sticky et `has-due` sans delta, carnet à ~30 ms) ; un bloc **« Diagnostic
-de latence »** affiche désormais les millisecondes dans « Réglages avancés », sur
-l'appareil même (`attente · travail · affichage`, grille de lecture au chantier) — SW
-**v12**, vérifié 9/9 en WebKit réel. Une piste chiffrée est sortie de la campagne : le
-**premier rendu de l'écran d'étude à 329 ms**, seul poste > 100 ms, qui colle au geste
-« quand je quitte l'écran d'accueil ». **La prochaine mesure appartient à Ruben** (voir
-le chantier). La campagne a aussi débusqué une faute sans lien avec le lag : `cardId`
-n'était pas unique — trois homographes consonantiques fusionnaient leur progression —,
-corrigé en clé vocalisée `cat|he` avec migration (`cb44367`). Graphe recalé (335 nœuds,
-23 communautés, le standalone dédupliqué).
+État au 2026-07-20, tard dans la nuit. **Dernier acquis : le chantier du lag iPhone est
+CLOS, et clos par une mesure prise sur l'appareil de Ruben — pas par déduction.** Les
+trois gestes relevés tiennent tous sous le seuil de perception : chargement **31 ms**
+(carnet 8 · extraction 18), tap de chip **49 ms** (dont 1 ms de JavaScript), départ de
+session **82 ms**. Aucun chemin de l'app n'est lent ; le cache froid de la PWA
+fraîchement réinstallée, facteur confondant annoncé dès le premier jour du dossier,
+reste la seule explication debout, et **aucune correction n'était due**.
+
+⚠️ **Le vrai acquis est une leçon de méthode, et elle est coûteuse** : mon émulation
+annonçait 329 ms sur le premier rendu de l'écran d'étude — j'en avais fait la piste n°1,
+en écrivant que le CPU du téléphone ne pourrait qu'aggraver le chiffre. **L'appareil en
+fait 41.** Sur les trois gestes, le vrai iPhone s'est révélé *plus rapide* que la machine
+de développement. C'est le miroir du piège n°13 : là-bas l'émulation masquait un défaut
+desktop réel, ici elle a fabriqué un défaut mobile imaginaire. **Une mesure d'émulation
+ne vaut que comparée à elle-même** (avant/après), jamais en valeur absolue.
+
+Acquis du même chantier : un bloc **« Diagnostic de latence »** (SW **v12**, vérifié 9/9
+en WebKit réel) affiche les millisecondes dans « Réglages avancés » — c'est l'instrument
+qui a clos le dossier, et il reste en place. Et une faute sans lien avec le lag, débusquée
+au passage : `cardId` n'était pas unique — trois homographes consonantiques fusionnaient
+leur progression Leitner —, corrigé en clé vocalisée `cat|he` avec migration (`cb44367`).
+Graphe recalé (335 nœuds, 23 communautés, le standalone dédupliqué).
 
 **Acquis précédent : la largeur de lecture du carnet est bornée, et le
 hé directionnel est enseigné — la dernière dette de mise en page est soldée, et les
@@ -137,19 +146,90 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-1. **Recueillir les chiffres du « Diagnostic de latence » sur l'iPhone de Ruben** —
-   c'est la seule mesure qui fasse foi, et tout est prêt pour elle (protocole et
-   grille de lecture dans le chantier ci-dessous). Faire confirmer au passage que le
-   lag persiste après plusieurs lancements (facteur confondant de la réinstallation).
-2. Rien d'autre n'est ouvert côté code. Les suites du chantier dépendent entièrement
-   de ce que diront les chiffres — ne rien corriger avant de les avoir lus.
+**Rien n'est ouvert côté code.** Le chantier du lag est clos par la mesure on-device
+(ci-dessous) : aucun chemin de l'app ne dépasse le seuil de perception sur l'appareil
+de Ruben, et le cache froid de la PWA réinstallée reste la seule explication debout.
 
-## 🔴 CHANTIER OUVERT — Lag sur iPhone réel (ouvert le 20/07 au soir, instruit le 20/07 dans la nuit)
+Il reste trois choses, toutes sans urgence et aucune bloquante :
 
-**État : l'enquête côté code est terminée, l'instrumentation est déployée (SW v12).
-La prochaine mesure ne peut être prise que par Ruben, sur le téléphone.**
+1. **Décider du sort du bloc « Diagnostic de latence »** — le garder (recommandé) ou le
+   retirer. Voir la section dédiée dans le chantier : ne pas le retirer tant qu'une
+   piste de lenteur reste soupçonnée.
+2. **Relever une fois l'`identifiant` de voix** affiché dans l'app (Réglages avancés →
+   Prononciation) — pur archivage, le dossier voix est clos ; la ligne reste un
+   détecteur si le filtre de WebKit changeait.
+3. **Sentir la frontière défilement/tap de la carte** (`#flip`) quand la face déborde.
 
-### Ce que la session d'instruction a établi (20/07, nuit)
+⚠️ Si Ruben resignale un ralentissement : **ne rien corriger avant de lire les trois
+lignes du diagnostic** et de les comparer au tableau de référence du chantier. Le
+premier réflexe utile est de vérifier si « attente » domine — c'est le seul segment
+réductible, et la manière de le faire (ainsi que son risque d'accessibilité) est déjà
+écrite.
+
+## ✅ CHANTIER CLOS PAR LA MESURE — Lag sur iPhone réel (ouvert le 20/07 au soir, clos la nuit même)
+
+**Verdict : aucun chemin de l'app n'est lent sur l'appareil de Ruben. Les trois gestes
+mesurés tiennent tous sous le seuil de perception (~100 ms), y compris celui qu'il avait
+nommé en premier.** Le code est disculpé par la mesure, pas par déduction.
+
+### Le verdict de l'appareil (relevé par Ruben, iPhone réel, SW v12)
+
+| Geste | Attente | Travail | Affichage | **Total** |
+| --- | --- | --- | --- | --- |
+| Chargement (carnet 8 · extraction 18 · construction 5) | — | — | — | **31 ms** |
+| Chip « Intermédiaire » (état 0 · bouton 1 · sauvegarde 0) | 21 ms | 1 ms | 27 ms | **49 ms** |
+| Départ de session (préparation 1 · rendu 11) | 29 ms | 12 ms | 41 ms | **82 ms** |
+
+Ce que ces trois lignes établissent :
+
+- **Le carnet est hors de cause, définitivement** : 8 ms pour l'obtenir (donc servi par
+  le cache du service worker, pas par le réseau) et 18 ms pour en extraire 713 cartes.
+- **Le travail JavaScript est négligeable partout** : 1 ms sur une chip, 12 ms sur un
+  départ de session. H1 est morte sur le vrai matériel, plus seulement en émulation.
+- **Le rendu ne coûte pas ce que je croyais** : « affichage » du départ de session vaut
+  **41 ms sur l'appareil contre 329 ms en émulation**. La piste la plus sérieuse de la
+  campagne n'existe pas sur le téléphone.
+- **Le poste le plus lourd est « attente »** (21 et 29 ms) : le délai qu'iOS met à
+  transformer le doigt en `click`. Ce n'est pas notre code, et c'est le seul segment
+  qu'on saurait réduire (voir « La piste laissée ouverte » plus bas).
+
+### ⚠️ La leçon de méthode, qui vaut plus que le verdict
+
+**Mon émulation a inventé un défaut qui n'existe pas.** Elle annonçait 329 ms sur le
+premier rendu de l'écran d'étude ; l'appareil en fait 41. J'avais écrit que « sur le CPU
+du téléphone ce coût ne peut qu'enfler » — c'était faux, et sur les trois gestes le vrai
+iPhone s'est révélé **plus rapide que la machine de développement** (chargement 31 contre
+88 ms, chip 49 contre 53 ms).
+
+C'est le **miroir du piège n°13** de CLAUDE.md : là-bas, l'émulation iPhone masquait un
+défaut desktop bien réel ; ici, elle a fabriqué un défaut mobile imaginaire. La règle qui
+en sort n'est pas « ne pas émuler » mais : **une mesure d'émulation ne vaut que comparée
+à elle-même** (avant/après, A contre B). En valeur absolue, elle ne dit rien de
+l'appareil — ni en trop, ni en trop peu.
+
+### Ce qui restait comme explication
+
+Le facteur confondant annoncé dès le premier jour du dossier : **la PWA venait d'être
+réinstallée** le jour du rapport (SW v11 tout neuf, cache à reconstituer, iOS en train
+d'indexer). Un cache froid lague légitimement, et les mesures ci-dessus ont été prises
+sur une app installée depuis. Aucune correction n'était due — et le réflexe de défaire
+le commit du jour, que le dossier avait interdit d'avance, aurait été une erreur.
+
+### La piste laissée ouverte (mesurée, chiffrée, NON appliquée)
+
+Sur les 49 et 82 ms, **21 et 29 ms sont de l'« attente »** — le délai de synthèse du
+`click` par iOS. L'app sait déjà l'éviter : `bindTap()` réagit dès le `pointerup` et
+équipe les boutons de l'écran d'étude. Les chips et « Commencer », eux, sont en `onclick`
+classique. Les y faire passer rendrait ~30 % du geste.
+
+**Non appliqué, et pour deux raisons qu'il faut garder** : (1) à 49 et 82 ms les gestes
+sont déjà imperceptibles, donc l'optimisation ne se verrait pas ; (2) `bindTap` fait
+`preventDefault()` sur `pointerup`, **ce qui empêche le focus de se poser** — sur des
+chips navigables au clavier et porteuses de l'anneau doré, c'est un risque
+d'accessibilité réel, à ne prendre que contre un bénéfice mesuré. À rouvrir seulement si
+un ralentissement est signalé *et* que « attente » domine à nouveau.
+
+### Ce que la session d'instruction avait établi avant la mesure (20/07, nuit)
 
 La campagne de mesure en WebKit réel (iPhone 16 Pro émulé, Playwright, médianes sur
 20 répétitions minimum) **réfute les quatre hypothèses du dossier, en émulation** :
@@ -174,21 +254,20 @@ matériel** (plancher rAF, thermique, synthèse vocale, contention du SW, cache 
 L'émulation ne peut pas trancher plus loin — c'est exactement le piège n°1 du dossier
 d'origine, et la raison de l'instrumentation ci-dessous.
 
-**Un seul poste dépasse 100 ms dans tout le parcours émulé, et il colle au rapport** :
+**Un seul poste dépassait 100 ms dans tout le parcours émulé, et il collait au rapport** :
 le **premier rendu de l'écran d'étude** — « Départ de session : travail 7 ms ·
-affichage **329 ms** » (les départs suivants ~23 ms ; une chip peint en 51 ms). C'est
-du rendu, pas du JS, et c'est précisément le geste « quand je quitte l'écran
-d'accueil ». Sur le CPU du téléphone ce coût ne peut qu'enfler. Piste sérieuse mais
-non prouvée sur l'appareil : la ligne « Départ de session » du diagnostic tranchera —
-si « affichage » y domine largement, c'est elle.
+affichage **329 ms** » (les départs suivants ~23 ms ; une chip peint en 51 ms). J'en
+avais fait la piste n°1, en écrivant que « sur le CPU du téléphone ce coût ne peut
+qu'enfler ». ⚠️ **L'appareil a répondu 41 ms.** La piste était un artefact de
+l'émulation — voir « La leçon de méthode » plus haut, c'est le vrai acquis du chantier.
 
 **Prise au passage** : la campagne a débusqué une vraie faute sans lien avec le lag —
 `cardId` (`cat|he_plain`) n'était pas unique. Corrigée le soir même (`cb44367`,
 clé vocalisée + migration), voir « Fait ».
 
-### L'instrumentation livrée (SW v12) — ce que Ruben doit faire
+### L'instrumentation livrée (SW v12) — l'instrument qui a clos le dossier
 
-« Réglages avancés » porte désormais un bloc **« Diagnostic de latence »** qui affiche
+« Réglages avancés » porte un bloc **« Diagnostic de latence »** qui affiche
 en clair, sur l'appareil, sans inspecteur :
 
 - **Chargement** : `carnet (réseau) · extraction · construction · total` — mesuré à
@@ -197,7 +276,8 @@ en clair, sur l'appareil, sans inspecteur :
   « Commencer », « Révision du jour ») : `attente · travail (état · bouton ·
   sauvegarde) · affichage · total`.
 
-Grille de lecture, à garder pour la prochaine session :
+Grille de lecture — **à garder** : c'est elle qui a permis de lire les relevés, et elle
+resservira telle quelle si un ralentissement est signalé un jour :
 
 | Si domine… | Alors la cause est… |
 | --- | --- |
@@ -206,20 +286,26 @@ Grille de lecture, à garder pour la prochaine session :
 | **affichage** | le rendu (style/mise en page/compositing) — H2 et parentes |
 | **aucun** (tout < ~30 ms) | le lag n'est pas dans l'app : cache froid de la PWA réinstallée, thermique, iOS |
 
-Protocole : **fermer et relancer l'app une fois** (le SW v12 doit servir le nouveau
-`app.html` — un seul relancement suffit après le bump), ouvrir « Réglages avancés »,
-toucher deux ou trois chips puis « Commencer », et **noter les lignes affichées**.
-Faire confirmer aussi que le lag persiste après plusieurs lancements — la
-réinstallation d'aujourd'hui reste le facteur confondant n°1.
+Protocole (reproductible) : **fermer et relancer l'app une fois** (le SW doit servir le
+nouveau `app.html` après un bump), ouvrir « Réglages avancés », toucher deux ou trois
+chips puis « Commencer », revenir par « ‹ Quitter » et lire la ligne du bas.
 
-### Si les chiffres on-device sont sains
+### Le sort du bloc de diagnostic — décision à prendre, pas urgente
 
-Le lag serait alors hors de l'app : dans l'ordre, (1) refaire les gestes après deux
-jours d'usage (cache chaud, indexations iOS terminées) ; (2) la bissection par
-déploiement du dossier d'origine (servir l'`app.html` de la veille contre le carnet
-du jour, puis l'inverse) ; (3) regarder la concurrence du SW (re-téléchargement de
-443 Ko en arrière-plan à chaque lancement) — mesurable en posant un marqueur dans le
-SW, pas encore instrumenté.
+Il a fait son travail. Deux issues, et **aucune n'est à trancher à chaud** :
+
+- **Le garder** (défaut recommandé) : il ne coûte rien au repos, ne s'affiche qu'à
+  l'intérieur d'un pli fermé, et c'est le seul instrument dont on disposerait si un
+  ralentissement était signalé à nouveau — sans lui, une prochaine plainte repartirait
+  de zéro, c'est-à-dire d'une session entière d'instrumentation.
+- **Le retirer** : l'app redevient sans échafaudage. À faire d'un seul geste (le bloc
+  markup, `perfReport`/`fmtMs`, les appels dans les six gestes, la décomposition de
+  `init()`, la règle `#perf-boot:empty`), avec bump du SW.
+
+⚠️ **Si les pistes non explorées devaient un jour rouvrir** (concurrence du service
+worker qui re-télécharge 443 Ko à chaque lancement, bissection par déploiement), elles
+supposent le bloc encore en place. Ne pas le retirer le jour où l'on soupçonne quelque
+chose — le retirer quand on est sûr de ne plus rien soupçonner.
 
 ### Le dossier d'origine (conservé pour mémoire — l'instruction ci-dessus l'a suivi)
 
