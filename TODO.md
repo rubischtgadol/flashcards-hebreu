@@ -927,13 +927,35 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
 1. `node build.js` — régénère `flashcards_hebreu.html` ; échec si une section ou un
    niveau attendu tombe à 0 ; vérifier les comptes affichés (sections, niveaux, exemples).
 2. Si des exemples ont changé : `node verifie_exemples.js` — **0 erreur exigé**.
-3. Vérifier le comportement : navigateur local, jsdom, ou émulation WebKit (ci-dessus).
+3. Vérifier le comportement **au niveau le moins cher qui prouve vraiment quelque chose**.
+   `node build.js --check` compare déjà les deux extracteurs au octet : un changement de
+   **contenu seul est prouvé par les étapes 1–2**, rien à ajouter. Serveur local ou jsdom
+   quand de la **logique** a bougé. **WebKit/Playwright uniquement si tu as touché à
+   l'UI** — balisage, CSS, ou un chemin de rendu. Démarrer un vrai navigateur pour
+   reconfirmer ce que `--check` vient d'établir est du confort, pas une preuve : ça coûte
+   l'installation de l'outillage plus une session de pilotage. (Leçon payée le 20/07 sur
+   le lot d'exemples.)
 4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
 5. Commit par changement, messages en français (comme l'historique), puis push sur `main`
    (GitHub Pages redéploie automatiquement).
-6. **Recaler le graphe** : `/graphify . --update`. Sans ça, CLAUDE.md — dont toute la
-   première section dit « interroge le graphe avant de lire les fichiers » — envoie
-   consulter un instantané périmé. Committer `graphify-out/graph.json` avec le reste.
+6. **Recaler le graphe — seulement si le changement est structurel.**
+   `/graphify . --update` coûte **~235 000 tokens** (mesuré le 20/07) : ce n'est pas un
+   réflexe, c'est une décision. Deux natures de changement, deux réponses :
+   - **Structurel** — `app.html`, `build.js`, `verifie_exemples.js`, `sw.js`,
+     `index.html`, ou un fichier ajouté / renommé / supprimé. La carte du graphe est
+     devenue fausse : le recaler, sans quoi CLAUDE.md — dont toute la première section dit
+     « interroge le graphe avant de lire les fichiers » — envoie consulter un instantané
+     périmé. Committer `graphify-out/graph.json` avec le reste.
+   - **Contenu seul** — du vocabulaire ou des exemples dans `vocabulaire_hebreu.html`, et
+     la prose des `.md`. **Le graphe reste juste** : aucune fonction, aucun fichier, aucun
+     flux n'a bougé. Seuls des compteurs changent, et ils vivent dans la doc (étape 7), pas
+     dans le graphe. Sauter le recalage, et le dire dans le message de commit.
+
+   ⚠️ *Le piège qui a payé cette règle* : le lot de 54 exemples du 20/07 était du contenu
+   pur, et le recalage lancé quand même a coûté **~4 fois le travail utile** pour faire
+   passer deux compteurs de 510 à 564. Le diff de `--update` (168 nœuds ajoutés, 87
+   retirés) montre qu'il **brasse** le graphe au lieu de l'étendre — raison de plus pour ne
+   pas le lancer pour rien.
 7. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
    fichier (surtout « Reprendre ici »). ⚠️ Les **comptes** cités dans les docs (cartes,
    exemples, nœuds `lang="he"`) se recalent à chaque ajout de vocabulaire — et le compte

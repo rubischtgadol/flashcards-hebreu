@@ -68,9 +68,13 @@ All notebook `.tr` values and `he2tr` output follow it: `kh` = khaf without dage
 
 1. `node build.js` — regenerates the standalone; fails if a section or an `EXPECTED_LEVELS` level drops to 0, or if any card lacks `data-niveau`. Check the printed counts.
 2. If examples or vocabulary changed: `node verifie_exemples.js` — **0 errors required** (warnings are editorial signals; `--strict` blocks on them too).
-3. Verify the behaviour: local server, jsdom, or WebKit emulation.
+3. Verify the behaviour, **at the cheapest level that actually proves it**. `build.js --check` already byte-compares the two extractors, so a content-only change is proven by steps 1–2 alone. Add a local server or jsdom when logic changed. **Reach for WebKit/Playwright only when you touched the UI** — markup, CSS, or a render path. Booting a real browser to re-confirm what `--check` just proved is comfort, not evidence, and it costs a tooling install plus a session of driving.
 4. If `sw.js`, the asset list or the icons changed: bump `VERSION`.
-5. **Refresh the graph**: `/graphify . --update` — otherwise this file's premise (query the graph first) starts lying.
+5. **Refresh the graph — but only on a structural change.** `/graphify . --update` costs **~235k tokens** (measured 2026-07-20), so it is not a reflex. Two natures of change, two answers:
+   - **Structural** — `app.html`, `build.js`, `verifie_exemples.js`, `sw.js`, `index.html`, or a new/renamed/deleted file. The graph's map is now wrong: refresh it, otherwise this file's premise (query the graph first) starts lying.
+   - **Content only** — vocabulary or examples in `vocabulaire_hebreu.html`, and the prose of the `.md` files. **The graph is still correct**: no function, file or flow moved. Only counts changed, and they live in the docs (step 6), not in the graph. Skip the refresh and say so in the commit.
+
+   ⚠️ The trap this rule was bought with: the 54-example batch of 2026-07-20 was pure content, and refreshing anyway cost ~4× the useful work to move two counters from 510 to 564. The `--update` diff (168 nodes added, 87 removed) shows it churns the graph rather than extending it — one more reason not to run it for nothing.
 6. Update the docs (README, ARCHITECTURE, DESIGN, PRODUCT, TODO — especially « Reprendre ici »).
 7. Commit per change, messages in French, then push to `main`.
 
