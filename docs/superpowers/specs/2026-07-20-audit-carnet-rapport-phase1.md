@@ -2,7 +2,7 @@
 
 **Date** : 2026-07-20 (session 4 — reprise et achèvement de la phase 1)
 **Périmètre** : `vocabulaire_hebreu.html` via les 713 cartes extraites — 28 tranches, somme vérifiée 713 (661 sur les 26 tranches du fan-out + 28 de s12 + 24 de s03, auditées à l'étalonnage avec le même prompt/modèle/effort et réutilisées — écart au plan publié en § Méthode).
-**Statut** : ⛔ **point d'arrêt atteint — aucune correction appliquée.** Le lot de correction est un chantier séparé, déclenché par Ruben.
+**Statut** : ✅ **phase 1 validée par Ruben le 21/07 ; lot de correction appliqué (session 5)** — les 3 corrections du § 2 sont dans le carnet, גַּב (§ 3) est tranché « pas d'erreur » (גַּבּוֹת attesté par l'Académie pour le sens « dos » — sources au journal de la session 5 du plan), remise à zéro SRS acceptée (§ 4), note ktiv malé documentée sans chantier (§ 5).
 
 ---
 

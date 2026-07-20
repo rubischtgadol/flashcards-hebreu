@@ -166,8 +166,9 @@ Deux chantiers sont ouverts, dans cet ordre :
    rendu (`fonts.googleapis.com` puis `fonts.gstatic.com` = deux allers-retours réseau
    avant le premier pixel), sur le portail **et** sur l'app, une fois par page —
    exactement la forme du symptôme. À instruire avant de corriger, comme le précédent.
-2. ⛔ **Audit complet du carnet** — **phase 1 TERMINÉE le 20/07 (session 4), en
-   attente de la validation de Ruben.** Rapport :
+2. 🔶 **Audit complet du carnet** — **phase 1 validée par Ruben le 21/07, lot de
+   correction appliqué et poussé (session 5). Prochaine étape : la phase 2
+   (pédagogie et progression), sur le feu vert de Ruben.** Rapport :
    [`docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md`](docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md) ;
    plan et journal :
    [`docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`](docs/superpowers/specs/2026-07-20-audit-carnet-plan.md).
@@ -185,15 +186,22 @@ Deux chantiers sont ouverts, dans cet ordre :
    note systémique au rapport § 5). **Coût SRS : N = 2** (recommandation : accepter
    la remise à zéro). 320/320 drapeaux de l'étage 0 couverts par un verdict.
 
-   **En attente de Ruben pour déclencher le lot de correction** : valider les 3
-   corrections, trancher גַּב, choisir l'issue SRS, statuer sur la note ktiv malé.
-   Puis phase 2 (pédagogie), sur son feu vert.
-   - ⚠️ Reprise pratique : `node audit_carnet_mecanique.js` régénère `audit/` **mais
-     efface s29/s30** ; les refabriquer par `node audit/_injecte_etalonnage.js`. Le
-     fil principal ne lit jamais les tranches ; il PEUT lire le corrigé.
-   - ⚠️ Graphe : l'ajout du script racine est **structurel** → `/graphify . --update`
-     est dû ; **différé volontairement** pour être payé une seule fois, avec le lot de
-     correction (décision notée dans `.gitignore`).
+   **Décisions de Ruben (21/07) et lot de correction (session 5)** : les 3
+   corrections validées et appliquées dans le carnet (מָלוֹן, סִפְרִיָּה + pluriel,
+   genre `f` de סַכָּנָה — le `tr` de l'exemple de מלון aligné « hamalon » dans la
+   foulée) ; **גַּב tranché « pas d'erreur »** — vérification déléguée selon le
+   protocole du § 3 : l'entrée officielle de l'Académie de la langue hébraïque
+   (hebrew-academy.org.il/keyword/גַּב, sens « הצד האחורי בגוף האדם ») donne
+   « נטייה: גַּבִּים וגם גַּבּוֹת », donc גַּבּוֹת est attesté pour CE lexème et la
+   carte reste ; **issue SRS : remise à zéro acceptée** (N = 2, pas de table de
+   migration — le changement de `he` change l'identité des deux cartes tout seul) ;
+   **note ktiv malé : documentée au rapport § 5, pas de chantier**. SW bumpé v13.
+   - ⚠️ Reprise pratique (phase 2) : `node audit_carnet_mecanique.js` régénère
+     `audit/` **mais efface s29/s30** ; les refabriquer par
+     `node audit/_injecte_etalonnage.js`. Le fil principal ne lit jamais les
+     tranches ; il PEUT lire le corrigé.
+   - Graphe : le `/graphify . --update` différé (script racine structurel) a été
+     **payé avec le lot de correction, le 21/07**.
 
    ⚠️ **Trois sessions distinctes, décidées par Ruben** : (1) l'écriture du plan — faite
    le 20/07 ; (2) la **review complète du plan par Fable 5** — **faite le 20/07**, ses

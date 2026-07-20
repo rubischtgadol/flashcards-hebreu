@@ -663,9 +663,37 @@ ici, le déroulé et ce qui ne se rejoue pas :
 s29/s30 (refabriquer par `node audit/_injecte_etalonnage.js`) ; le fil principal ne
 lit jamais les tranches ; toute écriture reste dans le fil principal.
 
----
+## Journal d'exécution — session 5 (21/07, Fable 5) : lot de correction appliqué, arrêt avant la phase 2
 
-# ANNEXE — Gabarits de prompts (à utiliser littéralement)
+Ruben a validé la phase 1 et rendu ses quatre décisions ; la session exécute le lot
+de correction et s'arrête là.
+
+1. **Les 3 corrections validées, appliquées dans `vocabulaire_hebreu.html` seul** :
+   מְלוֹן → מָלוֹן (+ הַמְּלוֹן → הַמָּלוֹן dans l'exemple, et son `tr` « hamelon »
+   aligné en « hamalon » — hors périmètre strict du § 2, assumé : le laisser aurait
+   recréé la contradiction interne que l'audit a utilisée comme preuve) ;
+   סְפְרִיָּה → סִפְרִיָּה et pluriel סְפְרִיּוֹת → סִפְרִיּוֹת ; genre de סַכָּנָה
+   `m` → `f`.
+2. **גַּב tranché : pas d'erreur, la carte reste.** Protocole du rapport § 3 suivi,
+   vérification déléguée à un sous-agent (~57 k tokens) : l'entrée officielle de
+   l'**Académie de la langue hébraïque** (hebrew-academy.org.il/keyword/גַּב, via
+   snapshot Wayback 2025-04-28, l'accès direct étant bloqué par Cloudflare) donne,
+   pour la définition « הצד האחורי בגוף האדם », la flexion
+   « נטייה: גַּבִּים וגם גַּבּוֹת ». גַּבּוֹת est donc attesté pour CE lexème
+   (déjà en Ézéchiel 1:18, où les deux pluriels coexistent) ; l'auditeur avait tort
+   de le réserver à גַּבָּה « sourcil ». Milog est muet sur la flexion, Rav-Milim
+   inaccessible (abonnement) — publié pour honnêteté des sources.
+3. **Issue SRS : remise à zéro** (décision de Ruben, N = 2) — aucune table
+   `SRS_RENAMES` : le changement de `he` change `cardId` tout seul, מלון et ספריה
+   repartent de la boîte 1. **Note ktiv malé : documentée (§ 5), pas de chantier.**
+4. **Rituel complet vert** : `build.js` 713 cartes, couverture 713/713 ;
+   `verifie_exemples.js` 0 erreur (1 avertissement éditorial préexistant sur קצת) ;
+   `build.js --check` en phase. Comptes inchangés — un lot de nikoud/genre ne crée
+   ni ne supprime de carte. `sw.js` bumpé **v13** (les vocalisations corrigées
+   doivent arriver au premier lancement).
+5. **Le `/graphify . --update` différé a été payé** avec ce lot, une seule fois,
+   comme décidé.
+6. ⛔ **Arrêt avant la phase 2 (pédagogie)** — chantier séparé, déclenché par Ruben.
 
 ⚠️ **Pourquoi cette annexe existe.** Le corps du plan *décrit* ce que les prompts doivent
 contenir. Cela suffit à un modèle fort, qui comble les trous ; **cela ne suffit pas à un

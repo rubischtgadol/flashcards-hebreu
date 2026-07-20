@@ -29,7 +29,12 @@
 // être sur le téléphone au premier lancement, pas au second — c'est exactement
 // le cas « un diagnostic qu'on demande à quelqu'un doit être visible du
 // premier coup » de v9.
-const VERSION = 'v12';
+// v13 : le lot de correction de l'audit (nikoud de מָלוֹן et סִפְרִיָּה, genre
+// de סַכָּנָה ; le pluriel de גַּב est resté — גַּבּוֹת attesté par l'Académie).
+// Le contenu se rafraîchirait seul, mais deux vocalisations apprises étaient
+// fausses : elles doivent disparaître du téléphone au premier lancement, pas
+// au second.
+const VERSION = 'v13';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
