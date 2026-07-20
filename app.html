@@ -1071,6 +1071,7 @@ function buildChips(){
   });
   buildNivChips();
   applyPrefs();
+  srsMigrateIds();   // avant tout lecteur de SRS (révision du jour, maîtrise)
   refreshSrsUi();
   sessRestore();
 }
@@ -1244,10 +1245,33 @@ const SRS_KEY='srs_v1';
 const SRS_INTERVALS=[0,1,2,4,8,16,32];      // jours avant réapparition, par boîte
 const SRS_MASTER=4;                          // boîte à partir de laquelle « maîtrisée »
 function todayNum(){ return Math.floor(Date.now()/86400000); }
-function cardId(c){ return c.cat+'|'+c.he_plain; }
+// ⚠️ La clé porte la forme VOCALISÉE : la forme plate créait trois collisions
+// d'homographes consonantiques (לְסַפֵּר raconter / לִסְפֹּר compter,
+// לְלַמֵּד enseigner / לִלְמֹד étudier, שלומך m. / f.) — deux cartes partageaient
+// alors la même boîte de Leitner et une session restaurée substituait l'une à
+// l'autre. `cat|he` est vérifié unique sur les 713 cartes (0 doublon).
+function cardId(c){ return c.cat+'|'+c.he; }
 function srsLoad(){ try{ return JSON.parse(localStorage.getItem(SRS_KEY))||{}; }catch(e){ return {}; } }
 function srsSave(){ try{ localStorage.setItem(SRS_KEY, JSON.stringify(SRS)); }catch(e){} }
 let SRS=srsLoad();
+// Migration des profils d'avant le changement de clé : l'entrée `cat|he_plain`
+// est recopiée sous `cat|he`, puis retirée. Les deux cartes d'une ancienne
+// collision héritent chacune de l'entrée partagée — meilleure information
+// disponible, et déterministe. Appelée depuis buildChips(), quand CARDS existe.
+function srsMigrateIds(){
+  let moved=0;
+  CARDS.forEach(c=>{
+    const oldId=c.cat+'|'+c.he_plain, newId=cardId(c);
+    if(oldId!==newId && SRS[oldId] && !SRS[newId]){
+      SRS[newId]=JSON.parse(JSON.stringify(SRS[oldId])); moved++;
+    }
+  });
+  if(moved){
+    const keep=new Set(CARDS.map(cardId));
+    Object.keys(SRS).forEach(k=>{ if(!keep.has(k)) delete SRS[k]; });
+    srsSave();
+  }
+}
 // Mémorise l'état SRS d'avant la dernière écriture → le verdict reste annulable
 // (« Corriger ») tant qu'aucune autre carte n'a été jouée.
 let lastRecord=null;

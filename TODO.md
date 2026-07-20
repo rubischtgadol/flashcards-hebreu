@@ -700,8 +700,9 @@ et le portail remis au barème (points 2 et 5 de « Reprendre ici ») :
   dérivaient contre leur propre entrée et la grande majorité des autres. L'exemple de
   la carte שחור écrivait même son mot vedette autrement que son entrée. **Direction du
   correctif, à garder** : aligner les exemples sur l'entrée, **jamais l'inverse** —
-  l'identité SRS est `cat|he_plain`, toucher une entrée réinitialise sa progression.
-  Vérifié : 0 identité déplacée. 10 avertissements de moins.
+  toucher une entrée réinitialise sa progression SRS. Vérifié : 0 identité déplacée.
+  10 avertissements de moins. (Depuis le 20/07 l'identité est `cat|he` **vocalisé** —
+  la règle s'est donc durcie : même une retouche de nikoud déplace l'identité.)
 - **[x] La fourmi n'était pas une fourmi** (`302d4ec`) : l'entrée portait נָמָל, qui
   veut dire *port*. Tout le reste de la ligne décrivait pourtant la fourmi (genre f,
   pluriel נְמָלִים, exemple « les fourmis travaillent… ») — seul le mot vedette était
@@ -920,9 +921,10 @@ Décisions actées (ne pas re-débattre sans nouvelle demande) :
 - Les **lots d'exemples s'écrivent sans relecture humaine**, gardés par
   `verifie_exemples.js` (0 erreur exigé avant commit).
 - **Une incohérence entre un exemple et son entrée se corrige dans l'exemple**, jamais
-  dans l'entrée : l'identité SRS d'une carte est `cat|he_plain`, donc toucher un mot
-  vedette remet sa progression Leitner à zéro. On ne déplace une entrée que pour une
-  vraie faute de sens (cf. נָמָל → נְמָלָה), et en le disant.
+  dans l'entrée : l'identité SRS d'une carte est `cat|he` (forme **vocalisée** depuis
+  le 20/07 — la forme plate fusionnait les homographes לספר/ללמד/שלומך), donc toucher
+  un mot vedette, **nikoud compris**, remet sa progression Leitner à zéro. On ne
+  déplace une entrée que pour une vraie faute (cf. נָמָל → נְמָלָה), et en le disant.
 - **Le validateur alerte sur le vocabulaire à +2 niveaux, pas à +1** : +1 est la
   texture normale d'une phrase du quotidien, pas un défaut.
 - **Hors « Révision du jour », aucune surface n'est teintée d'or au repos** — `.part`
