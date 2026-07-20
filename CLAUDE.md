@@ -18,6 +18,22 @@ graphify path "extractCards" "recordResult"    # how two things connect
 
 Read a file in full only when you are about to **edit** it, or when the graph's answer is genuinely insufficient. `GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance).
 
+## Then: delegate to a subagent anything that would flood this window
+
+The graph rule above fights the cost of *one* lookup. This rule fights the cost of a *long session*, which is the bigger bill: **every turn re-sends the whole accumulated context**, so a file read at turn 5 is paid again at turns 6, 7, 8… Growth is quadratic in session length, not linear. A subagent has its own window and returns **only its conclusion** — the intermediate traffic never enters this one.
+
+**The test is the ratio, not the difficulty: much intermediate output, short verdict → delegate.** In this repo that means:
+
+- **Every WebKit/Playwright run.** Dozens of driving round-trips (and screenshots, which are among the most expensive things you can put in a context) for a verdict that fits in three lines. This is the single biggest win, and the reason the rule exists.
+- **`node build.js` / `verifie_exemples.js` on a large batch**, when you want the counts and the errors, not the log.
+- **Broad exploration** the graph can't answer in one query — sweeping several files for a property, checking a rule holds everywhere.
+
+**Keep in the main thread**: edits, design and charter judgment (DESIGN.md's named rules), content arbitration, and the documentation pass of the ritual. These need the accumulated context and the project's voice — that is exactly what a subagent doesn't have.
+
+⚠️ **A subagent inherits this file, not your conversation.** So state the acceptance criterion *in the prompt*, in numbers: "report the count of X and every failure by name", never "check it looks right". A subagent that answers « c'est bon » has cost you its whole window and proved nothing — a muted control always passes green (same lesson as the coverage guard in `build.js`).
+
+**One session per chantier**, then `/clear`. Step 5 of the ritual is a commit, which is the clean cut point: the state lives in git and in TODO.md « Reprendre ici », not in the context window.
+
 ## What this is
 
 A French-language toolkit for learning modern Hebrew, deployed as static files on GitHub Pages at `https://rubischtgadol.github.io/flashcards-hebreu/`. There are **no dependencies, no tests, no package manager** — every deployed file is a single self-contained HTML document with inline CSS and vanilla JS. The only tooling is `build.js` and `verifie_exemples.js` (dev-only, zero-dependency Node scripts, not deployed). To develop, open the files in a browser; to deploy, replace files on the `main` branch (GitHub Pages redeploys automatically, same URLs).

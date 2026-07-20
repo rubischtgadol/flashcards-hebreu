@@ -888,7 +888,8 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
   `npm i playwright` dans le scratchpad suffit — ne relancer
   `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 npx playwright install webkit` que si le
   cache a disparu. Le Chrome système (`google-chrome --headless`) pend en WSL2 — ne pas
-  l'utiliser.
+  l'utiliser. **Piloter depuis un sous-agent, jamais depuis la session principale**
+  (étape 3 du rituel) : c'est l'outil qui pollue le plus une fenêtre de contexte.
 - **Suite de contrôle du portail** : `verifie_portail.js` (scratchpad de session, à
   recréer au besoin) — 33 contrôles : accueil/portes en desktop (souris, clavier, sans
   JS, reduced-motion), iPhone 16 Pro (tactile, débordement, chevauchement
@@ -935,6 +936,20 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
    reconfirmer ce que `--check` vient d'établir est du confort, pas une preuve : ça coûte
    l'installation de l'outillage plus une session de pilotage. (Leçon payée le 20/07 sur
    le lot d'exemples.)
+
+   ⚠️ **Et quand le contrôle est justifié, le déléguer à un sous-agent.** Une session
+   WebKit, c'est des dizaines d'allers-retours de pilotage et des captures d'écran — le
+   poste le plus lourd d'une fenêtre de contexte — pour un verdict de trois lignes.
+   Le sous-agent a sa propre fenêtre et ne rend que la conclusion ; le trafic
+   intermédiaire n'entre jamais dans la session principale, qui est renvoyée en entier
+   à chaque tour. Même chose pour un `build.js` / `verifie_exemples.js` de gros lot, ou
+   une exploration large à laquelle le graphe ne répond pas d'une requête.
+   **Restent dans le fil principal** : les éditions, les arbitrages de charte et de
+   contenu, et l'étape 7 (documentation) — elles ont besoin du contexte accumulé.
+   Le prompt du sous-agent doit **chiffrer le critère d'acceptation** (« rends le compte
+   de X et nomme chaque défaut »), jamais « vérifie que c'est bon » : un contrôle muet
+   passe toujours au vert, c'est la leçon de la garde de couverture de `build.js`.
+   Doctrine complète dans CLAUDE.md § *Delegate to a subagent…*
 4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
 5. Commit par changement, messages en français (comme l'historique), puis push sur `main`
    (GitHub Pages redéploie automatiquement).
