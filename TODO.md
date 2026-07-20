@@ -168,8 +168,14 @@ Deux chantiers sont ouverts, dans cet ordre :
    [`docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`](docs/superpowers/specs/2026-07-20-audit-carnet-plan.md).
    Angle tranché par Ruben : **les trois en séquence** (justesse de l'hébreu → pédagogie
    et progression → présentation), en **fan-out multi-agents**, avec un point d'arrêt et
-   une validation entre chaque phase. **À lancer dans une session neuve** — le plan est
-   autoportant, il ne suppose rien de la session qui l'a écrit.
+   une validation entre chaque phase. Le plan est autoportant : il ne suppose rien de la
+   session qui l'a écrit.
+
+   ⚠️ **Trois sessions distinctes, décidées par Ruben** : (1) l'écriture du plan — faite
+   le 20/07 ; (2) une session de **review complète du plan par Fable 5**, qui met le plan
+   à jour **et s'arrête là, sans rien exécuter** ; (3) une session d'**exécution**. Ne
+   pas fusionner (2) et (3) : relire un plan et l'appliquer dans la même fenêtre, c'est
+   se relire soi-même en ayant déjà commencé.
 
    Les trois choses à savoir avant d'ouvrir le plan :
    - il tient en **quatre étages d'instrument** (script à 0 token → Haiku pour le tri de

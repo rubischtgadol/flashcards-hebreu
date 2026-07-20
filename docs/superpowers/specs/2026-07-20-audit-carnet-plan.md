@@ -8,6 +8,20 @@ avec un **point d'arrêt entre chaque phase** pour validation.
 **État** : ⏳ PLAN — rien n'a été exécuté. Les tranches de données ont été préparées
 puis abandonnées avec la session ; l'étape 1.1 les régénère en une commande.
 
+**Séquence décidée par Ruben — trois sessions distinctes, une par nature de travail** :
+
+| Session | Rôle | S'arrête à |
+| --- | --- | --- |
+| 1 (20/07) | **Écriture du plan** — celle-ci | Le plan est écrit, rien n'est exécuté |
+| 2 | **Review complète du plan, par Fable 5**, puis mise à jour du plan | ⛔ Après la mise à jour. **N'exécute rien** |
+| 3 | **Exécution** de la phase 1, puis 2, puis 3 | Point d'arrêt à la fin de chaque phase |
+
+⚠️ **La review de la session 2 se fait avec Fable 5 et ne se délègue pas.** Vérifier des
+faits contre le dépôt (comptes, gardes, péremption) peut partir en sous-agent : c'est
+mécanique. **Le jugement sur la méthode, non** — c'est exactement le genre de travail
+que ce plan garde en haut de la pile, et le déléguer vers le bas contredirait sa propre
+règle d'étagement.
+
 ---
 
 ## Pourquoi cet audit, et pourquoi maintenant
