@@ -437,6 +437,87 @@
   /* Filet plein, non pointillé : le pointillé ne dit plus qu'une chose dans ce
      carnet — « rien ici » (.empty). Voir la note de .attention. */
   .subtheme{ margin:26px 0 8px; padding-bottom:5px; border-bottom:1px solid var(--line); }
+
+  /* ---------- Colonne de lecture ------------------------------------------
+     Troisième bloc de jetons, et il reste séparé pour la même raison que la
+     rampe : le premier :root est le jeton de charte partagé, identique au
+     caractère près entre les trois fichiers (DESIGN.md §6) ; le second décrit
+     la typographie de ce document ; celui-ci décrit sa mise en page. Ne pas
+     les fusionner.
+
+     Le carnet n'avait aucune borne de largeur — une seule `max-width` dans tout
+     le fichier, sur le champ de recherche. Mesuré en desktop 1280 : la prose
+     grammaticale courait sur 158 caractères par ligne (confortable : 45–75), et
+     les rangées de table laissaient ~1000px de vide entre l'hébreu calé à droite
+     et le français calé à gauche. Le mobile était épargné — le viewport bornait
+     tout seul —, ce qui explique que le défaut ait survécu à tous les contrôles
+     visuels du projet, qui se font en iPhone 16 Pro émulé.
+
+     Deux largeurs, pas une : la prose se lit, les tables se balaient.
+
+     ⚠️ `--colonne-large` n'est pas un confort, c'est un **plancher mesuré**. La
+     table la plus large du carnet (Verbes · Vie quotidienne, 5 colonnes) se pose
+     naturellement à 890px, et aucune ne dépasse 894px : sous 55,6rem, elles
+     gagnent un défilement horizontal qu'elles n'avaient pas. Ne pas déduire ce
+     plancher du `min-width:640px` des tables — c'est un plancher lui aussi, qui
+     ne joue que sur mobile, et le prendre pour la largeur naturelle fait tomber
+     le cadre à 704px et met 7 tables sur 29 en défilement (essayé, mesuré,
+     annulé le 2026-07-20).
+
+     ⚠️ Les deux valeurs sont MESURÉES, pas déduites. Une colonne se calibre sur
+     l'avance moyenne réelle de la prose (6,63px par caractère, Assistant 16px,
+     relevé en WebKit), jamais sur la largeur d'un chiffre : le « 0 » fait 7,87px,
+     soit 19 % de trop, et une colonne réglée sur lui sort à 82 caractères par
+     ligne en croyant en viser 69. Première rédaction de ce bloc prise à ce
+     piège — même famille d'erreur que le commentaire « 1rem = 22px » qui a
+     produit la dérive typographique.
+
+     La mise en œuvre passe par le `padding-inline` de `main` et non par une
+     `max-width` + marges auto : le padding centre le cadre sans toucher aux
+     marges verticales des enfants, dont la fusion (h2 38px contre .note 16px…)
+     règle tout le rythme du document. */
+  :root{
+    --colonne:28rem;        /* 448px — prose : 67 caractères par ligne (médiane) */
+    --colonne-large:56rem;  /* 896px — cadre : tables, titres à filet, sommaire  */
+  }
+  main{ padding-inline:max(0px, (100% - var(--colonne-large)) / 2); }
+  /* Tout ce qui se lit revient à la colonne de prose ; la table garde le cadre.
+     Sélecteur en 0,1,1 à dessein : il doit passer devant les `margin:` des
+     classes (.note, .part, .subtheme…), qui pèsent 0,1,0. */
+  main > *:not(.table-wrap){ max-width:var(--colonne); margin-inline:auto; }
+  /* Un titre prend le cadre s'il porte un filet ET s'il ouvre sur un objet au
+     cadre — les deux conditions, pas une. Le filet n'est pas un ornement :
+     l'œil le lit comme la borne du groupe qu'il ouvre, et un trait en désaccord
+     avec le contenu qu'il annonce affiche ce désaccord dans les deux sens. Un
+     sous-thème dont le filet s'arrête à 448px au-dessus d'une table qui court
+     à 896px se lit comme un défaut d'alignement (17 cas) ; le même filet mené
+     à 896px au-dessus d'une simple liste, restée à 448px, est exactement le
+     même défaut retourné (4 cas : Temps, Lieu & direction, Saisons, Mois).
+     D'où le `:has(+ .table-wrap)`, qui distingue les deux — et non un
+     `main > .subtheme` global, essayé et mesuré fautif le 2026-07-20.
+
+     Les autres titres restent sur la colonne, chacun pour sa raison :
+       · h2       — il porte bien un filet (::after), mais il ouvre sur de la
+                    prose dans 27 cas sur 27 ; élargi, il part seul à gauche et
+                    se lit comme un titre qui a glissé, pas comme une potence ;
+       · .gram-title, .ex-title — pas de filet, donc rien qui prétende borner :
+                    l'œil les lit comme des légendes posées dans la colonne, et
+                    9 sur 12 n'ouvrent sur aucune table.
+
+     ⚠️ La spécificité n'est pas décorative ici. `main > *:not(.table-wrap)`
+     pèse 0,1,1 et fait donc **plancher** : tout sélecteur d'élément nu qui
+     voudrait le contredire (`main > h2`, `main > ol`…) est ignoré en silence.
+     C'est arrivé le 2026-07-20 — une règle morte livrée avec un commentaire
+     affirmant qu'elle agissait. Ce `:has()` pèse 0,2,1 et passe par sa
+     spécificité propre, sans dépendre de l'ordre d'écriture.
+
+     Sans support de `:has()`, les sous-thèmes restent à la colonne : c'est leur
+     état d'avant ce bloc, aucune casse. WebKit le porte depuis 15.4. */
+  main > .subtheme:has(+ .table-wrap){ max-width:var(--colonne-large); }
+  header, .toc{ max-width:var(--colonne-large); margin-inline:auto; }
+  /* La barre collante reste pleine largeur (c'est un bandeau) ; seul son
+     contenu revient sur l'axe. */
+  .search-inner{ margin-inline:auto; }
 </style>
 </head>
 <body>
