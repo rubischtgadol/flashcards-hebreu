@@ -12,13 +12,19 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
+// v10 : le dernier lot d'exemples (Prépositions, Adverbes, Mots interrogatifs — 54 mots,
+// 510 → 564). Le contenu se rafraîchit seul en stale-while-revalidate, donc ce bump n'est
+// pas indispensable ; il est délibéré. Ces trois catégories sont celles où l'exemple *est*
+// l'enseignement — une préposition ne s'apprend qu'en contexte —, et faire attendre un
+// lancement de plus pour les voir apparaître serait payer une latence pour rien.
+//
 // v9 : l'écran de départ se replie (Catégories/Niveau) + la note Prononciation affiche
 // le voiceURI. Le bump n'est pas cosmétique : la stratégie est du stale-while-revalidate,
 // donc sans lui l'ancien app.html serait servi au premier lancement et le nouveau
 // seulement au second — or c'est précisément sur ce nouvel écran que l'identifiant de
 // la voix doit être relevé. Un diagnostic qu'on demande à quelqu'un doit être visible
 // du premier coup.
-const VERSION = 'v9';
+const VERSION = 'v10';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
