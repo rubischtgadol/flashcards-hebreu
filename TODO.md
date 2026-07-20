@@ -1,6 +1,20 @@
 # État du projet et travail restant
 
-État au 2026-07-20. **Dernier acquis : la largeur de lecture du carnet est bornée, et le
+État au 2026-07-20, tard dans la nuit. **Dernier acquis : le lag iPhone est instruit
+jusqu'au bout de ce que l'émulation peut prouver, et l'appareil est équipé pour la
+suite.** Les quatre hypothèses du dossier sont **réfutées en WebKit émulé** (gestionnaire
+de clic ≤ 1 ms, sticky et `has-due` sans delta, carnet à ~30 ms) ; un bloc **« Diagnostic
+de latence »** affiche désormais les millisecondes dans « Réglages avancés », sur
+l'appareil même (`attente · travail · affichage`, grille de lecture au chantier) — SW
+**v12**, vérifié 9/9 en WebKit réel. Une piste chiffrée est sortie de la campagne : le
+**premier rendu de l'écran d'étude à 329 ms**, seul poste > 100 ms, qui colle au geste
+« quand je quitte l'écran d'accueil ». **La prochaine mesure appartient à Ruben** (voir
+le chantier). La campagne a aussi débusqué une faute sans lien avec le lag : `cardId`
+n'était pas unique — trois homographes consonantiques fusionnaient leur progression —,
+corrigé en clé vocalisée `cat|he` avec migration (`cb44367`). Graphe recalé (335 nœuds,
+23 communautés, le standalone dédupliqué).
+
+**Acquis précédent : la largeur de lecture du carnet est bornée, et le
 hé directionnel est enseigné — la dernière dette de mise en page est soldée, et les
 avertissements du validateur tombent de 2 à 1.** La prose du carnet passe de **158 à 67
 caractères par ligne** (cible 45–75, 0 bloc sur 13 hors cible), avec **le mobile inchangé
@@ -123,6 +137,13 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
+1. **Recueillir les chiffres du « Diagnostic de latence » sur l'iPhone de Ruben** —
+   c'est la seule mesure qui fasse foi, et tout est prêt pour elle (protocole et
+   grille de lecture dans le chantier ci-dessous). Faire confirmer au passage que le
+   lag persiste après plusieurs lancements (facteur confondant de la réinstallation).
+2. Rien d'autre n'est ouvert côté code. Les suites du chantier dépendent entièrement
+   de ce que diront les chiffres — ne rien corriger avant de les avoir lus.
+
 ## 🔴 CHANTIER OUVERT — Lag sur iPhone réel (ouvert le 20/07 au soir, instruit le 20/07 dans la nuit)
 
 **État : l'enquête côté code est terminée, l'instrumentation est déployée (SW v12).
@@ -162,7 +183,8 @@ non prouvée sur l'appareil : la ligne « Départ de session » du diagnostic tr
 si « affichage » y domine largement, c'est elle.
 
 **Prise au passage** : la campagne a débusqué une vraie faute sans lien avec le lag —
-`cardId` (`cat|he_plain`) n'était pas unique. Corrigée le soir même, voir « Fait ».
+`cardId` (`cat|he_plain`) n'était pas unique. Corrigée le soir même (`cb44367`,
+clé vocalisée + migration), voir « Fait ».
 
 ### L'instrumentation livrée (SW v12) — ce que Ruben doit faire
 
@@ -612,11 +634,20 @@ leçons qu'ils portent, pas comme du travail en attente.
       Prononciation, ligne sous le nom), pour archiver la valeur exacte. **Sans
       urgence** — la conclusion ne l'attend plus. La ligne reste un détecteur : si elle
       affiche un jour `.enhanced.`/`.premium.` au lieu de `…-compact`, le filtre de
-      WebKit aura changé et le dossier se rouvrira. (Le SW est en **v11** pour que
-      l'écran arrive dès le premier lancement.)
+      WebKit aura changé et le dossier se rouvrira. (L'écran est sur l'appareil
+      depuis le bump v11 ; le SW est depuis passé en **v12** avec le diagnostic
+      de latence.)
 - [ ] Sentir la frontière défilement/tap de la carte (`#flip`) quand la face déborde.
 
 ## Fait (historique compact — détail dans les messages de commit)
+
+Chantier lag iPhone, séance d'instruction du 20/07 dans la nuit (`cb44367` l'identité
+SRS devient la forme vocalisée `cat|he` — trois homographes fusionnaient leur boîte de
+Leitner et `sessRestore` pouvait substituer l'un à l'autre ; migration `srsMigrateIds`,
+vérifiée jsdom + WebKit —, `22bd70a` le diagnostic de latence entre aux Réglages
+avancés — quatre hypothèses réfutées en émulation, ms affichées sur l'appareil, SW v12,
+9/9 WebKit —, `9cefad4` graphe recalé — 335 nœuds/23 communautés, standalone dédupliqué
+de ~90 nœuds fantômes).
 
 Plan UX en 7 étapes, terminé (`fd84d94` verdict annulable + no-op champ vide,
 `71d6a12` a11y des trois modes + clavier QCM, `2fd2efa` accueil allégé (pli « Réglages
@@ -1193,7 +1224,8 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
   pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est
   un faux positif — la règle vise l'anglais).
 - **Graphe de connaissance** (`graphify-out/`, versionné depuis le 20/07) : cartographie du
-  dépôt — 438 nœuds, 658 arêtes, 31 communautés. **À interroger avant d'ouvrir un gros
+  dépôt — 335 nœuds, 505 arêtes, 23 communautés (recalé le 20/07 au soir : le standalone
+  n'est plus dupliqué en ~90 nœuds de fonctions). **À interroger avant d'ouvrir un gros
   fichier** : `graphify explain "checkAnswer"` donne la ligne source exacte et les
   appelants/appelés en ~15 lignes, `graphify query "…"` répond en ~2 300 tokens là où lire
   `app.html` en coûte des dizaines de milliers (10,5× d'économie, mesurée le 20/07 par
@@ -1206,7 +1238,15 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
   `window` (les `const` ne créent pas de propriété globale) — inutile de chercher
   `w.CARDS` après un boot. Pour vérifier le contenu chargé, passer par le DOM (la
   recherche est le plus court chemin : remplir `#search-input` — et non `#search` —
-  puis lire `#search-results`).
+  puis lire `#search-results`). `window.eval('CARDS')` marche en dernier recours.
+- **Suite du diagnostic de latence** (scratchpad de session, à recréer au besoin —
+  écrite le 20/07) : `test_perf_note.js` boote le **standalone** en jsdom et vérifie
+  le format des trois rapports (chip, départ, `#perf-boot` vide donc masqué) ;
+  `test_srs_migration.js` sème un `srs_v1` à l'ancien format **avant** le boot
+  (`beforeParse` + `localStorage.setItem`) et vérifie migration + séparation des
+  homographes. ⚠️ Piège payé en l'écrivant : l'espace avant « ms » est une **fine
+  insécable U+202F** (invisible au terminal, échoue toute comparaison naïve) — elle
+  est en escape `\u202f` dans la source d'`app.html` pour cette raison.
 
 ## Rituel à chaque modification
 
