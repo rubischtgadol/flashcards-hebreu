@@ -164,10 +164,25 @@ Deux chantiers sont ouverts, dans cet ordre :
    rendu (`fonts.googleapis.com` puis `fonts.gstatic.com` = deux allers-retours réseau
    avant le premier pixel), sur le portail **et** sur l'app, une fois par page —
    exactement la forme du symptôme. À instruire avant de corriger, comme le précédent.
-2. 🔶 **Audit du carnet** — souhait de Ruben, **périmètre à définir** (il pensait à
-   `impeccable`). Le carnet a déjà reçu sa passe de charte, sa rampe typographique et sa
-   colonne de lecture : l'angle *présentation* est largement soldé, l'angle *contenu et
-   pédagogie* ne l'a jamais été. Trancher l'angle avant de lancer quoi que ce soit.
+2. 🔶 **Audit complet du carnet** — **le plan est écrit et prêt à exécuter** :
+   [`docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`](docs/superpowers/specs/2026-07-20-audit-carnet-plan.md).
+   Angle tranché par Ruben : **les trois en séquence** (justesse de l'hébreu → pédagogie
+   et progression → présentation), en **fan-out multi-agents**, avec un point d'arrêt et
+   une validation entre chaque phase. **À lancer dans une session neuve** — le plan est
+   autoportant, il ne suppose rien de la session qui l'a écrit.
+
+   Les trois choses à savoir avant d'ouvrir le plan :
+   - il tient en **quatre étages d'instrument** (script à 0 token → Haiku pour le tri de
+     masse → Sonnet pour tout jugement d'hébreu → Fable en chef d'orchestre qui ne lit
+     jamais les tranches), sur la règle « ne jamais demander à un modèle ce qu'un script
+     décide mieux et gratuitement » ;
+   - il **commence par un étalonnage** de l'auditeur sur 10 erreurs injectées, avec un
+     seuil de rappel qui autorise ou interdit le lancement — un contrôle muet passe
+     toujours au vert ;
+   - ⚠️ il porte une contrainte que rien d'autre ne signale : **depuis `cb44367`,
+     corriger un nikoud change l'identité SRS de la carte et efface sa progression
+     Leitner.** Le coût doit être chiffré et l'issue choisie *avant* la première
+     correction, pas découverte en route.
 
 ⚠️ Si un ralentissement *à l'usage* est resignalé : **ne rien corriger avant de lire les
 trois lignes du diagnostic** et de les comparer au tableau de référence du chantier. Le
