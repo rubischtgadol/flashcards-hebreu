@@ -783,11 +783,16 @@ ici, le déroulé :
 6. **Coût publié** : ~201k tokens de sous-agents (A 138,6k + B 62,2k), estimation
    du plan ~200k tenue. Aucun bump SW, aucun `/graphify --update` (rien de
    structurel).
-7. ⛔ **Arrêt au point de décision.** En attente de Ruben : statuer sur les
-   4 lots du rapport § 5 (tables mobiles P0+P2 ; recherche P1×2 ; sommaire ;
-   micro-lot charte — coût SRS nul pour les quatre), puis lancer le lot
-   santé/sécurité P2+P3 (28 mots, matériau brut à auditer avant écriture,
-   rigueur phase 1) déjà décidé dans son principe.
+7. **Décisions prises le jour même** : Ruben a validé **les 4 lots** du rapport
+   § 5, et fixé le lot santé P2+P3 pour une session ultérieure à sous-agents
+   maximaux. Les 4 lots ont été **appliqués en session 9** (même session) :
+   rituel mécanique au vert (729/729, standalone inchangé au octet, `--check`
+   en phase, validateur 0 erreur, SW v16, DESIGN.md recalé), **mais la session
+   a été arrêtée par Ruben pendant la campagne WebKit C1–C12** (sous-agent tué
+   avant tout résultat). ⛔ **État à l'arrêt : changements NON commités, NON
+   vérifiés visuellement** — la reprise est écrite pas à pas dans TODO.md
+   « Reprendre ici » (relancer C1–C12 d'abord, commit ensuite, on-device enfin,
+   et alors seulement le lot santé P2+P3).
 
 ⚠️ **Pourquoi cette annexe existe.** Le corps du plan *décrit* ce que les prompts doivent
 contenir. Cela suffit à un modèle fort, qui comble les trous ; **cela ne suffit pas à un

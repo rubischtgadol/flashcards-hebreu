@@ -1,6 +1,25 @@
 # État du projet et travail restant
 
-État au 2026-07-21 (session 9). **Dernier acquis : la phase 3 (présentation) de
+État au 2026-07-21 (session 10). **Dernier acquis : la campagne WebKit C1–C12 est
+AU VERT et les lots de présentation sont sur `main`.** Rejouée en trois sous-agents
+WebKit réels parallèles (~167k tokens, 22 verdicts, **0 échec**) : le P0 est prouvé —
+les 19 tables de vocabulaire en cartes sans défilement (366 px pile), les 12 grilles
+de grammaire ouvertes sur leur DÉBUT au scroll initial, A/B à 768 : décalage de 42 px
+= exactement l'overflow (signature du `direction:rtl`) ; étiquettes GENRE/PLURIEL,
+FS/MP/FP, MS/FS/MP/FP lisibles sur captures relues ; recherche 10/10 (« maison » →
+6 sections sans prose + `mark.hl` dans un `.ex-fr` ; « zzzz » → `p.empty` visible
+puis × restaure 28 h2 ; `role="status"` ; placeholder entier 141,7/280 px) ;
+pastilles `.steps` en `--bg2` + filet `--line` + chiffre or ; barre opaque sans
+backdrop-filter ; sommaire 28 pilules / 6 groupes (6-6-4-3-5-4) / 0 orpheline /
+min 48,5 px ; 0 débordement aux 6 largeurs ; 0 erreur console ; A/B 1440 pleine page :
+différences attendues seules (la voix Assistant du `.count`, en marge du périmètre
+annoncé par l'agent, est bien le lot 4 — texte-clé d'extraction inchangé). Branche
+`lots-presentation-phase3` mergée dans `main` et poussée — c'est ce push qui déploie.
+**Reste côté Ruben : la confirmation on-device du P0** (une table de vocabulaire
+s'ouvre sur son mot-vedette). Graphe non recalé (contenu+CSS+JS internes au carnet,
+pas structurel) ; SW v16 du lot, pas de re-bump.
+
+**L'acquis précédent : la phase 3 (présentation) de
 l'audit du carnet est exécutée** — feu vert de Ruben en ouverture de session (avec le
 lot santé/sécurité P2+P3 décidé pour après, arrêt entre les deux). Critique impeccable
 dual-agent du carnet : **26/40**, 1 P0 (les **31 tables s'ouvrent sur leur FIN en
@@ -14,12 +33,13 @@ octet dans les trois fichiers ; sidecar `.impeccable/design.json` régénéré A
 l'audit (il prescrivait `transition:all`, contre la charte). 123 `low-contrast` du
 détecteur = faux positifs (fond blanc inventé, il ne résout pas le dégradé). Rapport :
 `docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md` ; snapshot :
-`.impeccable/critique/2026-07-21T09-22-31Z__vocabulaire-hebreu-html.md`. **Aucune
-correction écrite — 4 lots possibles (coût SRS nul) en attente des décisions de
-Ruben**, puis lot santé P2+P3. Dérives de compte relevées : 31 `.table-wrap` (docs :
-29), `lang="he"` **5234** (CLAUDE.md/ARCHITECTURE.md recalés). Coût publié : ~201k
-tokens de sous-agents (estimation du plan ~200k tenue). Ni bump SW ni graphe (rien
-de structurel ni de déployé).
+`.impeccable/critique/2026-07-21T09-22-31Z__vocabulaire-hebreu-html.md`. **Suite du
+même jour : Ruben a validé les 4 lots (appliqués, + SW v16 + DESIGN.md recalé) ;
+la session 9 a été arrêtée PENDANT la campagne WebKit — rejouée AU VERT en
+session 10 et mergée dans `main` : voir le dernier acquis ci-dessus.** Dérives de compte
+relevées : 31 `.table-wrap` (docs : 29), `lang="he"` **5234** (CLAUDE.md/
+ARCHITECTURE.md recalés). Coût publié de l'analyse : ~201k tokens de sous-agents
+(estimation du plan ~200k tenue).
 
 **L'acquis précédent : les 4 lots de la phase 2 de l'audit
 sont exécutés** — décision de Ruben en ouverture de session 8 : les quatre déclenchés, la
@@ -189,6 +209,44 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
+**État : la phase 3 (présentation) est CLOSE côté code** — 4 lots appliqués,
+campagne WebKit C1–C12 au vert (session 10, 22 verdicts, 0 échec), branche
+`lots-presentation-phase3` mergée dans `main` et poussée (= déployée sur GitHub
+Pages, SW v16). **Il ne reste que la confirmation on-device du P0 par Ruben** :
+ouvrir une table de vocabulaire sur l'iPhone et vérifier qu'elle s'ouvre sur le
+mot-vedette (plus sur sa fin) et que les rangs en cartes sont lisibles.
+
+⚠️ **Régime de travail exigé par Ruben (répété trois fois le 21/07) : sous-agents À
+MORT pour économiser les tokens du fil principal.** Concrètement : la campagne
+WebKit, tout repérage de code (Explore, snippets verbatim), tout build/validation
+sur lot et tout audit de matériau partent en sous-agents — parallèles quand
+indépendants, avec critères CHIFFRÉS dans le prompt (« compte X, nomme chaque
+échec »). Le fil principal ne garde que : jugement de charte, conception et
+application des édits, commits, docs, et les greps à sortie courte. Ne jamais
+lire un gros fichier ni un transcript d'agent au fil principal.
+
+**Chantier en cours : le lot santé/sécurité P2+P3** (accepté par Ruben le 21/07,
+« les deux, dans cet ordre ») — 28 mots, matériau brut au rapport phase 2 § 2,
+**NON audité**. Rigueur phase 1 obligatoire, dans cet ordre :
+
+1. **Contre-expertise 2 lentilles AVANT toute écriture** (fan-out) : justesse
+   hébraïque (nikoud, genre, pluriel, translittération au standard) ET
+   usage/naturalité des exemples proposés. Verdict par mot, chiffré.
+2. **Contrôle à blanc du validateur** sur le JSON du lot avant d'écrire dans le
+   carnet : les cinq contrôles de `verifie_exemples.js` rejoués, lexique du carnet
+   compris (précédent : באוטו arrêté avant écriture au lot P1).
+3. **Coût SRS chiffré AVANT** (attendu : N = 0, entrées nouvelles).
+4. Écriture dans le carnet : `data-niveau` sur chaque entrée, exemple pour chaque
+   Nom/Adjectif/Verbe (verbes : phrase au présent), sous-thème « Santé & urgences »
+   existant (créé au lot P1).
+5. Rituel : `node build.js` (729 → N, `--check` en phase), `verifie_exemples.js`
+   0 erreur, **bump SW v16 → v17** (contenu à livrer au prochain lancement), docs,
+   commit en français, push sur `main`. Graphe : pur contenu → PAS de `--update`.
+   Pas de WebKit (aucun changement d'UI) — le rituel mécanique suffit.
+
+Fan-out multi-agents obligatoire ; le fil principal n'écrit que les verdicts et
+les édits.
+
 **La checklist côté Ruben est soldée** (les trois cases restantes fermées le 20/07,
 identifiant de voix archivé compris) et **le bloc « Diagnostic de latence » est gardé**,
 sur décision de Ruben. Le chantier du lag *à l'usage* est clos par la mesure on-device.
@@ -227,13 +285,12 @@ que la phase 3, non ouverte :
 2. 🔶 **Audit complet du carnet — LES TROIS PHASES SONT EXÉCUTÉES.** Phases 1 et 2
    terminées et leurs lots livrés (sessions 4–8). **Phase 3 (présentation) rendue le
    21/07 (session 9)** : critique 26/40, 1 P0 + 2 P1 + 2 P2 + micro-charte — voir
-   l'en-tête de ce fichier. **Il reste DEUX décisions de Ruben** : (a) lesquels des
-   **4 lots de correction de présentation** déclencher (rapport phase 3 § 5 : tables
-   mobiles P0+P2 · recherche P1×2 · sommaire · micro-lot charte — coût SRS nul pour
-   les quatre, le carnet-contenu ne bouge pas) ; (b) le **lot santé/sécurité P2+P3**
-   (28 mots, matériau brut NON audité — rigueur phase 1 obligatoire avant écriture),
-   déjà accepté dans son principe le 21/07 (« les deux, dans cet ordre »), à lancer
-   après les lots de présentation.
+   l'en-tête de ce fichier. **Les deux décisions de Ruben sont prises et exécutées ou en cours** :
+   (a) les **4 lots de présentation** tous déclenchés (21/07), appliqués, vérifiés
+   au vert (campagne C1–C12, session 10) et mergés dans `main` ; (b) le **lot
+   santé/sécurité P2+P3** (28 mots, matériau brut NON audité — rigueur phase 1
+   obligatoire avant écriture), accepté le 21/07 (« les deux, dans cet ordre »),
+   en cours — voir « Reprendre ici ».
    Rapports :
    [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md) (phase 3),
    [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md) (phase 2) et
