@@ -36,7 +36,8 @@ const EXPECTED_LEVELS = ['A1','A2','B1','B2'];
 // ⚠️ Doit rester aligné sur la constante THEMES d'app.html (slugs identiques).
 const EXPECTED_THEMES = ['famille-personnes','corps-sante','nourriture','maison-objets',
   'vetements-couleurs','ville-transport','nature','temps-calendrier','travail-etudes',
-  'vie-quotidienne','communication-pensee','emotions-caractere','abstrait'];
+  'vie-quotidienne','argent-achats','loisirs-culture','communication-pensee',
+  'emotions-caractere','abstrait'];
 // Catégories où data-theme est obligatoire sur chaque entrée (même règle de
 // couverture que data-niveau : tenue par l'outillage, pas par la discipline).
 const THEMED_CATS = ['Noms','Adjectifs','Verbes'];

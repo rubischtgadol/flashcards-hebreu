@@ -277,7 +277,41 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
-**Aucun chantier ouvert.** Dernier lot livré (session 14, 21/07) : **le 13e
+**Aucun chantier ouvert.** Dernier lot livré (session 15, 21/07) : **les 14e et
+15e thèmes « Argent & achats » / « Loisirs & culture » + 32 mots NEUFS.** Deux
+temps. (a) Reclassement : le fourre-tout `vie-quotidienne` (63) rendait encore
+deux amas cohérents → 35 entrées reclassées vers `argent-achats` (18) et
+`loisirs-culture` (17), `vie-quotidienne` retombe à 28 (gestes et états).
+Frontières assumées, miroir du « ce qui s'enfile » : **« la transaction, pas le
+lieu »** (magasin, marché, supermarché restent `ville-transport` ; salaire reste
+`travail-etudes`) et **« l'activité et l'œuvre, pas le lieu »** (cinéma,
+théâtre, musée, bibliothèque restent `ville-transport` ; livre/lire/écrire
+restent `travail-etudes`). Libellé chip « Vie quotidienne & loisirs » → « Vie
+quotidienne ». (b) ⚠️ **Consigne de Ruben précisée en cours de session : « quel
+thème manque » appelle du vocabulaire NEUF, pas un redécoupage de l'existant.**
+Lot de 32 entrées rédigé en sous-agent (rapport 8/8 PASS, doublons greppés,
+translit vérifiée sur pièces du carnet), arbitré au fil principal : 14
+`argent-achats` (shekel, vendeur, monnaie rendue, caisse, reçu, réduction,
+promotion, pièce de monnaie, gratuit, économiser, gaspiller, prêter, emprunter,
+marchander) + 18 `loisirs-culture` (sport, football, équipe, vacances,
+excursion, hobby, guitare, concert, spectacle, exposition, appareil photo,
+acteur, gagner, perdre, s'entraîner, se reposer, jouer d'un instrument,
+photographier). Insertion scriptée aux ancres thématiques des trois tables
+(ancrage sur les lignes `data-theme`, pas la 1re occurrence — לְהַזְמִין vit
+aussi dans une table de grammaire). Deux corrections d'arbitrage : מְאוֹד →
+מְאֹד (graphie du carnet, 31 occurrences font foi) et l'exemple de מַטְבֵּעַ
+reformulé sans רַק (mot hors carnet). Bilan : **757 → 789 cartes, 605 → 637
+exemples (100 % maintenu)**, niveaux A1 350 / A2 311 / B1 124 / B2 4, couverture
+thèmes **573/573**, `--check` en phase, validateur **0 erreur / 7
+avertissements** (les 6 préexistants + ספורט, emprunt lexical he2tr d=2, même
+classe tolérée que סוללה/גרם). SW **v21**. Graphe : pur contenu, pas de
+recalage ni de flag. Pas de WebKit : aucune UI touchée (les puces naissent des
+données via `buildThemeChips`). La question d'origine (« quel thème manque ? »)
+avait aussi fait émerger le champ **fêtes & tradition** (Pessah, Kippour,
+Hanoukka, casher, Torah… : 0 occurrence) — Ruben a tranché : on reste sur la
+vie non religieuse.
+
+**Acquis précédent (session 14, 21/07) : le 13e
 thème « Vêtements & couleurs »** (`vetements-couleurs`) — extrait des deux
 fourre-tout sur le constat qu'ils absorbaient un champ A1 classique (à la
 question « quel thème manque ? », les deux plus gros thèmes étaient justement
