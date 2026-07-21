@@ -34,9 +34,9 @@ min 48,5 px ; 0 débordement aux 6 largeurs ; 0 erreur console ; A/B 1440 pleine
 différences attendues seules (la voix Assistant du `.count`, en marge du périmètre
 annoncé par l'agent, est bien le lot 4 — texte-clé d'extraction inchangé). Branche
 `lots-presentation-phase3` mergée dans `main` et poussée — c'est ce push qui déploie.
-**Reste côté Ruben : la confirmation on-device du P0** (une table de vocabulaire
-s'ouvre sur son mot-vedette). Graphe non recalé (contenu+CSS+JS internes au carnet,
-pas structurel) ; SW v16 du lot, pas de re-bump.
+**Confirmé on-device par Ruben le 21/07** (P0 des tables, premier affichage,
+arrivée du lot santé — les trois d'un coup). Graphe non recalé (contenu+CSS+JS
+internes au carnet, pas structurel) ; SW v16 du lot, pas de re-bump.
 
 **L'acquis précédent : la phase 3 (présentation) de
 l'audit du carnet est exécutée** — feu vert de Ruben en ouverture de session (avec le
@@ -241,16 +241,10 @@ lire un gros fichier ni un transcript d'agent au fil principal.
 voir le dernier acquis en tête de fichier) : l'audit du carnet est soldé sur ses
 trois phases, tout est sur `main`, SW v17.
 
-**Il ne reste que des confirmations côté Ruben, sur l'iPhone après déploiement** :
-
-1. Le **P0 des tables** : ouvrir le carnet, vérifier qu'une table de vocabulaire
-   s'affiche en rangs-cartes lisibles (mobile) et qu'une grille de grammaire
-   s'ouvre sur son mot-vedette, plus sur sa fin.
-2. Le **premier affichage** (correctif v14) : plus d'écran blanc à la première
-   ouverture — le ressenti de Ruben est le juge, le diagnostic embarqué ne voit
-   pas cette phase.
-3. Les **28 mots du lot santé** apparaissent dans l'app au prochain lancement
-   (SW v17 ; stale-while-revalidate : second lancement au plus tard).
+**Les trois confirmations on-device sont ACQUISES (Ruben, 21/07, sur l'iPhone
+après déploiement)** : le P0 des tables (rangs-cartes lisibles, grilles ouvertes
+sur le mot-vedette), le premier affichage (correctif v14, plus d'écran blanc) et
+l'arrivée des 28 mots du lot santé (SW v17). **Plus aucune attente, d'aucun côté.**
 
 Prochain chantier éventuel, à la décision de Ruben — rien n'est engagé : les
 signaux éditoriaux en réserve sont documentés (note ktiv malé au rapport phase 1
