@@ -42,7 +42,7 @@ Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un po
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
 | [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, niveau du vocabulaire) + règle de couverture : tout nom, adjectif ou verbe sans exemple est une erreur bloquante. Son lexique lit **les cartes et les sections de grammaire** — voir § 5.1 pour les deux garde-fous qui l'empêchent de devenir circulaire. | ✅ oui |
-| [audit_carnet_mecanique.js](audit_carnet_mecanique.js) | Dev only. Étage 0 de l'audit du carnet (plan : `docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`) : 14 contrôles mécaniques à 0 token (intégrité `he_plain`, doublons/homographes, cardinalité des formes, lettres finales, accords réguliers en drapeaux, cohérence malé/haser, présence du mot vedette dans ses exemples…) et découpe des cartes (757 à ce jour) en tranches de travail dans `audit/` (dossier **gitignoré**, régénérable). Sorties : erreurs (certaines), drapeaux (à trancher par l'audit LLM), données. | ✅ oui |
+| [audit_carnet_mecanique.js](audit_carnet_mecanique.js) | Dev only. Étage 0 de l'audit du carnet (plan supprimé du dépôt à la clôture du 21/07 — historique git) : 14 contrôles mécaniques à 0 token (intégrité `he_plain`, doublons/homographes, cardinalité des formes, lettres finales, accords réguliers en drapeaux, cohérence malé/haser, présence du mot vedette dans ses exemples…) et découpe des cartes (757 à ce jour) en tranches de travail dans `audit/` (dossier **gitignoré**, régénérable). Sorties : erreurs (certaines), drapeaux (à trancher par l'audit LLM), données. | ✅ oui |
 | [manifest.webmanifest](manifest.webmanifest), [sw.js](sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
 ## La couche PWA
@@ -65,7 +65,7 @@ Le bloc `:root` (11 tokens : `--bg`, `--bg2`, `--card`, `--card-edge`, `--ink`, 
 Le carnet a longtemps été la référence *visuelle* de la charte tout en étant son retardataire
 *fonctionnel* : jusqu'au 2026-07-19 il n'avait **aucune** règle `@media`, aucun attribut `lang`,
 aucune garde de mouvement, là où `app.html` et `index.html` avaient les trois. L'audit
-(`.impeccable/critique/2026-07-19T09-57-31Z__vocabulaire-hebreu-html__audit.md`) a traité ce
+(snapshot du 19/07, supprimé du dépôt à la clôture — historique git) a traité ce
 décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 
 - **`lang="he"` sur 100 % des nœuds hébreux** (5234 au 2026-07-21 — le compte **se mesure dans le
@@ -386,7 +386,7 @@ ce dont il dérive. Les huit plus grosses communautés couvrent l'essentiel des 
 | Modes d'étude et rendu des cartes | `checkAnswer`, `render`, `doFlip`, `he2tr`, `editDist`, les trois zones de réponse |
 | Écran de départ, préférences et session | `buildChips`, `applyPrefs`, `updateStart`, `sessRestore`, `cardId`, le diagnostic de latence (`perfReport`) |
 | Le carnet : sections et contrat de balisage | les 27 sections, les trois blocs `:root`, le contrat d'extraction, les scripts inline |
-| Critique impeccable du portail (18/07) | l'historique daté des audits `.impeccable/critique/` |
+| Critique impeccable du portail (18/07) | l'historique daté des audits `.impeccable/critique/` (snapshots supprimés du dépôt le 21/07 — historique git) |
 | Architecture : SRS, identité et extraction | l'identité vocalisée `cat\|he`, `srsMigrateIds`, les collisions d'homographes, les deux extracteurs |
 | Voix, icônes et charte partagée | `loadVoices`/`voiceURI`, les icônes PWA, les jetons partagés |
 | build.js : l'extracteur regex | `build.js` et ses fonctions (extraction AST + sémantique) |

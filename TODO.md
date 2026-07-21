@@ -50,9 +50,8 @@ entières sans surligner les exemples), 2 P2 (6 sections sur 28 hors sommaire do
 largeurs** ; lampe ≤ 1,07 % d'or ; 0 cible tactile < 44 px ; `:root` identique au
 octet dans les trois fichiers ; sidecar `.impeccable/design.json` régénéré AVANT
 l'audit (il prescrivait `transition:all`, contre la charte). 123 `low-contrast` du
-détecteur = faux positifs (fond blanc inventé, il ne résout pas le dégradé). Rapport :
-`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md` ; snapshot :
-`.impeccable/critique/2026-07-21T09-22-31Z__vocabulaire-hebreu-html.md`. **Suite du
+détecteur = faux positifs (fond blanc inventé, il ne résout pas le dégradé). Rapport et
+snapshot : supprimés du dépôt à la clôture (ménage du 21/07, historique git). **Suite du
 même jour : Ruben a validé les 4 lots (appliqués, + SW v16 + DESIGN.md recalé) ;
 la session 9 a été arrêtée PENDANT la campagne WebKit — rejouée AU VERT en
 session 10 et mergée dans `main` : voir le dernier acquis ci-dessus.** Dérives de compte
@@ -246,6 +245,14 @@ après déploiement)** : le P0 des tables (rangs-cartes lisibles, grilles ouvert
 sur le mot-vedette), le premier affichage (correctif v14, plus d'écran blanc) et
 l'arrivée des 28 mots du lot santé (SW v17). **Plus aucune attente, d'aucun côté.**
 
+**Ménage de clôture (21/07)** : les documents de chantier obsolètes sont supprimés
+du dépôt — les 5 specs de `docs/superpowers/specs/` (plan d'audit, rapports des
+phases 1–3, exploration « lampes accueil »), les 6 snapshots de
+`.impeccable/critique/`, le dossier local `audit/` (gitignoré, régénérable par
+`node audit_carnet_mecanique.js`) et la branche mergée `lots-presentation-phase3`.
+Toute mention de ces chemins plus bas dans ce fichier est d'archive : les fichiers
+vivent dans l'historique git.
+
 Prochain chantier éventuel, à la décision de Ruben — rien n'est engagé : les
 signaux éditoriaux en réserve sont documentés (note ktiv malé au rapport phase 1
 § 5 ; 6 avertissements .tr d=2 légitimes ; variantes orales en notes du lot
@@ -295,12 +302,9 @@ que la phase 3, non ouverte :
    santé/sécurité P2+P3** (28 mots, rigueur phase 1 appliquée au matériau brut),
    accepté le 21/07 (« les deux, dans cet ordre ») et **livré en session 10** —
    757 cartes, 605 exemples, détail au dernier acquis en tête de fichier.
-   Rapports :
-   [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md) (phase 3),
-   [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md) (phase 2) et
-   [`docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md`](docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md) (phase 1, validée et corrigée en session 5) ;
-   plan et journal :
-   [`docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`](docs/superpowers/specs/2026-07-20-audit-carnet-plan.md).
+   Les rapports des trois phases, le plan et le journal (anciennement sous
+   `docs/superpowers/specs/`) ont été **supprimés du dépôt au ménage de clôture
+   du 21/07** — récupérables dans l'historique git.
    Angle tranché par Ruben : **les trois en séquence** (justesse de l'hébreu →
    pédagogie et progression → présentation), en **fan-out multi-agents**, avec un
    point d'arrêt et une validation entre chaque phase.
