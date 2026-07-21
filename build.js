@@ -337,6 +337,37 @@ function report(cards){
     }
   }
 
+  // Synchronisation de la taxonomie entre les deux fichiers. EXPECTED_THEMES ici et
+  // THEMES dans app.html décrivent la même liste de slugs, mais rien ne les reliait :
+  // seulement le commentaire posé plus haut. Un thème ajouté d'un seul côté passait
+  // donc au vert — slug accepté au build mais aucune pastille dans l'appli, ou
+  // l'inverse, une pastille qui ne filtre rien. Relevé le 21/07 en traçant le pont
+  // extractCards dans le graphe : les deux listes n'avaient aucun lien mécanique.
+  // Seuls les slugs sont comparés ; les libellés restent libres côté app.
+  const appThemes = (() => {
+    const src = fs.readFileSync(APP, 'utf8');
+    const i = src.indexOf('const THEMES = [');
+    if (i === -1) return null;
+    const end = src.indexOf('];', i);
+    if (end === -1) return null;
+    return [...src.slice(i, end).matchAll(/key\s*:\s*'([^']+)'/g)].map(m => m[1]);
+  })();
+  if (!appThemes){
+    console.error('\n✗ Constante THEMES introuvable dans app.html (renommée ? reformatée ?).');
+    console.error('  Ce garde-fou compare la taxonomie des deux fichiers ; il ne peut plus le faire.');
+    process.exit(1);
+  }
+  const onlyBuild = EXPECTED_THEMES.filter(t => !appThemes.includes(t));
+  const onlyApp   = appThemes.filter(t => !EXPECTED_THEMES.includes(t));
+  if (onlyBuild.length || onlyApp.length){
+    console.error('\n✗ Taxonomie désynchronisée entre build.js et app.html :');
+    if (onlyBuild.length) console.error('    EXPECTED_THEMES (build.js) seul : ' + onlyBuild.join(', '));
+    if (onlyApp.length)   console.error('    THEMES (app.html) seul        : ' + onlyApp.join(', '));
+    console.error('  Un nouveau thème doit être ajouté aux DEUX listes (mêmes slugs).');
+    process.exit(1);
+  }
+  console.log('\nTaxonomie : ' + EXPECTED_THEMES.length + ' thèmes, build.js et app.html en phase.');
+
   // Exemples en situation (étape 6 du plan UX) : comptes par section.
   const exCounts = {};
   let exTotal = 0, exWords = 0;

@@ -181,7 +181,9 @@ Les sections purement grammaticales (phrase sans verbe, racine, présent, passé
 - [app.html:2205](app.html#L2205) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
 - [build.js:156](build.js#L156) — réplique en parsing regex (pas de DOM sous Node).
 
-Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque — toute dérive est détectée.
+Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque.
+
+⚠️ **La portée de ce garde-fou est plus étroite que sa réputation** (relevé le 21/07). Le snapshot embarqué dans le fichier autonome vient de l'extracteur de `build.js` **seul** ; l'`extractCards()` d'`app.html` ne s'exécute jamais sous Node, donc sa sortie n'est comparée à rien. `--check` attrape donc : un autonome obsolète, une dérive de l'extracteur de `build.js`, une dérive du gabarit d'`app.html` (markup, CSS, JS hors extraction). Il n'attrape **pas** une dérive de l'`extractCards()` d'`app.html` lui-même — celle-là ne se voit qu'en chargeant l'appli contre le carnet, ou en relisant les deux fonctions côte à côte. Ce qui tient vraiment les deux extracteurs ensemble reste la relecture, pas l'outillage : c'est la raison d'être de cette section.
 
 ### 3. Le schéma de carte produit
 
@@ -201,7 +203,7 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
 }
 ```
 
-⚠️ L'**ordre d'insertion des propriétés** doit rester identique entre les deux extracteurs : le snapshot embarqué est comparé au byte près par `--check`, un simple `niveau` posé avant `forms` d'un côté et après de l'autre casse la vérification.
+⚠️ L'**ordre d'insertion des propriétés** doit rester identique entre les deux extracteurs — et c'est une règle de relecture, pas une règle tenue par l'outillage. Un `niveau` posé avant `forms` dans `build.js` change le snapshot et casse `--check` ; le même déplacement dans `app.html` ne casse rien du tout, puisque cet extracteur-là ne produit jamais le snapshot (voir l'avertissement du § « Le couplage critique »).
 
 Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2tr(card.he)`. Les cartes de catégorie `Phrases` reçoivent un affichage réduit (`.big-he.phrase` / `.big-fr.phrase`) pour que les longues phrases passent à la ligne proprement.
 
@@ -388,11 +390,12 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 ## Garde-fous contre la casse silencieuse
 
-L'extraction étant couplée au markup du carnet, trois filets détectent les cartes perdues :
+L'extraction étant couplée au markup du carnet, quatre filets détectent les cartes perdues :
 
 1. **`init()` dans app.html** ([app.html:2320](app.html#L2320)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
-3. **`node build.js --check`** : détecte la dérive entre les deux implémentations d'`extractCards` et un fichier autonome obsolète (comparaison byte à byte).
+3. **`node build.js --check`** : détecte un fichier autonome obsolète et toute dérive de l'extracteur de `build.js` ou du gabarit d'`app.html` (comparaison byte à byte). Ne couvre pas l'`extractCards()` d'`app.html`, qui ne s'exécute jamais sous Node — cf. § « Le couplage critique ».
+4. **Garde de taxonomie de `build.js`** (21/07) : `EXPECTED_THEMES` est comparé aux slugs de la constante `THEMES` d'`app.html`, lue dans le fichier. Un thème ajouté d'un seul côté échoue le build en nommant la liste fautive ; la disparition de la constante échoue aussi, plutôt que de passer au vert en ne comparant rien.
 
 ## Développement et déploiement
 

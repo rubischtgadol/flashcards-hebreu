@@ -297,6 +297,41 @@ fil principal. Aucun flag « GRAPHE À RECALER » n'était en attente (aucun fic
 créé/supprimé/renommé depuis le dernier recalage) ; il n'y en a pas non plus
 maintenant.
 
+**Ce que le recalage a fait remonter, et qui a été traité dans la foulée.** En
+traçant le pont `extractCards` (betweenness 0,212), le graphe a montré que les
+arêtes vers le carnet sont toutes INFERRED alors que celles vers `CARDS` sont
+EXTRACTED — autrement dit le couplage au balisage n'a aucun lien mécanique, ce
+qui est exactement la forme du piège connu. Deux suites, l'une écartée, l'autre
+livrée :
+
+1. **Écarté — la duplication des deux extracteurs n'est pas un défaut.**
+   `app.html` travaille sur le DOM du navigateur, `build.js` en regex sous Node ;
+   les réunir demanderait un module partagé, donc une dépendance et un fichier de
+   plus, contre la doctrine « zéro dépendance, un seul document autonome ».
+   L'absence d'arête dans le graphe décrit une architecture voulue. Rien à faire.
+2. **Livré — garde de taxonomie dans `build.js`.** `EXPECTED_THEMES` et la
+   constante `THEMES` d'`app.html` décrivaient la même liste sans qu'aucun
+   contrôle ne les relie : seulement un commentaire. Elles étaient en phase
+   (15/15), mais un 16e thème posé d'un seul côté passait au vert — slug accepté
+   au build, aucune pastille dans l'appli, ou l'inverse. `build.js` lit désormais
+   `THEMES` dans `app.html` et échoue en nommant la liste fautive. **Contrôle à
+   blanc fait, les quatre cas** (slug fantôme côté build → exit 1 ; slug fantôme
+   côté app → exit 1 ; constante `THEMES` introuvable → exit 1, plutôt qu'un vert
+   qui ne compare rien ; état normal → exit 0). Le premier jet du test avait un
+   `$?` qui lisait le code de `tail` et non de `node` : tous les cas semblaient
+   passer. Refait proprement.
+
+**Correction de doc du même coup — `--check` était surévalué dans trois
+endroits.** Il ne compare PAS les deux extracteurs : le snapshot de l'autonome
+vient de l'extracteur de `build.js` seul, l'`extractCards()` d'`app.html` ne
+s'exécute jamais sous Node et sa sortie n'est comparée à rien. Il attrape donc un
+autonome obsolète, une dérive de l'extracteur de `build.js` et une dérive du
+gabarit d'`app.html` — pas une dérive de l'`extractCards()` d'`app.html`, qui ne
+se voit qu'en chargeant l'appli contre le carnet ou en relisant les deux
+fonctions. CLAUDE.md (§ couplage + rituel étape 3) et ARCHITECTURE.md (§ couplage,
+ordre des propriétés, liste des filets, passée à quatre) rectifiés. C'est le genre
+d'écart qui fait sauter une vérification en se croyant couvert.
+
 Acquis précédent (session 16, 21/07) : **le lot
 grammaire n°2 — les cinq manques de la section grammaire comblés, par ordre
 d'importance.** La question de Ruben (« que manque-t-il ? y a-t-il
