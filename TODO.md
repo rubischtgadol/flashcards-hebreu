@@ -166,10 +166,12 @@ Deux chantiers sont ouverts, dans cet ordre :
    rendu (`fonts.googleapis.com` puis `fonts.gstatic.com` = deux allers-retours réseau
    avant le premier pixel), sur le portail **et** sur l'app, une fois par page —
    exactement la forme du symptôme. À instruire avant de corriger, comme le précédent.
-2. 🔶 **Audit complet du carnet** — **phase 1 validée par Ruben le 21/07, lot de
-   correction appliqué et poussé (session 5). Prochaine étape : la phase 2
-   (pédagogie et progression), sur le feu vert de Ruben.** Rapport :
-   [`docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md`](docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md) ;
+2. 🔶 **Audit complet du carnet** — **phase 2 (pédagogie) terminée le 21/07
+   (session 6), analyse pure, carnet inchangé. En attente de Ruben : statuer sur
+   les 4 lots possibles du rapport de phase 2 (§ 8) et donner le feu vert de la
+   phase 3 (présentation).** Rapports :
+   [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md) (phase 2) et
+   [`docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md`](docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md) (phase 1, validée et corrigée en session 5) ;
    plan et journal :
    [`docs/superpowers/specs/2026-07-20-audit-carnet-plan.md`](docs/superpowers/specs/2026-07-20-audit-carnet-plan.md).
    Angle tranché par Ruben : **les trois en séquence** (justesse de l'hébreu →
@@ -202,6 +204,28 @@ Deux chantiers sont ouverts, dans cet ordre :
      tranches ; il PEUT lire le corrigé.
    - Graphe : le `/graphify . --update` différé (script racine structurel) a été
      **payé avec le lot de correction, le 21/07**.
+
+   **Résultat de la phase 2 (pédagogie, session 6 du 21/07)** — cinq analyses
+   Sonnet en parallèle, toutes chiffrées, ~479 k tokens de sous-agents (~300 k
+   estimés) : **(1) trous** — 13/20 domaines fonctionnels A1/A2 bien couverts,
+   deux trous nets (**santé** 6 entrées, **sécurité/urgences** 4), proposition
+   **+45 mots** (32 noms, 5 adjectifs, 5 verbes, 3 phrases → 42 exemples sous la
+   garde de `verifie_exemples.js`) — matériau **brut, non audité** ; **(2)
+   équilibre** — statu quo défendable (1:3,10 en entrées mais **1:1,24 en formes
+   à mémoriser** ; verbes = catégorie la mieux réemployée, 61,9 %) ; **(3)
+   ordre** — **0 violation de prérequis** sur 713 cartes (structurel : la
+   grammaire est groupée en tête), 4 emplois de la subordonnée שֶׁ־ jamais
+   enseignée ; **(4) niveaux CECRL** — pas de biais systématique (2 désaccords /
+   134 échantillonnées, 1,5 %), 3 des 7 B2 surclassées d'un cran ; **(5)
+   registre** — 8/713 signalées (1,1 %), résidus concentrés sur les mots-outils
+   (תחת, מאין, מן). Étage 0 enrichi en session : **364/713 mots jamais
+   réemployés** dans l'exemple d'une autre carte. ⚠️ Acquis méthodologique :
+   **`__i` n'est PAS l'ordre du document** (extraction : tables puis listes) —
+   tout raisonnement d'ordre se fait au numéro de ligne. Les **4 lots
+   possibles** (micro-lot niveaux ~5 cartes à coût SRS nul ; micro-lot registre
+   3 entrées + note הַיי, coût SRS N ≤ 3 ; note de grammaire שֶׁ־ ; lot d'ajout
+   santé/sécurité en commençant par la priorité 1 seule, 17 mots) sont détaillés
+   au § 8 du rapport — **aucun n'est décidé**.
 
    ⚠️ **Trois sessions distinctes, décidées par Ruben** : (1) l'écriture du plan — faite
    le 20/07 ; (2) la **review complète du plan par Fable 5** — **faite le 20/07**, ses

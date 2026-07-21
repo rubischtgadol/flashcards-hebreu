@@ -5,13 +5,15 @@
 **Origine** : demande de Ruben le 20/07 au soir. Angle retenu : **les trois, en
 séquence** (justesse → pédagogie → présentation), méthode : **fan-out multi-agents**,
 avec un **point d'arrêt entre chaque phase** pour validation.
-**État** : ⛔ **PHASE 1 TERMINÉE (session 4, 20/07) — en attente de validation de
-Ruben.** Rappel d'étalonnage 17/20, 3 anomalies confirmées, 1 escalade, 18 réfutées
-consignées, coût SRS N = 2. Rapport :
-[`2026-07-20-audit-carnet-rapport-phase1.md`](2026-07-20-audit-carnet-rapport-phase1.md).
-Aucune correction appliquée — le lot de correction et la phase 2 attendent le feu
-vert. Le déroulé exact est dans le **« Journal d'exécution — session 4 »** juste
-avant l'annexe.
+**État** : ⛔ **PHASE 2 TERMINÉE (session 6, 21/07) — en attente de validation de
+Ruben avant la phase 3.** Phase 1 validée et corrigée (sessions 4–5, rapport :
+[`2026-07-20-audit-carnet-rapport-phase1.md`](2026-07-20-audit-carnet-rapport-phase1.md)).
+Phase 2 : cinq analyses rendues, toutes chiffrées — carnet pédagogiquement sain,
+deux trous de vocabulaire nets (santé, sécurité/urgences), proposition +45 mots non
+décidée, 0 violation d'ordre, pas de biais CECRL, 8 résidus de registre. Rapport :
+[`2026-07-21-audit-carnet-rapport-phase2.md`](2026-07-21-audit-carnet-rapport-phase2.md).
+Aucune modification du carnet — les lots éventuels et la phase 3 attendent le feu
+vert. Déroulé dans le **« Journal d'exécution — session 6 »** juste avant l'annexe.
 **Review (session 2)** : ✅ faite le 20/07 par Fable 5. Les corrections sont marquées
 **✎R2** dans le corps du texte ; le récapitulatif est dans la section « Révision de la
 session 2 » ci-dessous.
@@ -450,11 +452,14 @@ l'hébreu moderne, référentiels CECRL). À déléguer, jamais en session princ
 
 ### Critère d'acceptation — Phase 2
 
-- [ ] Les cinq analyses rendues, chacune avec **des nombres** et non des impressions.
-- [ ] Toute proposition d'ajout est **chiffrée** (combien de mots, quelles catégories) et
+- [x] Les cinq analyses rendues, chacune avec **des nombres** et non des impressions.
+- [x] Toute proposition d'ajout est **chiffrée** (combien de mots, quelles catégories) et
       confrontée au coût : chaque entrée ajoutée exige un exemple (règle `verifie_exemples.js`).
-- [ ] Aucune recommandation qui contredise une décision déjà actée dans PRODUCT.md ou
+- [x] Aucune recommandation qui contredise une décision déjà actée dans PRODUCT.md ou
       TODO.md sans **la nommer et l'argumenter**.
+
+✅ Vérifiés le 21/07 (session 6) — le détail est au § 7 du
+[rapport de phase 2](2026-07-21-audit-carnet-rapport-phase2.md).
 
 ### ⛔ Point d'arrêt — validation de Ruben avant la phase 3
 
@@ -694,6 +699,47 @@ de correction et s'arrête là.
 5. **Le `/graphify . --update` différé a été payé** avec ce lot, une seule fois,
    comme décidé.
 6. ⛔ **Arrêt avant la phase 2 (pédagogie)** — chantier séparé, déclenché par Ruben.
+
+## Journal d'exécution — session 6 (21/07, Fable 5) : phase 2 terminée, arrêt avant la phase 3
+
+Déclenchée par Ruben. Analyse pure : aucune modification du carnet. Tout le détail
+est dans le rapport
+([`2026-07-21-audit-carnet-rapport-phase2.md`](2026-07-21-audit-carnet-rapport-phase2.md)) ;
+ici, le déroulé :
+
+1. **Étage 0 régénéré** (`node audit_carnet_mecanique.js` : 713 cartes, 0 erreur,
+   207 drapeaux — s29/s30 effacées, sans conséquence ici) et **enrichi** de deux
+   pièces calculées en session (`audit/phase2_stats.json`, `audit/inventaire.tsv`,
+   gitignorées) : distributions cat×niveau, couverture en exemples, longueur
+   moyenne par niveau, et le réemploi — **364/713 mots jamais réemployés dans
+   l'exemple d'une autre carte**.
+2. **Cinq analyses, cinq agents Sonnet en parallèle**, chacun sur sa question
+   fermée, avec porte de sortie et interdiction de plafond silencieux ; recherche
+   externe déléguée pour la seule question 1, comme au plan. Verdicts :
+   (1) trous — 13/20 domaines RAS, santé et sécurité/urgences nettement troués,
+   proposition **+45 mots** chiffrée et confrontée à la garde des exemples ;
+   (2) équilibre — **statu quo défendable** (1:3,10 en entrées mais 1:1,24 en
+   formes ; verbes déjà les mieux réemployés à 61,9 %) ;
+   (3) ordre — **0 violation**, résultat structurel (grammaire groupée en tête,
+   les 13 cartes antérieures sans exemple) ; 4 emplois de la subordonnée שֶׁ־
+   jamais enseignée ;
+   (4) niveaux — **pas de biais** (2/134 échantillonnées, 1,5 %) ; 3/7 B2
+   surclassées d'un cran (census, pas une tendance) ;
+   (5) registre — **8/713 (1,1 %)**, résidus concentrés sur les mots-outils
+   (תחת, מאין, מן).
+3. **Découverte méthodologique consignée** : la prémisse « `__i` = ordre du
+   document » donnée à l'agent 3 était **fausse** (extraction : tables d'abord,
+   puis listes dans l'ordre de `listCats`) — l'agent l'a détectée et a mesuré
+   l'ordre au numéro de ligne HTML. Toute future analyse d'ordre part de là.
+4. **Coût publié** : ~479 k tokens de sous-agents contre ~300 k estimés (même
+   facteur ~1,6 que la phase 1). Aucun bump SW, aucun `/graphify --update`
+   (analyse pure, rien de structurel ni de contenu modifié).
+5. ⛔ **Arrêt au point d'arrêt.** En attente de Ruben : statuer sur les quatre
+   lots possibles du rapport § 8 (micro-lot niveaux, micro-lot registre, note
+   שֶׁ־, lot santé/sécurité — en commençant par la priorité 1 seule), puis
+   déclencher la phase 3 (présentation). ⚠️ Si un lot d'ajout est lancé : le
+   matériau des 45 mots est **brut, non audité** (deux suspects déjà nommés au
+   rapport § 2) — chaque entrée devra repasser par la rigueur de la phase 1.
 
 ⚠️ **Pourquoi cette annexe existe.** Le corps du plan *décrit* ce que les prompts doivent
 contenir. Cela suffit à un modèle fort, qui comble les trous ; **cela ne suffit pas à un
