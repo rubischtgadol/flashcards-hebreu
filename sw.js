@@ -45,7 +45,11 @@
 // Le contenu se rafraîchirait seul, mais deux vocalisations apprises étaient
 // fausses : elles doivent disparaître du téléphone au premier lancement, pas
 // au second.
-const VERSION = 'v21';
+// v22 : lot grammaire n°2 — 4 sections neuves dans le carnet (Le présent,
+// L'impératif promu depuis le bonus du futur, Le conditionnel הָיִיתִי,
+// Suffixes possessifs) + bloc « Reconnaître le binyan » ; le sommaire passe
+// à 35 pilules. Nouveau cours = visible au premier lancement.
+const VERSION = 'v22';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

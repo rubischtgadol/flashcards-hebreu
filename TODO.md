@@ -277,7 +277,50 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
-**Aucun chantier ouvert.** Dernier lot livré (session 15, 21/07) : **les 14e et
+**Aucun chantier ouvert.** Dernier lot livré (session 16, 21/07) : **le lot
+grammaire n°2 — les cinq manques de la section grammaire comblés, par ordre
+d'importance.** La question de Ruben (« que manque-t-il ? y a-t-il
+l'impératif ? ») a été instruite sur pièces (grep des 53 titres h2/h3 + des
+gram-title, pas de mémoire) : l'impératif n'existait que comme bloc « Bonus »
+dans Le futur, et le vrai trou structurel était **Le présent** — le carnet
+expliquait la formation du passé et du futur mais jamais celle du présent.
+Livré : (1) **Le présent** (זְמַן הֹוֶה, entre Racine et Passé) — 4 formes,
+accord en genre/nombre, terminaisons ־ֶת/־ָה/־ִים/־וֹת, pronom obligatoire,
+tableau aux trois mêmes verbes-témoins que le passé/futur ; c'est aussi la
+première explication du « carré magique » des tables de la Partie 2. (2)
+**L'impératif** (צִוּוּי) promu en section après Le futur : contenu du bonus
+repris tel quel + tableau des 7 impératifs irréguliers du quotidien (viens, va,
+assieds-toi, lève-toi, donne, prends, attends — tous infinitifs déjà au
+carnet). (3) **Le conditionnel** (הָיִיתִי) : table de לִהְיוֹת au passé, puis
+trois usages en gram-title — politesse (הָיִיתִי רוֹצֶה), hypothèse irréelle
+(אִם + passé), habitude passée (הָיִינוּ + présent). (4) **Suffixes
+possessifs** (כִּנּוּיֵי קִנְיָן, entre Smikhut et Prépositions fléchies) :
+série des suffixes + les mots toujours suffixés (מָה שְׁלוֹמְךָ, אִשְׁתִּי,
+אָחִי, אֲדוֹנִי, לְדַעְתִּי…), cadrés « reconnaître, pas produire ». (5) Bloc
+**« Reconnaître le binyan depuis l'infinitif »** dans Patrons de conjugaison
+(לִ־/לְ־/לְהַ־/לְהִתְ־/לְהִ־, exemples pris dans le carnet). Renvois recalés
+(« la section précédente » du passé, note שֶׁל, moule du temps voulu), sommaire
+31 → **35 pilules** (compteur du commentaire mis à jour). Écarté sciemment :
+section de lecture/beged-kefet (Ruben : « lecture déjà acquise »). Bilan
+mécanique : cartes **789 inchangées** (« déjà à jour » au build — les sections
+de grammaire restent hors extraction, zéro dérive), `--check` en phase,
+validateur **0 erreur / 7 avertissements** (les 7 préexistants), SW **v22**.
+Graphe : édits internes à un fichier existant → ni recalage ni flag (règle du
+21/07) ; noter que les nœuds TOC/grammaire du graphe prédatent maintenant DEUX
+lots grammaire. Passe WebKit (déléguée, 3 allers-retours, UI touchée : nouveau
+markup + tableaux) : 35 pilules et ancres OK, 0 erreur console, 245 nœuds
+hébreux des nouvelles sections tous sous `lang="he"`, et les deux tableaux
+d'abord hors gabarit (« Forme » 979 px, « Qui ? » 829 px — cellules françaises
+longues sous le `white-space:nowrap` global) ramenés au patron maison (cellules
+courtes, littéralités déplacées en note, pronom-témoin par ligne) : 894/894 à
+1280, 730/730 à 768, alignés sur les tables Personne du passé/futur. ⚠️
+**Dérive PRÉEXISTANTE relevée au passage, à arbitrer** : la table de sec-verbes
+mesure **910 px > 894** (le plafond historique de `--colonne-large` — « aucune
+au-delà de 894 », piège n°4 / DESIGN.md §3), vraisemblablement grossie par les
+lots de vocabulaire récents ; antérieure à ce lot, non traitée ici — raccourcir
+le contenu fautif ou recalibrer le plancher.
+
+**Acquis précédent (session 15, 21/07) : les 14e et
 15e thèmes « Argent & achats » / « Loisirs & culture » + 32 mots NEUFS.** Deux
 temps. (a) Reclassement : le fourre-tout `vie-quotidienne` (63) rendait encore
 deux amas cohérents → 35 entrées reclassées vers `argent-achats` (18) et
