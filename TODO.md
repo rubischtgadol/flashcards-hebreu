@@ -1,10 +1,11 @@
 # État du projet et travail restant
 
-État au 2026-07-20, tard dans la nuit. **Dernier acquis : le lag *à l'usage* est CLOS,
-et clos par une mesure prise sur l'appareil de Ruben — pas par déduction.** (⚠️ Un
-second symptôme, distinct, a été signalé dans la foulée et **reste entier** : la lenteur
-du **premier affichage** à l'ouverture du portail puis de l'app. Le diagnostic ne le
-couvre pas — son chronomètre démarre après l'arrivée des polices. Voir « Reprendre ici ».)
+État au 2026-07-21 (session 7). **Dernier acquis : le premier affichage est instruit et
+corrigé** — la feuille CSS Google Fonts bloquait le premier pixel des trois pages (écran
+blanc, pas même le fond, tant qu'elle n'était pas arrivée) ; ses liens sont passés en
+non-bloquant, SW v14. Chiffres et contrepartie en « Reprendre ici ». L'acquis précédent
+tient : le lag *à l'usage* est CLOS, et clos par une mesure prise sur l'appareil de
+Ruben — pas par déduction.
 Les trois gestes relevés tiennent tous sous le seuil de perception : chargement **31 ms**
 (carnet 8 · extraction 18), tap de chip **49 ms** (dont 1 ms de JavaScript), départ de
 session **82 ms**. Aucun chemin de l'app n'est lent ; le cache froid de la PWA
@@ -155,17 +156,37 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 identifiant de voix archivé compris) et **le bloc « Diagnostic de latence » est gardé**,
 sur décision de Ruben. Le chantier du lag *à l'usage* est clos par la mesure on-device.
 
-Deux chantiers sont ouverts, dans cet ordre :
+Un chantier corrigé (confirmation au téléphone attendue), un chantier en attente de
+décisions :
 
-1. 🔶 **Le premier affichage** — signalé par Ruben le 20/07, **non instruit**. « C'est
-   surtout au tout début, à l'ouverture de la page d'accueil de la racine puis de la
-   page d'accueil de l'app ; sinon c'est ok. » ⚠️ **C'est un symptôme distinct de celui
-   qu'on vient de clore** : le diagnostic démarre son chronomètre quand le script
-   s'exécute, donc *après* HTML + CSS + polices — il ne voit pas cette phase. Suspect
-   n°1 non vérifié : les polices Google, chargées par une feuille externe bloquant le
-   rendu (`fonts.googleapis.com` puis `fonts.gstatic.com` = deux allers-retours réseau
-   avant le premier pixel), sur le portail **et** sur l'app, une fois par page —
-   exactement la forme du symptôme. À instruire avant de corriger, comme le précédent.
+1. ✅ **Le premier affichage** — signalé par Ruben le 20/07, **instruit puis corrigé le
+   21/07 (session 7)**. Le suspect n°1 était le bon, et pire que prévu : la feuille CSS
+   Google Fonts est la **seule** ressource externe bloquante des pages, et tant qu'elle
+   n'est pas arrivée WebKit ne peint **rien** — pas même le fond Nuit d'encre : écran
+   blanc. Preuve par A/B émulé (valide en delta seulement, piège n°14) : avec 3 s de
+   retard injecté sur les domaines Google Fonts, FCP ≈ 3,2 s tel quel contre ≈ 0,45 s
+   une fois le lien rendu non-bloquant (delta ~2,8 s, portail et app). Deux aggravants
+   relevés : les trois pages demandent **trois URL css2 différentes** (ouvrir le portail
+   PUIS l'app paie donc deux allers-retours bloquants — la forme exacte du symptôme
+   décrit), et le preconnect `fonts.gstatic.com` manquait partout.
+
+   **Correctif appliqué** aux trois pages (+ standalone via `build.js`) :
+   `media="print" onload="this.onload=null;this.media='all'"` sur le lien css2,
+   fallback `<noscript>`, preconnect `fonts.gstatic.com` `crossorigin` ajouté. SW
+   **v14** (la coquille HTML est en stale-while-revalidate : sans bump, la page qui
+   bloque serait resservie une fois de plus). **Vérifié post-correctif en WebKit**
+   (contexte froid, 3 s de retard injecté) : FCP 92–159 ms sur portail et app,
+   638–745 ms sur le carnet (coût de layout de son document massif, plus les fontes —
+   son DCL est à 56–89 ms), polices bien appliquées après coup (`Assistant` calculée
+   sur le body, `media` basculé `all`, les 4 familles du carnet chargées), zéro erreur
+   console. **Contrepartie assumée** : au tout premier chargement, le texte s'affiche
+   quelques centaines de ms en polices de repli avant la bascule — cohérent avec le
+   `display=swap` déjà choisi, et strictement mieux qu'un écran blanc.
+   ⚠️ **Le juge final reste le téléphone** : le diagnostic embarqué ne voit pas cette
+   phase (son chronomètre démarre après les polices), la confirmation est donc le
+   ressenti de Ruben à la première ouverture après déploiement. Graphe : édits de
+   `<head>` uniquement, aucun nœud/arête du graphe n'en parle — **refresh différé** au
+   prochain changement structurel réel (précédent de différé du 21/07).
 2. 🔶 **Audit complet du carnet** — **phase 2 (pédagogie) terminée le 21/07
    (session 6), analyse pure, carnet inchangé. En attente de Ruben : statuer sur
    les 4 lots possibles du rapport de phase 2 (§ 8) et donner le feu vert de la

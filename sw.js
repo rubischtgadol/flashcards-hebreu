@@ -29,12 +29,18 @@
 // être sur le téléphone au premier lancement, pas au second — c'est exactement
 // le cas « un diagnostic qu'on demande à quelqu'un doit être visible du
 // premier coup » de v9.
+// v14 : les liens Google Fonts des trois pages passent en non-bloquant (chantier
+// « premier affichage » — en <link> classique, WebKit ne peint rien tant que la
+// feuille n'est pas arrivée). Le bump est nécessaire : les coquilles HTML sont en
+// stale-while-revalidate, donc sans lui l'ancien index.html/app.html — celui qui
+// bloque — serait resservi une fois de plus, et le correctif du premier
+// affichage ne serait justement pas là au premier affichage.
 // v13 : le lot de correction de l'audit (nikoud de מָלוֹן et סִפְרִיָּה, genre
 // de סַכָּנָה ; le pluriel de גַּב est resté — גַּבּוֹת attesté par l'Académie).
 // Le contenu se rafraîchirait seul, mais deux vocalisations apprises étaient
 // fausses : elles doivent disparaître du téléphone au premier lancement, pas
 // au second.
-const VERSION = 'v13';
+const VERSION = 'v14';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

@@ -14,7 +14,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Hébreu">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playpen+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Chargée en non-bloquant (media="print" puis bascule au onload) : en <link> classique,
+     WebKit ne peint RIEN — pas même le fond — tant que cette feuille n'est pas arrivée,
+     et c'est tout le « premier affichage lent » du tout premier chargement. -->
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playpen+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet" media="print" onload="this.onload=null;this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playpen+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet"></noscript>
 <style>
   /* Charte unifiée carnet + app — ce bloc :root doit rester identique dans
      vocabulaire_hebreu.html et index.html (référence : le carnet). */
