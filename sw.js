@@ -45,7 +45,7 @@
 // Le contenu se rafraîchirait seul, mais deux vocalisations apprises étaient
 // fausses : elles doivent disparaître du téléphone au premier lancement, pas
 // au second.
-const VERSION = 'v19';
+const VERSION = 'v20';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

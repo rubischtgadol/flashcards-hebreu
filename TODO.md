@@ -277,10 +277,24 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
-**Aucun chantier ouvert.** Dernier lot livré (session 13, 21/07) : **le filtre
-« Thèmes »** — choisir le vocabulaire par champ sémantique dans l'appli
-(demande de Ruben du 21/07, design validé par lui en 3 réponses : les 3 tables,
-~10-12 thèmes larges, filtre combiné ET).
+**Aucun chantier ouvert.** Dernier lot livré (session 14, 21/07) : **le 13e
+thème « Vêtements & couleurs »** (`vetements-couleurs`) — extrait des deux
+fourre-tout sur le constat qu'ils absorbaient un champ A1 classique (à la
+question « quel thème manque ? », les deux plus gros thèmes étaient justement
+les voitures-balais). 26 entrées reclassées dans le carnet : 13 noms
+(vêtement → t-shirt, lunettes comprises), 11 couleurs (rouge → marron, qui
+n'avaient rien d'abstrait), 2 verbes (porter, s'habiller). `vie-quotidienne`
+78 → 63, `abstrait` 75 → 64. Frontière assumée « ce qui s'enfile » : sac,
+portefeuille et bague restent en `vie-quotidienne`. Slug ajouté aux deux
+listes alignées (`EXPECTED_THEMES` build.js / `THEMES` app.html), build
+541/541, `--check` OK, 0 erreur d'exemples, SW **v20**. Distribution à jour
+dans ARCHITECTURE.md § 4.1. Aucune UI touchée (la puce naît des données via
+`buildThemeChips`), donc pas de passe WebKit.
+
+**Acquis précédent (session 13, 21/07) : le filtre « Thèmes »** — choisir le
+vocabulaire par champ sémantique dans l'appli (demande de Ruben du 21/07,
+design validé par lui en 3 réponses : les 3 tables, ~10-12 thèmes larges,
+filtre combiné ET).
 
 - **Carnet** : `data-theme` sur les 541 `<tr>` des tables Noms/Adjectifs/Verbes
   (injection scriptée, vérifiée par le vrai extracteur), 12 thèmes — taxonomie

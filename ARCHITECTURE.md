@@ -219,12 +219,12 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 ### 4.1 Les thèmes sémantiques (`data-theme`)
 
-Depuis le 2026-07-21, chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Douze thèmes**, et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Distribution au 2026-07-21 (541 entrées) :
+Depuis le 2026-07-21, chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Treize thèmes** (douze à la taxonomie initiale ; `vetements-couleurs` ajouté le jour même en seconde passe, extrait des deux fourre-tout — voir les arbitrages ci-dessous), et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Distribution au 2026-07-21, après reclassement (541 entrées) :
 
 | Slug | Libellé (app) | Cartes |
 | --- | --- | --- |
-| `vie-quotidienne` | Vie quotidienne & loisirs | 78 |
-| `abstrait` | Notions abstraites | 75 |
+| `abstrait` | Notions abstraites | 64 |
+| `vie-quotidienne` | Vie quotidienne & loisirs | 63 |
 | `nourriture` | Nourriture & repas | 57 |
 | `ville-transport` | Ville, lieux & transports | 55 |
 | `maison-objets` | Maison & objets | 46 |
@@ -234,13 +234,16 @@ Depuis le 2026-07-21, chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte
 | `famille-personnes` | Famille & personnes | 34 |
 | `travail-etudes` | Travail & études | 31 |
 | `emotions-caractere` | Émotions & caractère | 31 |
+| `vetements-couleurs` | Vêtements & couleurs | 26 |
 | `temps-calendrier` | Temps & calendrier | 18 |
 
 **Le périmètre est délibérément les trois tables.** Les sections listes (nombres, jours, saisons, pronoms…) sont déjà mono-thème par nature : leur catégorie *est* leur thème, un tag serait redondant. `build.js` tient la frontière dans les deux sens : couverture **541/541** sur les tables (une entrée ajoutée sans `data-theme` échoue en nommant le mot — même règle de couverture que `data-niveau`), slug hors `EXPECTED_THEMES` refusé (une faute de frappe créerait un thème fantôme), et `data-theme` posé sur une liste refusé aussi.
 
 Côté app, le filtre est **optionnel** — c'est sa différence voulue avec Catégories et Niveau : aucune puce cochée = « Tous », rien n'est bloqué ; dès qu'un thème est coché, le croisement devient thème × catégorie × niveau **et les cartes sans thème (les listes) sortent du jeu**. `buildThemeChips()` construit les puces depuis les données (thème vide → pas de puce ; slug inconnu de `THEMES` → puce quand même, libellé = slug, le temps qu'on lui donne son libellé) ; préférences persistées dans `prefs_v1` (champ absent = rien de coché, les profils d'avant ne voient rien changer) ; la révision du jour ignore le thème comme elle ignore le niveau.
 
-**Arbitrages de classement assumés** (un seul thème par mot, tranché sur l'usage dominant) : les couleurs → `abstrait` ; les vêtements et s'habiller → `vie-quotidienne` ; affamé/assoiffé, kilo/litre/gramme → `nourriture` ; hôpital → `corps-sante` ; plage, chaud/froid → `nature` ; vouloir/décider/choisir → `communication-pensee` ; perdu/proche/loin → `ville-transport`. Un reclassement se fait comme pour le niveau : éditer l'attribut dans le carnet, puis `node build.js`.
+**Arbitrages de classement assumés** (un seul thème par mot, tranché sur l'usage dominant) : affamé/assoiffé, kilo/litre/gramme → `nourriture` ; hôpital → `corps-sante` ; plage, chaud/froid → `nature` ; vouloir/décider/choisir → `communication-pensee` ; perdu/proche/loin → `ville-transport`. Un reclassement se fait comme pour le niveau : éditer l'attribut dans le carnet, puis `node build.js`.
+
+**Le treizième thème, né d'un arbitrage défait (2026-07-21, seconde passe).** La taxonomie initiale rangeait les couleurs en `abstrait` et les vêtements en `vie-quotidienne` — deux pis-aller documentés comme tels, qui gonflaient précisément les deux plus gros thèmes. `vetements-couleurs` les regroupe : 13 noms (vêtement → t-shirt, lunettes comprises), 11 adjectifs de couleur (rouge → marron), 2 verbes (porter, s'habiller), soit 26 entrées. Sa frontière est « ce qui s'enfile » : sac, portefeuille et bague restent en `vie-quotidienne` (objets transportés / bijou, pas de l'habillement).
 
 ### 5. Les exemples en situation
 
