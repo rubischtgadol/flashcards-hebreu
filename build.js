@@ -31,6 +31,15 @@ const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms pers
 // Niveaux CECRL (data-niveau du carnet) dont la disparition doit faire échouer le
 // build — le carnet actuel n'a rien au-delà de B2 ; étendre quand il grandira.
 const EXPECTED_LEVELS = ['A1','A2','B1','B2'];
+// Thèmes sémantiques (data-theme du carnet, tables Noms/Adjectifs/Verbes
+// uniquement — les listes n'en portent pas, déjà mono-thème par nature).
+// ⚠️ Doit rester aligné sur la constante THEMES d'app.html (slugs identiques).
+const EXPECTED_THEMES = ['famille-personnes','corps-sante','nourriture','maison-objets',
+  'ville-transport','nature','temps-calendrier','travail-etudes','vie-quotidienne',
+  'communication-pensee','emotions-caractere','abstrait'];
+// Catégories où data-theme est obligatoire sur chaque entrée (même règle de
+// couverture que data-niveau : tenue par l'outillage, pas par la discipline).
+const THEMED_CATS = ['Noms','Adjectifs','Verbes'];
 
 // ---------- mini-parsing HTML (zéro dépendance) ----------
 const NAMED_ENTITIES = { amp:'&', lt:'<', gt:'>', quot:'"', apos:"'", nbsp:' ',
@@ -169,6 +178,8 @@ function extractCards(html){
       const card = { cat: 'Verbes', he, tr: '', fr: '(infinitif) ' + fr, forms };
       const niveau = attrOf(tr, 'data-niveau');
       if (niveau) card.niveau = niveau;
+      const theme = attrOf(tr, 'data-theme');
+      if (theme) card.theme = theme;
       const ex = exemplesOf(tds[0]);
       if (ex.length) card.exemples = ex;
       cards.push(card);
@@ -187,6 +198,8 @@ function extractCards(html){
       const card = { cat: 'Adjectifs', he, tr: '', fr, forms };
       const niveau = attrOf(tr, 'data-niveau');
       if (niveau) card.niveau = niveau;
+      const theme = attrOf(tr, 'data-theme');
+      if (theme) card.theme = theme;
       const ex = exemplesOf(tds[0]);
       if (ex.length) card.exemples = ex;
       cards.push(card);
@@ -203,6 +216,8 @@ function extractCards(html){
     if (plHe && plHe !== '—'){ card.forms = [{ he: plHe, tr: plTr, label: 'pluriel', he_plain: stripNikud(plHe) }]; }
     const niveau = attrOf(tr, 'data-niveau');
     if (niveau) card.niveau = niveau;
+    const theme = attrOf(tr, 'data-theme');
+    if (theme) card.theme = theme;
     const ex = exemplesOf(tds[0]);
     if (ex.length) card.exemples = ex;
     if (he) cards.push(card);
@@ -281,6 +296,44 @@ function report(cards){
     if (unclassified.length > 15) console.error('    … et ' + (unclassified.length - 15) + ' autre(s)');
     console.error('  Chaque entrée du carnet doit porter data-niveau="A1"…"C2".');
     process.exit(1);
+  }
+
+  // Thèmes sémantiques : mêmes garde-fous que les niveaux — couverture 100 %
+  // sur les trois tables (un mot ajouté sans data-theme échoue en le nommant)
+  // et slugs verrouillés (une faute de frappe créerait un thème fantôme,
+  // invisible dans l'appli sous son vrai libellé).
+  const themes = {};
+  cards.forEach(c => { if (c.theme) themes[c.theme] = (themes[c.theme] || 0) + 1; });
+  if (Object.keys(themes).length){
+    console.log('\nThèmes (data-theme) :');
+    const tw = Math.max(...Object.keys(themes).map(k => k.length), 'couverture'.length);
+    Object.keys(themes).sort((a, b) => themes[b] - themes[a]).forEach(k => {
+      console.log('  ' + k.padEnd(tw) + '  ' + themes[k]);
+    });
+    const themedPool = cards.filter(c => THEMED_CATS.includes(c.cat));
+    const themeless = themedPool.filter(c => !c.theme);
+    console.log('  ' + 'couverture'.padEnd(tw) + '  ' +
+      (themedPool.length - themeless.length) + '/' + themedPool.length + ' (tables Noms/Adjectifs/Verbes)');
+    if (themeless.length){
+      console.error('\n✗ ' + themeless.length + ' carte(s) des tables sans data-theme :');
+      themeless.slice(0, 15).forEach(c => console.error('    ' + c.cat + ' — ' + c.he + ' (' + c.fr + ')'));
+      if (themeless.length > 15) console.error('    … et ' + (themeless.length - 15) + ' autre(s)');
+      console.error('  Chaque entrée des tables Noms/Adjectifs/Verbes doit porter data-theme="…" (voir EXPECTED_THEMES).');
+      process.exit(1);
+    }
+    const badThemes = Object.keys(themes).filter(k => !EXPECTED_THEMES.includes(k));
+    if (badThemes.length){
+      console.error('\n✗ Thème(s) hors taxonomie : ' + badThemes.join(', '));
+      console.error('  (faute de frappe dans un data-theme ? nouveau thème → l\'ajouter à EXPECTED_THEMES ici ET à THEMES dans app.html.)');
+      process.exit(1);
+    }
+    const stray = cards.filter(c => c.theme && !THEMED_CATS.includes(c.cat));
+    if (stray.length){
+      console.error('\n✗ data-theme hors des tables Noms/Adjectifs/Verbes : ' +
+        stray.slice(0, 5).map(c => c.cat + ' — ' + c.he).join(' ; '));
+      console.error('  Les listes ne portent pas de thème (déjà mono-thème par nature).');
+      process.exit(1);
+    }
   }
 
   // Exemples en situation (étape 6 du plan UX) : comptes par section.

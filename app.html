@@ -630,6 +630,22 @@
     </div>
   </details>
 
+  <!-- Chips construites depuis les data-theme du carnet (tables Noms/Adjectifs/Verbes).
+       À l'inverse des catégories et du niveau, ce filtre est OPTIONNEL : aucune
+       puce cochée = tous les thèmes. Dès qu'un thème est coché, les cartes sans
+       thème (les listes : nombres, jours…) sortent du jeu — c'est le sens du choix. -->
+  <details class="adv" id="fold-theme">
+    <summary>
+      <h2 class="adv-lbl" id="h-theme">Thèmes</h2>
+      <span class="adv-sub" id="theme-sub"></span>
+      <span class="adv-chev" aria-hidden="true">&rsaquo;</span>
+    </summary>
+    <div class="adv-body">
+      <div class="chips" id="theme" role="group" aria-labelledby="h-theme" aria-describedby="theme-note"></div>
+      <div class="seg-note" id="theme-note">Optionnel : sans thème coché, tout le vocabulaire est retenu. Cocher un thème restreint la session aux noms, adjectifs et verbes de ce champ ; les listes (nombres, jours, expressions…) restent accessibles par leurs catégories. La révision du jour n'en tient pas compte.</div>
+    </div>
+  </details>
+
   <h2 id="h-mode">Mode</h2>
   <div class="seg" id="mode" role="group" aria-labelledby="h-mode" aria-describedby="mode-note">
     <button class="chip" data-mode="cards" aria-pressed="true">Cartes</button>
@@ -786,7 +802,7 @@ let CARDS = [];
 
 const state = {
   dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards', len:'20',
-  session:'normal', cats:new Set(), niveaux:new Set(),
+  session:'normal', cats:new Set(), niveaux:new Set(), themes:new Set(),
   queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
 };
 
@@ -803,6 +819,29 @@ const NIVEAUX = [
 function nivOfCard(c){ const g=NIVEAUX.find(g=>g.cecrl.includes(c.niveau)); return g ? g.key : null; }
 function nivOk(c){ const k=nivOfCard(c); return !k || state.niveaux.has(k); }
 
+// ================= Thèmes (champ sémantique) =================
+// Le carnet annote les trois tables Noms/Adjectifs/Verbes (data-theme) ; les
+// listes (nombres, jours…) n'en portent pas : déjà mono-thème par nature.
+// Filtre OPTIONNEL, à l'inverse des catégories et du niveau : aucune puce
+// cochée = tous les thèmes, rien n'est bloqué. Dès qu'un thème est coché,
+// une carte sans thème sort du jeu — c'est le sens du choix.
+// ⚠️ Les slugs doivent rester alignés sur EXPECTED_THEMES de build.js.
+const THEMES = [
+  {key:'famille-personnes',   label:'Famille & personnes'},
+  {key:'corps-sante',         label:'Corps & santé'},
+  {key:'nourriture',          label:'Nourriture & repas'},
+  {key:'maison-objets',       label:'Maison & objets'},
+  {key:'ville-transport',     label:'Ville, lieux & transports'},
+  {key:'nature',              label:'Nature & animaux'},
+  {key:'temps-calendrier',    label:'Temps & calendrier'},
+  {key:'travail-etudes',      label:'Travail & études'},
+  {key:'vie-quotidienne',     label:'Vie quotidienne & loisirs'},
+  {key:'communication-pensee',label:'Parler & penser'},
+  {key:'emotions-caractere',  label:'Émotions & caractère'},
+  {key:'abstrait',            label:'Notions abstraites'}
+];
+function themeOk(c){ return state.themes.size===0 || (c.theme && state.themes.has(c.theme)); }
+
 // ================= Préférences de réglage (persistées) =================
 // Les choix du panneau de réglages survivent d'une session à l'autre. Restaurés
 // au boot par applyPrefs(), appelé depuis buildChips() → couvre les deux chemins
@@ -813,7 +852,7 @@ function prefsLoad(){ try{ return JSON.parse(localStorage.getItem(PREFS_KEY))||n
 function savePrefs(){
   try{
     localStorage.setItem(PREFS_KEY, JSON.stringify({
-      cats:[...state.cats], niveaux:[...state.niveaux], mode:state.mode, dir:state.dir,
+      cats:[...state.cats], niveaux:[...state.niveaux], themes:[...state.themes], mode:state.mode, dir:state.dir,
       script:state.script, order:state.order, audio:state.audio, len:state.len
     }));
   }catch(e){}
@@ -832,6 +871,7 @@ function applyPrefs(){
   const p=prefsLoad();
   state.cats.clear();
   state.niveaux.clear();
+  state.themes.clear();
   if(p){
     SEG_KEYS.forEach(k=>{ if(typeof p[k]==='string') state[k]=p[k]; });
     (Array.isArray(p.cats)?p.cats:[]).forEach(cat=>{ if(catCounts[cat]) state.cats.add(cat); });
@@ -839,12 +879,17 @@ function applyPrefs(){
     // `niveaux`) → tout sélectionné, rien ne disparaît pour un profil existant.
     if(Array.isArray(p.niveaux)) p.niveaux.forEach(k=>{ if(nivCounts[k]) state.niveaux.add(k); });
     else Object.keys(nivCounts).forEach(k=>state.niveaux.add(k));
+    // Thèmes : filtre optionnel — champ absent (préférences d'avant) = rien de
+    // coché, c'est-à-dire « tous les thèmes ». Rien ne change pour l'existant.
+    if(Array.isArray(p.themes)) p.themes.forEach(k=>{ if(themeCounts[k]) state.themes.add(k); });
   }
   SEG_KEYS.forEach(reflectSeg);
   catsEl.querySelectorAll('.chip').forEach(b=>
     b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
   nivEl.querySelectorAll('.chip').forEach(b=>
     b.setAttribute('aria-pressed', state.niveaux.has(b.dataset.niv) ? 'true':'false'));
+  themeEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.themes.has(b.dataset.theme) ? 'true':'false'));
   refreshAdvSub();
   refreshFoldSubs();
   applyFoldState();
@@ -1089,8 +1134,10 @@ document.getElementById('search-clear').addEventListener('click', ()=>{
 // ----- build category chips -----
 let catCounts = {};
 let nivCounts = {};
+let themeCounts = {};
 const catsEl = document.getElementById('cats');
 const nivEl = document.getElementById('niv');
+const themeEl = document.getElementById('theme');
 const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Noms',
   'Prépositions','Conjonctions','Mots interrogatifs','Existence','Nombres',
   'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases'];
@@ -1113,6 +1160,7 @@ function buildChips(){
     catsEl.appendChild(b);
   });
   buildNivChips();
+  buildThemeChips();
   applyPrefs();
   srsMigrateIds();   // avant tout lecteur de SRS (révision du jour, maîtrise)
   refreshSrsUi();
@@ -1142,6 +1190,33 @@ function buildNivChips(){
   // Carnet sans aucun data-niveau : c'est le pli entier qui disparaît, titre compris.
   const any = Object.keys(nivCounts).length>0;
   document.getElementById('fold-niv').classList.toggle('hide', !any);
+}
+// Chips « Thèmes » : seuls les thèmes non vides s'affichent, dans l'ordre de
+// THEMES. Un slug du carnet absent de THEMES s'affiche quand même (libellé =
+// slug) : un thème ajouté côté carnet reste filtrable en attendant son libellé.
+function buildThemeChips(){
+  themeCounts = {};
+  CARDS.forEach(c=>{ if(c.theme) themeCounts[c.theme]=(themeCounts[c.theme]||0)+1; });
+  const known = THEMES.filter(t=>themeCounts[t.key]);
+  const unknown = Object.keys(themeCounts).filter(k=>!THEMES.some(t=>t.key===k))
+    .sort().map(k=>({key:k, label:k}));
+  themeEl.innerHTML='';
+  known.concat(unknown).forEach(t=>{
+    const b=document.createElement('button');
+    b.className='chip'; b.setAttribute('aria-pressed','false'); b.dataset.theme=t.key;
+    b.innerHTML=t.label+' <span class="n">'+themeCounts[t.key]+'</span>';
+    b.onclick=()=>{
+      const t0=performance.now();
+      toggle(b); if(b.getAttribute('aria-pressed')==='true') state.themes.add(t.key); else state.themes.delete(t.key);
+      const t1=performance.now(); updateStart();
+      const t2=performance.now(); savePrefs();
+      const t3=performance.now();
+      perfReport('Chip « '+t.label+' »', [['état',t1-t0],['bouton',t2-t1],['sauvegarde',t3-t2]], t0, t3);
+    };
+    themeEl.appendChild(b);
+  });
+  // Carnet sans aucun data-theme : le pli entier disparaît, comme pour le niveau.
+  document.getElementById('fold-theme').classList.toggle('hide', Object.keys(themeCounts).length===0);
 }
 
 function toggle(b){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); }
@@ -1181,6 +1256,11 @@ function refreshFoldSubs(){
   if(ns) ns.textContent = foldSub(state.niveaux,
     NIVEAUX.filter(g=>nivCounts[g.key]),
     'Aucun — à choisir', 'Tous', 'niveaux');
+  // Thèmes : la sélection vide n'est pas un manque, c'est « tout passe ».
+  const ts=document.getElementById('theme-sub');
+  if(ts) ts.textContent = foldSub(state.themes,
+    THEMES.filter(t=>themeCounts[t.key]),
+    'Tous', 'Tous', 'thèmes');
 }
 // Décidé au chargement seulement (et après une remise à zéro, qui repasse par
 // applyPrefs) : un groupe dont la sélection est vide s'ouvre, puisque c'est là que
@@ -1220,7 +1300,7 @@ function updateStart(){
   const noCat = state.cats.size===0;
   // Le filtre niveau n'existe que si le carnet est annoté ; sinon il est inerte.
   const noNiv = Object.keys(nivCounts).length>0 && state.niveaux.size===0;
-  const poolSize = (noCat || noNiv) ? 0 : CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c)).length;
+  const poolSize = (noCat || noNiv) ? 0 : CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c) && themeOk(c)).length;
   const noMatch = !noCat && !noNiv && poolSize===0;
   const empty = noCat || noNiv || noMatch;
   const btn=document.getElementById('start');
@@ -1233,7 +1313,9 @@ function updateStart(){
   if(hint){
     if(noCat) hint.textContent='Choisis au moins une catégorie pour commencer.';
     else if(noNiv) hint.textContent='Choisis au moins un niveau pour commencer.';
-    else if(noMatch) hint.textContent='Aucune carte de ce niveau dans les catégories cochées — élargis l\'un ou l\'autre.';
+    else if(noMatch) hint.textContent = state.themes.size>0
+      ? 'Aucune carte ne croise catégories, niveau et thèmes cochés — élargis l\'un d\'eux.'
+      : 'Aucune carte de ce niveau dans les catégories cochées — élargis l\'un ou l\'autre.';
     hint.classList.toggle('hide', !empty);
   }
 }
@@ -1284,9 +1366,9 @@ function limitPool(pool){
 function start(){
   const t0=performance.now();
   state.session='normal';
-  // Croisement catégories × niveau. La révision du jour (startReview), elle,
-  // ignore le niveau : une carte apprise reste due.
-  const pool = CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c));
+  // Croisement catégories × niveau × thèmes. La révision du jour (startReview),
+  // elle, les ignore : une carte apprise reste due.
+  const pool = CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c) && themeOk(c));
   const deck = limitPool(state.order==='shuffle' ? shuffle(pool.slice()) : pool.slice());
   state.origQueue = deck.slice();
   const t1=performance.now();
@@ -2246,6 +2328,7 @@ function extractCards(doc){
       forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
     if(he){ const card={cat:'Verbes',he,tr:'',fr:'(infinitif) '+fr,forms};
       if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      if(tr.dataset.theme) card.theme=tr.dataset.theme;
       const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
       cards.push(card); }
   });
@@ -2257,6 +2340,7 @@ function extractCards(doc){
       if(fhe) forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
     if(he){ const card={cat:'Adjectifs',he,tr:'',fr, forms};
       if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+      if(tr.dataset.theme) card.theme=tr.dataset.theme;
       const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
       cards.push(card); }
   });
@@ -2269,6 +2353,7 @@ function extractCards(doc){
     if(genre==='m'||genre==='f') card.genre=genre;
     if(plHe && plHe!=='—'){ card.forms=[{he:plHe,tr:plTr,label:'pluriel',he_plain:stripNikud(plHe)}]; }
     if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
+    if(tr.dataset.theme) card.theme=tr.dataset.theme;
     const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
     if(he) cards.push(card);
   });

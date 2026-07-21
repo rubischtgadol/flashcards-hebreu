@@ -12,6 +12,11 @@
  * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
  * rafraîchit tout seul).
  */
+// v19 : le filtre « Thèmes » (12 champs sémantiques, data-theme sur les tables
+// Noms/Adjectifs/Verbes du carnet). Le bump porte le nouvel app.html au premier
+// lancement : c'est une fonctionnalité visible de l'écran de départ, pas un
+// contenu qui se rafraîchit seul.
+//
 // v10 : le dernier lot d'exemples (Prépositions, Adverbes, Mots interrogatifs — 54 mots,
 // 510 → 564). Le contenu se rafraîchit seul en stale-while-revalidate, donc ce bump n'est
 // pas indispensable ; il est délibéré. Ces trois catégories sont celles où l'exemple *est*
@@ -40,7 +45,7 @@
 // Le contenu se rafraîchirait seul, mais deux vocalisations apprises étaient
 // fausses : elles doivent disparaître du téléphone au premier lancement, pas
 // au second.
-const VERSION = 'v18';
+const VERSION = 'v19';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
