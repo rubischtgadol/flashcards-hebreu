@@ -68,7 +68,7 @@ aucune garde de mouvement, là où `app.html` et `index.html` avaient les trois.
 (`.impeccable/critique/2026-07-19T09-57-31Z__vocabulaire-hebreu-html__audit.md`) a traité ce
 décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 
-- **`lang="he"` sur 100 % des nœuds hébreux** (5015 au 2026-07-19 — le compte **se mesure dans le
+- **`lang="he"` sur 100 % des nœuds hébreux** (5234 au 2026-07-21 — le compte **se mesure dans le
   navigateur, il ne se calcule pas** : ajouter une entrée au carnet crée aussi ses `span.cursive`,
   donc un mot ajouté pèse plus d'un nœud). Trois familles à connaître quand on ajoute
   du contenu : les éléments purement hébreux portent l'attribut **directement** dans la source

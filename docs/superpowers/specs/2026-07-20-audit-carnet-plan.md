@@ -5,15 +5,18 @@
 **Origine** : demande de Ruben le 20/07 au soir. Angle retenu : **les trois, en
 séquence** (justesse → pédagogie → présentation), méthode : **fan-out multi-agents**,
 avec un **point d'arrêt entre chaque phase** pour validation.
-**État** : ⛔ **PHASE 2 TERMINÉE (session 6, 21/07) — en attente de validation de
-Ruben avant la phase 3.** Phase 1 validée et corrigée (sessions 4–5, rapport :
+**État** : ⛔ **LES TROIS PHASES SONT EXÉCUTÉES — phase 3 (présentation) rendue en
+session 9 (21/07), en attente des décisions de Ruben sur ses 4 lots de correction.**
+Phase 1 validée et corrigée (sessions 4–5, rapport :
 [`2026-07-20-audit-carnet-rapport-phase1.md`](2026-07-20-audit-carnet-rapport-phase1.md)).
-Phase 2 : cinq analyses rendues, toutes chiffrées — carnet pédagogiquement sain,
-deux trous de vocabulaire nets (santé, sécurité/urgences), proposition +45 mots non
-décidée, 0 violation d'ordre, pas de biais CECRL, 8 résidus de registre. Rapport :
+Phase 2 rendue (session 6) et ses 4 lots exécutés (session 8) — rapport :
 [`2026-07-21-audit-carnet-rapport-phase2.md`](2026-07-21-audit-carnet-rapport-phase2.md).
-Aucune modification du carnet — les lots éventuels et la phase 3 attendent le feu
-vert. Déroulé dans le **« Journal d'exécution — session 6 »** juste avant l'annexe.
+Phase 3 : critique dual-agent **26/40** (1 P0 : les 31 tables s'ouvrent sur leur fin
+en mobile ; 2 P1 : recherche), 0 débordement aux six largeurs, règles nommées au
+vert, sidecar rafraîchi avant l'audit — rapport :
+[`2026-07-21-audit-carnet-rapport-phase3.md`](2026-07-21-audit-carnet-rapport-phase3.md).
+Aucune modification du carnet en phase 3 ; les lots attendent le feu vert. Déroulé
+dans le **« Journal d'exécution — session 9 »** juste avant l'annexe.
 **Review (session 2)** : ✅ faite le 20/07 par Fable 5. Les corrections sont marquées
 **✎R2** dans le corps du texte ; le récapitulatif est dans la section « Révision de la
 session 2 » ci-dessous.
@@ -489,10 +492,12 @@ L'angle le plus abouti : on cherche le reliquat, pas la refonte.
 
 ### Critère d'acceptation — Phase 3
 
-- [ ] Sidecar rafraîchi **avant** l'audit.
-- [ ] 0 débordement horizontal aux six largeurs ; mobile identique au pixel.
-- [ ] Chaque finding rattaché à une règle nommée de DESIGN.md, ou écarté comme
-      préférence personnelle.
+- [x] Sidecar rafraîchi **avant** l'audit (session 9, 21/07 — 11 règles nommées,
+      10 composants).
+- [x] 0 débordement horizontal aux six largeurs (mesuré, session 9) ; « mobile
+      identique au pixel » : reporté au lot de correction (analyse pure).
+- [x] Chaque finding rattaché à une règle nommée de DESIGN.md, ou écarté comme
+      préférence personnelle (voir rapport phase 3 § 3).
 
 ---
 
@@ -740,6 +745,49 @@ ici, le déroulé :
    déclencher la phase 3 (présentation). ⚠️ Si un lot d'ajout est lancé : le
    matériau des 45 mots est **brut, non audité** (deux suspects déjà nommés au
    rapport § 2) — chaque entrée devra repasser par la rigueur de la phase 1.
+
+## Journal d'exécution — session 9 (21/07, Fable 5) : phase 3 terminée, arrêt sur les lots
+
+Déclenchée par Ruben (feu vert explicite, avec le lot santé/sécurité P2+P3 décidé
+pour APRÈS la phase 3, arrêt entre les deux). Analyse pure : aucune modification
+du carnet. Détail au rapport
+([`2026-07-21-audit-carnet-rapport-phase3.md`](2026-07-21-audit-carnet-rapport-phase3.md)) ;
+ici, le déroulé :
+
+1. **Sidecar `.impeccable/design.json` régénéré avant l'audit** (il datait du
+   18/07, DESIGN.md du 20/07) : 16 couleurs, 22 jetons typo, 11 règles nommées,
+   10 composants. Son ancien jeton motion prescrivait `all .13s ease` — le
+   `transition:all` que la charte interdit ; corrigé en propriétés énumérées.
+2. **Critique impeccable dual-agent** (protocole respecté : A et B isolés,
+   parallèles, synthèse au fil principal) : A en WebKit réel (iPhone 16 Pro +
+   1440/1280/992/900/768, 18 captures), B en mesures déterministes (détecteur
+   CLI + overlay + DOM aux 6 configurations). **26/40**, 1 P0 (les 31 tables
+   s'ouvrent sur leur fin en mobile — `direction:rtl` dans un wrap LTR), 2 P1
+   (état « 0 résultat » cassé + `.empty` en CSS mort ; la recherche renvoie des
+   leçons entières sans surlignage des exemples), 2 P2 (6 sections sur 28 hors
+   sommaire dont Phrases ; rangs de table ~274 px de vide), micro-findings de
+   charte (pastilles `.steps` or plein au repos — règle de la lampe).
+   Snapshot : `.impeccable/critique/2026-07-21T09-22-31Z__vocabulaire-hebreu-html.md`.
+3. **Contrôle des règles nommées** : mécanique au fil principal (greps + diff
+   `:root` trois fichiers : identiques au octet), visuel via A (lampe ≤ 1,07 %,
+   vedette tenue, deux colonnes aux 5 largeurs). **Critère de phase atteint :
+   0 débordement horizontal aux six largeurs.**
+4. **Faux positifs consignés** : 123 `low-contrast` (le détecteur ne résout pas
+   le dégradé de fond et calcule contre du blanc), em-dash (règle anglophone),
+   30 `cramped-padding` (conteneurs de défilement), 3 `all-caps-body` (voix
+   Title licenciée).
+5. **Dérives documentaires relevées** : 31 `.table-wrap` (docs : 29 — les tables
+   שֶׁ־ et Santé & urgences des lots 3–4), `lang="he"` 5234 (docs : 5015),
+   8 tables/31 en défilement interne à 768 px. CLAUDE.md recalé sur le compte
+   `lang="he"` ; le reste consigné au rapport § 4.
+6. **Coût publié** : ~201k tokens de sous-agents (A 138,6k + B 62,2k), estimation
+   du plan ~200k tenue. Aucun bump SW, aucun `/graphify --update` (rien de
+   structurel).
+7. ⛔ **Arrêt au point de décision.** En attente de Ruben : statuer sur les
+   4 lots du rapport § 5 (tables mobiles P0+P2 ; recherche P1×2 ; sommaire ;
+   micro-lot charte — coût SRS nul pour les quatre), puis lancer le lot
+   santé/sécurité P2+P3 (28 mots, matériau brut à auditer avant écriture,
+   rigueur phase 1) déjà décidé dans son principe.
 
 ⚠️ **Pourquoi cette annexe existe.** Le corps du plan *décrit* ce que les prompts doivent
 contenir. Cela suffit à un modèle fort, qui comble les trous ; **cela ne suffit pas à un

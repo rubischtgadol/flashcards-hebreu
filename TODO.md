@@ -1,8 +1,29 @@
 # État du projet et travail restant
 
-État au 2026-07-21 (session 8). **Dernier acquis : les 4 lots de la phase 2 de l'audit
-sont exécutés** — décision de Ruben en ouverture de session : les quatre déclenchés, la
-phase 3 (présentation) explicitement PAS encore ouverte. **713 → 729 cartes, 564 → 577
+État au 2026-07-21 (session 9). **Dernier acquis : la phase 3 (présentation) de
+l'audit du carnet est exécutée** — feu vert de Ruben en ouverture de session (avec le
+lot santé/sécurité P2+P3 décidé pour après, arrêt entre les deux). Critique impeccable
+dual-agent du carnet : **26/40**, 1 P0 (les **31 tables s'ouvrent sur leur FIN en
+mobile** — `table{direction:rtl}` dans un wrap LTR, le mot-vedette hors-champ), 2 P1
+(état « 0 résultat » cassé + `.empty` en CSS mort ; la recherche renvoie des leçons
+entières sans surligner les exemples), 2 P2 (6 sections sur 28 hors sommaire dont
+**Phrases** ; rangs de table ~274 px de vide), pastilles `.steps` or plein au repos
+(règle de la lampe). **Critère de phase atteint : 0 débordement horizontal aux six
+largeurs** ; lampe ≤ 1,07 % d'or ; 0 cible tactile < 44 px ; `:root` identique au
+octet dans les trois fichiers ; sidecar `.impeccable/design.json` régénéré AVANT
+l'audit (il prescrivait `transition:all`, contre la charte). 123 `low-contrast` du
+détecteur = faux positifs (fond blanc inventé, il ne résout pas le dégradé). Rapport :
+`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md` ; snapshot :
+`.impeccable/critique/2026-07-21T09-22-31Z__vocabulaire-hebreu-html.md`. **Aucune
+correction écrite — 4 lots possibles (coût SRS nul) en attente des décisions de
+Ruben**, puis lot santé P2+P3. Dérives de compte relevées : 31 `.table-wrap` (docs :
+29), `lang="he"` **5234** (CLAUDE.md/ARCHITECTURE.md recalés). Coût publié : ~201k
+tokens de sous-agents (estimation du plan ~200k tenue). Ni bump SW ni graphe (rien
+de structurel ni de déployé).
+
+**L'acquis précédent : les 4 lots de la phase 2 de l'audit
+sont exécutés** — décision de Ruben en ouverture de session 8 : les quatre déclenchés, la
+phase 3 (présentation) alors PAS encore ouverte. **713 → 729 cartes, 564 → 577
 exemples, SW v15**, quatre commits (un par lot). En une ligne chacun : **niveaux** — 5
 cartes recalées (מענין A1→A2, אמת A2→B1, סקרן/חרוץ/תחת B2→B1), coût SRS nul ;
 **registre** — arbitrage « garder + note » (N = 0 au lieu du N ≤ 3 autorisé) : notes
@@ -203,12 +224,18 @@ que la phase 3, non ouverte :
    ressenti de Ruben à la première ouverture après déploiement. Graphe : édits de
    `<head>` uniquement, aucun nœud/arête du graphe n'en parle — **refresh différé** au
    prochain changement structurel réel (précédent de différé du 21/07).
-2. 🔶 **Audit complet du carnet** — **phases 1 et 2 terminées ET leurs lots exécutés.
-   Les 4 lots du § 8 ont été décidés par Ruben et livrés le 21/07 (session 8) — voir
-   l'en-tête de ce fichier pour le détail et les commits. Il ne reste que la phase 3
-   (présentation), que Ruben a explicitement choisi de NE PAS ouvrir encore (« non,
-   pas encore », 21/07) : elle démarre sur son feu vert, dans une session dédiée.**
+2. 🔶 **Audit complet du carnet — LES TROIS PHASES SONT EXÉCUTÉES.** Phases 1 et 2
+   terminées et leurs lots livrés (sessions 4–8). **Phase 3 (présentation) rendue le
+   21/07 (session 9)** : critique 26/40, 1 P0 + 2 P1 + 2 P2 + micro-charte — voir
+   l'en-tête de ce fichier. **Il reste DEUX décisions de Ruben** : (a) lesquels des
+   **4 lots de correction de présentation** déclencher (rapport phase 3 § 5 : tables
+   mobiles P0+P2 · recherche P1×2 · sommaire · micro-lot charte — coût SRS nul pour
+   les quatre, le carnet-contenu ne bouge pas) ; (b) le **lot santé/sécurité P2+P3**
+   (28 mots, matériau brut NON audité — rigueur phase 1 obligatoire avant écriture),
+   déjà accepté dans son principe le 21/07 (« les deux, dans cet ordre »), à lancer
+   après les lots de présentation.
    Rapports :
+   [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md) (phase 3),
    [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md) (phase 2) et
    [`docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md`](docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md) (phase 1, validée et corrigée en session 5) ;
    plan et journal :
