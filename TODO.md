@@ -277,7 +277,27 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
-**Aucun chantier ouvert.** Dernier lot livré (session 16, 21/07) : **le lot
+**Aucun chantier ouvert.** Dernier acte (session 17, 21/07 au soir) : **recalage
+décidé du graphe** (`/graphify . --update`, demandé explicitement par Ruben —
+jamais un réflexe du rituel). Dix fichiers ré-extraits : `build.js`, `sw.js` et
+les huit documents (le carnet, `app.html`, `flashcards_hebreu.html`, les cinq
+`.md`). **335 → 420 nœuds, 511 → 679 arêtes, 28 communautés**, santé du graphe
+OK (0 arête pendante, orpheline, en boucle ou effondrée). Diff franc — 183
+nœuds neufs, 362 arêtes neuves, 98 nœuds et 194 arêtes remplacés — parce que le
+carnet passe d'une description extérieure à sa vraie structure : ses 35 sections
+`<h2>` avec leur label `span.count` (la clé d'extraction), ses trois blocs
+`:root` ancrés à leur ligne réelle (18 / 43 / 551), les trois tables et leurs
+contrats de colonnes, les 18 `word-list`, les régimes `data-niveau` (A1 350 / A2
+311 / B1 124 / B2 4) et `data-theme` (15 slugs). **La dette des deux lots
+grammaire est soldée** ; CLAUDE.md et ARCHITECTURE.md § graphe portent les
+nouveaux compteurs. Coût mesuré : **396k tokens** (338k in / 58k out), au-dessus
+des ~235k du 20/07 — huit documents changés, dont le carnet. Quatre sous-agents
+en parallèle (docs / `app.html` / standalone / carnet), aucun transcript lu au
+fil principal. Aucun flag « GRAPHE À RECALER » n'était en attente (aucun fichier
+créé/supprimé/renommé depuis le dernier recalage) ; il n'y en a pas non plus
+maintenant.
+
+Acquis précédent (session 16, 21/07) : **le lot
 grammaire n°2 — les cinq manques de la section grammaire comblés, par ordre
 d'importance.** La question de Ruben (« que manque-t-il ? y a-t-il
 l'impératif ? ») a été instruite sur pièces (grep des 53 titres h2/h3 + des
@@ -306,8 +326,8 @@ mécanique : cartes **789 inchangées** (« déjà à jour » au build — les s
 de grammaire restent hors extraction, zéro dérive), `--check` en phase,
 validateur **0 erreur / 7 avertissements** (les 7 préexistants), SW **v22**.
 Graphe : édits internes à un fichier existant → ni recalage ni flag (règle du
-21/07) ; noter que les nœuds TOC/grammaire du graphe prédatent maintenant DEUX
-lots grammaire. Passe WebKit (déléguée, 3 allers-retours, UI touchée : nouveau
+21/07) ; la dette qui en résultait — les nœuds TOC/grammaire prédatant DEUX lots
+grammaire — a été soldée le soir même par le recalage de la session 17. Passe WebKit (déléguée, 3 allers-retours, UI touchée : nouveau
 markup + tableaux) : 35 pilules et ancres OK, 0 erreur console, 245 nœuds
 hébreux des nouvelles sections tous sous `lang="he"`, et les deux tableaux
 d'abord hors gabarit (« Forme » 979 px, « Qui ? » 829 px — cellules françaises

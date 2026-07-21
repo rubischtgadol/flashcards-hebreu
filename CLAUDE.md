@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **The ladder — take the lowest rung that actually proves the answer:**
 
-1. **The graph first** (`graphify explain/query/path`, ~2.3k tokens) for any question of structure, code or flow it covers. The repo carries a knowledge graph of itself in `graphify-out/` (335 nodes, 511 edges, 28 communities — every function of `app.html`, the notebook's markup contract, the design rules, the traps; recalibrated 2026-07-21). Before opening `app.html`, `vocabulaire_hebreu.html` or `flashcards_hebreu.html` to find something:
+1. **The graph first** (`graphify explain/query/path`, ~2.3k tokens) for any question of structure, code or flow it covers. The repo carries a knowledge graph of itself in `graphify-out/` (420 nodes, 679 edges, 28 communities — every function of `app.html`, the notebook's 35 sections and markup contract, the design rules, the traps; recalibrated 2026-07-21, end of day). Before opening `app.html`, `vocabulaire_hebreu.html` or `flashcards_hebreu.html` to find something:
 
    ```bash
    graphify explain "checkAnswer"     # exact source line + every caller/callee, ~15 lines
@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    graphify path "extractCards" "recordResult"    # how two things connect
    ```
 
-   `graphify explain` is why this file carries no `near line NNN` pointers: **line anchors have drifted four times in this repo**; the graph re-derives line numbers mechanically. It is a snapshot, though: **a graph/file disagreement is settled for the file**. Rebuilding is **never automatic** — `/graphify . --update` costs **~235k tokens (measured 2026-07-20)** and runs only on an explicit decision; the ritual's step 5 carries the flag rule (file created/deleted/renamed → flag in TODO.md, nothing more). `graphify-out/GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance). Current debt: the grammar lot of 2026-07-21 (content-only, no refresh) added 3 notebook sections the graph's TOC/grammar-block nodes predate.
+   `graphify explain` is why this file carries no `near line NNN` pointers: **line anchors have drifted four times in this repo**; the graph re-derives line numbers mechanically. It is a snapshot, though: **a graph/file disagreement is settled for the file**. Rebuilding is **never automatic** — `/graphify . --update` costs **~235k tokens (measured 2026-07-20)** and runs only on an explicit decision; the ritual's step 5 carries the flag rule (file created/deleted/renamed → flag in TODO.md, nothing more). `graphify-out/GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance). Current debt: none — the end-of-day refresh of 2026-07-21 cleared the grammar-lot debt (the notebook is re-extracted with its 35 `<h2>` sections). Measured cost of that run: **396k tokens** (338k in / 58k out), above the ~235k of 2026-07-20 because eight documents changed, the notebook among them.
 
 2. **A short grep** (≤ ~15 lines of output) for a point fact the graph doesn't carry — cheaper than an agent round-trip.
 

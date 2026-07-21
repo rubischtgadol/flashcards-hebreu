@@ -410,31 +410,34 @@ répondre à une question coûte des dizaines de milliers de tokens, là où une
 graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
 baisse quand le graphe grossit — `graphify benchmark` le remesure.
 
-**Ce que contient le graphe** — 335 nœuds, 511 arêtes, 28 communautés (état du 2026-07-21
-au matin, **antérieur au lot grammaire du même jour** : les nœuds « Sommaire » et « bloc
-grammaire » du carnet ignorent les 3 sections ajoutées — dette assumée, lot contenu, à
-rattraper au prochain refresh structurel ; après le recalage du ménage de clôture : les 8 documents de chantier supprimés — specs et
-snapshots de critique — ont été élagués, soit 63 nœuds, et les 10 fichiers modifiés depuis
-le 20/07 ré-extraits ; le compte de nœuds retombe à 335 par coïncidence). Le recalage
-précédent (20/07) avait déjà fait **rétrécir délibérément** le graphe (438 → 335) : la passe
-antérieure dupliquait le standalone généré en ~90 nœuds de fonctions identiques à celles
-d'`app.html` ; il est depuis ~5 nœuds d'artefact reliés à ce dont il dérive. Les huit plus
-grosses communautés couvrent l'essentiel des nœuds :
+**Ce que contient le graphe** — 420 nœuds, 679 arêtes, 28 communautés (recalage du
+2026-07-21 en fin de journée : 10 fichiers ré-extraits — les deux scripts `build.js`/`sw.js`
+et les huit documents, dont le carnet, `app.html` et les cinq `.md`). Ce recalage **solde la
+dette du lot grammaire** : le carnet est ré-extrait avec ses 35 sections `<h2>`, ses trois
+blocs `:root` ancrés à leur ligne réelle et ses régimes d'attributs mesurés (`data-niveau`
+A1 350 / A2 311 / B1 124 / B2 4, `data-theme` sur les trois tables, 15 slugs). Le diff est
+franc — 183 nœuds neufs, 362 arêtes neuves, 98 nœuds et 194 arêtes remplacés — parce que la
+passe précédente décrivait le carnet de l'extérieur là où celle-ci en suit la structure. Le
+recalage du 20/07 avait au contraire fait **rétrécir délibérément** le graphe (438 → 335) :
+la passe antérieure dupliquait le standalone généré en ~90 nœuds de fonctions identiques à
+celles d'`app.html` ; il est depuis ~10 nœuds d'artefact reliés à ce dont il dérive. Les
+huit plus grosses communautés couvrent l'essentiel des nœuds :
 
 | Communauté | Contenu |
 | --- | --- |
-| Audit mécanique du carnet | `audit_carnet_mecanique.js` et ses fonctions (drapeaux, distance d'édition, formes attendues) |
-| App : session et préférences | `beginSession`, `applyPrefs`, `buildChips`, `cardId`, `dueCards`, les niveaux CECRL |
-| App : rendu des cartes | `answer`, `doFlip`, `finish`, `fixVerdict`, le clavier hébreu, l'animation de face |
-| Build du standalone | `build.js` et ses fonctions (extraction regex, `EXPECTED_CATS`/`EXPECTED_LEVELS`) |
-| Pièges et outillage | les 14 pièges de CLAUDE.md, la couche PWA, le stale-while-revalidate, l'outillage WebKit/Playwright |
-| Le carnet : contrat de balisage | les trois blocs `:root`, `span.count`, `data-niveau`, `lang="he"`, les scripts inline |
-| Contrat d'extraction et schéma | le couplage des deux extracteurs, le schéma de carte, l'identité vocalisée, le SRS Leitner |
-| Validateur d'exemples | `verifie_exemples.js` et ses fonctions (lexique, les deux gardes) |
+| Mode Cartes et moteur de réponse (62) | `render`, `answer`, `doFlip`, `checkAnswer`, `editDist`, le clavier hébreu, les régions live |
+| `build.js` — chaîne de génération (50) | `build.js` et ses fonctions (extraction regex, `EXPECTED_CATS`/`EXPECTED_THEMES`, `generateStandalone`) |
+| Audit mécanique du carnet (39) | `audit_carnet_mecanique.js` et ses fonctions (drapeaux, distance d'édition, formes attendues) |
+| Carnet : sections et régimes d'attributs (38) | les 35 sections `<h2>`, les trois tables, les 18 `word-list`, `data-niveau`/`data-theme`, le script cursive |
+| Amorçage, filtres et préférences (36) | `init`, `applyPrefs`, `buildChips`, `buildNivChips`/`buildThemeChips`, la barrière `BUILD:ONLINE-ONLY` |
+| Architecture : extraction et contrats (35) | le couplage des deux extracteurs, le schéma de carte, le contrat de balisage, les garde-fous |
+| Doctrine du dépôt et pièges (31) | les 14 pièges de CLAUDE.md, la charte unifiée, la couche PWA, le diagnostic de latence |
+| Révision espacée (Leitner) (24) | `recordResult`, `dueCards`, `cardId`, `masteryStats`, la carte « Révision du jour », la règle de la lampe |
 
-Les vingt restantes sont petites et thématiques : boot et extraction de l'app, réponse et
-QCM, voix et recherche, icônes PWA (192/512/Apple), portail, règles de design nommées,
-typo, les sept principes de PRODUCT.md.
+Les vingt restantes sont petites et thématiques : blocs de grammaire du carnet, extracteurs
+et build autonome, charte/colonne/typo du carnet, icônes PWA (192/512/Apple), portail, voix
+hébraïque, service worker, accessibilité, règles de design nommées, les sept principes de
+PRODUCT.md.
 
 **Comment l'interroger** (depuis la racine du dépôt) :
 
