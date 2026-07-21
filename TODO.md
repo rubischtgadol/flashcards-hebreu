@@ -277,7 +277,47 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
-**Aucun chantier ouvert.** Dernier acte (session 17, 21/07 au soir) : **recalage
+**Aucun chantier ouvert.** Dernier acte (session 18, 21/07) : **la dérive de
+table héritée du lot argent-achats est soldée**. La cible annoncée (« la table
+de sec-verbes ») n'existait pas : `#sec-verbes` est un `<h2>`, et la section
+porte **18 tables**, une par sous-thème. Une seule débordait — « Vie
+quotidienne » à **909,94 px** —, les 17 autres à 894,00. Cause isolée par
+ablation cellule par cellule : la translittération **`mitmake'ach` (105,61 px)**
+de `לְהִתְמַקֵּחַ` (marchander), dans une colonne MS dont les pairs plafonnent à
+86,41 ; `git log -S` la date de `aa231d8`, le lot argent-achats — l'hypothèse
+d'accumulation était juste. Ni l'hébreu ni la cursive n'y étaient pour rien
+(ablation : gain 0,00 ; ils ne *rendent* 105,61 qu'étant `display:block`).
+**Correctif : `לְהִתְמַקֵּחַ` → `לְהַחְלִיף` (échanger)**, `machlif` à
+67,20 px, absent du carnet entier (vérifié — le premier candidat, `לְהַזְמִין`,
+était un doublon dans cette même table). Un mot est sorti du carnet avec sa
+phrase d'exemple : aucune retouche ne pouvait le faire entrer, le standard de
+translittération interdisant de raccourcir `mitmake'ach`. **Trois pistes
+essayées et mesurées avant celle-là, toutes fausses pour la même raison —
+elles traitaient 909,94 comme une propriété de la table alors que c'est une
+somme de min-contents de colonnes ; DESIGN.md §3 les consigne** (relever
+`--colonne-large` : refusé, piège n°4 ; faire revenir la translittération à la
+ligne : inopérant, mot sans espace ; rogner les exemples de la colonne
+Infinitif : pile et non pic, 3 exemples entiers à réécrire pour sauver 1 mot).
+Corrigé au passage : `menatse'ach` → `menatseach` (l'apostrophe de hiatus n'est
+pas au standard — pas d'ayin ni d'alef dans מְנַצֵּחַ ; le carnet écrit déjà
+`poteach`, `lokeach`, `sholeach`, `shokheach`). **Vérifié WebKit, les deux
+côtés** : desktop 1280 — 42 tables, **0 au-dessus de 896** (contre 1), « Vie
+quotidienne » 894,00, hauteur de document identique au centième ; miroir iPhone
+16 Pro (piège n°13) — `scrollWidth` 402 inchangé, mode cartes intact, delta de
+hauteur **−35,94 px imputable à la seule ligne remplacée** (sections antérieures
+identiques au pixel, les trois postérieures décalées de −35,94 et de rien
+d'autre) ; **0 erreur console** sur les 4 chargements. Compteurs de cartes
+inchangés (2499 avant / 2499 après), `verifie_exemples.js` 0 erreur, SW **v23**.
+⚠️ **Le balayage a aussi corrigé une phrase fausse de DESIGN.md §3** (« aucune ne
+dépasse 894px ») : elle décrivait une mesure, pas une garde, et est restée
+fausse pendant tout un lot. La vraie garde est désormais écrite : *une forme
+conjuguée dont la translittération dépasse ~90 px ne tient pas dans une table à
+5 colonnes*. À surveiller aux prochains lots de verbes.
+⚠️ **Point éditorial non tranché par la mesure** : `data-theme="argent-achats"`
+a été conservé tel quel de `marchander` à `échanger`. Défendable (échanger un
+article en magasin), mais c'est un choix de contenu à confirmer.
+
+**Acquis précédent (session 17, 21/07 au soir)** : **recalage
 décidé du graphe** (`/graphify . --update`, demandé explicitement par Ruben —
 jamais un réflexe du rituel). Dix fichiers ré-extraits : `build.js`, `sw.js` et
 les huit documents (le carnet, `app.html`, `flashcards_hebreu.html`, les cinq
@@ -368,12 +408,8 @@ hébreux des nouvelles sections tous sous `lang="he"`, et les deux tableaux
 d'abord hors gabarit (« Forme » 979 px, « Qui ? » 829 px — cellules françaises
 longues sous le `white-space:nowrap` global) ramenés au patron maison (cellules
 courtes, littéralités déplacées en note, pronom-témoin par ligne) : 894/894 à
-1280, 730/730 à 768, alignés sur les tables Personne du passé/futur. ⚠️
-**Dérive PRÉEXISTANTE relevée au passage, à arbitrer** : la table de sec-verbes
-mesure **910 px > 894** (le plafond historique de `--colonne-large` — « aucune
-au-delà de 894 », piège n°4 / DESIGN.md §3), vraisemblablement grossie par les
-lots de vocabulaire récents ; antérieure à ce lot, non traitée ici — raccourcir
-le contenu fautif ou recalibrer le plancher.
+1280, 730/730 à 768, alignés sur les tables Personne du passé/futur. ✅
+**Dérive PRÉEXISTANTE : SOLDÉE (session 18, 21/07).** Voir « Reprendre ici ».
 
 **Acquis précédent (session 15, 21/07) : les 14e et
 15e thèmes « Argent & achats » / « Loisirs & culture » + 32 mots NEUFS.** Deux
