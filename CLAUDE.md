@@ -2,42 +2,41 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Start here: query the graph, don't read the files
+## The token-economy doctrine — STANDING DIRECTIVE: the cheapest channel that proves it
 
-This repo carries a **knowledge graph** of itself in `graphify-out/` (335 nodes, 511 edges, 28 communities — every function of `app.html`, the notebook's markup contract, the design rules, the traps; recalibrated 2026-07-21 after the closing cleanup pruned the deleted chantier documents' 63 nodes — the 2026-07-20 recalage had already stopped duplicating the standalone as ~90 function nodes). It exists so that answering a question costs **~2.3k tokens instead of reading a 2 000-line HTML file** (measured 2026-07-20: 10.5× fewer tokens per question).
+**Permanent instruction from the project owner (stated three times, unified 2026-07-21): every question goes through the cheapest channel that can prove its answer.** Two measured costs drive it. A graph lookup answers a question for **~2.3k tokens instead of reading a 2 000-line HTML file** (measured 2026-07-20: 10.5× fewer tokens per question). And **every turn re-sends the whole accumulated context** — a file read at turn 5 is paid again at turns 6, 7, 8…, quadratic in session length — while a subagent has its own window and returns **only its conclusion**. The graph fights the cost of *one* lookup; delegation fights the cost of the *session*, the bigger bill.
 
-**Before opening `app.html`, `vocabulaire_hebreu.html` or `flashcards_hebreu.html` to find something, ask the graph:**
+**The ladder — take the lowest rung that actually proves the answer:**
 
-```bash
-graphify explain "checkAnswer"     # exact source line + every caller/callee, ~15 lines
-graphify query "comment la révision espacée écrit-elle dans localStorage ?"
-graphify path "extractCards" "recordResult"    # how two things connect
-```
+1. **The graph first** (`graphify explain/query/path`, ~2.3k tokens) for any question of structure, code or flow it covers. The repo carries a knowledge graph of itself in `graphify-out/` (335 nodes, 511 edges, 28 communities — every function of `app.html`, the notebook's markup contract, the design rules, the traps; recalibrated 2026-07-21 after the closing cleanup — the 2026-07-20 recalage had already stopped duplicating the standalone as ~90 function nodes). Before opening `app.html`, `vocabulaire_hebreu.html` or `flashcards_hebreu.html` to find something:
 
-`graphify explain` is the reason this file no longer carries `near line NNN` pointers: **line anchors have drifted four times in this repo**, and all three of this file's were wrong (+11) when they were retired on 2026-07-20. The graph re-derives line numbers mechanically instead. It is not immune to drift either — it is a snapshot — so if a lookup contradicts the file, trust the file and rebuild (`/graphify . --update`).
+   ```bash
+   graphify explain "checkAnswer"     # exact source line + every caller/callee, ~15 lines
+   graphify query "comment la révision espacée écrit-elle dans localStorage ?"
+   graphify path "extractCards" "recordResult"    # how two things connect
+   ```
 
-Read a file in full only when you are about to **edit** it, or when the graph's answer is genuinely insufficient. `GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance).
+   `graphify explain` is why this file carries no `near line NNN` pointers: **line anchors have drifted four times in this repo** (all three of this file's were wrong, +11, when retired on 2026-07-20); the graph re-derives line numbers mechanically. It is a snapshot, though: **a graph/file disagreement is settled for the file**, then rebuild — `/graphify . --update` costs **~235k tokens (measured 2026-07-20), so structural changes only**; ritual step 5 carries the full rule. `GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance).
 
-## Then: the subagent regime — STANDING DIRECTIVE, maximal delegation
+2. **A short grep** (≤ ~15 lines of output) for a point fact the graph doesn't carry — cheaper than an agent round-trip.
 
-**This is a permanent instruction from the project owner (2026-07-21, stated three times): use subagents à fond, without being asked again.** The reason: **every turn re-sends the whole accumulated context**, so a file read at turn 5 is paid again at turns 6, 7, 8… Growth is quadratic in session length. A subagent has its own window and returns **only its conclusion** — the intermediate traffic never enters this one. The graph rule above fights the cost of *one* lookup; this rule fights the cost of the *session*, which is the bigger bill.
+3. **A subagent** as soon as the answer requires volume. **The test is the ratio, not the difficulty: much intermediate output, short verdict → delegate.** Mandatory in this repo: **every WebKit/Playwright run** (dozens of driving round-trips and screenshots — among the most expensive things a context can hold — for a three-line verdict; the single biggest win); **`node build.js` / `verifie_exemples.js` on a batch** (you want the counts and the named errors, not the log); **broad exploration and any bulk file reading** the graph can't answer in one query; **material audits and content drafting on batches** (vocabulary lots, counter-expertise, dry-run validation) — only verdicts and arbitrages surface.
 
-**The test is the ratio, not the difficulty: much intermediate output, short verdict → delegate.** Mandatory delegations in this repo:
+4. **The main thread keeps only**: charter/design judgment (DESIGN.md's named rules), content arbitration, the edits themselves, commits, and the documentation pass. These need the accumulated context and the project's voice — exactly what a subagent doesn't have. Read a file in full only when you are about to **edit** it, or when the graph's answer is genuinely insufficient.
 
-- **Every WebKit/Playwright run.** Dozens of driving round-trips (and screenshots, among the most expensive things a context can hold) for a verdict that fits in three lines. The single biggest win.
-- **`node build.js` / `verifie_exemples.js` on a batch** — you want the counts and the named errors, not the log.
-- **Broad exploration and any bulk file reading** the graph can't answer in one query — sweeping files for a property, extracting verbatim material/templates/line anchors from large files. The main thread never reads a big file it is not about to edit.
-- **Material audits and content drafting on batches** (vocabulary lots, counter-expertise, dry-run validation) — the whole authoring pipeline runs in agents; only verdicts and arbitrages surface.
+**The coupling between rungs 1 and 3 — explicit, both directions:**
 
-**How to run them** (the part that keeps getting re-explained — don't make the owner repeat it):
+- **Subagents inherit this file, so rung 1 binds them too**: an agent must ask the graph before opening a file. And because an agent gets this file but not your conversation, **every scouting prompt must repeat it** — « demande au graphe avant d'ouvrir un fichier » — alongside the numbered criteria.
+- **The reverse routing rule: what the graph already knows never goes to a subagent.** A ~2.3k-token `explain` beats a ~30k-token agent; dispatching an agent to rediscover graph content pays rung-3 prices for a rung-1 question.
+
+**How to run the agents** (the part that keeps getting re-explained — don't make the owner repeat it):
 
 1. **Parallel fan-out when independent** — launch all independent agents in ONE message. A 12-check campaign is 3 agents by theme, not 1 giant or 12 tiny ones.
-2. **Numbered criteria in every prompt**: "count X, name every failure, PASS/FAIL per item, max N lines, no screenshots/HTML in the reply". A subagent inherits this file, not your conversation — state the acceptance bar *in the prompt*. An agent that answers « c'est bon » proved nothing: a muted control always passes green (same lesson as the coverage guard in `build.js`).
+2. **Numbered criteria in every prompt**: "count X, name every failure, PASS/FAIL per item, max N lines, no screenshots/HTML in the reply" — state the acceptance bar *in the prompt*. An agent that answers « c'est bon » proved nothing: a muted control always passes green (same lesson as the coverage guard in `build.js`).
 3. **Reuse a finished agent for follow-ups in its area** (continue it with a new message) instead of spawning a fresh one — its context is already paid for.
 4. **Never read an agent's transcript/output file, a screenshot, or a raw log in the main thread.** If the report is insufficient, send the agent a follow-up question.
-5. **The main thread keeps only**: charter/design judgment (DESIGN.md's named rules), content arbitration, the edits themselves, commits, the documentation pass, and short greps (≤ ~15 lines of output). These need the accumulated context and the project's voice — exactly what a subagent doesn't have.
 
-**One session per chantier**, then `/clear`. Step 5 of the ritual is a commit, which is the clean cut point: the state lives in git and in TODO.md « Reprendre ici », not in the context window.
+**One session per chantier**, then `/clear`. The ritual's commit (step 7) is the clean cut point: the state lives in git and in TODO.md « Reprendre ici », not in the context window.
 
 ## What this is
 

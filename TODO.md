@@ -1,6 +1,22 @@
 # État du projet et travail restant
 
-État au 2026-07-21 (session 11). **Dernier acquis : le graphe de connaissance est
+État au 2026-07-21 (session 11). **Dernier acquis : les deux règles d'économie de
+tokens de CLAUDE.md sont FUSIONNÉES en une doctrine unique — « The token-economy
+doctrine — STANDING DIRECTIVE », l'échelle du canal le moins cher qui prouve.**
+Quatre barreaux : graphe d'abord (~2,3k tokens, 10,5× mesuré) → grep court
+(≤ ~15 lignes) → sous-agent dès que la réponse demande du volume (critères
+chiffrés, fan-out, réutilisation) → fil principal (jugement de charte,
+arbitrages, édits, commits, docs). Nouveau et explicite : le couplage dans les
+deux sens — les sous-agents héritent de CLAUDE.md donc interrogent le graphe eux
+aussi, chaque prompt de repérage le rappelle (« demande au graphe avant d'ouvrir
+un fichier ») ; et ce que le graphe sait déjà ne part jamais en sous-agent (un
+explain à 2,3k bat un agent à 30k). Désaccord graphe/fichier : le fichier fait
+foi + rebuild. Les deux coûts mesurés conservés (10,5× ; --update ~235k,
+structurel seulement), fichier raccourci d'une ligne (fusion, pas empilement),
+pièges et rituel intacts. Mémoire recalée (regime-subagents-maximal.md pointe
+vers la section fusionnée). Édits de prose .md : pas de recalage du graphe.
+
+**L'acquis précédent : le graphe de connaissance est
 RECALÉ après le ménage de clôture — 335 nœuds / 511 arêtes / 28 communautés.**
 Le `--update` a élagué les 63 nœuds des 8 documents de chantier supprimés (specs
 `docs/superpowers/specs/` + snapshots `.impeccable/critique/`) et ré-extrait les
@@ -13,7 +29,7 @@ Vérifié par critères chiffrés : 0 occurrence des chemins supprimés dans
 GRAPH_REPORT.md régénéré). Aucun fichier déployé touché : pas de build, pas de
 bump SW.
 
-**L'acquis précédent : le lot santé/sécurité P2+P3 est
+**Plus tôt (session 10) : le lot santé/sécurité P2+P3 est
 livré — l'audit du carnet est SOLDÉ sur ses trois phases, 729 → 757 cartes,
 577 → 605 exemples, SW v17.** Les 28 mots (17 noms P2 dont טֹפֶס arbitré pour le
 17e tronqué du rapport, 3 adjectifs P2, 6 noms P3, 2 verbes P3) ont suivi la
@@ -240,14 +256,16 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-⚠️ **Régime de travail exigé par Ruben (répété trois fois le 21/07) : sous-agents À
-MORT pour économiser les tokens du fil principal.** Concrètement : la campagne
-WebKit, tout repérage de code (Explore, snippets verbatim), tout build/validation
-sur lot et tout audit de matériau partent en sous-agents — parallèles quand
-indépendants, avec critères CHIFFRÉS dans le prompt (« compte X, nomme chaque
-échec »). Le fil principal ne garde que : jugement de charte, conception et
-application des édits, commits, docs, et les greps à sortie courte. Ne jamais
-lire un gros fichier ni un transcript d'agent au fil principal.
+⚠️ **Régime de travail exigé par Ruben (répété trois fois le 21/07), désormais
+fusionné dans CLAUDE.md § « The token-economy doctrine — STANDING DIRECTIVE » :
+chaque question passe par le canal le moins cher qui la prouve.** L'échelle :
+graphe d'abord (~2,3k tokens) → grep court (≤ ~15 lignes) → sous-agent dès que
+volume (parallèles quand indépendants, critères CHIFFRÉS dans le prompt) → le
+fil principal ne garde que jugement de charte, arbitrages, édits, commits, docs.
+Couplage des deux sens : rappeler « demande au graphe avant d'ouvrir un
+fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent ce
+que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
+au fil principal.
 
 **Aucun chantier ouvert.** Le lot santé/sécurité P2+P3 est livré (session 10) :
 l'audit du carnet est soldé sur ses trois phases, tout est sur `main`, SW v17.
