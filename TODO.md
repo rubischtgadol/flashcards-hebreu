@@ -304,11 +304,14 @@ contrôle WebKit 8/8 PASS (iPhone 16 Pro + desktop 1280/900, 0 débordement,
 pour l'A1–A2) : prépositions fléchies el/mi-/bishvil, suffixes possessifs sur le
 nom (beiti), conjugaison de Nif'al/Hitpa'el.
 
-**Le graphe n'a PAS été recalé** (lot contenu, règle du rituel § 5) : aucune
-fonction ni flux n'a bougé, mais ses compteurs « 28 sections / 12 tables de
-grammaire » et la carte du bloc grammaire (L762–L1300) datent d'avant le lot —
-à rattraper au prochain refresh **structurel**. Dernier recalage : session 11,
-21/07 (335 nœuds / 511 arêtes / 28 communautés).
+**Le graphe n'a PAS été recalé** (lot contenu) : aucune fonction ni flux n'a
+bougé, mais ses compteurs « 28 sections / 12 tables de grammaire » et la carte
+du bloc grammaire datent d'avant le lot. **Aucun flag « GRAPHE À RECALER » n'est
+posé ni requis** : aucun fichier créé/supprimé/renommé (règle du 21/07, rituel
+§ 5 — le flag ne se pose que sur changement du *nombre* de fichiers, et ne
+déclenche jamais la mise à jour). Dérive interne tolérée, tranchée pour le
+fichier au cas par cas. Dernier recalage : session 11, 21/07 (335 nœuds /
+511 arêtes / 28 communautés).
 
 **Les trois confirmations on-device sont ACQUISES (Ruben, 21/07, sur l'iPhone
 après déploiement)** : le P0 des tables (rangs-cartes lisibles, grilles ouvertes
@@ -1666,18 +1669,21 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
    passe toujours au vert, c'est la leçon de la garde de couverture de `build.js`.
    Doctrine complète dans CLAUDE.md § *The token-economy doctrine — STANDING DIRECTIVE*.
 4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
-5. **Recaler le graphe — seulement si le changement est structurel.**
-   `/graphify . --update` coûte **~235 000 tokens** (mesuré le 20/07) : ce n'est pas un
-   réflexe, c'est une décision. Deux natures de changement, deux réponses :
-   - **Structurel** — `app.html`, `build.js`, `verifie_exemples.js`, `sw.js`,
-     `index.html`, ou un fichier ajouté / renommé / supprimé. La carte du graphe est
-     devenue fausse : le recaler, sans quoi CLAUDE.md — dont toute la première section dit
-     « interroge le graphe avant de lire les fichiers » — envoie consulter un instantané
-     périmé. Committer `graphify-out/graph.json` avec le reste.
-   - **Contenu seul** — du vocabulaire ou des exemples dans `vocabulaire_hebreu.html`, et
-     la prose des `.md`. **Le graphe reste juste** : aucune fonction, aucun fichier, aucun
-     flux n'a bougé. Seuls des compteurs changent, et ils vivent dans la doc (étape 6), pas
-     dans le graphe. Sauter le recalage, et le dire dans le message de commit.
+5. **Le graphe ne se recale JAMAIS dans le rituel — au plus il se FLAGGE (règle de
+   Ruben, 21/07).** `/graphify . --update` coûte **~235 000 tokens** (mesuré le 20/07) :
+   le lancer est toujours une décision séparée et explicite. **Le flag ne déclenche pas
+   la mise à jour — rien dans ce rituel ne la déclenche.**
+   - **Un fichier a été créé, supprimé ou renommé** → poser (ou compléter) la ligne de
+     flag dans « Reprendre ici » : `⚠️ GRAPHE À RECALER — <date> : <fichiers>`. Le flag
+     consigne la dette pour que le prochain recalage décidé sache pourquoi il tourne —
+     c'est TOUT ce qu'il fait.
+   - **Tout le reste** — lots de contenu du carnet, prose des `.md`, et même les
+     modifications structurelles *à l'intérieur* de fichiers existants : ni recalage,
+     ni flag. Cette dérive interne est tolérée par construction : `graphify explain`
+     re-dérive les lignes mécaniquement, et un désaccord graphe/fichier se tranche pour
+     le fichier. Le dire dans le message de commit (« graphe laissé tel quel »).
+   - Quand un recalage EST décidé (flag en attente + une session qui a besoin d'une
+     carte juste), solder le flag dans le même commit que `graphify-out/graph.json`.
 
    ⚠️ *Le piège qui a payé cette règle* : le lot de 54 exemples du 20/07 était du contenu
    pur, et le recalage lancé quand même a coûté **~4 fois le travail utile** pour faire

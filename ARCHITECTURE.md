@@ -68,7 +68,7 @@ aucune garde de mouvement, là où `app.html` et `index.html` avaient les trois.
 (snapshot du 19/07, supprimé du dépôt à la clôture — historique git) a traité ce
 décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 
-- **`lang="he"` sur 100 % des nœuds hébreux** (5234 au 2026-07-21 — le compte **se mesure dans le
+- **`lang="he"` sur 100 % des nœuds hébreux** (5649 au 2026-07-21, après le lot grammaire — le compte **se mesure dans le
   navigateur, il ne se calcule pas** : ajouter une entrée au carnet crée aussi ses `span.cursive`,
   donc un mot ajouté pèse plus d'un nœud). Trois familles à connaître quand on ajoute
   du contenu : les éléments purement hébreux portent l'attribut **directement** dans la source
@@ -107,8 +107,9 @@ par inadvertance :
   `max-width` + marges auto** : le padding centre le cadre sans toucher aux marges
   verticales des enfants, dont la fusion règle tout le rythme du document.
   ⚠️ **Les deux valeurs sont mesurées, pas choisies** : `--colonne-large` est un plancher
-  (la table la plus large se pose à 890px ; sous 55,6rem, 7 tables sur 29 gagnent un
-  défilement), et `--colonne` se calibre sur l'avance réelle de la prose (6,63px par
+  (la table la plus large se pose à ~890px, aucune au-delà de 894 ; sous 55,6rem les
+  tables passent en défilement — 7 sur 29 à la calibration du 20/07, 4 sur 36 remesurées
+  après le lot grammaire du 21/07), et `--colonne` se calibre sur l'avance réelle de la prose (6,63px par
   caractère), jamais sur la largeur d'un chiffre (7,87px, soit 19 % de trop).
   ⚠️ **Piège de cascade** : `main > *:not(.table-wrap)` pèse 0,1,1 et fait **plancher de
   spécificité** — tout sélecteur d'élément nu qui voudrait le contredire (`main > h2`,
@@ -375,8 +376,10 @@ répondre à une question coûte des dizaines de milliers de tokens, là où une
 graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
 baisse quand le graphe grossit — `graphify benchmark` le remesure.
 
-**Ce que contient le graphe** — 335 nœuds, 511 arêtes, 28 communautés (état du 2026-07-21,
-après le recalage du ménage de clôture : les 8 documents de chantier supprimés — specs et
+**Ce que contient le graphe** — 335 nœuds, 511 arêtes, 28 communautés (état du 2026-07-21
+au matin, **antérieur au lot grammaire du même jour** : les nœuds « Sommaire » et « bloc
+grammaire » du carnet ignorent les 3 sections ajoutées — dette assumée, lot contenu, à
+rattraper au prochain refresh structurel ; après le recalage du ménage de clôture : les 8 documents de chantier supprimés — specs et
 snapshots de critique — ont été élagués, soit 63 nœuds, et les 10 fichiers modifiés depuis
 le 20/07 ré-extraits ; le compte de nœuds retombe à 335 par coïncidence). Le recalage
 précédent (20/07) avait déjà fait **rétrécir délibérément** le graphe (438 → 335) : la passe
