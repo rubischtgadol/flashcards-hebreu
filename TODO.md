@@ -1,6 +1,25 @@
 # État du projet et travail restant
 
-État au 2026-07-21 (session 10). **Dernier acquis : la campagne WebKit C1–C12 est
+État au 2026-07-21 (session 10). **Dernier acquis : le lot santé/sécurité P2+P3 est
+livré — l'audit du carnet est SOLDÉ sur ses trois phases, 729 → 757 cartes,
+577 → 605 exemples, SW v17.** Les 28 mots (17 noms P2 dont טֹפֶס arbitré pour le
+17e tronqué du rapport, 3 adjectifs P2, 6 noms P3, 2 verbes P3) ont suivi la
+rigueur phase 1 en fan-out : rédaction du matériau (le rapport ne donnait que le
+français), contre-expertise 2 lentilles (justesse : 3 erreurs attrapées — leveitsim,
+גְּרָם, טֹפֶס/אָרוֹךְ alignés sur le carnet ; la suspicion מנוי/מינוי RÉFUTÉE sources
+Académie à l'appui ; usage : registre oral tranché — קוֹלֵגָה, סוֹלְלָה, דֶּלֶק
+« carburant / essence » —, 3 exemples existentiels reformulés, 6/28 « יש ל־ »
+restants), double contrôle à blanc du validateur sur le JSON (a arrêté אָרֹךְ puis
+עַכְשָׁו, graphies défectives hors lexique du carnet, AVANT écriture), coût SRS
+chiffré **N = 0** (28 entrées neuves, 0 doublon). Insertion par script déterministe
+(23 noms sur 7 sous-thèmes, 3 adjectifs, 2 verbes dans « Travail, étude & action »),
+rituel au vert : **757/757** data-niveau (A1 339 / A2 295 / B1 119 / B2 4),
+`--check` en phase, validateur **0 erreur / 605 exemples** — 6 avertissements, tous
+« .tr manuscrit vs he2tr d=2 » (קצת l'existant + 5 nouveaux où le manuscrit est
+meilleur, carnet autoritaire). Graphe : pur contenu, PAS de `--update` (règle du
+20/07). Pas de WebKit : aucun changement d'UI.
+
+**L'acquis précédent : la campagne WebKit C1–C12 est
 AU VERT et les lots de présentation sont sur `main`.** Rejouée en trois sous-agents
 WebKit réels parallèles (~167k tokens, 22 verdicts, **0 échec**) : le P0 est prouvé —
 les 19 tables de vocabulaire en cartes sans défilement (366 px pile), les 12 grilles
@@ -209,13 +228,6 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-**État : la phase 3 (présentation) est CLOSE côté code** — 4 lots appliqués,
-campagne WebKit C1–C12 au vert (session 10, 22 verdicts, 0 échec), branche
-`lots-presentation-phase3` mergée dans `main` et poussée (= déployée sur GitHub
-Pages, SW v16). **Il ne reste que la confirmation on-device du P0 par Ruben** :
-ouvrir une table de vocabulaire sur l'iPhone et vérifier qu'elle s'ouvre sur le
-mot-vedette (plus sur sa fin) et que les rangs en cartes sont lisibles.
-
 ⚠️ **Régime de travail exigé par Ruben (répété trois fois le 21/07) : sous-agents À
 MORT pour économiser les tokens du fil principal.** Concrètement : la campagne
 WebKit, tout repérage de code (Explore, snippets verbatim), tout build/validation
@@ -225,27 +237,25 @@ indépendants, avec critères CHIFFRÉS dans le prompt (« compte X, nomme chaqu
 application des édits, commits, docs, et les greps à sortie courte. Ne jamais
 lire un gros fichier ni un transcript d'agent au fil principal.
 
-**Chantier en cours : le lot santé/sécurité P2+P3** (accepté par Ruben le 21/07,
-« les deux, dans cet ordre ») — 28 mots, matériau brut au rapport phase 2 § 2,
-**NON audité**. Rigueur phase 1 obligatoire, dans cet ordre :
+**Aucun chantier ouvert.** Le lot santé/sécurité P2+P3 est livré (session 10 —
+voir le dernier acquis en tête de fichier) : l'audit du carnet est soldé sur ses
+trois phases, tout est sur `main`, SW v17.
 
-1. **Contre-expertise 2 lentilles AVANT toute écriture** (fan-out) : justesse
-   hébraïque (nikoud, genre, pluriel, translittération au standard) ET
-   usage/naturalité des exemples proposés. Verdict par mot, chiffré.
-2. **Contrôle à blanc du validateur** sur le JSON du lot avant d'écrire dans le
-   carnet : les cinq contrôles de `verifie_exemples.js` rejoués, lexique du carnet
-   compris (précédent : באוטו arrêté avant écriture au lot P1).
-3. **Coût SRS chiffré AVANT** (attendu : N = 0, entrées nouvelles).
-4. Écriture dans le carnet : `data-niveau` sur chaque entrée, exemple pour chaque
-   Nom/Adjectif/Verbe (verbes : phrase au présent), sous-thème « Santé & urgences »
-   existant (créé au lot P1).
-5. Rituel : `node build.js` (729 → N, `--check` en phase), `verifie_exemples.js`
-   0 erreur, **bump SW v16 → v17** (contenu à livrer au prochain lancement), docs,
-   commit en français, push sur `main`. Graphe : pur contenu → PAS de `--update`.
-   Pas de WebKit (aucun changement d'UI) — le rituel mécanique suffit.
+**Il ne reste que des confirmations côté Ruben, sur l'iPhone après déploiement** :
 
-Fan-out multi-agents obligatoire ; le fil principal n'écrit que les verdicts et
-les édits.
+1. Le **P0 des tables** : ouvrir le carnet, vérifier qu'une table de vocabulaire
+   s'affiche en rangs-cartes lisibles (mobile) et qu'une grille de grammaire
+   s'ouvre sur son mot-vedette, plus sur sa fin.
+2. Le **premier affichage** (correctif v14) : plus d'écran blanc à la première
+   ouverture — le ressenti de Ruben est le juge, le diagnostic embarqué ne voit
+   pas cette phase.
+3. Les **28 mots du lot santé** apparaissent dans l'app au prochain lancement
+   (SW v17 ; stale-while-revalidate : second lancement au plus tard).
+
+Prochain chantier éventuel, à la décision de Ruben — rien n'est engagé : les
+signaux éditoriaux en réserve sont documentés (note ktiv malé au rapport phase 1
+§ 5 ; 6 avertissements .tr d=2 légitimes ; variantes orales en notes du lot
+santé : עָמִית, בֶּנְזִין, מְצֻנָּן/נַזֶּלֶת, פְּגִישָׁה candidate écartée du 17e nom).
 
 **La checklist côté Ruben est soldée** (les trois cases restantes fermées le 20/07,
 identifiant de voix archivé compris) et **le bloc « Diagnostic de latence » est gardé**,
@@ -288,9 +298,9 @@ que la phase 3, non ouverte :
    l'en-tête de ce fichier. **Les deux décisions de Ruben sont prises et exécutées ou en cours** :
    (a) les **4 lots de présentation** tous déclenchés (21/07), appliqués, vérifiés
    au vert (campagne C1–C12, session 10) et mergés dans `main` ; (b) le **lot
-   santé/sécurité P2+P3** (28 mots, matériau brut NON audité — rigueur phase 1
-   obligatoire avant écriture), accepté le 21/07 (« les deux, dans cet ordre »),
-   en cours — voir « Reprendre ici ».
+   santé/sécurité P2+P3** (28 mots, rigueur phase 1 appliquée au matériau brut),
+   accepté le 21/07 (« les deux, dans cet ordre ») et **livré en session 10** —
+   757 cartes, 605 exemples, détail au dernier acquis en tête de fichier.
    Rapports :
    [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md) (phase 3),
    [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md) (phase 2) et
