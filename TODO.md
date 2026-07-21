@@ -277,10 +277,38 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
-**Aucun chantier ouvert.** Le lot santé/sécurité P2+P3 est livré (session 10) :
-l'audit du carnet est soldé sur ses trois phases, tout est sur `main`, SW v17.
-**Le graphe de connaissance est recalé (session 11, 21/07 : 335 nœuds / 511
-arêtes / 28 communautés) et la doc est en phase** — plus aucune dette de refresh.
+**Aucun chantier ouvert.** Dernier lot livré (session 12, 21/07) : **le lot
+grammaire**. L'audit de la partie grammaire (14 + 12 critères, mené en
+sous-agent) a révélé 7 manques clairs, tous comblés dans le carnet :
+
+- **3 sections nouvelles** — « La phrase sans verbe » (copule hu/hi, hayah/yihyeh),
+  « La particule d'objet » (règle de את devant COD défini + tableau fléchi
+  oti…otan : le trou n°1, את était employée ~34 fois sans être expliquée nulle
+  part), « La négation » (lo / ein / al + futur).
+- **Compléments dans les sections existantes** — impératif complété (fém./pluriel,
+  futur poli, interdiction), fusion préposition+article (ba- = בְּ+הַ, la- = לְ+הַ,
+  mi- ne fusionne pas), smikhut définie (article sur le 2e mot), double série des
+  nombres 1–10 (fém. = comptage, masc. en -ah), règles de pluriel -im/-ot + duel
+  -ayim (Noms), accord de l'adjectif + comparatif yoter…mi-/hakhi (Adjectifs),
+  syntaxe de la question + ha'im (Mots interrogatifs), règle du démonstratif
+  postposé (Démonstratifs).
+- **Bug factuel corrigé** : la glose du passé décomposait la- (« à la ») en
+  בְּ+הַ au lieu de לְ+הַ.
+
+Sommaire 28 → 31 pilules (groupes 7-8-4-3-5-4). **757 cartes / 605 exemples
+inchangés** : tout est hors extraction (sections de grammaire pure), le
+standalone n'a pas bougé d'un octet. Contre-expertise linguistique en sous-agent
+(nikud PASS intégral ; 2 corrections .tr appliquées : 'ivrit ×2, poteach) et
+contrôle WebKit 8/8 PASS (iPhone 16 Pro + desktop 1280/900, 0 débordement,
+31 pilules, 0 span sans lang="he"). SW **v18**. Restes assumés hors lot (mineurs
+pour l'A1–A2) : prépositions fléchies el/mi-/bishvil, suffixes possessifs sur le
+nom (beiti), conjugaison de Nif'al/Hitpa'el.
+
+**Le graphe n'a PAS été recalé** (lot contenu, règle du rituel § 5) : aucune
+fonction ni flux n'a bougé, mais ses compteurs « 28 sections / 12 tables de
+grammaire » et la carte du bloc grammaire (L762–L1300) datent d'avant le lot —
+à rattraper au prochain refresh **structurel**. Dernier recalage : session 11,
+21/07 (335 nœuds / 511 arêtes / 28 communautés).
 
 **Les trois confirmations on-device sont ACQUISES (Ruben, 21/07, sur l'iPhone
 après déploiement)** : le P0 des tables (rangs-cartes lisibles, grilles ouvertes
