@@ -1,6 +1,22 @@
 # État du projet et travail restant
 
-État au 2026-07-21 (session 7). **Dernier acquis : le premier affichage est instruit et
+État au 2026-07-21 (session 8). **Dernier acquis : les 4 lots de la phase 2 de l'audit
+sont exécutés** — décision de Ruben en ouverture de session : les quatre déclenchés, la
+phase 3 (présentation) explicitement PAS encore ouverte. **713 → 729 cartes, 564 → 577
+exemples, SW v15**, quatre commits (un par lot). En une ligne chacun : **niveaux** — 5
+cartes recalées (מענין A1→A2, אמת A2→B1, סקרן/חרוץ/תחת B2→B1), coût SRS nul ;
+**registre** — arbitrage « garder + note » (N = 0 au lieu du N ≤ 3 autorisé) : notes
+d'oralité sur מִן et מֵאַיִן, la note הַיי posée sous שָׁלוֹם, תַּחַת portait déjà la
+sienne ; **grammaire** — section « Le « que » de subordination » (שֶׁ־) sur le modèle du
+hé directionnel, standalone inchangé au octet, les 4 emplois orphelins soldés ;
+**santé/sécurité P1** — 16 entrées (9 noms dont le nouveau sous-thème « Santé &
+urgences », l'adjectif אבוד, 3 verbes, 3 phrases), le matériau brut vérifié **avant
+écriture** par contre-expertise 2 lentilles (justesse 16/16 OK ; usage 13/16, les 3
+signaux étant mes exemples, réécrits — dont נוהג בְּ+véhicule) puis rattrapage validateur
+(באוטו hors carnet → במכונית). Graphe : pur contenu, refresh sciemment différé
+(précédent du 21/07).
+
+**L'acquis précédent : le premier affichage est instruit et
 corrigé** — la feuille CSS Google Fonts bloquait le premier pixel des trois pages (écran
 blanc, pas même le fond, tant qu'elle n'était pas arrivée) ; ses liens sont passés en
 non-bloquant, SW v14. Chiffres et contrepartie en « Reprendre ici ». L'acquis précédent
@@ -156,8 +172,8 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 identifiant de voix archivé compris) et **le bloc « Diagnostic de latence » est gardé**,
 sur décision de Ruben. Le chantier du lag *à l'usage* est clos par la mesure on-device.
 
-Un chantier corrigé (confirmation au téléphone attendue), un chantier en attente de
-décisions :
+Un chantier corrigé (confirmation au téléphone attendue), un chantier dont il ne reste
+que la phase 3, non ouverte :
 
 1. ✅ **Le premier affichage** — signalé par Ruben le 20/07, **instruit puis corrigé le
    21/07 (session 7)**. Le suspect n°1 était le bon, et pire que prévu : la feuille CSS
@@ -187,10 +203,12 @@ décisions :
    ressenti de Ruben à la première ouverture après déploiement. Graphe : édits de
    `<head>` uniquement, aucun nœud/arête du graphe n'en parle — **refresh différé** au
    prochain changement structurel réel (précédent de différé du 21/07).
-2. 🔶 **Audit complet du carnet** — **phase 2 (pédagogie) terminée le 21/07
-   (session 6), analyse pure, carnet inchangé. En attente de Ruben : statuer sur
-   les 4 lots possibles du rapport de phase 2 (§ 8) et donner le feu vert de la
-   phase 3 (présentation).** Rapports :
+2. 🔶 **Audit complet du carnet** — **phases 1 et 2 terminées ET leurs lots exécutés.
+   Les 4 lots du § 8 ont été décidés par Ruben et livrés le 21/07 (session 8) — voir
+   l'en-tête de ce fichier pour le détail et les commits. Il ne reste que la phase 3
+   (présentation), que Ruben a explicitement choisi de NE PAS ouvrir encore (« non,
+   pas encore », 21/07) : elle démarre sur son feu vert, dans une session dédiée.**
+   Rapports :
    [`docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md`](docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase2.md) (phase 2) et
    [`docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md`](docs/superpowers/specs/2026-07-20-audit-carnet-rapport-phase1.md) (phase 1, validée et corrigée en session 5) ;
    plan et journal :
@@ -246,7 +264,9 @@ décisions :
    possibles** (micro-lot niveaux ~5 cartes à coût SRS nul ; micro-lot registre
    3 entrées + note הַיי, coût SRS N ≤ 3 ; note de grammaire שֶׁ־ ; lot d'ajout
    santé/sécurité en commençant par la priorité 1 seule, 17 mots) sont détaillés
-   au § 8 du rapport — **aucun n'est décidé**.
+   au § 8 du rapport — **tous quatre décidés par Ruben et exécutés en session 8
+   (21/07)**, avec un coût SRS final de **zéro** (l'arbitrage registre « garder +
+   note » a évité les remplacements de `he`).
 
    ⚠️ **Trois sessions distinctes, décidées par Ruben** : (1) l'écriture du plan — faite
    le 20/07 ; (2) la **review complète du plan par Fable 5** — **faite le 20/07**, ses
