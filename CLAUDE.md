@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Start here: query the graph, don't read the files
 
-This repo carries a **knowledge graph** of itself in `graphify-out/` (335 nodes, 505 edges, 23 communities — every function of `app.html`, the notebook's markup contract, the design rules, the critique history; recalibrated 2026-07-20 after the latency-diagnostic chantier, when the standalone stopped being duplicated as ~90 function nodes). It exists so that answering a question costs **~2.3k tokens instead of reading a 2 000-line HTML file** (measured 2026-07-20: 10.5× fewer tokens per question).
+This repo carries a **knowledge graph** of itself in `graphify-out/` (335 nodes, 511 edges, 28 communities — every function of `app.html`, the notebook's markup contract, the design rules, the traps; recalibrated 2026-07-21 after the closing cleanup pruned the deleted chantier documents' 63 nodes — the 2026-07-20 recalage had already stopped duplicating the standalone as ~90 function nodes). It exists so that answering a question costs **~2.3k tokens instead of reading a 2 000-line HTML file** (measured 2026-07-20: 10.5× fewer tokens per question).
 
 **Before opening `app.html`, `vocabulaire_hebreu.html` or `flashcards_hebreu.html` to find something, ask the graph:**
 

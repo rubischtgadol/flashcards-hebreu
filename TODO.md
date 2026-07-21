@@ -1,6 +1,19 @@
 # État du projet et travail restant
 
-État au 2026-07-21 (session 10). **Dernier acquis : le lot santé/sécurité P2+P3 est
+État au 2026-07-21 (session 11). **Dernier acquis : le graphe de connaissance est
+RECALÉ après le ménage de clôture — 335 nœuds / 511 arêtes / 28 communautés.**
+Le `--update` a élagué les 63 nœuds des 8 documents de chantier supprimés (specs
+`docs/superpowers/specs/` + snapshots `.impeccable/critique/`) et ré-extrait les
+10 fichiers modifiés depuis le 20/07 (4 sous-agents parallèles, ~391k tokens,
+santé du graphe : 0 arête pendante). La garde anti-rétrécissement (418 → 335) a
+été forcée après vérification : le rétrécissement est le ménage lui-même.
+Vérifié par critères chiffrés : 0 occurrence des chemins supprimés dans
+`graph.json`, `extractCards` (build.js L156, 15 connexions) et `checkAnswer`
+(app.html L1885, 9 connexions) répondent. Doc recalée (CLAUDE.md, ARCHITECTURE.md,
+GRAPH_REPORT.md régénéré). Aucun fichier déployé touché : pas de build, pas de
+bump SW.
+
+**L'acquis précédent : le lot santé/sécurité P2+P3 est
 livré — l'audit du carnet est SOLDÉ sur ses trois phases, 729 → 757 cartes,
 577 → 605 exemples, SW v17.** Les 28 mots (17 noms P2 dont טֹפֶס arbitré pour le
 17e tronqué du rapport, 3 adjectifs P2, 6 noms P3, 2 verbes P3) ont suivi la
@@ -19,7 +32,7 @@ rituel au vert : **757/757** data-niveau (A1 339 / A2 295 / B1 119 / B2 4),
 meilleur, carnet autoritaire). Graphe : pur contenu, PAS de `--update` (règle du
 20/07). Pas de WebKit : aucun changement d'UI.
 
-**L'acquis précédent : la campagne WebKit C1–C12 est
+**Plus tôt (session 9) : la campagne WebKit C1–C12 est
 AU VERT et les lots de présentation sont sur `main`.** Rejouée en trois sous-agents
 WebKit réels parallèles (~167k tokens, 22 verdicts, **0 échec**) : le P0 est prouvé —
 les 19 tables de vocabulaire en cartes sans défilement (366 px pile), les 12 grilles
@@ -236,9 +249,10 @@ indépendants, avec critères CHIFFRÉS dans le prompt (« compte X, nomme chaqu
 application des édits, commits, docs, et les greps à sortie courte. Ne jamais
 lire un gros fichier ni un transcript d'agent au fil principal.
 
-**Aucun chantier ouvert.** Le lot santé/sécurité P2+P3 est livré (session 10 —
-voir le dernier acquis en tête de fichier) : l'audit du carnet est soldé sur ses
-trois phases, tout est sur `main`, SW v17.
+**Aucun chantier ouvert.** Le lot santé/sécurité P2+P3 est livré (session 10) :
+l'audit du carnet est soldé sur ses trois phases, tout est sur `main`, SW v17.
+**Le graphe de connaissance est recalé (session 11, 21/07 : 335 nœuds / 511
+arêtes / 28 communautés) et la doc est en phase** — plus aucune dette de refresh.
 
 **Les trois confirmations on-device sont ACQUISES (Ruben, 21/07, sur l'iPhone
 après déploiement)** : le P0 des tables (rangs-cartes lisibles, grilles ouvertes

@@ -375,26 +375,29 @@ répondre à une question coûte des dizaines de milliers de tokens, là où une
 graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
 baisse quand le graphe grossit — `graphify benchmark` le remesure.
 
-**Ce que contient le graphe** — 335 nœuds, 505 arêtes, 23 communautés (état du 2026-07-20
-au soir, après le recalage du chantier lag). Le graphe a **rétréci délibérément** à ce
-recalage (438 → 335) : la passe précédente dupliquait le standalone généré en ~90 nœuds de
-fonctions identiques à celles d'`app.html` ; il est désormais 6 nœuds d'artefact reliés à
-ce dont il dérive. Les huit plus grosses communautés couvrent l'essentiel des nœuds :
+**Ce que contient le graphe** — 335 nœuds, 511 arêtes, 28 communautés (état du 2026-07-21,
+après le recalage du ménage de clôture : les 8 documents de chantier supprimés — specs et
+snapshots de critique — ont été élagués, soit 63 nœuds, et les 10 fichiers modifiés depuis
+le 20/07 ré-extraits ; le compte de nœuds retombe à 335 par coïncidence). Le recalage
+précédent (20/07) avait déjà fait **rétrécir délibérément** le graphe (438 → 335) : la passe
+antérieure dupliquait le standalone généré en ~90 nœuds de fonctions identiques à celles
+d'`app.html` ; il est depuis ~5 nœuds d'artefact reliés à ce dont il dérive. Les huit plus
+grosses communautés couvrent l'essentiel des nœuds :
 
 | Communauté | Contenu |
 | --- | --- |
-| Modes d'étude et rendu des cartes | `checkAnswer`, `render`, `doFlip`, `he2tr`, `editDist`, les trois zones de réponse |
-| Écran de départ, préférences et session | `buildChips`, `applyPrefs`, `updateStart`, `sessRestore`, `cardId`, le diagnostic de latence (`perfReport`) |
-| Le carnet : sections et contrat de balisage | les 27 sections, les trois blocs `:root`, le contrat d'extraction, les scripts inline |
-| Critique impeccable du portail (18/07) | l'historique daté des audits `.impeccable/critique/` (snapshots supprimés du dépôt le 21/07 — historique git) |
-| Architecture : SRS, identité et extraction | l'identité vocalisée `cat\|he`, `srsMigrateIds`, les collisions d'homographes, les deux extracteurs |
-| Voix, icônes et charte partagée | `loadVoices`/`voiceURI`, les icônes PWA, les jetons partagés |
-| build.js : l'extracteur regex | `build.js` et ses fonctions (extraction AST + sémantique) |
-| Dossier lag iPhone et diagnostic | les 4 hypothèses et leurs réfutations, la grille attente/travail/affichage, les pistes restantes |
+| Audit mécanique du carnet | `audit_carnet_mecanique.js` et ses fonctions (drapeaux, distance d'édition, formes attendues) |
+| App : session et préférences | `beginSession`, `applyPrefs`, `buildChips`, `cardId`, `dueCards`, les niveaux CECRL |
+| App : rendu des cartes | `answer`, `doFlip`, `finish`, `fixVerdict`, le clavier hébreu, l'animation de face |
+| Build du standalone | `build.js` et ses fonctions (extraction regex, `EXPECTED_CATS`/`EXPECTED_LEVELS`) |
+| Pièges et outillage | les 14 pièges de CLAUDE.md, la couche PWA, le stale-while-revalidate, l'outillage WebKit/Playwright |
+| Le carnet : contrat de balisage | les trois blocs `:root`, `span.count`, `data-niveau`, `lang="he"`, les scripts inline |
+| Contrat d'extraction et schéma | le couplage des deux extracteurs, le schéma de carte, l'identité vocalisée, le SRS Leitner |
+| Validateur d'exemples | `verifie_exemples.js` et ses fonctions (lexique, les deux gardes) |
 
-Les quinze restantes sont petites et thématiques : validation des exemples, service worker,
-icône 512, les sept principes de PRODUCT.md et quatre règles du carnet (anneau de focus,
-lien vers l'app, micro-titres, charte `:root`).
+Les vingt restantes sont petites et thématiques : boot et extraction de l'app, réponse et
+QCM, voix et recherche, icônes PWA (192/512/Apple), portail, règles de design nommées,
+typo, les sept principes de PRODUCT.md.
 
 **Comment l'interroger** (depuis la racine du dépôt) :
 
@@ -426,8 +429,10 @@ piste d'audit : god nodes, ponts entre communautés, provenance EXTRACTED/INFERR
 ces derniers contiennent des chemins absolus de la machine de développement, contraires à la
 décision d'anonymisation du dépôt.
 
-**Deux limites connues**, mesurées à la construction du 20/07 — les deux découlent du même
-mécanisme : l'extraction est découpée en lots confiés à des agents parallèles, qui ne voient
+**Deux limites connues**, mesurées à la construction du 20/07 et toujours valables (le
+mécanisme n'a pas changé au recalage du 21/07, dont le diagnostic post-fusion affiche 0 arête
+pendante — les arêtes perdues le sont *avant* `graph.json`) : les deux découlent du même
+principe, l'extraction est découpée en lots confiés à des agents parallèles, qui ne voient
 pas les identifiants forgés par les autres.
 
 - **Dérive d'identifiants entre lots** : environ 26 arêtes visent un nœud qui n'existe pas,
