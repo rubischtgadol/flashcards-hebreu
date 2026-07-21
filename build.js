@@ -403,6 +403,15 @@ function generateStandalone(cards){
     '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node build.js` depuis app.html + vocabulaire_hebreu.html — ne pas éditer à la main. -->',
     'doctype');
 
+  // La couche PWA n'a aucun sens hors ligne : on n'installe pas une application depuis un
+  // file://, et ces deux liens y étaient déjà morts avant la CSP. Celle-ci n'a fait que les
+  // rendre visibles : en file:// l'origine est opaque, donc 'self' ne matche plus rien et le
+  // navigateur les refuse bruyamment. On retire la cause plutôt que d'assouplir la règle.
+  out = mustReplace(out, '<link rel="manifest" href="manifest.webmanifest">\n',
+    '', 'link rel=manifest');
+  out = mustReplace(out, '<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">\n',
+    '', 'link rel=apple-touch-icon');
+
   // Version autonome : pas de chargement réseau → pas de loader, panneau visible d\'emblée.
   out = mustReplace(out,
     '<div id="loader" class="loader"><div class="spin"></div><p id="loader-msg" role="status">Chargement du vocabulaire…</p></div>\n',
@@ -428,6 +437,15 @@ function generateStandalone(cards){
   ['fetch(', 'DOMParser', 'extractCards'].forEach(tok => {
     if (out.includes(tok)){
       console.error('✗ Le fichier généré contient encore « ' + tok + ' » — marqueurs BUILD:ONLINE-ONLY déplacés ?');
+      process.exit(1);
+    }
+  });
+
+  // Même garde pour la couche PWA : une ressource locale qui repasserait dans le fichier
+  // autonome serait bloquée par la CSP en file:// (origine opaque), sans bruit côté build.
+  ['manifest.webmanifest', 'apple-touch-icon'].forEach(tok => {
+    if (out.includes(tok)){
+      console.error('✗ Le fichier généré contient encore « ' + tok + ' » — couche PWA non retirée ?');
       process.exit(1);
     }
   });

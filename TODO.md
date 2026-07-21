@@ -299,12 +299,34 @@ relecture fraîche de l'API et non par l'écho de la requête qui les a posés :
    **Preuve : WebKit iPhone 16 Pro, 5/5 PASS, 0 violation**, avec contrôle
    négatif (page témoin `img-src 'none'` → 2 violations capturées, donc le
    détecteur n'était pas muet). SW bumpé **v23 → v24**.
-   Reste non prouvé : le standalone en `file://`, où `'self'` ne matche pas —
-   il y perd manifest et apple-touch-icon (sans effet hors HTTP), le lien vers
-   le carnet reste bon (la navigation n'est pas régie par la CSP).
+   **Le standalone en `file://` est soldé** (même session) : en origine opaque
+   `'self'` ne matche rien, donc `manifest.webmanifest` et l'apple-touch-icon y
+   étaient refusés. Plutôt qu'assouplir la règle, **`build.js` retire ces deux
+   `<link>` du fichier autonome** — ils y étaient morts bien avant la CSP (on
+   n'installe pas une PWA depuis un `file://`), celle-ci n'a fait que les rendre
+   visibles. Deux `mustReplace` (donc échec bruyant si l'ancre bouge dans
+   `app.html`) + un garde-fou sur les jetons `manifest.webmanifest` /
+   `apple-touch-icon`, dont la capacité à échouer a été vérifiée par contrôle
+   négatif. **WebKit en `file://` : 6/6 PASS, 0 violation**, 789 cartes, session
+   jouée, fond réellement peint `rgb(20,26,35)` — plus un contrôle négatif en
+   origine opaque (2 violations capturées). `sw.js` n'est pas concerné : il
+   annonce lui-même ne pas servir `flashcards_hebreu.html`, donc **pas de bump**.
+   Seul reliquat, sain : le lien vers le carnet, la navigation n'étant pas
+   régie par la CSP.
 3. **Branch protection sur `main`** : force-push et suppression bloqués,
    **sans** review exigée ni `enforce_admins` — le commit direct sur `main` du
    rituel reste possible, c'est un filet anti-erreur, pas un processus.
+
+⚠️ **Faux positif de portée, à ne pas « corriger » en le revoyant.** Le hook
+impeccable signale des `font-size` littérales dans `index.html` (2.1rem,
+1.05rem…) au nom de la rampe de type. Or DESIGN.md §3 borne explicitement cette
+rampe au **carnet** (« second bloc `:root`, **local au fichier** ») : vérifié,
+`index.html` et `app.html` ne définissent **aucun** `--pas-*`, et le portail
+compte 12 tailles littérales distinctes, pas 2. Ce qui est partagé entre les
+trois fichiers est le *premier* bloc `:root` — les jetons de couleur —, pas la
+rampe. Étendre la rampe au portail et à l'app serait une **décision de charte**
+avec mesures avant/après (les tailles d'`app.html` sont accordées à leur rendu
+réel, cf. piège n°3), pas un correctif à la volée.
 
 Écartés sciemment, et pourquoi : **Dependabot** (zéro dépendance, rien à
 scanner), **Scorecard**/**Allstar** (notent des dépendances consommées par des
