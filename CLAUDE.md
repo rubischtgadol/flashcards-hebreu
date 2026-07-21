@@ -18,19 +18,24 @@ graphify path "extractCards" "recordResult"    # how two things connect
 
 Read a file in full only when you are about to **edit** it, or when the graph's answer is genuinely insufficient. `GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance).
 
-## Then: delegate to a subagent anything that would flood this window
+## Then: the subagent regime — STANDING DIRECTIVE, maximal delegation
 
-The graph rule above fights the cost of *one* lookup. This rule fights the cost of a *long session*, which is the bigger bill: **every turn re-sends the whole accumulated context**, so a file read at turn 5 is paid again at turns 6, 7, 8… Growth is quadratic in session length, not linear. A subagent has its own window and returns **only its conclusion** — the intermediate traffic never enters this one.
+**This is a permanent instruction from the project owner (2026-07-21, stated three times): use subagents à fond, without being asked again.** The reason: **every turn re-sends the whole accumulated context**, so a file read at turn 5 is paid again at turns 6, 7, 8… Growth is quadratic in session length. A subagent has its own window and returns **only its conclusion** — the intermediate traffic never enters this one. The graph rule above fights the cost of *one* lookup; this rule fights the cost of the *session*, which is the bigger bill.
 
-**The test is the ratio, not the difficulty: much intermediate output, short verdict → delegate.** In this repo that means:
+**The test is the ratio, not the difficulty: much intermediate output, short verdict → delegate.** Mandatory delegations in this repo:
 
-- **Every WebKit/Playwright run.** Dozens of driving round-trips (and screenshots, which are among the most expensive things you can put in a context) for a verdict that fits in three lines. This is the single biggest win, and the reason the rule exists.
-- **`node build.js` / `verifie_exemples.js` on a large batch**, when you want the counts and the errors, not the log.
-- **Broad exploration** the graph can't answer in one query — sweeping several files for a property, checking a rule holds everywhere.
+- **Every WebKit/Playwright run.** Dozens of driving round-trips (and screenshots, among the most expensive things a context can hold) for a verdict that fits in three lines. The single biggest win.
+- **`node build.js` / `verifie_exemples.js` on a batch** — you want the counts and the named errors, not the log.
+- **Broad exploration and any bulk file reading** the graph can't answer in one query — sweeping files for a property, extracting verbatim material/templates/line anchors from large files. The main thread never reads a big file it is not about to edit.
+- **Material audits and content drafting on batches** (vocabulary lots, counter-expertise, dry-run validation) — the whole authoring pipeline runs in agents; only verdicts and arbitrages surface.
 
-**Keep in the main thread**: edits, design and charter judgment (DESIGN.md's named rules), content arbitration, and the documentation pass of the ritual. These need the accumulated context and the project's voice — that is exactly what a subagent doesn't have.
+**How to run them** (the part that keeps getting re-explained — don't make the owner repeat it):
 
-⚠️ **A subagent inherits this file, not your conversation.** So state the acceptance criterion *in the prompt*, in numbers: "report the count of X and every failure by name", never "check it looks right". A subagent that answers « c'est bon » has cost you its whole window and proved nothing — a muted control always passes green (same lesson as the coverage guard in `build.js`).
+1. **Parallel fan-out when independent** — launch all independent agents in ONE message. A 12-check campaign is 3 agents by theme, not 1 giant or 12 tiny ones.
+2. **Numbered criteria in every prompt**: "count X, name every failure, PASS/FAIL per item, max N lines, no screenshots/HTML in the reply". A subagent inherits this file, not your conversation — state the acceptance bar *in the prompt*. An agent that answers « c'est bon » proved nothing: a muted control always passes green (same lesson as the coverage guard in `build.js`).
+3. **Reuse a finished agent for follow-ups in its area** (continue it with a new message) instead of spawning a fresh one — its context is already paid for.
+4. **Never read an agent's transcript/output file, a screenshot, or a raw log in the main thread.** If the report is insufficient, send the agent a follow-up question.
+5. **The main thread keeps only**: charter/design judgment (DESIGN.md's named rules), content arbitration, the edits themselves, commits, the documentation pass, and short greps (≤ ~15 lines of output). These need the accumulated context and the project's voice — exactly what a subagent doesn't have.
 
 **One session per chantier**, then `/clear`. Step 5 of the ritual is a commit, which is the clean cut point: the state lives in git and in TODO.md « Reprendre ici », not in the context window.
 
