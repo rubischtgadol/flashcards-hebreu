@@ -277,9 +277,31 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
-**Aucun chantier ouvert.** Dernier lot livré (session 12, 21/07) : **le lot
-grammaire**. L'audit de la partie grammaire (14 + 12 critères, mené en
-sous-agent) a révélé 7 manques clairs, tous comblés dans le carnet :
+**Aucun chantier ouvert.** Dernier lot livré (session 13, 21/07) : **le filtre
+« Thèmes »** — choisir le vocabulaire par champ sémantique dans l'appli
+(demande de Ruben du 21/07, design validé par lui en 3 réponses : les 3 tables,
+~10-12 thèmes larges, filtre combiné ET).
+
+- **Carnet** : `data-theme` sur les 541 `<tr>` des tables Noms/Adjectifs/Verbes
+  (injection scriptée, vérifiée par le vrai extracteur), 12 thèmes — taxonomie
+  et distribution dans ARCHITECTURE.md § 4.1. Classification par sous-agent,
+  arbitrages assumés consignés (couleurs → abstrait, vêtements →
+  vie-quotidienne…). Les listes n'en portent pas : mono-thème par nature.
+- **Extracteurs** : `theme?` dans le schéma de carte (les deux côtés, même
+  position — `--check` OK), garde-fous build.js sur le modèle des niveaux :
+  couverture 541/541, slug hors `EXPECTED_THEMES` refusé, `data-theme` sur une
+  liste refusé. ⚠️ `EXPECTED_THEMES` (build.js) et `THEMES` (app.html) doivent
+  rester alignés — **tout ajout futur au carnet doit porter les mêmes
+  conventions, le build échoue sinon (consigne de Ruben, 21/07)**.
+- **Appli** : pli « Thèmes » sous « Niveau » (`buildThemeChips`), filtre
+  OPTIONNEL — rien de coché = « Tous », rien n'est bloqué ; coché = croisement
+  thème × catégorie × niveau, les cartes sans thème sortent. Persisté dans
+  `prefs_v1` (rétro-compatible : champ absent = rien de coché). La révision du
+  jour l'ignore, comme le niveau. SW **v19**.
+
+**Acquis précédent (session 12, 21/07) : le lot grammaire.** L'audit de la
+partie grammaire (14 + 12 critères, mené en sous-agent) a révélé 7 manques
+clairs, tous comblés dans le carnet :
 
 - **3 sections nouvelles** — « La phrase sans verbe » (copule hu/hi, hayah/yihyeh),
   « La particule d'objet » (règle de את devant COD défini + tableau fléchi
@@ -304,9 +326,12 @@ contrôle WebKit 8/8 PASS (iPhone 16 Pro + desktop 1280/900, 0 débordement,
 pour l'A1–A2) : prépositions fléchies el/mi-/bishvil, suffixes possessifs sur le
 nom (beiti), conjugaison de Nif'al/Hitpa'el.
 
-**Le graphe n'a PAS été recalé** (lot contenu) : aucune fonction ni flux n'a
-bougé, mais ses compteurs « 28 sections / 12 tables de grammaire » et la carte
-du bloc grammaire datent d'avant le lot. **Aucun flag « GRAPHE À RECALER » n'est
+**Le graphe n'a PAS été recalé.** Dérive interne cumulée : les compteurs et la
+carte du bloc grammaire datent d'avant le lot grammaire (session 12), et le
+filtre « Thèmes » (session 13) a ajouté à app.html des fonctions que le graphe
+ignore (`buildThemeChips`, `themeOk`, la constante `THEMES`) et décalé des
+lignes — `graphify explain` re-dérive les lignes mécaniquement, le
+graphe/fichier se tranche pour le fichier. **Aucun flag « GRAPHE À RECALER » n'est
 posé ni requis** : aucun fichier créé/supprimé/renommé (règle du 21/07, rituel
 § 5 — le flag ne se pose que sur changement du *nombre* de fichiers, et ne
 déclenche jamais la mise à jour). Dérive interne tolérée, tranchée pour le

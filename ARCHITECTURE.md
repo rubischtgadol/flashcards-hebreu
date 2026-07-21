@@ -168,6 +168,7 @@ Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr
 - `data-fr-court` — français court affiché sur la carte à la place du `.fr` long du carnet ;
 - `data-note` — précision affichée sous la réponse ;
 - `data-niveau` — niveau CECRL fin (`A1`…`C2`) du mot, porté aussi par les `<tr>` des trois tables (voir § 4). Attribut **optionnel** : un mot sans niveau reste visible quel que soit le filtre de l'app — le carnet peut s'annoter progressivement sans jamais perdre une carte.
+- `data-theme` — champ sémantique du mot (voir § 4.1), porté **uniquement par les `<tr>` des trois tables** Noms/Adjectifs/Verbes, où il est **obligatoire** (garde de couverture dans `build.js`). Les listes n'en portent pas — déjà mono-thème par nature — et `build.js` refuse un `data-theme` posé hors des tables.
 
 Un mot peut aussi porter des **exemples en situation** (voir § 5) : une sous-liste `<ul class="exemples"><li>` — chaque `<li>` avec les spans `.he`/`.tr`/`.fr` habituels — imbriquée **dans le `<li>` du mot** (sections listes) ou **en fin de première cellule** des tables (après les spans du mot : l'extraction lit toujours le *premier* `.he`/`.fr` du fragment, l'ordre est donc significatif). ⚠️ Ces `<li>` imbriqués interdisent les regex non-gourmandes : `lisOf` (build.js) délimite les `<li>` de premier niveau par balayage à profondeur, et le DOM d'app.html utilise `ul.word-list > li` (enfant direct). Toute évolution du parsing doit préserver cette robustesse.
 
@@ -193,6 +194,7 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
   he_plain,   // he sans nikud (stripNikud)
   note?,      // depuis data-note
   niveau?,    // depuis data-niveau ('A1'…'C2' — absent si le mot n'est pas classé)
+  theme?,     // depuis data-theme (slug de la taxonomie § 4.1 — cartes des trois tables uniquement)
   exemples?: [{ he, tr, fr, he_plain }], // phrases en situation (ul.exemples du carnet)
   genre?,     // 'm' | 'f' (noms)
   forms?: [{ he, tr, label, he_plain }]  // conjugaisons, accords, pluriel
@@ -214,6 +216,31 @@ Le carnet stocke le **CECRL fin** (six valeurs, `data-niveau="A1"…"C2"`) — s
 3. **Jugement quotidien vs abstrait/idiomatique** : concret du quotidien ≤ A2 ; abstractions (`emet`, `matarah`, `regesh`) ≥ B1 ; argot fin (`valah`) et mots de précision (`mikhshol`, `tsiporen`) B2.
 
 Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut découvrir un mot « trop tôt » que de ne jamais le croiser). La relecture humaine se fait par échantillons, section par section — le classement vit dans le carnet, donc se corrige comme le reste du contenu : en éditant l'attribut, puis `node build.js`.
+
+### 4.1 Les thèmes sémantiques (`data-theme`)
+
+Depuis le 2026-07-21, chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Douze thèmes**, et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Distribution au 2026-07-21 (541 entrées) :
+
+| Slug | Libellé (app) | Cartes |
+| --- | --- | --- |
+| `vie-quotidienne` | Vie quotidienne & loisirs | 78 |
+| `abstrait` | Notions abstraites | 75 |
+| `nourriture` | Nourriture & repas | 57 |
+| `ville-transport` | Ville, lieux & transports | 55 |
+| `maison-objets` | Maison & objets | 46 |
+| `corps-sante` | Corps & santé | 45 |
+| `nature` | Nature & animaux | 37 |
+| `communication-pensee` | Parler & penser | 34 |
+| `famille-personnes` | Famille & personnes | 34 |
+| `travail-etudes` | Travail & études | 31 |
+| `emotions-caractere` | Émotions & caractère | 31 |
+| `temps-calendrier` | Temps & calendrier | 18 |
+
+**Le périmètre est délibérément les trois tables.** Les sections listes (nombres, jours, saisons, pronoms…) sont déjà mono-thème par nature : leur catégorie *est* leur thème, un tag serait redondant. `build.js` tient la frontière dans les deux sens : couverture **541/541** sur les tables (une entrée ajoutée sans `data-theme` échoue en nommant le mot — même règle de couverture que `data-niveau`), slug hors `EXPECTED_THEMES` refusé (une faute de frappe créerait un thème fantôme), et `data-theme` posé sur une liste refusé aussi.
+
+Côté app, le filtre est **optionnel** — c'est sa différence voulue avec Catégories et Niveau : aucune puce cochée = « Tous », rien n'est bloqué ; dès qu'un thème est coché, le croisement devient thème × catégorie × niveau **et les cartes sans thème (les listes) sortent du jeu**. `buildThemeChips()` construit les puces depuis les données (thème vide → pas de puce ; slug inconnu de `THEMES` → puce quand même, libellé = slug, le temps qu'on lui donne son libellé) ; préférences persistées dans `prefs_v1` (champ absent = rien de coché, les profils d'avant ne voient rien changer) ; la révision du jour ignore le thème comme elle ignore le niveau.
+
+**Arbitrages de classement assumés** (un seul thème par mot, tranché sur l'usage dominant) : les couleurs → `abstrait` ; les vêtements et s'habiller → `vie-quotidienne` ; affamé/assoiffé, kilo/litre/gramme → `nourriture` ; hôpital → `corps-sante` ; plage, chaud/froid → `nature` ; vouloir/décider/choisir → `communication-pensee` ; perdu/proche/loin → `ville-transport`. Un reclassement se fait comme pour le niveau : éditer l'attribut dans le carnet, puis `node build.js`.
 
 ### 5. Les exemples en situation
 
@@ -248,7 +275,7 @@ Les deux garde-fous de l'étape 2, chacun contre un mode de panne silencieuse :
 
 `node build.js` (ou `--check` pour vérifier sans écrire) :
 
-1. Lit le carnet, extrait les cartes, **affiche le compte par section, par niveau CECRL et par section d'exemples** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide, **ou si une seule carte sort sans `niveau`** (garde de couverture, 2026-07-19 : elle nomme les mots fautifs et affiche une ligne « couverture N/N », de sorte que le contrôle annonce ce qu'il mesure). Motif : le garde-fou par niveau n'attrapait qu'une disparition *entière*, si bien qu'un mot ajouté sans `data-niveau` passait en silence — et comme l'appli laisse volontairement les cartes non classées franchir tous les filtres, il se serait affiché jusque dans « Facile ». La couverture était vraie par chance (713/713) ; elle est désormais tenue par l'outillage.
+1. Lit le carnet, extrait les cartes, **affiche le compte par section, par niveau CECRL, par thème et par section d'exemples** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide, **ou si une seule carte sort sans `niveau`** (garde de couverture, 2026-07-19 : elle nomme les mots fautifs et affiche une ligne « couverture N/N », de sorte que le contrôle annonce ce qu'il mesure) — mêmes règles pour les thèmes depuis le 2026-07-21 : couverture 541/541 sur les tables Noms/Adjectifs/Verbes, slug hors `EXPECTED_THEMES` refusé, `data-theme` hors des tables refusé (§ 4.1). Motif : le garde-fou par niveau n'attrapait qu'une disparition *entière*, si bien qu'un mot ajouté sans `data-niveau` passait en silence — et comme l'appli laisse volontairement les cartes non classées franchir tous les filtres, il se serait affiché jusque dans « Facile ». La couverture était vraie par chance (713/713) ; elle est désormais tenue par l'outillage.
 2. Copie `app.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
    - bannière « fichier généré » après le doctype ;
    - suppression du loader, panneau setup visible d'emblée ;
@@ -279,7 +306,7 @@ L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`dat
 
 - **Le `<h2>` du groupe *est* la rangée du `<summary>`** (et non un titre dupliqué au-dessus). Il reste la cible de l'`aria-labelledby`, donc le nom accessible n'est pas dédoublé ; il prend en revanche la voix du libellé de pli (`.adv summary h2.adv-lbl`) et non la voix Title dorée — un groupe replié se lit comme un pli, un groupe déplié comme une section.
 - **Le `<summary>` résume la sélection** (`refreshFoldSubs()`, appelé depuis `updateStart()` — donc par toutes les voies qui changent la sélection : chips, `#selall`, remise à zéro, restauration des préférences). Au-delà de deux entrées on compte au lieu de lister, une liste coupée à l'ellipse étant mensongère ; l'ordre suit `catOrder`, c'est-à-dire celui des chips à l'écran.
-- ⚠️ **L'état ouvert/replié se décide au chargement seulement** (`applyFoldState()`, depuis `applyPrefs()`) : ouvert tant que la sélection est vide. Sinon un profil vierge — qui par décision n'a aucune catégorie ni aucun niveau coché — n'offrirait plus rien à faire, et `#start-hint` désignerait des chips invisibles. Ensuite le pli n'obéit qu'à l'utilisateur : le refermer sous son doigt au premier choix serait hostile. `buildNivChips()` masque le pli entier quand le carnet ne porte aucun `data-niveau`.
+- ⚠️ **L'état ouvert/replié se décide au chargement seulement** (`applyFoldState()`, depuis `applyPrefs()`) : ouvert tant que la sélection est vide. Sinon un profil vierge — qui par décision n'a aucune catégorie ni aucun niveau coché — n'offrirait plus rien à faire, et `#start-hint` désignerait des chips invisibles. Ensuite le pli n'obéit qu'à l'utilisateur : le refermer sous son doigt au premier choix serait hostile. `buildNivChips()` masque le pli entier quand le carnet ne porte aucun `data-niveau` ; même règle pour le pli « Thèmes » (`buildThemeChips()` et `data-theme`), à ceci près que ce pli-là ne s'ouvre jamais tout seul — sa sélection vide veut dire « Tous », pas « à faire ».
 
 Sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce) **tant qu'il est actif et seul allumé** (`body:not(.has-due) .start:enabled`), l'indice de sélection vide (`role="status"`) étant placé **au-dessus** de lui pour rester visible. Désactivé, il quitte le sticky *et* l'or pour une peau pleine et opaque : collant et translucide, il recouvrait quatre chips de catégories au premier écran en interceptant leurs taps (mesuré en WebKit le 2026-07-19, cf. DESIGN.md § CTA sous le pouce). Depuis le 2026-07-20, il quitte aussi l'or et le sticky **quand des cartes sont dues** — la carte « Révision du jour » est alors la lampe, et deux lumières simultanées ne feraient aucune hiérarchie (DESIGN.md § CTA sous le pouce, les trois registres). Détail des clés :
 

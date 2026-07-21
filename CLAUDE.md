@@ -57,7 +57,7 @@ Each of these was paid for once. They are listed inline because a graph query on
 5. **The first `:root` design-token block must stay byte-identical** between the notebook, `app.html` and the portal (the notebook is the reference). If `--bg`/`--gold` change, regenerate the icons and update `manifest.webmanifest`/`theme-color`.
 6. **Every Hebrew node carries `lang="he"`** — in the notebook (100% of 5649 nodes, measured 2026-07-21 after the grammar lot) and in every generated node of the app (`.big-he`, `.sub-he`, `.cursive-line`, `.f-he`, `.qc-he`, `.sr-he`, `.srd-he`, `.m-he`, feedback `.he`, brand `.he`). Keep it when touching those template strings. ⚠️ The notebook count must be **measured in a browser, not computed from the source**: a new entry also creates its generated `span.cursive`, so one word is worth more than one node.
 7. **Gold never appears on an inactive state** (DESIGN.md, règle de la lampe), and no surface is gold-tinted at rest — the app's « Révision du jour » card is the single licensed exception. `border:1px dashed` means **only** "nothing here" (`.empty`); warning boxes use `.attention`, solid rule.
-8. **`data-niveau` is mandatory in the notebook** on every `<li>` and every `<tr>` of the three tables. `build.js` fails naming the offending word if any card comes out without one (coverage 757/757). The app's tolerance for unclassified cards is a safety net, not a licence.
+8. **`data-niveau` is mandatory in the notebook** on every `<li>` and every `<tr>` of the three tables. `build.js` fails naming the offending word if any card comes out without one (coverage 757/757). The app's tolerance for unclassified cards is a safety net, not a licence. **`data-theme` follows the same regime on the three tables only** (coverage 541/541; slug must be in `EXPECTED_THEMES`, and its list must stay aligned with `THEMES` in `app.html`; a `data-theme` on a list item is an error — lists are mono-theme by nature). Every future table entry must carry both attributes; the build enforces it.
 9. **Every entry of the Noms/Adjectifs/Verbes tables must carry at least one example** (verbs: a present-tense sentence). `verifie_exemples.js` treats a missing `<ul class="exemples">` as a blocking error.
 10. **Bump `VERSION` in `sw.js`** after changing its strategy, asset list or icons — **and whenever a change must reach the device on the very next launch**. The fetch handler is stale-while-revalidate: without a bump, the previous `app.html` is served once more and the new one only from the second launch.
 11. **The service worker registration lives inside the `BUILD:ONLINE-ONLY` fence** of `app.html` and must stay there (the standalone file must not register it). The portal has its own snippet.
@@ -78,7 +78,7 @@ Each of these was paid for once. They are listed inline because a graph query on
 - Grammar-only sections (racine, passé, futur, binyanim, article, smikhut…) have no `.count` mapping and are intentionally excluded from cards.
 - `build.js` replaces the loader `<div>` by **exact string match** — editing that line in `app.html` requires the same edit in `build.js`.
 
-Card schema: `{cat, he, tr, fr, note?, niveau?, exemples?:[{he, tr, fr, he_plain}], he_plain, forms?:[{he, tr, label, he_plain}], genre?}`. Table-derived cards have `tr:''`; the UI falls back to `he2tr(card.he)`. Full detail in ARCHITECTURE.md §3, or `graphify explain "extractCards"`.
+Card schema: `{cat, he, tr, fr, note?, niveau?, theme?, exemples?:[{he, tr, fr, he_plain}], he_plain, forms?:[{he, tr, label, he_plain}], genre?}`. Table-derived cards have `tr:''`; the UI falls back to `he2tr(card.he)`. Full detail in ARCHITECTURE.md §3, or `graphify explain "extractCards"`.
 
 ## Transliteration standard
 
@@ -88,7 +88,7 @@ All notebook `.tr` values and `he2tr` output follow it: `kh` = khaf without dage
 
 ## The ritual after any change
 
-1. `node build.js` — regenerates the standalone; fails if a section or an `EXPECTED_LEVELS` level drops to 0, or if any card lacks `data-niveau`. Check the printed counts.
+1. `node build.js` — regenerates the standalone; fails if a section or an `EXPECTED_LEVELS` level drops to 0, if any card lacks `data-niveau`, or if a table card lacks `data-theme` / carries a slug outside `EXPECTED_THEMES`. Check the printed counts.
 2. If examples or vocabulary changed: `node verifie_exemples.js` — **0 errors required** (warnings are editorial signals; `--strict` blocks on them too).
 3. Verify the behaviour, **at the cheapest level that actually proves it**. `build.js --check` already byte-compares the two extractors, so a content-only change is proven by steps 1–2 alone. Add a local server or jsdom when logic changed. **Reach for WebKit/Playwright only when you touched the UI** — markup, CSS, or a render path. Booting a real browser to re-confirm what `--check` just proved is comfort, not evidence, and it costs a tooling install plus a session of driving.
 4. If `sw.js`, the asset list or the icons changed: bump `VERSION`.
