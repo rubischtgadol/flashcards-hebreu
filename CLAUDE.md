@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## The token-economy doctrine — STANDING DIRECTIVE: the cheapest channel that proves it
 
-**Permanent instruction from the project owner (stated three times, unified 2026-07-21): every question goes through the cheapest channel that can prove its answer.** Two measured costs drive it. A graph lookup answers a question for **~2.3k tokens instead of reading a 2 000-line HTML file** (measured 2026-07-20: 10.5× fewer tokens per question). And **every turn re-sends the whole accumulated context** — a file read at turn 5 is paid again at turns 6, 7, 8…, quadratic in session length — while a subagent has its own window and returns **only its conclusion**. The graph fights the cost of *one* lookup; delegation fights the cost of the *session*, the bigger bill.
+**Permanent instruction from the project owner (unified 2026-07-21): every question goes through the cheapest channel that can prove its answer.** Two measured costs drive it. A graph lookup answers a question for **~2.3k tokens instead of reading a 2 000-line HTML file** (measured 2026-07-20: 10.5× fewer tokens per question). And **every turn re-sends the whole accumulated context** — a file read at turn 5 is paid again at turns 6, 7, 8…, quadratic in session length — while a subagent has its own window and returns **only its conclusion**. The graph fights the cost of *one* lookup; delegation fights the cost of the *session*, the bigger bill.
 
 **The ladder — take the lowest rung that actually proves the answer:**
 
-1. **The graph first** (`graphify explain/query/path`, ~2.3k tokens) for any question of structure, code or flow it covers. The repo carries a knowledge graph of itself in `graphify-out/` (335 nodes, 511 edges, 28 communities — every function of `app.html`, the notebook's markup contract, the design rules, the traps; recalibrated 2026-07-21 after the closing cleanup — the 2026-07-20 recalage had already stopped duplicating the standalone as ~90 function nodes). Before opening `app.html`, `vocabulaire_hebreu.html` or `flashcards_hebreu.html` to find something:
+1. **The graph first** (`graphify explain/query/path`, ~2.3k tokens) for any question of structure, code or flow it covers. The repo carries a knowledge graph of itself in `graphify-out/` (335 nodes, 511 edges, 28 communities — every function of `app.html`, the notebook's markup contract, the design rules, the traps; recalibrated 2026-07-21). Before opening `app.html`, `vocabulaire_hebreu.html` or `flashcards_hebreu.html` to find something:
 
    ```bash
    graphify explain "checkAnswer"     # exact source line + every caller/callee, ~15 lines
@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    graphify path "extractCards" "recordResult"    # how two things connect
    ```
 
-   `graphify explain` is why this file carries no `near line NNN` pointers: **line anchors have drifted four times in this repo** (all three of this file's were wrong, +11, when retired on 2026-07-20); the graph re-derives line numbers mechanically. It is a snapshot, though: **a graph/file disagreement is settled for the file**, then rebuild — `/graphify . --update` costs **~235k tokens (measured 2026-07-20), so structural changes only**; ritual step 5 carries the full rule. `GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance).
+   `graphify explain` is why this file carries no `near line NNN` pointers: **line anchors have drifted four times in this repo**; the graph re-derives line numbers mechanically. It is a snapshot, though: **a graph/file disagreement is settled for the file**, then rebuild — `/graphify . --update` costs **~235k tokens (measured 2026-07-20), so structural changes only**; the ritual's graph-refresh step carries the full rule. `GRAPH_REPORT.md` holds the audit trail (god nodes, cross-community bridges, EXTRACTED/INFERRED/AMBIGUOUS provenance).
 
 2. **A short grep** (≤ ~15 lines of output) for a point fact the graph doesn't carry — cheaper than an agent round-trip.
 
@@ -29,14 +29,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Subagents inherit this file, so rung 1 binds them too**: an agent must ask the graph before opening a file. And because an agent gets this file but not your conversation, **every scouting prompt must repeat it** — « demande au graphe avant d'ouvrir un fichier » — alongside the numbered criteria.
 - **The reverse routing rule: what the graph already knows never goes to a subagent.** A ~2.3k-token `explain` beats a ~30k-token agent; dispatching an agent to rediscover graph content pays rung-3 prices for a rung-1 question.
 
-**How to run the agents** (the part that keeps getting re-explained — don't make the owner repeat it):
+**How to run the agents**:
 
 1. **Parallel fan-out when independent** — launch all independent agents in ONE message. A 12-check campaign is 3 agents by theme, not 1 giant or 12 tiny ones.
 2. **Numbered criteria in every prompt**: "count X, name every failure, PASS/FAIL per item, max N lines, no screenshots/HTML in the reply" — state the acceptance bar *in the prompt*. An agent that answers « c'est bon » proved nothing: a muted control always passes green (same lesson as the coverage guard in `build.js`).
 3. **Reuse a finished agent for follow-ups in its area** (continue it with a new message) instead of spawning a fresh one — its context is already paid for.
 4. **Never read an agent's transcript/output file, a screenshot, or a raw log in the main thread.** If the report is insufficient, send the agent a follow-up question.
 
-**One session per chantier**, then `/clear`. The ritual's commit (step 7) is the clean cut point: the state lives in git and in TODO.md « Reprendre ici », not in the context window.
+**One session per chantier**, then `/clear`. The ritual's closing commit is the clean cut point: the state lives in git and in TODO.md « Reprendre ici », not in the context window.
 
 ## What this is
 

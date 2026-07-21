@@ -15,6 +15,14 @@ foi + rebuild. Les deux coûts mesurés conservés (10,5× ; --update ~235k,
 structurel seulement), fichier raccourci d'une ligne (fusion, pas empilement),
 pièges et rituel intacts. Mémoire recalée (regime-subagents-maximal.md pointe
 vers la section fusionnée). Édits de prose .md : pas de recalage du graphe.
+Complément (même session) : **audit de cohérence en 2 sous-agents, 11 critères,
+4 accrocs corrigés** — compte du graphe périmé au § Outillage (505/23 → 511/28),
+le rituel de ce fichier réordonné pour s'aligner sur CLAUDE.md (le commit passe
+en clôture, étape 8 ; renvois de la doctrine rendus insensibles aux numéros),
+2 pointeurs `.impeccable/critique/` marqués « historique git », et le renvoi
+mort « CLAUDE.md § Delegate to a subagent » recalé sur la doctrine. Purge des
+reliquats historiques de CLAUDE.md (archéologie des recalages, parenthèse +11
+des ancres, méta-commentaires) — le fichier ne porte plus que l'opérationnel.
 
 **L'acquis précédent : le graphe de connaissance est
 RECALÉ après le ménage de clôture — 335 nœuds / 511 arêtes / 28 communautés.**
@@ -239,8 +247,9 @@ impeccable du portail et de l'app (30/40), P0 et P2 corrigés et vérifiés en W
 bouton « Commencer » désactivé ne recouvre plus les chips, les dix cibles tactiles sous
 44 px sont soldées, « Révision du jour » sort de la voix Title, la copie du verdict raté
 est réécrite. Snapshot : `.impeccable/critique/2026-07-19T09-14-04Z__app-html.md`
-(nouveau slug `app-html` — les anciens `index-html` critiquaient l'app quand elle vivait
-à la racine ; la tendance repart de 30, ce n'est pas une régression).
+(supprimé du dépôt au ménage du 21/07 — historique git ; nouveau slug `app-html` — les
+anciens `index-html` critiquaient l'app quand elle vivait à la racine ; la tendance
+repart de 30, ce n'est pas une régression).
 
 Avant cela, les **cinq demandes du 19/07 sont livrées et poussées**
 (voir « Fait ») : portail refondu en accueil deux temps (« Bienvenue » personnalisé,
@@ -249,7 +258,8 @@ Avant cela, les **cinq demandes du 19/07 sont livrées et poussées**
 audit de péremption des six documents (ancres de lignes recalées), et **premier
 lancement vierge** : plus aucune catégorie ni niveau présélectionné (`defaultCats`
 supprimé, l'utilisateur choisit lui-même ; rétro-compat des anciens profils gardée). Acquis des sessions
-précédentes : plan UX terminé (34/40, snapshots dans `.impeccable/critique/`), remise à
+précédentes : plan UX terminé (34/40, snapshots dans `.impeccable/critique/`, supprimés
+du dépôt le 21/07 — historique git), remise à
 zéro du profil, diagnostic voix (premier pas), workflow « lots d'exemples sans
 relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16 Pro.
 **La prochaine session commence par « Reprendre ici » ci-dessous.**
@@ -1576,9 +1586,9 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
   pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est
   un faux positif — la règle vise l'anglais).
 - **Graphe de connaissance** (`graphify-out/`, versionné depuis le 20/07) : cartographie du
-  dépôt — 335 nœuds, 505 arêtes, 23 communautés (recalé le 20/07 au soir : le standalone
-  n'est plus dupliqué en ~90 nœuds de fonctions). **À interroger avant d'ouvrir un gros
-  fichier** : `graphify explain "checkAnswer"` donne la ligne source exacte et les
+  dépôt — 335 nœuds, 511 arêtes, 28 communautés (recalé le 21/07 après le ménage de
+  clôture ; le standalone n'est plus dupliqué en ~90 nœuds depuis le 20/07). **À
+  interroger avant d'ouvrir un gros fichier** : `graphify explain "checkAnswer"` donne la ligne source exacte et les
   appelants/appelés en ~15 lignes, `graphify query "…"` répond en ~2 300 tokens là où lire
   `app.html` en coûte des dizaines de milliers (10,5× d'économie, mesurée le 20/07 par
   `graphify benchmark`). Se reconstruit par
@@ -1622,15 +1632,13 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
    à chaque tour. Même chose pour un `build.js` / `verifie_exemples.js` de gros lot, ou
    une exploration large à laquelle le graphe ne répond pas d'une requête.
    **Restent dans le fil principal** : les éditions, les arbitrages de charte et de
-   contenu, et l'étape 7 (documentation) — elles ont besoin du contexte accumulé.
+   contenu, et l'étape 6 (documentation) — elles ont besoin du contexte accumulé.
    Le prompt du sous-agent doit **chiffrer le critère d'acceptation** (« rends le compte
    de X et nomme chaque défaut »), jamais « vérifie que c'est bon » : un contrôle muet
    passe toujours au vert, c'est la leçon de la garde de couverture de `build.js`.
-   Doctrine complète dans CLAUDE.md § *Delegate to a subagent…*
+   Doctrine complète dans CLAUDE.md § *The token-economy doctrine — STANDING DIRECTIVE*.
 4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
-5. Commit par changement, messages en français (comme l'historique), puis push sur `main`
-   (GitHub Pages redéploie automatiquement).
-6. **Recaler le graphe — seulement si le changement est structurel.**
+5. **Recaler le graphe — seulement si le changement est structurel.**
    `/graphify . --update` coûte **~235 000 tokens** (mesuré le 20/07) : ce n'est pas un
    réflexe, c'est une décision. Deux natures de changement, deux réponses :
    - **Structurel** — `app.html`, `build.js`, `verifie_exemples.js`, `sw.js`,
@@ -1640,7 +1648,7 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
      périmé. Committer `graphify-out/graph.json` avec le reste.
    - **Contenu seul** — du vocabulaire ou des exemples dans `vocabulaire_hebreu.html`, et
      la prose des `.md`. **Le graphe reste juste** : aucune fonction, aucun fichier, aucun
-     flux n'a bougé. Seuls des compteurs changent, et ils vivent dans la doc (étape 7), pas
+     flux n'a bougé. Seuls des compteurs changent, et ils vivent dans la doc (étape 6), pas
      dans le graphe. Sauter le recalage, et le dire dans le message de commit.
 
    ⚠️ *Le piège qui a payé cette règle* : le lot de 54 exemples du 20/07 était du contenu
@@ -1648,13 +1656,13 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
    passer deux compteurs de 510 à 564. Le diff de `--update` (168 nœuds ajoutés, 87
    retirés) montre qu'il **brasse** le graphe au lieu de l'étendre — raison de plus pour ne
    pas le lancer pour rien.
-7. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
+6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
    fichier (surtout « Reprendre ici »). ⚠️ Les **comptes** cités dans les docs (cartes,
    exemples, nœuds `lang="he"`) se recalent à chaque ajout de vocabulaire — et le compte
    de nœuds `lang="he"` se **mesure dans le navigateur, il ne se calcule pas** : une
    entrée ajoutée crée aussi ses `span.cursive` générés, donc elle pèse plus d'un nœud
    (5003 → 5015 pour 3 mots, le 19/07, là où le calcul de tête donnait 5010).
-8. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
+7. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
    **quatre fois** (19/07 au matin ; retrouvées toutes fausses le soir, +25 ; de nouveau
    après les plis, de +22 à +82 selon l'endroit ; puis +11 uniforme, constaté le 20/07).
    Le décalage n'est **pas** toujours uniforme — chaque ancre se vérifie. Une ancre fausse
@@ -1668,3 +1676,6 @@ La piste de design d'origine, elle, est **close** : le filtre garde sa sémantiq
 
    — chaque ligne affichée doit correspondre à ce que le document annonce. En cas de doute
    sur la vraie position d'un symbole : `graphify explain "<symbole>"`.
+8. Commit par changement, messages en français (comme l'historique), puis push sur `main`
+   (GitHub Pages redéploie automatiquement). C'est le point de coupure propre : l'état vit
+   dans git et dans « Reprendre ici », pas dans la fenêtre de contexte.
