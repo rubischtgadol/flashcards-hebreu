@@ -14,12 +14,14 @@ octet dans les trois fichiers ; sidecar `.impeccable/design.json` régénéré A
 l'audit (il prescrivait `transition:all`, contre la charte). 123 `low-contrast` du
 détecteur = faux positifs (fond blanc inventé, il ne résout pas le dégradé). Rapport :
 `docs/superpowers/specs/2026-07-21-audit-carnet-rapport-phase3.md` ; snapshot :
-`.impeccable/critique/2026-07-21T09-22-31Z__vocabulaire-hebreu-html.md`. **Aucune
-correction écrite — 4 lots possibles (coût SRS nul) en attente des décisions de
-Ruben**, puis lot santé P2+P3. Dérives de compte relevées : 31 `.table-wrap` (docs :
-29), `lang="he"` **5234** (CLAUDE.md/ARCHITECTURE.md recalés). Coût publié : ~201k
-tokens de sous-agents (estimation du plan ~200k tenue). Ni bump SW ni graphe (rien
-de structurel ni de déployé).
+`.impeccable/critique/2026-07-21T09-22-31Z__vocabulaire-hebreu-html.md`. **Suite du
+même jour : Ruben a validé les 4 lots, ils sont APPLIQUÉS dans la copie de travail
+(+ SW v16 + DESIGN.md recalé) mais la session a été arrêtée PENDANT la campagne
+WebKit — rien de commité, rien de vérifié visuellement : voir le bloc « REPRISE
+IMMÉDIATE » de « Reprendre ici » avant toute autre chose.** Dérives de compte
+relevées : 31 `.table-wrap` (docs : 29), `lang="he"` **5234** (CLAUDE.md/
+ARCHITECTURE.md recalés). Coût publié de l'analyse : ~201k tokens de sous-agents
+(estimation du plan ~200k tenue).
 
 **L'acquis précédent : les 4 lots de la phase 2 de l'audit
 sont exécutés** — décision de Ruben en ouverture de session 8 : les quatre déclenchés, la
@@ -188,6 +190,76 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 **La prochaine session commence par « Reprendre ici » ci-dessous.**
 
 ## Reprendre ici (prochaine session)
+
+⚠️ **REPRISE IMMÉDIATE — la session 9 a été arrêtée par Ruben EN COURS de vérification.
+Les 4 lots de présentation sont commités et poussés sur la branche
+`lots-presentation-phase3` (décision de Ruben, 21/07) — PAS sur `main`, car ils ne
+sont PAS VÉRIFIÉS visuellement et `main` se déploie sur GitHub Pages. La séquence de
+reprise : se placer sur la branche, relancer la campagne WebKit C1–C12 (ci-dessous),
+corriger ce qui casse, PUIS merger dans `main` et pousser — c'est ce push-là qui
+déploie. Ne jamais merger avant le vert.**
+
+⚠️ **Régime de travail exigé par Ruben (répété trois fois le 21/07) : sous-agents À
+MORT pour économiser les tokens du fil principal.** Concrètement : la campagne
+WebKit, tout repérage de code (Explore, snippets verbatim), tout build/validation
+sur lot et tout audit de matériau partent en sous-agents — parallèles quand
+indépendants, avec critères CHIFFRÉS dans le prompt (« compte X, nomme chaque
+échec »). Le fil principal ne garde que : jugement de charte, conception et
+application des édits, commits, docs, et les greps à sortie courte. Ne jamais
+lire un gros fichier ni un transcript d'agent au fil principal.
+
+État exact au moment de l'arrêt (21/07, session 9) :
+
+- **Décisions de Ruben prises (21/07)** : les **4 lots de présentation** de la phase 3
+  sont tous validés et **déjà appliqués** dans la copie de travail ; le **lot santé
+  P2+P3** partira ensuite, dans une session à sous-agents maximaux (demande explicite :
+  « utiliser à mort les subagents pour économiser les tokens »).
+- **Fichiers portés par la branche `lots-presentation-phase3`** :
+  `vocabulaire_hebreu.html` (les 4 lots), `sw.js` (v15 → **v16**), `DESIGN.md`
+  (lampe : 3e application du test sur les pastilles `.steps` ; composant « Rangs en
+  cartes » ; `.empty` instancié ; barre de recherche opaque ; sommaire complet par
+  contrat), plus ce TODO et le journal du plan. `git log lots-presentation-phase3`
+  fait foi.
+- **Contenu des 4 lots appliqués** : (1) `.table-wrap{direction:rtl}` (P0 : les 31
+  tables s'ouvraient sur leur fin en mobile) + rangs en cartes ≤ 640 px pour les 19
+  tables de vocabulaire via `.table-wrap:has(ul.exemples)`, étiquettes `::before` par
+  nombre de colonnes (3=Noms genre/pluriel, 4=Adjectifs fs/mp/fp, 5=Verbes
+  ms/fs/mp/fp — partition 12 grammaire / 19 vocabulaire vérifiée), les grilles de
+  grammaire conservées ; (2) recherche : `:scope > li` dans le test de section (bug
+  « 0 résultat »), prose masquée dans les sections retenues, surlignage étendu à
+  `.ex-fr/.ex-tr`, `p.empty` injecté par JS et montré à 0 résultat, compteur
+  simplifié + `role="status"` ; (3) sommaire : 28/28 pilules en 6 groupes de 3–6,
+  ordre du document strict ; (4) micro-charte : pastilles `.steps` en `--bg2` +
+  filet + chiffre or, `.search-wrap` opaque sans backdrop-filter, `mark.hl` 4px,
+  placeholder « Rechercher un mot… » + aria-label détaillé, `h2 .count` en
+  Assistant (⚠️ son TEXTE reste la clé d'extraction, seule la voix a changé).
+  **Écarté en connaissance** : le « double anneau » du champ = idiome identique à
+  `app.html` (`#search-input:focus`), conforme.
+- **Déjà prouvé (mécanique, avant l'arrêt)** : `node build.js` → 729/729,
+  `flashcards_hebreu.html` **inchangé au octet** (« déjà à jour » — l'extraction
+  n'est pas touchée), `--check` en phase, `verifie_exemples.js` 0 erreur + le seul
+  avertissement légitime (קצת).
+- **PAS encore prouvé — À FAIRE EN PREMIER** : la campagne WebKit C1–C12 (sous-agent
+  tué avant tout résultat). La relancer telle quelle — le prompt complet est dans le
+  transcript de session 9, sinon la refaire : Playwright+WebKit, AVANT =
+  `git show HEAD:vocabulaire_hebreu.html`, critères chiffrés : C1 les 19 tables à
+  exemples ne défilent plus sur iPhone ET le premier `.he` des 12 grilles de
+  grammaire visible au scroll initial ; C2 étiquettes des cartes (relire les
+  captures) ; C3 grille conservée à 768/1440 + A/B origine de scroll à 768 ;
+  C4 « maison » : 0 prose visible dans les sections retenues, `mark.hl` dans un
+  `.ex-*` ; C5 « zzzz » : `p.empty` visible, 0 h2, puis × restaure 28 h2 ;
+  C6 role=status + placeholder non tronqué ; C7 pastilles (computed style) ;
+  C8 28 pilules/6 groupes/0 ancre orpheline/≥44px ; C9 barre opaque ;
+  C10 0 débordement aux 6 largeurs ; C11 0 erreur console ; C12 A/B desktop 1440.
+  **Puis** : corriger ce qui casse, commit (message en français, un commit pour le
+  lot présentation + SW v16 + DESIGN.md), push, et **confirmation on-device** du P0
+  par Ruben. Graphe : contenu+CSS+JS internes au carnet, PAS structurel → pas de
+  `--update` ; SW déjà bumpé v16 (ne pas re-bumper pour ce lot).
+- **Après ce commit seulement** : lancer le **lot santé P2+P3** (28 mots, matériau
+  brut au rapport phase 2 § 2 — NON audité, rigueur phase 1 : contre-expertise
+  2 lentilles AVANT écriture, contrôle à blanc du validateur, `data-niveau`
+  partout, exemples pour Noms/Adjectifs/Verbes, coût SRS à chiffrer AVANT).
+  Fan-out multi-agents obligatoire ; le fil principal n'écrit que les verdicts.
 
 **La checklist côté Ruben est soldée** (les trois cases restantes fermées le 20/07,
 identifiant de voix archivé compris) et **le bloc « Diagnostic de latence » est gardé**,

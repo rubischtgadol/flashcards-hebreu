@@ -104,7 +104,12 @@
     gap:10px;
   }
   h2 .count{
-    font-family:'JetBrains Mono','Courier New',monospace;
+    /* Assistant, pas mono : c'est le nom français de la section (la voix de
+       l'outil), pas une translittération ni un compteur — le mono bas-de-casse
+       était un 3e emploi hors des deux voix inventoriées (critique du 21/07).
+       ⚠️ Le TEXTE de ce span est la clé d'extraction des deux parseurs : la
+       voix peut changer, le libellé jamais. */
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
     font-size:var(--pas-petite);
     color:var(--ink);
     font-weight:400;
@@ -124,6 +129,11 @@
     overflow-x:auto;
     border-radius:10px;
     border:1px solid var(--line);
+    /* RTL comme la table qu'il porte : l'origine du défilement passe à droite,
+       et une table plus large que l'écran s'ouvre sur sa PREMIÈRE colonne (le
+       mot-vedette) au lieu de sa fin — en LTR, les 31 tables montraient le
+       pluriel d'un mot hors-champ (P0 de la critique du 21/07). */
+    direction:rtl;
   }
   table{
     border-collapse:collapse;
@@ -222,6 +232,59 @@
     margin-top:3px;
   }
 
+  /* --- Rangs en cartes sous 640px (critique du 21/07, P0 + P2) ---------------
+     Les tables de VOCABULAIRE — reconnues à leurs exemples embarqués — quittent
+     la grille défilante : chaque rang devient une carte pleine largeur, le
+     mot-vedette d'abord, puis les formes courtes étiquetées comme le thead
+     qu'elles remplacent. Le pire geste du tactile (défiler horizontalement dans
+     un défilement vertical) disparaît, et avec lui les ~274px de vide par rang.
+     Les 12 tables de GRAMMAIRE (sans exemples) gardent leur grille : leur
+     structure EST la leçon — pour elles, le direction:rtl du wrap suffit à
+     ouvrir sur la bonne colonne. */
+  @media (max-width:640px){
+    .table-wrap:has(ul.exemples){ overflow-x:visible; border:none; border-radius:0; }
+    .table-wrap:has(ul.exemples) table{ min-width:0; }
+    .table-wrap:has(ul.exemples) table,
+    .table-wrap:has(ul.exemples) tbody,
+    .table-wrap:has(ul.exemples) tr,
+    .table-wrap:has(ul.exemples) td{ display:block; }
+    .table-wrap:has(ul.exemples) thead{ display:none; }
+    .table-wrap:has(ul.exemples) tr{
+      border:1px solid var(--line);
+      border-radius:11px;               /* le rayon des rangées (.word-list) */
+      padding:11px 14px 13px;
+      margin:0 0 10px;
+    }
+    .table-wrap:has(ul.exemples) td{
+      padding:0; border-bottom:none; white-space:normal; text-align:right;
+    }
+    .table-wrap:has(ul.exemples) td:empty{ display:none; }
+    /* Les formes courtes se rangent en ligne, chacune sous son étiquette mono
+       (voix Label : c'est une étiquette d'inflexion, DESIGN.md §3). */
+    .table-wrap:has(ul.exemples) td:not(:first-child){
+      display:inline-block; vertical-align:top; margin:8px 0 0 18px;
+    }
+    .table-wrap:has(ul.exemples) td:not(:first-child) .he{ font-size:var(--pas-hebreu-2); }
+    .table-wrap:has(ul.exemples) td:not(:first-child)::before{
+      display:block; direction:ltr; text-align:right;
+      font-family:'JetBrains Mono','Courier New',monospace;
+      font-size:var(--pas-micro); letter-spacing:0.14em; text-transform:uppercase;
+      color:var(--ink-dim);
+    }
+    /* Le nombre de colonnes signe la catégorie ; les étiquettes reprennent les
+       thead masqués. 3 col = Noms · 4 col = Adjectifs · 5 col = Verbes
+       (partition vérifiée le 21/07 : 12/1/6 tables, aucune grammaire touchée). */
+    .table-wrap:has(ul.exemples) td:nth-child(2):nth-last-child(2)::before{ content:'genre'; }
+    .table-wrap:has(ul.exemples) td:nth-child(3):nth-last-child(1)::before{ content:'pluriel'; }
+    .table-wrap:has(ul.exemples) td:nth-child(2):nth-last-child(3)::before{ content:'fs'; }
+    .table-wrap:has(ul.exemples) td:nth-child(3):nth-last-child(2)::before{ content:'mp'; }
+    .table-wrap:has(ul.exemples) td:nth-child(4):nth-last-child(1)::before{ content:'fp'; }
+    .table-wrap:has(ul.exemples) td:nth-child(2):nth-last-child(4)::before{ content:'ms'; }
+    .table-wrap:has(ul.exemples) td:nth-child(3):nth-last-child(3)::before{ content:'fs'; }
+    .table-wrap:has(ul.exemples) td:nth-child(4):nth-last-child(2)::before{ content:'mp'; }
+    .table-wrap:has(ul.exemples) td:nth-child(5):nth-last-child(1)::before{ content:'fp'; }
+  }
+
   /* --- Listes simples : noms / adjectifs / expressions --- */
   .word-list{
     list-style:none;
@@ -309,12 +372,11 @@
   .search-wrap{
     position:sticky; top:0; z-index:20;
     margin:0 -18px 8px; padding:14px 18px;
-    /* Dérivé du jeton, pas recopié : rgba(18,24,31,.86) se désynchronisait en silence
-       le jour où --bg bouge. Repli plein pour les moteurs sans color-mix. */
+    /* Opaque, délibérément : le voile translucide + blur était du glassmorphism
+       (anti-référence SaaS de PRODUCT.md) et laissait le texte transparaître
+       sous la barre au défilement. Tranché à la critique du 21/07. */
     background:var(--bg);
-    background:color-mix(in srgb, var(--bg) 86%, transparent);
     border-bottom:1px solid var(--line);
-    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
   }
   .search-inner{ position:relative; max-width:560px; }
   .search-ico{ position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-dim); pointer-events:none; }
@@ -334,7 +396,7 @@
   .search-count{ display:block; margin-top:8px; font-size:var(--pas-petite); color:var(--ink-dim); min-height:1em; }
   /* Filtering: hide non-matching entries and emptied sections */
   .search-hidden{ display:none !important; }
-  mark.hl{ background:rgba(212,162,76,.28); color:var(--ink); border-radius:3px; padding:0 1px; }
+  mark.hl{ background:rgba(212,162,76,.28); color:var(--ink); border-radius:4px; padding:0 1px; }
 
   /* ---------- Pedagogical example blocks ---------- */
   .note .he, .steps li .he{ font-size:1.15em; }
@@ -346,7 +408,12 @@
   .steps li::before{
     content:counter(step); position:absolute; left:0; top:0;
     width:26px; height:26px; border-radius:50%;
-    background:var(--gold); color:#1a1206; font-family:'JetBrains Mono','Courier New',monospace;
+    /* Chiffre or sur couche, plus de disque or plein : un numéro d'étape n'est
+       ni action, ni sélection, ni identité (règle de la lampe — dernières
+       surfaces dorées au repos du carnet, critique du 21/07). Même idiome que
+       .part-num : l'or ne subsiste que sur le chiffre. */
+    background:var(--bg2); border:1px solid var(--line); color:var(--gold);
+    font-family:'JetBrains Mono','Courier New',monospace;
     font-size:var(--pas-petite); font-weight:700; display:flex; align-items:center; justify-content:center;
   }
   .example{
@@ -544,17 +611,21 @@
 <div class="search-wrap">
   <div class="search-inner">
     <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-    <input id="voc-search" type="text" aria-label="Rechercher un mot dans le carnet" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot (français, hébreu, translittération)…">
+    <input id="voc-search" type="text" aria-label="Rechercher un mot (français, hébreu ou translittération)" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…">
     <button class="search-clear" id="voc-search-clear" aria-label="Effacer" hidden>&times;</button>
   </div>
-  <span class="search-count" id="voc-search-count"></span>
+  <span class="search-count" id="voc-search-count" role="status"></span>
 </div>
 
 <nav class="toc" aria-label="Sommaire">
   <div class="toc-title"><span lang="he">תֹּכֶן הָעִנְיָנִים</span> · Sommaire</div>
 
+  <!-- Sommaire COMPLET (28 sections sur 28) et découpé en groupes courts :
+       la critique du 21/07 relevait 6 sections sans pilule (dont Phrases, le
+       contenu que PRODUCT.md désigne comme la fin) et un bloc de 12 pilules
+       d'une traite. L'ordre des pilules suit STRICTEMENT l'ordre du document. -->
   <div class="toc-group">
-    <div class="toc-group-label">Partie 1 · Grammaire — comprendre la langue</div>
+    <div class="toc-group-label">Partie 1 · Grammaire — les pronoms &amp; le verbe</div>
     <div class="toc-links">
       <a href="#sec-pronoms-personnels"><span class="toc-he" lang="he">כִּנּוּיֵי גוּף</span> Pronoms personnels</a>
       <a href="#sec-demonstratifs"><span class="toc-he" lang="he">מִלּוֹת רֶמֶז</span> Démonstratifs</a>
@@ -562,6 +633,12 @@
       <a href="#sec-le-passe"><span class="toc-he" lang="he">זְמַן עָבָר</span> Le passé</a>
       <a href="#sec-le-futur"><span class="toc-he" lang="he">זְמַן עָתִיד</span> Le futur</a>
       <a href="#sec-patrons-de-conjugaison"><span class="toc-he" lang="he">בִּנְיָנִים</span> Patrons de conjugaison</a>
+    </div>
+  </div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 1 · Grammaire — le nom &amp; la phrase</div>
+    <div class="toc-links">
       <a href="#sec-l-article-defini"><span class="toc-he" lang="he">הַ־</span> L'article défini</a>
       <a href="#sec-etat-construit"><span class="toc-he" lang="he">סְמִיכוּת</span> État construit</a>
       <a href="#sec-prepositions-flechies"><span class="toc-he" lang="he">מִלּוֹת יַחַס נְטוּיוֹת</span> Prépositions fléchies</a>
@@ -575,20 +652,36 @@
     <div class="toc-group-label">Partie 2 · Vocabulaire — le dictionnaire</div>
     <div class="toc-links">
       <a href="#sec-verbes"><span class="toc-he" lang="he">פְּעָלִים</span> Verbes</a>
+      <a href="#sec-verbes-modaux"><span class="toc-he" lang="he">יְכוֹלֶת וְחוֹבָה</span> Verbes modaux</a>
       <a href="#sec-noms"><span class="toc-he" lang="he">שְׁמוֹת עֶצֶם</span> Noms</a>
       <a href="#sec-adjectifs"><span class="toc-he" lang="he">תְּאָרִים</span> Adjectifs</a>
     </div>
   </div>
   <div class="toc-group">
-    <div class="toc-group-label">Partie 3 · Mots-outils &amp; expressions</div>
+    <div class="toc-group-label">Partie 3 · Mots-outils — les connecteurs</div>
     <div class="toc-links">
       <a href="#sec-prepositions"><span class="toc-he" lang="he">מִלּוֹת יַחַס</span> Prépositions</a>
       <a href="#sec-conjonctions"><span class="toc-he" lang="he">מִלּוֹת חִבּוּר</span> Conjonctions</a>
       <a href="#sec-mots-interrogatifs"><span class="toc-he" lang="he">מִלּוֹת שְׁאֵלָה</span> Mots interrogatifs</a>
+    </div>
+  </div>
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 3 · Nombres &amp; repères</div>
+    <div class="toc-links">
       <a href="#sec-nombres-010"><span class="toc-he" lang="he">מִסְפָּרִים</span> Nombres (0–10)</a>
+      <a href="#sec-nombres-11-plus"><span class="toc-he" lang="he">מִסְפָּרִים גְּדוֹלִים</span> Nombres (11 et plus)</a>
+      <a href="#sec-nombres-ordinaux"><span class="toc-he" lang="he">מִסְפָּרִים סוֹדְרִים</span> Nombres ordinaux</a>
       <a href="#sec-jours-de-la-semaine"><span class="toc-he" lang="he">יְמֵי הַשָּׁבוּעַ</span> Jours de la semaine</a>
       <a href="#sec-mots-de-quantite"><span class="toc-he" lang="he">מִלּוֹת כַּמּוּת</span> Mots de quantité</a>
+    </div>
+  </div>
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 3 · Au quotidien</div>
+    <div class="toc-links">
+      <a href="#sec-adverbes"><span class="toc-he" lang="he">תְּאָרֵי פֹּעַל</span> Adverbes</a>
+      <a href="#sec-saisons-mois"><span class="toc-he" lang="he">עוֹנוֹת וְחֳדָשִׁים</span> Saisons &amp; mois</a>
       <a href="#sec-expressions-divers"><span class="toc-he" lang="he">בִּיטּוּיִים</span> Expressions / Divers</a>
+      <a href="#sec-phrases"><span class="toc-he" lang="he">מִשְׁפָּטִים שִׁמּוּשִׁיִּים</span> Phrases</a>
     </div>
   </div>
 </nav>
@@ -6365,6 +6458,16 @@
     var countEl = document.getElementById('voc-search-count');
     if(!input) return;
 
+    // L'état « rien ici », instancié pour de vrai : la copie du compteur
+    // promettait un vide que l'écran ne montrait jamais — `.empty` était du
+    // CSS mort depuis sa création (critique du 21/07, P1).
+    var emptyEl = document.createElement('p');
+    emptyEl.className = 'empty';
+    emptyEl.hidden = true;
+    emptyEl.textContent = 'Rien ici : aucun mot ne correspond. Essaie un autre terme, ou efface la recherche.';
+    var searchWrap = document.querySelector('.search-wrap');
+    if(searchWrap) searchWrap.insertAdjacentElement('afterend', emptyEl);
+
     function norm(s){
       return (s||'').toLowerCase()
         .normalize('NFD').replace(/[\u0300-\u036f\u0591-\u05C7]/g,'') // strip accents + nikud
@@ -6411,7 +6514,9 @@
     }
     function highlight(el, q){
       if(!q) return;
-      el.querySelectorAll('.fr, .tr').forEach(function(span){
+      // .ex-fr/.ex-tr : les exemples de grammaire aussi — une correspondance
+      // qui n'est pas surlignée laisse deviner pourquoi la section est là.
+      el.querySelectorAll('.fr, .tr, .ex-fr, .ex-tr').forEach(function(span){
         var txt = span.textContent;
         var i = norm(txt).indexOf(q);
         if(i < 0) return;
@@ -6440,7 +6545,7 @@
       sections.forEach(function(s){ s.block.forEach(function(b){ b.classList.remove('search-hidden'); }); });
       document.querySelectorAll('.part').forEach(function(pt){ pt.classList.remove('search-hidden'); });
 
-      if(!q){ countEl.textContent = ''; if(toc) toc.classList.remove('search-hidden'); return; }
+      if(!q){ countEl.textContent = ''; emptyEl.hidden = true; if(toc) toc.classList.remove('search-hidden'); return; }
       if(toc) toc.classList.add('search-hidden');  // hide the summary while filtering
 
       var shown = 0;
@@ -6466,25 +6571,44 @@
       // Hide the part separators while filtering.
       document.querySelectorAll('.part').forEach(function(pt){ pt.classList.add('search-hidden'); });
 
-      // Hide sections whose entries are all hidden.
+      // Hide sections whose entries are all hidden — and in the sections kept,
+      // hide the prose: une recherche montre des correspondances, pas des leçons.
       sections.forEach(function(s){
         var visible = false;
         s.block.forEach(function(b){
           if(visible) return;
           if(b.matches && b.matches('.example') && !b.classList.contains('search-hidden')){ visible = true; return; }
-          if(b.matches && b.matches('ul.word-list, table, .table-wrap')){
-            var li = b.querySelector('li:not(.search-hidden)');
-            if(li){ visible = true; return; }
+          if(b.matches && b.matches('ul.word-list')){
+            // :scope — seuls les <li> de PREMIER niveau comptent : les <li>
+            // d'exemples d'une entrée masquée gardaient toutes les sections
+            // visibles sous « 0 résultat » (critique du 21/07, P1).
+            if(b.querySelector(':scope > li:not(.search-hidden)')){ visible = true; }
+            return;
+          }
+          if(b.matches && b.matches('table, .table-wrap')){
             var rows = b.querySelectorAll('tbody tr');
             for(var k=0;k<rows.length;k++){
               if(!rows[k].classList.contains('search-hidden')){ visible = true; break; }
             }
           }
         });
-        if(!visible){ s.block.forEach(function(b){ b.classList.add('search-hidden'); }); }
+        if(!visible){
+          s.block.forEach(function(b){ b.classList.add('search-hidden'); });
+        } else {
+          // La section est retenue par une correspondance : notes, recettes et
+          // encadrés sont du bruit pendant une recherche — seuls restent le
+          // titre, les sous-thèmes des tables visibles et les blocs porteurs.
+          s.block.forEach(function(b){
+            if(b === s.h2) return;
+            if(b.matches && b.matches('.subtheme, ul.word-list, table, .table-wrap')) return;
+            if(b.matches && b.matches('.example')) return; // déjà masqué s'il ne matche pas
+            b.classList.add('search-hidden');
+          });
+        }
       });
 
-      countEl.textContent = shown + ' résultat' + (shown>1?'s':'') + (shown===0 ? ' — essaie un autre terme' : '');
+      countEl.textContent = shown + ' résultat' + (shown>1?'s':'');
+      emptyEl.hidden = shown !== 0;
     }
 
     // Debounce : run() re-scanne toutes les entrées, inutile de le faire à chaque frappe.
