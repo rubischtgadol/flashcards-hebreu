@@ -277,6 +277,46 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
+**Passe de cybersécurité (21/07) — soldée.** Trois gestes, tous vérifiés par
+relecture fraîche de l'API et non par l'écho de la requête qui les a posés :
+
+1. **Secret scanning + push protection activés** sur le dépôt (ils étaient
+   `disabled`, alors qu'ils sont gratuits sur un dépôt public). ⚠️ Piège payé :
+   `gh api -F 'security_and_analysis[...]'` envoie du *form-data* et ne modifie
+   rien **en répondant 200** — il faut un vrai corps JSON via `--input -`. La
+   première tentative a semblé réussir et n'avait rien fait.
+2. **CSP en `<meta http-equiv>`** dans les trois pages, bloc **identique**
+   (même discipline que les tokens de charte), placé juste après `<meta
+   charset>`. GitHub Pages ne sert aucun en-tête de réponse : le `<meta>` est la
+   seule voie. ⚠️ Deux corrections contre le plan initial : le projet **charge
+   bien Google Fonts** (`style-src` doit lister `fonts.googleapis.com`,
+   `font-src` `fonts.gstatic.com`) — l'affirmation « aucune ressource externe »
+   était fausse ; et le `<link>` des polices porte un **gestionnaire inline**
+   `onload`, ce qui condamne l'option des hashes et impose `'unsafe-inline'`.
+   La CSP durcit donc les **origines** (`connect-src`, `object-src`,
+   `base-uri`, `form-action`), pas l'injection de script — c'est son vrai
+   périmètre, il ne faut pas se raconter autre chose.
+   **Preuve : WebKit iPhone 16 Pro, 5/5 PASS, 0 violation**, avec contrôle
+   négatif (page témoin `img-src 'none'` → 2 violations capturées, donc le
+   détecteur n'était pas muet). SW bumpé **v23 → v24**.
+   Reste non prouvé : le standalone en `file://`, où `'self'` ne matche pas —
+   il y perd manifest et apple-touch-icon (sans effet hors HTTP), le lien vers
+   le carnet reste bon (la navigation n'est pas régie par la CSP).
+3. **Branch protection sur `main`** : force-push et suppression bloqués,
+   **sans** review exigée ni `enforce_admins` — le commit direct sur `main` du
+   rituel reste possible, c'est un filet anti-erreur, pas un processus.
+
+Écartés sciemment, et pourquoi : **Dependabot** (zéro dépendance, rien à
+scanner), **Scorecard**/**Allstar** (notent des dépendances consommées par des
+tiers ; ce dépôt n'est la dépendance de personne), **TruffleHog** (sa valeur est
+la vérif *live* de credentials — il n'y en a aucun), **Semgrep CLI** (exige
+Python, recouvre CodeQL sans rien ajouter sur du vanilla JS), **CodeQL** (couvre
+bien les `<script>` inline, mais bruyant sur les `innerHTML` des templates pour
+peu de vrais sinks). **`zizmor` est le seul à garder en signet** : il devient le
+premier outil à poser le jour où un workflow GitHub Actions apparaît — il n'y a
+aujourd'hui aucun `.github/`. Plugin **`security-guidance`** installé (portée
+utilisateur) : avertissements sur les édits + revue LLM du diff au Stop.
+
 **Aucun chantier ouvert.** Dernier acte (session 18, 21/07) : **la dérive de
 table héritée du lot argent-achats est soldée**. La cible annoncée (« la table
 de sec-verbes ») n'existait pas : `#sec-verbes` est un `<h2>`, et la section

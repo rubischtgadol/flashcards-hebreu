@@ -49,7 +49,7 @@
 // L'impératif promu depuis le bonus du futur, Le conditionnel הָיִיתִי,
 // Suffixes possessifs) + bloc « Reconnaître le binyan » ; le sommaire passe
 // à 35 pilules. Nouveau cours = visible au premier lancement.
-const VERSION = 'v23';
+const VERSION = 'v24';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

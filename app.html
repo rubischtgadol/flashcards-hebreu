@@ -2,6 +2,13 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<!-- CSP : GitHub Pages ne sert aucun en-tête de réponse, le <meta> est la seule voie.
+     'unsafe-inline' est imposé par le parti pris du projet — tout le CSS et le JS sont
+     inline, et le <link> des polices porte un onload ; passer aux hashes couplerait la
+     règle à build.js pour un gain nul. La vraie garde est ailleurs : connect-src 'self'
+     ferme l'exfiltration, object-src/base-uri la réécriture de page. Bloc identique dans
+     les trois pages. frame-ancestors est ignoré en <meta> : inutile de l'écrire. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flashcards Hébreu</title>
 <!-- PWA : installable sur iPhone via Safari → Partager → « Sur l'écran d'accueil ». -->
