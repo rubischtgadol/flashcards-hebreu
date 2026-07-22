@@ -35,6 +35,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. **Numbered criteria in every prompt**: "count X, name every failure, PASS/FAIL per item, max N lines, no screenshots/HTML in the reply" — state the acceptance bar *in the prompt*. An agent that answers « c'est bon » proved nothing: a muted control always passes green (same lesson as the coverage guard in `build.js`).
 3. **Reuse a finished agent for follow-ups in its area** (continue it with a new message) instead of spawning a fresh one — its context is already paid for.
 4. **Never read an agent's transcript/output file, a screenshot, or a raw log in the main thread.** If the report is insufficient, send the agent a follow-up question.
+5. **Model per task (owner's rule, 2026-07-22)**: dispatch mechanical scouting on **Sonnet 5** (`model: 'sonnet'`) — bulk grep, `build.js`/`verifie_exemples.js` counts, broad/large-file reading, WebKit driving for a short verdict: cheaper, amply sufficient. **Opus 4.8 (the default, inherited) is reserved for content arbitration and charter (DESIGN.md) judgment** — exactly the work rung 4 keeps on the main thread anyway, so a subagent almost never needs it. When unsure, the task is mechanical → Sonnet.
 
 **One session per chantier**, then `/clear`. The ritual's closing commit is the clean cut point: the state lives in git and in TODO.md « Reprendre ici », not in the context window.
 
