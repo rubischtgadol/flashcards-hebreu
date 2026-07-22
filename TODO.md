@@ -277,6 +277,25 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
+**Deux oublis de vocabulaire comblés (22/07) — soldé.** Signalés par Ruben :
+
+1. **Pluriel de « quel »** : la liste des mots interrogatifs n'avait que אֵיזֶה
+   (masc.) et אֵיזוֹ (fém.). Ajout de אֵילוּ (eilu, pluriel) + une note qui pose les
+   trois formes et signale que l'oral rabat souvent tout sur אֵיזֶה. Une carte de
+   plus (789 → **790**), exemples des interrogatifs 12 → 13.
+2. **Pluriel des smikhuts** : la section grammaire « État construit » enseignait la
+   formation et la définition mais jamais le pluriel. Note ajoutée : le **premier**
+   mot change (בֵּית סֵפֶר → בָּתֵּי סֵפֶר), sauf quelques smikhuts de parenté où **les
+   deux** passent au pluriel (בֶּן דּוֹד → בְּנֵי דּוֹדִים, l'exemple donné par Ruben, déjà
+   présent comme carte dans la table Noms). Notes de grammaire → hors extraction,
+   pas de carte.
+
+Rituel : `build.js` 790 cartes / couverture 573/573 / 15 thèmes en phase,
+`verifie_exemples` 638/638 **0 erreur** (7 avertissements préexistants, aucun sur
+les ajouts), `--check` en phase. Contenu seul, aucun chemin d'UI touché → pas de
+WebKit, SW inchangé. Graphe laissé tel quel (dérive interne tolérée, aucun fichier
+créé/supprimé/renommé).
+
 **Sens de lecture réparé sur mobile (22/07) — soldé.** Deux gestes issus d'une
 capture iPhone de Ruben :
 1. **Flashcards, verso des verbes** : le bloc `.forms` passe de `direction:ltr` à
