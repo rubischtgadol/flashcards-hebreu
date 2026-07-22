@@ -266,6 +266,46 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
+**Gros lot de vocabulaire (22/07) — soldé.** Suite à l'audit de couverture (trois
+sous-agents Sonnet en parallèle sur vie concrète / vie sociale / abstrait,
+22/07), Ruben a demandé un ajout massif ciblé plutôt qu'un rééquilibrage
+général :
+
+1. **Grammaire — « et » (וְ)** : nouvelle section Partie 1, entre L'article défini
+   et État construit (+ lien Sommaire). Les trois prononciations וְ/וּ/וַ
+   (ve-/u-/va-) selon la lettre suivante — jusque-là seule וְ était mentionnée
+   en une ligne dans Conjonctions, qui pointe maintenant vers la nouvelle
+   section.
+2. **Famille-personnes complétée en entier** (34 → 54 cartes) : petite-fille,
+   neveu/nièce, beau-père/belle-mère, beau-frère/belle-sœur, veuf/veuve,
+   demi-frère/demi-sœur, jumeau/jumelle, orphelin, voisine, gendre/bru (avec
+   note sur la double lecture marié(e)/gendre-bru), + 3 adjectifs d'état civil
+   (célibataire, marié, divorcé).
+3. **Vie-quotidienne, main lourde** (28 → 42) : 9 noms de routine (réveil,
+   oreiller, couverture, brosse à dents, dentifrice, shampoing, rasoir, peigne,
+   lessive) + 5 verbes (se doucher, se raser, se coiffer/peigner, ranger,
+   se coucher/s'allonger).
+4. **Ville-transport, main lourde** (55 → 74) : 17 noms (vélo, moto, métro,
+   trottoir, feu rouge, passage piéton, piéton, stationnement, embouteillage,
+   quartier, carrefour, station-service, quai, circulation, pneu, ceinture de
+   sécurité, casque) + 2 verbes (se garer, traverser).
+5. **Nourriture et Temps-calendrier, trous ciblés** (comme demandé, pas
+   « main lourde ») : nourriture 57 → 64 (poisson, pâtes, petit-déjeuner/
+   déjeuner/dîner, yaourt, farine) ; temps-calendrier 18 → 21 (après-midi,
+   week-end, anniversaire).
+
+**Total : 790 → 853 cartes (+63).** Couverture 636/636, 15 thèmes en phase,
+`verifie_exemples` 638→701 exemples, **0 erreur**. ⚠️ **Leçon retenue en cours
+de route** : la première passe d'exemples a introduit 20 avertissements
+« mot hors carnet » (des mots inédits comme בזהירות, אוניברסיטה, אדיב glissés
+dans des phrases d'exemple) — tous corrigés en réécrivant ces exemples avec du
+vocabulaire déjà enseigné ailleurs dans le carnet ; ne reste que la dérive de
+translittération tolérée (10 avertissements, dont 7 préexistants). Graphe
+laissé tel quel (dérive interne, aucun fichier créé/supprimé/renommé). Contenu
+seul → pas de WebKit, SW inchangé. Commit direct sur `main` (session basculée
+sur cette branche plus tôt dans la journée), `pilier-oral` restant isolée pour
+son propre chantier.
+
 ⚠️ **Régime de travail exigé par Ruben (répété trois fois le 21/07), désormais
 fusionné dans CLAUDE.md § « The token-economy doctrine — STANDING DIRECTIVE » :
 chaque question passe par le canal le moins cher qui la prouve.** L'échelle :
