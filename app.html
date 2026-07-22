@@ -374,6 +374,10 @@
     margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start;
     gap:14px 22px; direction:rtl; max-width:100%;
   }
+  /* Verbes : les 4 formes se rangent en 2×2 — singulier au-dessus, pluriel
+     dessous ; en lecture RTL (direction:rtl ci-dessus) le masculin tombe à
+     droite, le féminin à gauche, exactement comme une table de conjugaison. */
+  .forms.forms-grid{ display:grid; grid-template-columns:repeat(2,max-content); justify-content:center; gap:14px 34px; }
   .forms .form-cell{ display:flex; flex-direction:column; align-items:center; gap:3px; min-width:78px; }
   .forms .f-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:2rem; line-height:1.1; direction:rtl; }
   .forms .f-lbl{ font-size:.85rem; color:var(--ink-dim); direction:ltr; line-height:1.2; white-space:nowrap; }
@@ -1664,7 +1668,10 @@ function heFront(card){
 function bigFr(card){ return '<div class="big-fr'+(card.cat==='Phrases'?' phrase':'')+'">'+card.fr+'</div>'; }
 function formsHtml(card){
   if(!card.forms) return '';
-  let h='<div class="forms">';
+  // Les verbes (4 formes il/elle/ils/elles) passent en grille 2×2 ; noms et
+  // adjectifs (1 et 3 formes) gardent la ligne souple.
+  const grid = card.cat==='Verbes' ? ' forms-grid' : '';
+  let h='<div class="forms'+grid+'">';
   card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he" lang="he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
   return h+'</div>';
 }
