@@ -266,6 +266,50 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
+**Lot de 200 mots, 15 thèmes (22/07) — soldé.** Sur demande explicite de
+Ruben (« j'ai besoin d'ajouter énormément de vocabulaire »), régime complet en
+trois passes de sous-agents Sonnet parallèles :
+
+1. **Audit de couverture** (5 agents, 3 thèmes chacun sur les 15 champs
+   sémantiques) — comptages Verbes/Noms/Adjectifs par niveau CECRL et trous
+   structurels (`travail-etudes`/`loisirs-culture`/`communication-pensee` à
+   0 adjectif, `nature`/`temps-calendrier` à 0 verbe, `abstrait` à 0 adjectif
+   B2 malgré 44 adjectifs). Présenté à Ruben, qui a approuvé une répartition
+   pondérée vers ces trous plutôt que proportionnelle (corps-sante,
+   emotions-caractere, travail-etudes à 20 chacun ; le reste 10-15).
+2. **Rédaction** (15 agents, un par thème, contenu complet niqqud +
+   translittération + exemple en situation).
+3. **Arbitrage au fil principal** : 5 collisions inter-lots repérées (agents
+   parallèles ne se voient pas) — רַע réutilisé pour « méchant » alors qu'il
+   porte déjà « mauvais » (retiré), מַחְשֵׁב « ordinateur » rédigé deux fois
+   (gardé sous travail-etudes), לְתַקֵּן rédigé pour « corriger » ET
+   « réparer » (gardé « réparer » sous maison-objets), לְהִכָּשֵׁל « échouer »
+   rédigé deux fois (gardé sous travail-etudes), צָפוּף rédigé pour « bondé »
+   ET « exigu » (gardé « bondé » sous ville-transport). Au passage, 2 vrais
+   doublons préexistants repérés par les agents d'audit et corrigés :
+   רַוָּק/נָשׂוּי (célibataire/marié) dupliqués mot pour mot en fin de table
+   Adjectifs, אוּלְפָּן/אֻלְפָּן (deux orthographes de niqqud du même mot)
+   dupliqués en Noms. ⚠️ Les mots signalés comme « mal classés » par les
+   agents d'audit (restaurant/bague/essayer/large, rangés sous un thème large
+   plutôt que le thème le plus étroit) n'ont **pas** été reclassés après
+   vérification — c'est le rangement existant déjà en vigueur ailleurs dans
+   le carnet (adjectifs généraux sous `abstrait`, lieux sous
+   `ville-transport`), pas une erreur.
+4. **Insertion** (1 agent Sonnet, mécanique) : nettoyage des 2 doublons, pose
+   de chaque bloc sous le bon `data-theme` dans la bonne table, puis rituel
+   `build.js`/`verifie_exemples.js` en boucle jusqu'à 0 erreur — a aussi
+   trouvé et corrigé deux effets de bord (un exemple préexistant qui citait
+   la graphie d'oulpan supprimée ; deux adjectifs neufs — מֻסְמָך diplômé,
+   מֻכְשָׁר doué — dont l'exemple à 2 mots tombait sous le plancher éditorial
+   de `verifie_exemples.js`, étoffés à 4 mots).
+
+**Total : 853 → 1046 cartes (+193).** Couverture 829/829, 15 thèmes en phase,
+`verifie_exemples` 701→894 exemples, **0 erreur** (14 avertissements non
+bloquants : 10 préexistants inchangés + 4 nouveaux de dérive de
+translittération/niveau — צָמוּד, רֶגֶל, מְלָפְפוֹן, מְצִיאוּת — à regarder à
+l'occasion, non urgents). Contenu seul → pas de WebKit, SW inchangé. Graphe
+laissé tel quel (dérive interne, aucun fichier créé/supprimé/renommé).
+
 **Gros lot de vocabulaire (22/07) — soldé.** Suite à l'audit de couverture (trois
 sous-agents Sonnet en parallèle sur vie concrète / vie sociale / abstrait,
 22/07), Ruben a demandé un ajout massif ciblé plutôt qu'un rééquilibrage
