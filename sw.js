@@ -49,7 +49,11 @@
 // L'impératif promu depuis le bonus du futur, Le conditionnel הָיִיתִי,
 // Suffixes possessifs) + bloc « Reconnaître le binyan » ; le sommaire passe
 // à 35 pilules. Nouveau cours = visible au premier lancement.
-const VERSION = 'v24';
+// v25 : sens de lecture réparé sur mobile — au verso des cartes verbes les
+// formes se lisent droite→gauche (.forms en direction:rtl), et dans le carnet
+// les rangs de vocabulaire remettent les inflexions sur une ligne avec
+// l'exemple EN DESSOUS. Correctif visuel = visible au premier lancement.
+const VERSION = 'v25';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

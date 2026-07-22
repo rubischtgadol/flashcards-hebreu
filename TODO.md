@@ -277,6 +277,25 @@ fichier » dans chaque prompt de repérage, et ne jamais envoyer en sous-agent c
 que le graphe sait déjà. Ne jamais lire un gros fichier ni un transcript d'agent
 au fil principal.
 
+**Sens de lecture réparé sur mobile (22/07) — soldé.** Deux gestes issus d'une
+capture iPhone de Ruben :
+1. **Flashcards, verso des verbes** : le bloc `.forms` passe de `direction:ltr` à
+   `rtl` (`app.html`), pour que les 4 formes se lisent droite→gauche (« il » à
+   droite). Les libellés `.f-lbl` gardent leur `direction:ltr`, donc « il · … »
+   reste lisible. Standalone régénéré, SW **v24 → v25**.
+2. **Carnet, rangs de vocabulaire sous 640px** : la carte empilée remettait
+   l'exemple AU-DESSUS des formes. Ruben préfère les inflexions **sur une ligne**,
+   l'**exemple EN DESSOUS**. Le rang devient un flex souple ; la 1re cellule se
+   dissout (`display:contents`) pour libérer ses enfants (`he/cursive/fr/exemples`)
+   et les réordonner (vedette 1-3, formes 4, exemple 5) **sans toucher au markup
+   dont dépend l'extraction**. Appliqué aux trois tables (Verbes/Noms/Adjectifs).
+   ⚠️ Nuance assumée : les formes qui débordent la carte **passent à la ligne**
+   plutôt que de défiler — un vrai défilement d'une sous-ligne exigerait un
+   conteneur d'enrobage interdit par le couplage d'extraction. **Preuve : WebKit
+   iPhone 16 Pro, 6/6 PASS** (verso RTL + les 3 tables ordre vedette→formes→exemple
+   + étiquettes + zéro chevauchement). Graphe laissé tel quel (édits internes,
+   aucun fichier créé/supprimé → pas de flag).
+
 **Passe de cybersécurité (21/07) — soldée.** Trois gestes, tous vérifiés par
 relecture fraîche de l'API et non par l'écho de la requête qui les a posés :
 

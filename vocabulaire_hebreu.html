@@ -252,25 +252,37 @@
     .table-wrap:has(ul.exemples){ overflow-x:visible; border:none; border-radius:0; }
     .table-wrap:has(ul.exemples) table{ min-width:0; }
     .table-wrap:has(ul.exemples) table,
-    .table-wrap:has(ul.exemples) tbody,
-    .table-wrap:has(ul.exemples) tr,
-    .table-wrap:has(ul.exemples) td{ display:block; }
+    .table-wrap:has(ul.exemples) tbody{ display:block; }
     .table-wrap:has(ul.exemples) thead{ display:none; }
+    /* Chaque rang devient une carte, disposée en flex-colonne souple pour pouvoir
+       RÉORDONNER : vedette → formes sur une ligne → exemple EN DESSOUS. La 1re
+       cellule se dissout (display:contents) — ses enfants directs (he, cursive, fr,
+       ul.exemples) deviennent items du flex du rang : seul moyen de glisser les
+       formes ENTRE la vedette et l'exemple sans toucher au markup dont dépend
+       l'extraction vers les flashcards. */
     .table-wrap:has(ul.exemples) tr{
+      display:flex; flex-flow:row wrap; align-items:flex-start;
+      direction:rtl; text-align:right;
       border:1px solid var(--line);
       border-radius:11px;               /* le rayon des rangées (.word-list) */
       padding:11px 14px 13px;
       margin:0 0 10px;
     }
-    .table-wrap:has(ul.exemples) td{
-      padding:0; border-bottom:none; white-space:normal; text-align:right;
-    }
-    .table-wrap:has(ul.exemples) td:empty{ display:none; }
-    /* Les formes courtes se rangent en ligne, chacune sous son étiquette mono
-       (voix Label : c'est une étiquette d'inflexion, DESIGN.md §3). */
+    .table-wrap:has(ul.exemples) td:first-child{ display:contents; }
+    .table-wrap:has(ul.exemples) td:first-child > .he{ order:1; flex:0 0 100%; }
+    .table-wrap:has(ul.exemples) td:first-child > .cursive{ order:2; flex:0 0 100%; }
+    .table-wrap:has(ul.exemples) td:first-child > .fr{ order:3; flex:0 0 100%; }
+    /* Les formes courtes : sur UNE ligne (order 4), chacune sous son étiquette mono
+       (voix Label : c'est une étiquette d'inflexion, DESIGN.md §3). Si la ligne
+       déborde la carte, elle passe à la suivante — jamais un défilement horizontal
+       enfermé dans le défilement vertical (le pire geste tactile, critique 21/07). */
     .table-wrap:has(ul.exemples) td:not(:first-child){
-      display:inline-block; vertical-align:top; margin:8px 0 0 18px;
+      order:4; flex:0 0 auto; display:block;
+      margin:10px 0 0; padding:0; border-bottom:none;
+      white-space:normal; text-align:right;
     }
+    .table-wrap:has(ul.exemples) td:not(:first-child) + td:not(:first-child){ margin-inline-start:18px; }
+    .table-wrap:has(ul.exemples) td:empty{ display:none; }
     .table-wrap:has(ul.exemples) td:not(:first-child) .he{ font-size:var(--pas-hebreu-2); }
     .table-wrap:has(ul.exemples) td:not(:first-child)::before{
       display:block; direction:ltr; text-align:right;
@@ -278,6 +290,8 @@
       font-size:var(--pas-micro); letter-spacing:0.14em; text-transform:uppercase;
       color:var(--ink-dim);
     }
+    /* L'exemple ferme la carte, posé SOUS les formes (order 5). */
+    .table-wrap:has(ul.exemples) td:first-child > .exemples{ order:5; flex:0 0 100%; margin-top:12px; }
     /* Le nombre de colonnes signe la catégorie ; les étiquettes reprennent les
        thead masqués. 3 col = Noms · 4 col = Adjectifs · 5 col = Verbes
        (partition vérifiée le 21/07 : 12/1/6 tables, aucune grammaire touchée). */
