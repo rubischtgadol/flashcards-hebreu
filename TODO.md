@@ -296,6 +296,20 @@ capture iPhone de Ruben :
    + étiquettes + zéro chevauchement). Graphe laissé tel quel (édits internes,
    aucun fichier créé/supprimé → pas de flag).
 
+**Verso des verbes en grille 2×2 (22/07) — soldé.** Demande de Ruben (capture) :
+les 4 formes conjuguées ne se rangent plus sur une ligne repliable mais en
+**grille 2 colonnes** (`.forms.forms-grid`, `formsHtml` ajoute la classe quand
+`cat==='Verbes'`) — singulier au-dessus, pluriel dessous ; en RTL (le `.forms`
+est déjà `direction:rtl`) le masculin tombe à droite, le féminin à gauche :
+```
+        (infinitif)
+elle · …  —  il · …      (fém. sing. / masc. sing.)
+elles · … —  ils · …     (fém. plur. / masc. plur.)
+```
+Scopé aux verbes (4 formes) : noms (1 forme « pluriel ») et adjectifs (3 formes)
+gardent la ligne souple, vérifié non-régressé. **Preuve : WebKit iPhone 16 Pro,
+3/3 PASS.** SW **v25 → v26**. Graphe laissé tel quel (édit interne).
+
 **Passe de cybersécurité (21/07) — soldée.** Trois gestes, tous vérifiés par
 relecture fraîche de l'API et non par l'écho de la requête qui les a posés :
 

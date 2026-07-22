@@ -53,7 +53,10 @@
 // formes se lisent droite→gauche (.forms en direction:rtl), et dans le carnet
 // les rangs de vocabulaire remettent les inflexions sur une ligne avec
 // l'exemple EN DESSOUS. Correctif visuel = visible au premier lancement.
-const VERSION = 'v25';
+// v26 : verso des verbes en grille 2×2 (.forms.forms-grid) — singulier au-dessus,
+// pluriel dessous, masculin à droite en RTL, comme une table de conjugaison ;
+// noms et adjectifs gardent la ligne souple. Visible au premier lancement.
+const VERSION = 'v26';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
