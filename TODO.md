@@ -266,6 +266,22 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
+⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé). Le flag enregistre
+la dette, il ne déclenche rien (règle du 21/07) ; à étendre à `ajoute_mots.js`
+quand le script naîtra.
+
+**Prochain chantier : construire `ajoute_mots.js` selon `SPEC_AJOUTE_MOTS.md`**
+(spec v2 du générateur de fiche — figée le 23/07 après audit red team et
+relecture). Le but : ne plus jamais rouvrir le carnet de ~8000 lignes pour
+composer un ajout ; l'entrée est un petit `nouveaux_mots.json`, le script fait le
+balisage, le placement, la validation en sandbox et le verdict. Points
+d'architecture décidés : réutiliser les exports de `build.js` (étendus — helpers,
+constantes, `listCats` hissée), `he2tr` extrait d'`app.html` via `vm` (procédé de
+`verifie_exemples.js`), validateurs lancés en sandbox (copie scratchpad, car
+`ROOT = __dirname`), dry-run par défaut, tout-ou-rien. L'étage 2 (pré-remplissage
+des champs mécaniques depuis une source externe à froid) reste explicitement hors
+périmètre.
+
 **Lot de 200 mots, 15 thèmes (22/07) — soldé.** Sur demande explicite de
 Ruben (« j'ai besoin d'ajouter énormément de vocabulaire »), régime complet en
 trois passes de sous-agents Sonnet parallèles :
