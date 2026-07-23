@@ -267,7 +267,40 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 ## Reprendre ici (prochaine session)
 
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
-(créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
+(créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé). Le flag
+enregistre la dette, il ne déclenche rien (règle du 21/07).
+
+**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md, validée 23/07) — EN
+COURS.** Fait : commits 1–2 de la spec §8 (la spec ; `cherche_mots.js`,
+consultation du carnet par commande — validation §2.3 verte : 1046 cartes,
+les 4 chevauchements de sens nommés, et חי détecté comme forme MS de לִחְיוֹת,
+que l'inventaire par sous-agent à 56k tokens avait raté). Reste, dans l'ordre
+§8 : **commit 3** = archivage TODO.md → TODO_ARCHIVE.md (§3, pur couper-coller,
+cible ≤ ~15 Ko) + codification §5.2 (piège n°15 — texte verbatim en §5.1 de la
+spec — dans CLAUDE.md, § Outillage ici, 1 ligne README/ARCHITECTURE) ; puis
+**chantier C** = diff de compression de CLAUDE.md (§4), proposé sans rien
+appliquer ; puis **reprise du lot des 24 mots** à l'étape 4 du déroulé §5.3
+(rédaction du JSON pour `ajoute_mots.js`).
+
+**Le lot des 24 mots « de base » (arbitré 23/07, prêt pour la rédaction JSON).**
+Niveaux : A1 partout sauf mention A2 (dosage proposé, à confirmer). Thèmes entre
+parenthèses ; verbes en sous-thème « Vie quotidienne » / thème vie-quotidienne
+sauf mention.
+— *Noms (8)* : צֶבַע couleur (vetements-couleurs) · שָׂפָה langue, langage
+(communication-pensee) · סוֹף fin, A2 (abstrait) · סוּג sorte, type, A2
+(abstrait) · מַפָּה carte, plan (ville-transport) · מִטְרִיָּה parapluie
+(maison-objets) · עִתּוֹן journal (loisirs-culture) · דֻּגְמָה exemple, A2
+(communication-pensee).
+— *Adjectifs (8, thème abstrait sauf mention)* : עָמֹק profond · עָבֶה épais ·
+דַּק fin, peu épais (le carnet a déjà רָזֶה mince) · עָגֹל rond · טָרִי frais
+(aliment ; nourriture — le carnet a déjà רַעֲנָן frais/reposé) · אֲמִיתִּי
+véritable, authentique, A2 (le carnet a déjà נָכוֹן correct/vrai) · רוֹעֵשׁ
+bruyant · חַי vivant (⚠ homographe de la forme MS de לִחְיוֹת — à confirmer à
+l'arbitrage).
+— *Verbes (8)* : לְהַפְסִיק arrêter, cesser, A2 · לִזְרֹק jeter · לְהַחְזִיק
+tenir · לָגַעַת toucher · לְהוֹסִיף ajouter (Travail, étude & action ;
+travail-etudes) · לְאַבֵּד perdre (un objet) · לְהַרְוִיחַ gagner (de
+l'argent), A2 (Travail, étude & action ; argent-achats) · לְהָכִין préparer.
 
 **Chantier `ajoute_mots.js` (générateur de fiche, étage 1) — soldé le 23/07.**
 Le script est né conforme à `SPEC_AJOUTE_MOTS.md` (v2 figée), en deux commits :
