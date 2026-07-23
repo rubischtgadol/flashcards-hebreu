@@ -41,6 +41,17 @@ const EXPECTED_THEMES = ['famille-personnes','corps-sante','nourriture','maison-
 // Catégories où data-theme est obligatoire sur chaque entrée (même règle de
 // couverture que data-niveau : tenue par l'outillage, pas par la discipline).
 const THEMED_CATS = ['Noms','Adjectifs','Verbes'];
+// Sections du carnet en <ul class="word-list"> → catégorie de carte. Au niveau
+// module (et non locale à extractCards) : ajoute_mots.js valide ses labels de
+// section contre cette table — une seule source côté Node. Miroir du listCats
+// d'extractCards() dans app.html (toute entrée ajoutée doit l'être des deux côtés).
+const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'Démonstratifs',
+  'Verbes modaux':'Verbes modaux',
+  'Prépositions':'Prépositions', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
+  'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',
+  'Jours de la semaine':'Jours de la semaine', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
+  'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
+  'Existence et possession':'Existence', 'Phrases':'Phrases' };
 
 // ---------- mini-parsing HTML (zéro dépendance) ----------
 const NAMED_ENTITIES = { amp:'&', lt:'<', gt:'>', quot:'"', apos:"'", nbsp:' ',
@@ -224,13 +235,6 @@ function extractCards(html){
     if (he) cards.push(card);
   });
 
-  const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'Démonstratifs',
-    'Verbes modaux':'Verbes modaux',
-    'Prépositions':'Prépositions', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
-    'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',
-    'Jours de la semaine':'Jours de la semaine', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
-    'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
-    'Existence et possession':'Existence', 'Phrases':'Phrases' };
   Object.keys(listCats).forEach(sec => {
     lisOf(sections, sec).forEach(li => {
       const he = firstSpanText(li, 'he'); if (!he) return;
@@ -479,6 +483,11 @@ function main(){
   }
 }
 
-// Réutilisable en module (verifie_exemples.js s'appuie sur la même extraction).
-module.exports = { extractCards, NOTEBOOK, APP };
+// Réutilisable en module : verifie_exemples.js s'appuie sur la même extraction ;
+// ajoute_mots.js (générateur de fiche) réutilise les helpers de parsing et les
+// constantes — jamais de troisième parseur, jamais de constante dupliquée.
+module.exports = { extractCards, NOTEBOOK, APP,
+  parseSections, closeOf, lisOf, exemplesOf, firstSpanText, attrOf, tdsOf,
+  stripNikud, decodeEntities,
+  EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats };
 if (require.main === module) main();
