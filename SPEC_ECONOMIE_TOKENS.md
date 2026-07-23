@@ -206,3 +206,104 @@ fenêtrée par taille (§5.1, corollaire a, qui les nomme explicitement) suffit.
 - Plus aucune règle d'économie qui ne vive que dans la conversation : tout est
   dans CLAUDE.md, TODO.md ou la mémoire.
 - Le rituel et tous les gardes existants restent verts.
+
+## 10. Correctifs post-livraison (relecture du 23/07, à appliquer)
+
+La relecture par commandes du chantier livré a trouvé **un vrai défaut d'outil
+et une promesse fausse**. Le carnet n'a rien subi : le bug était latent (§10.5).
+Statut : **plan validé, exécution à faire.**
+
+### 10.1 Correctif 1 — `cherche_mots.js` : faux « ABSENT » sur ktiv male/haser
+
+**Symptôme mesuré** : sur les 24 mots du lot fraîchement insérés, **6 ressortent
+`ABSENT`** — עיתון, דוגמה, עמוק, עגול, לזרוק, להרוויח.
+
+**Cause** : un mot vocalisé s'écrit en **ktiv haser** (עִתּוֹן → `עתון` une fois
+le niqqud retiré), mais on le cherche naturellement en **ktiv male** (`עיתון`).
+La comparaison exacte sur `he_plain` rate le couple. Le sens de l'échec est le
+dangereux : « absent » d'un mot présent ⇒ on insère un doublon. Taux réel :
+**6/24 = 25 %**.
+
+**Règle retenue** — après échec de la comparaison exacte, tenter la variante
+orthographique : *A ~ B si l'un s'obtient de l'autre en n'**insérant** que des
+ו/י*, avec deux garde-fous — forme courte **≥ 3 lettres**, **≤ 2 insertions**.
+Les occurrences ainsi trouvées sortent dans une rubrique **« orthographe
+voisine »**, jamais mêlées aux exactes.
+
+**Réglage mesuré sur les 1053 `he_plain` distincts du carnet :**
+
+| Réglage | Paires sur tout le corpus | Rattrape les 6 ? |
+| --- | --- | --- |
+| retrait naïf de tous les ו/י | 60 groupes / 132 mots — **écarté** | oui |
+| MIN 3 / MAX 1 | 27 | oui |
+| **MIN 3 / MAX 2 — retenu** | **37 (3,5 %)** | **oui** |
+| MIN 4 / MAX 2 | 8 | **non** (rate עמק, עגל) |
+
+Le retrait naïf est écarté par la mesure : il apparie לישן (dormir) ~ לשון
+(langue) et יפה (beau) ~ פה (bouche). Les 37 paires de la règle retenue sont au
+contraire **utiles** — מלוח~מלח (salé/sel), עצוב~עצב, רחב~רחוב : les
+quasi-homographes qu'un éditeur veut voir signalés.
+
+**Emplacement** : le helper va dans `build.js` + son `module.exports` (doctrine
+« jamais de logique dupliquée »), parce que §10.2 le consomme aussi.
+
+### 10.2 Correctif 2 — `ajoute_mots.js` partage l'angle mort
+
+Le garde doublons §7.A de SPEC_AJOUTE_MOTS compare `he_plain` **exactement**. Il
+passe aujourd'hui parce que tout candidat porte le niqqud, donc s'écrit défectif
+comme le carnet — mais une fiche future écrite en ktiv male vocalisé (עִיתּוֹן)
+glisserait à travers.
+
+**Correctif à risque maîtrisé** : signal « orthographe voisine » en
+**informatif non bloquant uniquement**, via le helper de §10.1. Le comportement
+bloquant ne change pas ⇒ les 12 cas d'erreur validés le 23/07 restent verts.
+
+### 10.3 Correctif 3 — documentaire : cette spec affirme deux choses fausses
+
+- **§2.1** annonce « comparaison **exacte** sur `he_plain` » — c'est exactement
+  ce qui a produit le bug. Réécrire avec la tolérance §10.1 et ses garde-fous.
+- **§2.3** n'a aucun critère orthographique. Ajouter : les 6 mots retrouvés,
+  **et** les contre-tests négatifs (לישן ne doit pas matcher לשון ; יפה ne doit
+  pas matcher פה).
+- **§4** promet « ~1,5–2k tokens économisés à chaque tour de chaque session
+  future ». **Faux** : CLAUDE.md est passé de 21 014 o à 22 330 o (piège n°15,
+  +1 316) puis à 21 026 o (compression, −1 304) — résultat net **+12 o**. La
+  compression a exactement payé le nouveau piège. Consigner le résultat réel et
+  la leçon : le fichier est ~94 % de règles, que §4 interdit de retirer ; **la
+  cible était irréaliste dès l'écriture de la spec**. Le vrai gain du chantier
+  est ailleurs et il est acquis : TODO.md 163 → 16 Ko, et l'inventaire à 56k
+  tokens remplacé par une commande à ~200.
+
+### 10.4 Correctif 4 — propagation
+
+`TODO.md` § Outillage et la mémoire agent `dedup-mots-sans-lire-la-liste.md`
+décrivent tous deux « hébreu → `he_plain` exact » : à corriger. Le piège n°15 de
+CLAUDE.md ne détaille pas l'appariement — rien à y changer, vérifier au passage.
+
+### 10.5 Validation des correctifs
+
+1. Les 6 mots ressortent trouvés (rubrique « orthographe voisine »).
+2. Contre-tests **négatifs** : `לישן` ne remonte pas לשון ; `יפה` ne remonte
+   pas פה.
+3. `node build.js --check` vert ; `verifie_exemples.js` à **14** avertissements
+   (pas 15).
+4. `ajoute_mots.js` : rejouer le lot des 24 déjà inséré donne toujours « Rien à
+   insérer » (idempotence intacte), et les 12 cas d'erreur du §8 de
+   SPEC_AJOUTE_MOTS restent verts.
+
+### 10.6 Ce que la mesure a aussi prouvé
+
+**Aucune des 37 paires n'est un doublon réel** — ce sont toutes des entrées
+légitimement distinctes. Le carnet ne contient donc **aucun doublon caché** par
+ce défaut : on corrige un piège avant qu'il ne morde, pas après.
+
+### 10.7 Ordre d'exécution
+
+Deux commits, **aucun contenu touché** ⇒ pas de bump `sw.js`, pas de flag graphe
+(aucun fichier créé/supprimé/renommé) :
+
+1. **Commit A** — outillage : helper dans `build.js` + export, consommation dans
+   `cherche_mots.js` (rubrique dédiée) et `ajoute_mots.js` (informatif), puis la
+   validation §10.5 en entier.
+2. **Commit B** — docs : §2.1, §2.3 et §4 de cette spec ; TODO.md § Outillage et
+   « Reprendre ici » ; mémoire agent.

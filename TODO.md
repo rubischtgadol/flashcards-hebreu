@@ -8,9 +8,17 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md, validée 23/07) — SOLDÉ
-le 23/07.** Les 3 commits de la spec §8 + le chantier C + le lot des 24 mots,
-tous livrés :
+**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md, validée 23/07) — livré,
+⚠️ CORRECTIFS EN ATTENTE.** La relecture par commandes a trouvé un vrai défaut
+d'outil : **`cherche_mots.js` répond `ABSENT` sur 6 des 24 mots pourtant
+insérés** (ktiv male de la requête vs ktiv haser du carnet vocalisé) — faux
+négatif, donc le sens dangereux : il laisserait passer un doublon. Plan complet,
+mesuré et validé : **SPEC_ECONOMIE_TOKENS.md §10** (règle d'appariement
+retenue MIN 3 / MAX 2, 37 paires sur 1053 mots ; 2 commits ; validation §10.5).
+Aucun doublon n'a été créé (§10.6) : le bug est latent, le carnet est sain.
+**C'est le premier travail de la prochaine session.**
+
+Les 3 commits de la spec §8 + le chantier C + le lot des 24 mots, tous livrés :
 
 - **Commits 1–2** : la spec ; `cherche_mots.js`, consultation du carnet par
   commande (piège n°15) — validation §2.3 verte, et חי détecté comme forme MS
@@ -22,7 +30,10 @@ tous livrés :
 - **Chantier C** : CLAUDE.md compressé **−5,8 %** (Group A validé par Ruben, 9
   migrations de narration déjà dupliquée dans DESIGN/ARCHITECTURE/mémoire ;
   aucune règle retirée). La cible §4 de −30 % abandonnée : le fichier est ~94 %
-  de règles, que §4 interdit de retirer.
+  de règles, que §4 interdit de retirer. ⚠️ **Gain net réel : nul** — 21 014 o
+  avant, 21 026 o après (la compression a exactement payé le piège n°15). La
+  promesse « 1,5–2k tokens par tour » de §4 était irréaliste dès l'écriture ;
+  correctif documentaire en §10.3.
 - **Lot des 24 mots « de base »** : **1046 → 1070 cartes** (8 noms, 8 adjectifs,
   8 verbes), exemples **894 → 918**, via `ajoute_mots.js` dry-run puis `--ecrire`.
   Dosage A1/A2 confirmé (6 A2 : סוֹף, סוּג, דֻּגְמָה, אֲמִיתִּי, לְהַפְסִיק,
