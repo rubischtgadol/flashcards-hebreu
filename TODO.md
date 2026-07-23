@@ -266,21 +266,32 @@ relecture » outillé (`verifie_exemples.js`), contrôle visuel WebKit/iPhone 16
 
 ## Reprendre ici (prochaine session)
 
-⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé). Le flag enregistre
-la dette, il ne déclenche rien (règle du 21/07) ; à étendre à `ajoute_mots.js`
-quand le script naîtra.
+⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
+(créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Prochain chantier : construire `ajoute_mots.js` selon `SPEC_AJOUTE_MOTS.md`**
-(spec v2 du générateur de fiche — figée le 23/07 après audit red team et
-relecture). Le but : ne plus jamais rouvrir le carnet de ~8000 lignes pour
-composer un ajout ; l'entrée est un petit `nouveaux_mots.json`, le script fait le
-balisage, le placement, la validation en sandbox et le verdict. Points
-d'architecture décidés : réutiliser les exports de `build.js` (étendus — helpers,
-constantes, `listCats` hissée), `he2tr` extrait d'`app.html` via `vm` (procédé de
-`verifie_exemples.js`), validateurs lancés en sandbox (copie scratchpad, car
-`ROOT = __dirname`), dry-run par défaut, tout-ou-rien. L'étage 2 (pré-remplissage
-des champs mécaniques depuis une source externe à froid) reste explicitement hors
-périmètre.
+**Chantier `ajoute_mots.js` (générateur de fiche, étage 1) — soldé le 23/07.**
+Le script est né conforme à `SPEC_AJOUTE_MOTS.md` (v2 figée), en deux commits :
+d'abord le refactor des exports de `build.js` (`listCats` hissée au niveau
+module, helpers + constantes exportés — compteurs byte-identiques, 1046 cartes,
+`--check` vert, `verifie_exemples.js` consommateur toujours vert), puis le
+script lui-même : `nouveaux_mots.json` → balisage byte-conforme aux gabarits §4,
+`tr` dérivés via le `he2tr` d'app.html (extraction textuelle + `vm`, échec
+bruyant) avec tableau de relecture et marques ⚠ heuristique-fragile, placement
+par frontière de section (`closeOf` depth-aware), doublons corpus entier
+(idempotence), tout-ou-rien, sandbox `build`+`verifie` sur copie temporaire,
+dry-run par défaut, `--ecrire`/`--force`/`--nouveau-sous-theme`/`--parite`.
+**Preuve (sous-agents Sonnet, 23/07)** : les 12 cas d'erreur du §8 PASS
+(niqqud, doublon+`--force`, thème inconnu avec procédure récitée, sous-thème
+gâté avec squelette §4.6, typo suggérée, mono-thème des listes, forme manquante,
+sans-exemple, `apres` introuvable, tout-ou-rien, cible introuvable, CLI) ; et
+sur copie du dépôt : dry-run strictement inerte (sha256), `--ecrire` 1046→1050
+avec `--check` et `verifie` verts, idempotence (rejouer = « Rien à insérer »,
+sha identique), byte-conformité §6 des 5 fragments comparés aux voisins, parité
+jsdom `extractCards()` app.html vs build.js — comptes et clés identiques sur
+1050 cartes (le chaînon que `--check` n'a jamais couvert, enfin contrôlable).
+L'étage 2 (pré-remplissage des champs mécaniques depuis une source externe à
+froid) reste explicitement hors périmètre. Graphe : flag étendu ci-dessus,
+jamais d'update réflexe.
 
 **Chantier QCM : distracteurs dans le thème de la réponse (demande Ruben,
 23/07).** Aujourd'hui `pickDistractors()` (app.html, appelée par
