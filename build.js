@@ -93,6 +93,38 @@ function blocksOf(html, re){
 // ---------- réplique de extractCards() (app.html) ----------
 function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
 
+// ---------- appariement ktiv male / ktiv haser ----------
+// Un mot vocalisé s'écrit défectif (עִתּוֹן → « עתון » sans niqqud) mais se
+// cherche plein (« עיתון ») : la comparaison exacte sur he_plain rate le couple
+// et répond « absent » d'un mot présent — le sens dangereux (on insère alors un
+// doublon). Règle mesurée sur les 1053 he_plain du carnet (SPEC_ECONOMIE_TOKENS
+// §10.1) : A ~ B si l'un s'obtient de l'autre en n'INSÉRANT que des ו/י, forme
+// courte ≥ 3 lettres, ≤ 2 insertions → 37 paires (3,5 %), toutes des
+// quasi-homographes utiles (מלוח~מלח, עצוב~עצב). Les garde-fous ne sont pas
+// décoratifs : sans eux לישן (dormir) s'apparie à לשון (langue) et יפה à פה.
+const MATRES_LECTIONIS = ['ו', 'י'];
+const ORTHO_MIN = 3;   // longueur de la forme courte, en dessous : trop de bruit
+const ORTHO_MAX = 2;   // insertions tolérées
+
+function orthographeVoisine(a, b){
+  a = String(a || ''); b = String(b || '');
+  if (!a || !b || a === b) return false;
+  const court = a.length <= b.length ? a : b;
+  const long  = a.length <= b.length ? b : a;
+  const insertions = long.length - court.length;
+  if (insertions < 1 || insertions > ORTHO_MAX) return false;
+  if (court.length < ORTHO_MIN) return false;
+  // Alignement exact (pas glouton) : on avance en parallèle, et l'on ne saute un
+  // caractère du long que si c'est une mère de lecture.
+  const aligne = (i, j) => {
+    if (i === court.length) return long.slice(j).split('').every(ch => MATRES_LECTIONIS.includes(ch));
+    if (j === long.length) return false;
+    if (court[i] === long[j] && aligne(i + 1, j + 1)) return true;
+    return MATRES_LECTIONIS.includes(long[j]) && aligne(i, j + 1);
+  };
+  return aligne(0, 0);
+}
+
 function parseSections(html){
   // name du <span class="count"> → HTML du corps de section (jusqu'au <h2> suivant)
   const sections = {};
@@ -488,6 +520,6 @@ function main(){
 // constantes — jamais de troisième parseur, jamais de constante dupliquée.
 module.exports = { extractCards, NOTEBOOK, APP,
   parseSections, closeOf, lisOf, exemplesOf, firstSpanText, attrOf, tdsOf,
-  stripNikud, decodeEntities,
+  stripNikud, decodeEntities, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats };
 if (require.main === module) main();

@@ -35,7 +35,7 @@ const { spawnSync, execFileSync } = require('child_process');
 const {
   extractCards, NOTEBOOK, APP,
   parseSections, closeOf, lisOf, exemplesOf, firstSpanText, tdsOf,
-  stripNikud, decodeEntities,
+  stripNikud, decodeEntities, orthographeVoisine,
   EXPECTED_LEVELS, EXPECTED_THEMES, listCats,
 } = require('./build.js');
 
@@ -497,6 +497,18 @@ function main(){
     }
     autres.forEach(o => infosDiverses.push('ℹ ' + qui + ' : « ' + plain + ' » figure aussi dans ' +
       o.section + ', L' + ligneDuMot(html, o.he) + ' — homographe légitime ? à arbitrer, n\'empêche rien.'));
+
+    // Angle mort du garde exact ci-dessus : une fiche écrite en ktiv male
+    // vocalisé (עִיתּוֹן) ne rencontrerait pas le carnet, défectif (עתון).
+    // Signal INFORMATIF seulement — le bloquant reste la comparaison exacte
+    // (SPEC_ECONOMIE_TOKENS §10.2).
+    for (const [autrePlain, occs2] of index){
+      if (!orthographeVoisine(autrePlain, plain)) continue;
+      const o = occs2[0];
+      infosDiverses.push('ℹ ' + qui + ' : orthographe voisine de « ' + autrePlain + ' » (' +
+        o.section + ', L' + ligneDuMot(html, o.he) + ') — ktiv male/haser du même mot ? à vérifier, n\'empêche rien.');
+    }
+
     vusDansLeLot.add(cleLot);
 
     // ----- placement (§5) -----

@@ -6,7 +6,8 @@
  * ou d'un inventaire par sous-agent (56k tokens mesurés le 23/07/2026).
  *
  * Usage :
- *   node cherche_mots.js TERME [TERME…]   # hébreu → he_plain exact (headwords + formes)
+ *   node cherche_mots.js TERME [TERME…]   # hébreu → he_plain exact (headwords + formes),
+ *                                         #          puis « orthographe voisine » (ktiv male/haser)
  *                                         # latin  → sous-chaîne dans .fr / note / exemples
  *   node cherche_mots.js --stats          # répartition du corpus (sections, niveaux, thèmes)
  *
@@ -16,7 +17,8 @@
 'use strict';
 
 const fs = require('fs');
-const { extractCards, NOTEBOOK, stripNikud, EXPECTED_LEVELS, EXPECTED_THEMES } = require('./build.js');
+const { extractCards, NOTEBOOK, stripNikud, orthographeVoisine,
+        EXPECTED_LEVELS, EXPECTED_THEMES } = require('./build.js');
 
 const MAX_HITS = 8; // par terme — au-delà on compte, on ne liste pas (sortie bornée)
 
@@ -33,6 +35,7 @@ function ligneDe(html, he){
 
 function chercheTerme(cards, html, terme){
   const hits = [];
+  const voisins = [];   // ktiv male/haser — rubrique distincte, jamais mêlée aux exactes
   const enHebreu = /[֐-׿]/.test(terme);
 
   if (enHebreu){
@@ -45,6 +48,10 @@ function chercheTerme(cards, html, terme){
       else if (c.exemples && c.exemples.some(e => e.he_plain && e.he_plain.split(/[^א-ת]+/).includes(plain)))
         // mot exact, pas sous-chaîne : « חי » ne doit pas matcher « מחיר »
         hits.push({ c, quoi: 'dans un exemple de ' + c.he + ' — ' + c.fr });
+      else if (orthographeVoisine(c.he_plain, plain))
+        voisins.push({ c, quoi: c.he + ' — ' + c.fr });
+      else if (c.forms && c.forms.some(f => orthographeVoisine(f.he_plain, plain)))
+        voisins.push({ c, quoi: 'forme de ' + c.he + ' — ' + c.fr });
     }
   } else {
     // Frontière de mot en tête : « fin » trouve « fin », « fine », « finir »,
@@ -62,12 +69,28 @@ function chercheTerme(cards, html, terme){
     }
   }
 
-  if (!hits.length){ console.log(terme + ' : ABSENT'); return; }
-  console.log(terme + ' : ' + hits.length + ' occurrence' + (hits.length > 1 ? 's' : ''));
-  for (const h of hits.slice(0, MAX_HITS))
-    console.log('  ' + h.c.cat + ' L' + ligneDe(html, h.c.he) + ' · ' + h.quoi);
-  if (hits.length > MAX_HITS)
-    console.log('  … +' + (hits.length - MAX_HITS) + ' autres (affiner le terme)');
+  const liste = (arr, indent) => {
+    for (const h of arr.slice(0, MAX_HITS))
+      console.log(indent + h.c.cat + ' L' + ligneDe(html, h.c.he) + ' · ' + h.quoi);
+    if (arr.length > MAX_HITS)
+      console.log(indent + '… +' + (arr.length - MAX_HITS) + ' autres (affiner le terme)');
+  };
+
+  if (!hits.length && !voisins.length){ console.log(terme + ' : ABSENT'); return; }
+
+  if (hits.length){
+    console.log(terme + ' : ' + hits.length + ' occurrence' + (hits.length > 1 ? 's' : ''));
+    liste(hits, '  ');
+  } else {
+    console.log(terme + ' : aucune correspondance exacte');
+  }
+
+  if (voisins.length){
+    // Le carnet est vocalisé, donc écrit en ktiv haser : un terme cherché en
+    // ktiv male tombe ici et non dans ABSENT (SPEC_ECONOMIE_TOKENS §10.1).
+    console.log('  orthographe voisine (insertion de ו/י) : ' + voisins.length);
+    liste(voisins, '    ');
+  }
 }
 
 function stats(cards){
