@@ -8,37 +8,31 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md, validée 23/07) — EN
-COURS.** Fait : commits 1–2 de la spec §8 (la spec ; `cherche_mots.js`,
-consultation du carnet par commande — validation §2.3 verte : 1046 cartes,
-les 4 chevauchements de sens nommés, et חי détecté comme forme MS de לִחְיוֹת,
-que l'inventaire par sous-agent à 56k tokens avait raté). Reste, dans l'ordre
-§8 : **commit 3** = archivage TODO.md → TODO_ARCHIVE.md (§3, pur couper-coller,
-cible ≤ ~15 Ko) + codification §5.2 (piège n°15 — texte verbatim en §5.1 de la
-spec — dans CLAUDE.md, § Outillage ici, 1 ligne README/ARCHITECTURE) ; puis
-**chantier C** = diff de compression de CLAUDE.md (§4), proposé sans rien
-appliquer ; puis **reprise du lot des 24 mots** à l'étape 4 du déroulé §5.3
-(rédaction du JSON pour `ajoute_mots.js`).
+**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md, validée 23/07) — SOLDÉ
+le 23/07.** Les 3 commits de la spec §8 + le chantier C + le lot des 24 mots,
+tous livrés :
 
-**Le lot des 24 mots « de base » (arbitré 23/07, prêt pour la rédaction JSON).**
-Niveaux : A1 partout sauf mention A2 (dosage proposé, à confirmer). Thèmes entre
-parenthèses ; verbes en sous-thème « Vie quotidienne » / thème vie-quotidienne
-sauf mention.
-— *Noms (8)* : צֶבַע couleur (vetements-couleurs) · שָׂפָה langue, langage
-(communication-pensee) · סוֹף fin, A2 (abstrait) · סוּג sorte, type, A2
-(abstrait) · מַפָּה carte, plan (ville-transport) · מִטְרִיָּה parapluie
-(maison-objets) · עִתּוֹן journal (loisirs-culture) · דֻּגְמָה exemple, A2
-(communication-pensee).
-— *Adjectifs (8, thème abstrait sauf mention)* : עָמֹק profond · עָבֶה épais ·
-דַּק fin, peu épais (le carnet a déjà רָזֶה mince) · עָגֹל rond · טָרִי frais
-(aliment ; nourriture — le carnet a déjà רַעֲנָן frais/reposé) · אֲמִיתִּי
-véritable, authentique, A2 (le carnet a déjà נָכוֹן correct/vrai) · רוֹעֵשׁ
-bruyant · חַי vivant (⚠ homographe de la forme MS de לִחְיוֹת — à confirmer à
-l'arbitrage).
-— *Verbes (8)* : לְהַפְסִיק arrêter, cesser, A2 · לִזְרֹק jeter · לְהַחְזִיק
-tenir · לָגַעַת toucher · לְהוֹסִיף ajouter (Travail, étude & action ;
-travail-etudes) · לְאַבֵּד perdre (un objet) · לְהַרְוִיחַ gagner (de
-l'argent), A2 (Travail, étude & action ; argent-achats) · לְהָכִין préparer.
+- **Commits 1–2** : la spec ; `cherche_mots.js`, consultation du carnet par
+  commande (piège n°15) — validation §2.3 verte, et חי détecté comme forme MS
+  de לִחְיוֹת que l'inventaire par sous-agent à 56k tokens avait raté.
+- **Commit 3** : TODO.md archivé **165 → 16 Ko** (pur couper-coller, conservation
+  des 2009 lignes non vides prouvée par script) → tout l'historique dans
+  TODO_ARCHIVE.md ; piège n°15 codifié (CLAUDE.md, § Outillage ici, README,
+  ARCHITECTURE) ; flag graphe étendu à TODO_ARCHIVE.md.
+- **Chantier C** : CLAUDE.md compressé **−5,8 %** (Group A validé par Ruben, 9
+  migrations de narration déjà dupliquée dans DESIGN/ARCHITECTURE/mémoire ;
+  aucune règle retirée). La cible §4 de −30 % abandonnée : le fichier est ~94 %
+  de règles, que §4 interdit de retirer.
+- **Lot des 24 mots « de base »** : **1046 → 1070 cartes** (8 noms, 8 adjectifs,
+  8 verbes), exemples **894 → 918**, via `ajoute_mots.js` dry-run puis `--ecrire`.
+  Dosage A1/A2 confirmé (6 A2 : סוֹף, סוּג, דֻּגְמָה, אֲמִיתִּי, לְהַפְסִיק,
+  לְהַרְוִיחַ). חַי « vivant » ajouté en **adjectif** (cardId `Adjectifs|חי`
+  distinct de la forme MS de לִחְיוֹת — aucune fusion SRS possible). Trois `tr`
+  corrigés à la relecture (marviach, dugma'ot, exemple de עגל étoffé à 3 mots).
+  **0 nouvel avertissement** (les 14 préexistants tolérés inchangés) ; niveaux
+  A1 402 / A2 436 / B1 223 / B2 9, couverture 1070/1070, thèmes 853/853,
+  `--check` en phase. SW **non bumpé** (contenu pur, stale-while-revalidate →
+  2ᵉ lancement). Graphe : flag en attente, pas d'update réflexe.
 
 **Chantier QCM : distracteurs dans le thème de la réponse (demande Ruben,
 23/07).** Aujourd'hui `pickDistractors()` (app.html, appelée par
