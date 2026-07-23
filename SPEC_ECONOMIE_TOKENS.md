@@ -53,7 +53,13 @@ node cherche_mots.js --stats          # répartition du corpus
   **exacte** sur `he_plain` (niqqud retiré) — headwords, puis formes
   (pluriel/MS/FS/MP/FP), puis présence dans les exemples (**mot exact**, pas
   sous-chaîne : « חי » ne matche pas « מחיר »). Tout le corpus, tables et
-  listes.
+  listes. **Puis, et seulement après cet échec exact, l'appariement ktiv
+  male/haser** (`orthographeVoisine`, `build.js`, §10.1) sur les headwords et
+  les formes : le carnet étant vocalisé, il s'écrit défectif (עִתּוֹן →
+  « עתון ») quand on cherche plein (« עיתון »). Ces occurrences sortent dans
+  une rubrique **« orthographe voisine »** distincte, **jamais mêlée** aux
+  exactes — la question « ce mot est-il déjà là ? » et la question « en
+  existe-t-il une graphie voisine ? » n'ont pas la même réponse.
 - **Terme latin** : sous-chaîne **à frontière de mot en tête**, insensible à la
   casse et aux accents, dans `.fr`, puis `note`, puis `exemples[].fr`.
   La frontière de mot est obligatoire : la sous-chaîne nue fait 173 faux
@@ -63,8 +69,10 @@ node cherche_mots.js --stats          # répartition du corpus
   « infinitif ».
 - **Sortie** : une ligne par occurrence — `SECTION Lnnnn · hébreu — français`
   (le n° de ligne, approximatif, sert d'ancre de lecture fenêtrée, §5.1) ;
-  `ABSENT` sinon. Bornée à 8 occurrences par terme, le surplus est **compté**
-  (« … +165 autres ») — jamais de troncature silencieuse.
+  `ABSENT` seulement si **ni** exacte **ni** voisine (sinon « aucune
+  correspondance exacte » suivi de la rubrique). Bornée à 8 occurrences par
+  terme et par rubrique, le surplus est **compté** (« … +165 autres ») —
+  jamais de troncature silencieuse.
 
 ### 2.2 `--stats` (l'arbitrage « quel thème/niveau est sous-doté ? »)
 
@@ -89,10 +97,21 @@ listes sans exemple (licite). Sortie bornée ~40 lignes.
    la commande à ~200 tokens détecte ce que les 56k tokens rataient. Les
    présences en mot exact dans des *exemples* sont informatives, pas des
    collisions. Contre-test positif : `לשון` → présent (Noms).
-3. Anti-régression : « fin » ne matche plus « (infinitif) ».
-4. Total `--stats` == compteur imprimé par `node build.js`.
-5. `node build.js` et `node verifie_exemples.js` restent verts (aucune
-   modification de `build.js` — tout est déjà exporté).
+3. **Critère orthographique** (ajouté par §10.1, mesuré le 23/07). Positif : les
+   6 mots que la comparaison exacte déclarait `ABSENT` alors qu'ils étaient
+   insérés — עיתון, דוגמה, עמוק, עגול, לזרוק, להרוויח — ressortent tous, en
+   rubrique « orthographe voisine ». **Négatif, et c'est là que le réglage se
+   joue** : `לישן` (dormir) ne doit pas remonter לשון (langue) et `יפה` (beau)
+   ne doit pas remonter פה (bouche) — les deux mots-pièges sont bien au corpus,
+   le contre-test n'est donc pas vide ; c'est le retrait naïf des ו/י, écarté,
+   qui les appariait. Réglage reproductible : 1053 `he_plain` distincts →
+   **37 paires** (3,5 %).
+4. Anti-régression : « fin » ne matche plus « (infinitif) ».
+5. Total `--stats` == compteur imprimé par `node build.js`.
+6. `node build.js` et `node verifie_exemples.js` restent verts. ⚠️ La rédaction
+   initiale ajoutait « aucune modification de `build.js` — tout est déjà
+   exporté » : §10.1 y a depuis posé le helper d'appariement, seul endroit
+   licite (jamais de logique dupliquée), et `--check` doit rester vert avec.
 
 ## 3. Chantier B — TODO.md : archiver les chantiers clos
 
@@ -123,8 +142,17 @@ listes sans exemple (licite). Sortie bornée ~40 lignes.
   au maximum.
 - Destination : faits durables → ARCHITECTURE.md ; leçons d'agent → mémoire
   (fichiers existants, pas de doublon).
-- Cible : −30 à 40 %, soit ~1,5–2k tokens économisés **à chaque tour de chaque
-  session future**.
+- ~~Cible : −30 à 40 %, soit ~1,5–2k tokens économisés **à chaque tour de chaque
+  session future**.~~ ⚠️ **Promesse fausse, abandonnée à l'exécution (§10.3).**
+  Résultat réel, mesuré : 21 014 o → 22 330 o (piège n°15, **+1 316**) → 21 026 o
+  (compression, **−1 304**) — soit **+12 o net**. La compression a exactement
+  payé le nouveau piège ; l'économie par tour est **nulle**. La cible était
+  irréaliste dès l'écriture de cette spec : le fichier est ~94 % de règles, et
+  la première puce de ce même §4 interdit d'en retirer une seule — on ne peut
+  donc pas couper 30 % d'un fichier dont 94 % est intouchable. **La leçon :
+  chiffrer une cible avant d'avoir mesuré la matière compressible.** Le vrai
+  gain du chantier est ailleurs, et il est acquis : TODO.md 163 → 16 Ko, et
+  l'inventaire du carnet à 56k tokens remplacé par une commande à ~200.
 
 ## 5. Chantier D — règles de conduite (codifiées, plus jamais orales)
 
@@ -211,7 +239,8 @@ fenêtrée par taille (§5.1, corollaire a, qui les nomme explicitement) suffit.
 
 La relecture par commandes du chantier livré a trouvé **un vrai défaut d'outil
 et une promesse fausse**. Le carnet n'a rien subi : le bug était latent (§10.5).
-Statut : **plan validé, exécution à faire.**
+Statut : **livré le 23/07/2026** (commit A outillage, commit B docs) — validation
+§10.5 verte de bout en bout, contre-tests négatifs compris.
 
 ### 10.1 Correctif 1 — `cherche_mots.js` : faux « ABSENT » sur ktiv male/haser
 

@@ -8,15 +8,22 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md, validée 23/07) — livré,
-⚠️ CORRECTIFS EN ATTENTE.** La relecture par commandes a trouvé un vrai défaut
-d'outil : **`cherche_mots.js` répond `ABSENT` sur 6 des 24 mots pourtant
-insérés** (ktiv male de la requête vs ktiv haser du carnet vocalisé) — faux
-négatif, donc le sens dangereux : il laisserait passer un doublon. Plan complet,
-mesuré et validé : **SPEC_ECONOMIE_TOKENS.md §10** (règle d'appariement
-retenue MIN 3 / MAX 2, 37 paires sur 1053 mots ; 2 commits ; validation §10.5).
-Aucun doublon n'a été créé (§10.6) : le bug est latent, le carnet est sain.
-**C'est le premier travail de la prochaine session.**
+**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md) — SOLDÉ, correctifs §10
+compris.** Rien n'y est en attente ; la suite est libre.
+
+Le défaut trouvé à la relecture est corrigé : `cherche_mots.js` répondait
+`ABSENT` sur 6 des 24 mots pourtant insérés (ktiv male de la requête vs ktiv
+haser du carnet vocalisé) — faux négatif, donc le sens dangereux : il laissait
+passer un doublon. `orthographeVoisine` vit maintenant dans `build.js` (insertion
+de ו/י seulement, forme courte ≥ 3 lettres, ≤ 2 insertions ; 37 paires sur 1053
+mots, toutes légitimes), consommé par `cherche_mots.js` en rubrique séparée et
+par `ajoute_mots.js` en informatif non bloquant. Validation §10.5 verte de bout
+en bout : les 6 mots retrouvés, contre-tests **négatifs** compris (לישן ne
+remonte pas לשון, יפה ne remonte pas פה — les deux mots-pièges sont bien au
+corpus), `--check` vert, 14 avertissements inchangés, idempotence du lot des 24
+intacte et les 12 cas d'erreur de SPEC_AJOUTE_MOTS §8 toujours verts. Aucun
+doublon n'avait été créé (§10.6) : piège corrigé avant qu'il ne morde. Aucun
+contenu touché ⇒ pas de bump `sw.js`, pas de flag graphe.
 
 Les 3 commits de la spec §8 + le chantier C + le lot des 24 mots, tous livrés :
 
@@ -32,8 +39,10 @@ Les 3 commits de la spec §8 + le chantier C + le lot des 24 mots, tous livrés 
   aucune règle retirée). La cible §4 de −30 % abandonnée : le fichier est ~94 %
   de règles, que §4 interdit de retirer. ⚠️ **Gain net réel : nul** — 21 014 o
   avant, 21 026 o après (la compression a exactement payé le piège n°15). La
-  promesse « 1,5–2k tokens par tour » de §4 était irréaliste dès l'écriture ;
-  correctif documentaire en §10.3.
+  promesse « 1,5–2k tokens par tour » de §4 était irréaliste dès l'écriture —
+  elle est désormais barrée dans §4 même, avec le chiffre réel et la leçon
+  (§10.3). Le vrai gain acquis est ailleurs : TODO.md 163 → 16 Ko, et
+  l'inventaire à 56k tokens remplacé par une commande à ~200.
 - **Lot des 24 mots « de base »** : **1046 → 1070 cartes** (8 noms, 8 adjectifs,
   8 verbes), exemples **894 → 918**, via `ajoute_mots.js` dry-run puis `--ecrire`.
   Dosage A1/A2 confirmé (6 A2 : סוֹף, סוּג, דֻּגְמָה, אֲמִיתִּי, לְהַפְסִיק,
@@ -65,13 +74,22 @@ WebKit inutile (rituel, étape 3).
 - **Consultation du carnet par commande** (`cherche_mots.js`, versionné, dev-only, zéro
   dépendance, ne modifie rien — le canal cheap du piège n°15) : `node cherche_mots.js TERME
   [TERME…]` répond « existe-t-il ? où ? » — terme hébreu = comparaison exacte sur `he_plain`
-  (headwords, puis formes, puis mot exact dans les exemples), terme latin = sous-chaîne à
+  (headwords, puis formes, puis mot exact dans les exemples), **puis, seulement si l'exacte
+  échoue, l'appariement ktiv male/haser** en rubrique séparée « orthographe voisine » (le
+  carnet est vocalisé donc défectif : עִתּוֹן s'y écrit `עתון` quand on cherche `עיתון` —
+  sans cette rubrique, 6 mots sur 24 ressortaient `ABSENT` alors qu'ils étaient là, le sens
+  qui fait insérer un doublon) ; terme latin = sous-chaîne à
   frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `SECTION Lnnnn · hébreu —
-  français` (le n° de ligne sert d'ancre de lecture fenêtrée), `ABSENT` sinon, bornée à 8
-  occurrences (surplus compté, jamais tronqué en silence). `node cherche_mots.js --stats` :
+  français` (le n° de ligne sert d'ancre de lecture fenêtrée), `ABSENT` seulement si ni
+  exacte ni voisine, bornée à 8
+  occurrences par rubrique (surplus compté, jamais tronqué en silence). `node cherche_mots.js --stats` :
   total, répartition par section/niveau/thème (du moins doté au plus doté) — l'arbitrage
   « quel thème/niveau est sous-doté ? » sans lire le carnet. Réutilise `extractCards` &
-  cie exportés par `build.js` (pas de troisième parseur).
+  cie exportés par `build.js` (pas de troisième parseur), dont `orthographeVoisine` —
+  règle mesurée : insertion de ו/י seulement, forme courte ≥ 3 lettres, ≤ 2 insertions,
+  soit 37 paires sur 1053 mots. Les garde-fous ne sont pas décoratifs : sans eux לישן
+  (dormir) s'apparie à לשון (langue). `ajoute_mots.js` consomme le même helper en
+  **informatif non bloquant** — son garde doublons reste la comparaison exacte.
 - **Logique/DOM** : Node + jsdom dans le scratchpad de session
   (`npm i jsdom playwright` — installer les DEUX ensemble, npm évince l'autre sinon),
   booter `flashcards_hebreu.html` avec `runScripts:'dangerously'`.
