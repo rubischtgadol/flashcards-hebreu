@@ -10,7 +10,7 @@
 
 **Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1090
 cartes**, 938 exemples, 15 thèmes (873/873 sur les 3 tables), niveaux A1 402 /
-A2 447 / B1 232 / B2 9, `sw.js` en **v27**, `--check` en phase.
+A2 447 / B1 232 / B2 9, `sw.js` en **v28**, `--check` en phase.
 
 Dernier lot (24/07) : **20 adjectifs** ajoutés par `ajoute_mots.js` (164 → 184),
 8 thèmes touchés (maison-objets, abstrait, nourriture, vie-quotidienne,

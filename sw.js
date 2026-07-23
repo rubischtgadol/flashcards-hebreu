@@ -56,7 +56,7 @@
 // v26 : verso des verbes en grille 2×2 (.forms.forms-grid) — singulier au-dessus,
 // pluriel dessous, masculin à droite en RTL, comme une table de conjugaison ;
 // noms et adjectifs gardent la ligne souple. Visible au premier lancement.
-const VERSION = 'v27';
+const VERSION = 'v28';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
