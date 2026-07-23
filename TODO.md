@@ -8,18 +8,31 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1090
-cartes**, 938 exemples, 15 thèmes (873/873 sur les 3 tables), niveaux A1 402 /
-A2 447 / B1 232 / B2 9, `sw.js` en **v28**, `--check` en phase.
+**Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1120
+cartes**, 968 exemples, 15 thèmes (903/903 sur les 3 tables), niveaux A1 402 /
+A2 455 / B1 254 / B2 9, `sw.js` en **v29**, `--check` en phase.
 
-Dernier lot (24/07) : **20 adjectifs** ajoutés par `ajoute_mots.js` (164 → 184),
-8 thèmes touchés (maison-objets, abstrait, nourriture, vie-quotidienne,
-emotions-caractere, travail-etudes, corps-sante, nature), 11 A2 et 9 B1 — le
-niveau B1, le plus maigre du carnet, était la cible. Candidats filtrés par
-`cherche_mots.js` (60 pressentis, 20 réellement absents après la rubrique ktiv
-male/haser), exemples réécrits jusqu'à zéro « mot hors carnet », 14 `tr` surchargés
-à la main là où `he2tr` écrivait un shva initial que le carnet n'écrit pas
-(`shkufah`, `shtuchah`, `shkhichah`, `pnuyah`) ou fautait sur `beyisra'el`.
+Deux lots d'adjectifs le 24/07 : **20 puis 30** mots (164 → 214), qui portent
+le B1 de 223 à 254 — c'était le niveau le plus maigre du carnet. Le vivier des
+adjectifs courants est maintenant largement épuisé : sur ~120 candidats passés
+à `cherche_mots.js`, la moitié était déjà là, souvent sous une autre orthographe
+(rubrique ktiv male/haser). Trois leçons du générateur, valables pour le
+prochain lot :
+
+- **La ligne éditoriale « 3–8 mots » est bloquante**, pas un avertissement :
+  deux exemples de trois mots comptés à deux (הירקות קפואים) ont fait échouer
+  la sandbox.
+- **Le lexique de `verifie_exemples.js` est un vrai garde-fou de rédaction** :
+  il a fait réécrire 12 exemples (גג, נהג, שיטה, עישון, אוויר, עדיין, רק,
+  תלמידה, רשימה, שפעת, בניין, כולם — tous hors carnet). ⚠️ Le carnet n'a **aucun
+  nom de maladie** (שפעת et מחלה absents) : un exemple sur מַדְבִּיק a dû se
+  rabattre sur « cet enfant est contagieux ».
+- **`he2tr` faute de façon reproductible** sur : shva initial devant sifflante
+  (`shekufah` pour shkufah), yud consonantique (`meiuman` pour meyuman,
+  `veiafah` pour veyafah), redoublement (`boddim` pour bodedim, `chiurim` pour
+  chivrim), et alef final (`achray` pour achra'i, `kefuot` pour kefu'ot).
+  26 `tr` fournis à la main sur les deux lots — c'est le tableau du verdict
+  qu'il faut relire, pas le diff.
 
 Les deux derniers chantiers sont soldés et archivés dans
 [TODO_ARCHIVE.md](TODO_ARCHIVE.md) § « Chantiers clos — archivés le 2026-07-24 » :
