@@ -55,19 +55,34 @@ Les 3 commits de la spec §8 + le chantier C + le lot des 24 mots, tous livrés 
   2ᵉ lancement). Graphe : flag en attente, pas d'update réflexe.
 
 **Chantier QCM : distracteurs dans le thème de la réponse (demande Ruben,
-23/07).** Aujourd'hui `pickDistractors()` (app.html, appelée par
-`setupQuizCard()`) pioche dans toute la banque : les propositions hors sujet
-rendent le QCM résoluble par élimination, sans reconnaître le mot. Exigence : les
-mauvaises réponses doivent partager le `theme` de la carte interrogée. Deux
-contraintes à respecter en l'implémentant : (1) seules les cartes des 3 tables
-portent `theme` — les cartes de listes n'en ont pas ; il faut une cascade de repli
-(même thème → même catégorie → banque entière) pour garantir le compte de
-propositions quand le vivier est trop maigre, sans jamais afficher un QCM
-incomplet ; (2) **conserver le garde-fou anti-ambiguïté existant**
-(`frVariants`/`editDist`) — il devient plus sollicité, pas moins : des
-distracteurs du même thème sont sémantiquement plus proches, donc plus souvent
-quasi-synonymes de la bonne réponse. Logique pure : preuve jsdom suffisante,
-WebKit inutile (rituel, étape 3).
+23/07) — SOLDÉ.** `pickDistractors()` piochait dans toute la banque : les
+propositions hors sujet rendaient le QCM résoluble par élimination, sans
+reconnaître le mot. Deux étages ont été **insérés en tête** de la cascade
+existante (jamais en remplacement) : même `theme` + même `cat`, puis même
+`theme` + autre `cat` — la préférence pour la même catégorie évite de rendre la
+bonne réponse repérable à sa seule forme grammaticale (un infinitif en ל se voit
+au milieu de trois noms). Suivent les étages d'avant : même `cat`, autre `cat`,
+puis le dernier recours relâché qui garantit 4 options. Les deux nouveaux étages
+sont gardés par `if(card.theme)` : seules les cartes des 3 tables portent un
+thème (853/1070), et sans ce garde les `undefined` s'apparieraient entre eux,
+c'est-à-dire toutes les listes ensemble. Le garde-fou anti-ambiguïté
+(`frVariants`/`editDist` + l'accumulateur `kept`) est conservé tel quel sur les
+nouveaux étages.
+
+Preuve en jsdom (sous-agent Sonnet, aucun navigateur — logique pure, rituel
+étape 3), **5 critères sur 5 au vert** : 42 800 tirages (1070 cartes × 2 sens ×
+20) donnent 100 % de QCM à 4 propositions distinctes selon la clé du mode ; sur
+les 34 120 tirages des 853 cartes à thème, **100 % des distracteurs partagent le
+thème — aucun repli constaté**, le vivier n'est jamais assez maigre pour épuiser
+l'étage ; les 217 cartes sans thème rendent une sortie **octet-à-octet identique
+à l'ancienne cascade** (comparaison à `Math.random` semé, 6 510 tirages), le
+bloc étant bien sauté en entier ; 0 violation de `tooClose` sur 128 400
+distracteurs ; les 3 couples thème×cat les plus maigres (effectif 3 :
+`vetements-couleurs×Verbes`, `temps-calendrier×Verbes`, `nature×Adjectifs`)
+dégradent proprement vers l'étage thème+autre-cat, sans jamais atteindre le
+dernier recours. `build.js` + `--check` verts ; `sw.js` **bumpé v26 → v27**
+(changement de comportement, il doit atteindre l'iPhone au prochain lancement) ;
+graphe laissé tel quel (édit interne à un fichier existant, règle du 21/07).
 
 ## Outillage (WSL, à recréer en début de session si besoin)
 

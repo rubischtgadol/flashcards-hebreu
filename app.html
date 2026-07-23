@@ -1571,7 +1571,15 @@ function pickDistractors(card, n){
     return kept.some(ks=>ks.some(k=>vs.some(v=>v===k || (k.length>4 && editDist(v,k)<=1))));
   };
   const take=list=>{ for(const c of list){ if(out.length>=n) break; const k=key(c); if(!seen.has(k) && !tooClose(c)){ seen.add(k); kept.push(frVariants(c.fr)); out.push(c); } } };
-  take(shuffle(CARDS.filter(c=>c!==card && c.cat===card.cat)));
+  // Des distracteurs hors sujet rendent le QCM résoluble par élimination, sans
+  // reconnaître le mot : on sert d'abord le thème de la carte. Seules les cartes
+  // des 3 tables portent `theme` — pour les listes (theme absent) l'étage se
+  // saute entièrement, sinon tous les sans-thème s'apparieraient entre eux.
+  if(card.theme){
+    take(shuffle(CARDS.filter(c=>c!==card && c.theme===card.theme && c.cat===card.cat)));
+    if(out.length<n) take(shuffle(CARDS.filter(c=>c!==card && c.theme===card.theme && c.cat!==card.cat)));
+  }
+  if(out.length<n) take(shuffle(CARDS.filter(c=>c!==card && c.cat===card.cat)));
   if(out.length<n) take(shuffle(CARDS.filter(c=>c!==card && c.cat!==card.cat)));
   // Dernier recours (pool minuscule) : mieux vaut un voisin proche que < 4 options.
   if(out.length<n){
