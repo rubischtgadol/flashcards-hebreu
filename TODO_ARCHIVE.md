@@ -2001,3 +2001,119 @@ La tolérance de l'appli (un mot non classé reste visible partout) **reste** : 
 filet, et cette garde vise à ce qu'il ne serve jamais.
 La piste de design d'origine, elle, est **close** : le filtre garde sa sémantique actuelle
 (un mot non classé reste visible partout), qui est déjà une décision actée plus haut.
+
+## Chantiers clos — archivés le 2026-07-24
+
+Déplacés depuis « Reprendre ici » de TODO.md par **pur couper-coller**, même
+convention que le 2026-07-23 — aucune ligne réécrite. Seul ajout : le compte
+rendu de la vérification de bout en bout du QCM, qui a eu lieu après la
+rédaction du bloc.
+
+### Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md) — SOLDÉ le 23/07
+
+**Chantier économie de tokens (SPEC_ECONOMIE_TOKENS.md) — SOLDÉ, correctifs §10
+compris.** Rien n'y est en attente ; la suite est libre.
+
+Le défaut trouvé à la relecture est corrigé : `cherche_mots.js` répondait
+`ABSENT` sur 6 des 24 mots pourtant insérés (ktiv male de la requête vs ktiv
+haser du carnet vocalisé) — faux négatif, donc le sens dangereux : il laissait
+passer un doublon. `orthographeVoisine` vit maintenant dans `build.js` (insertion
+de ו/י seulement, forme courte ≥ 3 lettres, ≤ 2 insertions ; 37 paires sur 1053
+mots, toutes légitimes), consommé par `cherche_mots.js` en rubrique séparée et
+par `ajoute_mots.js` en informatif non bloquant. Validation §10.5 verte de bout
+en bout : les 6 mots retrouvés, contre-tests **négatifs** compris (לישן ne
+remonte pas לשון, יפה ne remonte pas פה — les deux mots-pièges sont bien au
+corpus), `--check` vert, 14 avertissements inchangés, idempotence du lot des 24
+intacte et les 12 cas d'erreur de SPEC_AJOUTE_MOTS §8 toujours verts. Aucun
+doublon n'avait été créé (§10.6) : piège corrigé avant qu'il ne morde. Aucun
+contenu touché ⇒ pas de bump `sw.js`, pas de flag graphe.
+
+Les 3 commits de la spec §8 + le chantier C + le lot des 24 mots, tous livrés :
+
+- **Commits 1–2** : la spec ; `cherche_mots.js`, consultation du carnet par
+  commande (piège n°15) — validation §2.3 verte, et חי détecté comme forme MS
+  de לִחְיוֹת que l'inventaire par sous-agent à 56k tokens avait raté.
+- **Commit 3** : TODO.md archivé **165 → 16 Ko** (pur couper-coller, conservation
+  des 2009 lignes non vides prouvée par script) → tout l'historique dans
+  TODO_ARCHIVE.md ; piège n°15 codifié (CLAUDE.md, § Outillage ici, README,
+  ARCHITECTURE) ; flag graphe étendu à TODO_ARCHIVE.md.
+- **Chantier C** : CLAUDE.md compressé **−5,8 %** (Group A validé par Ruben, 9
+  migrations de narration déjà dupliquée dans DESIGN/ARCHITECTURE/mémoire ;
+  aucune règle retirée). La cible §4 de −30 % abandonnée : le fichier est ~94 %
+  de règles, que §4 interdit de retirer. ⚠️ **Gain net réel : nul** — 21 014 o
+  avant, 21 026 o après (la compression a exactement payé le piège n°15). La
+  promesse « 1,5–2k tokens par tour » de §4 était irréaliste dès l'écriture —
+  elle est désormais barrée dans §4 même, avec le chiffre réel et la leçon
+  (§10.3). Le vrai gain acquis est ailleurs : TODO.md 163 → 16 Ko, et
+  l'inventaire à 56k tokens remplacé par une commande à ~200.
+- **Lot des 24 mots « de base »** : **1046 → 1070 cartes** (8 noms, 8 adjectifs,
+  8 verbes), exemples **894 → 918**, via `ajoute_mots.js` dry-run puis `--ecrire`.
+  Dosage A1/A2 confirmé (6 A2 : סוֹף, סוּג, דֻּגְמָה, אֲמִיתִּי, לְהַפְסִיק,
+  לְהַרְוִיחַ). חַי « vivant » ajouté en **adjectif** (cardId `Adjectifs|חי`
+  distinct de la forme MS de לִחְיוֹת — aucune fusion SRS possible). Trois `tr`
+  corrigés à la relecture (marviach, dugma'ot, exemple de עגל étoffé à 3 mots).
+  **0 nouvel avertissement** (les 14 préexistants tolérés inchangés) ; niveaux
+  A1 402 / A2 436 / B1 223 / B2 9, couverture 1070/1070, thèmes 853/853,
+  `--check` en phase. SW **non bumpé** (contenu pur, stale-while-revalidate →
+  2ᵉ lancement). Graphe : flag en attente, pas d'update réflexe.
+
+### Chantier QCM : distracteurs dans le thème de la réponse — SOLDÉ le 24/07
+
+**Chantier QCM : distracteurs dans le thème de la réponse (demande Ruben,
+23/07) — SOLDÉ.** `pickDistractors()` piochait dans toute la banque : les
+propositions hors sujet rendaient le QCM résoluble par élimination, sans
+reconnaître le mot. Deux étages ont été **insérés en tête** de la cascade
+existante (jamais en remplacement) : même `theme` + même `cat`, puis même
+`theme` + autre `cat` — la préférence pour la même catégorie évite de rendre la
+bonne réponse repérable à sa seule forme grammaticale (un infinitif en ל se voit
+au milieu de trois noms). Suivent les étages d'avant : même `cat`, autre `cat`,
+puis le dernier recours relâché qui garantit 4 options. Les deux nouveaux étages
+sont gardés par `if(card.theme)` : seules les cartes des 3 tables portent un
+thème (853/1070), et sans ce garde les `undefined` s'apparieraient entre eux,
+c'est-à-dire toutes les listes ensemble. Le garde-fou anti-ambiguïté
+(`frVariants`/`editDist` + l'accumulateur `kept`) est conservé tel quel sur les
+nouveaux étages.
+
+Preuve en jsdom (sous-agent Sonnet, aucun navigateur — logique pure, rituel
+étape 3), **5 critères sur 5 au vert** : 42 800 tirages (1070 cartes × 2 sens ×
+20) donnent 100 % de QCM à 4 propositions distinctes selon la clé du mode ; sur
+les 34 120 tirages des 853 cartes à thème, **100 % des distracteurs partagent le
+thème — aucun repli constaté**, le vivier n'est jamais assez maigre pour épuiser
+l'étage ; les 217 cartes sans thème rendent une sortie **octet-à-octet identique
+à l'ancienne cascade** (comparaison à `Math.random` semé, 6 510 tirages), le
+bloc étant bien sauté en entier ; 0 violation de `tooClose` sur 128 400
+distracteurs ; les 3 couples thème×cat les plus maigres (effectif 3 :
+`vetements-couleurs×Verbes`, `temps-calendrier×Verbes`, `nature×Adjectifs`)
+dégradent proprement vers l'étage thème+autre-cat, sans jamais atteindre le
+dernier recours. `build.js` + `--check` verts ; `sw.js` **bumpé v26 → v27**
+(changement de comportement, il doit atteindre l'iPhone au prochain lancement) ;
+graphe laissé tel quel (édit interne à un fichier existant, règle du 21/07).
+
+Vérification de bout en bout ajoutée le 24/07 (sous-agent Sonnet, jsdom, aucun
+navigateur graphique), **6 critères sur 6** : `app.html` servi en HTTP charge le
+carnet et construit **1070 cartes, 0 erreur console** ; la session QCM démarre
+par l'UI (chips `data-mode`/`data-dir`) dans les deux sens ; sur 80 cartes
+enchaînées, 4 boutons `.qc` distincts et non vides à chaque fois, `lang="he"`
+sur les 4 propositions en fr→he (40/40, piège n°6) ; **thème homogène à l'écran
+sur 100 % des cartes à thème** (he2fr 32/32, fr2he 27/27, bonne réponse
+comprise) ; clic réel → classes `ok`/`no`, `#quiz-live` renseigné, `srs_v1`
+écrit ; écran de fin cohérent (10/10). Deux réserves consignées : jsdom ne
+fournit pas `fetch` (branché sur celui de Node — le carnet est bien passé par
+HTTP, mais pas par l'implémentation d'un navigateur), et une découverte sans
+rapport avec le chantier — au tout premier lancement, aucun chip de niveau
+sélectionné laisse `state.niveaux` vide et le bouton « démarrer » ne fait rien
+(jugé conforme à l'intention, non touché).
+
+⚠️ **Ce parcours vaut plus que sa liste de critères** : c'est l'`extractCards()`
+d'**`app.html`** qui a tourné (1070 cartes, en accord avec le compte de
+`build.js`) — le chemin que CLAUDE.md signale comme invisible à toute la chaîne
+d'outillage, puisque `--check` ne compare que l'extracteur de `build.js`. La
+recette est reproductible : `python3 -m http.server`, jsdom en
+`runScripts:'dangerously'` + `resources:'usable'`, `fetch` de Node injecté.
+
+Recalage des ancres de lignes le 24/07 dans le même chantier (rituel étape 7,
+commit `a5dfd3e`) : les 16 ancres `app.html` d'ARCHITECTURE.md avaient dérivé
+**avant** ce chantier, jusqu'à +112 lignes (`pickDistractors` annoncé L1460 pour
+L1561, `#loader` L566 pour L582), et les 3 ancres `build.js` avec elles
+(`firstSpanText` L52 → L72, l'extracteur regex L156 → L209). Toutes relues une
+par une sur leur cible.

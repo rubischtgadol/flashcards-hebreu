@@ -185,6 +185,8 @@ Les sections purement grammaticales (phrase sans verbe, racine, présent, passé
 
 Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque.
 
+⚠️ **Ce garde-fou ne couvre que l'extracteur de `build.js`** : l'instantané comparé vient de lui seul, l'`extractCards()` d'`app.html` ne tourne jamais sous Node. Une dérive de ce côté-là est donc invisible à toute la chaîne d'outillage. Le seul moyen de l'exercer est de **charger `app.html` en HTTP et de le laisser fetcher le carnet** — recette validée le 2026-07-24 : `python3 -m http.server` à la racine, jsdom en `runScripts:'dangerously'` + `resources:'usable'`, et le `fetch` de Node injecté (jsdom n'en fournit pas). Passage vert ce jour-là : **1070 cartes, 0 erreur console**, en accord avec le compte de `build.js`. À refaire dès qu'on touche l'un des deux extracteurs.
+
 ⚠️ **La portée de ce garde-fou est plus étroite que sa réputation** (relevé le 21/07). Le snapshot embarqué dans le fichier autonome vient de l'extracteur de `build.js` **seul** ; l'`extractCards()` d'`app.html` ne s'exécute jamais sous Node, donc sa sortie n'est comparée à rien. `--check` attrape donc : un autonome obsolète, une dérive de l'extracteur de `build.js`, une dérive du gabarit d'`app.html` (markup, CSS, JS hors extraction). Il n'attrape **pas** une dérive de l'`extractCards()` d'`app.html` lui-même — celle-là ne se voit qu'en chargeant l'appli contre le carnet, ou en relisant les deux fonctions côte à côte. Ce qui tient vraiment les deux extracteurs ensemble reste la relecture, pas l'outillage : c'est la raison d'être de cette section.
 
 ### 3. Le schéma de carte produit
