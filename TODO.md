@@ -8,9 +8,18 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1070
-cartes**, 918 exemples, 15 thèmes (853/853 sur les 3 tables), niveaux A1 402 /
-A2 436 / B1 223 / B2 9, `sw.js` en **v27**, `--check` en phase.
+**Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1090
+cartes**, 938 exemples, 15 thèmes (873/873 sur les 3 tables), niveaux A1 402 /
+A2 447 / B1 232 / B2 9, `sw.js` en **v27**, `--check` en phase.
+
+Dernier lot (24/07) : **20 adjectifs** ajoutés par `ajoute_mots.js` (164 → 184),
+8 thèmes touchés (maison-objets, abstrait, nourriture, vie-quotidienne,
+emotions-caractere, travail-etudes, corps-sante, nature), 11 A2 et 9 B1 — le
+niveau B1, le plus maigre du carnet, était la cible. Candidats filtrés par
+`cherche_mots.js` (60 pressentis, 20 réellement absents après la rubrique ktiv
+male/haser), exemples réécrits jusqu'à zéro « mot hors carnet », 14 `tr` surchargés
+à la main là où `he2tr` écrivait un shva initial que le carnet n'écrit pas
+(`shkufah`, `shtuchah`, `shkhichah`, `pnuyah`) ou fautait sur `beyisra'el`.
 
 Les deux derniers chantiers sont soldés et archivés dans
 [TODO_ARCHIVE.md](TODO_ARCHIVE.md) § « Chantiers clos — archivés le 2026-07-24 » :
