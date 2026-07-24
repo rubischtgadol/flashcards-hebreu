@@ -6,7 +6,14 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 > À juger sur téléphone (le soir, en conditions réelles d'étude) :
 >
-> **➡️ LA page à ouvrir — la page-témoin v0.4, charte complète et arbitrée** (A Observatoire,
+> **➡️ À FAIRE MAINTENANT — le test des trois calques CRT sur iPhone réel** (protocole guidé,
+> 8 à 10 min : chaque calque isolé, recalibré s'il gêne, puis les trois ensemble ; la page
+> refuse de se lancer si « Réduire les animations » est actif, et rend une ligne de verdict
+> à recopier) :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/test-crt-iphone.html
+>
+> **➡️ La page-témoin v0.4, charte complète et arbitrée** (A Observatoire,
 > trois voix typo sans italique, 12 modules intégrés, écran Bilan) :
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-nerv.html

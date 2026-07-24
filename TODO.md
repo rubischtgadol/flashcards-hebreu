@@ -6,8 +6,9 @@
 
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
-(créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html et
-prototype-effets.html (créés, branche refonte-retrofuturiste).
+(créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html,
+prototype-effets.html et test-crt-iphone.html (créés, branche
+refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -49,6 +50,9 @@ Les pièces, dans cet ordre de lecture :
 - **`prototype-nerv.html`** — la page-témoin v0.4 ; **elle fait foi en cas de
   désaccord avec le spec**. Quatre écrans (carte recto/verso, accueil,
   révélation, bilan) plus l'inventaire (nuancier, gamme typo, états).
+- **`test-crt-iphone.html`** — l'outil du reste n° 1 : le protocole de test des
+  calques sur device. Rien de la charte n'y est réinventé, les blocs viennent
+  tels quels de la page-témoin.
 - **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
 - **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
 - Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
@@ -57,7 +61,23 @@ Les pièces, dans cet ordre de lecture :
 
 1. **Test sur iPhone réel** des trois calques CRT (bruit, vignettage,
    scintillement) — seul verdict valable sur le confort d'étude, l'émulation ne
-   prouve rien (piège n° 14). **Non fait.**
+   prouve rien (piège n° 14). **L'outil est prêt, le test reste à passer :
+   `test-crt-iphone.html`** (lien raw.githack en tête de README). Protocole
+   guidé de 8 à 10 min : trois passes d'isolement aux valeurs du spec, chaque
+   calque jugé « gêne » étant **aussitôt reproposé à la moitié puis au quart**
+   (le trajet vers le device se paie une fois — le retour doit être réglable,
+   pas binaire), puis une passe d'ensemble aux crans retenus avec la recette du
+   spec § 6 (nikoud lisible, grille lisible sous le texte). Rend une **ligne de
+   verdict à recopier**, qui porte aussi les conditions du test.
+   Trois garde-fous, tous vérifiés en WebKit (21/21) :
+   la page **refuse de démarrer** sous `prefers-reduced-motion` (un iPhone qui
+   fige les calques les ferait passer au vert — le témoin muet est toujours
+   content), le verdict est **verrouillé 20 s** (un scintillement de 4 s ne se
+   juge pas en trois secondes), et le pied garde sa place hors du bandeau pour
+   que le titre d'alerte à 2,6 s reste **visible pendant qu'on le juge**.
+   **Ce qui suit le test** : si un calque descend d'un cran, reporter la valeur
+   dans `prototype-nerv.html` **et** dans le spec § 5 — c'est le seul réglage de
+   DA que le device a le droit de trancher, la direction elle-même reste soldée.
 2. **Session de conception du système de thèmes** (brainstorming →
    writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
 3. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du

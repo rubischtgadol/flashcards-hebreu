@@ -117,7 +117,10 @@ la lampe » v1 : *l'alarme ne sonne que quand il se passe quelque chose*.
 - **Recette visuelle** : nikoud lisible à taille réelle sur `--bg` (le halo ambre ne doit
   jamais noyer les points-voyelles), contrastes AA sur texte courant, lisibilité de la
   grille de fond sous le texte, et confirmation **sur iPhone réel** des trois calques CRT
-  (coût perceptif à juger sur device, pas en émulation).
+  (coût perceptif à juger sur device, pas en émulation). **Outil : `test-crt-iphone.html`**
+  — protocole guidé (isolement, calibrage à la moitié puis au quart pour tout calque qui
+  gêne, passe d'ensemble, ligne de verdict). Les valeurs du § 5 sont son défaut ; un cran
+  retenu plus bas se reporte ici **et** dans `prototype-nerv.html`.
 - **Hors périmètre de ce spec** : portage sur les surfaces réelles (attend la fin de la
   réorganisation du dépôt), icônes/manifest/theme-color (découlent des tokens § 2 le
   moment venu), sort des règles v1 non transposées (le pli, la carte unique, les couches —

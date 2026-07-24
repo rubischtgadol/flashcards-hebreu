@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Test CRT sur iPhone réel — Console d'étude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — repris tels quels de prototype-nerv.html (qui fait foi)
+   ================================================================ */
+:root{
+  --bg:      #05040A;   /* quasi-noir */
+  --panneau: #0A0814;   /* surface */
+  --grille:  #0F0C1C;   /* lignes de grille */
+  --ligne:   #7a5a14;   /* filet or sourd (bordures au repos) */
+  --ambre:   #f0b32a;   /* voix dominante : texte, labels, data */
+  --vert:    #54ff8a;   /* phosphore : titres, actif, succès */
+  --rouge:   #FF4747;   /* alerte */
+  --orange:  #ff6a1f;   /* accent secondaire */
+  --lune:    #cfd6e6;   /* gris-lune : texte neutre rare */
+
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+
+  /* intensités pilotées par le protocole — défaut = valeurs du spec § 5 */
+  --bruit-a: .022;
+  --vign-a:  .5;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{
+  font-family:var(--cond);
+  color:var(--ambre);
+  background:#030208;
+  font-size:15px;
+  line-height:1.45;
+  -webkit-text-size-adjust:100%;
+}
+body.en-test{overflow:hidden}
+
+/* ================================================================
+   LE CADRE ÉCRAN — identique au prototype, mais plein écran :
+   les calques ne se jugent qu'en occupant tout le champ de vision.
+   ================================================================ */
+.ecran{
+  position:fixed;inset:0;
+  background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 6px no-repeat,
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left bottom / 100% 6px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 6px 100% no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) right top / 6px 100% no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  /* la réserve du bas laisse le pied — donc le titre d'alerte, qui porte la
+     cadence 2,6 s — hors du bandeau de verdict : sinon on testerait un élément caché */
+  padding:calc(20px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) calc(22px + env(safe-area-inset-bottom) + var(--bandeau-h, 0px)) calc(18px + env(safe-area-inset-left));
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+/* calque bruit — l'alpha est la seule chose que le calibrage touche */
+.ecran::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,var(--bruit-a)) 0 1px, transparent 1px 3px);
+  animation:noiseShift 1.2s steps(3) infinite;
+}
+/* calque vignettage */
+.ecran::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,var(--vign-a)) 100%);
+}
+body[data-bruit="0"] .ecran::before{display:none}
+body[data-vign="0"]  .ecran::after{display:none}
+
+@keyframes noiseShift{0%{transform:translateY(0)}100%{transform:translateY(3px)}}
+/* scintillement — trois crans, trois jeux d'images-clés (aucun var() animé) */
+@keyframes flick{      0%,88%,100%{opacity:1} 90%{opacity:.72} 92%{opacity:1} 95%{opacity:.85} }
+@keyframes flickDoux{  0%,88%,100%{opacity:1} 90%{opacity:.86} 92%{opacity:1} 95%{opacity:.93} }
+@keyframes flickMini{  0%,88%,100%{opacity:1} 90%{opacity:.93} 92%{opacity:1} 95%{opacity:.97} }
+
+/* ⚠ pas de règle prefers-reduced-motion ici : la page DOIT rester animée.
+   Si le réglage iOS est actif, l'écran de garde bloque le test au lieu de
+   le laisser passer au vert sur une page figée. */
+
+.ecran>*{position:relative;z-index:2}
+
+/* croix de visée aux coins */
+.viseur{position:absolute;font-family:var(--mono);font-size:12px;color:var(--ligne);z-index:2;line-height:1}
+.viseur.tl{top:calc(4px + env(safe-area-inset-top));left:6px}
+.viseur.tr{top:calc(4px + env(safe-area-inset-top));right:6px}
+.viseur.bl{bottom:calc(4px + env(safe-area-inset-bottom));left:6px}
+.viseur.br{bottom:calc(4px + env(safe-area-inset-bottom));right:6px}
+
+/* ================================================================
+   COMPOSANTS — repris de prototype-nerv.html
+   ================================================================ */
+.onglet{
+  display:inline-block;
+  font-family:var(--cond);font-weight:600;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  background:var(--ambre);color:var(--bg);
+  padding:3px 16px 3px 10px;
+  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);
+}
+.onglet.vert{background:var(--vert)}
+
+.statusbar{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid var(--ligne);
+  padding-bottom:9px;margin-bottom:12px;
+}
+.statusbar .live{color:var(--vert);text-shadow:0 0 6px currentColor}
+.feed{font-family:var(--mono);font-size:.72rem;line-height:1.7;color:var(--ambre)}
+.feed .l::before{content:'▸ ';color:var(--vert)}
+.feed .ok{color:var(--vert)}
+.etiquette{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ambre)}
+.etiquette .sep{opacity:.5;padding:0 .35em}
+.etiquette .num{font-family:var(--mono)}
+
+.carton{
+  font-family:var(--he);font-weight:900;
+  font-size:4.6rem;line-height:1.15;
+  text-align:center;color:var(--ambre);
+  text-shadow:0 0 14px rgba(240,179,42,.35);
+  direction:rtl;
+}
+.carton.moyen{font-size:2.6rem}
+.titre-ecran{
+  font-family:var(--cond);font-weight:600;
+  letter-spacing:.26em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor;
+}
+.panneau{
+  background:rgba(10,8,20,.82);
+  border:1px solid var(--ligne);
+  padding:14px 16px;
+  position:relative;
+}
+.panneau .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.panneau .coin.a{top:2px;left:4px}.panneau .coin.b{bottom:2px;right:4px}
+
+.btn{
+  font-family:var(--cond);font-weight:600;font-size:.8rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;
+  border:1px solid var(--ligne);
+  border-radius:9999px;
+  padding:10px 22px;cursor:pointer;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
+}
+.btn.primaire{
+  border-color:var(--vert);color:var(--vert);
+  text-shadow:0 0 6px currentColor;
+  box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06);
+}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+.btn.orange{border-color:var(--orange);color:var(--orange)}
+.btn[disabled]{opacity:.35;cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+
+.champ{
+  font-family:var(--mono);font-size:.95rem;color:var(--vert);
+  background:rgba(10,8,20,.85);border:1px solid var(--ligne);
+  padding:11px 14px;width:100%;
+}
+.champ::placeholder{color:var(--ambre);opacity:.45}
+.champ:focus{outline:none;border-color:var(--vert);box-shadow:0 0 8px rgba(84,255,138,.25)}
+
+.attention{border:1px solid var(--rouge);background:rgba(255,71,71,.05)}
+.attention .corps{padding:11px 14px;font-size:.85rem;color:var(--lune)}
+.attention .titre{color:var(--rouge);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;margin-bottom:4px;text-shadow:0 0 6px currentColor}
+
+.pilule{font-family:var(--cond);font-weight:600;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);border-radius:9999px;padding:2px 10px}
+.pilule.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+
+.scene{flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px}
+.tr-ligne{font-family:var(--mono);text-align:center;font-size:1rem;letter-spacing:.18em;color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.fr-ligne{font-family:var(--mono);text-align:center;font-size:1.05rem;letter-spacing:.08em;color:var(--lune)}
+.exemple{border-top:1px solid var(--ligne);padding-top:13px}
+.exemple .he-ex{font-family:var(--he);font-weight:500;font-size:1.35rem;direction:rtl;text-align:center;margin-bottom:6px;color:var(--ambre)}
+.exemple .fr-ex{font-size:.82rem;color:var(--lune);opacity:.8;text-align:center}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.pied{margin-top:auto;padding-top:16px}
+
+/* ================================================================
+   MÉCANIQUE DU PROTOCOLE — propre à cette page, hors charte
+   ================================================================ */
+.page{max-width:560px;margin:0 auto;padding:28px 18px 60px;
+  padding-top:calc(28px + env(safe-area-inset-top));
+  padding-bottom:calc(60px + env(safe-area-inset-bottom));}
+.page h1{font-family:var(--mono);font-size:1.25rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor}
+.page h2{font-family:var(--cond);font-weight:600;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ambre);margin:26px 0 10px;display:flex;align-items:center;gap:12px}
+.page h2::after{content:'';flex:1;height:1px;background:var(--ligne)}
+.page p{font-size:.92rem;color:var(--lune);margin:10px 0}
+.page ol,.page ul{margin:10px 0 10px 20px;font-size:.9rem;color:var(--lune)}
+.page li{margin:6px 0}
+.page .cle{color:var(--ambre)}
+
+/* témoin d'animation : s'il ne saute pas, la page est figée et le test est nul */
+.temoin{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.8rem;color:var(--ambre)}
+.temoin .barre{width:26px;height:26px;border:1px solid var(--ligne);position:relative;overflow:hidden}
+.temoin .barre i{position:absolute;inset:0;background:repeating-linear-gradient(0deg, var(--ambre) 0 1px, transparent 1px 4px);animation:noiseShift 1.2s steps(3) infinite}
+.temoin .pastille{width:10px;height:10px;border-radius:50%;background:var(--vert);box-shadow:0 0 8px currentColor;animation:flick 4s steps(1) infinite}
+
+/* barre de temps du protocole */
+.chrono{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;color:var(--ambre)}
+.chrono .jauge{flex:1;height:3px;background:var(--grille);position:relative}
+.chrono .jauge i{position:absolute;inset:0 100% 0 0;background:var(--vert);box-shadow:0 0 8px rgba(84,255,138,.4)}
+
+.bandeau-test{
+  position:absolute;left:0;right:0;bottom:0;z-index:4;
+  background:rgba(5,4,10,.94);border-top:1px solid var(--ligne);
+  padding:12px 16px calc(14px + env(safe-area-inset-bottom));
+}
+.bandeau-test .quoi{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--ambre);margin-bottom:8px}
+.bandeau-test .quoi b{color:var(--vert);font-weight:400}
+.bandeau-test .actions{margin-top:10px}
+.bandeau-test .btn{padding:9px 16px;font-size:.74rem}
+
+.pause{position:fixed;inset:0;background:#030208;z-index:9;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ligne)}
+
+.resultat{font-family:var(--mono);font-size:.8rem;line-height:1.7;color:var(--vert);
+  background:rgba(10,8,20,.85);border:1px solid var(--ligne);padding:14px;
+  white-space:pre-wrap;word-break:break-word;-webkit-user-select:all;user-select:all}
+.masque{display:none !important}
+</style>
+</head>
+<body data-bruit="0" data-vign="0" data-flick="0">
+
+<!-- ================= ÉCRAN DE GARDE ================= -->
+<section class="page" id="garde">
+  <h1>Test CRT · iPhone réel</h1>
+  <p><span class="cle">But</span> — juger le coût perceptif des trois calques de la charte v2
+  (bruit, vignettage, scintillement) sur le vrai écran, en conditions d'étude.
+  L'émulation ne prouve rien ici : elle modèle la mise en page, pas le confort.</p>
+
+  <div id="blocage" class="attention masque" style="margin:18px 0">
+    <div class="corps">
+      <div class="titre">Test impossible en l'état</div>
+      Le réglage <span class="cle">Réglages ▸ Accessibilité ▸ Mouvement ▸ Réduire les animations</span>
+      est <b>activé</b> : iOS fige le bruit et le scintillement. La page paraîtrait confortable
+      parce qu'elle serait morte. Désactive-le, puis recharge cette page.
+    </div>
+  </div>
+
+  <h2>Avant de commencer</h2>
+  <ol>
+    <li>Le soir, <span class="cle">dans la pièce où tu étudies vraiment</span>, lumière habituelle.</li>
+    <li>Luminosité de l'écran à ton niveau d'étude — <span class="cle">luminosité automatique
+      et Night Shift laissés comme d'habitude</span> : on teste ce que tu vivras.</li>
+    <li><span class="cle">Mode économie d'énergie désactivé</span> (il bride les animations).</li>
+    <li>Safari en plein écran ; ne fais pas défiler pendant un test.</li>
+    <li>Compte <span class="cle">8 à 10 minutes</span> : on ne juge pas un scintillement de 4 s
+      en trois secondes.</li>
+  </ol>
+
+  <h2>Témoin d'animation</h2>
+  <p>Ces deux repères doivent <span class="cle">bouger</span> : les rayures sautent par crans,
+  la pastille verte cligne brièvement toutes les 4 s. S'ils sont immobiles, le test est nul.</p>
+  <p class="temoin"><span class="barre"><i></i></span> rayures &nbsp;·&nbsp;
+     <span class="pastille"></span> pastille</p>
+
+  <h2>Déroulé</h2>
+  <ul>
+    <li><span class="cle">Trois passes d'isolement</span> : un seul calque allumé à la fois,
+      aux valeurs du spec, sur le même écran d'étude.</li>
+    <li>Si un calque gêne, il est <span class="cle">immédiatement reproposé plus doux</span>
+      (moitié, puis quart). C'est le calibrage : ton retour doit être réglable, pas binaire.</li>
+    <li><span class="cle">Une passe d'ensemble</span> avec les crans retenus, plus deux
+      vérifications de recette : nikoud lisible, grille de fond lisible sous le texte.</li>
+    <li>Le verdict n'est déblocable qu'après <span class="cle">20 s</span> d'exposition ;
+      la durée conseillée est 45 s (60 s pour la passe d'ensemble).</li>
+  </ul>
+
+  <div class="actions" style="margin-top:26px;justify-content:flex-start">
+    <button class="btn primaire" id="demarrer">Commencer le test</button>
+  </div>
+</section>
+
+<!-- ================= ÉCRAN DE TEST ================= -->
+<section class="ecran masque" id="ecran" aria-hidden="true">
+  <span class="viseur tl">+</span><span class="viseur tr">+</span>
+  <span class="viseur bl">+</span><span class="viseur br">+</span>
+
+  <div class="statusbar">
+    <span>Mode · Cartes</span>
+    <span><span class="live" id="live">● Session</span></span>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span class="onglet vert">Réponse</span>
+    <span class="etiquette">Objet <span class="num">0421</span></span>
+  </div>
+
+  <div class="scene">
+    <div class="carton moyen" lang="he">שָׁלוֹם</div>
+    <div class="tr-ligne">SHALOM</div>
+    <div class="fr-ligne">paix · bonjour</div>
+    <div class="exemple">
+      <div class="he-ex" lang="he">שָׁלוֹם, מַה שְּׁלוֹמְךָ?</div>
+      <div class="fr-ex">shalom, ma shlomkha ? — « Bonjour, comment vas-tu ? »</div>
+    </div>
+    <div class="exemple">
+      <div class="he-ex" lang="he">הַלַּיְלָה יָפֶה וְהַיָּרֵחַ מָלֵא</div>
+      <div class="fr-ex">halaylah yafeh vehayareach male — « La nuit est belle et la lune est pleine »</div>
+    </div>
+  </div>
+
+  <div class="pied">
+    <div class="attention" style="margin-bottom:12px">
+      <div class="corps">
+        <div class="titre" id="alerte">⚠ Voix indisponible</div>
+        Ligne d'alerte — cadence nerveuse (2,6 s).
+      </div>
+    </div>
+    <div class="feed"><div class="l ok">CALQUES · TEST EN COURS</div></div>
+  </div>
+
+  <div class="bandeau-test">
+    <div class="quoi" id="quoi">—</div>
+    <div class="chrono"><span id="tps">T+00</span><span class="jauge"><i id="jauge"></i></span><span id="cible">/45 s</span></div>
+    <div class="actions">
+      <button class="btn primaire" data-verdict="ok" disabled>OK</button>
+      <button class="btn orange"   data-verdict="gêne" disabled>Gêne</button>
+      <button class="btn danger"   data-verdict="non" disabled>Non</button>
+    </div>
+    <div class="actions masque" id="recette">
+      <button class="btn" data-recette="nikoud">Nikoud lisible ?</button>
+      <button class="btn" data-recette="grille">Grille lisible ?</button>
+    </div>
+  </div>
+</section>
+
+<div class="pause masque" id="pause">Pause oculaire</div>
+
+<!-- ================= ÉCRAN DE RÉSULTAT ================= -->
+<section class="page masque" id="fin">
+  <h1>Verdict</h1>
+  <p>Recopie-moi cette ligne — elle porte aussi les conditions du test
+  (taille d'écran, densité, animations actives), preuve que rien n'était figé.</p>
+  <div class="resultat" id="ligne">—</div>
+  <div class="actions" style="margin-top:16px;justify-content:flex-start">
+    <button class="btn primaire" id="copier">Copier</button>
+    <button class="btn" id="refaire">Refaire</button>
+  </div>
+  <h2>Note libre</h2>
+  <p>Ce que les trois boutons ne capturent pas : où ça gratte, au bout de combien de temps,
+  sur quel élément.</p>
+  <textarea class="champ" id="note" rows="4" placeholder="ex. le bruit se voit surtout sur le grand carton, pas sur le texte français"></textarea>
+  <div class="actions" style="margin-top:12px;justify-content:flex-start">
+    <button class="btn" id="ajouter">Ajouter la note à la ligne</button>
+  </div>
+</section>
+
+<script>
+(function(){
+  'use strict';
+
+  var CRANS = { 1:'spec', 0.5:'doux', 0.25:'minimal' };
+  var VAL = {
+    bruit: { 1:'.022', 0.5:'.011', 0.25:'.0055' },
+    vign:  { 1:'.5',   0.5:'.25',  0.25:'.125'  },
+    flick: { 1:'flick', 0.5:'flickDoux', 0.25:'flickMini' }
+  };
+  var NOM = { bruit:'BRUIT', vign:'VIGNETTAGE', flick:'SCINTILLEMENT' };
+  var LEGENDE = {
+    bruit:'rayures horizontales animées par crans — regarde le grand mot hébreu et le texte français',
+    vign:'assombrissement des bords — regarde si les coins de l’écran te tirent l’œil',
+    flick:'clignotements brefs — la pastille « ● Session » (4 s) et le titre d’alerte (2,6 s)'
+  };
+
+  var body = document.body;
+  var elGarde = document.getElementById('garde');
+  var elEcran = document.getElementById('ecran');
+  var elFin   = document.getElementById('fin');
+  var elPause = document.getElementById('pause');
+  var elQuoi  = document.getElementById('quoi');
+  var elTps   = document.getElementById('tps');
+  var elCible = document.getElementById('cible');
+  var elJauge = document.getElementById('jauge');
+  var elLigne = document.getElementById('ligne');
+  var elRecette = document.getElementById('recette');
+  var btnsVerdict = Array.prototype.slice.call(document.querySelectorAll('[data-verdict]'));
+
+  /* ---- garde-fou : une page figée ne doit jamais passer au vert ---- */
+  var figee = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (figee) {
+    document.getElementById('blocage').classList.remove('masque');
+    document.getElementById('demarrer').disabled = true;
+  }
+
+  /* ---- état ---- */
+  var file, idx, retenu, journal, recette, minuteur, t, cibleT, courant, verrou;
+
+  function reset(){
+    file = [ {c:'bruit',cran:1}, {c:'vign',cran:1}, {c:'flick',cran:1} ];
+    idx = 0;
+    retenu  = { bruit:null, vign:null, flick:null };   // cran retenu, null = rejeté
+    journal = { bruit:[], vign:[], flick:[] };          // ['spec=gêne','doux=ok']
+    recette = { nikoud:null, grille:null };
+    calques(0,0,0);
+  }
+
+  function calques(bruit, vign, flick){
+    body.dataset.bruit = bruit ? String(bruit) : '0';
+    body.dataset.vign  = vign  ? String(vign)  : '0';
+    body.dataset.flick = flick ? String(flick) : '0';
+    document.documentElement.style.setProperty('--bruit-a', bruit ? VAL.bruit[bruit] : '0');
+    document.documentElement.style.setProperty('--vign-a',  vign  ? VAL.vign[vign]   : '0');
+    var anim = flick ? VAL.flick[flick] : 'none';
+    document.getElementById('live').style.animation   = flick ? anim + ' 4s steps(1) infinite'   : 'none';
+    document.getElementById('alerte').style.animation = flick ? anim + ' 2.6s steps(1) infinite' : 'none';
+  }
+
+  /* ---- réserve de place pour le bandeau de verdict ---- */
+  var elBandeau = document.querySelector('.bandeau-test');
+  function mesureBandeau(){
+    document.documentElement.style.setProperty('--bandeau-h', elBandeau.offsetHeight + 'px');
+  }
+  window.addEventListener('resize', mesureBandeau);
+  if (window.ResizeObserver) new ResizeObserver(mesureBandeau).observe(elBandeau);
+
+  /* ---- minuteur ---- */
+  function lanceChrono(cible){
+    cibleT = cible; t = 0;
+    elCible.textContent = '/' + cible + ' s';
+    maj();
+    clearInterval(minuteur);
+    minuteur = setInterval(function(){
+      t += 1; maj();
+      if (t >= 20 && verrou) { verrou = false; btnsVerdict.forEach(function(b){ b.disabled = false; }); }
+    }, 1000);
+    verrou = true;
+    btnsVerdict.forEach(function(b){ b.disabled = true; });
+  }
+  function maj(){
+    elTps.textContent = 'T+' + (t < 10 ? '0' : '') + t;
+    var p = Math.min(1, t / cibleT);
+    elJauge.style.right = (100 - p * 100) + '%';
+  }
+
+  /* ---- enchaînement ---- */
+  function pause(suite){
+    elEcran.classList.add('masque');
+    elPause.classList.remove('masque');
+    setTimeout(function(){ elPause.classList.add('masque'); elEcran.classList.remove('masque'); suite(); }, 3000);
+  }
+
+  function etapeSuivante(){
+    if (idx < file.length) { pause(joueIsolement); return; }
+    pause(joueEnsemble);
+  }
+
+  function joueIsolement(){
+    courant = file[idx];
+    elRecette.classList.add('masque');
+    calques(courant.c === 'bruit' ? courant.cran : 0,
+            courant.c === 'vign'  ? courant.cran : 0,
+            courant.c === 'flick' ? courant.cran : 0);
+    elQuoi.innerHTML = 'Passe ' + (idx + 1) + ' · <b>' + NOM[courant.c] + ' seul · cran ' +
+                       CRANS[courant.cran] + '</b><br>' + LEGENDE[courant.c];
+    lanceChrono(45);
+  }
+
+  function joueEnsemble(){
+    courant = { c:'ensemble' };
+    calques(retenu.bruit || 0, retenu.vign || 0, retenu.flick || 0);
+    var desc = ['bruit', 'vign', 'flick'].map(function(c){
+      return NOM[c] + ' ' + (retenu[c] ? CRANS[retenu[c]] : 'éteint');
+    }).join(' · ');
+    elQuoi.innerHTML = 'Passe finale · <b>les trois calques ensemble</b><br>' + desc +
+      '<br>Étudie vraiment cette carte : lis l’hébreu, les voyelles, l’exemple.';
+    elRecette.classList.remove('masque');
+    majRecette();
+    lanceChrono(60);
+  }
+
+  function majRecette(){
+    document.querySelectorAll('[data-recette]').forEach(function(b){
+      var k = b.dataset.recette;
+      var etat = recette[k];
+      b.textContent = (k === 'nikoud' ? 'Nikoud ' : 'Grille ') +
+        (etat === null ? '?' : (etat ? '✓ lisible' : '✗ illisible'));
+      b.classList.toggle('primaire', etat === true);
+      b.classList.toggle('danger', etat === false);
+    });
+  }
+
+  document.querySelectorAll('[data-recette]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var k = b.dataset.recette;
+      recette[k] = (recette[k] === null) ? true : (recette[k] === true ? false : null);
+      majRecette();
+    });
+  });
+
+  btnsVerdict.forEach(function(b){
+    b.addEventListener('click', function(){
+      var v = b.dataset.verdict;
+      clearInterval(minuteur);
+
+      if (courant.c === 'ensemble') { termine(v); return; }
+
+      journal[courant.c].push(CRANS[courant.cran] + '=' + v);
+      if (v === 'ok') {
+        retenu[courant.c] = courant.cran;
+      } else if (courant.cran > 0.25) {
+        // calibrage : on repropose le même calque, un cran plus bas, juste après
+        var suivant = (courant.cran === 1) ? 0.5 : 0.25;
+        file.splice(idx + 1, 0, { c: courant.c, cran: suivant });
+      } else {
+        retenu[courant.c] = null;  // rejeté jusqu'au cran minimal
+      }
+      idx += 1;
+      etapeSuivante();
+    });
+  });
+
+  function termine(verdictFinal){
+    body.classList.remove('en-test');
+    elEcran.classList.add('masque');
+    elFin.classList.remove('masque');
+    calques(0, 0, 0);
+
+    var d = new Date();
+    var date = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' +
+               String(d.getDate()).padStart(2, '0');
+    var ecranTxt = window.screen.width + '×' + window.screen.height + '@' +
+                   (window.devicePixelRatio || 1);
+    var parts = ['CRT-iPhone ' + date, ecranTxt + ' anim=' + (figee ? 'FIGÉE' : 'ON')];
+    ['bruit', 'vign', 'flick'].forEach(function(c){
+      parts.push(NOM[c] + ' ' + journal[c].join('→') +
+                 ' ⇒ ' + (retenu[c] ? 'retenu ' + CRANS[retenu[c]] : 'REJETÉ'));
+    });
+    parts.push('ENSEMBLE=' + verdictFinal);
+    parts.push('NIKOUD=' + (recette.nikoud === null ? '?' : (recette.nikoud ? 'lisible' : 'illisible')));
+    parts.push('GRILLE=' + (recette.grille === null ? '?' : (recette.grille ? 'lisible' : 'illisible')));
+    elLigne.textContent = parts.join(' · ');
+  }
+
+  document.getElementById('demarrer').addEventListener('click', function(){
+    reset();
+    body.classList.add('en-test');
+    elGarde.classList.add('masque');
+    elEcran.classList.remove('masque');
+    elEcran.setAttribute('aria-hidden', 'false');
+    etapeSuivante();
+  });
+
+  document.getElementById('refaire').addEventListener('click', function(){
+    elFin.classList.add('masque');
+    elGarde.classList.remove('masque');
+    window.scrollTo(0, 0);
+  });
+
+  document.getElementById('copier').addEventListener('click', function(){
+    var txt = elLigne.textContent;
+    var b = this;
+    function fait(){ b.textContent = 'Copié ✓'; setTimeout(function(){ b.textContent = 'Copier'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(fait, function(){ b.textContent = 'Sélectionne la ligne'; });
+    } else { b.textContent = 'Sélectionne la ligne'; }
+  });
+
+  document.getElementById('ajouter').addEventListener('click', function(){
+    var n = document.getElementById('note').value.trim();
+    if (!n) return;
+    if (elLigne.textContent.indexOf(' · note: ') === -1) elLigne.textContent += ' · note: ' + n;
+    this.textContent = 'Note ajoutée ✓';
+  });
+
+  reset();
+})();
+</script>
+</body>
+</html>
