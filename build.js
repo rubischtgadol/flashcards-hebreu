@@ -311,14 +311,24 @@ function chargeDonnees(racine){
 // de l'hébreu que le motif HEBREW_RUN de gabarits.js (escFr) ne capturerait pas
 // entièrement produirait, une fois généré, de l'hébreu nu dans la prose française — sans
 // lang="he" ni la taille 1.15em de la rampe typo (DESIGN.md §3, trap 6 de CLAUDE.md).
-// Rejoue escFr() (même motif, jamais dupliqué) et vérifie qu'aucun caractère du bloc
-// hébreu (U+0591–U+05F4, la plage couverte par HEBREW_RUN) ne survit hors d'un <span>
-// généré. Invariant vérifié 17/17 en revue le 24/07 — cette garde le verrouille.
-const HEBREW_BLOCK = /[֑-״]/;
+// ⚠️ Round 1 de revue (chantier 2) : la première version testait la sortie d'escFr()
+// avec la MÊME classe de caractères qu'escFr() utilise pour wrapper (U+0591–U+05F4,
+// copiée depuis HEBREW_RUN) — tautologique, ne pouvait jamais échouer (confirmé : runs
+// adjacents, doubles espaces, ponctuation, injection <>, rien ne le faisait déclencher).
+// Le détecteur ci-dessous est INDÉPENDANT du motif de wrappage : \p{Script=Hebrew} est
+// la définition canonique Unicode, qui couvre aussi les formes de présentation
+// U+FB1D–U+FB4F qu'HEBREW_RUN (calé sur le seul bloc principal) ne reconnaît pas — donc
+// CETTE garde peut réellement échouer sur un caractère que gabarits.js laisserait nu.
+// Preuve (sandbox, aucun caractère du dépôt) : avec fr = "avant " + String.fromCodePoint
+// (0xFB4B) + " apres" (ligature vav+holam, formes de présentation), escFr(fr) laisse le
+// caractère hors span et heNonWrappe(fr) renvoie true ; avec l'équivalent décomposé
+// (bloc standard, 0x05D1+0x05B0) il renvoie false — voir task-7-report.md pour la
+// sortie de commande complète.
+const ANY_HEBREW = /\p{Script=Hebrew}/u;
 function heNonWrappe(fr){
   const wrapped = gabarits.escFr(String(fr == null ? '' : fr));
   const sansSpans = wrapped.replace(/<span lang="he">[^<]*<\/span>/g, '');
-  return HEBREW_BLOCK.test(sansSpans);
+  return ANY_HEBREW.test(sansSpans);
 }
 
 function valideDonnees(donnees){
