@@ -38,7 +38,7 @@ annexe vivante de cette charte — en cas de doute, elle fait foi) et
 | `--grille` | `#0F0C1C` | Grille de fond (pas de 32px) et filets sourds |
 | `--ligne` | `#7a5a14` | Or sourd : bordures 1px au repos, viseurs, séparateurs |
 | `--ambre` | `#f0b32a` | **Voix dominante** : texte courant, labels, data, hébreu |
-| `--vert` | `#54ff8a` | Phosphore : titres display, états actifs, succès, focus |
+| `--vert` | `#54ff8a` | Phosphore : titres display, translittérations, états actifs, succès, focus |
 | `--rouge` | `#FF4747` | Alerte, erreur, correction |
 | `--orange` | `#ff6a1f` | Accent secondaire (réserve, usage parcimonieux) |
 | `--lune` | `#cfd6e6` | Gris-lune : texte neutre (traductions françaises) |
@@ -53,7 +53,7 @@ rouge `rgba(255,71,71,.4)`.
 | Hébreu vedette | **Frank Ruhl Libre 900** | Le carton-titre : mot hébreu énorme, seul en scène, halo ambre. Hébreu courant en 500. |
 | Display | **Instrument Serif italique** | Titres de pages/sections, sous-titre de marque. Toujours vert + glow `0 0 6px currentColor`. Jamais pour le contenu d'étude. |
 | Labels | **Saira Condensed** 400/600 | Toute l'UI : boutons, étiquettes, statuts. Capitales, letter-spacing ≥ .14em. |
-| Données | **Share Tech Mono** | Feed de logs, numéros, translittérations, **et la ligne de traduction française des cartes** (1.05rem, `--lune`, letter-spacing .08em). |
+| Données | **Share Tech Mono** | Feed de logs, numéros, translittérations (en `--vert` + glow), **et la ligne de traduction française des cartes** (1.05rem, `--lune`, letter-spacing .08em). |
 
 Règles : `lang="he"` obligatoire sur tout nœud hébreu (invariant conservé de la charte v1).
 Les tailles seront normalisées en gamme lors du portage (le prototype porte des valeurs
@@ -64,7 +64,7 @@ mesurées, pas encore une gamme nommée).
 - **Écran** : fond grille 32px sourde, bordure 1px `--ligne`, croix de visée `+` aux
   quatre coins (Share Tech Mono, couleur `--ligne`).
 - **Onglet HUD** : boîte à coin coupé (`clip-path` pentagone), fond plein (ambre / vert /
-  rouge selon nature), texte fond-noir, capitales condensées.
+  rouge selon nature), texte fond-noir (blanc sur l'onglet rouge), capitales condensées.
 - **Boutons** : pilules (`border-radius:9999px`), 1px, transparentes ; primaire = vert +
   glow + ombre interne ; danger = rouge ; focus = outline vert 2px décalé 3px.
 - **Panneau** : fond translucide, 1px `--ligne`, petits `+` aux coins ; état actif =
@@ -78,10 +78,15 @@ mesurées, pas encore une gamme nommée).
 
 ## 5. Effets — les trois calques CRT
 
-1. **Bruit** : rayures horizontales 1px blanches à 2%, animées en `steps(3)` (1.2s).
+1. **Bruit** : rayures horizontales 1px blanches à 2,2%, animées en `steps(3)` (1.2s).
 2. **Vignettage** : radial noir 50% aux bords.
-3. **Scintillement** : `@keyframes flick` en `steps(1)` (4s, creux à 88–95%) sur les
-   seuls indicateurs vivants (`● SESSION`, alertes).
+3. **Scintillement** : `@keyframes flick` en `steps(1)` (creux à 88–95%), deux cadences —
+   **4s** sur les indicateurs vivants (`● SESSION`), **2,6s** (plus nerveuse) sur les
+   alertes (`⚠`, titres de warning, verdict d'erreur).
+
+**Mouvement réduit** (ajout normatif) : sous `prefers-reduced-motion: reduce`, toute
+animation se fige — bruit et scintillement immobiles, vignettage conservé (il est
+statique). Implémenté dans le prototype.
 
 Règles : **tout mouvement est en `steps()`, jamais de transition fluide** (l'esthétique
 instrument, signature de la référence). Le glow est du `text-shadow`/`box-shadow`

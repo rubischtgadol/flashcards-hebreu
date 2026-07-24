@@ -91,6 +91,10 @@ body{
   92%{opacity:1}
   95%{opacity:.85}
 }
+/* mouvement réduit : les calques se figent, le vignettage reste */
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important}
+}
 .ecran>*{position:relative;z-index:2}
 .ecran-libelle{color:var(--ambre);opacity:.7;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
 .demi{min-height:430px}
