@@ -8,8 +8,8 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html,
 prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
-specimen-monospace-hebreu.html, duel-miriam-unifont.html et polices/ (créés,
-branche refonte-retrofuturiste).
+specimen-monospace-hebreu.html, duel-miriam-unifont.html,
+unifont-nikoud-repare.html et polices/ (créés, branche refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -86,6 +86,14 @@ Les pièces, dans cet ordre de lecture :
   alef, **dix mots extraits du carnet** (couverture gloutonne : 27/27 signes,
   12/14 marques) et la carte d'étude reconstituée dans chacune. Vue « les deux »,
   « Miriam seule », « Unifont seule », trois tailles. **Arbitrage en attente.**
+- **`unifont-nikoud-repare.html`** + **`polices/repare_unifont.py`** — le nikoud
+  d'Unifont était inutilisable (marques à la largeur d'une lettre, collées à elle) ;
+  il est **réparé** : onze marques du dessous et le dagesh redessinés sur la grille,
+  tables GDEF/GPOS ajoutées, lettres intactes. Mesuré : le qamats passe de 42 px à
+  18 (Miriam en fait 17), l'écart sous la lettre de 0 à 6 px, et la lettre n'est
+  plus repoussée. ⚠️ **Réserve** : les trois marques du dessus gardent les glyphes
+  d'origine — les redessiner déclenche un défaut de rendu non élucidé ; elles se
+  posaient déjà correctement. Script versionné, donc reproductible.
 - **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
 - **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
 - Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
@@ -114,7 +122,7 @@ suite du chantier 1). La branche traîne donc un **doublon périmé** de
 tout**, ne garder de cette branche que les **fichiers de la DA**
 (`prototype-nerv.html`, `prototype-effets.html`, `prototype-variantes.html`,
 `test-crt-iphone.html`, `specimen-hebreu.html`, `specimen-monospace-hebreu.html`,
-`duel-miriam-unifont.html`, `polices/` et le spec) et, si voulu, l'encart
+`duel-miriam-unifont.html`, `unifont-nikoud-repare.html`, `polices/` et le spec) et, si voulu, l'encart
 README. Divergence mesurée le 24/07 : **13 commits
 de retard, 17 d'avance**.
 

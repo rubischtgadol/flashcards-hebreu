@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unifont : le nikoud réparé — avant / après</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* Jetons v0.2 — repris tels quels de prototype-nerv.html (qui fait foi) */
+:root{
+  --bg:#05040A; --panneau:#0A0814; --grille:#0F0C1C; --ligne:#7a5a14;
+  --ambre:#f0b32a; --vert:#54ff8a; --rouge:#FF4747; --orange:#ff6a1f; --lune:#cfd6e6;
+  --cond:'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:'Share Tech Mono','Courier New',monospace;
+  --taille:2.4rem;
+}
+@font-face{font-family:'Unifont origine';src:url('polices/Unifont.woff2') format('woff2');font-display:block}
+@font-face{font-family:'Unifont Nikoud';src:url('polices/UnifontNikoud.woff2') format('woff2');font-display:block}
+@font-face{font-family:'Miriam Mono CLM';src:url('polices/MiriamMonoCLM.woff2') format('woff2');font-display:block}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{font-family:var(--cond);color:var(--ambre);background:#030208;font-size:15px;line-height:1.45;
+  padding:26px 18px calc(70px + env(safe-area-inset-bottom));-webkit-text-size-adjust:100%}
+.page{max-width:1100px;margin:0 auto}
+h1{font-family:var(--mono);font-size:1.2rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor}
+.chapeau{color:var(--lune);font-size:.92rem;margin:12px 0 4px;max-width:66ch}
+.chapeau b{color:var(--ambre);font-weight:400}
+.section-titre{font-family:var(--cond);font-weight:600;color:var(--ambre);font-size:.85rem;
+  letter-spacing:.2em;text-transform:uppercase;margin:42px 0 14px;display:flex;align-items:center;gap:14px}
+.section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
+
+.u0{font-family:'Unifont origine'} .u1{font-family:'Unifont Nikoud'} .mm{font-family:'Miriam Mono CLM'}
+.tag{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--ligne);border-radius:9999px;padding:1px 8px;white-space:nowrap;flex-shrink:0;width:5.2em;text-align:center}
+.tag.o{color:var(--rouge);border-color:var(--rouge)}
+.tag.r{color:var(--vert);border-color:var(--vert)}
+.tag.m{color:var(--lune);border-color:var(--ligne)}
+
+.bloc{border:1px solid var(--ligne);padding:12px 14px;margin-bottom:12px;background:
+  repeating-linear-gradient(0deg,transparent 0 31px,var(--grille) 31px 32px),
+  repeating-linear-gradient(90deg,transparent 0 31px,var(--grille) 31px 32px),var(--bg);
+  display:flex;align-items:center;gap:12px}
+.bloc .rang{direction:rtl;display:flex;flex-wrap:wrap;gap:4px 12px;flex:1;
+  font-size:var(--taille);line-height:1.7;color:var(--ambre)}
+
+.mot-duel{border:1px solid var(--ligne);padding:12px 14px 10px;background:
+  repeating-linear-gradient(0deg,transparent 0 31px,var(--grille) 31px 32px),
+  repeating-linear-gradient(90deg,transparent 0 31px,var(--grille) 31px 32px),var(--bg)}
+.mot-duel .fr{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--lune);opacity:.85;margin-bottom:9px}
+.mot-duel .paire{display:flex;align-items:center;gap:10px;padding:5px 0}
+.mot-duel .paire + .paire{border-top:1px solid var(--grille)}
+.mot-duel .he{direction:rtl;flex:1;text-align:right;font-size:var(--taille);line-height:1.7;
+  color:var(--ambre);text-shadow:0 0 14px rgba(240,179,42,.28)}
+.grille-mots{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+
+.mesure{border:1px solid var(--ligne);padding:14px 16px;margin:16px 0 0;max-width:70ch;
+  background:rgba(10,8,20,.6)}
+.mesure .titre{font-family:var(--cond);font-weight:600;color:var(--vert);font-size:.72rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:9px}
+table.mes{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:.7rem}
+table.mes th,table.mes td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--grille)}
+table.mes th{color:var(--ambre);font-weight:400;letter-spacing:.06em}
+table.mes td:first-child,table.mes th:first-child{text-align:left;color:var(--lune)}
+table.mes .ko{color:var(--rouge)} table.mes .ok{color:var(--vert)}
+
+.reserve{border:1px solid var(--orange);padding:13px 15px;margin:16px 0 0;max-width:70ch;
+  color:var(--lune);font-size:.85rem}
+.reserve .titre{font-family:var(--cond);font-weight:600;color:var(--orange);font-size:.72rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px}
+.reserve b{color:var(--ambre);font-weight:400}
+
+.reglages{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 8px;position:sticky;top:0;z-index:5;
+  background:#030208;padding:10px 0}
+.btn{font-family:var(--cond);font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:7px 15px;cursor:pointer;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2)}
+.btn.actif{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+.methode{margin-top:44px;border-top:1px solid var(--ligne);padding-top:16px;color:var(--lune);
+  font-size:.82rem;max-width:72ch}
+.methode p{margin-bottom:10px}
+.methode code{font-family:var(--mono);color:var(--vert);font-size:.78rem}
+.methode a{color:var(--vert)}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Unifont · le nikoud réparé</h1>
+  <p class="chapeau">Tu préfères le grain d'Unifont mais son nikoud est inutilisable. Il l'était pour
+  deux raisons mesurables : <b>ses marques sont dessinées à la largeur d'une lettre</b> — le qamats
+  fait 6 pixels de large comme le shin, ce qui en fait un soulignement plutôt qu'un point-voyelle —
+  et <b>la fonte n'a aucune table d'accroche</b>, donc le moteur les colle à la lettre sans un pixel
+  d'écart.</p>
+  <p class="chapeau">Les deux se réparent. Cette page montre la même chose trois fois :
+  <b class="tag o">origine</b> telle que GNU la publie, <b class="tag r">réparée</b> après redessin
+  des marques sur la grille et ajout des tables, et <b class="tag m">Miriam</b> comme référence de ce
+  qu'une fonte hébraïque bien outillée produit.</p>
+
+  <div class="reglages">
+    <button class="btn" data-taille="1.7rem">Petit</button>
+    <button class="btn actif" data-taille="2.4rem">Lecture</button>
+    <button class="btn" data-taille="3.6rem">Vedette</button>
+  </div>
+
+  <h2 class="section-titre">Les 14 marques, sur alef et shin</h2>
+  <div class="bloc"><span class="tag o">origine</span><div class="rang u0" lang="he"><span title="shva">אְ</span><span title="hataf segol">אֱ</span><span title="hataf patah">אֲ</span><span title="hataf qamats">אֳ</span><span title="hiriq">אִ</span><span title="tsere">אֵ</span><span title="segol">אֶ</span><span title="patah">אַ</span><span title="qamats">אָ</span><span title="holam">אֹ</span><span title="qubuts">אֻ</span><span title="dagesh">בּ</span><span title="point shin">שׁ</span><span title="point sin">שׂ</span></div></div>
+  <div class="bloc"><span class="tag r">réparée</span><div class="rang u1" lang="he"><span title="shva">אְ</span><span title="hataf segol">אֱ</span><span title="hataf patah">אֲ</span><span title="hataf qamats">אֳ</span><span title="hiriq">אִ</span><span title="tsere">אֵ</span><span title="segol">אֶ</span><span title="patah">אַ</span><span title="qamats">אָ</span><span title="holam">אֹ</span><span title="qubuts">אֻ</span><span title="dagesh">בּ</span><span title="point shin">שׁ</span><span title="point sin">שׂ</span></div></div>
+  <div class="bloc"><span class="tag m">Miriam</span><div class="rang mm" lang="he"><span title="shva">אְ</span><span title="hataf segol">אֱ</span><span title="hataf patah">אֲ</span><span title="hataf qamats">אֳ</span><span title="hiriq">אִ</span><span title="tsere">אֵ</span><span title="segol">אֶ</span><span title="patah">אַ</span><span title="qamats">אָ</span><span title="holam">אֹ</span><span title="qubuts">אֻ</span><span title="dagesh">בּ</span><span title="point shin">שׁ</span><span title="point sin">שׂ</span></div></div>
+
+  <div class="mesure">
+    <div class="titre">Ce que la réparation change, en pixels</div>
+    <table class="mes">
+      <tr><th>שָ à 96 px</th><th>largeur du qamats</th><th>écart sous la lettre</th><th>lettre déplacée</th></tr>
+      <tr><td>Unifont d'origine</td><td class="ko">42 px</td><td class="ko">0 px</td><td class="ko">oui, 12 px vers le bas</td></tr>
+      <tr><td>Unifont réparée</td><td class="ok">18 px</td><td class="ok">6 px</td><td class="ok">non</td></tr>
+      <tr><td>Miriam Mono CLM</td><td>17 px</td><td>6 px</td><td>non</td></tr>
+    </table>
+    <p style="margin-top:9px;font-size:.8rem;color:var(--lune)">La lettre fait 42 px de large : le
+    qamats d'origine l'égale exactement. Après réparation il en fait 18, comme celui de Miriam — et
+    la lettre ne bouge plus, alors que le moteur la poussait vers le bas pour faire place.</p>
+  </div>
+
+  <h2 class="section-titre">Dix mots du carnet — les 27 signes</h2>
+  <div class="grille-mots">
+    <article class="mot-duel">
+      <div class="fr">université</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">אוּנִיבֶרְסִיטָה</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">אוּנִיבֶרְסִיטָה</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">אוּנִיבֶרְסִיטָה</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">s'ennuyer</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">לְהִשְׁתַּעֲמֵם</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">לְהִשְׁתַּעֲמֵם</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">לְהִשְׁתַּעֲמֵם</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">vieux, âgé</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">זָקֵן</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">זָקֵן</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">זָקֵן</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">peur</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">פַּחַד</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">פַּחַד</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">פַּחַד</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">cuillère</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">כַּף</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">כַּף</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">כַּף</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">pneu</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">צָמִיג</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">צָמִיג</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">צָמִיג</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">arbre</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">עֵץ</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">עֵץ</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">עֵץ</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">va</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">לֵךְ</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">לֵךְ</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">לֵךְ</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">aimer</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">לֶאֱהֹב</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">לֶאֱהֹב</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">לֶאֱהֹב</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">légal</div>
+      <div class="paire"><span class="tag o">origine</span><span class="he u0" lang="he">חֻקִּי</span></div>
+      <div class="paire"><span class="tag r">réparée</span><span class="he u1" lang="he">חֻקִּי</span></div>
+      <div class="paire"><span class="tag m">Miriam</span><span class="he mm" lang="he">חֻקִּי</span></div>
+    </article>
+  </div>
+
+  <div class="reserve">
+    <div class="titre">La réserve, à connaître avant de choisir</div>
+    <p>Seules les <b>onze marques du dessous</b> et le dagesh ont été redessinés. Les trois du dessus
+    — holam, point du shin, point du sin — <b>restent celles d'Unifont</b> : les redessiner déclenche
+    un défaut de rendu que je n'ai pas élucidé, où WebKit remonte la lettre elle-même de sa propre
+    hauteur. Ce n'est pas grave ici : la mesure montre que ces trois-là se posaient <b>déjà
+    correctement</b> au-dessus de la lettre dans l'original. Le défaut visible était celui des
+    voyelles du dessous, et c'est lui qui est corrigé.</p>
+  </div>
+
+  <div class="methode">
+    <p><b>Ce qui a été fait.</b> Les onze marques du dessous et le dagesh sont redessinés en
+    rectangles alignés sur la grille d'Unifont (1 pixel = 64 unités, em de 1024), avec une chasse
+    nulle. Des tables <code>GDEF</code> et <code>GPOS</code> sont ensuite compilées : chaque marque
+    est déclarée comme telle, et chacune des 27 lettres reçoit un point d'accroche calculé sur son
+    encre — centre pour les voyelles du dessous, milieu pour le dagesh — le tout calé sur la grille,
+    parce qu'un demi-pixel de décalage se voit sur une matricielle. Les lettres ne sont pas touchées.
+    Le script est versionné : <code>polices/repare_unifont.py</code>.</p>
+    <p><b>Deux pièges payés en route.</b> La marge gauche d'un glyphe doit valoir son abscisse
+    minimale : à 0, la compression WOFF2 reconstruit le contour ailleurs et tout le dessin se décale.
+    Et une fonte déclarée en CSS mais absente du document n'est <b>jamais chargée</b> : trois
+    mesures ont d'abord porté sur la police système de repli, qui rendait un nikoud impeccable —
+    le témoin muet passe toujours au vert.</p>
+    <p><b>Licence.</b> GNU Unifont est sous GPL v2+ avec exception d'incorporation, qui autorise la
+    modification et la redistribution. La fonte modifiée porte un autre nom de famille
+    (« Unifont Nikoud »), et la nature des changements est inscrite dans ses métadonnées et dans
+    <a href="polices/LICENCES.md">polices/LICENCES.md</a>.</p>
+    <p><b>Pages voisines</b> : <a href="duel-miriam-unifont.html">le duel Miriam / Unifont</a> ·
+    <a href="specimen-monospace-hebreu.html">la recherche des monospaces hébreux</a>.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  document.querySelectorAll('[data-taille]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('[data-taille]').forEach(function(x){ x.classList.remove('actif'); });
+      b.classList.add('actif');
+      document.documentElement.style.setProperty('--taille', b.dataset.taille);
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -19,6 +19,11 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-hebreu.html
 >
+> **➡️ Unifont, le nikoud réparé — avant / après** : GNU Unifont modifiée (marques du dessous
+> redessinées sur la grille + tables d'accroche), sur les mêmes dix mots, avec Miriam en référence :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/unifont-nikoud-repare.html
+>
 > **➡️ LE DUEL — Miriam Mono CLM contre GNU Unifont** : alphabet entier, cinq finales, les
 > 14 marques, dix mots du carnet couvrant les 27 signes, et la carte d'étude reconstituée
 > dans chacune :
