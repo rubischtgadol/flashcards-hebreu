@@ -810,59 +810,167 @@
 </section>
 
 <script>
-let CARDS = [];
+// Expose : escapeHtml, shuffle, todayNum, fmtMs — Utilise : (rien — utilitaires purs)
+function fmtMs(v){ return (v>=100 ? ''+Math.round(v) : v.toFixed(1).replace('.', ','))+'\u202fms'; }   // espace fine insécable avant l'unité (convention fr), en escape \u pour rester visible dans la source
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function todayNum(){ return Math.floor(Date.now()/86400000); }
+function escapeHtml(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+// Expose : he2tr, trKey, normHe, editDist — Utilise : (rien — logique pure)
+function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
+function editDist(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  const d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++)d[0][j]=j;
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  }
+  return d[m][n];
+}
+// ---------- Translittération automatique depuis le nikud ----------
+function he2tr(he){
+  var V={}; V[0x05B7]='a'; V[0x05B8]='a'; V[0x05B2]='a'; V[0x05B5]='e'; V[0x05B6]='e'; V[0x05B1]='e';
+  V[0x05B4]='i'; V[0x05B9]='o'; V[0x05BA]='o'; V[0x05B3]='o'; V[0x05BB]='u';
+  var out='', s=(he||'').trim(), wordStart=true;
+  for(var i=0;i<s.length;i++){
+    var ch=s[i], code=s.charCodeAt(i);
+    if(code>=0x0591&&code<=0x05C7) continue;
+    var j=i+1, marks=[];
+    while(j<s.length){ var c=s.charCodeAt(j); if(c>=0x0591&&c<=0x05C7){ marks.push(c); j++; } else break; }
+    function has(m){ return marks.indexOf(m)!==-1; }
+    var hasVowel=marks.some(function(m){ return V[m]; });
+    var isFinal=(j>=s.length || s[j]===' ');
+    var cons='';
+    switch(ch){
+      // Standard de translittération (cf. carnet) : א = ' entre deux voyelles
+      // seulement (tsme'a) ; ע = ' partout ('ivrit, be'er, rega').
+      case 'א': cons=(hasVowel && !wordStart && /[aeiou]$/.test(out))?"'":''; break;
+      case 'ע': cons="'"; break;
+      case 'ב': cons=has(0x05BC)?'b':'v'; break;
+      case 'ג': cons='g'; break;
+      case 'ד': cons='d'; break;
+      case 'ה': cons='h'; break;
+      case 'ו':
+        if(has(0x05BC) && !hasVowel){ out+='u'; wordStart=false; continue; }
+        if(has(0x05B9)||has(0x05BA)){ out+='o'; wordStart=false; continue; }
+        cons='v'; break;
+      case 'ז': cons='z'; break;
+      case 'ח': cons='ch'; break;                    // standard : ח = ch
+      case 'ט': cons='t'; break;
+      case 'י': cons='y'; break;
+      case 'כ': cons=has(0x05BC)?'k':'kh'; break;    // standard : כ sans daguech = kh
+      case 'ך': cons='kh'; break;
+      case 'ל': cons='l'; break;
+      case 'מ': case 'ם': cons='m'; break;
+      case 'נ': case 'ן': cons='n'; break;
+      case 'ס': cons='s'; break;
+      case 'פ': cons=has(0x05BC)?'p':'f'; break;
+      case 'ף': cons='f'; break;
+      case 'צ': case 'ץ': cons='ts'; break;          // standard : צ = ts
+      case 'ק': cons='k'; break;
+      case 'ר': cons='r'; break;
+      case 'ש': cons=has(0x05C2)?'s':'sh'; break;
+      case 'ת': cons='t'; break;
+      default: cons=(ch===' ')?' ':(/[a-z]/i.test(ch)?ch:''); break;
+    }
+    // Patach furtif : la voyelle se lit avant la gutturale finale (koach, yode'a).
+    if(isFinal && has(0x05B7)){
+      if(ch==='ח'){ out+='ach'; wordStart=false; continue; }
+      if(ch==='ע'){ out+="'a"; wordStart=false; continue; }
+    }
+    out+=cons;
+    var emitted=false;
+    for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
+    // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
+    if(!emitted && wordStart && cons && cons!==' ' && has(0x05B0)) out+='e';
+    if(ch===' ') wordStart=true; else if(cons||emitted) wordStart=false;
+  }
+  out=out.replace(/iy(?![aeiou])/g,'i');
+  out=out.replace(/ey/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
+  // Le hé final se garde (standard : atah, zeh, morah).
+  return out;
+}
+function trKey(s){
+  s=(s||'').toLowerCase().replace(/[^a-z]/g,'');
+  s=s.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
+  s=s.replace(/ou/g,'u').replace(/ch/g,'h');
+  s=s.replace(/(.)\1+/g,'$1');
+  return s;
+}
+// Expose : normFr, frVariants, checkAnswer, answerHtml — Utilise : he2tr/trKey/normHe/editDist (02), formsHtml (10), state (99)
 
-const state = {
-  dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards', len:'20',
-  session:'normal', cats:new Set(), niveaux:new Set(), themes:new Set(),
-  queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
-};
-
-// ================= Niveaux de difficulté (CECRL) =================
-// Le carnet stocke le CECRL fin (data-niveau="A1"…"C2") ; l'app l'affiche en
-// quatre libellés. Un mot sans niveau ignore le filtre : il reste visible
-// partout, le carnet peut donc s'annoter progressivement sans perdre de carte.
-const NIVEAUX = [
-  {key:'facile',    label:'Facile',        cecrl:['A1']},
-  {key:'inter',     label:'Intermédiaire', cecrl:['A2','B1']},
-  {key:'difficile', label:'Difficile',     cecrl:['B2','C1']},
-  {key:'expert',    label:'Expert',        cecrl:['C2']}
-];
-function nivOfCard(c){ const g=NIVEAUX.find(g=>g.cecrl.includes(c.niveau)); return g ? g.key : null; }
-function nivOk(c){ const k=nivOfCard(c); return !k || state.niveaux.has(k); }
-
-// ================= Thèmes (champ sémantique) =================
-// Le carnet annote les trois tables Noms/Adjectifs/Verbes (data-theme) ; les
-// listes (nombres, jours…) n'en portent pas : déjà mono-thème par nature.
-// Filtre OPTIONNEL, à l'inverse des catégories et du niveau : aucune puce
-// cochée = tous les thèmes, rien n'est bloqué. Dès qu'un thème est coché,
-// une carte sans thème sort du jeu — c'est le sens du choix.
-// ⚠️ Les slugs doivent rester alignés sur EXPECTED_THEMES de build.js.
-const THEMES = [
-  {key:'famille-personnes',   label:'Famille & personnes'},
-  {key:'corps-sante',         label:'Corps & santé'},
-  {key:'nourriture',          label:'Nourriture & repas'},
-  {key:'maison-objets',       label:'Maison & objets'},
-  {key:'vetements-couleurs',  label:'Vêtements & couleurs'},
-  {key:'ville-transport',     label:'Ville, lieux & transports'},
-  {key:'nature',              label:'Nature & animaux'},
-  {key:'temps-calendrier',    label:'Temps & calendrier'},
-  {key:'travail-etudes',      label:'Travail & études'},
-  {key:'vie-quotidienne',     label:'Vie quotidienne'},
-  {key:'argent-achats',       label:'Argent & achats'},
-  {key:'loisirs-culture',     label:'Loisirs & culture'},
-  {key:'communication-pensee',label:'Parler & penser'},
-  {key:'emotions-caractere',  label:'Émotions & caractère'},
-  {key:'abstrait',            label:'Notions abstraites'}
-];
-function themeOk(c){ return state.themes.size===0 || (c.theme && state.themes.has(c.theme)); }
+// ---------- Input mode: answer checking ----------
+function normFr(s){
+  return (s||'')
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/\([^)]*\)/g,' ')
+    .replace(/[.!?;:«»"']/g,' ')
+    .replace(/\s+/g,' ')
+    .trim()
+    .replace(/^(le|la|les|l|un|une|des|du|de|d|a|au|aux|se|s|to)\s+/,'');
+}
+function frVariants(fr){
+  return fr.split(/[\/,]| ou /).map(normFr).filter(Boolean);
+}
+// Renvoie 'exact', 'almost' (accepté par tolérance orthographique) ou false.
+function checkAnswer(card, raw){
+  const user = (raw||'').trim();
+  if(!user) return false;
+  if(state.dir==='he2fr'){
+    const u = normFr(user);
+    const variants = frVariants(card.fr);
+    let almost=false;
+    for(const v of variants){
+      if(!v) continue;
+      if(u===v) return 'exact';
+      if(v.length>4 && editDist(u,v)<=1) almost=true;
+    }
+    return almost ? 'almost' : false;
+  } else {
+    const uHe = normHe(user);
+    if(uHe && uHe===normHe(card.he)) return 'exact';
+    // Translittération : celle du carnet si présente, sinon générée depuis le nikud
+    const uTr = trKey(user);
+    let almost=false;
+    if(uTr){
+      const cands = [];
+      if(card.tr) cands.push(trKey(card.tr));
+      cands.push(trKey(he2tr(card.he)));
+      for(const c of cands){
+        if(!c) continue;
+        if(uTr===c) return 'exact';
+        const tol = c.length>=8 ? 2 : (c.length>=4 ? 1 : 0);
+        if(tol && editDist(uTr,c)<=tol) almost=true;
+      }
+    }
+    return almost ? 'almost' : false;
+  }
+}
+function answerHtml(card){
+  let h = '<div class="answer">';
+  if(state.dir==='he2fr'){
+    h += '<span class="he" lang="he">'+card.he+'</span>';
+    h += '<div>'+card.fr+'</div>';
+    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
+  } else {
+    h += '<div>'+card.fr+'</div>';
+    h += '<span class="he" lang="he">'+card.he+'</span>';
+    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
+  }
+  h += '</div>';
+  // Inflexions : en français→hébreu elles n'apparaissent qu'ici (les montrer avant
+  // révélerait la réponse) ; en hébreu→français elles sont déjà sur la carte.
+  if(state.dir==='fr2he') h += formsHtml(card);
+  if(card.note) h += '<div class="note-line">'+card.note+'</div>';
+  return h;
+}
+// Expose : prefsLoad, savePrefs, sessSave, sessClear, sessRestore, srsLoad, srsSave, srsMigrateIds, cardId, PREFS_KEY, SESS_KEY, bootResumed, SRS_KEY, SRS — Utilise : CARDS (05), render (10), state (99)
 
 // ================= Préférences de réglage (persistées) =================
 // Les choix du panneau de réglages survivent d'une session à l'autre. Restaurés
 // au boot par applyPrefs(), appelé depuis buildChips() → couvre les deux chemins
 // (init() en ligne ET démarrage direct du fichier autonome).
 const PREFS_KEY='prefs_v1';
-const SEG_KEYS=['mode','dir','script','order','audio','len'];
 function prefsLoad(){ try{ return JSON.parse(localStorage.getItem(PREFS_KEY))||null; }catch(e){ return null; } }
 function savePrefs(){
   try{
@@ -871,43 +979,6 @@ function savePrefs(){
       script:state.script, order:state.order, audio:state.audio, len:state.len
     }));
   }catch(e){}
-}
-// Aligne un groupe de chips segmentés sur la valeur courante de state[key].
-function reflectSeg(key){
-  const box=document.getElementById(key); if(!box) return;
-  box.querySelectorAll('.chip').forEach(c=>
-    c.setAttribute('aria-pressed', c.dataset[key]===state[key] ? 'true':'false'));
-}
-// Restaure réglages + catégories, puis reflète le tout dans l'UI. Au 1er lancement
-// (aucune préférence) : aucune catégorie ni aucun niveau présélectionné — le choix
-// appartient à l'utilisateur ; « Commencer » reste muet et #start-hint guide
-// (décision du 19/07/2026). Les autres réglages gardent leurs valeurs initiales.
-function applyPrefs(){
-  const p=prefsLoad();
-  state.cats.clear();
-  state.niveaux.clear();
-  state.themes.clear();
-  if(p){
-    SEG_KEYS.forEach(k=>{ if(typeof p[k]==='string') state[k]=p[k]; });
-    (Array.isArray(p.cats)?p.cats:[]).forEach(cat=>{ if(catCounts[cat]) state.cats.add(cat); });
-    // Niveaux : rétro-compatible — préférences d'avant le filtre (pas de champ
-    // `niveaux`) → tout sélectionné, rien ne disparaît pour un profil existant.
-    if(Array.isArray(p.niveaux)) p.niveaux.forEach(k=>{ if(nivCounts[k]) state.niveaux.add(k); });
-    else Object.keys(nivCounts).forEach(k=>state.niveaux.add(k));
-    // Thèmes : filtre optionnel — champ absent (préférences d'avant) = rien de
-    // coché, c'est-à-dire « tous les thèmes ». Rien ne change pour l'existant.
-    if(Array.isArray(p.themes)) p.themes.forEach(k=>{ if(themeCounts[k]) state.themes.add(k); });
-  }
-  SEG_KEYS.forEach(reflectSeg);
-  catsEl.querySelectorAll('.chip').forEach(b=>
-    b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
-  nivEl.querySelectorAll('.chip').forEach(b=>
-    b.setAttribute('aria-pressed', state.niveaux.has(b.dataset.niv) ? 'true':'false'));
-  themeEl.querySelectorAll('.chip').forEach(b=>
-    b.setAttribute('aria-pressed', state.themes.has(b.dataset.theme) ? 'true':'false'));
-  refreshAdvSub();
-  refreshFoldSubs();
-  applyFoldState();
 }
 
 // ================= Instantané de session (sessionStorage) =================
@@ -952,27 +1023,41 @@ function sessRestore(){
   return true;
 }
 
-// ================= Diagnostic de latence (dossier « lag iPhone », 20/07/2026) =================
-// Trois temps par geste, affichés dans « Réglages avancés » : « attente » (dernier
-// doigt levé → le gestionnaire démarre — c'est là que vivrait un délai de synthèse
-// du clic ou un fil principal occupé), « travail » (le gestionnaire, décomposé),
-// « affichage » (gestionnaire terminé → image peinte, via double
-// requestAnimationFrame). L'écriture du texte se fait APRÈS la capture du temps
-// de peinture, pour ne pas mesurer sa propre mise à jour.
-let lastPointerUp=0;
-document.addEventListener('pointerup', e=>{ lastPointerUp=e.timeStamp; }, {capture:true, passive:true});
-function fmtMs(v){ return (v>=100 ? ''+Math.round(v) : v.toFixed(1).replace('.', ','))+'\u202fms'; }   // espace fine insécable avant l'unité (convention fr), en escape \u pour rester visible dans la source
-function perfReport(label, segs, t0, tEnd){
-  const base = (lastPointerUp && lastPointerUp<=t0) ? lastPointerUp : t0;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    const tPaint=performance.now();
-    const el=document.getElementById('perf-note'); if(!el) return;
-    const detail = segs.map(s=>s[0]+' '+fmtMs(s[1])).join(' · ');
-    el.textContent = label+' : attente '+fmtMs(t0-base)+' · travail '+fmtMs(tEnd-t0)
-      + (detail ? ' ('+detail+')' : '')
-      + ' · affichage '+fmtMs(tPaint-tEnd)+' · total '+fmtMs(tPaint-base);
-  }));
+// ================= Révision espacée (système de Leitner) =================
+// Chaque réponse (dans TOUS les modes) fait monter ou redescendre la carte d'une
+// « boîte » ; l'intervalle avant réapparition croît avec la boîte. Persisté en
+// localStorage → la progression survit entre les sessions et les jours.
+const SRS_KEY='srs_v1';
+// ⚠️ La clé porte la forme VOCALISÉE : la forme plate créait trois collisions
+// d'homographes consonantiques (לְסַפֵּר raconter / לִסְפֹּר compter,
+// לְלַמֵּד enseigner / לִלְמֹד étudier, שלומך m. / f.) — deux cartes partageaient
+// alors la même boîte de Leitner et une session restaurée substituait l'une à
+// l'autre. `cat|he` est vérifié unique sur les 713 cartes (0 doublon).
+function cardId(c){ return c.cat+'|'+c.he; }
+function srsLoad(){ try{ return JSON.parse(localStorage.getItem(SRS_KEY))||{}; }catch(e){ return {}; } }
+function srsSave(){ try{ localStorage.setItem(SRS_KEY, JSON.stringify(SRS)); }catch(e){} }
+let SRS=srsLoad();
+// Migration des profils d'avant le changement de clé : l'entrée `cat|he_plain`
+// est recopiée sous `cat|he`, puis retirée. Les deux cartes d'une ancienne
+// collision héritent chacune de l'entrée partagée — meilleure information
+// disponible, et déterministe. Appelée depuis buildChips(), quand CARDS existe.
+function srsMigrateIds(){
+  let moved=0;
+  CARDS.forEach(c=>{
+    const oldId=c.cat+'|'+c.he_plain, newId=cardId(c);
+    if(oldId!==newId && SRS[oldId] && !SRS[newId]){
+      SRS[newId]=JSON.parse(JSON.stringify(SRS[oldId])); moved++;
+    }
+  });
+  if(moved){
+    const keep=new Set(CARDS.map(cardId));
+    Object.keys(SRS).forEach(k=>{ if(!keep.has(k)) delete SRS[k]; });
+    srsSave();
+  }
 }
+// Expose : CARDS — Utilise : (rien — donnée pure, remplie par init() dans 99-principal.js)
+let CARDS = [];
+// Expose : loadVoices, reflectVoiceUi, speak, speakCurrent, updateSpeaker, TTS_OK, heVoice — Utilise : state (99)
 
 // ----- Speech (Web Speech API) -----
 const TTS_OK = ('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window);
@@ -1018,8 +1103,6 @@ function reflectVoiceUi(){
   document.body.classList.toggle('no-he-voice', off);
   document.querySelectorAll('#audio .chip').forEach(b=>b.disabled=off);
 }
-if(TTS_OK){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
-else reflectVoiceUi();
 function speak(text){
   if(!TTS_OK || !heVoice || !text) return;
   try{
@@ -1052,6 +1135,46 @@ function updateSpeaker(){
   }
   btn.classList.toggle('hide', !(TTS_OK && hebrewVisible));
 }
+// Expose : nivOfCard, nivOk, themeOk, searchNorm, runSearch, buildChips, buildNivChips, buildThemeChips, toggle, segPick, refreshAdvSub, foldSub, refreshFoldSubs, applyFoldState, refreshSelAll, updateStart, limitPool, THEMES — Utilise : state (99), CARDS (05), escapeHtml (01), he2tr (02), speak/bindTap (06/11), savePrefs/sessRestore/srsMigrateIds (04), applyPrefs/perfReport (13), refreshSrsUi (08)
+
+// ================= Niveaux de difficulté (CECRL) =================
+// Le carnet stocke le CECRL fin (data-niveau="A1"…"C2") ; l'app l'affiche en
+// quatre libellés. Un mot sans niveau ignore le filtre : il reste visible
+// partout, le carnet peut donc s'annoter progressivement sans perdre de carte.
+const NIVEAUX = [
+  {key:'facile',    label:'Facile',        cecrl:['A1']},
+  {key:'inter',     label:'Intermédiaire', cecrl:['A2','B1']},
+  {key:'difficile', label:'Difficile',     cecrl:['B2','C1']},
+  {key:'expert',    label:'Expert',        cecrl:['C2']}
+];
+function nivOfCard(c){ const g=NIVEAUX.find(g=>g.cecrl.includes(c.niveau)); return g ? g.key : null; }
+function nivOk(c){ const k=nivOfCard(c); return !k || state.niveaux.has(k); }
+
+// ================= Thèmes (champ sémantique) =================
+// Le carnet annote les trois tables Noms/Adjectifs/Verbes (data-theme) ; les
+// listes (nombres, jours…) n'en portent pas : déjà mono-thème par nature.
+// Filtre OPTIONNEL, à l'inverse des catégories et du niveau : aucune puce
+// cochée = tous les thèmes, rien n'est bloqué. Dès qu'un thème est coché,
+// une carte sans thème sort du jeu — c'est le sens du choix.
+// ⚠️ Les slugs doivent rester alignés sur EXPECTED_THEMES de build.js.
+const THEMES = [
+  {key:'famille-personnes',   label:'Famille & personnes'},
+  {key:'corps-sante',         label:'Corps & santé'},
+  {key:'nourriture',          label:'Nourriture & repas'},
+  {key:'maison-objets',       label:'Maison & objets'},
+  {key:'vetements-couleurs',  label:'Vêtements & couleurs'},
+  {key:'ville-transport',     label:'Ville, lieux & transports'},
+  {key:'nature',              label:'Nature & animaux'},
+  {key:'temps-calendrier',    label:'Temps & calendrier'},
+  {key:'travail-etudes',      label:'Travail & études'},
+  {key:'vie-quotidienne',     label:'Vie quotidienne'},
+  {key:'argent-achats',       label:'Argent & achats'},
+  {key:'loisirs-culture',     label:'Loisirs & culture'},
+  {key:'communication-pensee',label:'Parler & penser'},
+  {key:'emotions-caractere',  label:'Émotions & caractère'},
+  {key:'abstrait',            label:'Notions abstraites'}
+];
+function themeOk(c){ return state.themes.size===0 || (c.theme && state.themes.has(c.theme)); }
 
 // ----- Dynamic search over the word bank -----
 const SPK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg>';
@@ -1140,11 +1263,6 @@ function runSearch(){
     }
   });
 }
-document.getElementById('search-input').addEventListener('input', runSearch);
-document.getElementById('search-clear').addEventListener('click', ()=>{
-  const input=document.getElementById('search-input');
-  input.value=''; runSearch(); input.focus();
-});
 
 // ----- build category chips -----
 let catCounts = {};
@@ -1284,24 +1402,6 @@ function applyFoldState(){
   const fc=document.getElementById('fold-cats'); if(fc) fc.open = state.cats.size===0;
   const fn=document.getElementById('fold-niv');  if(fn) fn.open = state.niveaux.size===0;
 }
-SEG_KEYS.forEach(key=>{
-  const box=document.getElementById(key);
-  box.querySelectorAll('.chip').forEach(c=>c.onclick=()=>segPick(box,key,c));
-});
-
-document.getElementById('selall').onclick=()=>{
-  const t0=performance.now();
-  const allOn = state.cats.size===Object.keys(catCounts).length;
-  catsEl.querySelectorAll('.chip').forEach(b=>{
-    b.setAttribute('aria-pressed', allOn?'false':'true');
-  });
-  state.cats.clear();
-  if(!allOn) Object.keys(catCounts).forEach(c=>state.cats.add(c));
-  const t1=performance.now(); updateStart();
-  const t2=performance.now(); savePrefs();
-  const t3=performance.now();
-  perfReport('« Tout (dé)sélectionner »', [['état',t1-t0],['bouton',t2-t1],['sauvegarde',t3-t2]], t0, t3);
-};
 // Le libellé dit l'action que le clic fera vraiment : « tout désélectionner »
 // quand tout est déjà coché, « tout sélectionner » sinon.
 function refreshSelAll(){
@@ -1334,106 +1434,17 @@ function updateStart(){
     hint.classList.toggle('hide', !empty);
   }
 }
-updateStart();
-
-(function(){
-  const note = document.getElementById('audio-note');
-  if(!note) return;
-  function refresh(){
-    if(!TTS_OK){ note.textContent = "Synthèse vocale non disponible sur ce navigateur."; return; }
-    // Le nom réel de la voix retenue est le premier outil de diagnostic quand la
-    // synthèse sonne robotique. Mais `name` ne dit jamais la qualité : sur iOS, seul
-    // l'identifiant AVFoundation la porte (« …-compact » = voix compacte, plafond de
-    // ce que WebKit publie ; « .enhanced. »/« .premium. » = le filtre a changé).
-    // On l'affiche donc à côté — c'est la seule mesure possible depuis le web.
-    if(!heVoice){
-      note.textContent = "Aucune voix hébraïque installée sur l'appareil — le son peut être approximatif. (iOS : Réglages → Accessibilité → Contenu énoncé → Voix → Hébreu.)";
-      return;
-    }
-    note.textContent = "Voix hébraïque détectée ✓ — " + heVoice.name;
-    const id = document.createElement('span');
-    id.className = 'voice-id';
-    id.textContent = "identifiant : " + (heVoice.voiceURI || "non exposé par ce navigateur");
-    note.appendChild(id);
-  }
-  refresh();
-  if(TTS_OK) window.speechSynthesis.addEventListener('voiceschanged', refresh);
-})();
-
-// ----- start -----
-document.getElementById('start').onclick=start;
-// Transition setup/done → étude, commune à tous les points d'entrée (catégories,
-// révision, rejeu). `origQueue` mémorise le jeu de la session pour « Recommencer ».
-function beginSession(pool){
-  state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
-  cardsUndo=null; lastRecord=null;   // rien d'annulable en début de session
-  document.getElementById('exit-note').classList.add('hide');
-  document.getElementById('setup').classList.add('hidden');
-  document.getElementById('done').classList.remove('active');
-  document.getElementById('study').classList.add('active');
-  render();
-}
 // Tronque le jeu à la longueur choisie (« Longueur » du panneau). Appliqué après
 // le mélange → en aléatoire, chaque session pioche N cartes différentes.
 function limitPool(pool){
   return state.len==='all' ? pool : pool.slice(0, +state.len);
 }
-function start(){
-  const t0=performance.now();
-  state.session='normal';
-  // Croisement catégories × niveau × thèmes. La révision du jour (startReview),
-  // elle, les ignore : une carte apprise reste due.
-  const pool = CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c) && themeOk(c));
-  const deck = limitPool(state.order==='shuffle' ? shuffle(pool.slice()) : pool.slice());
-  state.origQueue = deck.slice();
-  const t1=performance.now();
-  beginSession(deck);
-  const t2=performance.now();
-  perfReport('Départ de session', [['préparation',t1-t0],['rendu',t2-t1]], t0, t2);
-}
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-
-// ================= Révision espacée (système de Leitner) =================
-// Chaque réponse (dans TOUS les modes) fait monter ou redescendre la carte d'une
-// « boîte » ; l'intervalle avant réapparition croît avec la boîte. Persisté en
-// localStorage → la progression survit entre les sessions et les jours.
-const SRS_KEY='srs_v1';
+// Expose : recordResult, undoLastRecord, dueCards, masteryStats, refreshSrsUi, startReview — Utilise : CARDS (05), cardId/SRS/srsSave (04), state (99), limitPool (07), shuffle (01), beginSession (09), perfReport (13)
 const SRS_INTERVALS=[0,1,2,4,8,16,32];      // jours avant réapparition, par boîte
 const SRS_MASTER=4;                          // boîte à partir de laquelle « maîtrisée »
-function todayNum(){ return Math.floor(Date.now()/86400000); }
-// ⚠️ La clé porte la forme VOCALISÉE : la forme plate créait trois collisions
-// d'homographes consonantiques (לְסַפֵּר raconter / לִסְפֹּר compter,
-// לְלַמֵּד enseigner / לִלְמֹד étudier, שלומך m. / f.) — deux cartes partageaient
-// alors la même boîte de Leitner et une session restaurée substituait l'une à
-// l'autre. `cat|he` est vérifié unique sur les 713 cartes (0 doublon).
-function cardId(c){ return c.cat+'|'+c.he; }
-function srsLoad(){ try{ return JSON.parse(localStorage.getItem(SRS_KEY))||{}; }catch(e){ return {}; } }
-function srsSave(){ try{ localStorage.setItem(SRS_KEY, JSON.stringify(SRS)); }catch(e){} }
-let SRS=srsLoad();
-// Migration des profils d'avant le changement de clé : l'entrée `cat|he_plain`
-// est recopiée sous `cat|he`, puis retirée. Les deux cartes d'une ancienne
-// collision héritent chacune de l'entrée partagée — meilleure information
-// disponible, et déterministe. Appelée depuis buildChips(), quand CARDS existe.
-function srsMigrateIds(){
-  let moved=0;
-  CARDS.forEach(c=>{
-    const oldId=c.cat+'|'+c.he_plain, newId=cardId(c);
-    if(oldId!==newId && SRS[oldId] && !SRS[newId]){
-      SRS[newId]=JSON.parse(JSON.stringify(SRS[oldId])); moved++;
-    }
-  });
-  if(moved){
-    const keep=new Set(CARDS.map(cardId));
-    Object.keys(SRS).forEach(k=>{ if(!keep.has(k)) delete SRS[k]; });
-    srsSave();
-  }
-}
 // Mémorise l'état SRS d'avant la dernière écriture → le verdict reste annulable
 // (« Corriger ») tant qu'aucune autre carte n'a été jouée.
 let lastRecord=null;
-// Mode Cartes : la carte suivante s'affiche sitôt répondu → on garde de quoi
-// revenir en arrière (carte + verdict) tant que la suivante n'est pas jouée.
-let cardsUndo=null;
 function recordResult(card, good){
   if(!card) return;
   const id=cardId(card), t=todayNum();
@@ -1502,55 +1513,375 @@ function startReview(){
   const t2=performance.now();
   perfReport('Révision du jour', [['préparation',t1-t0],['rendu',t2-t1]], t0, t2);
 }
-(function(){ const b=document.getElementById('review-btn'); if(b) b.onclick=startReview; })();
+// Expose : beginSession, start, finish — Utilise : state (99), CARDS (05), nivOk/themeOk/limitPool (07), shuffle (01), render (10), sessSave/sessClear (04), refreshSrsUi (08), perfReport (13)
+// Transition setup/done → étude, commune à tous les points d'entrée (catégories,
+// révision, rejeu). `origQueue` mémorise le jeu de la session pour « Recommencer ».
+function beginSession(pool){
+  state.queue=pool; state.idx=0; state.missed=[]; state.goodCount=0; state.total=pool.length; state.flipped=false;
+  cardsUndo=null; lastRecord=null;   // rien d'annulable en début de session
+  document.getElementById('exit-note').classList.add('hide');
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('done').classList.remove('active');
+  document.getElementById('study').classList.add('active');
+  render();
+}
+function start(){
+  const t0=performance.now();
+  state.session='normal';
+  // Croisement catégories × niveau × thèmes. La révision du jour (startReview),
+  // elle, les ignore : une carte apprise reste due.
+  const pool = CARDS.filter(c=>state.cats.has(c.cat) && nivOk(c) && themeOk(c));
+  const deck = limitPool(state.order==='shuffle' ? shuffle(pool.slice()) : pool.slice());
+  state.origQueue = deck.slice();
+  const t1=performance.now();
+  beginSession(deck);
+  const t2=performance.now();
+  perfReport('Départ de session', [['préparation',t1-t0],['rendu',t2-t1]], t0, t2);
+}
 
-// ================= Remise à zéro du profil =================
-// Efface TOUT le local (srs_v1, prefs_v1, sess_v1) et remet l'appli dans l'état
-// du premier lancement, en place. Deux temps obligatoires : le bouton ouvre une
-// confirmation qui nomme la perte (nombre de cartes suivies), « Annuler » est le
-// défaut sûr et reçoit le focus.
-(function(){
-  const btn=document.getElementById('reset-btn'); if(!btn) return;
-  const confirmBox=document.getElementById('reset-confirm');
-  const done=document.getElementById('reset-done');
-  function resetProfile(){
-    try{ localStorage.removeItem(SRS_KEY); localStorage.removeItem(PREFS_KEY); }catch(e){}
-    sessClear();
-    SRS={}; lastRecord=null; cardsUndo=null;
-    // applyPrefs() sans préférence ne touche pas ces clés : on les remet aux
-    // valeurs de l'objet `state` initial (celles du premier lancement).
-    Object.assign(state, {mode:'cards', dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', len:'20'});
-    applyPrefs();       // aucune catégorie ni niveau sélectionné (état 1er lancement), chips reflétées
-    refreshSrsUi();     // barre de maîtrise masquée, révision du jour désactivée
-    updateStart();
-    document.getElementById('exit-note').classList.add('hide');
+function finish(){
+  sessClear();
+  document.body.classList.remove('input-mode','quiz-mode');
+  refreshSrsUi();
+  document.getElementById('study').classList.remove('active');
+  document.getElementById('done').classList.add('active');
+  document.getElementById('barfill').style.transform='scaleX(1)';
+  document.querySelector('.bar').setAttribute('aria-valuenow', state.total);
+  const el=document.getElementById('score');
+  el.innerHTML=state.goodCount+'<small>/'+state.total+'</small>';
+  const pct=Math.round(state.goodCount/state.total*100);
+  let msg;
+  if(pct===100) msg='Sans faute. כָּל הַכָּבוֹד !';
+  else if(pct>=70) msg='Bien joué ! Plus que '+state.missed.length+' carte'+(state.missed.length>1?'s':'')+' à revoir avant le sans-faute.';
+  else msg='Encore un peu d\'entraînement — '+state.missed.length+' à revoir.';
+  // Fin de révision : les ratées sont retombées en boîte 0, donc dues aussitôt —
+  // l'expliquer, sinon le compteur qui ne descend pas ressemble à un bug.
+  if(state.session==='review' && state.missed.length){
+    msg+=' Les ratées sont aussitôt redevenues dues : la révision du jour les repropose jusqu’à ce qu’elles tiennent.';
   }
-  btn.onclick=()=>{
-    const seen=masteryStats().seen;
-    document.getElementById('reset-warn').textContent = seen
-      ? 'Tout sera effacé : ta progression de révision ('+seen+' carte'+(seen>1?'s':'')
-        +' suivie'+(seen>1?'s':'')+'), tes réglages et la session en cours. Aucun retour possible.'
-      : 'Tes réglages et la session en cours seront effacés (aucune carte suivie pour l\'instant). Aucun retour possible.';
-    btn.classList.add('hide');
-    done.classList.add('hide');
-    confirmBox.classList.remove('hide');
-    document.getElementById('reset-cancel').focus();
-  };
-  function closeConfirm(){
-    confirmBox.classList.add('hide');
-    btn.classList.remove('hide');
-    btn.focus();
-  }
-  document.getElementById('reset-cancel').onclick=closeConfirm;
-  document.getElementById('reset-yes').onclick=()=>{
-    resetProfile();
-    closeConfirm();
-    done.classList.remove('hide');
-  };
-})();
+  document.getElementById('done-msg').textContent=msg;
+  // « Rejouer ces N cartes » : même tirage (origQueue), le libellé l'explicite.
+  const nOrig=state.origQueue.length;
+  document.getElementById('retry-all').textContent =
+    nOrig===1 ? 'Rejouer cette carte' : 'Rejouer ces '+nOrig+' cartes';
+  // Les ratées, listées avant de rejouer : on sait quoi retravailler sans relancer à l'aveugle.
+  const list=document.getElementById('missed-list');
+  list.classList.toggle('hide', !state.missed.length);
+  list.innerHTML = state.missed.map(c=>
+    '<li><span class="m-he" lang="he">'+c.he+'</span><span class="m-fr">'+c.fr+'</span></li>').join('');
+  document.getElementById('retry-missed').classList.toggle('hide', !state.missed.length);
+}
+// Expose : render, heFront, bigFr, formsHtml, exHtml, exActivate, exBind, frShort — Utilise : state (99), he2tr (02), speak/updateSpeaker/speakCurrent (06), setupCardsMode/setupInputCard (11), setupQuizCard (12), sessSave (04), escapeHtml (01)
 
 // ================= Mode QCM (choix multiple) =================
 function frShort(card){ return card.fr.split(/[\/,]| ou /)[0].replace(/\([^)]*\)/g,'').trim() || card.fr; }
+
+function heFront(card){
+  const ph = card.cat==='Phrases' ? ' phrase' : '';
+  if(state.script==='plain') return '<div class="big-he'+ph+'" lang="he">'+card.he_plain+'</div>';
+  if(state.script==='cursive') return '<div class="big-he cursive'+ph+'" lang="he">'+card.he_plain+'</div>';
+  return '<div class="big-he'+ph+'" lang="he">'+card.he+'</div>';
+}
+function bigFr(card){ return '<div class="big-fr'+(card.cat==='Phrases'?' phrase':'')+'">'+card.fr+'</div>'; }
+function formsHtml(card){
+  if(!card.forms) return '';
+  // Les verbes (4 formes il/elle/ils/elles) passent en grille 2×2 ; noms et
+  // adjectifs (1 et 3 formes) gardent la ligne souple.
+  const grid = card.cat==='Verbes' ? ' forms-grid' : '';
+  let h='<div class="forms'+grid+'">';
+  card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he" lang="he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
+  return h+'</div>';
+}
+// Exemples en situation : pli « Voir un exemple », uniquement là où la réponse est
+// déjà visible (verso des Cartes, feedback de Saisie, verdict du QCM) — jamais
+// côté recto en fr→he, l'exemple contient le mot. Texte toujours affiché ;
+// l'audio (phrase entière) n'est qu'un complément, masqué sous no-he-voice.
+function exHtml(card){
+  if(!card.exemples || !card.exemples.length) return '';
+  const n=card.exemples.length;
+  let h='<div class="ex-wrap"><button class="ex-toggle" type="button" aria-expanded="false">'
+    +(n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')+'</button><div class="ex-box hide">';
+  card.exemples.forEach(ex=>{
+    h+='<div class="ex-item"><button class="ex-speak" type="button" data-he="'+escapeHtml(ex.he)+'" aria-label="Écouter l\'exemple">'+SPK_SVG+'</button>'
+     +'<div class="ex-body"><div class="ex-he" lang="he">'+ex.he+'</div>'
+     +'<div class="ex-tr">'+ex.tr+'</div>'
+     +'<div class="ex-fr">'+ex.fr+'</div></div></div>';
+  });
+  return h+'</div></div>';
+}
+function exActivate(t){
+  if(t.classList.contains('ex-toggle')){
+    const open=t.getAttribute('aria-expanded')==='true';
+    t.setAttribute('aria-expanded', open?'false':'true');
+    const box=t.nextElementSibling;
+    if(box){
+      box.classList.toggle('hide', open);
+      // Le libellé suit l'état : un pli ouvert propose de se refermer.
+      const n=box.querySelectorAll('.ex-item').length;
+      t.textContent = open
+        ? (n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')
+        : (n>1 ? 'Masquer les exemples' : 'Masquer l’exemple');
+      // La face de carte défile (.face en overflow-y) : l'exemple déplié doit
+      // entrer dans le champ, sinon le tap semble ne rien faire sur mobile.
+      if(!open){ try{ box.scrollIntoView({block:'nearest'}); }catch(e){} }
+    }
+  } else speak(t.dataset.he);
+}
+// Délégation façon bindTap (les zones sont réinjectées en innerHTML à chaque carte) :
+// pointerup d'abord avec stopPropagation — sinon le tap remonterait jusqu'au
+// bindTap de #flip et retournerait la carte — puis click en filet (clavier inclus).
+function exBind(el){
+  if(!el) return;
+  let handled=false;
+  const hit=e=>(e.target.closest ? e.target.closest('.ex-toggle,.ex-speak') : null);
+  el.addEventListener('pointerup', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); handled=true; exActivate(t); setTimeout(()=>handled=false,50); });
+  el.addEventListener('click', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); if(!handled) exActivate(t); });
+}
+
+function render(){
+  const card=state.queue[state.idx];
+  state.flipped=false;
+  state.answered=false;
+
+  const note = card.note ? '<div class="note-line">'+card.note+'</div>' : '';
+
+  if(state.mode==='quiz'){
+    state.frontHtml = quizPrompt(card);   // pas de verso en QCM : la carte ne se retourne pas
+  } else if(state.dir==='he2fr'){
+    state.frontHtml = heFront(card);
+    // En mode saisie, inflexions visibles directement sous le mot : elles sont en
+    // hébreu et ne révèlent donc pas la traduction française demandée.
+    if(state.mode==='input') state.frontHtml += formsHtml(card);
+    let b = bigFr(card);
+    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
+    if(state.script!=='nikud') b += '<div class="sub-he" lang="he">'+card.he+'</div>';
+    b += formsHtml(card) + note + exHtml(card);
+    state.backHtml = b;
+  } else {
+    state.frontHtml = bigFr(card) + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
+    let b = '<div class="big-he" lang="he">'+card.he+'</div>';
+    b += '<div class="cursive-line" lang="he">'+card.he_plain+'</div>';
+    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
+    b += formsHtml(card) + note + exHtml(card);
+    state.backHtml = b;
+  }
+
+  document.getElementById('face-cat').textContent = card.cat;
+  document.getElementById('face-content').innerHTML = state.frontHtml;
+  animateFace();
+
+  document.getElementById('counter').textContent=(state.idx+1)+' / '+state.total;
+  document.getElementById('barfill').style.transform='scaleX('+(state.idx/state.total)+')';
+  const bar=document.querySelector('.bar');
+  bar.setAttribute('aria-valuemax', state.total);
+  bar.setAttribute('aria-valuenow', state.idx);
+
+  if(state.mode==='input') setupInputCard(card);
+  else if(state.mode==='quiz') setupQuizCard(card);
+  else setupCardsMode();
+
+  updateSpeaker();
+  if(state.audio==='auto' && state.dir==='he2fr') speakCurrent();
+  sessSave();
+}
+// Expose : setupCardsMode, setupInputCard, animateFace, doFlip, bindTap, answer, undoCardAnswer, showInputFeedback, fixVerdict, submitAnswer, nextAfterInput, skipAnswer, cardsUndo — Utilise : state (99), recordResult/undoLastRecord (08), finish (09), checkAnswer/answerHtml (03), exHtml (10), updateSpeaker/speakCurrent (06), he2tr (02), sessSave (04)
+// Mode Cartes : la carte suivante s'affiche sitôt répondu → on garde de quoi
+// revenir en arrière (carte + verdict) tant que la suivante n'est pas jouée.
+let cardsUndo=null;
+
+function setupCardsMode(){
+  document.body.classList.remove('input-mode','quiz-mode');
+  document.getElementById('controls-cards').classList.remove('hide');
+  document.getElementById('undo-card').classList.toggle('hide', !cardsUndo);
+  document.getElementById('input-zone').classList.add('hide');
+  document.getElementById('quiz-zone').classList.add('hide');
+  const kh=document.getElementById('kbd-hint');
+  kh.innerHTML='<kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais · <kbd>c</kbd> annuler<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
+  kh.classList.remove('hide');
+  document.getElementById('flip-live').textContent='';
+  document.getElementById('face-hint').textContent = 'touche la carte pour la retourner';
+  document.getElementById('btn-flip').classList.remove('hide');
+  document.getElementById('btn-again').classList.add('hide');
+  document.getElementById('btn-good').classList.add('hide');
+}
+
+function setupInputCard(card){
+  document.body.classList.add('input-mode');
+  document.body.classList.remove('quiz-mode');
+  document.getElementById('controls-cards').classList.add('hide');
+  document.getElementById('undo-card').classList.add('hide');
+  document.getElementById('input-zone').classList.remove('hide');
+  document.getElementById('quiz-zone').classList.add('hide');
+  document.getElementById('kbd-hint').classList.add('hide');
+  document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'traduis en français' : 'écris en hébreu';
+  const inp=document.getElementById('answer-input');
+  inp.value=''; inp.className=''; inp.disabled=false;
+  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu ou en translittération (ex. shalom, chaver)…';
+  document.getElementById('input-row').classList.remove('hide');
+  document.getElementById('btn-check').classList.remove('hide');
+  document.getElementById('feedback').innerHTML='';
+  document.getElementById('btn-next').classList.add('hide');
+  // Actions secondaires : passer + clavier hébreu (fr→he uniquement)
+  document.getElementById('input-actions').classList.remove('hide');
+  const kbT=document.getElementById('kb-toggle');
+  const heIn = state.dir==='fr2he';
+  kbT.classList.toggle('hide', !heIn);
+  kbT.textContent = state.kbOpen ? 'Masquer le clavier' : 'Clavier hébreu';
+  document.getElementById('hebkb').classList.toggle('hide', !(heIn && state.kbOpen));
+  setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 60);
+}
+
+function animateFace(){
+  const face=document.getElementById('face');
+  face.classList.remove('flip-anim'); void face.offsetWidth; face.classList.add('flip-anim');
+  face.scrollTop=0;
+}
+
+function doFlip(){
+  state.flipped=!state.flipped;
+  document.getElementById('face-content').innerHTML = state.flipped ? state.backHtml : state.frontHtml;
+  document.getElementById('face-hint').textContent = state.flipped ? 'touche pour revenir au recto' : 'touche la carte pour la retourner';
+  // Le verso change par innerHTML, invisible aux lecteurs d'écran sans région
+  // live : on annonce la réponse (français + translittération prononçable).
+  const card=state.queue[state.idx];
+  const live=document.getElementById('flip-live');
+  if(state.flipped && card){
+    const tr=card.tr||he2tr(card.he);
+    let txt = state.dir==='he2fr' ? card.fr+' — '+tr : tr+' — '+card.fr;
+    // Le pli « Voir un exemple » est invisible à l'oreille : l'annoncer,
+    // sinon un lecteur d'écran ignore que le verso a plus à offrir.
+    if(card.exemples && card.exemples.length){
+      txt += card.exemples.length>1
+        ? '. '+card.exemples.length+' exemples disponibles sur la carte.'
+        : '. Un exemple disponible sur la carte.';
+    }
+    live.textContent = txt;
+  } else live.textContent='';
+  animateFace();
+  if(state.flipped){
+    document.getElementById('btn-flip').classList.add('hide');
+    document.getElementById('btn-again').classList.remove('hide');
+    document.getElementById('btn-good').classList.remove('hide');
+  } else {
+    document.getElementById('btn-flip').classList.remove('hide');
+    document.getElementById('btn-again').classList.add('hide');
+    document.getElementById('btn-good').classList.add('hide');
+  }
+  updateSpeaker();
+  if(state.audio==='auto' && state.flipped && state.dir==='fr2he') speakCurrent();
+}
+function bindTap(el, fn){
+  let handled=false;
+  el.addEventListener('pointerup', (e)=>{ e.preventDefault(); e.stopPropagation(); handled=true; fn(); setTimeout(()=>handled=false,50); });
+  el.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); if(!handled) fn(); });
+}
+
+function answer(good){
+  const card=state.queue[state.idx];
+  recordResult(card, good);
+  cardsUndo={ card, good };
+  if(good) state.goodCount++; else state.missed.push(card);
+  state.idx++;
+  if(state.idx>=state.queue.length) finish();
+  else render();
+}
+// Revient à la carte précédente en défaisant tout ce que la réponse a écrit :
+// SRS (undoLastRecord), compteurs de session et position dans la file.
+function undoCardAnswer(){
+  if(!cardsUndo || state.mode!=='cards') return;
+  undoLastRecord();
+  if(cardsUndo.good) state.goodCount=Math.max(0,state.goodCount-1);
+  else { const i=state.missed.lastIndexOf(cardsUndo.card); if(i!==-1) state.missed.splice(i,1); }
+  state.idx=Math.max(0,state.idx-1);
+  cardsUndo=null;
+  render();
+}
+// Retour du mode saisie : verdict, tentative barrée si ratée, correction, et un
+// bouton « Corriger » qui inverse le dernier verdict (faux négatif du correcteur
+// indulgent, ou aveu d'une bonne réponse devinée). kind : 'ok' | 'almost' | 'no' | 'skip'.
+function showInputFeedback(card, kind, attempt){
+  const fb=document.getElementById('feedback');
+  const verdict = kind==='ok'     ? '<div class="verdict ok">✓ Correct</div>'
+                : kind==='almost' ? '<div class="verdict ok">✓ Presque ! La forme exacte&nbsp;:</div>'
+                : kind==='no'     ? '<div class="verdict no">✗ Pas tout à fait — la réponse&nbsp;:</div>'
+                :                   '<div class="verdict">La réponse&nbsp;:</div>';
+  const tried = (kind==='no' && attempt)
+    ? '<div class="your-answer">Ta réponse : <s>'+escapeHtml(attempt)+'</s></div>'
+    : (kind==='almost' && attempt)
+    ? '<div class="your-answer">Ta réponse : '+escapeHtml(attempt)+'</div>' : '';
+  const fixLabel = (kind==='ok'||kind==='almost') ? 'En fait, je ne savais pas' : 'J’avais juste →';
+  fb.innerHTML = verdict + tried + answerHtml(card) + exHtml(card)
+    + '<button class="fix-btn" type="button" id="fix-verdict">'+fixLabel+'</button>';
+  const btn=document.getElementById('fix-verdict');
+  if(btn) btn.onclick=()=>fixVerdict(card, kind, btn);
+}
+function fixVerdict(card, kind, btn){
+  undoLastRecord();
+  const nowGood = (kind!=='ok' && kind!=='almost');   // ok/almost→raté ; no/skip→réussi
+  recordResult(card, nowGood);
+  if(nowGood){
+    state.goodCount++;
+    const i=state.missed.lastIndexOf(card); if(i!==-1) state.missed.splice(i,1);
+  } else {
+    state.goodCount=Math.max(0,state.goodCount-1);
+    state.missed.push(card);
+  }
+  const fb=document.getElementById('feedback');
+  const v=fb.querySelector('.verdict');
+  if(v){ v.className='verdict '+(nowGood?'ok':'no'); v.innerHTML = nowGood ? '✓ Compté comme réussi' : '✗ À revoir'; }
+  const ya=fb.querySelector('.your-answer'); if(ya && nowGood) ya.remove();
+  btn.remove();
+  sessSave();
+}
+function submitAnswer(){
+  if(state.answered) return;
+  const card=state.queue[state.idx];
+  const inp=document.getElementById('answer-input');
+  const attempt=inp.value.trim();
+  // Champ vide (Entrée réflexe, pouce qui glisse) : ni raté compté, ni écriture
+  // SRS — « Je ne sais pas » est là pour révéler la réponse volontairement.
+  if(!attempt){ try{ inp.focus(); }catch(e){} return; }
+  const res=checkAnswer(card, inp.value);
+  const correct=!!res;
+  state.answered=true;
+  inp.disabled=true;
+  inp.classList.add(correct?'ok':'no');
+  document.getElementById('input-row').classList.add('hide');
+  document.getElementById('input-actions').classList.add('hide');
+  document.getElementById('hebkb').classList.add('hide');
+  recordResult(card, correct);
+  showInputFeedback(card, correct?(res==='almost'?'almost':'ok'):'no', attempt);
+  document.getElementById('btn-next').classList.remove('hide');
+  if(correct) state.goodCount++; else state.missed.push(card);
+  updateSpeaker();
+  if(state.audio==='auto') speakCurrent();
+  sessSave();
+}
+function nextAfterInput(){
+  state.idx++;
+  if(state.idx>=state.queue.length) finish();
+  else render();
+}
+
+// ---------- « Je ne sais pas » : révèle la réponse et compte la carte à revoir ----------
+function skipAnswer(){
+  if(state.answered) return;
+  const card=state.queue[state.idx];
+  state.answered=true;
+  const inp=document.getElementById('answer-input');
+  inp.disabled=true;
+  document.getElementById('input-row').classList.add('hide');
+  document.getElementById('input-actions').classList.add('hide');
+  document.getElementById('hebkb').classList.add('hide');
+  recordResult(card, false);
+  showInputFeedback(card, 'skip', null);
+  document.getElementById('btn-next').classList.remove('hide');
+  state.missed.push(card);
+  updateSpeaker();
+  if(state.audio==='auto') speakCurrent();
+  sessSave();
+}
+// Expose : quizPrompt, quizChoiceHtml, pickDistractors, setupQuizCard, quizPick, quizFixVerdict — Utilise : state (99), heFront/bigFr/frShort/exHtml (10), he2tr (02), shuffle (01), editDist (02), frVariants (03), bindTap/nextAfterInput (11), recordResult/undoLastRecord (08), sessSave (04), updateSpeaker/speakCurrent (06)
 function quizPrompt(card){
   return state.dir==='he2fr' ? heFront(card) : bigFr(card);
 }
@@ -1665,470 +1996,186 @@ function quizFixVerdict(card, wasCorrect, btn){
   document.getElementById('quiz-live').textContent = nowGood ? 'Compté comme réussi.' : 'Compté à revoir.';
   sessSave();
 }
+// Expose : applyPrefs, reflectSeg, perfReport, SEG_KEYS, lastPointerUp — Utilise : state (99), catCounts/nivCounts/themeCounts/catsEl/nivEl/themeEl/refreshAdvSub/refreshFoldSubs/applyFoldState (07)
+const SEG_KEYS=['mode','dir','script','order','audio','len'];
+// Aligne un groupe de chips segmentés sur la valeur courante de state[key].
+function reflectSeg(key){
+  const box=document.getElementById(key); if(!box) return;
+  box.querySelectorAll('.chip').forEach(c=>
+    c.setAttribute('aria-pressed', c.dataset[key]===state[key] ? 'true':'false'));
+}
+// Restaure réglages + catégories, puis reflète le tout dans l'UI. Au 1er lancement
+// (aucune préférence) : aucune catégorie ni aucun niveau présélectionné — le choix
+// appartient à l'utilisateur ; « Commencer » reste muet et #start-hint guide
+// (décision du 19/07/2026). Les autres réglages gardent leurs valeurs initiales.
+function applyPrefs(){
+  const p=prefsLoad();
+  state.cats.clear();
+  state.niveaux.clear();
+  state.themes.clear();
+  if(p){
+    SEG_KEYS.forEach(k=>{ if(typeof p[k]==='string') state[k]=p[k]; });
+    (Array.isArray(p.cats)?p.cats:[]).forEach(cat=>{ if(catCounts[cat]) state.cats.add(cat); });
+    // Niveaux : rétro-compatible — préférences d'avant le filtre (pas de champ
+    // `niveaux`) → tout sélectionné, rien ne disparaît pour un profil existant.
+    if(Array.isArray(p.niveaux)) p.niveaux.forEach(k=>{ if(nivCounts[k]) state.niveaux.add(k); });
+    else Object.keys(nivCounts).forEach(k=>state.niveaux.add(k));
+    // Thèmes : filtre optionnel — champ absent (préférences d'avant) = rien de
+    // coché, c'est-à-dire « tous les thèmes ». Rien ne change pour l'existant.
+    if(Array.isArray(p.themes)) p.themes.forEach(k=>{ if(themeCounts[k]) state.themes.add(k); });
+  }
+  SEG_KEYS.forEach(reflectSeg);
+  catsEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.cats.has(b.dataset.cat) ? 'true':'false'));
+  nivEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.niveaux.has(b.dataset.niv) ? 'true':'false'));
+  themeEl.querySelectorAll('.chip').forEach(b=>
+    b.setAttribute('aria-pressed', state.themes.has(b.dataset.theme) ? 'true':'false'));
+  refreshAdvSub();
+  refreshFoldSubs();
+  applyFoldState();
+}
+
+// ================= Diagnostic de latence (dossier « lag iPhone », 20/07/2026) =================
+// Trois temps par geste, affichés dans « Réglages avancés » : « attente » (dernier
+// doigt levé → le gestionnaire démarre — c'est là que vivrait un délai de synthèse
+// du clic ou un fil principal occupé), « travail » (le gestionnaire, décomposé),
+// « affichage » (gestionnaire terminé → image peinte, via double
+// requestAnimationFrame). L'écriture du texte se fait APRÈS la capture du temps
+// de peinture, pour ne pas mesurer sa propre mise à jour.
+let lastPointerUp=0;
+function perfReport(label, segs, t0, tEnd){
+  const base = (lastPointerUp && lastPointerUp<=t0) ? lastPointerUp : t0;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const tPaint=performance.now();
+    const el=document.getElementById('perf-note'); if(!el) return;
+    const detail = segs.map(s=>s[0]+' '+fmtMs(s[1])).join(' · ');
+    el.textContent = label+' : attente '+fmtMs(t0-base)+' · travail '+fmtMs(tEnd-t0)
+      + (detail ? ' ('+detail+')' : '')
+      + ' · affichage '+fmtMs(tPaint-tEnd)+' · total '+fmtMs(tPaint-base);
+  }));
+}
+// Expose : init, showLoaderError, state — Utilise : tout ce qui précède (01 à 13)
+
+const state = {
+  dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', mode:'cards', len:'20',
+  session:'normal', cats:new Set(), niveaux:new Set(), themes:new Set(),
+  queue:[], origQueue:[], idx:0, flipped:false, missed:[], goodCount:0, total:0
+};
+document.addEventListener('pointerup', e=>{ lastPointerUp=e.timeStamp; }, {capture:true, passive:true});
+if(TTS_OK){ loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices; }
+else reflectVoiceUi();
+document.getElementById('search-input').addEventListener('input', runSearch);
+document.getElementById('search-clear').addEventListener('click', ()=>{
+  const input=document.getElementById('search-input');
+  input.value=''; runSearch(); input.focus();
+});
+SEG_KEYS.forEach(key=>{
+  const box=document.getElementById(key);
+  box.querySelectorAll('.chip').forEach(c=>c.onclick=()=>segPick(box,key,c));
+});
+
+document.getElementById('selall').onclick=()=>{
+  const t0=performance.now();
+  const allOn = state.cats.size===Object.keys(catCounts).length;
+  catsEl.querySelectorAll('.chip').forEach(b=>{
+    b.setAttribute('aria-pressed', allOn?'false':'true');
+  });
+  state.cats.clear();
+  if(!allOn) Object.keys(catCounts).forEach(c=>state.cats.add(c));
+  const t1=performance.now(); updateStart();
+  const t2=performance.now(); savePrefs();
+  const t3=performance.now();
+  perfReport('« Tout (dé)sélectionner »', [['état',t1-t0],['bouton',t2-t1],['sauvegarde',t3-t2]], t0, t3);
+};
+updateStart();
+
+(function(){
+  const note = document.getElementById('audio-note');
+  if(!note) return;
+  function refresh(){
+    if(!TTS_OK){ note.textContent = "Synthèse vocale non disponible sur ce navigateur."; return; }
+    // Le nom réel de la voix retenue est le premier outil de diagnostic quand la
+    // synthèse sonne robotique. Mais `name` ne dit jamais la qualité : sur iOS, seul
+    // l'identifiant AVFoundation la porte (« …-compact » = voix compacte, plafond de
+    // ce que WebKit publie ; « .enhanced. »/« .premium. » = le filtre a changé).
+    // On l'affiche donc à côté — c'est la seule mesure possible depuis le web.
+    if(!heVoice){
+      note.textContent = "Aucune voix hébraïque installée sur l'appareil — le son peut être approximatif. (iOS : Réglages → Accessibilité → Contenu énoncé → Voix → Hébreu.)";
+      return;
+    }
+    note.textContent = "Voix hébraïque détectée ✓ — " + heVoice.name;
+    const id = document.createElement('span');
+    id.className = 'voice-id';
+    id.textContent = "identifiant : " + (heVoice.voiceURI || "non exposé par ce navigateur");
+    note.appendChild(id);
+  }
+  refresh();
+  if(TTS_OK) window.speechSynthesis.addEventListener('voiceschanged', refresh);
+})();
+
+// ----- start -----
+document.getElementById('start').onclick=start;
+(function(){ const b=document.getElementById('review-btn'); if(b) b.onclick=startReview; })();
+
+// ================= Remise à zéro du profil =================
+// Efface TOUT le local (srs_v1, prefs_v1, sess_v1) et remet l'appli dans l'état
+// du premier lancement, en place. Deux temps obligatoires : le bouton ouvre une
+// confirmation qui nomme la perte (nombre de cartes suivies), « Annuler » est le
+// défaut sûr et reçoit le focus.
+(function(){
+  const btn=document.getElementById('reset-btn'); if(!btn) return;
+  const confirmBox=document.getElementById('reset-confirm');
+  const done=document.getElementById('reset-done');
+  function resetProfile(){
+    try{ localStorage.removeItem(SRS_KEY); localStorage.removeItem(PREFS_KEY); }catch(e){}
+    sessClear();
+    SRS={}; lastRecord=null; cardsUndo=null;
+    // applyPrefs() sans préférence ne touche pas ces clés : on les remet aux
+    // valeurs de l'objet `state` initial (celles du premier lancement).
+    Object.assign(state, {mode:'cards', dir:'he2fr', script:'nikud', order:'shuffle', audio:'click', len:'20'});
+    applyPrefs();       // aucune catégorie ni niveau sélectionné (état 1er lancement), chips reflétées
+    refreshSrsUi();     // barre de maîtrise masquée, révision du jour désactivée
+    updateStart();
+    document.getElementById('exit-note').classList.add('hide');
+  }
+  btn.onclick=()=>{
+    const seen=masteryStats().seen;
+    document.getElementById('reset-warn').textContent = seen
+      ? 'Tout sera effacé : ta progression de révision ('+seen+' carte'+(seen>1?'s':'')
+        +' suivie'+(seen>1?'s':'')+'), tes réglages et la session en cours. Aucun retour possible.'
+      : 'Tes réglages et la session en cours seront effacés (aucune carte suivie pour l\'instant). Aucun retour possible.';
+    btn.classList.add('hide');
+    done.classList.add('hide');
+    confirmBox.classList.remove('hide');
+    document.getElementById('reset-cancel').focus();
+  };
+  function closeConfirm(){
+    confirmBox.classList.add('hide');
+    btn.classList.remove('hide');
+    btn.focus();
+  }
+  document.getElementById('reset-cancel').onclick=closeConfirm;
+  document.getElementById('reset-yes').onclick=()=>{
+    resetProfile();
+    closeConfirm();
+    done.classList.remove('hide');
+  };
+})();
 // Passage à la carte suivante : identique au mode saisie → on réutilise nextAfterInput.
 bindTap(document.getElementById('quiz-next'), nextAfterInput);
-
-function heFront(card){
-  const ph = card.cat==='Phrases' ? ' phrase' : '';
-  if(state.script==='plain') return '<div class="big-he'+ph+'" lang="he">'+card.he_plain+'</div>';
-  if(state.script==='cursive') return '<div class="big-he cursive'+ph+'" lang="he">'+card.he_plain+'</div>';
-  return '<div class="big-he'+ph+'" lang="he">'+card.he+'</div>';
-}
-function bigFr(card){ return '<div class="big-fr'+(card.cat==='Phrases'?' phrase':'')+'">'+card.fr+'</div>'; }
-function formsHtml(card){
-  if(!card.forms) return '';
-  // Les verbes (4 formes il/elle/ils/elles) passent en grille 2×2 ; noms et
-  // adjectifs (1 et 3 formes) gardent la ligne souple.
-  const grid = card.cat==='Verbes' ? ' forms-grid' : '';
-  let h='<div class="forms'+grid+'">';
-  card.forms.forEach(f=>{ h+='<div class="form-cell"><span class="f-he" lang="he">'+f.he+'</span><span class="f-lbl">'+f.label+(f.tr?' · '+f.tr:'')+'</span></div>'; });
-  return h+'</div>';
-}
-// Exemples en situation : pli « Voir un exemple », uniquement là où la réponse est
-// déjà visible (verso des Cartes, feedback de Saisie, verdict du QCM) — jamais
-// côté recto en fr→he, l'exemple contient le mot. Texte toujours affiché ;
-// l'audio (phrase entière) n'est qu'un complément, masqué sous no-he-voice.
-function exHtml(card){
-  if(!card.exemples || !card.exemples.length) return '';
-  const n=card.exemples.length;
-  let h='<div class="ex-wrap"><button class="ex-toggle" type="button" aria-expanded="false">'
-    +(n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')+'</button><div class="ex-box hide">';
-  card.exemples.forEach(ex=>{
-    h+='<div class="ex-item"><button class="ex-speak" type="button" data-he="'+escapeHtml(ex.he)+'" aria-label="Écouter l\'exemple">'+SPK_SVG+'</button>'
-     +'<div class="ex-body"><div class="ex-he" lang="he">'+ex.he+'</div>'
-     +'<div class="ex-tr">'+ex.tr+'</div>'
-     +'<div class="ex-fr">'+ex.fr+'</div></div></div>';
-  });
-  return h+'</div></div>';
-}
-function exActivate(t){
-  if(t.classList.contains('ex-toggle')){
-    const open=t.getAttribute('aria-expanded')==='true';
-    t.setAttribute('aria-expanded', open?'false':'true');
-    const box=t.nextElementSibling;
-    if(box){
-      box.classList.toggle('hide', open);
-      // Le libellé suit l'état : un pli ouvert propose de se refermer.
-      const n=box.querySelectorAll('.ex-item').length;
-      t.textContent = open
-        ? (n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')
-        : (n>1 ? 'Masquer les exemples' : 'Masquer l’exemple');
-      // La face de carte défile (.face en overflow-y) : l'exemple déplié doit
-      // entrer dans le champ, sinon le tap semble ne rien faire sur mobile.
-      if(!open){ try{ box.scrollIntoView({block:'nearest'}); }catch(e){} }
-    }
-  } else speak(t.dataset.he);
-}
-// Délégation façon bindTap (les zones sont réinjectées en innerHTML à chaque carte) :
-// pointerup d'abord avec stopPropagation — sinon le tap remonterait jusqu'au
-// bindTap de #flip et retournerait la carte — puis click en filet (clavier inclus).
-function exBind(el){
-  if(!el) return;
-  let handled=false;
-  const hit=e=>(e.target.closest ? e.target.closest('.ex-toggle,.ex-speak') : null);
-  el.addEventListener('pointerup', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); handled=true; exActivate(t); setTimeout(()=>handled=false,50); });
-  el.addEventListener('click', e=>{ const t=hit(e); if(!t) return; e.preventDefault(); e.stopPropagation(); if(!handled) exActivate(t); });
-}
 exBind(document.getElementById('face-content'));
 exBind(document.getElementById('feedback'));
 exBind(document.getElementById('quiz-ex'));
 exBind(document.getElementById('search-results'));
-
-function render(){
-  const card=state.queue[state.idx];
-  state.flipped=false;
-  state.answered=false;
-
-  const note = card.note ? '<div class="note-line">'+card.note+'</div>' : '';
-
-  if(state.mode==='quiz'){
-    state.frontHtml = quizPrompt(card);   // pas de verso en QCM : la carte ne se retourne pas
-  } else if(state.dir==='he2fr'){
-    state.frontHtml = heFront(card);
-    // En mode saisie, inflexions visibles directement sous le mot : elles sont en
-    // hébreu et ne révèlent donc pas la traduction française demandée.
-    if(state.mode==='input') state.frontHtml += formsHtml(card);
-    let b = bigFr(card);
-    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
-    if(state.script!=='nikud') b += '<div class="sub-he" lang="he">'+card.he+'</div>';
-    b += formsHtml(card) + note + exHtml(card);
-    state.backHtml = b;
-  } else {
-    state.frontHtml = bigFr(card) + (card.tr?'<div class="translit">'+card.tr+'</div>':'');
-    let b = '<div class="big-he" lang="he">'+card.he+'</div>';
-    b += '<div class="cursive-line" lang="he">'+card.he_plain+'</div>';
-    b += '<div class="translit">'+(card.tr||he2tr(card.he))+'</div>';
-    b += formsHtml(card) + note + exHtml(card);
-    state.backHtml = b;
-  }
-
-  document.getElementById('face-cat').textContent = card.cat;
-  document.getElementById('face-content').innerHTML = state.frontHtml;
-  animateFace();
-
-  document.getElementById('counter').textContent=(state.idx+1)+' / '+state.total;
-  document.getElementById('barfill').style.transform='scaleX('+(state.idx/state.total)+')';
-  const bar=document.querySelector('.bar');
-  bar.setAttribute('aria-valuemax', state.total);
-  bar.setAttribute('aria-valuenow', state.idx);
-
-  if(state.mode==='input') setupInputCard(card);
-  else if(state.mode==='quiz') setupQuizCard(card);
-  else setupCardsMode();
-
-  updateSpeaker();
-  if(state.audio==='auto' && state.dir==='he2fr') speakCurrent();
-  sessSave();
-}
-
-function setupCardsMode(){
-  document.body.classList.remove('input-mode','quiz-mode');
-  document.getElementById('controls-cards').classList.remove('hide');
-  document.getElementById('undo-card').classList.toggle('hide', !cardsUndo);
-  document.getElementById('input-zone').classList.add('hide');
-  document.getElementById('quiz-zone').classList.add('hide');
-  const kh=document.getElementById('kbd-hint');
-  kh.innerHTML='<kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais · <kbd>c</kbd> annuler<span class="spk-hint"> · <kbd>p</kbd> écouter</span>';
-  kh.classList.remove('hide');
-  document.getElementById('flip-live').textContent='';
-  document.getElementById('face-hint').textContent = 'touche la carte pour la retourner';
-  document.getElementById('btn-flip').classList.remove('hide');
-  document.getElementById('btn-again').classList.add('hide');
-  document.getElementById('btn-good').classList.add('hide');
-}
-
-function setupInputCard(card){
-  document.body.classList.add('input-mode');
-  document.body.classList.remove('quiz-mode');
-  document.getElementById('controls-cards').classList.add('hide');
-  document.getElementById('undo-card').classList.add('hide');
-  document.getElementById('input-zone').classList.remove('hide');
-  document.getElementById('quiz-zone').classList.add('hide');
-  document.getElementById('kbd-hint').classList.add('hide');
-  document.getElementById('face-hint').textContent = state.dir==='he2fr' ? 'traduis en français' : 'écris en hébreu';
-  const inp=document.getElementById('answer-input');
-  inp.value=''; inp.className=''; inp.disabled=false;
-  inp.placeholder = state.dir==='he2fr' ? 'Traduction en français…' : 'En hébreu ou en translittération (ex. shalom, chaver)…';
-  document.getElementById('input-row').classList.remove('hide');
-  document.getElementById('btn-check').classList.remove('hide');
-  document.getElementById('feedback').innerHTML='';
-  document.getElementById('btn-next').classList.add('hide');
-  // Actions secondaires : passer + clavier hébreu (fr→he uniquement)
-  document.getElementById('input-actions').classList.remove('hide');
-  const kbT=document.getElementById('kb-toggle');
-  const heIn = state.dir==='fr2he';
-  kbT.classList.toggle('hide', !heIn);
-  kbT.textContent = state.kbOpen ? 'Masquer le clavier' : 'Clavier hébreu';
-  document.getElementById('hebkb').classList.toggle('hide', !(heIn && state.kbOpen));
-  setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 60);
-}
-
-function animateFace(){
-  const face=document.getElementById('face');
-  face.classList.remove('flip-anim'); void face.offsetWidth; face.classList.add('flip-anim');
-  face.scrollTop=0;
-}
-
-function doFlip(){
-  state.flipped=!state.flipped;
-  document.getElementById('face-content').innerHTML = state.flipped ? state.backHtml : state.frontHtml;
-  document.getElementById('face-hint').textContent = state.flipped ? 'touche pour revenir au recto' : 'touche la carte pour la retourner';
-  // Le verso change par innerHTML, invisible aux lecteurs d'écran sans région
-  // live : on annonce la réponse (français + translittération prononçable).
-  const card=state.queue[state.idx];
-  const live=document.getElementById('flip-live');
-  if(state.flipped && card){
-    const tr=card.tr||he2tr(card.he);
-    let txt = state.dir==='he2fr' ? card.fr+' — '+tr : tr+' — '+card.fr;
-    // Le pli « Voir un exemple » est invisible à l'oreille : l'annoncer,
-    // sinon un lecteur d'écran ignore que le verso a plus à offrir.
-    if(card.exemples && card.exemples.length){
-      txt += card.exemples.length>1
-        ? '. '+card.exemples.length+' exemples disponibles sur la carte.'
-        : '. Un exemple disponible sur la carte.';
-    }
-    live.textContent = txt;
-  } else live.textContent='';
-  animateFace();
-  if(state.flipped){
-    document.getElementById('btn-flip').classList.add('hide');
-    document.getElementById('btn-again').classList.remove('hide');
-    document.getElementById('btn-good').classList.remove('hide');
-  } else {
-    document.getElementById('btn-flip').classList.remove('hide');
-    document.getElementById('btn-again').classList.add('hide');
-    document.getElementById('btn-good').classList.add('hide');
-  }
-  updateSpeaker();
-  if(state.audio==='auto' && state.flipped && state.dir==='fr2he') speakCurrent();
-}
-function bindTap(el, fn){
-  let handled=false;
-  el.addEventListener('pointerup', (e)=>{ e.preventDefault(); e.stopPropagation(); handled=true; fn(); setTimeout(()=>handled=false,50); });
-  el.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); if(!handled) fn(); });
-}
 bindTap(document.getElementById('flip'), ()=>{ if(state.mode==='cards') doFlip(); });
 bindTap(document.getElementById('btn-flip'), doFlip);
-
-function answer(good){
-  const card=state.queue[state.idx];
-  recordResult(card, good);
-  cardsUndo={ card, good };
-  if(good) state.goodCount++; else state.missed.push(card);
-  state.idx++;
-  if(state.idx>=state.queue.length) finish();
-  else render();
-}
-// Revient à la carte précédente en défaisant tout ce que la réponse a écrit :
-// SRS (undoLastRecord), compteurs de session et position dans la file.
-function undoCardAnswer(){
-  if(!cardsUndo || state.mode!=='cards') return;
-  undoLastRecord();
-  if(cardsUndo.good) state.goodCount=Math.max(0,state.goodCount-1);
-  else { const i=state.missed.lastIndexOf(cardsUndo.card); if(i!==-1) state.missed.splice(i,1); }
-  state.idx=Math.max(0,state.idx-1);
-  cardsUndo=null;
-  render();
-}
 bindTap(document.getElementById('undo-card'), undoCardAnswer);
 bindTap(document.getElementById('btn-good'), ()=>answer(true));
 bindTap(document.getElementById('btn-again'), ()=>answer(false));
 bindTap(document.getElementById('speak-btn'), speakCurrent);
-
-// ---------- Input mode: answer checking ----------
-function normFr(s){
-  return (s||'')
-    .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/\([^)]*\)/g,' ')
-    .replace(/[.!?;:«»"']/g,' ')
-    .replace(/\s+/g,' ')
-    .trim()
-    .replace(/^(le|la|les|l|un|une|des|du|de|d|a|au|aux|se|s|to)\s+/,'');
-}
-function frVariants(fr){
-  return fr.split(/[\/,]| ou /).map(normFr).filter(Boolean);
-}
-function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
-function editDist(a,b){
-  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
-  const d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
-  for(let j=0;j<=n;j++)d[0][j]=j;
-  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
-    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
-  }
-  return d[m][n];
-}
-// ---------- Translittération automatique depuis le nikud ----------
-function he2tr(he){
-  var V={}; V[0x05B7]='a'; V[0x05B8]='a'; V[0x05B2]='a'; V[0x05B5]='e'; V[0x05B6]='e'; V[0x05B1]='e';
-  V[0x05B4]='i'; V[0x05B9]='o'; V[0x05BA]='o'; V[0x05B3]='o'; V[0x05BB]='u';
-  var out='', s=(he||'').trim(), wordStart=true;
-  for(var i=0;i<s.length;i++){
-    var ch=s[i], code=s.charCodeAt(i);
-    if(code>=0x0591&&code<=0x05C7) continue;
-    var j=i+1, marks=[];
-    while(j<s.length){ var c=s.charCodeAt(j); if(c>=0x0591&&c<=0x05C7){ marks.push(c); j++; } else break; }
-    function has(m){ return marks.indexOf(m)!==-1; }
-    var hasVowel=marks.some(function(m){ return V[m]; });
-    var isFinal=(j>=s.length || s[j]===' ');
-    var cons='';
-    switch(ch){
-      // Standard de translittération (cf. carnet) : א = ' entre deux voyelles
-      // seulement (tsme'a) ; ע = ' partout ('ivrit, be'er, rega').
-      case 'א': cons=(hasVowel && !wordStart && /[aeiou]$/.test(out))?"'":''; break;
-      case 'ע': cons="'"; break;
-      case 'ב': cons=has(0x05BC)?'b':'v'; break;
-      case 'ג': cons='g'; break;
-      case 'ד': cons='d'; break;
-      case 'ה': cons='h'; break;
-      case 'ו':
-        if(has(0x05BC) && !hasVowel){ out+='u'; wordStart=false; continue; }
-        if(has(0x05B9)||has(0x05BA)){ out+='o'; wordStart=false; continue; }
-        cons='v'; break;
-      case 'ז': cons='z'; break;
-      case 'ח': cons='ch'; break;                    // standard : ח = ch
-      case 'ט': cons='t'; break;
-      case 'י': cons='y'; break;
-      case 'כ': cons=has(0x05BC)?'k':'kh'; break;    // standard : כ sans daguech = kh
-      case 'ך': cons='kh'; break;
-      case 'ל': cons='l'; break;
-      case 'מ': case 'ם': cons='m'; break;
-      case 'נ': case 'ן': cons='n'; break;
-      case 'ס': cons='s'; break;
-      case 'פ': cons=has(0x05BC)?'p':'f'; break;
-      case 'ף': cons='f'; break;
-      case 'צ': case 'ץ': cons='ts'; break;          // standard : צ = ts
-      case 'ק': cons='k'; break;
-      case 'ר': cons='r'; break;
-      case 'ש': cons=has(0x05C2)?'s':'sh'; break;
-      case 'ת': cons='t'; break;
-      default: cons=(ch===' ')?' ':(/[a-z]/i.test(ch)?ch:''); break;
-    }
-    // Patach furtif : la voyelle se lit avant la gutturale finale (koach, yode'a).
-    if(isFinal && has(0x05B7)){
-      if(ch==='ח'){ out+='ach'; wordStart=false; continue; }
-      if(ch==='ע'){ out+="'a"; wordStart=false; continue; }
-    }
-    out+=cons;
-    var emitted=false;
-    for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
-    // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
-    if(!emitted && wordStart && cons && cons!==' ' && has(0x05B0)) out+='e';
-    if(ch===' ') wordStart=true; else if(cons||emitted) wordStart=false;
-  }
-  out=out.replace(/iy(?![aeiou])/g,'i');
-  out=out.replace(/ey/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
-  // Le hé final se garde (standard : atah, zeh, morah).
-  return out;
-}
-function trKey(s){
-  s=(s||'').toLowerCase().replace(/[^a-z]/g,'');
-  s=s.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
-  s=s.replace(/ou/g,'u').replace(/ch/g,'h');
-  s=s.replace(/(.)\1+/g,'$1');
-  return s;
-}
-// Renvoie 'exact', 'almost' (accepté par tolérance orthographique) ou false.
-function checkAnswer(card, raw){
-  const user = (raw||'').trim();
-  if(!user) return false;
-  if(state.dir==='he2fr'){
-    const u = normFr(user);
-    const variants = frVariants(card.fr);
-    let almost=false;
-    for(const v of variants){
-      if(!v) continue;
-      if(u===v) return 'exact';
-      if(v.length>4 && editDist(u,v)<=1) almost=true;
-    }
-    return almost ? 'almost' : false;
-  } else {
-    const uHe = normHe(user);
-    if(uHe && uHe===normHe(card.he)) return 'exact';
-    // Translittération : celle du carnet si présente, sinon générée depuis le nikud
-    const uTr = trKey(user);
-    let almost=false;
-    if(uTr){
-      const cands = [];
-      if(card.tr) cands.push(trKey(card.tr));
-      cands.push(trKey(he2tr(card.he)));
-      for(const c of cands){
-        if(!c) continue;
-        if(uTr===c) return 'exact';
-        const tol = c.length>=8 ? 2 : (c.length>=4 ? 1 : 0);
-        if(tol && editDist(uTr,c)<=tol) almost=true;
-      }
-    }
-    return almost ? 'almost' : false;
-  }
-}
-function answerHtml(card){
-  let h = '<div class="answer">';
-  if(state.dir==='he2fr'){
-    h += '<span class="he" lang="he">'+card.he+'</span>';
-    h += '<div>'+card.fr+'</div>';
-    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
-  } else {
-    h += '<div>'+card.fr+'</div>';
-    h += '<span class="he" lang="he">'+card.he+'</span>';
-    h += '<div class="tr">'+(card.tr||he2tr(card.he))+'</div>';
-  }
-  h += '</div>';
-  // Inflexions : en français→hébreu elles n'apparaissent qu'ici (les montrer avant
-  // révélerait la réponse) ; en hébreu→français elles sont déjà sur la carte.
-  if(state.dir==='fr2he') h += formsHtml(card);
-  if(card.note) h += '<div class="note-line">'+card.note+'</div>';
-  return h;
-}
-function escapeHtml(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-// Retour du mode saisie : verdict, tentative barrée si ratée, correction, et un
-// bouton « Corriger » qui inverse le dernier verdict (faux négatif du correcteur
-// indulgent, ou aveu d'une bonne réponse devinée). kind : 'ok' | 'almost' | 'no' | 'skip'.
-function showInputFeedback(card, kind, attempt){
-  const fb=document.getElementById('feedback');
-  const verdict = kind==='ok'     ? '<div class="verdict ok">✓ Correct</div>'
-                : kind==='almost' ? '<div class="verdict ok">✓ Presque ! La forme exacte&nbsp;:</div>'
-                : kind==='no'     ? '<div class="verdict no">✗ Pas tout à fait — la réponse&nbsp;:</div>'
-                :                   '<div class="verdict">La réponse&nbsp;:</div>';
-  const tried = (kind==='no' && attempt)
-    ? '<div class="your-answer">Ta réponse : <s>'+escapeHtml(attempt)+'</s></div>'
-    : (kind==='almost' && attempt)
-    ? '<div class="your-answer">Ta réponse : '+escapeHtml(attempt)+'</div>' : '';
-  const fixLabel = (kind==='ok'||kind==='almost') ? 'En fait, je ne savais pas' : 'J’avais juste →';
-  fb.innerHTML = verdict + tried + answerHtml(card) + exHtml(card)
-    + '<button class="fix-btn" type="button" id="fix-verdict">'+fixLabel+'</button>';
-  const btn=document.getElementById('fix-verdict');
-  if(btn) btn.onclick=()=>fixVerdict(card, kind, btn);
-}
-function fixVerdict(card, kind, btn){
-  undoLastRecord();
-  const nowGood = (kind!=='ok' && kind!=='almost');   // ok/almost→raté ; no/skip→réussi
-  recordResult(card, nowGood);
-  if(nowGood){
-    state.goodCount++;
-    const i=state.missed.lastIndexOf(card); if(i!==-1) state.missed.splice(i,1);
-  } else {
-    state.goodCount=Math.max(0,state.goodCount-1);
-    state.missed.push(card);
-  }
-  const fb=document.getElementById('feedback');
-  const v=fb.querySelector('.verdict');
-  if(v){ v.className='verdict '+(nowGood?'ok':'no'); v.innerHTML = nowGood ? '✓ Compté comme réussi' : '✗ À revoir'; }
-  const ya=fb.querySelector('.your-answer'); if(ya && nowGood) ya.remove();
-  btn.remove();
-  sessSave();
-}
-function submitAnswer(){
-  if(state.answered) return;
-  const card=state.queue[state.idx];
-  const inp=document.getElementById('answer-input');
-  const attempt=inp.value.trim();
-  // Champ vide (Entrée réflexe, pouce qui glisse) : ni raté compté, ni écriture
-  // SRS — « Je ne sais pas » est là pour révéler la réponse volontairement.
-  if(!attempt){ try{ inp.focus(); }catch(e){} return; }
-  const res=checkAnswer(card, inp.value);
-  const correct=!!res;
-  state.answered=true;
-  inp.disabled=true;
-  inp.classList.add(correct?'ok':'no');
-  document.getElementById('input-row').classList.add('hide');
-  document.getElementById('input-actions').classList.add('hide');
-  document.getElementById('hebkb').classList.add('hide');
-  recordResult(card, correct);
-  showInputFeedback(card, correct?(res==='almost'?'almost':'ok'):'no', attempt);
-  document.getElementById('btn-next').classList.remove('hide');
-  if(correct) state.goodCount++; else state.missed.push(card);
-  updateSpeaker();
-  if(state.audio==='auto') speakCurrent();
-  sessSave();
-}
-function nextAfterInput(){
-  state.idx++;
-  if(state.idx>=state.queue.length) finish();
-  else render();
-}
 bindTap(document.getElementById('btn-check'), submitAnswer);
 bindTap(document.getElementById('btn-next'), nextAfterInput);
-
-// ---------- « Je ne sais pas » : révèle la réponse et compte la carte à revoir ----------
-function skipAnswer(){
-  if(state.answered) return;
-  const card=state.queue[state.idx];
-  state.answered=true;
-  const inp=document.getElementById('answer-input');
-  inp.disabled=true;
-  document.getElementById('input-row').classList.add('hide');
-  document.getElementById('input-actions').classList.add('hide');
-  document.getElementById('hebkb').classList.add('hide');
-  recordResult(card, false);
-  showInputFeedback(card, 'skip', null);
-  document.getElementById('btn-next').classList.remove('hide');
-  state.missed.push(card);
-  updateSpeaker();
-  if(state.audio==='auto') speakCurrent();
-  sessSave();
-}
 bindTap(document.getElementById('btn-skip'), skipAnswer);
 
 // ---------- Clavier hébreu virtuel (ordre alphabétique) ----------
@@ -2188,39 +2235,6 @@ document.addEventListener('keydown', e=>{
   if(e.target && e.target.tagName==='BUTTON') return;
   if(e.key==='Enter' || e.code==='Space'){ e.preventDefault(); nextAfterInput(); }
 });
-
-function finish(){
-  sessClear();
-  document.body.classList.remove('input-mode','quiz-mode');
-  refreshSrsUi();
-  document.getElementById('study').classList.remove('active');
-  document.getElementById('done').classList.add('active');
-  document.getElementById('barfill').style.transform='scaleX(1)';
-  document.querySelector('.bar').setAttribute('aria-valuenow', state.total);
-  const el=document.getElementById('score');
-  el.innerHTML=state.goodCount+'<small>/'+state.total+'</small>';
-  const pct=Math.round(state.goodCount/state.total*100);
-  let msg;
-  if(pct===100) msg='Sans faute. כָּל הַכָּבוֹד !';
-  else if(pct>=70) msg='Bien joué ! Plus que '+state.missed.length+' carte'+(state.missed.length>1?'s':'')+' à revoir avant le sans-faute.';
-  else msg='Encore un peu d\'entraînement — '+state.missed.length+' à revoir.';
-  // Fin de révision : les ratées sont retombées en boîte 0, donc dues aussitôt —
-  // l'expliquer, sinon le compteur qui ne descend pas ressemble à un bug.
-  if(state.session==='review' && state.missed.length){
-    msg+=' Les ratées sont aussitôt redevenues dues : la révision du jour les repropose jusqu’à ce qu’elles tiennent.';
-  }
-  document.getElementById('done-msg').textContent=msg;
-  // « Rejouer ces N cartes » : même tirage (origQueue), le libellé l'explicite.
-  const nOrig=state.origQueue.length;
-  document.getElementById('retry-all').textContent =
-    nOrig===1 ? 'Rejouer cette carte' : 'Rejouer ces '+nOrig+' cartes';
-  // Les ratées, listées avant de rejouer : on sait quoi retravailler sans relancer à l'aveugle.
-  const list=document.getElementById('missed-list');
-  list.classList.toggle('hide', !state.missed.length);
-  list.innerHTML = state.missed.map(c=>
-    '<li><span class="m-he" lang="he">'+c.he+'</span><span class="m-fr">'+c.fr+'</span></li>').join('');
-  document.getElementById('retry-missed').classList.toggle('hide', !state.missed.length);
-}
 
 document.getElementById('retry-missed').onclick=()=>{
   beginSession(state.order==='shuffle' ? shuffle(state.missed.slice()) : state.missed.slice());

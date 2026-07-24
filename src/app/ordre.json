@@ -8,6 +8,19 @@
     "60-revision.css"
   ],
   "js": [
-    "00-tout.js"
+    "01-util.js",
+    "02-translitteration.js",
+    "03-reponses.js",
+    "04-stockage.js",
+    "05-donnees.js",
+    "06-voix.js",
+    "07-filtres.js",
+    "08-srs.js",
+    "09-session.js",
+    "10-rendu.js",
+    "11-cartes.js",
+    "12-qcm.js",
+    "13-reglages.js",
+    "99-principal.js"
   ]
 }
