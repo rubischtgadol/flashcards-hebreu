@@ -22,6 +22,13 @@ eux, sa mission remplie. `verifie_exemples.js`, `cherche_mots.js` et
 `ajoute_mots.js` lisent tous `data/`. `sw.js` est en **v32** et précache
 `cards.json`. État : **1220 cartes**, `--check` en phase.
 
+À savoir sur le champ `version` de `cards.json` : le build ne réécrit le fichier
+que si son **contenu** change (sinon un build un autre jour réécrivait 890 Ko
+pour rien). Conséquence : `version` porte la date du **dernier changement de
+contenu**, pas celle du dernier build. Sans conséquence aujourd'hui — personne
+ne le lit (`app.html`, `sw.js` et le standalone l'ignorent) — mais à savoir si
+on veut un jour s'en servir pour invalider un cache.
+
 ⚠️ **`CLAUDE.md` et `ARCHITECTURE.md` décrivent encore l'ancienne
 architecture** — la section « The extraction coupling » de CLAUDE.md, le
 double extracteur, et l'affirmation que `vocabulaire_hebreu.html` est

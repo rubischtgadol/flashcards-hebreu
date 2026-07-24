@@ -453,7 +453,7 @@ function deriveCartes(donnees){
 }
 
 // ---------- garde de forme des cartes dérivées ----------
-// Remplace en partie ce que la suppression d'extractCards et du mode --verrou a emporté
+// Remplace en partie ce que la suppression de l'ancien extracteur HTML et du --verrou a emporté
 // (revue de branche, chantier 2) : `node build.js --check` compare des artefacts
 // régénérés aux artefacts committés, donc il attrape « artefacts déphasés » mais jamais
 // « deriveCartes est faux » — une dérivation modifiée suivie d'un rebuild passe tous les
