@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype DA v0.2 — Console d'étude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Instrument+Serif:ital@0;1&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — d'après la référence SENTRY (fuser.app)
+   ================================================================ */
+:root{
+  --bg:      #05040A;   /* quasi-noir */
+  --panneau: #0A0814;   /* surface */
+  --grille:  #0F0C1C;   /* lignes de grille */
+  --ligne:   #7a5a14;   /* filet or sourd (bordures au repos) */
+  --ambre:   #f0b32a;   /* voix dominante : texte, labels, data */
+  --vert:    #54ff8a;   /* phosphore : titres, actif, succès */
+  --rouge:   #FF4747;   /* alerte */
+  --orange:  #ff6a1f;   /* accent secondaire */
+  --lune:    #cfd6e6;   /* gris-lune : texte neutre rare */
+
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --display: 'Instrument Serif',Georgia,serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{
+  font-family:var(--cond);
+  color:var(--ambre);
+  background:#030208;
+  padding:32px 20px 80px;
+  font-size:15px;
+  line-height:1.45;
+}
+
+/* ---- chrome de la galerie ---- */
+.galerie{max-width:1400px;margin:0 auto}
+.galerie>header{margin-bottom:44px}
+.galerie h1{
+  font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:2.4rem;color:var(--vert);
+  text-shadow:0 0 6px currentColor;
+}
+.meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+.section-titre{
+  font-family:var(--cond);font-weight:600;
+  color:var(--ambre);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  margin:60px 0 22px;display:flex;align-items:center;gap:14px;
+}
+.section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
+.rangee{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+
+/* ================================================================
+   LE CADRE ÉCRAN — avec les trois calques CRT
+   ================================================================ */
+.ecran{
+  width:390px;max-width:100%;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  border:1px solid var(--ligne);
+  padding:20px 18px 22px;
+  min-height:660px;
+  display:flex;flex-direction:column;
+  position:relative;
+  overflow:hidden;
+}
+/* calque bruit (interférence, pas de steps fluides) */
+.ecran::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 3px);
+  animation:noiseShift 1.2s steps(3) infinite;
+}
+/* calque vignettage */
+.ecran::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.5) 100%);
+}
+@keyframes noiseShift{0%{transform:translateY(0)}100%{transform:translateY(3px)}}
+@keyframes flick{
+  0%,88%,100%{opacity:1}
+  90%{opacity:.72}
+  92%{opacity:1}
+  95%{opacity:.85}
+}
+.ecran>*{position:relative;z-index:2}
+.ecran-libelle{color:var(--ambre);opacity:.7;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+.demi{min-height:430px}
+
+/* croix de visée aux coins */
+.viseur{position:absolute;font-family:var(--mono);font-size:12px;color:var(--ligne);z-index:2;line-height:1}
+.viseur.tl{top:4px;left:6px}.viseur.tr{top:4px;right:6px}
+.viseur.bl{bottom:4px;left:6px}.viseur.br{bottom:4px;right:6px}
+
+/* ================================================================
+   COMPOSANTS
+   ================================================================ */
+
+/* -- onglet HUD à coin coupé -- */
+.onglet{
+  display:inline-block;
+  font-family:var(--cond);font-weight:600;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  background:var(--ambre);color:var(--bg);
+  padding:3px 16px 3px 10px;
+  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);
+}
+.onglet.vert{background:var(--vert)}
+.onglet.rouge{background:var(--rouge);color:#fff}
+
+/* -- barre d'état -- */
+.statusbar{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid var(--ligne);
+  padding-bottom:9px;margin-bottom:12px;
+}
+.statusbar .live{color:var(--vert);text-shadow:0 0 6px currentColor;animation:flick 4s steps(1) infinite}
+.statusbar .alerte{color:var(--rouge);text-shadow:0 0 6px currentColor;animation:flick 2.6s steps(1) infinite}
+
+/* -- data feed : lignes de log -- */
+.feed{font-family:var(--mono);font-size:.72rem;line-height:1.7;color:var(--ambre)}
+.feed .l::before{content:'▸ ';color:var(--vert)}
+.feed .ok{color:var(--vert)}
+.feed .ko{color:var(--rouge)}
+
+/* -- étiquettes : SEGMENT · SEGMENT -- */
+.etiquette{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ambre)}
+.etiquette .sep{opacity:.5;padding:0 .35em}
+.etiquette .num{font-family:var(--mono)}
+
+/* -- le carton-titre hébreu -- */
+.carton{
+  font-family:var(--he);font-weight:900;
+  font-size:4.6rem;line-height:1.15;
+  text-align:center;color:var(--ambre);
+  text-shadow:0 0 14px rgba(240,179,42,.35);
+  direction:rtl;
+}
+.carton.moyen{font-size:2.6rem}
+
+/* -- titre display serif italique -- */
+.display{
+  font-family:var(--display);font-style:italic;font-weight:400;
+  color:var(--vert);text-shadow:0 0 6px currentColor;
+}
+
+/* -- panneau -- */
+.panneau{
+  background:rgba(10,8,20,.82);
+  border:1px solid var(--ligne);
+  padding:14px 16px;
+  position:relative;
+}
+.panneau .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.panneau .coin.a{top:2px;left:4px}.panneau .coin.b{bottom:2px;right:4px}
+.panneau.actif{border-color:var(--vert);box-shadow:0 0 12px rgba(84,255,138,.15)}
+
+/* -- boutons : badges pilule -- */
+.btn{
+  font-family:var(--cond);font-weight:600;font-size:.8rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;
+  border:1px solid var(--ligne);
+  border-radius:9999px;
+  padding:10px 22px;cursor:pointer;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
+}
+.btn:hover{border-color:var(--ambre);text-shadow:0 0 6px currentColor}
+.btn.primaire{
+  border-color:var(--vert);color:var(--vert);
+  text-shadow:0 0 6px currentColor;
+  box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06);
+}
+.btn.primaire:hover{background:rgba(84,255,138,.12)}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+.btn[disabled]{opacity:.35;cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+.btn.focus-demo{outline:2px solid var(--vert);outline-offset:3px}
+
+/* -- curseur mission : barre rouge, poignée pentagonale verte -- */
+.piste{height:3px;background:var(--grille);position:relative;margin:14px 0 6px}
+.piste .fait{position:absolute;inset:0 30% 0 0;background:var(--rouge)}
+.piste .poignee{
+  position:absolute;top:-6px;left:calc(70% - 7px);
+  width:14px;height:15px;background:var(--vert);
+  clip-path:polygon(50% 0,100% 35%,100% 100%,0 100%,0 35%);
+  box-shadow:0 0 8px rgba(84,255,138,.5);
+}
+
+/* -- champ de saisie -- */
+.champ{
+  font-family:var(--mono);font-size:.95rem;color:var(--vert);
+  background:rgba(10,8,20,.85);border:1px solid var(--ligne);
+  padding:11px 14px;width:100%;
+}
+.champ::placeholder{color:var(--ambre);opacity:.45}
+.champ:focus{outline:none;border-color:var(--vert);box-shadow:0 0 8px rgba(84,255,138,.25)}
+
+/* -- warning -- */
+.attention{border:1px solid var(--rouge);background:rgba(255,71,71,.05)}
+.attention .corps{padding:11px 14px;font-size:.85rem;color:var(--lune)}
+.attention .titre{color:var(--rouge);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;margin-bottom:4px;text-shadow:0 0 6px currentColor;animation:flick 2.6s steps(1) infinite}
+
+/* -- état vide -- */
+.vide{
+  border:1px dashed var(--ligne);
+  color:var(--ambre);opacity:.65;text-align:center;
+  padding:20px;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
+}
+
+/* ================================================================
+   ÉCRANS
+   ================================================================ */
+.scene{flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px}
+.carte-meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.tr-ligne{font-family:var(--mono);text-align:center;font-size:1rem;letter-spacing:.18em;color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.fr-ligne{font-family:var(--display);font-style:italic;text-align:center;font-size:1.5rem;color:var(--lune)}
+.exemple{border-top:1px solid var(--ligne);padding-top:13px}
+.exemple .he-ex{font-family:var(--he);font-weight:500;font-size:1.35rem;direction:rtl;text-align:center;margin-bottom:6px;color:var(--ambre)}
+.exemple .fr-ex{font-size:.82rem;color:var(--lune);opacity:.8;text-align:center}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.pied{margin-top:auto;padding-top:16px}
+
+.brand{text-align:center;margin:8px 0 20px}
+.brand .he-brand{font-family:var(--he);font-weight:900;font-size:2.4rem;direction:rtl;color:var(--ambre);text-shadow:0 0 12px rgba(240,179,42,.3)}
+.brand .sous{font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--vert);text-shadow:0 0 6px currentColor;margin-top:2px}
+.sync-l{display:flex;justify-content:space-between;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
+.sync-l .taux{font-family:var(--mono);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.modes{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.mode{display:flex;align-items:baseline;gap:12px;cursor:pointer}
+.mode:hover{border-color:var(--ambre)}
+.mode .num{font-family:var(--mono);color:var(--vert);font-size:.78rem}
+.mode .nom{font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.85rem}
+.mode .desc{margin-left:auto;font-size:.7rem;opacity:.6;text-transform:uppercase;letter-spacing:.12em}
+
+.verdict-ok .carton{color:var(--vert);text-shadow:0 0 22px rgba(84,255,138,.45)}
+.verdict-ko .carton{color:var(--rouge);text-shadow:0 0 22px rgba(255,71,71,.4)}
+.mention{font-family:var(--cond);font-weight:600;text-align:center;letter-spacing:.3em;text-transform:uppercase;font-size:.8rem}
+.verdict-ok .mention{color:var(--vert);text-shadow:0 0 6px currentColor}
+.verdict-ko .mention{color:var(--rouge);text-shadow:0 0 6px currentColor;animation:flick 2.6s steps(1) infinite}
+.compare{font-family:var(--mono);display:flex;flex-direction:column;gap:6px;font-size:.82rem}
+.compare .l{display:flex;justify-content:space-between}
+.compare .attendu{color:var(--vert)}
+.compare .recu{color:var(--rouge);text-decoration:line-through}
+
+/* ================================================================
+   INVENTAIRE
+   ================================================================ */
+.inventaire{display:flex;flex-direction:column;gap:26px;max-width:840px}
+.nuancier{display:flex;flex-wrap:wrap;gap:14px}
+.teinte{width:118px}
+.teinte .aplat{height:56px;border:1px solid var(--grille)}
+.teinte .nom{font-size:.72rem;letter-spacing:.1em;margin-top:6px}
+.teinte .hexv{font-family:var(--mono);font-size:.68rem;opacity:.6}
+.gamme .l{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid var(--grille);padding:10px 0}
+.gamme .tag{width:210px;flex-shrink:0;font-size:.7rem;opacity:.6;letter-spacing:.1em;text-transform:uppercase}
+.rang-btn{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+</style>
+</head>
+<body>
+<div class="galerie">
+
+<header>
+  <h1>Console d'étude</h1>
+  <p class="meta-ligne">Prototype DA v0.2 · d'après la référence SENTRY · ambre / vert phosphore / rouge alerte</p>
+</header>
+
+<!-- ================= ÉCRAN 1 : CARTE ================= -->
+<h2 class="section-titre">Écran 01 — La carte d'étude</h2>
+<div class="rangee">
+
+  <div>
+    <p class="ecran-libelle">Recto — la question</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
+      <span class="onglet">Noms · Niv A2</span>
+      <div class="scene">
+        <div class="carton" lang="he">שָׁלוֹם</div>
+        <div class="actions">
+          <button class="btn primaire">Révéler</button>
+          <button class="btn">Suivant ▸</button>
+        </div>
+      </div>
+      <div class="pied">
+        <div class="etiquette">Carte <span class="num">12</span><span class="sep">·</span><span class="num">40</span><span class="sep">·</span>Série <span class="num">7</span></div>
+        <div class="piste"><div class="fait"></div><div class="poignee"></div></div>
+        <div class="feed"><div class="l">CARTE 012 · NOMS · DERNIER PASSAGE HIER</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="ecran-libelle">Verso — la réponse</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
+      <span class="onglet vert">Réponse</span>
+      <div class="scene">
+        <div class="carton moyen" lang="he">שָׁלוֹם</div>
+        <div class="tr-ligne">SHALOM</div>
+        <div class="fr-ligne">paix · bonjour</div>
+        <div class="exemple">
+          <div class="he-ex" lang="he">שָׁלוֹם, מַה שְּׁלוֹמְךָ?</div>
+          <div class="fr-ex">shalom, ma shlomkha ? — « Bonjour, comment vas-tu ? »</div>
+        </div>
+        <div class="actions">
+          <button class="btn danger">✗ À revoir</button>
+          <button class="btn primaire">✓ Acquise</button>
+        </div>
+      </div>
+      <div class="pied">
+        <div class="feed">
+          <div class="l ok">RÉPONSE VALIDÉE · SRS +1</div>
+          <div class="l">CARTE 012 · NOMS · PROCHAIN PASSAGE J+3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= ÉCRAN 2 : ACCUEIL ================= -->
+<h2 class="section-titre">Écran 02 — L'accueil / console</h2>
+<div class="rangee">
+
+  <div>
+    <p class="ecran-libelle">Menu principal</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Console · Prêt</span><span class="live">● 24.07</span></div>
+      <div class="brand">
+        <div class="he-brand" lang="he">עִבְרִית</div>
+        <div class="sous">Console d'étude</div>
+      </div>
+
+      <div class="panneau actif">
+        <span class="coin a">+</span><span class="coin b">+</span>
+        <div class="sync-l"><span>Révision du jour</span><span class="taux">87%</span></div>
+        <div class="piste"><div class="fait" style="inset:0 13% 0 0"></div><div class="poignee" style="left:calc(87% - 7px)"></div></div>
+        <div class="feed" style="margin:8px 0 12px">
+          <div class="l">18 CARTES EN ATTENTE</div>
+          <div class="l">DERNIER PASSAGE · HIER 22:41</div>
+        </div>
+        <button class="btn primaire" style="width:100%">Lancer la révision</button>
+      </div>
+
+      <div class="modes">
+        <div class="panneau mode"><span class="num">01</span><span class="nom">Cartes</span><span class="desc">recto / verso</span></div>
+        <div class="panneau mode"><span class="num">02</span><span class="nom">QCM</span><span class="desc">4 choix</span></div>
+        <div class="panneau mode"><span class="num">03</span><span class="nom">Révision espacée</span><span class="desc">SRS</span></div>
+        <div class="panneau mode"><span class="num">04</span><span class="nom">Phrases</span><span class="desc">exemples</span></div>
+      </div>
+
+      <div class="pied">
+        <div class="feed">
+          <div class="l">SUIVI 1220 · THÈMES 15 · NIVEAUX 6</div>
+          <div class="l ok">SYNC CARNET · OK</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= ÉCRAN 3 : LA RÉVÉLATION ================= -->
+<h2 class="section-titre">Écran 03 — La révélation</h2>
+<div class="rangee">
+
+  <div>
+    <p class="ecran-libelle">Bonne réponse</p>
+    <div class="ecran demi verdict-ok">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · QCM</span><span class="live">● Session</span></div>
+      <div class="scene">
+        <div class="carton" lang="he">שָׁלוֹם</div>
+        <div class="mention">▸ Acquise ◂</div>
+        <div class="compare">
+          <div class="l"><span>RÉPONSE</span><span class="attendu">PAIX · BONJOUR ✓</span></div>
+          <div class="l"><span>SÉRIE</span><span class="attendu">7 D'AFFILÉE</span></div>
+        </div>
+        <div class="actions"><button class="btn primaire">Continuer ▸</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <p class="ecran-libelle">Mauvaise réponse</p>
+    <div class="ecran demi verdict-ko">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Saisie</span><span class="alerte">⚠ Erreur</span></div>
+      <span class="onglet rouge">Correction</span>
+      <div class="scene">
+        <div class="carton moyen" lang="he">שָׁלוֹם</div>
+        <div class="mention">⚠ À revoir ⚠</div>
+        <div class="compare">
+          <div class="l"><span>ATTENDU</span><span class="attendu">SHALOM</span></div>
+          <div class="l"><span>REÇU</span><span class="recu">shalum</span></div>
+        </div>
+        <div class="actions">
+          <button class="btn">Réessayer</button>
+          <button class="btn primaire">Compris ▸</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= INVENTAIRE ================= -->
+<h2 class="section-titre">Inventaire — tokens, typo, états</h2>
+<div class="inventaire">
+
+  <div class="nuancier">
+    <div class="teinte"><div class="aplat" style="background:var(--bg)"></div><div class="nom">--bg</div><div class="hexv">#05040A</div></div>
+    <div class="teinte"><div class="aplat" style="background:var(--panneau)"></div><div class="nom">--panneau</div><div class="hexv">#0A0814</div></div>
+    <div class="teinte"><div class="aplat" style="background:var(--ligne)"></div><div class="nom">--ligne</div><div class="hexv">#7a5a14</div></div>
+    <div class="teinte"><div class="aplat" style="background:var(--ambre)"></div><div class="nom">--ambre</div><div class="hexv">#f0b32a</div></div>
+    <div class="teinte"><div class="aplat" style="background:var(--vert)"></div><div class="nom">--vert</div><div class="hexv">#54ff8a</div></div>
+    <div class="teinte"><div class="aplat" style="background:var(--rouge)"></div><div class="nom">--rouge</div><div class="hexv">#FF4747</div></div>
+    <div class="teinte"><div class="aplat" style="background:var(--orange)"></div><div class="nom">--orange</div><div class="hexv">#ff6a1f</div></div>
+    <div class="teinte"><div class="aplat" style="background:var(--lune)"></div><div class="nom">--lune</div><div class="hexv">#cfd6e6</div></div>
+  </div>
+
+  <div class="gamme panneau">
+    <div class="l"><span class="tag">Carton-titre · Frank Ruhl 900</span><span class="carton" style="font-size:3rem" lang="he">אוֹר</span></div>
+    <div class="l"><span class="tag">Display · Instrument Serif ital.</span><span class="display" style="font-size:1.6rem">Console d'étude</span></div>
+    <div class="l"><span class="tag">Hébreu courant · Frank Ruhl 500</span><span style="font-family:var(--he);font-size:1.35rem" lang="he">הַלַּיְלָה יָפֶה</span></div>
+    <div class="l"><span class="tag">Labels · Saira Condensed 600</span><span style="font-weight:600;letter-spacing:.18em;text-transform:uppercase">Révision du jour · 18 cartes</span></div>
+    <div class="l"><span class="tag">Data · Share Tech Mono</span><span class="feed"><span class="l">CARTE 012 · NOMS · J+3</span></span></div>
+  </div>
+
+  <div class="rang-btn">
+    <button class="btn">Repos</button>
+    <button class="btn" style="border-color:var(--ambre);text-shadow:0 0 6px currentColor">Survol</button>
+    <button class="btn focus-demo">Focus</button>
+    <button class="btn primaire">Primaire</button>
+    <button class="btn danger">Danger</button>
+    <button class="btn" disabled>Désactivé</button>
+  </div>
+
+  <input class="champ" placeholder="TRANSLITTÉRATION…" style="max-width:420px">
+
+  <div class="attention" style="max-width:420px">
+    <div class="corps">
+      <div class="titre">⚠ Attention</div>
+      Le mode hors-ligne n'a pas été synchronisé depuis 3 jours.
+    </div>
+  </div>
+
+  <div class="vide" style="max-width:420px">Aucune carte en attente — revenez ce soir</div>
+
+</div>
+
+</div>
+</body>
+</html>
