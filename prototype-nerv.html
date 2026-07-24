@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prototype DA v0.3 — Console d'étude</title>
+<title>Prototype DA v0.4 — Console d'étude</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Instrument+Serif:ital@0;1&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 /* ================================================================
    TOKENS v0.2 — d'après la référence SENTRY (fuser.app)
@@ -23,7 +23,6 @@
   --lune:    #cfd6e6;   /* gris-lune : texte neutre rare */
 
   --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-  --display: 'Instrument Serif',Georgia,serif;
   --cond:    'Saira Condensed','Arial Narrow',sans-serif;
   --mono:    'Share Tech Mono','Courier New',monospace;
 }
@@ -43,9 +42,9 @@ body{
 .galerie{max-width:1400px;margin:0 auto}
 .galerie>header{margin-bottom:44px}
 .galerie h1{
-  font-family:var(--display);font-style:italic;font-weight:400;
-  font-size:2.4rem;color:var(--vert);
-  text-shadow:0 0 6px currentColor;
+  font-family:var(--mono);
+  font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor;
 }
 .meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
 .meta-ligne::before{content:'▸ ';color:var(--vert)}
@@ -156,9 +155,10 @@ body{
 }
 .carton.moyen{font-size:2.6rem}
 
-/* -- titre display serif italique -- */
-.display{
-  font-family:var(--display);font-style:italic;font-weight:400;
+/* -- titre d'écran : condensé capitales, vert + glow (S2 : plus d'italique) -- */
+.titre-ecran{
+  font-family:var(--cond);font-weight:600;
+  letter-spacing:.26em;text-transform:uppercase;
   color:var(--vert);text-shadow:0 0 6px currentColor;
 }
 
@@ -296,7 +296,7 @@ body{
 
 .brand{text-align:center;margin:8px 0 20px}
 .brand .he-brand{font-family:var(--he);font-weight:900;font-size:2.4rem;direction:rtl;color:var(--ambre);text-shadow:0 0 12px rgba(240,179,42,.3)}
-.brand .sous{font-family:var(--display);font-style:italic;font-size:1.05rem;color:var(--vert);text-shadow:0 0 6px currentColor;margin-top:2px}
+.brand .sous{font-family:var(--mono);font-size:.9rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-top:4px}
 .sync-l{display:flex;justify-content:space-between;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px}
 .sync-l .taux{font-family:var(--mono);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
 .modes{display:flex;flex-direction:column;gap:10px;margin-top:16px}
@@ -335,7 +335,7 @@ body{
 
 <header>
   <h1>Console d'étude</h1>
-  <p class="meta-ligne">Prototype DA v0.3 · référence SENTRY + 12 modules retenus (01-05, 08, 09, 11, 14, 15, 16, 19)</p>
+  <p class="meta-ligne">Prototype DA v0.4 · 12 modules retenus · S2 acté : trois voix typo, plus d'italique</p>
 </header>
 
 <!-- ================= ÉCRAN 1 : CARTE ================= -->
@@ -571,7 +571,7 @@ body{
       <span class="viseur tl">+</span><span class="viseur tr">+</span>
       <span class="viseur bl">+</span><span class="viseur br">+</span>
       <div class="statusbar"><span>Bilan · 24.07</span><span class="live">● Terminé</span></div>
-      <div class="display aberr" style="text-align:center;font-size:1.5rem;margin:10px 0 4px">Bilan de session</div>
+      <div class="titre-ecran aberr" style="text-align:center;font-size:1.1rem;margin:10px 0 4px">Bilan de session</div>
       <div style="display:flex;justify-content:center">
         <svg class="jauge-svg" viewBox="0 0 200 120" width="190" height="114">
           <path class="arc" d="M 30 100 A 70 70 0 0 1 170 100"/>
@@ -633,24 +633,6 @@ body{
 </div>
 
 <!-- ================= INVENTAIRE ================= -->
-<h2 class="section-titre">Banc d'essai — le sous-titre de marque</h2>
-<div class="rangee">
-  <div class="panneau" style="width:352px;text-align:center;padding:22px">
-    <div style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;text-align:left;margin-bottom:12px">S1 · Instrument Serif italique (actuel — le contraste SENTRY)</div>
-    <div class="brand" style="margin:0">
-      <div class="he-brand" lang="he">עִבְרִית</div>
-      <div class="sous">Console d'étude</div>
-    </div>
-  </div>
-  <div class="panneau" style="width:352px;text-align:center;padding:22px">
-    <div style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;text-align:left;margin-bottom:12px">S2 · Share Tech Mono (unifié avec « paix · bonjour »)</div>
-    <div class="brand" style="margin:0">
-      <div class="he-brand" lang="he">עִבְרִית</div>
-      <div class="sous" style="font-family:var(--mono);font-style:normal;font-size:.9rem;letter-spacing:.22em;text-transform:uppercase">Console d'étude</div>
-    </div>
-  </div>
-</div>
-
 <h2 class="section-titre">Inventaire — tokens, typo, états</h2>
 <div class="inventaire">
 
@@ -667,7 +649,7 @@ body{
 
   <div class="gamme panneau">
     <div class="l"><span class="tag">Carton-titre · Frank Ruhl 900</span><span class="carton" style="font-size:3rem" lang="he">אוֹר</span></div>
-    <div class="l"><span class="tag">Display · Instrument Serif ital.</span><span class="display" style="font-size:1.6rem">Console d'étude</span></div>
+    <div class="l"><span class="tag">Titre d'écran · Saira Cond. 600</span><span class="titre-ecran" style="font-size:1.1rem">Bilan de session</span></div>
     <div class="l"><span class="tag">Hébreu courant · Frank Ruhl 500</span><span style="font-family:var(--he);font-size:1.35rem" lang="he">הַלַּיְלָה יָפֶה</span></div>
     <div class="l"><span class="tag">Labels · Saira Condensed 600</span><span style="font-weight:600;letter-spacing:.18em;text-transform:uppercase">Révision du jour · 18 cartes</span></div>
     <div class="l"><span class="tag">Data · Share Tech Mono</span><span class="feed"><span class="l">CARTE 012 · NOMS · J+3</span></span></div>

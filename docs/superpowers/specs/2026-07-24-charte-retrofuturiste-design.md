@@ -21,6 +21,10 @@ Charte extraite mécaniquement (Playwright WebKit, CSS calculé) le 2026-07-24.
   avec la charte actuelle).
 - Ligne de traduction française des cartes : **T4 Share Tech Mono** — retenue contre
   Instrument Serif italique (T1), Frank Ruhl (T2), Saira Condensed (T3).
+- Sous-titre de marque : **S2 Share Tech Mono** (capitales espacées) — retenu contre
+  S1 Instrument Serif italique. Corollaire acté dans le même arbitrage : **plus aucun
+  italique dans la charte** ; Instrument Serif, qui n'avait plus d'emploi, quitte la
+  typographie. Les titres d'écran passent en Saira Condensed 600 capitales.
 - Registre d'effets : celui de la référence (bruit, vignettage, scintillement) — validé
   visuellement, à re-juger sur iPhone réel avant généralisation (piège n°14 : jamais de
   verdict de confort sur émulation).
@@ -32,7 +36,7 @@ Charte extraite mécaniquement (Playwright WebKit, CSS calculé) le 2026-07-24.
   de boot (3 lignes tapées à l'ouverture, **une seule fois**, repli statique sans
   animation), **08** graduations de bord d'écran (couches de fond de `.ecran`),
   **09** pilule d'état audio (`VOIX · OK` en barre d'état), **11** aberration chromatique
-  (titres display uniquement, jamais le contenu d'étude), **14** code-barres + série
+  (titres uniquement, jamais le contenu d'étude), **14** code-barres + série
   (pied de carte verso), **15** insigne hexagonal de niveau (lettre hébraïque + palier),
   **16** champ d'étoiles + constellation (écrans calmes seulement : accueil, bilan),
   **19** jauge à aiguille (bilan : précision de session). Écartés à ce stade (« pour
@@ -54,7 +58,7 @@ annexe vivante de cette charte — en cas de doute, elle fait foi), `prototype-v
 | `--grille` | `#0F0C1C` | Grille de fond (pas de 32px) et filets sourds |
 | `--ligne` | `#7a5a14` | Or sourd : bordures 1px au repos, viseurs, séparateurs |
 | `--ambre` | `#f0b32a` | **Voix dominante** : texte courant, labels, data, hébreu |
-| `--vert` | `#54ff8a` | Phosphore : titres display, translittérations, états actifs, succès, focus |
+| `--vert` | `#54ff8a` | Phosphore : titres, translittérations, états actifs, succès, focus |
 | `--rouge` | `#FF4747` | Alerte, erreur, correction |
 | `--orange` | `#ff6a1f` | Accent secondaire (réserve, usage parcimonieux) |
 | `--lune` | `#cfd6e6` | Gris-lune : texte neutre (traductions françaises) |
@@ -62,14 +66,13 @@ annexe vivante de cette charte — en cas de doute, elle fait foi), `prototype-v
 Halos associés : ambre `rgba(240,179,42,.35)`, vert `rgba(84,255,138,.3)`,
 rouge `rgba(255,71,71,.4)`.
 
-## 3. Typographie — quatre voix
+## 3. Typographie — trois voix (S2 : l'italique a quitté la charte)
 
 | Voix | Famille | Usage |
 |---|---|---|
 | Hébreu vedette | **Frank Ruhl Libre 900** | Le carton-titre : mot hébreu énorme, seul en scène, halo ambre. Hébreu courant en 500. |
-| Display | **Instrument Serif italique** | Titres de pages/sections, sous-titre de marque. Toujours vert + glow `0 0 6px currentColor`. Jamais pour le contenu d'étude. |
-| Labels | **Saira Condensed** 400/600 | Toute l'UI : boutons, étiquettes, statuts. Capitales, letter-spacing ≥ .14em. |
-| Données | **Share Tech Mono** | Feed de logs, numéros, translittérations (en `--vert` + glow), **et la ligne de traduction française des cartes** (1.05rem, `--lune`, letter-spacing .08em). |
+| Labels & titres | **Saira Condensed** 400/600 | Toute l'UI : boutons, étiquettes, statuts, **et les titres d'écran** (600, capitales, letter-spacing .26em, vert + glow `0 0 6px currentColor`). Capitales, letter-spacing ≥ .14em. |
+| Données | **Share Tech Mono** | Feed de logs, numéros, translittérations (en `--vert` + glow), la ligne de traduction française des cartes (1.05rem, `--lune`, letter-spacing .08em), **et le sous-titre de marque** (capitales, letter-spacing .22em, vert + glow). |
 
 Règles : `lang="he"` obligatoire sur tout nœud hébreu (invariant conservé de la charte v1).
 Les tailles seront normalisées en gamme lors du portage (le prototype porte des valeurs
