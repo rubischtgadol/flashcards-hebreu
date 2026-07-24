@@ -4,6 +4,16 @@
 
 ## Reprendre ici (prochaine session)
 
+⏸️ **PAUSE 24/07 en plein chantier 2.** Task 7 **implémenté et poussé** (4 commits
+`f724402..4030fcb` sur `origin/main`) mais **PAS ENCORE RELU** — la revue de task du
+skill `superpowers:subagent-driven-development` n'a pas eu lieu avant la pause. À la
+reprise : (1) faire la revue du Task 7 avant tout — package `f724402..4030fcb`, arbitrer
+la réserve n°1 de l'implémenteur : `extractCards` + ses helpers sont **gardés et exportés**
+(pas supprimés) alors que le plan Step 3 dit « supprimer le parseur regex » — vérifier que
+cette lecture tient (3 scripts en dépendent encore, leur bascule = Task 10 ; le verrou
+`--verrou` reste vert) ; (2) puis Tasks 8→12. Ledger de reprise complet + réserves 2-4 :
+`.superpowers/sdd/2026-07-24-reorganisation-depot-genere/progress.md` et `task-7-report.md`.
+
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
@@ -45,7 +55,8 @@ artefacts régénérés aux committés. `git diff` du carnet limité à l'en-tê
 standalone byte-identique. Au passage (watch-items relevés en revue de
 branche) : `compare_carnets.js` corrigé — étiquette de double panne erronée
 au critère 4 (buildErr/gitErr distincts), dossier `mkdtemp` désormais nettoyé.
-Prochaine session = **chantier 2, Task 8 et suivantes**, plan en tête.
+Prochaine session = **revue du Task 7 (voir bannière ⏸️ en tête), puis chantier 2
+Tasks 8→12**, plan en tête.
 
 État au 2026-07-24 : **1220 cartes** (comptes identiques avant/après la
 bascule), 1068 exemples, 15 thèmes (1003/1003 sur les 3 tables), niveaux A1
