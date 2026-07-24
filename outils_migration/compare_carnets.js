@@ -247,7 +247,16 @@ function critere4(candidatPath) {
   const hadStandalone = fs.existsSync(standaloneLive);
   if (hadStandalone) fs.copyFileSync(standaloneLive, standaloneBackup);
 
-  let ok, detail, caught, gitCheckoutOk = true;
+  // buildErr (panne pendant la copie/le build) et gitErr (panne du git checkout de
+  // restauration) sont deux pannes DISTINCTES, qui peuvent survenir toutes les deux (la
+  // seconde pendant la restauration après la première) — gardées séparées pour que le
+  // message final nomme la bonne. Bogue corrigé en absorbant genere_carnet.js/
+  // valide_donnees.js dans build.js (chantier 2, watch-item de revue de branche) :
+  // l'ancien code fusionnait les deux dans une seule variable `caught` via
+  // `caught = caught || gitErr`, donc en cas de double panne le message annonçait
+  // « git checkout a échoué » mais affichait le texte de la PREMIÈRE panne (buildErr),
+  // jamais celui de gitErr — étiquette et détail ne correspondaient plus.
+  let ok, detail, buildErr, gitErr, gitCheckoutOk = true;
   try {
     fs.copyFileSync(candidatPath, notebookLive);
     const candOut = runBuild();
@@ -264,19 +273,20 @@ function critere4(candidatPath) {
   } catch (e) {
     // Toute panne pendant la copie/le build (permissions, build.js qui lève…) doit rester
     // un FAIL propre — jamais une pile Node brute — et le dépôt doit quand même être restauré.
-    caught = e;
+    buildErr = e;
   } finally {
     try {
       execFileSync('git', ['checkout', '--', NOTEBOOK_NAME, STANDALONE_NAME],
         { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'] });
-    } catch (gitErr) {
+    } catch (e) {
       // git checkout lui-même a échoué : repli sur la sauvegarde prise avant l'écrasement.
       gitCheckoutOk = false;
-      caught = caught || gitErr;
+      gitErr = e;
       try {
         fs.copyFileSync(notebookBackup, notebookLive);
         if (hadStandalone) fs.copyFileSync(standaloneBackup, standaloneLive);
       } catch (copyErr) {
+        fs.rmSync(backupDir, { recursive: true, force: true });
         fail(4, `restauration impossible (git ET repli scratchpad ont échoué) — ${truncate(copyErr.message.split('\n')[0], 140)}`);
       }
     }
@@ -284,14 +294,19 @@ function critere4(candidatPath) {
       'git', ['status', '--porcelain', '--', NOTEBOOK_NAME, STANDALONE_NAME],
       { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
     ).trim();
+    // Dossier scratchpad nettoyé sur CE chemin (succès) et sur chacun des `fail(4, …)`
+    // ci-dessous (bogue corrigé : il n'était jamais supprimé, un dossier `compare-carnets-*`
+    // s'accumulait dans $TMPDIR à chaque exécution du critère 4).
+    fs.rmSync(backupDir, { recursive: true, force: true });
     if (after) {
       fail(4, `restauration incomplète (${truncate(after.split('\n')[0], 120)})`);
     }
     if (!gitCheckoutOk) {
-      fail(4, `git checkout de restauration a échoué, repli scratchpad utilisé — ${truncate(caught.message.split('\n')[0], 140)}`);
+      const etAussi = buildErr ? ` (après une panne pendant la copie/le build : ${truncate(buildErr.message.split('\n')[0], 100)})` : '';
+      fail(4, `git checkout de restauration a échoué, repli scratchpad utilisé — ${truncate(gitErr.message.split('\n')[0], 140)}${etAussi}`);
     }
-    if (caught) {
-      fail(4, `panne pendant la copie/le build — ${truncate(caught.message.split('\n')[0], 160)}`);
+    if (buildErr) {
+      fail(4, `panne pendant la copie/le build — ${truncate(buildErr.message.split('\n')[0], 160)}`);
     }
   }
   if (!ok) fail(4, detail);
