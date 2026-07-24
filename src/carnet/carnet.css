@@ -1,0 +1,585 @@
+
+  /* --- Rampe typographique — LOCALE AU CARNET --------------------------------
+     Volontairement hors du bloc ci-dessus : celui-là est le jeu de jetons
+     partagé, qui doit rester identique au caractère près entre les trois
+     fichiers (DESIGN.md §6). Cette rampe-ci ne décrit que ce document.
+
+     ⚠️ 1rem vaut 16px, PAS 22px. Le `font-size:22px` de `body` ne déplace pas
+     la racine des rem — il faudrait le poser sur `html` — si bien que toute
+     règle déclarant une taille en rem retombe sur l'échelle par défaut du
+     navigateur. Mesuré en WebKit le 2026-07-19 ; le commentaire qui affirmait
+     l'inverse était faux, et c'est lui qui expliquait la dérive : les 24 valeurs
+     distinctes de ce fichier étaient des retouches successives contre un socle
+     mal compris. Les px en regard sont donc les tailles réellement rendues.
+     Ne pas « corriger » en déplaçant le 22px sur html : cela multiplierait
+     chaque rem par 1,375 ici comme dans app.html, dont les tailles sont réglées
+     sur ce qu'elles rendent vraiment.
+
+     Huit pas, resserrés en haut (l'hébreu demande une gradation fine) et plus
+     ouverts en bas. Aucune taille littérale ne doit subsister hors de cette
+     rampe — les deux `em` de la prose sont la seule exception, et elles sont
+     relatives par nature (voir « un cran au-dessus de ce qui m'entoure »). */
+  :root{
+    --pas-titre:2.3rem;      /* 36.8px — titre de page                           */
+    --pas-vedette:1.6rem;    /* 25.6px — hébreu vedette, titres de section       */
+    --pas-compagnon:1.45rem; /* 23.2px — cursive, français de partie             */
+    --pas-hebreu-2:1.3rem;   /* 20.8px — hébreu secondaire (exemples)            */
+    --pas-glose:1.15rem;     /* 18.4px — français attaché à un mot, titres de bloc */
+    --pas-corps:1rem;        /* 16px   — prose, interface, translittération      */
+    --pas-petite:0.84rem;    /* 13.4px — légendes, voix Title, translit. d'exemple */
+    --pas-micro:0.7rem;      /* 11.2px — voix Repère-mono                        */
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  /* Anneau de focus doré, idiome commun aux trois fichiers (app.html est la référence).
+     Jamais de border-radius ici : il ne décorerait pas l'anneau, il redessinerait
+     l'élément focalisé (DESIGN.md §5). */
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  ::selection{ background:rgba(212,162,76,.30); color:var(--ink); }
+  body{
+    margin:0;
+    background:radial-gradient(120% 80% at 50% 0%, var(--bg2), var(--bg) 70%) fixed;
+    color:var(--ink);
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    /* Base du texte qui ne déclare rien (prose nue, .steps li, .tip p).
+       ⚠️ Ne déplace PAS la racine des rem : posé sur body, il ne vaut que par
+       héritage — voir la rampe ci-dessus. */
+    font-size:22px;
+    /* Interlignage du corps : le carnet n'en avait aucun et héritait de `normal`
+       (~1,2), trop serré pour du nikoud, dont les points se composent SOUS la
+       ligne de base. 1.55 est la valeur que .steps li et .tip p avaient déjà
+       choisie chacun de leur côté — l'intention existait, elle n'avait jamais
+       été portée à la racine. */
+    line-height:1.55;
+    padding:28px 18px 60px;
+  }
+  header{
+    margin-bottom:32px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;
+  }
+  h1{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-size:var(--pas-titre);
+    font-weight:700;
+    margin:0 0 4px;
+    color:var(--ink);
+  }
+  /* Le français qui accompagne l'hébreu du titre — troisième composant qui
+     s'ignorait, jusqu'ici un `style=` inline dans le <h1>. */
+  .h1-sub{ color:var(--ink-dim); font-size:var(--pas-corps); }
+  .subtitle{
+    color:var(--ink-dim);
+    font-size:var(--pas-corps);
+    letter-spacing:0.02em;
+  }
+  h2{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-size:var(--pas-vedette);
+    font-weight:500;
+    color:var(--gold);
+    margin:38px 0 4px;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  h2 .count{
+    /* Assistant, pas mono : c'est le nom français de la section (la voix de
+       l'outil), pas une translittération ni un compteur — le mono bas-de-casse
+       était un 3e emploi hors des deux voix inventoriées (critique du 21/07).
+       ⚠️ Le TEXTE de ce span est la clé d'extraction des deux parseurs : la
+       voix peut changer, le libellé jamais. */
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    font-size:var(--pas-petite);
+    color:var(--ink);
+    font-weight:400;
+  }
+  /* Filet fondu après le titre — purement décoratif */
+  h2::after{
+    content:''; flex:1; align-self:center; height:1px; min-width:24px;
+    background:linear-gradient(90deg, var(--line), transparent);
+  }
+  .note{
+    color:var(--ink-dim);
+    font-size:var(--pas-corps);
+    margin-bottom:16px;
+  }
+  /* --- Tableau verbes, vrai RTL --- */
+  .table-wrap{
+    overflow-x:auto;
+    border-radius:10px;
+    border:1px solid var(--line);
+    /* RTL comme la table qu'il porte : l'origine du défilement passe à droite,
+       et une table plus large que l'écran s'ouvre sur sa PREMIÈRE colonne (le
+       mot-vedette) au lieu de sa fin — en LTR, les 31 tables montraient le
+       pluriel d'un mot hors-champ (P0 de la critique du 21/07). */
+    direction:rtl;
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:640px;
+    direction:rtl;
+  }
+  th, td{
+    padding:12px 14px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  /* --- Les deux voix de micro-titre (DESIGN.md §3) ---------------------------
+     Elles remplacent quatre formulations ad hoc qui disaient la même chose de
+     quatre façons différentes (.92rem/.08em, .82rem/.12em, .66rem/.10em,
+     .70rem/.16em). Deux rôles, donc deux voix, et pas une de plus :
+       · voix Title       — Assistant 700 capitales espacées : étiquette de repère
+                            (en-têtes de colonnes, sous-thèmes) ;
+       · voix Repère-mono — JetBrains Mono capitales espacées : repère structurel
+                            (groupes du sommaire, numéros de partie).
+     La couleur n'appartient pas à la voix : elle suit la règle de la lampe et se
+     déclare au cas par cas ci-dessous. */
+  thead th, .subtheme{
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    font-size:var(--pas-petite); font-weight:700;
+    text-transform:uppercase; letter-spacing:0.12em;
+    color:var(--gold);
+  }
+  .toc-group-label, .part .part-num{
+    font-family:'JetBrains Mono','Courier New',monospace;
+    font-size:var(--pas-micro); font-weight:400;
+    text-transform:uppercase; letter-spacing:0.14em;
+  }
+  thead th{ background:var(--card); }
+  thead th:first-child{ color:var(--ink); }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover{ background:rgba(212,162,76,0.06); }
+  .he{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-size:var(--pas-vedette);
+  }
+  /* --- L'hébreu inséré dans la prose française -------------------------------
+     La passe a11y du 2026-07-19 a posé `lang="he"` sur 100 % des nœuds hébreux,
+     mais 204 d'entre eux n'ont AUCUNE classe : ce sont les suites hébraïques
+     enveloppées au milieu d'un paragraphe français (notes, gloses, en-têtes de
+     conjugaison). Faute de classe, ils héritaient d'Assistant — mesuré à 15,2px
+     en sans-serif, soit exactement la taille du français qui les entoure. Deux
+     règles de charte tombaient d'un coup : la règle des trois voix (« Frank Ruhl
+     pour TOUT l'hébreu ») et la règle de la vedette (« l'hébreu est toujours
+     plus grand que sa traduction »). Et à cette échelle, en sans, le nikoud
+     devient illisible — or ces passages sont précisément ceux qui l'enseignent.
+     Le sélecteur cible les spans nus : il ne peut pas atteindre .he, .cursive,
+     .toc-he, .part-he ni .ex-he, qui ont chacun leur voix déclarée. */
+  span[lang="he"]:not([class]){
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  }
+  /* Deux voix gardent délibérément la main sur leur hébreu : la voix Title des
+     en-têtes de colonnes, et la mono des translittérations. */
+  thead th span[lang="he"]:not([class]),
+  .tr span[lang="he"]:not([class]){ font-family:inherit; }
+  /* Un cran au-dessus de ce qui l'entoure — même idiome relatif que .note .he,
+     et volontairement en `em` : le rôle est « plus grand que mon contexte »,
+     quel qu'il soit. Hors titres, qui portent déjà leur propre taille. */
+  :is(.note, .ex-gloss, .ex-title, .steps li, .fr, .ex-fr) span[lang="he"]:not([class]){
+    font-size:1.15em;
+  }
+  .cursive{
+    display:block;
+    font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive;
+    font-weight:300;
+    font-size:var(--pas-compagnon);
+    color:var(--gold);
+    margin-top:2px;
+  }
+  .tr{
+    display:block;
+    font-family:'JetBrains Mono','Courier New',monospace;
+    font-size:var(--pas-corps);
+    color:var(--ink-dim);
+    margin-top:3px;
+    direction:ltr;
+  }
+  td:first-child{
+    text-align:right;
+    color:var(--ink-dim);
+    font-size:var(--pas-glose);
+  }
+  td:first-child .he{ color:var(--ink); font-size:var(--pas-vedette); }
+  td:first-child .cursive{ font-size:var(--pas-compagnon); }
+  td:first-child .fr{
+    display:block;
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    color:var(--ink-dim);
+    font-size:var(--pas-glose);
+    margin-top:3px;
+  }
+
+  /* --- Rangs en cartes sous 640px (critique du 21/07, P0 + P2) ---------------
+     Les tables de VOCABULAIRE — reconnues à leurs exemples embarqués — quittent
+     la grille défilante : chaque rang devient une carte pleine largeur, le
+     mot-vedette d'abord, puis les formes courtes étiquetées comme le thead
+     qu'elles remplacent. Le pire geste du tactile (défiler horizontalement dans
+     un défilement vertical) disparaît, et avec lui les ~274px de vide par rang.
+     Les 12 tables de GRAMMAIRE (sans exemples) gardent leur grille : leur
+     structure EST la leçon — pour elles, le direction:rtl du wrap suffit à
+     ouvrir sur la bonne colonne. */
+  @media (max-width:640px){
+    .table-wrap:has(ul.exemples){ overflow-x:visible; border:none; border-radius:0; }
+    .table-wrap:has(ul.exemples) table{ min-width:0; }
+    .table-wrap:has(ul.exemples) table,
+    .table-wrap:has(ul.exemples) tbody{ display:block; }
+    .table-wrap:has(ul.exemples) thead{ display:none; }
+    /* Chaque rang devient une carte, disposée en flex-colonne souple pour pouvoir
+       RÉORDONNER : vedette → formes sur une ligne → exemple EN DESSOUS. La 1re
+       cellule se dissout (display:contents) — ses enfants directs (he, cursive, fr,
+       ul.exemples) deviennent items du flex du rang : seul moyen de glisser les
+       formes ENTRE la vedette et l'exemple sans toucher au markup dont dépend
+       l'extraction vers les flashcards. */
+    .table-wrap:has(ul.exemples) tr{
+      display:flex; flex-flow:row wrap; align-items:flex-start;
+      direction:rtl; text-align:right;
+      border:1px solid var(--line);
+      border-radius:11px;               /* le rayon des rangées (.word-list) */
+      padding:11px 14px 13px;
+      margin:0 0 10px;
+    }
+    .table-wrap:has(ul.exemples) td:first-child{ display:contents; }
+    .table-wrap:has(ul.exemples) td:first-child > .he{ order:1; flex:0 0 100%; }
+    .table-wrap:has(ul.exemples) td:first-child > .cursive{ order:2; flex:0 0 100%; }
+    .table-wrap:has(ul.exemples) td:first-child > .fr{ order:3; flex:0 0 100%; }
+    /* Les formes courtes : sur UNE ligne (order 4), chacune sous son étiquette mono
+       (voix Label : c'est une étiquette d'inflexion, DESIGN.md §3). Si la ligne
+       déborde la carte, elle passe à la suivante — jamais un défilement horizontal
+       enfermé dans le défilement vertical (le pire geste tactile, critique 21/07). */
+    .table-wrap:has(ul.exemples) td:not(:first-child){
+      order:4; flex:0 0 auto; display:block;
+      margin:10px 0 0; padding:0; border-bottom:none;
+      white-space:normal; text-align:right;
+    }
+    .table-wrap:has(ul.exemples) td:not(:first-child) + td:not(:first-child){ margin-inline-start:18px; }
+    .table-wrap:has(ul.exemples) td:empty{ display:none; }
+    .table-wrap:has(ul.exemples) td:not(:first-child) .he{ font-size:var(--pas-hebreu-2); }
+    .table-wrap:has(ul.exemples) td:not(:first-child)::before{
+      display:block; direction:ltr; text-align:right;
+      font-family:'JetBrains Mono','Courier New',monospace;
+      font-size:var(--pas-micro); letter-spacing:0.14em; text-transform:uppercase;
+      color:var(--ink-dim);
+    }
+    /* L'exemple ferme la carte, posé SOUS les formes (order 5). */
+    .table-wrap:has(ul.exemples) td:first-child > .exemples{ order:5; flex:0 0 100%; margin-top:12px; }
+    /* Le nombre de colonnes signe la catégorie ; les étiquettes reprennent les
+       thead masqués. 3 col = Noms · 4 col = Adjectifs · 5 col = Verbes
+       (partition vérifiée le 21/07 : 12/1/6 tables, aucune grammaire touchée). */
+    .table-wrap:has(ul.exemples) td:nth-child(2):nth-last-child(2)::before{ content:'genre'; }
+    .table-wrap:has(ul.exemples) td:nth-child(3):nth-last-child(1)::before{ content:'pluriel'; }
+    .table-wrap:has(ul.exemples) td:nth-child(2):nth-last-child(3)::before{ content:'fs'; }
+    .table-wrap:has(ul.exemples) td:nth-child(3):nth-last-child(2)::before{ content:'mp'; }
+    .table-wrap:has(ul.exemples) td:nth-child(4):nth-last-child(1)::before{ content:'fp'; }
+    .table-wrap:has(ul.exemples) td:nth-child(2):nth-last-child(4)::before{ content:'ms'; }
+    .table-wrap:has(ul.exemples) td:nth-child(3):nth-last-child(3)::before{ content:'fs'; }
+    .table-wrap:has(ul.exemples) td:nth-child(4):nth-last-child(2)::before{ content:'mp'; }
+    .table-wrap:has(ul.exemples) td:nth-child(5):nth-last-child(1)::before{ content:'fp'; }
+  }
+
+  /* --- Listes simples : noms / adjectifs / expressions --- */
+  .word-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .word-list li{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:13px 16px;
+    border-bottom:1px solid var(--line);
+    direction:rtl;
+  }
+  .word-list li:last-child{ border-bottom:none; }
+  .word-list li:hover{ background:rgba(212,162,76,.05); }
+  .word-list .word-main{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+  }
+  .word-list .he{ font-size:var(--pas-vedette); }
+  .word-list .cursive{ font-size:var(--pas-compagnon); margin-top:1px; }
+  .word-list .meta{
+    direction:ltr;
+    text-align:right;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+  }
+  .word-list .fr{
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    font-size:var(--pas-glose);
+    color:var(--ink-dim);
+  }
+
+  /* --- Exemples en situation (extraits vers les flashcards, cf. ARCHITECTURE.md) ---
+     Sous-liste <ul class="exemples"> dans le <li> du mot ou la 1re cellule d'une table. */
+  .word-list li{ flex-wrap:wrap; }
+  .exemples{ list-style:none; width:100%; margin:8px 0 0; padding:0; direction:rtl; }
+  /* Couche tonale, pas voile noir : `rgba(0,0,0,.14)` était un cinquième gris
+     inventé (règle des couches). L'exemple est une surface posée sur la rangée,
+     donc la couche `carte` — la même que l'encadré `.example` de la grammaire,
+     si bien que les deux familles d'exemples se lisent enfin pareil. */
+  .exemples li, .word-list .exemples li{
+    display:block; padding:7px 12px; margin-top:4px;
+    border-bottom:none; background:var(--card); border-radius:9px;
+  }
+  /* Neutralise le survol doré de la rangée parente sur les exemples. */
+  .word-list .exemples li:hover, .exemples li:hover{ background:var(--card); }
+  td:first-child .exemples .he, .word-list .exemples .he{ font-size:var(--pas-hebreu-2); color:var(--ink); }
+  .exemples .tr{ font-size:var(--pas-petite); margin-top:1px; text-align:right; }
+  td:first-child .exemples .fr, .word-list .exemples .fr{
+    display:block; font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:var(--pas-corps);
+    color:var(--ink-dim); direction:ltr; text-align:right; margin-top:1px;
+  }
+  /* Le pointillé ne dit plus qu'une chose : « rien ici ». */
+  .empty{
+    color:var(--ink-dim);
+    font-style:italic;
+    font-size:var(--pas-petite);
+    padding:14px 16px;
+    border:1px dashed var(--line);
+    border-radius:10px;
+  }
+  /* Encadré « attention » — composant qui s'ignorait : quatre duplications du
+     même style inline avant le 2026-07-19. Filet plein, parce qu'il annonce
+     l'inverse de `.empty` : quelque chose d'important à lire. */
+  .attention{
+    border:1px solid var(--line); border-radius:10px;
+    padding:10px 12px; color:var(--ink);
+  }
+  /* Titre de sous-section de grammaire (« שֶׁל — possessif », « לְ — datif »…).
+     Second composant qui s'ignorait : 5 duplications d'un même style inline,
+     que l'audit du 2026-07-19 n'avait pas relevées. */
+  .gram-title{
+    color:var(--gold); font-size:var(--pas-glose); margin:26px 0 6px;
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  }
+
+  /* ---------- Search ---------- */
+  .search-wrap{
+    position:sticky; top:0; z-index:20;
+    margin:0 -18px 8px; padding:14px 18px;
+    /* Opaque, délibérément : le voile translucide + blur était du glassmorphism
+       (anti-référence SaaS de PRODUCT.md) et laissait le texte transparaître
+       sous la barre au défilement. Tranché à la critique du 21/07. */
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .search-inner{ position:relative; max-width:560px; }
+  .search-ico{ position:absolute; left:14px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-dim); pointer-events:none; }
+  #voc-search{
+    width:100%; box-sizing:border-box; border-radius:12px; border:1px solid var(--line);
+    background:var(--card); color:var(--ink); font-family:inherit; font-size:var(--pas-corps);
+    padding:12px 42px 12px 42px; transition:border-color .15s ease;
+  }
+  /* Bordure or au focus, pas de glow (DESIGN.md §5) — et plus d'`outline:none` :
+     l'anneau doré global s'en charge, comme dans app.html. */
+  #voc-search:focus{ border-color:var(--gold); }
+  .search-clear{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    width:28px; height:28px; border-radius:50%; border:none; background:transparent;
+    color:var(--ink-dim); font-size:var(--pas-compagnon); line-height:1; cursor:pointer;
+  }
+  .search-count{ display:block; margin-top:8px; font-size:var(--pas-petite); color:var(--ink-dim); min-height:1em; }
+  /* Filtering: hide non-matching entries and emptied sections */
+  .search-hidden{ display:none !important; }
+  mark.hl{ background:rgba(212,162,76,.28); color:var(--ink); border-radius:4px; padding:0 1px; }
+
+  /* ---------- Pedagogical example blocks ---------- */
+  .note .he, .steps li .he{ font-size:1.15em; }
+  .steps{ margin:4px 0 16px; padding-left:0; list-style:none; counter-reset:step; }
+  .steps li{
+    position:relative; margin:9px 0; padding-left:38px; color:var(--ink); line-height:1.55;
+    counter-increment:step;
+  }
+  .steps li::before{
+    content:counter(step); position:absolute; left:0; top:0;
+    width:26px; height:26px; border-radius:50%;
+    /* Chiffre or sur couche, plus de disque or plein : un numéro d'étape n'est
+       ni action, ni sélection, ni identité (règle de la lampe — dernières
+       surfaces dorées au repos du carnet, critique du 21/07). Même idiome que
+       .part-num : l'or ne subsiste que sur le chiffre. */
+    background:var(--bg2); border:1px solid var(--line); color:var(--gold);
+    font-family:'JetBrains Mono','Courier New',monospace;
+    font-size:var(--pas-petite); font-weight:700; display:flex; align-items:center; justify-content:center;
+  }
+  .example{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:10px; padding:12px 16px; margin:10px 0;
+  }
+  .example .ex-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:var(--pas-hebreu-2); direction:rtl; }
+  .example .ex-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:var(--pas-petite); color:var(--ink-dim); margin-top:2px; }
+  .example .ex-fr{ font-size:var(--pas-corps); color:var(--ink); margin-top:4px; }
+  .example .ex-gloss{ font-size:var(--pas-petite); color:var(--ink-dim); margin-top:6px; font-style:italic; }
+  .ex-title{ color:var(--gold); font-size:var(--pas-petite); font-weight:600; margin:16px 0 4px; }
+  /* Encadré astuce / point-clé — même arbitrage que `.part` le 2026-07-19 :
+     le test de la lampe demande « action, sélection ou identité ? ». Un encadré
+     pédagogique n'est aucun des trois, donc pas d'or ambiant. L'or ne subsiste
+     que sur le texte du titre (.tip-title). */
+  .tip{
+    background:var(--bg2);
+    border:1px solid var(--card-edge); border-radius:12px;
+    padding:14px 18px; margin:18px 0;
+  }
+  .tip-title{
+    display:flex; align-items:center; gap:8px;
+    color:var(--gold); font-weight:700; font-size:var(--pas-corps); margin-bottom:8px;
+  }
+  .tip p{ margin:6px 0; line-height:1.55; color:var(--ink); }
+  .tip .he{ font-size:1.15em; }
+
+  /* ---------- Sommaire (table des matières) ---------- */
+  .app-link{
+    display:inline-block; margin-top:14px;
+    text-decoration:none; color:var(--gold);
+    background:var(--card); border:1px solid var(--gold); border-radius:999px;
+    padding:8px 18px; font-size:var(--pas-corps); font-weight:600;
+    /* Jamais `transition:all` : le raccourci capture les longhands outline-* et
+       WebKit fige alors l'anneau de focus sur les valeurs UA (DESIGN.md §6). */
+    transition:background .15s ease, color .15s ease;
+  }
+  .app-link:hover{ background:var(--gold); color:#1a1206; }
+  .toc{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:18px 20px; margin:0 0 28px;
+  }
+  .toc-title{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; color:var(--gold);
+    font-size:var(--pas-glose); font-weight:600; margin:0 0 12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .toc-group{ margin-bottom:14px; }
+  .toc-group:last-child{ margin-bottom:0; }
+  .toc-group-label{ color:var(--ink-dim); margin-bottom:7px; }
+  .toc-links{ display:flex; flex-wrap:wrap; gap:7px; }
+  .toc-links a{
+    display:inline-flex; align-items:baseline; gap:7px;
+    text-decoration:none; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); border-radius:999px;
+    padding:6px 13px; font-size:var(--pas-corps);
+    transition:border-color .13s ease, color .13s ease;
+  }
+  .toc-links a:hover{ border-color:var(--gold); color:var(--gold); }
+  .toc-links a .toc-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:var(--pas-glose); color:var(--gold); }
+  html{ scroll-behavior:smooth; }
+  :target{ scroll-margin-top:80px; }
+
+  /* Alternative mouvement réduit — la garde globale de app.html/index.html ne
+     suffirait pas ici : scroll-behavior exige son propre `auto`, et c'est lui qui
+     anime les 27 liens du sommaire. */
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; animation:none !important; }
+  }
+
+  /* Au doigt : mêmes cibles de 44px que l'app (le carnet n'avait aucun @media). */
+  @media (pointer:coarse){
+    .toc-links a{ min-height:44px; padding:9px 15px; align-items:center; }
+    .app-link{ display:inline-flex; align-items:center; min-height:44px; }
+    .search-clear{ width:44px; height:44px; }
+  }
+
+  /* ---------- Parties & sous-thèmes ---------- */
+  /* Séparateur structurel : ni action, ni sélection, ni identité — donc pas d'or
+     ambiant (règle de la lampe). L'or reste sur le seul numéro de partie. */
+  .part{
+    margin:54px 0 10px; padding:18px 22px;
+    border:1px solid var(--card-edge); border-radius:14px;
+    background:var(--bg2);
+  }
+  .part .part-num{ display:block; color:var(--gold); margin-bottom:4px; }
+  .part .part-name{
+    display:block; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:var(--pas-compagnon); color:var(--ink);
+  }
+  .part .part-name .part-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; color:var(--gold); font-size:var(--pas-vedette); }
+  .part .part-sub{ display:block; color:var(--ink-dim); font-size:var(--pas-petite); margin-top:3px; }
+  /* Filet plein, non pointillé : le pointillé ne dit plus qu'une chose dans ce
+     carnet — « rien ici » (.empty). Voir la note de .attention. */
+  .subtheme{ margin:26px 0 8px; padding-bottom:5px; border-bottom:1px solid var(--line); }
+
+  /* ---------- Colonne de lecture ------------------------------------------
+     Troisième bloc de jetons, et il reste séparé pour la même raison que la
+     rampe : le premier :root est le jeton de charte partagé, identique au
+     caractère près entre les trois fichiers (DESIGN.md §6) ; le second décrit
+     la typographie de ce document ; celui-ci décrit sa mise en page. Ne pas
+     les fusionner.
+
+     Le carnet n'avait aucune borne de largeur — une seule `max-width` dans tout
+     le fichier, sur le champ de recherche. Mesuré en desktop 1280 : la prose
+     grammaticale courait sur 158 caractères par ligne (confortable : 45–75), et
+     les rangées de table laissaient ~1000px de vide entre l'hébreu calé à droite
+     et le français calé à gauche. Le mobile était épargné — le viewport bornait
+     tout seul —, ce qui explique que le défaut ait survécu à tous les contrôles
+     visuels du projet, qui se font en iPhone 16 Pro émulé.
+
+     Deux largeurs, pas une : la prose se lit, les tables se balaient.
+
+     ⚠️ `--colonne-large` n'est pas un confort, c'est un **plancher mesuré**. La
+     table la plus large du carnet (Verbes · Vie quotidienne, 5 colonnes) se pose
+     naturellement à 890px, et aucune ne dépasse 894px : sous 55,6rem, elles
+     gagnent un défilement horizontal qu'elles n'avaient pas. Ne pas déduire ce
+     plancher du `min-width:640px` des tables — c'est un plancher lui aussi, qui
+     ne joue que sur mobile, et le prendre pour la largeur naturelle fait tomber
+     le cadre à 704px et met 7 tables sur 29 en défilement (essayé, mesuré,
+     annulé le 2026-07-20).
+
+     ⚠️ Les deux valeurs sont MESURÉES, pas déduites. Une colonne se calibre sur
+     l'avance moyenne réelle de la prose (6,63px par caractère, Assistant 16px,
+     relevé en WebKit), jamais sur la largeur d'un chiffre : le « 0 » fait 7,87px,
+     soit 19 % de trop, et une colonne réglée sur lui sort à 82 caractères par
+     ligne en croyant en viser 69. Première rédaction de ce bloc prise à ce
+     piège — même famille d'erreur que le commentaire « 1rem = 22px » qui a
+     produit la dérive typographique.
+
+     La mise en œuvre passe par le `padding-inline` de `main` et non par une
+     `max-width` + marges auto : le padding centre le cadre sans toucher aux
+     marges verticales des enfants, dont la fusion (h2 38px contre .note 16px…)
+     règle tout le rythme du document. */
+  :root{
+    --colonne:28rem;        /* 448px — prose : 67 caractères par ligne (médiane) */
+    --colonne-large:56rem;  /* 896px — cadre : tables, titres à filet, sommaire  */
+  }
+  main{ padding-inline:max(0px, (100% - var(--colonne-large)) / 2); }
+  /* Tout ce qui se lit revient à la colonne de prose ; la table garde le cadre.
+     Sélecteur en 0,1,1 à dessein : il doit passer devant les `margin:` des
+     classes (.note, .part, .subtheme…), qui pèsent 0,1,0. */
+  main > *:not(.table-wrap){ max-width:var(--colonne); margin-inline:auto; }
+  /* Un titre prend le cadre s'il porte un filet ET s'il ouvre sur un objet au
+     cadre — les deux conditions, pas une. Le filet n'est pas un ornement :
+     l'œil le lit comme la borne du groupe qu'il ouvre, et un trait en désaccord
+     avec le contenu qu'il annonce affiche ce désaccord dans les deux sens. Un
+     sous-thème dont le filet s'arrête à 448px au-dessus d'une table qui court
+     à 896px se lit comme un défaut d'alignement (17 cas) ; le même filet mené
+     à 896px au-dessus d'une simple liste, restée à 448px, est exactement le
+     même défaut retourné (4 cas : Temps, Lieu & direction, Saisons, Mois).
+     D'où le `:has(+ .table-wrap)`, qui distingue les deux — et non un
+     `main > .subtheme` global, essayé et mesuré fautif le 2026-07-20.
+
+     Les autres titres restent sur la colonne, chacun pour sa raison :
+       · h2       — il porte bien un filet (::after), mais il ouvre sur de la
+                    prose dans 27 cas sur 27 ; élargi, il part seul à gauche et
+                    se lit comme un titre qui a glissé, pas comme une potence ;
+       · .gram-title, .ex-title — pas de filet, donc rien qui prétende borner :
+                    l'œil les lit comme des légendes posées dans la colonne, et
+                    9 sur 12 n'ouvrent sur aucune table.
+
+     ⚠️ La spécificité n'est pas décorative ici. `main > *:not(.table-wrap)`
+     pèse 0,1,1 et fait donc **plancher** : tout sélecteur d'élément nu qui
+     voudrait le contredire (`main > h2`, `main > ol`…) est ignoré en silence.
+     C'est arrivé le 2026-07-20 — une règle morte livrée avec un commentaire
+     affirmant qu'elle agissait. Ce `:has()` pèse 0,2,1 et passe par sa
+     spécificité propre, sans dépendre de l'ordre d'écriture.
+
+     Sans support de `:has()`, les sous-thèmes restent à la colonne : c'est leur
+     état d'avant ce bloc, aucune casse. WebKit le porte depuis 15.4. */
+  main > .subtheme:has(+ .table-wrap){ max-width:var(--colonne-large); }
+  header, .toc{ max-width:var(--colonne-large); margin-inline:auto; }
+  /* La barre collante reste pleine largeur (c'est un bandeau) ; seul son
+     contenu revient sur l'axe. */
+  .search-inner{ margin-inline:auto; }

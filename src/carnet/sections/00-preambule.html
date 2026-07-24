@@ -1,0 +1,110 @@
+
+
+<header>
+  <h1><span lang="he">אוֹצַר מִלִּים</span> <span class="h1-sub">— Vocabulaire Hébreu</span></h1>
+  <div class="subtitle">Grammaire et vocabulaire de base de l'hébreu moderne</div>
+  <a class="app-link" id="app-link" href="./app.html">🎴 S'entraîner avec les flashcards &#8599;</a>
+</header>
+<script>
+  // En local (protocole file:), app.html ne peut pas charger le vocabulaire par fetch ;
+  // on redirige alors le lien vers la version autonome des flashcards, qui marche partout.
+  (function(){
+    var a = document.getElementById('app-link');
+    if(a && location.protocol === 'file:') a.setAttribute('href', './flashcards_hebreu.html');
+  })();
+</script>
+
+<div class="search-wrap">
+  <div class="search-inner">
+    <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="voc-search" type="text" aria-label="Rechercher un mot (français, hébreu ou translittération)" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Rechercher un mot…">
+    <button class="search-clear" id="voc-search-clear" aria-label="Effacer" hidden>&times;</button>
+  </div>
+  <span class="search-count" id="voc-search-count" role="status"></span>
+</div>
+
+<nav class="toc" aria-label="Sommaire">
+  <div class="toc-title"><span lang="he">תֹּכֶן הָעִנְיָנִים</span> · Sommaire</div>
+
+  <!-- Sommaire COMPLET (35 sections sur 35) et découpé en groupes courts :
+       la critique du 21/07 relevait 6 sections sans pilule (dont Phrases, le
+       contenu que PRODUCT.md désigne comme la fin) et un bloc de 12 pilules
+       d'une traite. L'ordre des pilules suit STRICTEMENT l'ordre du document. -->
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 1 · Grammaire — les pronoms &amp; le verbe</div>
+    <div class="toc-links">
+      <a href="#sec-pronoms-personnels"><span class="toc-he" lang="he">כִּנּוּיֵי גוּף</span> Pronoms personnels</a>
+      <a href="#sec-demonstratifs"><span class="toc-he" lang="he">מִלּוֹת רֶמֶז</span> Démonstratifs</a>
+      <a href="#sec-phrase-sans-verbe"><span class="toc-he" lang="he">מִשְׁפָּט שְׁמָנִי</span> La phrase sans verbe</a>
+      <a href="#sec-la-racine"><span class="toc-he" lang="he">שֹׁרֶשׁ</span> La racine (clé des verbes)</a>
+      <a href="#sec-le-present"><span class="toc-he" lang="he">זְמַן הֹוֶה</span> Le présent</a>
+      <a href="#sec-le-passe"><span class="toc-he" lang="he">זְמַן עָבָר</span> Le passé</a>
+      <a href="#sec-le-futur"><span class="toc-he" lang="he">זְמַן עָתִיד</span> Le futur</a>
+      <a href="#sec-l-imperatif"><span class="toc-he" lang="he">צִוּוּי</span> L'impératif</a>
+      <a href="#sec-le-conditionnel"><span class="toc-he" lang="he">הָיִיתִי</span> Le conditionnel</a>
+      <a href="#sec-patrons-de-conjugaison"><span class="toc-he" lang="he">בִּנְיָנִים</span> Patrons de conjugaison</a>
+    </div>
+  </div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 1 · Grammaire — le nom &amp; la phrase</div>
+    <div class="toc-links">
+      <a href="#sec-l-article-defini"><span class="toc-he" lang="he">הַ־</span> L'article défini</a>
+      <a href="#sec-conjonction-et"><span class="toc-he" lang="he">וְ</span> « Et » (וְ)</a>
+      <a href="#sec-etat-construit"><span class="toc-he" lang="he">סְמִיכוּת</span> État construit</a>
+      <a href="#sec-suffixes-possessifs"><span class="toc-he" lang="he">כִּנּוּיֵי קִנְיָן</span> Suffixes possessifs</a>
+      <a href="#sec-prepositions-flechies"><span class="toc-he" lang="he">מִלּוֹת יַחַס נְטוּיוֹת</span> Prépositions fléchies</a>
+      <a href="#sec-particule-objet"><span class="toc-he" lang="he">אֶת</span> La particule d'objet</a>
+      <a href="#sec-he-directionnel"><span class="toc-he" lang="he">הֵא הַמְּגַמָּה</span> Le hé directionnel</a>
+      <a href="#sec-existence-et-possession"><span class="toc-he" lang="he">יֵשׁ וְאֵין</span> Existence &amp; possession</a>
+      <a href="#sec-la-negation"><span class="toc-he" lang="he">לֹא, אֵין, אַל</span> La négation</a>
+      <a href="#sec-she-subordination"><span class="toc-he" lang="he">שֶׁ־</span> Le « que » de subordination</a>
+    </div>
+  </div>
+
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 2 · Vocabulaire — le dictionnaire</div>
+    <div class="toc-links">
+      <a href="#sec-verbes"><span class="toc-he" lang="he">פְּעָלִים</span> Verbes</a>
+      <a href="#sec-verbes-modaux"><span class="toc-he" lang="he">יְכוֹלֶת וְחוֹבָה</span> Verbes modaux</a>
+      <a href="#sec-noms"><span class="toc-he" lang="he">שְׁמוֹת עֶצֶם</span> Noms</a>
+      <a href="#sec-adjectifs"><span class="toc-he" lang="he">תְּאָרִים</span> Adjectifs</a>
+    </div>
+  </div>
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 3 · Mots-outils — les connecteurs</div>
+    <div class="toc-links">
+      <a href="#sec-prepositions"><span class="toc-he" lang="he">מִלּוֹת יַחַס</span> Prépositions</a>
+      <a href="#sec-conjonctions"><span class="toc-he" lang="he">מִלּוֹת חִבּוּר</span> Conjonctions</a>
+      <a href="#sec-mots-interrogatifs"><span class="toc-he" lang="he">מִלּוֹת שְׁאֵלָה</span> Mots interrogatifs</a>
+    </div>
+  </div>
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 3 · Nombres &amp; repères</div>
+    <div class="toc-links">
+      <a href="#sec-nombres-010"><span class="toc-he" lang="he">מִסְפָּרִים</span> Nombres (0–10)</a>
+      <a href="#sec-nombres-11-plus"><span class="toc-he" lang="he">מִסְפָּרִים גְּדוֹלִים</span> Nombres (11 et plus)</a>
+      <a href="#sec-nombres-ordinaux"><span class="toc-he" lang="he">מִסְפָּרִים סוֹדְרִים</span> Nombres ordinaux</a>
+      <a href="#sec-jours-de-la-semaine"><span class="toc-he" lang="he">יְמֵי הַשָּׁבוּעַ</span> Jours de la semaine</a>
+      <a href="#sec-mots-de-quantite"><span class="toc-he" lang="he">מִלּוֹת כַּמּוּת</span> Mots de quantité</a>
+    </div>
+  </div>
+  <div class="toc-group">
+    <div class="toc-group-label">Partie 3 · Au quotidien</div>
+    <div class="toc-links">
+      <a href="#sec-adverbes"><span class="toc-he" lang="he">תְּאָרֵי פֹּעַל</span> Adverbes</a>
+      <a href="#sec-saisons-mois"><span class="toc-he" lang="he">עוֹנוֹת וְחֳדָשִׁים</span> Saisons &amp; mois</a>
+      <a href="#sec-expressions-divers"><span class="toc-he" lang="he">בִּיטּוּיִים</span> Expressions / Divers</a>
+      <a href="#sec-phrases"><span class="toc-he" lang="he">מִשְׁפָּטִים שִׁמּוּשִׁיִּים</span> Phrases</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="part" id="part-grammaire">
+  <span class="part-num">Partie 1</span>
+  <span class="part-name"><span class="part-he" lang="he">דִּקְדּוּק</span> · Grammaire</span>
+  <span class="part-sub">Comprendre comment la langue fonctionne — à lire comme un cours.</span>
+</div>
+
