@@ -38,13 +38,15 @@ Décisions actées :
   08 graduations de bord, 09 pilule voix, 11 aberration chromatique,
   14 code-barres, 15 insigne hexagonal de niveau, 16 champ d'étoiles, 19 jauge à
   aiguille. Écartés « pour l'instant » : 06, 07, 10, 12, 13, 17, 18, 20, 21.
-- **Le scintillement est retiré de la charte** (arbitrage du 24/07, après le test
-  sur iPhone réel). Il avait pourtant **passé** le test : le retrait est un parti
-  pris du propriétaire, pas la correction d'un défaut. Il reste donc **deux
-  calques CRT** (bruit, vignettage), et ce qui est vivant se signale par le seul
-  glow — la règle de la lampe sans le battement. Retiré de `prototype-nerv.html`
-  (5 usages : `● SESSION` 4 s, alertes 2,6 s, titres de warning, verdict d'erreur,
-  blips dus du radar ; tous gardent leur halo) et du spec § 5.
+- **Plus aucun effet de surface d'écran dans la charte** (24/07, sur iPhone réel).
+  Le **scintillement** est parti par choix, alors qu'il avait passé le test. Le
+  **bruit** et le **vignettage** ont été **refusés jusqu'à leur cran minimal** à la
+  seconde passation, écran nu jugé bon. Ce qui reste de « console » tient donc à la
+  grille 32px, aux graduations de bord, aux croix de visée, au glow et aux trois
+  voix typo — pas à un artefact d'écran. La règle de la lampe est désormais portée
+  par le **seul glow**. Détail des deux passations et de leur contradiction :
+  spec § 5 (tableau). ⚠️ Le module 11 (aberration chromatique sur les titres) n'a
+  jamais été un calque et **n'est pas concerné**.
 - **Deux chartes coexisteront** (décision du 24/07, spec § 7) : la console ne
   remplace pas « le carnet d'étude du soir », elle s'y **ajoute** — avec un
   **sélecteur de charte à l'accueil**. L'ancienne charte est sauvegardée en jeu
@@ -54,37 +56,27 @@ Les pièces, dans cet ordre de lecture :
 
 - **[docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md)**
   — le spec, source de vérité écrite ; § 7 = les deux chartes et le sélecteur.
-- **`prototype-nerv.html`** — la page-témoin v0.5 ; **elle fait foi en cas de
+- **`prototype-nerv.html`** — la page-témoin v0.6 ; **elle fait foi en cas de
   désaccord avec le spec**. Quatre écrans (carte recto/verso, accueil,
   révélation, bilan) plus l'inventaire (nuancier, gamme typo, états).
-- **`test-crt-iphone.html`** — le protocole de test des calques sur device.
-  Rien de la charte n'y est réinventé, les blocs viennent tels quels de la
-  page-témoin. Ramené à **deux calques** après le retrait du scintillement.
+- **`test-crt-iphone.html`** — le protocole de test des calques sur device,
+  **soldé** (les trois effets ont été rejetés) et conservé pour un futur effet à
+  juger. Son écran de garde le dit, pour qu'une repasse ne soit pas prise pour un
+  verdict de charte.
 - **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
 - **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
 - Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
 
 **Ce qui reste, dans l'ordre :**
 
-1. **Recette de la charte sur iPhone réel — les deux dernières réponses.**
-   Le test des calques est **fait** (24/07, iPhone 16 Pro, `402×874@3`, animations
-   actives) : `BRUIT spec=ok · VIGNETTAGE spec=ok · SCINTILLEMENT spec=ok ·
-   ENSEMBLE=ok`. Les valeurs du spec § 5 sont donc **confirmées sur device**, et le
-   scintillement a été retiré **par choix**, pas par échec. Mais la passation a été
-   menée sur la première version de l'outil, qui n'exigeait pas la recette :
-   `NIKOUD=?` et `GRILLE=?`. Il manque les deux vérifications du spec § 6 — le
-   nikoud reste-t-il lisible sous le halo ambre, la grille de fond reste-t-elle
-   discrète sous le texte. **Une repasse de 6 à 8 min** sur
-   `test-crt-iphone.html` (lien en tête de README) les recueille ; la version
-   actuelle **interdit de terminer sans y répondre**, et le protocole ne porte plus
-   que sur deux calques.
-   Garde-fous de l'outil, vérifiés en WebKit (40/40, deux parcours, iPhone 16 Pro
-   et iPhone SE) : refus de démarrer sous `prefers-reduced-motion` (un iPhone qui
-   fige les calques les ferait passer au vert — le témoin muet est toujours
-   content), verdict verrouillé 20 s, consigne sur écran de briefing et non sur
-   l'écran jugé, recette posée après la passe pour ne pas manger la scène d'étude.
-   **Si un cran descend**, reporter la valeur dans `prototype-nerv.html` **et** dans
-   le spec § 5 — c'est le seul réglage que le device a le droit de trancher.
+1. ~~Test des calques CRT sur iPhone réel~~ — **SOLDÉ le 24/07.** Deux passations
+   sur iPhone 16 Pro (`402×874@3`, animations actives). La seconde, guidée, fait
+   foi : `BRUIT ⇒ REJETÉ · VIGNETTAGE ⇒ REJETÉ · ENSEMBLE=ok · NIKOUD=lisible ·
+   GRILLE=lisible`. Les calques sont retirés de la charte (spec § 5,
+   `prototype-nerv.html` en v0.6), et la recette du spec § 6 est acquise : le nikoud
+   tient sous le halo ambre, la grille de fond reste discrète sous le texte.
+   `test-crt-iphone.html` est conservé, marqué « protocole soldé » sur son écran de
+   garde — il resservira si un effet de surface est un jour reproposé.
 2. **Session de conception du système de thèmes** (brainstorming →
    writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
 3. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du

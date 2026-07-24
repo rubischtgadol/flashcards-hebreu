@@ -25,10 +25,10 @@ Charte extraite mécaniquement (Playwright WebKit, CSS calculé) le 2026-07-24.
   S1 Instrument Serif italique. Corollaire acté dans le même arbitrage : **plus aucun
   italique dans la charte** ; Instrument Serif, qui n'avait plus d'emploi, quitte la
   typographie. Les titres d'écran passent en Saira Condensed 600 capitales.
-- Registre d'effets : celui de la référence (bruit, vignettage ; le scintillement,
-  d'abord retenu, a été retiré le 24/07 — voir § 5) — validé
-  visuellement, à re-juger sur iPhone réel avant généralisation (piège n°14 : jamais de
-  verdict de confort sur émulation).
+- Registre d'effets : celui de la référence (bruit, vignettage, scintillement) — validé
+  visuellement sur émulation, puis **entièrement rejeté sur iPhone réel le 24/07**
+  (§ 5). Le piège n°14 a joué exactement son rôle : ce qui passait en émulation ne
+  passait pas sur l'appareil.
 - **Modules retenus** (arbitrage sur `prototype-effets.html`, 21 candidats) :
   **01** radar de révision (accueil : blips = cartes, distance au centre = échéance SRS,
   dues en vert + halo — elles clignotaient jusqu'au retrait du scintillement, § 5), **02** carte orbitale des thèmes (bilan : orbites = niveaux, points
@@ -97,44 +97,56 @@ mesurées, pas encore une gamme nommée).
   warning = bordure rouge, fond rouge 5%, titre rouge + halo (il clignotait avant le
   retrait du scintillement, § 5).
 
-## 5. Effets — les deux calques CRT
+## 5. Effets — la charte se passe des calques CRT
 
-1. **Bruit** : rayures horizontales 1px blanches à 2,2%, animées en `steps(3)` (1.2s).
-2. **Vignettage** : radial noir 50% aux bords.
+**Aucun calque de surface d'écran n'est retenu.** Les trois effets de la référence
+(bruit, vignettage, scintillement) ont tous quitté la charte le 2026-07-24, jugés sur
+iPhone réel avec le protocole `test-crt-iphone.html`. Ce qui reste de « console » ne
+tient donc à aucun artefact d'écran : **grille de fond 32px, graduations de bord
+(module 08), croix de visée, glow `currentColor`, les trois voix typographiques et
+l'ambre/phosphore** portent seuls l'identité.
 
-**Valeurs confirmées sur iPhone réel** (16 Pro, 2026-07-24, protocole
-`test-crt-iphone.html`) : les deux calques sont retenus **au cran du spec**, et
-l'empilement complet a été jugé tenable pour étudier. Ce sont donc des valeurs
-mesurées sur device, plus des propositions.
+Historique des deux passations, à garder — sans lui, une session future croira à un
+oubli et voudra les repêcher :
 
-**Le scintillement est retiré de la charte** (arbitrage du propriétaire, 24/07). Il
-avait pourtant passé le test sur device : le retrait est un parti pris, pas la
-correction d'un défaut. Ce qui est vivant se signale désormais par le seul **glow**
-(`text-shadow` `currentColor`) — la règle de la lampe sans le clignotement. Étaient
-concernés `● SESSION` (4s) et les alertes (2,6s : `⚠`, titres de warning, verdict
-d'erreur, blips dus du radar) ; tous gardent leur halo, aucun ne bat.
+| Effet | Valeur testée | Passation 1 (24/07) | Passation 2 (24/07, protocole guidé) |
+|---|---|---|---|
+| Bruit | rayures 1px blanches 2,2%, `steps(3)` 1.2s | `ok` au cran du spec | **refusé** à 2,2%, 1,1% et 0,55% |
+| Vignettage | radial noir 50% aux bords | `ok` au cran du spec | **refusé** à 50%, 25% et 12,5% |
+| Scintillement | `flick` `steps(1)`, 4s et 2,6s | `ok` | retiré avant la passation 2, **par choix** |
+
+C'est la **passation 2 qui fait foi** : consigne explicite avant chaque passe, verdict
+verrouillé 20 s, recette recueillie. Deux facteurs expliquent le renversement, et
+aucun n'invalide le verdict — la première passation s'est faite sur une version de
+l'outil sans consigne guidée, et la seconde sur un écran déjà débarrassé du
+scintillement, où le bruit avait moins de concurrence. L'écran nu, lui, a été jugé
+`ok` avec nikoud et grille lisibles.
+
+**Ce que ça n'autorise pas** : rien ici ne condamne le module 11 (aberration
+chromatique sur les titres), qui n'a jamais été un calque de surface et n'a pas été
+soumis au test.
 
 **Mouvement réduit** (ajout normatif) : sous `prefers-reduced-motion: reduce`, toute
-animation se fige — le bruit s'immobilise, le vignettage est conservé (il est
-statique). Implémenté dans le prototype.
+animation se fige. Il ne reste que le bandeau de boot (module 05), qui a de toute
+façon un repli statique.
 
-Règles : **tout mouvement est en `steps()`, jamais de transition fluide** (l'esthétique
-instrument, signature de la référence). Le glow est du `text-shadow`/`box-shadow`
-`currentColor` ; il marque l'actif et le vivant — transposition directe de la « règle de
-la lampe » v1 : *l'alarme ne sonne que quand il se passe quelque chose*.
+Règle conservée : **tout mouvement est en `steps()`, jamais de transition fluide**
+(l'esthétique instrument, signature de la référence). Le glow est du
+`text-shadow`/`box-shadow` `currentColor` ; il marque l'actif et le vivant —
+transposition directe de la « règle de la lampe » v1 : *l'alarme ne sonne que quand il
+se passe quelque chose*. Depuis le retrait du scintillement, il la porte **seul**.
 
 ## 6. Validation et suites
 
 - **Recette visuelle** : nikoud lisible à taille réelle sur `--bg` (le halo ambre ne doit
   jamais noyer les points-voyelles), contrastes AA sur texte courant, lisibilité de la
-  grille de fond sous le texte, et confirmation **sur iPhone réel** des calques CRT
-  (coût perceptif à juger sur device, pas en émulation). **Fait le 24/07 pour les
-  calques** (verdict au § 5) ; **les deux vérifications de recette — nikoud sous le halo,
-  grille de fond — restent à recueillir**, la première passation ayant été menée sur une
-  version de l'outil qui ne les exigeait pas. **Outil : `test-crt-iphone.html`**
-  — protocole guidé (isolement, calibrage à la moitié puis au quart pour tout calque qui
-  gêne, passe d'ensemble, ligne de verdict). Les valeurs du § 5 sont son défaut ; un cran
-  retenu plus bas se reporte ici **et** dans `prototype-nerv.html`.
+  grille de fond sous le texte, et confirmation **sur iPhone réel** des calques CRT.
+  **Soldée le 24/07** : nikoud `lisible` sous le halo ambre, grille de fond `lisible`
+  sous le texte, écran d'ensemble `ok` — le tout mesuré sur iPhone 16 Pro
+  (`402×874@3`, animations actives), pas en émulation. Les calques, eux, ont été
+  rejetés (§ 5). **Outil : `test-crt-iphone.html`**, conservé sur la branche : son
+  protocole (isolement, calibrage à la moitié puis au quart, passe d'ensemble, ligne de
+  verdict) resservira tel quel le jour où un effet de surface sera reproposé.
 - **Hors périmètre de ce spec** : portage sur les surfaces réelles (attend la fin de la
   réorganisation du dépôt), icônes/manifest/theme-color (découlent des tokens § 2 le
   moment venu), sort des règles v1 non transposées (le pli, la carte unique, les couches —

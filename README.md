@@ -6,21 +6,20 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 > À juger sur téléphone (le soir, en conditions réelles d'étude) :
 >
-> **➡️ À FAIRE — la recette sur iPhone réel** (protocole guidé, 6 à 8 min). Les calques
-> ont été validés sur device le 24/07 ; il manque les deux vérifications de recette du
-> spec § 6 (nikoud lisible sous le halo, grille de fond discrète), la première passation
-> ayant eu lieu sur une version qui ne les exigeait pas. Deux calques désormais — le
-> scintillement a quitté la charte. La page refuse de se lancer si « Réduire les
-> animations » est actif, et rend une ligne de verdict à recopier :
->
->     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/test-crt-iphone.html
->
-> **➡️ La page-témoin v0.5, charte complète et arbitrée** (A Observatoire,
-> trois voix typo sans italique, 12 modules intégrés, écran Bilan) :
+> **➡️ LA page à ouvrir — la page-témoin v0.6, charte complète et arbitrée**
+> (A Observatoire, trois voix typo sans italique, 12 modules intégrés, écran Bilan).
+> **Plus aucun effet de surface d'écran** : bruit, vignettage et scintillement ont été
+> retirés le 24/07 après jugement sur iPhone réel — l'identité tient à la grille, aux
+> graduations de bord, au glow et à la typographie :
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-nerv.html
 >
 > Archives d'arbitrage (déjà tranchées, à consulter seulement pour repêcher) :
+>
+> **➡️ Le protocole de test des calques sur device** (soldé : les trois effets ont été
+> rejetés ; conservé pour un futur effet à juger) :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/test-crt-iphone.html
 >
 > **➡️ Les 21 effets candidats** (12 retenus et intégrés ; 9 écartés « pour l'instant » :
 > halo, bloom, balayage, glitch, équerres, bande, lettre fantôme, ticker, réticule) :

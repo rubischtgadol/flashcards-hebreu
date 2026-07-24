@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prototype DA v0.5 — Console d'étude</title>
+<title>Prototype DA v0.6 — Console d'étude</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -77,21 +77,12 @@ body{
   position:relative;
   overflow:hidden;
 }
-/* calque bruit (interférence, pas de steps fluides) */
-.ecran::before{
-  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
-  background:repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 3px);
-  animation:noiseShift 1.2s steps(3) infinite;
-}
-/* calque vignettage */
-.ecran::after{
-  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
-  background:radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.5) 100%);
-}
-@keyframes noiseShift{0%{transform:translateY(0)}100%{transform:translateY(3px)}}
-/* Le scintillement a été RETIRÉ de la charte (arbitrage du 2026-07-24, sur device).
-   Il avait passé le test CRT sur iPhone réel — le retrait est un choix, pas un défaut :
-   ce qui est vivant se signale par le glow, sans clignoter. Restent deux calques CRT. */
+/* Les deux calques CRT (bruit, vignettage) ont été RETIRÉS de la charte le
+   2026-07-24, après test sur iPhone réel : refusés jusqu'au cran minimal, écran
+   nu jugé bon (protocole test-crt-iphone.html). Avec le scintillement retiré le
+   même jour, la charte n'a plus aucun effet de surface d'écran — l'identité tient
+   à la grille, aux graduations de bord, au glow et à la typographie. */
+
 /* mouvement réduit : les calques se figent, le vignettage reste */
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important}
@@ -332,7 +323,7 @@ body{
 
 <header>
   <h1>Console d'étude</h1>
-  <p class="meta-ligne">Prototype DA v0.5 · 12 modules retenus · trois voix typo, zéro italique · deux calques CRT (le scintillement retiré, 24/07, sur device)</p>
+  <p class="meta-ligne">Prototype DA v0.6 · 12 modules retenus · trois voix typo, zéro italique · aucun calque CRT (bruit, vignettage et scintillement retirés le 24/07, sur device)</p>
 </header>
 
 <!-- ================= ÉCRAN 1 : CARTE ================= -->
