@@ -8,9 +8,20 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1220
-cartes**, 1068 exemples, 15 thèmes (1003/1003 sur les 3 tables), niveaux A1 402 /
-A2 474 / B1 335 / B2 9, `sw.js` en **v30**, `--check` en phase.
+**Chantier ouvert : la réorganisation profonde « le dépôt généré ».** Spec
+validée ([docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md](docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md) —
+source de vérité en `data/*.json`, carnet entièrement généré, mort du double
+extracteur, 5 principes directeurs) et **plan complet relu deux fois** :
+[docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)
+(4 chantiers / 21 tasks, un chantier = une session). **Rien n'est encore
+implémenté.** Prochaine session = **chantier 1** (Tasks 1–6 : extraction vers
+`data/` + fragments `src/carnet/`, équivalence 4/4), task par task en
+sous-agents, contraintes globales du plan en tête.
+
+État au 2026-07-24 : **1220 cartes**, 1068 exemples, 15 thèmes (1003/1003 sur
+les 3 tables), niveaux A1 402 / A2 474 / B1 335 / B2 9, `sw.js` en **v30**,
+`--check` en phase. Un `prototype-nerv.html` non suivi traîne à la racine
+(pas à moi — à trier par Ruben).
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
