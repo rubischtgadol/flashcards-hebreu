@@ -10,6 +10,38 @@ Quatre douleurs nommées par le propriétaire, toutes retenues : `app.html` mono
 parseur regex dans `build.js`, jamais comparés mécaniquement), et le carnet géant
 (`vocabulaire_hebreu.html`, 10 950 lignes mêlant contenu, prose, CSS).
 
+## Direction générale (consigne du propriétaire, 2026-07-24)
+
+Tout le code doit être **parfaitement organisé, clair, intégré sans coutures
+visibles, ultra modulable et facilement modifiable**. Ce n'est pas un slogan :
+chaque choix de découpage des chantiers 1–4 s'arbitre contre cette barre, et
+elle se décline en principes vérifiables :
+
+1. **Une unité = une responsabilité, une interface explicite.** Chaque fichier
+   de `src/` fait une chose, exporte des noms explicites, et se comprend sans
+   lire ses voisins. Zéro global caché : ce qu'un module utilise, il l'importe ;
+   ce qu'il offre, il l'exporte. L'état partagé (progression, réglages,
+   localStorage) vit dans **un seul** module de stockage — jamais dispersé.
+2. **Modifiable en un point.** Tout changement plausible (ajouter un mode,
+   un thème, une section du carnet, un champ de carte) doit se faire en
+   touchant un seul endroit évident, le build propageant le reste. Si un
+   changement demande d'éditer deux fichiers « qui doivent rester d'accord »,
+   le découpage est mauvais — c'est précisément le défaut du double extracteur
+   qu'on élimine.
+3. **Sans coutures visibles.** Un seul point d'entrée (`node tools/build.js`),
+   un seul `--check` global. Les artefacts générés sont indistinguables d'un
+   fichier écrit à la main soigné : assemblage déterministe dans un ordre
+   déclaré, indentation propre, et un en-tête « FICHIER GÉNÉRÉ — ne pas
+   éditer, source dans src/ et data/ » pour que la couture soit invisible
+   à l'usage mais explicite pour l'éditeur.
+4. **Les gabarits sont des fonctions pures** données → HTML, un gabarit par
+   forme (table, liste, bloc d'exemples, carte). Aucune logique de contenu
+   dans les gabarits, aucun HTML hors des gabarits.
+5. **La clarté prime sur l'astuce.** Nommage français cohérent avec le projet,
+   pas de méta-programmation, pas d'indirection qu'un lecteur de passage ne
+   suivrait pas. Le critère : chaque module doit pouvoir être lu et modifié
+   isolément par quelqu'un qui découvre le dépôt.
+
 ## Décisions structurantes (actées en session)
 
 1. **La source de vérité du vocabulaire migre vers des données structurées**
@@ -29,7 +61,7 @@ parseur regex dans `build.js`, jamais comparés mécaniquement), et le carnet g�
 La racine reste le site déployé : **les URLs GitHub Pages ne changent pas**, la
 PWA installée survit. Tout le reste descend dans des dossiers.
 
-```
+```text
 /                    ← uniquement le site déployé + README.md + CLAUDE.md
   index.html  app.html  vocabulaire_hebreu.html  flashcards_hebreu.html   [générés, committés]
   cards.json                                                              [généré — cartes à plat]
@@ -39,8 +71,14 @@ data/                ← SOURCE DE VÉRITÉ du vocabulaire
 src/                 ← SOURCE DE VÉRITÉ du code et de la prose
   tokens.css         (le bloc :root partagé — copie unique, injectée partout au build ;
                       remplace la règle « byte-identique » maintenue à la main, piège 5)
-  app/               (JS découpé par module — cartes, QCM, SRS, phrases, translittération,
-                      stockage, réglages — + CSS ; le module d'extraction disparaît)
+  app/               (JS découpé par module — un fichier par responsabilité :
+                      chargement des données, translittération, stockage/état,
+                      un module par mode (cartes, QCM, révision, phrases),
+                      réglages, diagnostic — + CSS découpé de même ;
+                      le module d'extraction disparaît. La carte exacte des
+                      modules est fixée par le plan du chantier 3, dérivée du
+                      graphe des fonctions existant et arbitrée contre les
+                      principes directeurs ci-dessus.)
   carnet/            (fragments de prose grammaticale + CSS du carnet + gabarits tables/listes)
   portail/           (source d'index.html)
 tools/               ← scripts dev : build.js, verifie_exemples.js, ajoute_mots.js, cherche_mots.js
@@ -54,7 +92,7 @@ du carnet) disparaît avec le parsing.
 
 ## Flux de données — un seul sens, zéro parsing
 
-```
+```text
 data/*.json + src/**  →  tools/build.js  →  les 5 artefacts de la racine
 ```
 
@@ -117,10 +155,17 @@ Reprend le schéma de carte actuel. Par entrée :
    `verifie_exemples`/`cherche_mots`/`ajoute_mots` basculés sur JSON.
    Bump `VERSION` de `sw.js` (+ `cards.json` entre dans la stratégie de cache).
 3. **Découpage d'`app.html`** — CSS et JS éclatés en `src/app/*`, assemblés au
-   build. Contrôle A/B WebKit iPhone **et** largeurs desktop
+   build par concaténation déterministe dans un ordre déclaré (pas de bundler,
+   doctrine zéro-dépendance ; l'artefact reste un fichier lisible). La carte
+   des modules se dérive du graphe des fonctions (`graphify explain`) et
+   s'arbitre contre les principes directeurs — notamment « l'état partagé vit
+   dans un seul module ». Contrôle A/B WebKit iPhone **et** largeurs desktop
    (1440/1280/992/900/768 — piège 13) : iso-visuel exigé, via sous-agents.
 4. **Rangement final** — `tools/`, `docs/`, portail et tokens générés depuis
-   `src/` ; révision de tous les .md (ARCHITECTURE réécrite autour du nouveau
+   `src/` ; le build estampille `VERSION` dans `sw.js` depuis un hash du
+   contenu des artefacts (le bump manuel du piège 10 — deux endroits à garder
+   d'accord — disparaît, conformément au principe « modifiable en un point ») ;
+   révision de tous les .md (ARCHITECTURE réécrite autour du nouveau
    flux, pièges caducs retirés de CLAUDE.md, rituel mis à jour) ; flag
    `⚠️ GRAPHE À RECALER` dans TODO.md — le refresh du graphe est une décision
    séparée, en fin de refonte, jamais automatique.
