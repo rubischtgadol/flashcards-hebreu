@@ -75,6 +75,12 @@ rouge `rgba(255,71,71,.4)`.
 | Labels & titres | **Saira Condensed** 400/600 | Toute l'UI : boutons, étiquettes, statuts, **et les titres d'écran** (600, capitales, letter-spacing .26em, vert + glow `0 0 6px currentColor`). Capitales, letter-spacing ≥ .14em. |
 | Données | **Share Tech Mono** | Feed de logs, numéros, translittérations (en `--vert` + glow), la ligne de traduction française des cartes (1.05rem, `--lune`, letter-spacing .08em), **et le sous-titre de marque** (capitales, letter-spacing .22em, vert + glow). |
 
+**La question de l'hébreu a été rouverte le 25/07, puis refermée sur le même choix.** Tout le
+catalogue Google Fonts couvrant l'hébreu a été passé en revue, les monospaces hébreux hors
+catalogue aussi, et le nikoud de GNU Unifont a même été réparé pour l'occasion (planches et
+script conservés sur la branche). Verdict du propriétaire : **on garde Frank Ruhl Libre**. Ne pas
+rouvrir sans demande explicite.
+
 Règles : `lang="he"` obligatoire sur tout nœud hébreu (invariant conservé de la charte v1).
 Les tailles seront normalisées en gamme lors du portage (le prototype porte des valeurs
 mesurées, pas encore une gamme nommée).

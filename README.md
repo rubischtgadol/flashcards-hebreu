@@ -19,22 +19,12 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-hebreu.html
 >
-> **➡️ Unifont, le nikoud réparé — avant / après** : GNU Unifont modifiée (marques du dessous
-> redessinées sur la grille + tables d'accroche), sur les mêmes dix mots, avec Miriam en référence :
->
->     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/unifont-nikoud-repare.html
->
-> **➡️ LE DUEL — Miriam Mono CLM contre GNU Unifont** : alphabet entier, cinq finales, les
-> 14 marques, dix mots du carnet couvrant les 27 signes, et la carte d'étude reconstituée
-> dans chacune :
->
->     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/duel-miriam-unifont.html
->
-> **➡️ Les monospaces hébreux, hors catalogue** — la voix « données » de la charte cherche son
-> équivalent en hébreu. Trois candidates tiennent (Miriam Mono CLM, GNU Unifont, FreeMono), les
-> polices de terminal classiques tombent :
->
->     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-monospace-hebreu.html
+> **Exploration typographique hébraïque — classée** (25/07). L'hébreu reste en
+> **Frank Ruhl Libre**. Les planches sont conservées au cas où, pas pour être reprises :
+> [les 62 familles Google Fonts](https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-hebreu.html) ·
+> [les monospaces hébreux hors catalogue](https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-monospace-hebreu.html) ·
+> [le duel Miriam / Unifont](https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/duel-miriam-unifont.html) ·
+> [le nikoud d'Unifont réparé](https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/unifont-nikoud-repare.html)
 >
 > Archives d'arbitrage (déjà tranchées, à consulter seulement pour repêcher) :
 >

@@ -70,30 +70,24 @@ Les pièces, dans cet ordre de lecture :
   `cmap` du sous-ensemble hébreu, 14 marques vérifiées) : 57 complètes,
   Solitreo 13/14, **Cascadia Code et Cascadia Mono 6/14**, **Handjet et Google Sans
   sans aucune marque**. Contrôle du protocole : Frank Ruhl Libre ressort à 14/14.
-- **`specimen-monospace-hebreu.html`** + **`polices/`** — la voix « données » de la
-  charte (Share Tech Mono) cherche son équivalent hébreu. **Aucune police de
-  terminal du catalogue n'est vocalisable** (Cascadia 6/14, Terminus 0/14, DejaVu
-  Sans Mono sans hébreu du tout). Trois tiennent, hors catalogue : **Miriam Mono
-  CLM** (Culmus — la plus propre, marques déclarées et attachées), **GNU Unifont**
-  (matricielle 8×16, la plus « afficheur »), **FreeMono** (tables fautives mais
-  rendu correct). Repli dans le catalogue : **Cousine**. Fontes embarquées en
-  sous-ensembles de 1 à 4 Ko, licences dans `polices/LICENCES.md`.
-  ⚠️ Leçon inscrite dans la planche : la chasse déclarée d'une marque **ne dit pas**
-  où elle s'affiche — les moteurs l'annulent d'office. Une première conclusion tirée
-  des seules tables était fausse, le rendu l'a démentie.
-- **`duel-miriam-unifont.html`** — la finale entre les deux monospaces hébreux
-  retenus, sur pièces : alphabet entier, cinq finales, les 14 marques posées sur
-  alef, **dix mots extraits du carnet** (couverture gloutonne : 27/27 signes,
-  12/14 marques) et la carte d'étude reconstituée dans chacune. Vue « les deux »,
-  « Miriam seule », « Unifont seule », trois tailles. **Arbitrage en attente.**
-- **`unifont-nikoud-repare.html`** + **`polices/repare_unifont.py`** — le nikoud
-  d'Unifont était inutilisable (marques à la largeur d'une lettre, collées à elle) ;
-  il est **réparé** : onze marques du dessous et le dagesh redessinés sur la grille,
-  tables GDEF/GPOS ajoutées, lettres intactes. Mesuré : le qamats passe de 42 px à
-  18 (Miriam en fait 17), l'écart sous la lettre de 0 à 6 px, et la lettre n'est
-  plus repoussée. ⚠️ **Réserve** : les trois marques du dessus gardent les glyphes
-  d'origine — les redessiner déclenche un défaut de rendu non élucidé ; elles se
-  posaient déjà correctement. Script versionné, donc reproductible.
+- **Exploration typographique hébraïque — CLASSÉE le 25/07.** Décision du
+  propriétaire : **on garde `Frank Ruhl Libre`** pour l'hébreu (pile inchangée :
+  `'Frank Ruhl Libre','David Libre','Times New Roman',serif` ; 900 en vedette,
+  500 en courant), dans les deux chartes. Les pièces sont conservées **au cas où**,
+  pas pour être reprises — ne pas rouvrir sans demande explicite :
+  - `specimen-hebreu.html` — שָׁלוֹם dans les 62 familles Google Fonts couvrant
+    l'hébreu, verdict nikoud mesuré dans chaque fichier de fonte (57 complètes ;
+    Cascadia 6/14, Handjet et Google Sans sans aucune marque).
+  - `specimen-monospace-hebreu.html` — la recherche hors catalogue : aucune police
+    de terminal du catalogue n'est vocalisable ; trois tiennent (Miriam Mono CLM,
+    GNU Unifont, FreeMono), Terminus et DejaVu Sans Mono sont hors jeu.
+  - `duel-miriam-unifont.html` — la finale entre les deux, alphabet entier et dix
+    mots du carnet.
+  - `unifont-nikoud-repare.html` + `polices/repare_unifont.py` — le nikoud
+    d'Unifont réparé (qamats 42 px → 18, écart 0 → 6 px, lettre plus repoussée),
+    **jugé insuffisant à l'arrivée**. Script versionné, donc reproductible si la
+    question revient.
+  - `polices/` — les sous-ensembles de fontes et leurs licences.
 - **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
 - **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
 - Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
