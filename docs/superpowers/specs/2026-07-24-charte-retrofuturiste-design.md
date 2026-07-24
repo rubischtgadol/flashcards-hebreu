@@ -24,10 +24,26 @@ Charte extraite mécaniquement (Playwright WebKit, CSS calculé) le 2026-07-24.
 - Registre d'effets : celui de la référence (bruit, vignettage, scintillement) — validé
   visuellement, à re-juger sur iPhone réel avant généralisation (piège n°14 : jamais de
   verdict de confort sur émulation).
+- **Modules retenus** (arbitrage sur `prototype-effets.html`, 21 candidats) :
+  **01** radar de révision (accueil : blips = cartes, distance au centre = échéance SRS,
+  dues clignotantes), **02** carte orbitale des thèmes (bilan : orbites = niveaux, points
+  = thèmes), **03** timeline de session (traits vert/rouge par réponse sur la piste),
+  **04** numérotation systématique (matricule `0421` sur cartes et feed), **05** bandeau
+  de boot (3 lignes tapées à l'ouverture, **une seule fois**, repli statique sans
+  animation), **08** graduations de bord d'écran (couches de fond de `.ecran`),
+  **09** pilule d'état audio (`VOIX · OK` en barre d'état), **11** aberration chromatique
+  (titres display uniquement, jamais le contenu d'étude), **14** code-barres + série
+  (pied de carte verso), **15** insigne hexagonal de niveau (lettre hébraïque + palier),
+  **16** champ d'étoiles + constellation (écrans calmes seulement : accueil, bilan),
+  **19** jauge à aiguille (bilan : précision de session). Écartés à ce stade (« pour
+  l'instant ») : 06 halo, 07 bloom, 10 balayage, 12 glitch, 13 équerres, 17 bande,
+  18 lettre fantôme, 20 ticker, 21 réticule — démos conservées sur `prototype-effets.html`.
+- Un **écran Bilan** rejoint les écrans témoins (jauge, timeline complète, carte
+  orbitale, feed de synthèse).
 
 **Pièces à conviction** (commitées sur la branche) : `prototype-nerv.html` (la page-témoin,
-annexe vivante de cette charte — en cas de doute, elle fait foi) et
-`prototype-variantes.html` (l'historique des options écartées).
+annexe vivante de cette charte — en cas de doute, elle fait foi), `prototype-variantes.html`
+(l'historique des options écartées) et `prototype-effets.html` (les 21 modules candidats).
 
 ## 2. Tokens
 

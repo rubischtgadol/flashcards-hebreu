@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prototype DA v0.2 — Console d'étude</title>
+<title>Prototype DA v0.3 — Console d'étude</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Instrument+Serif:ital@0;1&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -62,7 +62,12 @@ body{
    ================================================================ */
 .ecran{
   width:390px;max-width:100%;
+  /* les 4 premières couches : graduations de bord (module 08) */
   background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 6px no-repeat,
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left bottom / 100% 6px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 6px 100% no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) right top / 6px 100% no-repeat,
     repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
     repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
     var(--bg);
@@ -221,6 +226,61 @@ body{
   padding:20px;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
 }
 
+/* ════════ modules retenus (arbitrage 2026-07-24 : 01-05, 08, 09, 11, 14, 15, 16, 19) ════════ */
+/* 03 ── timeline de session : un trait par carte répondue */
+.tick{position:absolute;top:-7px;width:2px;height:8px}
+.tick.v{background:var(--vert)}
+.tick.r{background:var(--rouge)}
+/* 05 ── bandeau de boot (une seule fois à l'ouverture) */
+.bootbox{font-family:var(--mono);font-size:.7rem;line-height:1.9;color:var(--ambre);margin-bottom:10px}
+.bootline{overflow:hidden;white-space:nowrap;width:0;animation:tape 1.1s steps(22) forwards}
+.bootline::before{content:'▸ ';color:var(--vert)}
+.bootline:nth-child(2){animation-delay:1.1s}
+.bootline:nth-child(3){animation-delay:2.2s;color:var(--vert)}
+@keyframes tape{to{width:100%}}
+@media (prefers-reduced-motion: reduce){.bootline{width:100%}}
+/* 01 ── radar de révision */
+.radar text{font-family:var(--mono);font-size:8px;fill:var(--ligne);letter-spacing:.1em}
+.radar .anneau{fill:none;stroke:var(--grille);stroke-width:1}
+.radar .axe{stroke:var(--grille);stroke-width:1}
+.radar .blip{fill:var(--ambre)}
+.radar .blip.due{fill:var(--vert);animation:flick 2.6s steps(1) infinite}
+.radar .centre{fill:var(--rouge)}
+/* 15 ── insigne hexagonal de niveau */
+.hexniv{width:34px;height:38px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--ligne);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.hexniv .in{width:30px;height:34px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--panneau);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hexniv .lettre{font-family:var(--he);font-weight:900;font-size:.95rem;color:var(--ambre);line-height:1.1}
+.hexniv .lab{font-family:var(--mono);font-size:.42rem;letter-spacing:.12em;color:var(--vert);line-height:1.3}
+/* 14 ── code-barres de pied de carte */
+.codebarres rect{fill:var(--ambre);opacity:.7}
+.serie{font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;color:var(--ambre);opacity:.7;text-align:center;margin-top:3px}
+/* 16 ── champ d'étoiles (écrans calmes seulement) */
+.ciel{position:absolute;inset:0;overflow:hidden;z-index:1}
+.etoile-a,.etoile-b{position:absolute;width:1px;height:1px}
+.etoile-a{box-shadow:30px 60px 0 1px rgba(207,214,230,.5), 90px 30px 0 0 rgba(207,214,230,.3), 150px 90px 0 1px rgba(240,179,42,.4), 210px 45px 0 0 rgba(207,214,230,.35), 280px 110px 0 1px rgba(207,214,230,.5), 340px 70px 0 0 rgba(207,214,230,.3), 50px 170px 0 0 rgba(240,179,42,.35), 120px 220px 0 1px rgba(207,214,230,.45), 200px 190px 0 0 rgba(207,214,230,.3), 290px 240px 0 1px rgba(207,214,230,.5), 350px 180px 0 0 rgba(240,179,42,.3), 40px 300px 0 0 rgba(207,214,230,.4), 170px 320px 0 0 rgba(207,214,230,.35), 260px 350px 0 1px rgba(207,214,230,.4), 100px 400px 0 0 rgba(240,179,42,.3), 220px 440px 0 0 rgba(207,214,230,.35), 320px 420px 0 1px rgba(207,214,230,.4), 60px 500px 0 0 rgba(207,214,230,.3), 180px 540px 0 0 rgba(207,214,230,.35), 300px 560px 0 0 rgba(240,179,42,.3)}
+.etoile-b{box-shadow:70px 100px 0 0 rgba(207,214,230,.22), 140px 60px 0 0 rgba(207,214,230,.2), 240px 85px 0 0 rgba(207,214,230,.25), 320px 140px 0 0 rgba(207,214,230,.2), 45px 230px 0 0 rgba(207,214,230,.2), 190px 130px 0 0 rgba(207,214,230,.25), 310px 300px 0 0 rgba(207,214,230,.2), 130px 260px 0 0 rgba(207,214,230,.2), 250px 470px 0 0 rgba(207,214,230,.22), 90px 580px 0 0 rgba(207,214,230,.2)}
+.constel{position:absolute;inset:0}
+.constel line{stroke:rgba(84,255,138,.25);stroke-width:1}
+.constel text{font-family:var(--mono);font-size:8px;fill:var(--vert);opacity:.55;letter-spacing:.15em}
+/* 09 ── pilule d'état audio */
+.pilule{font-family:var(--cond);font-weight:600;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);border-radius:9999px;padding:2px 10px}
+.pilule.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+/* 11 ── aberration chromatique (titres uniquement, jamais le contenu d'étude) */
+.aberr{text-shadow:2px 0 rgba(255,71,71,.5), -2px 0 rgba(57,214,200,.5)}
+/* 19 ── jauge à aiguille */
+.jauge-svg .arc{fill:none;stroke:var(--grille);stroke-width:8}
+.jauge-svg .arc.plein{stroke:var(--vert);opacity:.55}
+.jauge-svg .tickj{stroke:var(--ligne);stroke-width:1}
+.jauge-svg .aiguille{stroke:var(--rouge);stroke-width:2}
+.jauge-svg .pivot{fill:var(--rouge)}
+.jauge-svg text{font-family:var(--mono);font-size:9px;fill:var(--ambre);letter-spacing:.15em}
+/* 02 ── carte orbitale des thèmes */
+.orbites .orbite{fill:none;stroke:var(--grille);stroke-width:1}
+.orbites text{font-family:var(--mono);font-size:8px;fill:var(--ligne);letter-spacing:.1em}
+.orbites .theme{fill:var(--ambre)}
+.orbites .theme.gros{fill:var(--vert)}
+.orbites .soleil{fill:var(--rouge)}
+
 /* ================================================================
    ÉCRANS
    ================================================================ */
@@ -275,7 +335,7 @@ body{
 
 <header>
   <h1>Console d'étude</h1>
-  <p class="meta-ligne">Prototype DA v0.2 · d'après la référence SENTRY · ambre / vert phosphore / rouge alerte</p>
+  <p class="meta-ligne">Prototype DA v0.3 · référence SENTRY + 12 modules retenus (01-05, 08, 09, 11, 14, 15, 16, 19)</p>
 </header>
 
 <!-- ================= ÉCRAN 1 : CARTE ================= -->
@@ -287,8 +347,12 @@ body{
     <div class="ecran">
       <span class="viseur tl">+</span><span class="viseur tr">+</span>
       <span class="viseur bl">+</span><span class="viseur br">+</span>
-      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
-      <span class="onglet">Noms · Niv A2</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="onglet">Noms</span>
+        <span class="etiquette">Objet <span class="num">0421</span></span>
+        <span class="hexniv"><span class="in"><span class="lettre" lang="he">ב</span><span class="lab">A2</span></span></span>
+      </div>
       <div class="scene">
         <div class="carton" lang="he">שָׁלוֹם</div>
         <div class="actions">
@@ -298,8 +362,17 @@ body{
       </div>
       <div class="pied">
         <div class="etiquette">Carte <span class="num">12</span><span class="sep">·</span><span class="num">40</span><span class="sep">·</span>Série <span class="num">7</span></div>
-        <div class="piste"><div class="fait"></div><div class="poignee"></div></div>
-        <div class="feed"><div class="l">CARTE 012 · NOMS · DERNIER PASSAGE HIER</div></div>
+        <div class="piste">
+          <div class="fait"></div>
+          <div class="tick v" style="left:4%"></div><div class="tick v" style="left:10%"></div>
+          <div class="tick r" style="left:16%"></div><div class="tick v" style="left:22%"></div>
+          <div class="tick v" style="left:28%"></div><div class="tick v" style="left:34%"></div>
+          <div class="tick r" style="left:40%"></div><div class="tick v" style="left:46%"></div>
+          <div class="tick v" style="left:52%"></div><div class="tick v" style="left:58%"></div>
+          <div class="tick v" style="left:64%"></div>
+          <div class="poignee"></div>
+        </div>
+        <div class="feed"><div class="l">CARTE 0421 · NOMS · DERNIER PASSAGE HIER</div></div>
       </div>
     </div>
   </div>
@@ -309,8 +382,12 @@ body{
     <div class="ecran">
       <span class="viseur tl">+</span><span class="viseur tr">+</span>
       <span class="viseur bl">+</span><span class="viseur br">+</span>
-      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
-      <span class="onglet vert">Réponse</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="onglet vert">Réponse</span>
+        <span class="etiquette">Objet <span class="num">0421</span></span>
+        <span class="hexniv"><span class="in"><span class="lettre" lang="he">ב</span><span class="lab">A2</span></span></span>
+      </div>
       <div class="scene">
         <div class="carton moyen" lang="he">שָׁלוֹם</div>
         <div class="tr-ligne">SHALOM</div>
@@ -327,8 +404,28 @@ body{
       <div class="pied">
         <div class="feed">
           <div class="l ok">RÉPONSE VALIDÉE · SRS +1</div>
-          <div class="l">CARTE 012 · NOMS · PROCHAIN PASSAGE J+3</div>
+          <div class="l">CARTE 0421 · NOMS · PROCHAIN PASSAGE J+3</div>
         </div>
+        <div style="display:flex;justify-content:center;margin-top:12px">
+          <svg class="codebarres" viewBox="0 0 150 22" width="150" height="22">
+            <rect x="0" width="3" height="22"/><rect x="5" width="1" height="22"/>
+            <rect x="9" width="2" height="22"/><rect x="14" width="4" height="22"/>
+            <rect x="21" width="1" height="22"/><rect x="25" width="2" height="22"/>
+            <rect x="30" width="1" height="22"/><rect x="34" width="3" height="22"/>
+            <rect x="40" width="1" height="22"/><rect x="44" width="4" height="22"/>
+            <rect x="51" width="2" height="22"/><rect x="56" width="1" height="22"/>
+            <rect x="60" width="3" height="22"/><rect x="66" width="1" height="22"/>
+            <rect x="70" width="2" height="22"/><rect x="75" width="4" height="22"/>
+            <rect x="82" width="1" height="22"/><rect x="86" width="2" height="22"/>
+            <rect x="91" width="3" height="22"/><rect x="97" width="1" height="22"/>
+            <rect x="101" width="4" height="22"/><rect x="108" width="1" height="22"/>
+            <rect x="112" width="2" height="22"/><rect x="117" width="1" height="22"/>
+            <rect x="121" width="3" height="22"/><rect x="127" width="2" height="22"/>
+            <rect x="132" width="1" height="22"/><rect x="136" width="4" height="22"/>
+            <rect x="143" width="1" height="22"/><rect x="147" width="3" height="22"/>
+          </svg>
+        </div>
+        <div class="serie">IVRIT-0421 · SÉRIE 2026-07</div>
       </div>
     </div>
   </div>
@@ -344,7 +441,20 @@ body{
     <div class="ecran">
       <span class="viseur tl">+</span><span class="viseur tr">+</span>
       <span class="viseur bl">+</span><span class="viseur br">+</span>
-      <div class="statusbar"><span>Console · Prêt</span><span class="live">● 24.07</span></div>
+      <div class="ciel">
+        <div class="etoile-a"></div><div class="etoile-b"></div>
+        <svg class="constel" viewBox="0 0 390 660" width="100%" height="100%" preserveAspectRatio="none">
+          <line x1="150" y1="90" x2="210" y2="45"/>
+          <line x1="210" y1="45" x2="280" y2="110"/>
+          <text x="240" y="135">KOKHAV</text>
+        </svg>
+      </div>
+      <div class="statusbar"><span>Console · Prêt</span><span class="pilule ok">Voix · OK</span></div>
+      <div class="bootbox">
+        <div class="bootline">BOOT · CARNET UPLINK OK</div>
+        <div class="bootline">1220 OBJ · 15 THÈMES · 6 NIVEAUX</div>
+        <div class="bootline">SESSION PRÊTE</div>
+      </div>
       <div class="brand">
         <div class="he-brand" lang="he">עִבְרִית</div>
         <div class="sous">Console d'étude</div>
@@ -353,9 +463,35 @@ body{
       <div class="panneau actif">
         <span class="coin a">+</span><span class="coin b">+</span>
         <div class="sync-l"><span>Révision du jour</span><span class="taux">87%</span></div>
-        <div class="piste"><div class="fait" style="inset:0 13% 0 0"></div><div class="poignee" style="left:calc(87% - 7px)"></div></div>
-        <div class="feed" style="margin:8px 0 12px">
-          <div class="l">18 CARTES EN ATTENTE</div>
+        <div style="display:flex;justify-content:center;margin:4px 0 8px">
+          <svg class="radar" viewBox="0 0 200 200" width="176" height="176">
+            <circle class="anneau" cx="100" cy="100" r="28"/>
+            <circle class="anneau" cx="100" cy="100" r="54"/>
+            <circle class="anneau" cx="100" cy="100" r="80"/>
+            <line class="axe" x1="100" y1="12" x2="100" y2="188"/>
+            <line class="axe" x1="12" y1="100" x2="188" y2="100"/>
+            <line class="axe" x1="38" y1="38" x2="162" y2="162"/>
+            <line class="axe" x1="162" y1="38" x2="38" y2="162"/>
+            <text x="104" y="78">AUJ.</text>
+            <text x="104" y="52">J+3</text>
+            <text x="104" y="26">J+7</text>
+            <circle class="centre" cx="100" cy="100" r="3"/>
+            <circle class="blip due" cx="117" cy="86" r="4"/>
+            <circle class="blip due" cx="85" cy="114" r="4"/>
+            <circle class="blip due" cx="112" cy="119" r="4"/>
+            <circle class="blip" cx="70" cy="73" r="3"/>
+            <circle class="blip" cx="135" cy="65" r="3"/>
+            <circle class="blip" cx="142" cy="123" r="3"/>
+            <circle class="blip" cx="54" cy="127" r="3"/>
+            <circle class="blip" cx="92" cy="42" r="2.5"/>
+            <circle class="blip" cx="154" cy="88" r="2.5"/>
+            <circle class="blip" cx="42" cy="92" r="2.5"/>
+            <circle class="blip" cx="123" cy="165" r="2.5"/>
+            <circle class="blip" cx="73" cy="161" r="2.5"/>
+          </svg>
+        </div>
+        <div class="feed" style="margin:0 0 12px">
+          <div class="l ok">3 DUES · 15 EN ORBITE</div>
           <div class="l">DERNIER PASSAGE · HIER 22:41</div>
         </div>
         <button class="btn primaire" style="width:100%">Lancer la révision</button>
@@ -418,6 +554,77 @@ body{
         <div class="actions">
           <button class="btn">Réessayer</button>
           <button class="btn primaire">Compris ▸</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= ÉCRAN 4 : LE BILAN ================= -->
+<h2 class="section-titre">Écran 04 — Le bilan de session</h2>
+<div class="rangee">
+
+  <div>
+    <p class="ecran-libelle">Statistiques de fin de session</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Bilan · 24.07</span><span class="live">● Terminé</span></div>
+      <div class="display aberr" style="text-align:center;font-size:1.5rem;margin:10px 0 4px">Bilan de session</div>
+      <div style="display:flex;justify-content:center">
+        <svg class="jauge-svg" viewBox="0 0 200 120" width="190" height="114">
+          <path class="arc" d="M 30 100 A 70 70 0 0 1 170 100"/>
+          <path class="arc plein" d="M 30 100 A 70 70 0 0 1 138 41"/>
+          <line class="tickj" x1="30" y1="100" x2="38" y2="100"/>
+          <line class="tickj" x1="45" y1="63" x2="52" y2="68"/>
+          <line class="tickj" x1="76" y1="38" x2="80" y2="45"/>
+          <line class="tickj" x1="124" y1="38" x2="120" y2="45"/>
+          <line class="tickj" x1="155" y1="63" x2="148" y2="68"/>
+          <line class="tickj" x1="170" y1="100" x2="162" y2="100"/>
+          <line class="aiguille" x1="100" y1="100" x2="138" y2="48"/>
+          <circle class="pivot" cx="100" cy="100" r="4"/>
+          <text x="78" y="115">PRÉCISION 78%</text>
+        </svg>
+      </div>
+      <div class="etiquette" style="margin:10px 0 2px">Session · <span class="num">20</span> cartes</div>
+      <div class="piste">
+        <div class="fait" style="inset:0 0 0 0"></div>
+        <div class="tick v" style="left:3%"></div><div class="tick v" style="left:8%"></div>
+        <div class="tick r" style="left:13%"></div><div class="tick v" style="left:18%"></div>
+        <div class="tick v" style="left:23%"></div><div class="tick v" style="left:28%"></div>
+        <div class="tick r" style="left:33%"></div><div class="tick v" style="left:38%"></div>
+        <div class="tick v" style="left:43%"></div><div class="tick v" style="left:48%"></div>
+        <div class="tick r" style="left:53%"></div><div class="tick v" style="left:58%"></div>
+        <div class="tick v" style="left:63%"></div><div class="tick v" style="left:68%"></div>
+        <div class="tick v" style="left:73%"></div><div class="tick v" style="left:78%"></div>
+        <div class="tick r" style="left:83%"></div><div class="tick v" style="left:88%"></div>
+        <div class="tick v" style="left:93%"></div><div class="tick v" style="left:97%"></div>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:14px">
+        <svg class="orbites" viewBox="0 0 340 200" width="330" height="194">
+          <ellipse class="orbite" cx="170" cy="100" rx="46" ry="18"/>
+          <ellipse class="orbite" cx="170" cy="100" rx="84" ry="35"/>
+          <ellipse class="orbite" cx="170" cy="100" rx="120" ry="52"/>
+          <ellipse class="orbite" cx="170" cy="100" rx="152" ry="68"/>
+          <circle class="soleil" cx="170" cy="100" r="4"/>
+          <text x="218" y="98">A1</text>
+          <text x="256" y="80">A2</text>
+          <text x="292" y="62">B1</text>
+          <text x="324" y="44">B2</text>
+          <circle class="theme gros" cx="128" cy="86" r="7"/><text x="94" y="78">VIE QUOT.</text>
+          <circle class="theme" cx="212" cy="116" r="5"/><text x="222" y="130">FAMILLE</text>
+          <circle class="theme gros" cx="94" cy="120" r="6"/><text x="50" y="136">NOURRITURE</text>
+          <circle class="theme" cx="240" cy="74" r="4"/><text x="248" y="68">TRAVAIL</text>
+          <circle class="theme" cx="80" cy="68" r="4"/><text x="46" y="60">CORPS</text>
+          <circle class="theme" cx="256" cy="140" r="3.5"/><text x="264" y="154">ABSTRAIT</text>
+          <circle class="theme" cx="46" cy="100" r="3"/><text x="22" y="90">TEMPS</text>
+        </svg>
+      </div>
+      <div class="pied">
+        <div class="feed">
+          <div class="l ok">15 JUSTES · 5 À REVOIR</div>
+          <div class="l">MEILLEUR THÈME · NOURRITURE</div>
         </div>
       </div>
     </div>
