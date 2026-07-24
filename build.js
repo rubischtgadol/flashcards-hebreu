@@ -600,6 +600,34 @@ function report(cards){
 
 // ---------- app.html : assemblage depuis src/app/ (chantier 3, tâche 13) ----------
 
+// Garde d'orphelin entre un répertoire de fragments (src/app/js/, src/app/css/, et tout
+// futur répertoire assemblé du chantier 4) et la liste ordonnée qui les concatène dans
+// ordre.json. Factorisée au round de correction du Task 14 (le motif était dupliqué
+// verbatim entre JS et CSS, et se serait payé une troisième fois au remaniement JS du
+// Task 15) : sans elle, un fichier retiré de l'un des deux sans toucher l'autre est omis
+// du build EN SILENCE — soit ordre.json pointe sur un fichier qui n'existe plus, soit un
+// nouveau fichier traîne dans le dossier sans jamais être concaténé. Les deux sens sont
+// vérifiés séparément pour nommer le fichier fautif, le répertoire et la clé d'ordre.json
+// en cause — pas un diff vague. Fatale (process.exit(1)) avant toute écriture, donc en
+// mode normal comme en --check : appelée depuis assembleApp(), toujours avant les lectures
+// de contenu qui suivent.
+function verifieOrphelins(repertoire, extension, listeOrdonnee, cle){
+  const etiquette = path.relative(ROOT, repertoire) + '/';
+  const surDisque = fs.readdirSync(repertoire).filter(f => f.endsWith(extension));
+  const manquants = listeOrdonnee.filter(f => !surDisque.includes(f));
+  if (manquants.length){
+    console.error(`\n✗ src/app/ordre.json (clé ${cle}) liste des fichiers absents de ${etiquette} : ` + manquants.join(', '));
+    console.error('  (fichier renommé ou supprimé sans mettre ordre.json à jour ?)');
+    process.exit(1);
+  }
+  const orphelins = surDisque.filter(f => !listeOrdonnee.includes(f));
+  if (orphelins.length){
+    console.error(`\n✗ Fichier(s) dans ${etiquette} absent(s) de src/app/ordre.json (clé ${cle}) : ` + orphelins.join(', '));
+    console.error(`  (nouveau fichier ajouté sans l'inscrire dans ordre.json ? il serait omis du build en silence.)`);
+    process.exit(1);
+  }
+}
+
 /**
  * assembleApp(srcApp) → chaîne HTML complète d'app.html, SANS l'en-tête
  * « FICHIER GÉNÉRÉ » (celui-ci reste la responsabilité de l'appelant — insereEntete()
@@ -613,44 +641,14 @@ function assembleApp(srcApp){
   const coquille = lire('coquille.html');
   const ordre = JSON.parse(lire('ordre.json'));
 
-  // Garde d'orphelin entre src/app/ordre.json et le contenu réel de src/app/js/ (round de
-  // correction Task 13, minor 2) : sans elle, un fichier retiré de l'un des deux sans toucher
-  // l'autre est omis du build EN SILENCE — soit ordre.json pointe sur un module qui n'existe
-  // plus, soit un nouveau module JS traîne dans le dossier sans jamais être concaténé. Les deux
-  // sens sont vérifiés séparément pour nommer le fichier fautif, pas un diff vague.
+  // Garde d'orphelin (factorisée dans verifieOrphelins(), cf. commentaire au-dessus de sa
+  // définition) entre src/app/ordre.json et le contenu réel de src/app/js/ et src/app/css/ :
+  // sans elle, un fichier retiré de l'un des deux côtés sans toucher l'autre est omis du
+  // build EN SILENCE. Doit s'exécuter avant toute lecture de contenu ci-dessous.
   const jsDir = path.join(srcApp, 'js');
-  const jsSurDisque = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
-  const manquants = ordre.js.filter(f => !jsSurDisque.includes(f));
-  if (manquants.length){
-    console.error('\n✗ src/app/ordre.json (clé js) liste des fichiers absents de src/app/js/ : ' + manquants.join(', '));
-    console.error('  (fichier renommé ou supprimé sans mettre ordre.json à jour ?)');
-    process.exit(1);
-  }
-  const orphelins = jsSurDisque.filter(f => !ordre.js.includes(f));
-  if (orphelins.length){
-    console.error('\n✗ Fichier(s) dans src/app/js/ absent(s) de src/app/ordre.json (clé js) : ' + orphelins.join(', '));
-    console.error('  (nouveau module JS ajouté sans l\'inscrire dans ordre.json ? il serait omis du build en silence.)');
-    process.exit(1);
-  }
-
-  // Même garde d'orphelin, côté src/app/css/ (Task 14 : le CSS monolithique app.css est
-  // scindé en 6 fragments cascadés par ordre.json/css). Symétrique à la garde JS ci-dessus,
-  // pour la même raison : un fragment retiré du dossier sans toucher ordre.json, ou l'inverse,
-  // serait sinon omis du CSS servi EN SILENCE.
   const cssDir = path.join(srcApp, 'css');
-  const cssSurDisque = fs.readdirSync(cssDir).filter(f => f.endsWith('.css'));
-  const cssManquants = ordre.css.filter(f => !cssSurDisque.includes(f));
-  if (cssManquants.length){
-    console.error('\n✗ src/app/ordre.json (clé css) liste des fichiers absents de src/app/css/ : ' + cssManquants.join(', '));
-    console.error('  (fichier renommé ou supprimé sans mettre ordre.json à jour ?)');
-    process.exit(1);
-  }
-  const cssOrphelins = cssSurDisque.filter(f => !ordre.css.includes(f));
-  if (cssOrphelins.length){
-    console.error('\n✗ Fichier(s) dans src/app/css/ absent(s) de src/app/ordre.json (clé css) : ' + cssOrphelins.join(', '));
-    console.error('  (nouveau fragment CSS ajouté sans l\'inscrire dans ordre.json ? il serait omis du build en silence.)');
-    process.exit(1);
-  }
+  verifieOrphelins(jsDir, '.js', ordre.js, 'js');
+  verifieOrphelins(cssDir, '.css', ordre.css, 'css');
 
   // Séparateur explicite entre modules JS (round de correction Task 13, minor 1) : dès que
   // ordre.json liste plusieurs fichiers, un module sans retour à la ligne final collerait
