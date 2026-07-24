@@ -170,6 +170,19 @@ components:
 
 # Design System : Flashcards Hébreu
 
+> ⚠️ **Branche `refonte-retrofuturiste` — ce document décrit la charte v1, qui
+> reste vivante.** Une charte v2, « La console d'étude » (rétrofuturiste, ambre
+> et vert phosphore sur quasi-noir), a été conçue et arbitrée sur cette branche :
+> [docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md),
+> page-témoin `prototype-nerv.html`.
+>
+> **La v2 ne remplace pas la v1** (décision du 24/07, spec § 7) : les deux
+> chartes coexisteront, avec un **sélecteur à l'accueil**. Tout ce qui suit reste
+> donc en vigueur et devient le thème « carnet du soir » ; ses tokens sont
+> reproduits au § 7 du spec pour être servis au même format que la console.
+> Les règles nommées ci-dessous (lampe, couches, vedette, carte unique, le pli)
+> n'ont **pas encore** été transposées à la v2 — arbitrage à faire au portage.
+
 ## 1. Overview
 
 **Creative North Star : « Le carnet d'étude du soir »**

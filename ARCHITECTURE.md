@@ -60,6 +60,17 @@ L'app en ligne est installable (iPhone : Safari → « Sur l'écran d'accueil »
 
 ## Charte graphique unifiée
 
+> ⚠️ **Branche `refonte-retrofuturiste`** : une charte v2 (« La console d'étude »)
+> a été arbitrée et **coexistera** avec celle décrite ici, via un **sélecteur à
+> l'accueil** (spec § 7 :
+> [docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md)).
+> Conséquence pour cette section quand le portage aura lieu : l'invariant
+> « bloc `:root` identique au caractère près » devient **« identique par
+> thème »** — chaque charte a son bloc de référence, partagé à l'identique entre
+> carnet, app et portail. Et un thème n'est pas qu'une palette : polices et
+> ornements (calques CRT, viseurs, radar) sont propres à la console et doivent
+> pouvoir se désactiver en bloc. Rien n'est implémenté : idée cadrée, pas planifiée.
+
 Le bloc `:root` (11 tokens : `--bg`, `--bg2`, `--card`, `--card-edge`, `--ink`, `--ink-dim`, `--gold`, `--gold-soft`, `--green`, `--red`, `--line`) est **identique au caractère près** dans le carnet, `app.html` et le portail — le carnet est la référence (`#12181f` / or `#d4a24c`). Toute retouche de couleur se répercute dans les trois fichiers, plus `manifest.webmanifest`/`theme-color`/icônes si le fond ou l'or change.
 
 ## Accessibilité du carnet

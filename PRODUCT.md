@@ -24,6 +24,16 @@ Une app de révision complète qui marche dans l'avion : hors-ligne, sans compte
 
 Calme, chaleureux, studieux. L'ambiance d'un carnet d'étude du soir : fond sombre, or doux, sérénité. L'interface encourage sans s'agiter ; le contenu hébreu (grands caractères, nikoud) est la vedette, l'UI l'écrin.
 
+> ⚠️ **Branche `refonte-retrofuturiste` — une seconde voix, assumée.** Une charte
+> v2 « La console d'étude » (rétrofuturiste : console d'observatoire, ambre et
+> vert phosphore, effets CRT) a été arbitrée ; elle **ne remplace pas** celle-ci
+> mais s'y ajoutera, au choix de l'utilisateur à l'accueil (spec § 7). Sa
+> personnalité est délibérément autre : technique et théâtrale plutôt que
+> chaleureuse. Ce qui **ne change pas d'un thème à l'autre** : l'hébreu reste la
+> vedette et l'UI l'écrin, les trois anti-références ci-dessous tiennent, et le
+> spectaculaire reste un **événement** (la révélation, le bilan), jamais un
+> bruit de fond — c'est la « règle de la lampe » transposée.
+
 ## Anti-references
 
 - **Duolingo et la gamification** : pas de mascotte, pas de streaks culpabilisants, pas de confettis ni d'XP. La motivation vient du contenu et de la progression réelle (boîtes Leitner), pas de mécaniques de rétention.

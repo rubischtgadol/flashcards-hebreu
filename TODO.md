@@ -6,34 +6,73 @@
 
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
-(créé) ; 2026-07-24 : prototype-nerv.html et prototype-variantes.html (créés,
-branche refonte-retrofuturiste).
+(créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html et
+prototype-effets.html (créés, branche refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Chantier ouvert : la charte v2 « La console d'étude » (branche
-`refonte-retrofuturiste`).** Direction actée par le propriétaire : rétrofuturisme
-d'après la référence SENTRY (variante A Observatoire + traduction en Share Tech
-Mono), spec relu et corrigé
-([docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md)),
-page-témoin `prototype-nerv.html` faisant foi, variantes écartées dans
-`prototype-variantes.html`. Reste : confirmation des calques CRT sur iPhone réel,
-puis portage — qui attend la fin de la réorganisation ci-dessous. Rien n'est
-poussé ; `main` intact.
+> ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
+> `~/dev/flashcards-hebreu-refonte` ; le checkout principal `~/dev/flashcards-hebreu`
+> est resté sur `main`). Cette branche ne porte **que la direction artistique** :
+> aucune surface déployée, aucun script, aucun contenu n'y est modifié.
+> **Pour la réorganisation du dépôt, le contenu et les comptes, `main` fait
+> autorité** — tous les paragraphes sous celui-ci sont un instantané figé au
+> point de départ de la branche (24/07) et sont **périmés**.
 
-**Chantier ouvert : la réorganisation profonde « le dépôt généré ».** Spec
-validée ([docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md](docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md) —
-source de vérité en `data/*.json`, carnet entièrement généré, mort du double
-extracteur, 5 principes directeurs) et **plan complet relu deux fois** :
-[docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)
-(4 chantiers / 21 tasks, un chantier = une session). **Rien n'est encore
-implémenté.** Prochaine session = **chantier 1** (Tasks 1–6 : extraction vers
-`data/` + fragments `src/carnet/`, équivalence 4/4), task par task en
-sous-agents, contraintes globales du plan en tête.
+**Chantier de cette branche : la charte v2 « La console d'étude ». Direction
+artistique SOLDÉE**, arbitrée de bout en bout par le propriétaire, sur pièces.
 
-État au 2026-07-24 : **1220 cartes**, 1068 exemples, 15 thèmes (1003/1003 sur
-les 3 tables), niveaux A1 402 / A2 474 / B1 335 / B2 9, `sw.js` en **v30**,
-`--check` en phase. Un `prototype-nerv.html` non suivi traîne à la racine
-(pas à moi — à trier par Ruben).
+Décisions actées :
+
+- **Référence fondatrice** : l'app SENTRY (`sentry-by-artificial-isa.fuser.app`),
+  charte extraite mécaniquement (Playwright WebKit, CSS calculé).
+- **Variante A « Observatoire »**, contre B Phosphore (monochrome vert), C NERV
+  (orange dominant) et D Or ancien (pont avec la charte actuelle).
+- **Typographie à trois voix, zéro italique** : Frank Ruhl Libre 900 (hébreu
+  vedette), Saira Condensed (UI + titres d'écran), Share Tech Mono (données,
+  traduction française des cartes, sous-titre de marque). Instrument Serif a été
+  **retirée de la charte** (arbitrage S2, exigence « zéro italique, la même
+  police que le reste »).
+- **12 modules retenus sur 21** : 01 radar de révision, 02 carte orbitale des
+  thèmes, 03 timeline de session, 04 numérotation, 05 bandeau de boot,
+  08 graduations de bord, 09 pilule voix, 11 aberration chromatique,
+  14 code-barres, 15 insigne hexagonal de niveau, 16 champ d'étoiles, 19 jauge à
+  aiguille. Écartés « pour l'instant » : 06, 07, 10, 12, 13, 17, 18, 20, 21.
+- **Deux chartes coexisteront** (décision du 24/07, spec § 7) : la console ne
+  remplace pas « le carnet d'étude du soir », elle s'y **ajoute** — avec un
+  **sélecteur de charte à l'accueil**. L'ancienne charte est sauvegardée en jeu
+  de tokens nommé dans le spec § 7, prête à devenir un thème.
+
+Les pièces, dans cet ordre de lecture :
+
+- **[docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md)**
+  — le spec, source de vérité écrite ; § 7 = les deux chartes et le sélecteur.
+- **`prototype-nerv.html`** — la page-témoin v0.4 ; **elle fait foi en cas de
+  désaccord avec le spec**. Quatre écrans (carte recto/verso, accueil,
+  révélation, bilan) plus l'inventaire (nuancier, gamme typo, états).
+- **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
+- **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
+- Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
+
+**Ce qui reste, dans l'ordre :**
+
+1. **Test sur iPhone réel** des trois calques CRT (bruit, vignettage,
+   scintillement) — seul verdict valable sur le confort d'étude, l'émulation ne
+   prouve rien (piège n° 14). **Non fait.**
+2. **Session de conception du système de thèmes** (brainstorming →
+   writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
+3. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
+   dépôt sur `main`**, sinon on peint sur une structure qui bouge.
+
+⚠️ **PIÈGE AU MERGE — à lire avant de fusionner cette branche.** Elle est partie
+de `bcf71d0` (« Chantier 1 : extraction du vocabulaire vers `data/` »), un commit
+**absent de `main`** : `main` a refait ce travail autrement (`ff25eec` puis la
+suite du chantier 1). La branche traîne donc un **doublon périmé** de
+`data/*.json` et `outils_migration/extrait_donnees.js`, plus un `TODO.md` et un
+`README.md` figés au 24/07. Au merge : **prendre la version de `main` pour
+tout**, ne garder de cette branche que les **quatre fichiers de la DA**
+(`prototype-nerv.html`, `prototype-effets.html`, `prototype-variantes.html` et le
+spec) et, si voulu, l'encart README. Divergence mesurée le 24/07 : **13 commits
+de retard, 17 d'avance**.
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
