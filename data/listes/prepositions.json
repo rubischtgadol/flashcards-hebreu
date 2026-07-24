@@ -1,0 +1,308 @@
+{
+  "section": "Prépositions",
+  "entries": [
+    {
+      "he": "שֶׁל",
+      "tr": "shel",
+      "fr": "de / appartenant à (possessif)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַסֵּפֶר שֶׁל הַמּוֹרֶה עַל הַשֻּׁלְחָן",
+          "tr": "hasefer shel hamoreh 'al hashulchan",
+          "fr": "le livre du professeur est sur la table"
+        }
+      ]
+    },
+    {
+      "he": "כְּמוֹ",
+      "tr": "kmo",
+      "fr": "comme",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הָאָח שֶׁלִּי כְּמוֹ חָבֵר טוֹב",
+          "tr": "ha'ach sheli kemo chaver tov",
+          "fr": "mon frère est comme un bon ami"
+        }
+      ]
+    },
+    {
+      "he": "עִם",
+      "tr": "'im",
+      "fr": "avec",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי הוֹלֵךְ לַקּוֹלְנוֹעַ עִם חָבֵר",
+          "tr": "ani holekh lakolno'a 'im chaver",
+          "fr": "je vais au cinéma avec un ami"
+        }
+      ]
+    },
+    {
+      "he": "בְּלִי",
+      "tr": "bli",
+      "fr": "sans",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי שׁוֹתֶה קָפֶה בְּלִי סֻכָּר",
+          "tr": "ani shoteh kafeh beli sukar",
+          "fr": "je bois le café sans sucre"
+        }
+      ]
+    },
+    {
+      "he": "עַל",
+      "tr": "'al",
+      "fr": "sur",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַמַּפְתֵּחַ שֶׁלִּי עַל הַשֻּׁלְחָן",
+          "tr": "hamafteach sheli 'al hashulchan",
+          "fr": "ma clé est sur la table"
+        }
+      ]
+    },
+    {
+      "he": "תַּחַת",
+      "tr": "tachat",
+      "fr": "sous (littéraire — à l'oral on dit plutôt מִתַּחַת לְ, mitachat le-)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הֶחָתוּל יוֹשֵׁב תַּחַת הָעֵץ",
+          "tr": "hechatul yoshev tachat ha'ets",
+          "fr": "le chat est assis sous l'arbre"
+        }
+      ],
+      "fr_court": "sous",
+      "note": "littéraire — à l'oral on dit plutôt מִתַּחַת לְ"
+    },
+    {
+      "he": "בְּתוֹךְ",
+      "tr": "betokh",
+      "fr": "dans",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַכֶּסֶף בְּתוֹךְ הַתִּיק שֶׁלִּי",
+          "tr": "hakesef betokh hatik sheli",
+          "fr": "l'argent est dans mon sac"
+        }
+      ]
+    },
+    {
+      "he": "מִחוּץ לְ",
+      "tr": "michuts le-",
+      "fr": "en dehors de",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַיְּלָדִים מְשַׂחֲקִים מִחוּץ לַבַּיִת",
+          "tr": "hayladim mesachakim michuts labayit",
+          "fr": "les enfants jouent en dehors de la maison"
+        }
+      ]
+    },
+    {
+      "he": "אֵצֶל",
+      "tr": "etsel",
+      "fr": "chez",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַיְּלָדִים אֵצֶל סַבָּא וְסַבְתָּא",
+          "tr": "hayladim etsel saba vesavta",
+          "fr": "les enfants sont chez grand-père et grand-mère"
+        }
+      ]
+    },
+    {
+      "he": "לְיַד",
+      "tr": "leyad",
+      "fr": "à côté de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַבַּנְק לְיַד הַסּוּפֶּרְמַרְקֶט",
+          "tr": "habank leyad hasupermarket",
+          "fr": "la banque est à côté du supermarché"
+        }
+      ]
+    },
+    {
+      "he": "לִפְנֵי",
+      "tr": "lifnei",
+      "fr": "avant",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי שׁוֹתֶה קָפֶה לִפְנֵי הָעֲבוֹדָה",
+          "tr": "ani shoteh kafeh lifnei ha'avodah",
+          "fr": "je bois un café avant le travail"
+        }
+      ]
+    },
+    {
+      "he": "אַחֲרֵי",
+      "tr": "acharei",
+      "fr": "après",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אַחֲרֵי הַשִּׁעוּר אֲנַחְנוּ אוֹכְלִים בַּמִּסְעָדָה",
+          "tr": "acharei hashi'ur anachnu okhlim bamis'adah",
+          "fr": "après le cours nous mangeons au restaurant"
+        }
+      ]
+    },
+    {
+      "he": "אֶל",
+      "tr": "el",
+      "fr": "vers / à",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הִיא הוֹלֶכֶת אֶל הַחֲנוּת",
+          "tr": "hi holekhet el hachanut",
+          "fr": "elle va vers le magasin"
+        }
+      ]
+    },
+    {
+      "he": "מִן",
+      "tr": "min",
+      "fr": "de / depuis (écrit/soutenu — à l'oral on dit plutôt le préfixe מִ-, mi-)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי חוֹזֵר מִן הָעֲבוֹדָה בָּעֶרֶב",
+          "tr": "ani chozer min ha'avodah ba'erev",
+          "fr": "je rentre du travail le soir"
+        }
+      ],
+      "fr_court": "de / depuis",
+      "note": "écrit/soutenu — à l'oral on dit plutôt le préfixe מִ־"
+    },
+    {
+      "he": "מֵעַל",
+      "tr": "me'al",
+      "fr": "au-dessus de",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַשֶּׁמֶשׁ מֵעַל הַיָּם",
+          "tr": "hashemesh me'al hayam",
+          "fr": "le soleil est au-dessus de la mer"
+        }
+      ]
+    },
+    {
+      "he": "מִתַּחַת לְ",
+      "tr": "mitachat le-",
+      "fr": "en dessous de",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַכֶּלֶב יָשֵׁן מִתַּחַת לַשֻּׁלְחָן",
+          "tr": "hakelev yashen mitachat lashulchan",
+          "fr": "le chien dort sous la table"
+        }
+      ]
+    },
+    {
+      "he": "בֵּין",
+      "tr": "bein",
+      "fr": "entre",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַחֲנוּת בֵּין הַבַּנְק וְהַמִּסְעָדָה",
+          "tr": "hachanut bein habank vehamis'adah",
+          "fr": "le magasin est entre la banque et le restaurant"
+        }
+      ]
+    },
+    {
+      "he": "דֶּרֶךְ",
+      "tr": "derekh",
+      "fr": "à travers / par",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ נוֹסְעִים דֶּרֶךְ הָעִיר",
+          "tr": "anachnu nos'im derekh ha'ir",
+          "fr": "nous roulons à travers la ville"
+        }
+      ]
+    },
+    {
+      "he": "עַד",
+      "tr": "'ad",
+      "fr": "jusqu'à",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי עוֹבֵד עַד שֶׁבַע בָּעֶרֶב",
+          "tr": "ani 'oved 'ad sheva' ba'erev",
+          "fr": "je travaille jusqu'à sept heures du soir"
+        }
+      ]
+    },
+    {
+      "he": "מוּל",
+      "tr": "mul",
+      "fr": "en face de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַמָּלוֹן מוּל הַחוֹף",
+          "tr": "hamalon mul hachof",
+          "fr": "l'hôtel est en face de la plage"
+        }
+      ]
+    },
+    {
+      "he": "נֶגֶד",
+      "tr": "neged",
+      "fr": "contre",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַיְּלָדִים מְשַׂחֲקִים נֶגֶד הַחֲבֵרִים שֶׁלָּהֶם",
+          "tr": "hayladim mesachakim neged hachaverim shelahem",
+          "fr": "les enfants jouent contre leurs amis"
+        }
+      ]
+    },
+    {
+      "he": "בְּעַד",
+      "tr": "be'ad",
+      "fr": "en faveur de",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ בְּעַד הַשָּׁלוֹם בָּאָרֶץ",
+          "tr": "anachnu be'ad hashalom ba'arets",
+          "fr": "nous sommes pour la paix dans le pays"
+        }
+      ]
+    },
+    {
+      "he": "בִּשְׁבִיל",
+      "tr": "bishvil",
+      "fr": "pour",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַמַּתָּנָה הַזֹּאת בִּשְׁבִיל אַבָּא",
+          "tr": "hamatanah hazot bishvil aba",
+          "fr": "ce cadeau est pour papa"
+        }
+      ]
+    }
+  ]
+}

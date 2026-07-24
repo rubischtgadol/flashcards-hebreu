@@ -1,0 +1,6562 @@
+[
+  {
+    "he": "לָלֶכֶת",
+    "fr": "aller",
+    "formes": [
+      {
+        "he": "הוֹלֵךְ",
+        "tr": "holekh"
+      },
+      {
+        "he": "הוֹלֶכֶת",
+        "tr": "holekhet"
+      },
+      {
+        "he": "הוֹלְכִים",
+        "tr": "holkhim"
+      },
+      {
+        "he": "הוֹלְכוֹת",
+        "tr": "holkhot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי הוֹלֵךְ לָעֲבוֹדָה בַּבֹּקֶר",
+        "tr": "ani holekh la'avodah baboker",
+        "fr": "je vais au travail le matin"
+      }
+    ]
+  },
+  {
+    "he": "לָבוֹא",
+    "fr": "venir",
+    "formes": [
+      {
+        "he": "בָּא",
+        "tr": "ba"
+      },
+      {
+        "he": "בָּאָה",
+        "tr": "ba'ah"
+      },
+      {
+        "he": "בָּאִים",
+        "tr": "ba'im"
+      },
+      {
+        "he": "בָּאוֹת",
+        "tr": "baot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אַתָּה בָּא לַמְּסִבָּה הָעֶרֶב?",
+        "tr": "atah ba lamesibah ha'erev?",
+        "fr": "tu viens à la fête ce soir ?"
+      }
+    ]
+  },
+  {
+    "he": "לָרוּץ",
+    "fr": "courir",
+    "formes": [
+      {
+        "he": "רָץ",
+        "tr": "rats"
+      },
+      {
+        "he": "רָצָה",
+        "tr": "ratsah"
+      },
+      {
+        "he": "רָצִים",
+        "tr": "ratsim"
+      },
+      {
+        "he": "רָצוֹת",
+        "tr": "ratsot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד רָץ בַּגַּן",
+        "tr": "hayeled rats bagan",
+        "fr": "l'enfant court dans le parc"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲמֹד",
+    "fr": "se tenir debout",
+    "formes": [
+      {
+        "he": "עוֹמֵד",
+        "tr": "'omed"
+      },
+      {
+        "he": "עוֹמֶדֶת",
+        "tr": "'omedet"
+      },
+      {
+        "he": "עוֹמְדִים",
+        "tr": "'omdim"
+      },
+      {
+        "he": "עוֹמְדוֹת",
+        "tr": "'omdot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הוּא עוֹמֵד עַל יַד הַדֶּלֶת",
+        "tr": "hu 'omed 'al yad hadelet",
+        "fr": "il se tient près de la porte"
+      }
+    ]
+  },
+  {
+    "he": "לִנְסֹעַ",
+    "fr": "voyager / rouler",
+    "formes": [
+      {
+        "he": "נוֹסֵעַ",
+        "tr": "nose'a"
+      },
+      {
+        "he": "נוֹסַעַת",
+        "tr": "nosa'at"
+      },
+      {
+        "he": "נוֹסְעִים",
+        "tr": "nos'im"
+      },
+      {
+        "he": "נוֹסְעוֹת",
+        "tr": "nos'ot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ נוֹסְעִים לְתֵל אָבִיב מָחָר",
+        "tr": "anachnu nos'im leTel Aviv machar",
+        "fr": "nous allons à Tel-Aviv demain"
+      }
+    ]
+  },
+  {
+    "he": "לָטוּס",
+    "fr": "voler (avion)",
+    "formes": [
+      {
+        "he": "טָס",
+        "tr": "tas"
+      },
+      {
+        "he": "טָסָה",
+        "tr": "tasah"
+      },
+      {
+        "he": "טָסִים",
+        "tr": "tasim"
+      },
+      {
+        "he": "טָסוֹת",
+        "tr": "tasot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ טָסִים לְיִשְׂרָאֵל בַּקַּיִץ",
+        "tr": "anachnu tasim leYisra'el bakayits",
+        "fr": "nous prenons l'avion pour Israël cet été"
+      }
+    ]
+  },
+  {
+    "he": "לַחְזֹר",
+    "fr": "revenir / retourner",
+    "formes": [
+      {
+        "he": "חוֹזֵר",
+        "tr": "chozer"
+      },
+      {
+        "he": "חוֹזֶרֶת",
+        "tr": "chozeret"
+      },
+      {
+        "he": "חוֹזְרִים",
+        "tr": "chozrim"
+      },
+      {
+        "he": "חוֹזְרוֹת",
+        "tr": "chozrot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הוּא חוֹזֵר הַבַּיְתָה בָּעֶרֶב",
+        "tr": "hu chozer habaytah ba'erev",
+        "fr": "il rentre à la maison le soir"
+      }
+    ]
+  },
+  {
+    "he": "לְהִכָּנֵס",
+    "fr": "entrer",
+    "formes": [
+      {
+        "he": "נִכְנָס",
+        "tr": "nikhnas"
+      },
+      {
+        "he": "נִכְנֶסֶת",
+        "tr": "nikhneset"
+      },
+      {
+        "he": "נִכְנָסִים",
+        "tr": "nikhnasim"
+      },
+      {
+        "he": "נִכְנָסוֹת",
+        "tr": "nikhnasot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הִיא נִכְנֶסֶת לַבַּיִת עַכְשָׁיו",
+        "tr": "hi nikhneset labayit 'akhshav",
+        "fr": "elle entre dans la maison maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לָצֵאת",
+    "fr": "sortir",
+    "formes": [
+      {
+        "he": "יוֹצֵא",
+        "tr": "yotse"
+      },
+      {
+        "he": "יוֹצֵאת",
+        "tr": "yotset"
+      },
+      {
+        "he": "יוֹצְאִים",
+        "tr": "yotsim"
+      },
+      {
+        "he": "יוֹצְאוֹת",
+        "tr": "yotsot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי יוֹצֵא מֵהַבַּיִת עַכְשָׁיו",
+        "tr": "ani yotse mehabayit 'akhshav",
+        "fr": "je sors de la maison maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לְהַגִּיעַ",
+    "fr": "arriver",
+    "formes": [
+      {
+        "he": "מַגִּיעַ",
+        "tr": "magi'a"
+      },
+      {
+        "he": "מַגִּיעָה",
+        "tr": "magi'ah"
+      },
+      {
+        "he": "מַגִּיעִים",
+        "tr": "magi'im"
+      },
+      {
+        "he": "מַגִּיעוֹת",
+        "tr": "magi'ot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הָאוֹטוֹבּוּס מַגִּיעַ עַכְשָׁיו",
+        "tr": "ha'otobus magi'a 'akhshav",
+        "fr": "le bus arrive maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לְטַיֵּל",
+    "fr": "se promener / faire un tour",
+    "formes": [
+      {
+        "he": "מְטַיֵּל",
+        "tr": "metayel"
+      },
+      {
+        "he": "מְטַיֶּלֶת",
+        "tr": "metayelet"
+      },
+      {
+        "he": "מְטַיְּלִים",
+        "tr": "metaylim"
+      },
+      {
+        "he": "מְטַיְּלוֹת",
+        "tr": "metaylot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מְטַיְּלִים בָּעִיר בָּעֶרֶב",
+        "tr": "anachnu metaylim ba'ir ba'erev",
+        "fr": "nous nous promenons en ville le soir"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׂחוֹת",
+    "fr": "nager",
+    "formes": [
+      {
+        "he": "שׂוֹחֶה",
+        "tr": "socheh"
+      },
+      {
+        "he": "שׂוֹחָה",
+        "tr": "sochah"
+      },
+      {
+        "he": "שׂוֹחִים",
+        "tr": "sochim"
+      },
+      {
+        "he": "שׂוֹחוֹת",
+        "tr": "sochot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים שׂוֹחִים בַּיָּם בַּקַּיִץ",
+        "tr": "hayladim sochim bayam bakayits",
+        "fr": "les enfants nagent dans la mer en été"
+      }
+    ]
+  },
+  {
+    "he": "לָקוּם",
+    "fr": "se lever",
+    "formes": [
+      {
+        "he": "קָם",
+        "tr": "kam"
+      },
+      {
+        "he": "קָמָה",
+        "tr": "kamah"
+      },
+      {
+        "he": "קָמִים",
+        "tr": "kamim"
+      },
+      {
+        "he": "קָמוֹת",
+        "tr": "kamot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי קָם מֻקְדָּם בַּבֹּקֶר",
+        "tr": "ani kam mukdam baboker",
+        "fr": "je me lève tôt le matin"
+      }
+    ]
+  },
+  {
+    "he": "לָשֶׁבֶת",
+    "fr": "s'asseoir",
+    "formes": [
+      {
+        "he": "יוֹשֵׁב",
+        "tr": "yoshev"
+      },
+      {
+        "he": "יוֹשֶׁבֶת",
+        "tr": "yoshevet"
+      },
+      {
+        "he": "יוֹשְׁבִים",
+        "tr": "yoshvim"
+      },
+      {
+        "he": "יוֹשְׁבוֹת",
+        "tr": "yoshvot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ יוֹשְׁבִים בְּבֵית קָפֶה",
+        "tr": "anachnu yoshvim beveit kafeh",
+        "fr": "nous sommes assis dans un café"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲלוֹת",
+    "fr": "monter",
+    "formes": [
+      {
+        "he": "עוֹלֶה",
+        "tr": "'oleh"
+      },
+      {
+        "he": "עוֹלָה",
+        "tr": "'olah"
+      },
+      {
+        "he": "עוֹלִים",
+        "tr": "'olim"
+      },
+      {
+        "he": "עוֹלוֹת",
+        "tr": "'olot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי עוֹלֶה בַּמַּדְרֵגוֹת",
+        "tr": "ani 'oleh bamadregot",
+        "fr": "je monte par les escaliers"
+      }
+    ]
+  },
+  {
+    "he": "לָרֶדֶת",
+    "fr": "descendre",
+    "formes": [
+      {
+        "he": "יוֹרֵד",
+        "tr": "yored"
+      },
+      {
+        "he": "יוֹרֶדֶת",
+        "tr": "yoredet"
+      },
+      {
+        "he": "יוֹרְדִים",
+        "tr": "yordim"
+      },
+      {
+        "he": "יוֹרְדוֹת",
+        "tr": "yordot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הוּא יוֹרֵד בַּמַּעֲלִית לְמַטָּה",
+        "tr": "hu yored bama'alit lematah",
+        "fr": "il descend en ascenseur"
+      }
+    ]
+  },
+  {
+    "he": "לִיפֹּל",
+    "fr": "tomber",
+    "formes": [
+      {
+        "he": "נוֹפֵל",
+        "tr": "nofel"
+      },
+      {
+        "he": "נוֹפֶלֶת",
+        "tr": "nofelet"
+      },
+      {
+        "he": "נוֹפְלִים",
+        "tr": "noflim"
+      },
+      {
+        "he": "נוֹפְלוֹת",
+        "tr": "noflot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הַכּוֹס נוֹפֶלֶת מֵהַשֻּׁלְחָן",
+        "tr": "hakos nofelet mehashulchan",
+        "fr": "le verre tombe de la table"
+      }
+    ]
+  },
+  {
+    "he": "לִנְהֹג",
+    "fr": "conduire",
+    "formes": [
+      {
+        "he": "נוֹהֵג",
+        "tr": "noheg"
+      },
+      {
+        "he": "נוֹהֶגֶת",
+        "tr": "noheget"
+      },
+      {
+        "he": "נוֹהֲגִים",
+        "tr": "nohagim"
+      },
+      {
+        "he": "נוֹהֲגוֹת",
+        "tr": "nohagot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הוּא נוֹהֵג בַּמְּכוֹנִית שֶׁל אַבָּא",
+        "tr": "hu noheg bamekhonit shel aba",
+        "fr": "il conduit la voiture de papa"
+      }
+    ]
+  },
+  {
+    "he": "לַחֲנוֹת",
+    "fr": "se garer / stationner",
+    "formes": [
+      {
+        "he": "חוֹנֶה",
+        "tr": "choneh"
+      },
+      {
+        "he": "חוֹנָה",
+        "tr": "chonah"
+      },
+      {
+        "he": "חוֹנִים",
+        "tr": "chonim"
+      },
+      {
+        "he": "חוֹנוֹת",
+        "tr": "chonot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי חוֹנֶה לְיַד הַבַּיִת",
+        "tr": "ani choneh leyad habayit",
+        "fr": "je me gare près de la maison"
+      }
+    ]
+  },
+  {
+    "he": "לַחֲצוֹת",
+    "fr": "traverser",
+    "formes": [
+      {
+        "he": "חוֹצֶה",
+        "tr": "chotseh"
+      },
+      {
+        "he": "חוֹצָה",
+        "tr": "chotsah"
+      },
+      {
+        "he": "חוֹצִים",
+        "tr": "chotsim"
+      },
+      {
+        "he": "חוֹצוֹת",
+        "tr": "chotsot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד חוֹצֶה אֶת הָרְחוֹב",
+        "tr": "hayeled chotseh et harechov",
+        "fr": "l'enfant traverse la rue"
+      }
+    ]
+  },
+  {
+    "he": "לִפְנוֹת",
+    "fr": "tourner",
+    "formes": [
+      {
+        "he": "פּוֹנֶה",
+        "tr": "poneh"
+      },
+      {
+        "he": "פּוֹנָה",
+        "tr": "ponah"
+      },
+      {
+        "he": "פּוֹנִים",
+        "tr": "ponim"
+      },
+      {
+        "he": "פּוֹנוֹת",
+        "tr": "ponot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי פּוֹנֶה יָמִינָה בַּצֹּמֶת",
+        "tr": "ani poneh yaminah batsomet",
+        "fr": "je tourne à droite au carrefour"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲצֹר",
+    "fr": "arrêter, s'arrêter",
+    "formes": [
+      {
+        "he": "עוֹצֵר",
+        "tr": "'otser"
+      },
+      {
+        "he": "עוֹצֶרֶת",
+        "tr": "'otseret"
+      },
+      {
+        "he": "עוֹצְרִים",
+        "tr": "'otsrim"
+      },
+      {
+        "he": "עוֹצְרוֹת",
+        "tr": "'otsrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הָאוֹטוֹבּוּס עוֹצֵר בְּכָל תַּחֲנָה.",
+        "tr": "haotobus 'otser bekhal tachanah",
+        "fr": "Le bus s'arrête à chaque station."
+      }
+    ]
+  },
+  {
+    "he": "לִבְרֹחַ",
+    "fr": "s'enfuir, fuir",
+    "formes": [
+      {
+        "he": "בּוֹרֵחַ",
+        "tr": "boreach"
+      },
+      {
+        "he": "בּוֹרַחַת",
+        "tr": "borachat"
+      },
+      {
+        "he": "בּוֹרְחִים",
+        "tr": "borchim"
+      },
+      {
+        "he": "בּוֹרְחוֹת",
+        "tr": "borchot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הַגַּנָּב בּוֹרֵחַ מֵהַשּׁוֹטֵר.",
+        "tr": "haganav boreach mehashoter",
+        "fr": "Le voleur s'enfuit du policier."
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְקַדֵּם",
+    "fr": "avancer, progresser",
+    "formes": [
+      {
+        "he": "מִתְקַדֵּם",
+        "tr": "mitkadem"
+      },
+      {
+        "he": "מִתְקַדֶּמֶת",
+        "tr": "mitkademet"
+      },
+      {
+        "he": "מִתְקַדְּמִים",
+        "tr": "mitkadmim"
+      },
+      {
+        "he": "מִתְקַדְּמוֹת",
+        "tr": "mitkadmot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מִתְקַדְּמִים לְאַט בַּפְּקָק.",
+        "tr": "anachnu mitkadmim le'at bapkak",
+        "fr": "Nous avançons lentement dans l'embouteillage."
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְרַחֵק",
+    "fr": "s'éloigner",
+    "formes": [
+      {
+        "he": "מִתְרַחֵק",
+        "tr": "mitrachek"
+      },
+      {
+        "he": "מִתְרַחֶקֶת",
+        "tr": "mitracheket"
+      },
+      {
+        "he": "מִתְרַחֲקִים",
+        "tr": "mitrachakim"
+      },
+      {
+        "he": "מִתְרַחֲקוֹת",
+        "tr": "mitrachakot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הָאֳנִיָּה מִתְרַחֶקֶת מִן הַחוֹף.",
+        "tr": "ha'oniyah mitracheket min hachof",
+        "fr": "Le bateau s'éloigne de la côte."
+      }
+    ]
+  },
+  {
+    "he": "לֶאֱכֹל",
+    "fr": "manger",
+    "formes": [
+      {
+        "he": "אוֹכֵל",
+        "tr": "okhel"
+      },
+      {
+        "he": "אוֹכֶלֶת",
+        "tr": "okhelet"
+      },
+      {
+        "he": "אוֹכְלִים",
+        "tr": "okhlim"
+      },
+      {
+        "he": "אוֹכְלוֹת",
+        "tr": "okhlot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "nourriture",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֵל לֶחֶם עִם גְּבִינָה",
+        "tr": "ani okhel lechem 'im gvinah",
+        "fr": "je mange du pain avec du fromage"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁתּוֹת",
+    "fr": "boire",
+    "formes": [
+      {
+        "he": "שׁוֹתֶה",
+        "tr": "shoteh"
+      },
+      {
+        "he": "שׁוֹתָה",
+        "tr": "shotah"
+      },
+      {
+        "he": "שׁוֹתִים",
+        "tr": "shotim"
+      },
+      {
+        "he": "שׁוֹתוֹת",
+        "tr": "shotot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "nourriture",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא שׁוֹתָה קָפֶה בַּבֹּקֶר",
+        "tr": "hi shotah kafeh baboker",
+        "fr": "elle boit du café le matin"
+      }
+    ]
+  },
+  {
+    "he": "לִישֹׁן",
+    "fr": "dormir",
+    "formes": [
+      {
+        "he": "יָשֵׁן",
+        "tr": "yashen"
+      },
+      {
+        "he": "יְשֵׁנָה",
+        "tr": "yeshenah"
+      },
+      {
+        "he": "יְשֵׁנִים",
+        "tr": "yeshenim"
+      },
+      {
+        "he": "יְשֵׁנוֹת",
+        "tr": "yeshenot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַתִּינוֹק יָשֵׁן עַכְשָׁיו",
+        "tr": "hatinok yashen 'akhshav",
+        "fr": "le bébé dort maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְעוֹרֵר",
+    "fr": "se réveiller",
+    "formes": [
+      {
+        "he": "מִתְעוֹרֵר",
+        "tr": "mit'orer"
+      },
+      {
+        "he": "מִתְעוֹרֶרֶת",
+        "tr": "mit'oreret"
+      },
+      {
+        "he": "מִתְעוֹרְרִים",
+        "tr": "mit'orerim"
+      },
+      {
+        "he": "מִתְעוֹרְרוֹת",
+        "tr": "mit'orerot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְעוֹרֵר מֻקְדָּם בַּבֹּקֶר",
+        "tr": "ani mit'orer mukdam baboker",
+        "fr": "je me réveille tôt le matin"
+      }
+    ]
+  },
+  {
+    "he": "לָגוּר",
+    "fr": "habiter",
+    "formes": [
+      {
+        "he": "גָּר",
+        "tr": "gar"
+      },
+      {
+        "he": "גָּרָה",
+        "tr": "garah"
+      },
+      {
+        "he": "גָּרִים",
+        "tr": "garim"
+      },
+      {
+        "he": "גָּרוֹת",
+        "tr": "garot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "maison-objets",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי גָּר בְּתֵל אָבִיב",
+        "tr": "ani gar beTel Aviv",
+        "fr": "j'habite à Tel-Aviv"
+      }
+    ]
+  },
+  {
+    "he": "לִקְנוֹת",
+    "fr": "acheter",
+    "formes": [
+      {
+        "he": "קוֹנֶה",
+        "tr": "koneh"
+      },
+      {
+        "he": "קוֹנָה",
+        "tr": "konah"
+      },
+      {
+        "he": "קוֹנִים",
+        "tr": "konim"
+      },
+      {
+        "he": "קוֹנוֹת",
+        "tr": "konot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אִמָּא קוֹנָה פֵּרוֹת בַּשּׁוּק",
+        "tr": "ima konah perot bashuk",
+        "fr": "maman achète des fruits au marché"
+      }
+    ]
+  },
+  {
+    "he": "לִמְכֹּר",
+    "fr": "vendre",
+    "formes": [
+      {
+        "he": "מוֹכֵר",
+        "tr": "mokher"
+      },
+      {
+        "he": "מוֹכֶרֶת",
+        "tr": "mokheret"
+      },
+      {
+        "he": "מוֹכְרִים",
+        "tr": "mokhrim"
+      },
+      {
+        "he": "מוֹכְרוֹת",
+        "tr": "mokhrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הוּא מוֹכֵר פֵּרוֹת בַּשּׁוּק",
+        "tr": "hu mokher perot bashuk",
+        "fr": "il vend des fruits au marché"
+      }
+    ]
+  },
+  {
+    "he": "לְשַׁלֵּם",
+    "fr": "payer",
+    "formes": [
+      {
+        "he": "מְשַׁלֵּם",
+        "tr": "meshalem"
+      },
+      {
+        "he": "מְשַׁלֶּמֶת",
+        "tr": "meshalemet"
+      },
+      {
+        "he": "מְשַׁלְּמִים",
+        "tr": "meshalmim"
+      },
+      {
+        "he": "מְשַׁלְּמוֹת",
+        "tr": "meshalmot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מְשַׁלֵּם עַל הַקָּפֶה",
+        "tr": "ani meshalem 'al hakafeh",
+        "fr": "je paie le café"
+      }
+    ]
+  },
+  {
+    "he": "לְבַשֵּׁל",
+    "fr": "cuisiner",
+    "formes": [
+      {
+        "he": "מְבַשֵּׁל",
+        "tr": "mevashel"
+      },
+      {
+        "he": "מְבַשֶּׁלֶת",
+        "tr": "mevashelet"
+      },
+      {
+        "he": "מְבַשְּׁלִים",
+        "tr": "mevashlim"
+      },
+      {
+        "he": "מְבַשְּׁלוֹת",
+        "tr": "mevashlot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אִמָּא מְבַשֶּׁלֶת מָרָק לָעֶרֶב",
+        "tr": "ima mevashelet marak la'erev",
+        "fr": "maman cuisine une soupe pour le soir"
+      }
+    ]
+  },
+  {
+    "he": "לִטְעֹם",
+    "fr": "goûter",
+    "formes": [
+      {
+        "he": "טוֹעֵם",
+        "tr": "to'em"
+      },
+      {
+        "he": "טוֹעֶמֶת",
+        "tr": "to'emet"
+      },
+      {
+        "he": "טוֹעֲמִים",
+        "tr": "to'amim"
+      },
+      {
+        "he": "טוֹעֲמוֹת",
+        "tr": "to'amot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי טוֹעֵם אֶת הַמָּרָק לִפְנֵי הָאֲרוּחָה",
+        "tr": "ani to'em et hamarak lifnei ha'aruchah",
+        "fr": "je goûte la soupe avant le repas"
+      }
+    ]
+  },
+  {
+    "he": "לִרְחֹץ",
+    "fr": "laver",
+    "formes": [
+      {
+        "he": "רוֹחֵץ",
+        "tr": "rochets"
+      },
+      {
+        "he": "רוֹחֶצֶת",
+        "tr": "rochetset"
+      },
+      {
+        "he": "רוֹחֲצִים",
+        "tr": "rochatsim"
+      },
+      {
+        "he": "רוֹחֲצוֹת",
+        "tr": "rochatsot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי רוֹחֵץ אֶת הַיָּדַיִם לִפְנֵי הָאֲרוּחָה",
+        "tr": "ani rochets et hayadayim lifnei ha'aruchah",
+        "fr": "je me lave les mains avant le repas"
+      }
+    ]
+  },
+  {
+    "he": "לְנַקּוֹת",
+    "fr": "nettoyer",
+    "formes": [
+      {
+        "he": "מְנַקֶּה",
+        "tr": "menakeh"
+      },
+      {
+        "he": "מְנַקָּה",
+        "tr": "menakah"
+      },
+      {
+        "he": "מְנַקִּים",
+        "tr": "menakim"
+      },
+      {
+        "he": "מְנַקּוֹת",
+        "tr": "menakot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא מְנַקָּה אֶת הַחֶדֶר הַיּוֹם",
+        "tr": "hi menakah et hacheder hayom",
+        "fr": "elle nettoie la chambre aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "לִלְבֹּשׁ",
+    "fr": "porter (vêtement)",
+    "formes": [
+      {
+        "he": "לוֹבֵשׁ",
+        "tr": "lovesh"
+      },
+      {
+        "he": "לוֹבֶשֶׁת",
+        "tr": "loveshet"
+      },
+      {
+        "he": "לוֹבְשִׁים",
+        "tr": "lovshim"
+      },
+      {
+        "he": "לוֹבְשׁוֹת",
+        "tr": "lovshot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים לוֹבְשִׁים בְּגָדִים חַמִּים בַּחוֹרֶף",
+        "tr": "hayladim lovshim begadim chamim bachoref",
+        "fr": "les enfants portent des vêtements chauds en hiver"
+      }
+    ]
+  },
+  {
+    "he": "לִפְתֹּחַ",
+    "fr": "ouvrir",
+    "formes": [
+      {
+        "he": "פּוֹתֵחַ",
+        "tr": "poteach"
+      },
+      {
+        "he": "פּוֹתַחַת",
+        "tr": "potachat"
+      },
+      {
+        "he": "פּוֹתְחִים",
+        "tr": "potchim"
+      },
+      {
+        "he": "פּוֹתְחוֹת",
+        "tr": "potchot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי פּוֹתֵחַ אֶת הַחַלּוֹן",
+        "tr": "ani poteach et hachalon",
+        "fr": "j'ouvre la fenêtre"
+      }
+    ]
+  },
+  {
+    "he": "לִסְגֹּר",
+    "fr": "fermer",
+    "formes": [
+      {
+        "he": "סוֹגֵר",
+        "tr": "soger"
+      },
+      {
+        "he": "סוֹגֶרֶת",
+        "tr": "sogeret"
+      },
+      {
+        "he": "סוֹגְרִים",
+        "tr": "sogrim"
+      },
+      {
+        "he": "סוֹגְרוֹת",
+        "tr": "sogrot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא סוֹגֶרֶת אֶת הַדֶּלֶת",
+        "tr": "hi sogeret et hadelet",
+        "fr": "elle ferme la porte"
+      }
+    ]
+  },
+  {
+    "he": "לָשִׂים",
+    "fr": "mettre / poser",
+    "formes": [
+      {
+        "he": "שָׂם",
+        "tr": "sam"
+      },
+      {
+        "he": "שָׂמָה",
+        "tr": "samah"
+      },
+      {
+        "he": "שָׂמִים",
+        "tr": "samim"
+      },
+      {
+        "he": "שָׂמוֹת",
+        "tr": "samot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי שָׂם אֶת הַסֵּפֶר עַל הַשֻּׁלְחָן",
+        "tr": "ani sam et hasefer 'al hashulchan",
+        "fr": "je pose le livre sur la table"
+      }
+    ]
+  },
+  {
+    "he": "לָקַחַת",
+    "fr": "prendre",
+    "formes": [
+      {
+        "he": "לוֹקֵחַ",
+        "tr": "lokeach"
+      },
+      {
+        "he": "לוֹקַחַת",
+        "tr": "lokachat"
+      },
+      {
+        "he": "לוֹקְחִים",
+        "tr": "lokchim"
+      },
+      {
+        "he": "לוֹקְחוֹת",
+        "tr": "lokchot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי לוֹקֵחַ אֶת הַתִּיק שֶׁלִּי",
+        "tr": "ani lokeach et hatik sheli",
+        "fr": "je prends mon sac"
+      }
+    ]
+  },
+  {
+    "he": "לָתֵת",
+    "fr": "donner",
+    "formes": [
+      {
+        "he": "נוֹתֵן",
+        "tr": "noten"
+      },
+      {
+        "he": "נוֹתֶנֶת",
+        "tr": "notenet"
+      },
+      {
+        "he": "נוֹתְנִים",
+        "tr": "notnim"
+      },
+      {
+        "he": "נוֹתְנוֹת",
+        "tr": "notnot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הוּא נוֹתֵן מַתָּנָה לְאִמָּא",
+        "tr": "hu noten matanah le'ima",
+        "fr": "il offre un cadeau à maman"
+      }
+    ]
+  },
+  {
+    "he": "לְהָבִיא",
+    "fr": "apporter",
+    "formes": [
+      {
+        "he": "מֵבִיא",
+        "tr": "mevi"
+      },
+      {
+        "he": "מְבִיאָה",
+        "tr": "mevi'ah"
+      },
+      {
+        "he": "מְבִיאִים",
+        "tr": "mevi'im"
+      },
+      {
+        "he": "מְבִיאוֹת",
+        "tr": "mevi'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הוּא מֵבִיא מַתָּנָה לַמְּסִבָּה",
+        "tr": "hu mevi matanah lamsibah",
+        "fr": "il apporte un cadeau à la fête"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁמֹר",
+    "fr": "garder / surveiller",
+    "formes": [
+      {
+        "he": "שׁוֹמֵר",
+        "tr": "shomer"
+      },
+      {
+        "he": "שׁוֹמֶרֶת",
+        "tr": "shomeret"
+      },
+      {
+        "he": "שׁוֹמְרִים",
+        "tr": "shomrim"
+      },
+      {
+        "he": "שׁוֹמְרוֹת",
+        "tr": "shomrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַכֶּלֶב שׁוֹמֵר עַל הַבַּיִת",
+        "tr": "hakelev shomer 'al habayit",
+        "fr": "le chien garde la maison"
+      }
+    ]
+  },
+  {
+    "he": "לִחְיוֹת",
+    "fr": "vivre",
+    "formes": [
+      {
+        "he": "חַי",
+        "tr": "chai"
+      },
+      {
+        "he": "חַיָּה",
+        "tr": "chayah"
+      },
+      {
+        "he": "חַיִּים",
+        "tr": "chayim"
+      },
+      {
+        "he": "חַיּוֹת",
+        "tr": "chayot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "סַבָּא וְסָבְתָא חַיִּים בָּעִיר",
+        "tr": "saba vesavta chayim ba'ir",
+        "fr": "grand-père et grand-mère vivent en ville"
+      }
+    ]
+  },
+  {
+    "he": "לָמוּת",
+    "fr": "mourir",
+    "formes": [
+      {
+        "he": "מֵת",
+        "tr": "met"
+      },
+      {
+        "he": "מֵתָה",
+        "tr": "metah"
+      },
+      {
+        "he": "מֵתִים",
+        "tr": "metim"
+      },
+      {
+        "he": "מֵתוֹת",
+        "tr": "metot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַפֶּרַח מֵת בְּלִי מַיִם",
+        "tr": "haperach met beli mayim",
+        "fr": "la fleur meurt sans eau"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְלַבֵּשׁ",
+    "fr": "s'habiller",
+    "formes": [
+      {
+        "he": "מִתְלַבֵּשׁ",
+        "tr": "mitlabesh"
+      },
+      {
+        "he": "מִתְלַבֶּשֶׁת",
+        "tr": "mitlabeshet"
+      },
+      {
+        "he": "מִתְלַבְּשִׁים",
+        "tr": "mitlabshim"
+      },
+      {
+        "he": "מִתְלַבְּשׁוֹת",
+        "tr": "mitlabshot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְלַבֵּשׁ וְיוֹצֵא לָעֲבוֹדָה",
+        "tr": "ani mitlabesh veyotse la'avodah",
+        "fr": "je m'habille et pars au travail"
+      }
+    ]
+  },
+  {
+    "he": "לְהוֹרִיד",
+    "fr": "enlever (un vêtement)",
+    "formes": [
+      {
+        "he": "מוֹרִיד",
+        "tr": "morid"
+      },
+      {
+        "he": "מוֹרִידָה",
+        "tr": "moridah"
+      },
+      {
+        "he": "מוֹרִידִים",
+        "tr": "moridim"
+      },
+      {
+        "he": "מוֹרִידוֹת",
+        "tr": "moridot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹרִיד אֶת הַמְּעִיל בַּבַּיִת",
+        "tr": "ani morid et hame'il babayit",
+        "fr": "j'enlève mon manteau à la maison"
+      }
+    ]
+  },
+  {
+    "he": "לְהִישָׁאֵר",
+    "fr": "rester",
+    "formes": [
+      {
+        "he": "נִשְׁאָר",
+        "tr": "nish'ar"
+      },
+      {
+        "he": "נִשְׁאֶרֶת",
+        "tr": "nish'eret"
+      },
+      {
+        "he": "נִשְׁאָרִים",
+        "tr": "nish'arim"
+      },
+      {
+        "he": "נִשְׁאָרוֹת",
+        "tr": "nish'arot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ נִשְׁאָרִים בַּבַּיִת כִּי קַר",
+        "tr": "anachnu nisharim babayit ki kar",
+        "fr": "nous restons à la maison parce qu'il fait froid"
+      }
+    ]
+  },
+  {
+    "he": "לְהַזְמִין",
+    "fr": "commander / réserver / inviter",
+    "formes": [
+      {
+        "he": "מַזְמִין",
+        "tr": "mazmin"
+      },
+      {
+        "he": "מַזְמִינָה",
+        "tr": "mazminah"
+      },
+      {
+        "he": "מַזְמִינִים",
+        "tr": "mazminim"
+      },
+      {
+        "he": "מַזְמִינוֹת",
+        "tr": "mazminot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מַזְמִינִים אֹכֶל בַּמִּסְעָדָה",
+        "tr": "anachnu mazminim okhel bamis'adah",
+        "fr": "nous commandons à manger au restaurant"
+      }
+    ]
+  },
+  {
+    "he": "לַחְסֹךְ",
+    "fr": "économiser",
+    "formes": [
+      {
+        "he": "חוֹסֵךְ",
+        "tr": "chosekh"
+      },
+      {
+        "he": "חוֹסֶכֶת",
+        "tr": "chosekhet"
+      },
+      {
+        "he": "חוֹסְכִים",
+        "tr": "choskhim"
+      },
+      {
+        "he": "חוֹסְכוֹת",
+        "tr": "choskhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ חוֹסְכִים כֶּסֶף לְטִיּוּל",
+        "tr": "anachnu choskhim kesef letiyul",
+        "fr": "nous économisons de l'argent pour une excursion"
+      }
+    ]
+  },
+  {
+    "he": "לְבַזְבֵּז",
+    "fr": "gaspiller, dépenser (trop)",
+    "formes": [
+      {
+        "he": "מְבַזְבֵּז",
+        "tr": "mevazbez"
+      },
+      {
+        "he": "מְבַזְבֶּזֶת",
+        "tr": "mevazbezet"
+      },
+      {
+        "he": "מְבַזְבְּזִים",
+        "tr": "mevazbezim"
+      },
+      {
+        "he": "מְבַזְבְּזוֹת",
+        "tr": "mevazbezot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הוּא מְבַזְבֵּז הַרְבֵּה כֶּסֶף עַל בְּגָדִים",
+        "tr": "hu mevazbez harbeh kesef 'al bgadim",
+        "fr": "il dépense beaucoup d'argent en vêtements"
+      }
+    ]
+  },
+  {
+    "he": "לְהַלְווֹת",
+    "fr": "prêter (de l'argent)",
+    "formes": [
+      {
+        "he": "מַלְוֶה",
+        "tr": "malveh"
+      },
+      {
+        "he": "מַלְוָה",
+        "tr": "malvah"
+      },
+      {
+        "he": "מַלְוִים",
+        "tr": "malvim"
+      },
+      {
+        "he": "מַלְווֹת",
+        "tr": "malvot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מַלְוֶה כֶּסֶף לְחָבֵר",
+        "tr": "ani malveh kesef lechaver",
+        "fr": "je prête de l'argent à un ami"
+      }
+    ]
+  },
+  {
+    "he": "לִלְווֹת",
+    "fr": "emprunter",
+    "formes": [
+      {
+        "he": "לוֹוֶה",
+        "tr": "loveh"
+      },
+      {
+        "he": "לוֹוָה",
+        "tr": "lovah"
+      },
+      {
+        "he": "לוֹוִים",
+        "tr": "lovim"
+      },
+      {
+        "he": "לוֹווֹת",
+        "tr": "lovot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא לוֹוָה כֶּסֶף מֵהַבַּנְק",
+        "tr": "hi lovah kesef mehabank",
+        "fr": "elle emprunte de l'argent à la banque"
+      }
+    ]
+  },
+  {
+    "he": "לְהַחְלִיף",
+    "fr": "échanger",
+    "formes": [
+      {
+        "he": "מַחְלִיף",
+        "tr": "machlif"
+      },
+      {
+        "he": "מַחְלִיפָה",
+        "tr": "machlifah"
+      },
+      {
+        "he": "מַחְלִיפִים",
+        "tr": "machlifim"
+      },
+      {
+        "he": "מַחְלִיפוֹת",
+        "tr": "machlifot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מַחְלִיף אֶת הַחֻלְצָה בַּחֲנוּת",
+        "tr": "ani machlif et hachultsah bachanut",
+        "fr": "j'échange la chemise au magasin"
+      }
+    ]
+  },
+  {
+    "he": "לִמְשֹׁךְ",
+    "fr": "retirer (de l'argent)",
+    "formes": [
+      {
+        "he": "מוֹשֵׁךְ",
+        "tr": "moshekh"
+      },
+      {
+        "he": "מוֹשֶׁכֶת",
+        "tr": "moshekhet"
+      },
+      {
+        "he": "מוֹשְׁכִים",
+        "tr": "moshkhim"
+      },
+      {
+        "he": "מוֹשְׁכוֹת",
+        "tr": "moshkhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹשֵׁךְ כֶּסֶף מֵהַבַּנְק",
+        "tr": "ani moshekh kesef mehabank",
+        "fr": "je retire de l'argent de la banque"
+      }
+    ]
+  },
+  {
+    "he": "לְהַפְקִיד",
+    "fr": "déposer (de l'argent)",
+    "formes": [
+      {
+        "he": "מַפְקִיד",
+        "tr": "mafkid"
+      },
+      {
+        "he": "מַפְקִידָה",
+        "tr": "mafkidah"
+      },
+      {
+        "he": "מַפְקִידִים",
+        "tr": "mafkidim"
+      },
+      {
+        "he": "מַפְקִידוֹת",
+        "tr": "mafkidot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא מַפְקִידָה כֶּסֶף בַּבַּנְק כָּל חֹדֶשׁ",
+        "tr": "hi mafkidah kesef babank kol chodesh",
+        "fr": "elle dépose de l'argent à la banque chaque mois"
+      }
+    ]
+  },
+  {
+    "he": "לְהַחְזִיר",
+    "fr": "rembourser",
+    "formes": [
+      {
+        "he": "מַחְזִיר",
+        "tr": "machzir"
+      },
+      {
+        "he": "מַחְזִירָה",
+        "tr": "machzirah"
+      },
+      {
+        "he": "מַחְזִירִים",
+        "tr": "machzirim"
+      },
+      {
+        "he": "מַחְזִירוֹת",
+        "tr": "machzirot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מַחְזִיר אֶת הַכֶּסֶף לְחָבֵר",
+        "tr": "ani machzir et hakesef lechaver",
+        "fr": "je rembourse l'argent à un ami"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְקַלֵּחַ",
+    "fr": "se doucher",
+    "formes": [
+      {
+        "he": "מִתְקַלֵּחַ",
+        "tr": "mitkale'ach"
+      },
+      {
+        "he": "מִתְקַלַּחַת",
+        "tr": "mitkalachat"
+      },
+      {
+        "he": "מִתְקַלְּחִים",
+        "tr": "mitkalchim"
+      },
+      {
+        "he": "מִתְקַלְּחוֹת",
+        "tr": "mitkalchot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְקַלֵּחַ כָּל בֹּקֶר",
+        "tr": "ani mitkale'ach kol boker",
+        "fr": "je me douche chaque matin"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְגַּלֵּחַ",
+    "fr": "se raser",
+    "formes": [
+      {
+        "he": "מִתְגַּלֵּחַ",
+        "tr": "mitgale'ach"
+      },
+      {
+        "he": "מִתְגַּלַּחַת",
+        "tr": "mitgalachat"
+      },
+      {
+        "he": "מִתְגַּלְּחִים",
+        "tr": "mitgalchim"
+      },
+      {
+        "he": "מִתְגַּלְּחוֹת",
+        "tr": "mitgalchot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הוּא מִתְגַּלֵּחַ לִפְנֵי הָעֲבוֹדָה",
+        "tr": "hu mitgale'ach lifnei ha'avodah",
+        "fr": "il se rase avant le travail"
+      }
+    ]
+  },
+  {
+    "he": "לְהִסְתָּרֵק",
+    "fr": "se coiffer / se peigner",
+    "formes": [
+      {
+        "he": "מִסְתָּרֵק",
+        "tr": "mistarek"
+      },
+      {
+        "he": "מִסְתָּרֶקֶת",
+        "tr": "mistareket"
+      },
+      {
+        "he": "מִסְתָּרְקִים",
+        "tr": "mistarkim"
+      },
+      {
+        "he": "מִסְתָּרְקוֹת",
+        "tr": "mistarkot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה מִסְתָּרֶקֶת לִפְנֵי בֵּית הַסֵּפֶר",
+        "tr": "hayaldah mistareket lifnei beit hasefer",
+        "fr": "la fille se coiffe avant l'école"
+      }
+    ]
+  },
+  {
+    "he": "לְסַדֵּר",
+    "fr": "ranger",
+    "formes": [
+      {
+        "he": "מְסַדֵּר",
+        "tr": "mesader"
+      },
+      {
+        "he": "מְסַדֶּרֶת",
+        "tr": "mesaderet"
+      },
+      {
+        "he": "מְסַדְּרִים",
+        "tr": "mesadrim"
+      },
+      {
+        "he": "מְסַדְּרוֹת",
+        "tr": "mesadrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מְסַדֵּר אֶת הַחֶדֶר לִפְנֵי הַשֵּׁנָה",
+        "tr": "ani mesader et hacheder lifnei hashenah",
+        "fr": "je range la chambre avant de dormir"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁכַּב",
+    "fr": "se coucher / s'allonger",
+    "formes": [
+      {
+        "he": "שׁוֹכֵב",
+        "tr": "shokhev"
+      },
+      {
+        "he": "שׁוֹכֶבֶת",
+        "tr": "shokhevet"
+      },
+      {
+        "he": "שׁוֹכְבִים",
+        "tr": "shokhvim"
+      },
+      {
+        "he": "שׁוֹכְבוֹת",
+        "tr": "shokhvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹכֵב בַּמִּטָּה וְקוֹרֵא סֵפֶר",
+        "tr": "ani shokhev bamitah vekore sefer",
+        "fr": "je suis couché dans le lit et je lis un livre"
+      }
+    ]
+  },
+  {
+    "he": "לְהַפְסִיק",
+    "fr": "arrêter, cesser",
+    "formes": [
+      {
+        "he": "מַפְסִיק",
+        "tr": "mafsik"
+      },
+      {
+        "he": "מַפְסִיקָה",
+        "tr": "mafsikah"
+      },
+      {
+        "he": "מַפְסִיקִים",
+        "tr": "mafsikim"
+      },
+      {
+        "he": "מַפְסִיקוֹת",
+        "tr": "mafsikot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מַפְסִיק לַעֲבֹד בָּעֶרֶב",
+        "tr": "ani mafsik la'avod ba'erev",
+        "fr": "j'arrête de travailler le soir"
+      }
+    ]
+  },
+  {
+    "he": "לִזְרֹק",
+    "fr": "jeter",
+    "formes": [
+      {
+        "he": "זוֹרֵק",
+        "tr": "zorek"
+      },
+      {
+        "he": "זוֹרֶקֶת",
+        "tr": "zoreket"
+      },
+      {
+        "he": "זוֹרְקִים",
+        "tr": "zorkim"
+      },
+      {
+        "he": "זוֹרְקוֹת",
+        "tr": "zorkot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד זוֹרֵק כַּדּוּר",
+        "tr": "hayeled zorek kadur",
+        "fr": "l'enfant jette une balle"
+      }
+    ]
+  },
+  {
+    "he": "לְהַחְזִיק",
+    "fr": "tenir",
+    "formes": [
+      {
+        "he": "מַחְזִיק",
+        "tr": "machzik"
+      },
+      {
+        "he": "מַחְזִיקָה",
+        "tr": "machzikah"
+      },
+      {
+        "he": "מַחְזִיקִים",
+        "tr": "machzikim"
+      },
+      {
+        "he": "מַחְזִיקוֹת",
+        "tr": "machzikot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא מַחְזִיקָה אֶת הַיֶּלֶד בַּיָּד",
+        "tr": "hi machzikah et hayeled bayad",
+        "fr": "elle tient l'enfant par la main"
+      }
+    ]
+  },
+  {
+    "he": "לָגַעַת",
+    "fr": "toucher",
+    "formes": [
+      {
+        "he": "נוֹגֵעַ",
+        "tr": "noge'a"
+      },
+      {
+        "he": "נוֹגַעַת",
+        "tr": "noga'at"
+      },
+      {
+        "he": "נוֹגְעִים",
+        "tr": "nog'im"
+      },
+      {
+        "he": "נוֹגְעוֹת",
+        "tr": "nog'ot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד נוֹגֵעַ בַּמַּיִם",
+        "tr": "hayeled noge'a bamayim",
+        "fr": "l'enfant touche l'eau"
+      }
+    ]
+  },
+  {
+    "he": "לְאַבֵּד",
+    "fr": "perdre (un objet)",
+    "formes": [
+      {
+        "he": "מְאַבֵּד",
+        "tr": "me'abed"
+      },
+      {
+        "he": "מְאַבֶּדֶת",
+        "tr": "me'abedet"
+      },
+      {
+        "he": "מְאַבְּדִים",
+        "tr": "me'abdim"
+      },
+      {
+        "he": "מְאַבְּדוֹת",
+        "tr": "me'abdot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מְאַבֵּד אֶת הַכַּדּוּר",
+        "tr": "hayeled me'abed et hakadur",
+        "fr": "l'enfant perd la balle"
+      }
+    ]
+  },
+  {
+    "he": "לְהָכִין",
+    "fr": "préparer",
+    "formes": [
+      {
+        "he": "מֵכִין",
+        "tr": "mekhin"
+      },
+      {
+        "he": "מְכִינָה",
+        "tr": "mekhinah"
+      },
+      {
+        "he": "מְכִינִים",
+        "tr": "mekhinim"
+      },
+      {
+        "he": "מְכִינוֹת",
+        "tr": "mekhinot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מֵכִין קָפֶה בַּבֹּקֶר",
+        "tr": "ani mekhin kafeh baboker",
+        "fr": "je prépare un café le matin"
+      }
+    ]
+  },
+  {
+    "he": "לְעַרְבֵּב",
+    "fr": "mélanger",
+    "formes": [
+      {
+        "he": "מְעַרְבֵּב",
+        "tr": "me'arbev"
+      },
+      {
+        "he": "מְעַרְבֶּבֶת",
+        "tr": "me'arbevet"
+      },
+      {
+        "he": "מְעַרְבְּבִים",
+        "tr": "me'arbvim"
+      },
+      {
+        "he": "מְעַרְבְּבוֹת",
+        "tr": "me'arbvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַטַּבָּח מְעַרְבֵּב אֶת הַמָּרָק.",
+        "tr": "hatabach me'arbev et hamarak",
+        "fr": "Le cuisinier mélange la soupe."
+      }
+    ]
+  },
+  {
+    "he": "לִמְזֹג",
+    "fr": "verser (un liquide)",
+    "formes": [
+      {
+        "he": "מוֹזֵג",
+        "tr": "mozeg"
+      },
+      {
+        "he": "מוֹזֶגֶת",
+        "tr": "mozeget"
+      },
+      {
+        "he": "מוֹזְגִים",
+        "tr": "mozgim"
+      },
+      {
+        "he": "מוֹזְגוֹת",
+        "tr": "mozgot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַמֶּלְצַר מוֹזֵג יַיִן לַכּוֹס.",
+        "tr": "hameltsar mozeg yayin lakos",
+        "fr": "Le serveur verse du vin dans le verre."
+      }
+    ]
+  },
+  {
+    "he": "לִתְפֹּר",
+    "fr": "coudre",
+    "formes": [
+      {
+        "he": "תּוֹפֵר",
+        "tr": "tofer"
+      },
+      {
+        "he": "תּוֹפֶרֶת",
+        "tr": "toferet"
+      },
+      {
+        "he": "תּוֹפְרִים",
+        "tr": "tofrim"
+      },
+      {
+        "he": "תּוֹפְרוֹת",
+        "tr": "tofrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "סָבְתָא תּוֹפֶרֶת כַּפְתּוֹר לַחֻלְצָה.",
+        "tr": "savta toferet kaftor lachultsah",
+        "fr": "Grand-mère coud un bouton à la chemise."
+      }
+    ]
+  },
+  {
+    "he": "לְדַבֵּר",
+    "fr": "parler",
+    "formes": [
+      {
+        "he": "מְדַבֵּר",
+        "tr": "medaber"
+      },
+      {
+        "he": "מְדַבֶּרֶת",
+        "tr": "medaberet"
+      },
+      {
+        "he": "מְדַבְּרִים",
+        "tr": "medabrim"
+      },
+      {
+        "he": "מְדַבְּרוֹת",
+        "tr": "medabrot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי מְדַבֵּר קְצָת עִבְרִית",
+        "tr": "ani medaber ktsat 'ivrit",
+        "fr": "je parle un peu hébreu"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁתֹּק",
+    "fr": "se taire",
+    "formes": [
+      {
+        "he": "שׁוֹתֵק",
+        "tr": "shotek"
+      },
+      {
+        "he": "שׁוֹתֶקֶת",
+        "tr": "shoteket"
+      },
+      {
+        "he": "שׁוֹתְקִים",
+        "tr": "shotkim"
+      },
+      {
+        "he": "שׁוֹתְקוֹת",
+        "tr": "shotkot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַתַּלְמִידִים שׁוֹתְקִים בַּשִּׁעוּר",
+        "tr": "hatalmidim shotkim bashi'ur",
+        "fr": "les élèves se taisent en cours"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁאֹל",
+    "fr": "demander",
+    "formes": [
+      {
+        "he": "שׁוֹאֵל",
+        "tr": "sho'el"
+      },
+      {
+        "he": "שׁוֹאֶלֶת",
+        "tr": "sho'elet"
+      },
+      {
+        "he": "שׁוֹאֲלִים",
+        "tr": "sho'alim"
+      },
+      {
+        "he": "שׁוֹאֲלוֹת",
+        "tr": "sho'alot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַתַּלְמִיד שׁוֹאֵל שְׁאֵלָה",
+        "tr": "hatalmid sho'el she'elah",
+        "fr": "l'élève pose une question"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲנוֹת",
+    "fr": "répondre",
+    "formes": [
+      {
+        "he": "עוֹנֶה",
+        "tr": "'oneh"
+      },
+      {
+        "he": "עוֹנָה",
+        "tr": "'onah"
+      },
+      {
+        "he": "עוֹנִים",
+        "tr": "'onim"
+      },
+      {
+        "he": "עוֹנוֹת",
+        "tr": "'onot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַמּוֹרָה עוֹנָה לַתַּלְמִיד",
+        "tr": "hamorah 'onah latalmid",
+        "fr": "la professeure répond à l'élève"
+      }
+    ]
+  },
+  {
+    "he": "לְסַפֵּר",
+    "fr": "raconter",
+    "formes": [
+      {
+        "he": "מְסַפֵּר",
+        "tr": "mesaper"
+      },
+      {
+        "he": "מְסַפֶּרֶת",
+        "tr": "mesaperet"
+      },
+      {
+        "he": "מְסַפְּרִים",
+        "tr": "mesaprim"
+      },
+      {
+        "he": "מְסַפְּרוֹת",
+        "tr": "mesaprot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "סַבָּא מְסַפֵּר סִפּוּר לַנְּכָדִים",
+        "tr": "saba mesaper sipur lankhadim",
+        "fr": "grand-père raconte une histoire aux petits-enfants"
+      }
+    ]
+  },
+  {
+    "he": "לְלַמֵּד",
+    "fr": "enseigner",
+    "formes": [
+      {
+        "he": "מְלַמֵּד",
+        "tr": "melamed"
+      },
+      {
+        "he": "מְלַמֶּדֶת",
+        "tr": "melamedet"
+      },
+      {
+        "he": "מְלַמְּדִים",
+        "tr": "melamdim"
+      },
+      {
+        "he": "מְלַמְּדוֹת",
+        "tr": "melamdot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה מְלַמֵּד עִבְרִית בָּאֻלְפָּן",
+        "tr": "hamoreh melamed 'ivrit ba'ulpan",
+        "fr": "l'enseignant enseigne l'hébreu à l'oulpan"
+      }
+    ]
+  },
+  {
+    "he": "לְטַלְפֵּן",
+    "fr": "téléphoner",
+    "formes": [
+      {
+        "he": "מְטַלְפֵּן",
+        "tr": "metalpen"
+      },
+      {
+        "he": "מְטַלְפֶּנֶת",
+        "tr": "metalpenet"
+      },
+      {
+        "he": "מְטַלְפְּנִים",
+        "tr": "metalpenim"
+      },
+      {
+        "he": "מְטַלְפְּנוֹת",
+        "tr": "metalpenot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי מְטַלְפֵּן לְאִמָּא כָּל עֶרֶב",
+        "tr": "ani metalpen le'ima kol 'erev",
+        "fr": "je téléphone à maman chaque soir"
+      }
+    ]
+  },
+  {
+    "he": "לִפְגֹּשׁ",
+    "fr": "rencontrer",
+    "formes": [
+      {
+        "he": "פּוֹגֵשׁ",
+        "tr": "pogesh"
+      },
+      {
+        "he": "פּוֹגֶשֶׁת",
+        "tr": "pogeshet"
+      },
+      {
+        "he": "פּוֹגְשִׁים",
+        "tr": "pogshim"
+      },
+      {
+        "he": "פּוֹגְשׁוֹת",
+        "tr": "pogshot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הִיא פּוֹגֶשֶׁת חֲבֵרָה בְּבֵית הַקָּפֶה",
+        "tr": "hi pogeshet chaverah beveit hakafeh",
+        "fr": "elle rencontre une amie au café"
+      }
+    ]
+  },
+  {
+    "he": "לְהַרְאוֹת",
+    "fr": "montrer",
+    "formes": [
+      {
+        "he": "מַרְאֶה",
+        "tr": "mar'eh"
+      },
+      {
+        "he": "מַרְאָה",
+        "tr": "mar'ah"
+      },
+      {
+        "he": "מַרְאִים",
+        "tr": "marim"
+      },
+      {
+        "he": "מַרְאוֹת",
+        "tr": "marot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הוּא מַרְאֶה תְּמוּנוֹת לַמִּשְׁפָּחָה",
+        "tr": "hu mareh temunot lamishpachah",
+        "fr": "il montre des photos à la famille"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁמֹעַ",
+    "fr": "entendre / écouter",
+    "formes": [
+      {
+        "he": "שׁוֹמֵעַ",
+        "tr": "shome'a"
+      },
+      {
+        "he": "שׁוֹמַעַת",
+        "tr": "shoma'at"
+      },
+      {
+        "he": "שׁוֹמְעִים",
+        "tr": "shom'im"
+      },
+      {
+        "he": "שׁוֹמְעוֹת",
+        "tr": "shom'ot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹמֵעַ מוּזִיקָה בַּמְּכוֹנִית",
+        "tr": "ani shome'a muzikah bamekhonit",
+        "fr": "j'écoute de la musique en voiture"
+      }
+    ]
+  },
+  {
+    "he": "לִרְאוֹת",
+    "fr": "voir",
+    "formes": [
+      {
+        "he": "רוֹאֶה",
+        "tr": "ro'eh"
+      },
+      {
+        "he": "רוֹאָה",
+        "tr": "ro'ah"
+      },
+      {
+        "he": "רוֹאִים",
+        "tr": "ro'im"
+      },
+      {
+        "he": "רוֹאוֹת",
+        "tr": "root"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ רוֹאִים סֶרֶט הָעֶרֶב",
+        "tr": "anachnu ro'im seret ha'erev",
+        "fr": "nous voyons un film ce soir"
+      }
+    ]
+  },
+  {
+    "he": "לְהָרִיחַ",
+    "fr": "sentir (odorat)",
+    "formes": [
+      {
+        "he": "מֵרִיחַ",
+        "tr": "meriach"
+      },
+      {
+        "he": "מְרִיחָה",
+        "tr": "merichah"
+      },
+      {
+        "he": "מְרִיחִים",
+        "tr": "merichim"
+      },
+      {
+        "he": "מְרִיחוֹת",
+        "tr": "merichot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי מֵרִיחַ אֶת הַפְּרָחִים בַּגַּן",
+        "tr": "ani meriyach et haprachim bagan",
+        "fr": "je sens les fleurs du jardin"
+      }
+    ]
+  },
+  {
+    "he": "לְהִסְתַּכֵּל",
+    "fr": "regarder",
+    "formes": [
+      {
+        "he": "מִסְתַּכֵּל",
+        "tr": "mistakel"
+      },
+      {
+        "he": "מִסְתַּכֶּלֶת",
+        "tr": "mistakelet"
+      },
+      {
+        "he": "מִסְתַּכְּלִים",
+        "tr": "mistaklim"
+      },
+      {
+        "he": "מִסְתַּכְּלוֹת",
+        "tr": "mistaklot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַתִּינוֹק מִסְתַּכֵּל עַל הֶחָתוּל",
+        "tr": "hatinok mistakel 'al hechatul",
+        "fr": "le bébé regarde le chat"
+      }
+    ]
+  },
+  {
+    "he": "לִנְשֹׁם",
+    "fr": "respirer",
+    "formes": [
+      {
+        "he": "נוֹשֵׁם",
+        "tr": "noshem"
+      },
+      {
+        "he": "נוֹשֶׁמֶת",
+        "tr": "noshemet"
+      },
+      {
+        "he": "נוֹשְׁמִים",
+        "tr": "noshmim"
+      },
+      {
+        "he": "נוֹשְׁמוֹת",
+        "tr": "noshmot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי נוֹשֵׁם טוֹב אַחֲרֵי הַתְּרוּפָה",
+        "tr": "ani noshem tov acharei hatrufah",
+        "fr": "je respire bien après le médicament"
+      }
+    ]
+  },
+  {
+    "he": "לִכְאֹב",
+    "fr": "faire mal / avoir mal",
+    "formes": [
+      {
+        "he": "כּוֹאֵב",
+        "tr": "ko'ev"
+      },
+      {
+        "he": "כּוֹאֶבֶת",
+        "tr": "ko'evet"
+      },
+      {
+        "he": "כּוֹאֲבִים",
+        "tr": "ko'avim"
+      },
+      {
+        "he": "כּוֹאֲבוֹת",
+        "tr": "ko'avot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הָרֹאשׁ כּוֹאֵב לִי",
+        "tr": "harosh ko'ev li",
+        "fr": "j'ai mal à la tête"
+      }
+    ]
+  },
+  {
+    "he": "לְהִדָּבֵק",
+    "fr": "tomber malade / attraper (une maladie)",
+    "formes": [
+      {
+        "he": "נִדְבָּק",
+        "tr": "nidbak"
+      },
+      {
+        "he": "נִדְבֶּקֶת",
+        "tr": "nidbeket"
+      },
+      {
+        "he": "נִדְבָּקִים",
+        "tr": "nidbakim"
+      },
+      {
+        "he": "נִדְבָּקוֹת",
+        "tr": "nidbakot"
+      }
+    ],
+    "niveau": "B2",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי נִדְבָּק בְּבֵית הַחוֹלִים",
+        "tr": "ani nidbak beveit hacholim",
+        "fr": "je tombe malade à l'hôpital"
+      }
+    ]
+  },
+  {
+    "he": "לְהַבְרִיא",
+    "fr": "guérir",
+    "formes": [
+      {
+        "he": "מַבְרִיא",
+        "tr": "mavri"
+      },
+      {
+        "he": "מַבְרִיאָה",
+        "tr": "mavri'ah"
+      },
+      {
+        "he": "מַבְרִיאִים",
+        "tr": "mavri'im"
+      },
+      {
+        "he": "מַבְרִיאוֹת",
+        "tr": "mavri'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד הַחוֹלֶה מַבְרִיא בַּבַּיִת",
+        "tr": "hayeled hacholeh mavri babayit",
+        "fr": "l'enfant malade guérit à la maison"
+      }
+    ]
+  },
+  {
+    "he": "לְהִפָּצַע",
+    "fr": "se blesser",
+    "formes": [
+      {
+        "he": "נִפְצָע",
+        "tr": "niftsa"
+      },
+      {
+        "he": "נִפְצַעַת",
+        "tr": "niftsa'at"
+      },
+      {
+        "he": "נִפְצָעִים",
+        "tr": "niftsa'im"
+      },
+      {
+        "he": "נִפְצָעוֹת",
+        "tr": "niftsa'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד נִפְצָע עַל הָרֶגֶל",
+        "tr": "hayeled niftsa 'al haregel",
+        "fr": "l'enfant se blesse à la jambe"
+      }
+    ]
+  },
+  {
+    "he": "לְהִשְׁתַּעֵל",
+    "fr": "tousser",
+    "formes": [
+      {
+        "he": "מִשְׁתַּעֵל",
+        "tr": "mishta'el"
+      },
+      {
+        "he": "מִשְׁתַּעֶלֶת",
+        "tr": "mishta'elet"
+      },
+      {
+        "he": "מִשְׁתַּעֲלִים",
+        "tr": "mishta'alim"
+      },
+      {
+        "he": "מִשְׁתַּעֲלוֹת",
+        "tr": "mishta'alot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מִשְׁתַּעֵל בַּלַּיְלָה",
+        "tr": "hayeled mishta'el balaylah",
+        "fr": "l'enfant tousse la nuit"
+      }
+    ]
+  },
+  {
+    "he": "לוֹמַר",
+    "fr": "dire (aussi : signifier)",
+    "formes": [
+      {
+        "he": "אוֹמֵר",
+        "tr": "omer"
+      },
+      {
+        "he": "אוֹמֶרֶת",
+        "tr": "omeret"
+      },
+      {
+        "he": "אוֹמְרִים",
+        "tr": "omrim"
+      },
+      {
+        "he": "אוֹמְרוֹת",
+        "tr": "omrot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "מָה אַתָּה אוֹמֵר?",
+        "tr": "mah atah omer?",
+        "fr": "qu'est-ce que tu dis ?"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁלֹחַ",
+    "fr": "envoyer",
+    "formes": [
+      {
+        "he": "שׁוֹלֵחַ",
+        "tr": "sholeach"
+      },
+      {
+        "he": "שׁוֹלַחַת",
+        "tr": "sholachat"
+      },
+      {
+        "he": "שׁוֹלְחִים",
+        "tr": "sholchim"
+      },
+      {
+        "he": "שׁוֹלְחוֹת",
+        "tr": "sholchot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹלֵחַ מִכְתָּב לַדּוֹדָה",
+        "tr": "ani sholeach mikhtav ladodah",
+        "fr": "j'envoie une lettre à la tante"
+      }
+    ]
+  },
+  {
+    "he": "לְהַסְבִּיר",
+    "fr": "expliquer",
+    "formes": [
+      {
+        "he": "מַסְבִּיר",
+        "tr": "masbir"
+      },
+      {
+        "he": "מַסְבִּירָה",
+        "tr": "masbirah"
+      },
+      {
+        "he": "מַסְבִּירִים",
+        "tr": "masbirim"
+      },
+      {
+        "he": "מַסְבִּירוֹת",
+        "tr": "masbirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַמּוֹרָה מַסְבִּירָה אֶת הַתְּשׁוּבָה",
+        "tr": "hamorah masbirah et hatshuvah",
+        "fr": "l'enseignante explique la réponse"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְקַשֵּׁר",
+    "fr": "téléphoner / appeler",
+    "formes": [
+      {
+        "he": "מִתְקַשֵּׁר",
+        "tr": "mitkasher"
+      },
+      {
+        "he": "מִתְקַשֶּׁרֶת",
+        "tr": "mitkasheret"
+      },
+      {
+        "he": "מִתְקַשְּׁרִים",
+        "tr": "mitkashrim"
+      },
+      {
+        "he": "מִתְקַשְּׁרוֹת",
+        "tr": "mitkashrot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְקַשֵּׁר לְאִמָּא בָּעֶרֶב",
+        "tr": "ani mitkasher le'ima ba'erev",
+        "fr": "j'appelle maman le soir"
+      }
+    ]
+  },
+  {
+    "he": "לְהַזְכִּיר",
+    "fr": "mentionner, rappeler",
+    "formes": [
+      {
+        "he": "מַזְכִּיר",
+        "tr": "mazkir"
+      },
+      {
+        "he": "מַזְכִּירָה",
+        "tr": "mazkirah"
+      },
+      {
+        "he": "מַזְכִּירִים",
+        "tr": "mazkirim"
+      },
+      {
+        "he": "מַזְכִּירוֹת",
+        "tr": "mazkirot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "אֲנִי מַזְכִּיר לְךָ אֶת הַפְּגִישָׁה.",
+        "tr": "ani mazkir lekha et hapgishah",
+        "fr": "Je te rappelle le rendez-vous."
+      }
+    ]
+  },
+  {
+    "he": "לְהַצִּיעַ",
+    "fr": "proposer, suggérer",
+    "formes": [
+      {
+        "he": "מַצִּיעַ",
+        "tr": "matsi'a"
+      },
+      {
+        "he": "מַצִּיעָה",
+        "tr": "matsi'ah"
+      },
+      {
+        "he": "מַצִּיעִים",
+        "tr": "matsi'im"
+      },
+      {
+        "he": "מַצִּיעוֹת",
+        "tr": "matsi'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הוּא מַצִּיעַ לָלֶכֶת לַקּוֹלְנוֹעַ.",
+        "tr": "hu matsi'a lalekhet lakolno'a",
+        "fr": "Il propose d'aller au cinéma."
+      }
+    ]
+  },
+  {
+    "he": "לְתַרְגֵּם",
+    "fr": "traduire",
+    "formes": [
+      {
+        "he": "מְתַרְגֵּם",
+        "tr": "metargem"
+      },
+      {
+        "he": "מְתַרְגֶּמֶת",
+        "tr": "metargemet"
+      },
+      {
+        "he": "מְתַרְגְּמִים",
+        "tr": "metargmim"
+      },
+      {
+        "he": "מְתַרְגְּמוֹת",
+        "tr": "metargmot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הִיא מְתַרְגֶּמֶת אֶת הַסֵּפֶר לְעִבְרִית.",
+        "tr": "hi metargemet et hasefer le'ivrit",
+        "fr": "Elle traduit le livre en hébreu."
+      }
+    ]
+  },
+  {
+    "he": "לְשַׁקֵּר",
+    "fr": "mentir",
+    "formes": [
+      {
+        "he": "מְשַׁקֵּר",
+        "tr": "meshaker"
+      },
+      {
+        "he": "מְשַׁקֶּרֶת",
+        "tr": "meshakeret"
+      },
+      {
+        "he": "מְשַׁקְּרִים",
+        "tr": "meshakrim"
+      },
+      {
+        "he": "מְשַׁקְּרוֹת",
+        "tr": "meshakrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הוּא מְשַׁקֵּר לַחֲבֵרִים שֶׁלּוֹ.",
+        "tr": "hu meshaker lachaverim shelo",
+        "fr": "Il ment à ses amis."
+      }
+    ]
+  },
+  {
+    "he": "לְהַזְהִיר",
+    "fr": "avertir, mettre en garde",
+    "formes": [
+      {
+        "he": "מַזְהִיר",
+        "tr": "mazhir"
+      },
+      {
+        "he": "מַזְהִירָה",
+        "tr": "mazhirah"
+      },
+      {
+        "he": "מַזְהִירִים",
+        "tr": "mazhirim"
+      },
+      {
+        "he": "מַזְהִירוֹת",
+        "tr": "mazhirot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "communication-perception",
+    "exemples": [
+      {
+        "he": "הַשֶּׁלֶט מַזְהִיר אֶת הַנֶּהָגִים מִפְּנֵי הַסַּכָּנָה.",
+        "tr": "hashelet mazhir et hanehagim mipnei hasakanah",
+        "fr": "Le panneau avertit les conducteurs du danger."
+      }
+    ]
+  },
+  {
+    "he": "לִרְצוֹת",
+    "fr": "vouloir",
+    "formes": [
+      {
+        "he": "רוֹצֶה",
+        "tr": "rotseh"
+      },
+      {
+        "he": "רוֹצָה",
+        "tr": "rotsah"
+      },
+      {
+        "he": "רוֹצִים",
+        "tr": "rotsim"
+      },
+      {
+        "he": "רוֹצוֹת",
+        "tr": "rotsot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי רוֹצֶה לִשְׁתּוֹת מַיִם",
+        "tr": "ani rotseh lishtot mayim",
+        "fr": "je veux boire de l'eau"
+      }
+    ]
+  },
+  {
+    "he": "לֶאֱהֹב",
+    "fr": "aimer",
+    "formes": [
+      {
+        "he": "אוֹהֵב",
+        "tr": "ohev"
+      },
+      {
+        "he": "אוֹהֶבֶת",
+        "tr": "ohevet"
+      },
+      {
+        "he": "אוֹהֲבִים",
+        "tr": "ohavim"
+      },
+      {
+        "he": "אוֹהֲבוֹת",
+        "tr": "ohavot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב אֶת הַיָּם",
+        "tr": "ani ohev et hayam",
+        "fr": "j'aime la mer"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׂנֹא",
+    "fr": "haïr",
+    "formes": [
+      {
+        "he": "שׂוֹנֵא",
+        "tr": "sone"
+      },
+      {
+        "he": "שׂוֹנֵאת",
+        "tr": "sonet"
+      },
+      {
+        "he": "שׂוֹנְאִים",
+        "tr": "sonim"
+      },
+      {
+        "he": "שׂוֹנְאוֹת",
+        "tr": "sonot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הֶחָתוּל שׂוֹנֵא מַיִם",
+        "tr": "hechatul sone mayim",
+        "fr": "le chat déteste l'eau"
+      }
+    ]
+  },
+  {
+    "he": "לַחְשֹׁב",
+    "fr": "penser",
+    "formes": [
+      {
+        "he": "חוֹשֵׁב",
+        "tr": "choshev"
+      },
+      {
+        "he": "חוֹשֶׁבֶת",
+        "tr": "choshevet"
+      },
+      {
+        "he": "חוֹשְׁבִים",
+        "tr": "choshvim"
+      },
+      {
+        "he": "חוֹשְׁבוֹת",
+        "tr": "choshvot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי חוֹשֵׁב שֶׁזֶּה טוֹב",
+        "tr": "ani choshev shezeh tov",
+        "fr": "je pense que c'est bien"
+      }
+    ]
+  },
+  {
+    "he": "לָדַעַת",
+    "fr": "savoir",
+    "formes": [
+      {
+        "he": "יוֹדֵעַ",
+        "tr": "yode'a"
+      },
+      {
+        "he": "יוֹדַעַת",
+        "tr": "yoda'at"
+      },
+      {
+        "he": "יוֹדְעִים",
+        "tr": "yod'im"
+      },
+      {
+        "he": "יוֹדְעוֹת",
+        "tr": "yod'ot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי לֹא יוֹדֵעַ אֵיפֹה זֶה",
+        "tr": "ani lo yode'a eifoh zeh",
+        "fr": "je ne sais pas où c'est"
+      }
+    ]
+  },
+  {
+    "he": "לְהָבִין",
+    "fr": "comprendre",
+    "formes": [
+      {
+        "he": "מֵבִין",
+        "tr": "mevin"
+      },
+      {
+        "he": "מְבִינָה",
+        "tr": "mevinah"
+      },
+      {
+        "he": "מְבִינִים",
+        "tr": "mevinim"
+      },
+      {
+        "he": "מְבִינוֹת",
+        "tr": "mevinot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אַתְּ מְבִינָה עִבְרִית?",
+        "tr": "at mevinah 'ivrit?",
+        "fr": "tu comprends l'hébreu ? (à une femme)"
+      }
+    ]
+  },
+  {
+    "he": "לְהַכִּיר",
+    "fr": "connaître (qqn)",
+    "formes": [
+      {
+        "he": "מַכִּיר",
+        "tr": "makir"
+      },
+      {
+        "he": "מַכִּירָה",
+        "tr": "makirah"
+      },
+      {
+        "he": "מַכִּירִים",
+        "tr": "makirim"
+      },
+      {
+        "he": "מַכִּירוֹת",
+        "tr": "makirot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי מַכִּיר אֶת הָאִישׁ הַזֶּה",
+        "tr": "ani makir et ha'ish hazeh",
+        "fr": "je connais cet homme"
+      }
+    ]
+  },
+  {
+    "he": "לְהַאֲמִין",
+    "fr": "croire",
+    "formes": [
+      {
+        "he": "מַאֲמִין",
+        "tr": "ma'amin"
+      },
+      {
+        "he": "מַאֲמִינָה",
+        "tr": "maaminah"
+      },
+      {
+        "he": "מַאֲמִינִים",
+        "tr": "ma'aminim"
+      },
+      {
+        "he": "מַאֲמִינוֹת",
+        "tr": "ma'aminot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי מַאֲמִין שֶׁזֶּה אֶפְשָׁרִי",
+        "tr": "ani ma'amin shezeh efshari",
+        "fr": "je crois que c'est possible"
+      }
+    ]
+  },
+  {
+    "he": "לְקַוּוֹת",
+    "fr": "espérer",
+    "formes": [
+      {
+        "he": "מְקַוֶּה",
+        "tr": "mekaveh"
+      },
+      {
+        "he": "מְקַוָּה",
+        "tr": "mekavah"
+      },
+      {
+        "he": "מְקַוִּים",
+        "tr": "mekavim"
+      },
+      {
+        "he": "מְקַווֹת",
+        "tr": "mekavot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי מְקַוֶּה שֶׁמָּחָר יֵשׁ שֶׁמֶשׁ",
+        "tr": "ani mekaveh shemachar yesh shemesh",
+        "fr": "j'espère qu'il y a du soleil demain"
+      }
+    ]
+  },
+  {
+    "he": "לִזְכֹּר",
+    "fr": "se souvenir",
+    "formes": [
+      {
+        "he": "זוֹכֵר",
+        "tr": "zokher"
+      },
+      {
+        "he": "זוֹכֶרֶת",
+        "tr": "zokheret"
+      },
+      {
+        "he": "זוֹכְרִים",
+        "tr": "zokhrim"
+      },
+      {
+        "he": "זוֹכְרוֹת",
+        "tr": "zokhrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי זוֹכֵר אֶת הַיּוֹם הָרִאשׁוֹן בָּאֻלְפָּן",
+        "tr": "ani zokher et hayom harishon ba'ulpan",
+        "fr": "je me souviens du premier jour à l'oulpan"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁכֹּחַ",
+    "fr": "oublier",
+    "formes": [
+      {
+        "he": "שׁוֹכֵחַ",
+        "tr": "shokheach"
+      },
+      {
+        "he": "שׁוֹכַחַת",
+        "tr": "shokhachat"
+      },
+      {
+        "he": "שׁוֹכְחִים",
+        "tr": "shokhechim"
+      },
+      {
+        "he": "שׁוֹכְחוֹת",
+        "tr": "shokhechot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הוּא תָּמִיד שׁוֹכֵחַ אֶת הַמַּפְתֵּחַ",
+        "tr": "hu tamid shokheach et hamafteach",
+        "fr": "il oublie toujours la clé"
+      }
+    ]
+  },
+  {
+    "he": "לְהַרְגִּישׁ",
+    "fr": "ressentir",
+    "formes": [
+      {
+        "he": "מַרְגִּישׁ",
+        "tr": "margish"
+      },
+      {
+        "he": "מַרְגִּישָׁה",
+        "tr": "margishah"
+      },
+      {
+        "he": "מַרְגִּישִׁים",
+        "tr": "margishim"
+      },
+      {
+        "he": "מַרְגִּישׁוֹת",
+        "tr": "margishot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי מַרְגִּישׁ טוֹב הַיּוֹם",
+        "tr": "ani margish tov hayom",
+        "fr": "je me sens bien aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "לַחְלֹם",
+    "fr": "rêver",
+    "formes": [
+      {
+        "he": "חוֹלֵם",
+        "tr": "cholem"
+      },
+      {
+        "he": "חוֹלֶמֶת",
+        "tr": "cholemet"
+      },
+      {
+        "he": "חוֹלְמִים",
+        "tr": "cholmim"
+      },
+      {
+        "he": "חוֹלְמוֹת",
+        "tr": "cholmot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה חוֹלֶמֶת בַּלַּיְלָה",
+        "tr": "hayaldah cholemet balaylah",
+        "fr": "la fille rêve la nuit"
+      }
+    ]
+  },
+  {
+    "he": "לְהַחְלִיט",
+    "fr": "décider",
+    "formes": [
+      {
+        "he": "מַחְלִיט",
+        "tr": "machlit"
+      },
+      {
+        "he": "מַחְלִיטָה",
+        "tr": "machlitah"
+      },
+      {
+        "he": "מַחְלִיטִים",
+        "tr": "machlitim"
+      },
+      {
+        "he": "מַחְלִיטוֹת",
+        "tr": "machlitot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מַחְלִיטִים לִנְסֹעַ לְיִשְׂרָאֵל",
+        "tr": "anachnu machlitim linso'a leYisra'el",
+        "fr": "nous décidons de partir en Israël"
+      }
+    ]
+  },
+  {
+    "he": "לִבְחֹר",
+    "fr": "choisir",
+    "formes": [
+      {
+        "he": "בּוֹחֵר",
+        "tr": "bocher"
+      },
+      {
+        "he": "בּוֹחֶרֶת",
+        "tr": "bocheret"
+      },
+      {
+        "he": "בּוֹחֲרִים",
+        "tr": "bocharim"
+      },
+      {
+        "he": "בּוֹחֲרוֹת",
+        "tr": "bocharot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הִיא בּוֹחֶרֶת שִׂמְלָה לַמְּסִבָּה",
+        "tr": "hi bocheret simlah lamsibah",
+        "fr": "elle choisit une robe pour la fête"
+      }
+    ]
+  },
+  {
+    "he": "לָדוּן",
+    "fr": "discuter",
+    "formes": [
+      {
+        "he": "דָּן",
+        "tr": "dan"
+      },
+      {
+        "he": "דָּנָה",
+        "tr": "danah"
+      },
+      {
+        "he": "דָּנִים",
+        "tr": "danim"
+      },
+      {
+        "he": "דָּנוֹת",
+        "tr": "danot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ דָּנִים עַל זֶה בַּכִּתָּה",
+        "tr": "anachnu danim 'al zeh bakitah",
+        "fr": "nous discutons de cela en classe"
+      }
+    ]
+  },
+  {
+    "he": "לְשַׁכְנֵעַ",
+    "fr": "convaincre",
+    "formes": [
+      {
+        "he": "מְשַׁכְנֵעַ",
+        "tr": "meshakhne'a"
+      },
+      {
+        "he": "מְשַׁכְנַעַת",
+        "tr": "meshakhna'at"
+      },
+      {
+        "he": "מְשַׁכְנְעִים",
+        "tr": "meshakhne'im"
+      },
+      {
+        "he": "מְשַׁכְנְעוֹת",
+        "tr": "meshakhne'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה מְשַׁכְנֵעַ אֶת הַתַּלְמִידִים",
+        "tr": "hamoreh meshakhne'a et hatalmidim",
+        "fr": "l'enseignant convainc les élèves"
+      }
+    ]
+  },
+  {
+    "he": "לְהַבְטִיחַ",
+    "fr": "promettre",
+    "formes": [
+      {
+        "he": "מַבְטִיחַ",
+        "tr": "mavtiach"
+      },
+      {
+        "he": "מַבְטִיחָה",
+        "tr": "mavtichah"
+      },
+      {
+        "he": "מַבְטִיחִים",
+        "tr": "mavtichim"
+      },
+      {
+        "he": "מַבְטִיחוֹת",
+        "tr": "mavtichot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הוּא מַבְטִיחַ לָבוֹא מָחָר",
+        "tr": "hu mavtiach lavo machar",
+        "fr": "il promet de venir demain"
+      }
+    ]
+  },
+  {
+    "he": "לְנַחֵשׁ",
+    "fr": "deviner",
+    "formes": [
+      {
+        "he": "מְנַחֵשׁ",
+        "tr": "menachesh"
+      },
+      {
+        "he": "מְנַחֶשֶׁת",
+        "tr": "menacheshet"
+      },
+      {
+        "he": "מְנַחֲשִׁים",
+        "tr": "menachashim"
+      },
+      {
+        "he": "מְנַחֲשׁוֹת",
+        "tr": "menachashot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אַתָּה מְנַחֵשׁ אֶת הַתְּשׁוּבָה הַנְּכוֹנָה.",
+        "tr": "atah menachesh et hatshuvah hankhonah",
+        "fr": "Tu devines la bonne réponse."
+      }
+    ]
+  },
+  {
+    "he": "לְהַשְׁווֹת",
+    "fr": "comparer",
+    "formes": [
+      {
+        "he": "מַשְׁוֶה",
+        "tr": "mashveh"
+      },
+      {
+        "he": "מַשְׁוָה",
+        "tr": "mashvah"
+      },
+      {
+        "he": "מַשְׁוִים",
+        "tr": "mashvim"
+      },
+      {
+        "he": "מַשְׁווֹת",
+        "tr": "mashvot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הַקּוֹנֶה מַשְׁוֶה בֵּין הַמְּחִירִים.",
+        "tr": "hakoneh mashveh bein hamchirim",
+        "fr": "L'acheteur compare les prix."
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְלוֹנֵן",
+    "fr": "se plaindre",
+    "formes": [
+      {
+        "he": "מִתְלוֹנֵן",
+        "tr": "mitlonen"
+      },
+      {
+        "he": "מִתְלוֹנֶנֶת",
+        "tr": "mitlonenet"
+      },
+      {
+        "he": "מִתְלוֹנְנִים",
+        "tr": "mitlonnim"
+      },
+      {
+        "he": "מִתְלוֹנְנוֹת",
+        "tr": "mitlonnot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הַשָּׁכֵן מִתְלוֹנֵן עַל הָרַעַשׁ.",
+        "tr": "hashakhen mitlonen 'al hara'ash",
+        "fr": "Le voisin se plaint du bruit."
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְגַּעְגֵּעַ",
+    "fr": "regretter, manquer (à qqn)",
+    "formes": [
+      {
+        "he": "מִתְגַּעְגֵּעַ",
+        "tr": "mitga'ge'a"
+      },
+      {
+        "he": "מִתְגַּעְגַּעַת",
+        "tr": "mitga'ga'at"
+      },
+      {
+        "he": "מִתְגַּעְגְּעִים",
+        "tr": "mitga'g'im"
+      },
+      {
+        "he": "מִתְגַּעְגְּעוֹת",
+        "tr": "mitga'g'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְגַּעְגֵּעַ לַמִּשְׁפָּחָה שֶׁלִּי.",
+        "tr": "ani mitga'ge'a lamishpachah sheli",
+        "fr": "Ma famille me manque."
+      }
+    ]
+  },
+  {
+    "he": "לַעֲשׂוֹת",
+    "fr": "faire",
+    "formes": [
+      {
+        "he": "עוֹשֶׂה",
+        "tr": "'oseh"
+      },
+      {
+        "he": "עוֹשָׂה",
+        "tr": "'osah"
+      },
+      {
+        "he": "עוֹשִׂים",
+        "tr": "'osim"
+      },
+      {
+        "he": "עוֹשׂוֹת",
+        "tr": "'osot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "מָה אַתָּה עוֹשֶׂה הַיּוֹם?",
+        "tr": "mah atah 'oseh hayom?",
+        "fr": "qu'est-ce que tu fais aujourd'hui ?"
+      }
+    ]
+  },
+  {
+    "he": "לִלְמֹד",
+    "fr": "étudier",
+    "formes": [
+      {
+        "he": "לוֹמֵד",
+        "tr": "lomed"
+      },
+      {
+        "he": "לוֹמֶדֶת",
+        "tr": "lomedet"
+      },
+      {
+        "he": "לוֹמְדִים",
+        "tr": "lomdim"
+      },
+      {
+        "he": "לוֹמְדוֹת",
+        "tr": "lomdot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי לוֹמֵד עִבְרִית בָּאֻלְפָּן",
+        "tr": "ani lomed 'ivrit ba'ulpan",
+        "fr": "j'apprends l'hébreu à l'oulpan"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲבֹד",
+    "fr": "travailler",
+    "formes": [
+      {
+        "he": "עוֹבֵד",
+        "tr": "'oved"
+      },
+      {
+        "he": "עוֹבֶדֶת",
+        "tr": "'ovedet"
+      },
+      {
+        "he": "עוֹבְדִים",
+        "tr": "'ovdim"
+      },
+      {
+        "he": "עוֹבְדוֹת",
+        "tr": "'ovdot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הִיא עוֹבֶדֶת בְּבֵית חוֹלִים",
+        "tr": "hi 'ovedet beveit cholim",
+        "fr": "elle travaille dans un hôpital"
+      }
+    ]
+  },
+  {
+    "he": "לִכְתֹּב",
+    "fr": "écrire",
+    "formes": [
+      {
+        "he": "כּוֹתֵב",
+        "tr": "kotev"
+      },
+      {
+        "he": "כּוֹתֶבֶת",
+        "tr": "kotevet"
+      },
+      {
+        "he": "כּוֹתְבִים",
+        "tr": "kotvim"
+      },
+      {
+        "he": "כּוֹתְבוֹת",
+        "tr": "kotvot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי כּוֹתֵב מִכְתָּב לְסָבְתָא",
+        "tr": "ani kotev mikhtav lesavta",
+        "fr": "j'écris une lettre à grand-mère"
+      }
+    ]
+  },
+  {
+    "he": "לִקְרֹא",
+    "fr": "lire",
+    "formes": [
+      {
+        "he": "קוֹרֵא",
+        "tr": "kore"
+      },
+      {
+        "he": "קוֹרֵאת",
+        "tr": "koret"
+      },
+      {
+        "he": "קוֹרְאִים",
+        "tr": "korim"
+      },
+      {
+        "he": "קוֹרְאוֹת",
+        "tr": "korot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הוּא קוֹרֵא סֵפֶר בָּעֶרֶב",
+        "tr": "hu kore sefer ba'erev",
+        "fr": "il lit un livre le soir"
+      }
+    ]
+  },
+  {
+    "he": "לְהַתְחִיל",
+    "fr": "commencer",
+    "formes": [
+      {
+        "he": "מַתְחִיל",
+        "tr": "matchil"
+      },
+      {
+        "he": "מַתְחִילָה",
+        "tr": "matchilah"
+      },
+      {
+        "he": "מַתְחִילִים",
+        "tr": "matchilim"
+      },
+      {
+        "he": "מַתְחִילוֹת",
+        "tr": "matchilot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַשִּׁעוּר מַתְחִיל בְּשָׁלוֹשׁ",
+        "tr": "hashi'ur matchil beshalosh",
+        "fr": "le cours commence à trois heures"
+      }
+    ]
+  },
+  {
+    "he": "לִגְמֹר",
+    "fr": "finir / terminer",
+    "formes": [
+      {
+        "he": "גּוֹמֵר",
+        "tr": "gomer"
+      },
+      {
+        "he": "גּוֹמֶרֶת",
+        "tr": "gomeret"
+      },
+      {
+        "he": "גּוֹמְרִים",
+        "tr": "gomrim"
+      },
+      {
+        "he": "גּוֹמְרוֹת",
+        "tr": "gomrot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי גּוֹמֵר אֶת הָעֲבוֹדָה מָחָר",
+        "tr": "ani gomer et ha'avodah machar",
+        "fr": "je finis le travail demain"
+      }
+    ]
+  },
+  {
+    "he": "לְהַמְשִׁיךְ",
+    "fr": "continuer",
+    "formes": [
+      {
+        "he": "מַמְשִׁיךְ",
+        "tr": "mamshikh"
+      },
+      {
+        "he": "מַמְשִׁיכָה",
+        "tr": "mamshikhah"
+      },
+      {
+        "he": "מַמְשִׁיכִים",
+        "tr": "mamshikhim"
+      },
+      {
+        "he": "מַמְשִׁיכוֹת",
+        "tr": "mamshikhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מַמְשִׁיכִים לִלְמֹד עִבְרִית",
+        "tr": "anachnu mamshikhim lilmod 'ivrit",
+        "fr": "nous continuons à apprendre l'hébreu"
+      }
+    ]
+  },
+  {
+    "he": "לְנַסּוֹת",
+    "fr": "essayer",
+    "formes": [
+      {
+        "he": "מְנַסֶּה",
+        "tr": "menaseh"
+      },
+      {
+        "he": "מְנַסָּה",
+        "tr": "menasah"
+      },
+      {
+        "he": "מְנַסִּים",
+        "tr": "menasim"
+      },
+      {
+        "he": "מְנַסּוֹת",
+        "tr": "menasot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מְנַסֶּה לְדַבֵּר עִבְרִית כָּל יוֹם",
+        "tr": "ani menaseh ledaber 'ivrit kol yom",
+        "fr": "j'essaie de parler hébreu chaque jour"
+      }
+    ]
+  },
+  {
+    "he": "לְחַפֵּשׂ",
+    "fr": "chercher",
+    "formes": [
+      {
+        "he": "מְחַפֵּשׂ",
+        "tr": "mechapes"
+      },
+      {
+        "he": "מְחַפֶּשֶׂת",
+        "tr": "mechapeset"
+      },
+      {
+        "he": "מְחַפְּשִׂים",
+        "tr": "mechapsim"
+      },
+      {
+        "he": "מְחַפְּשׂוֹת",
+        "tr": "mechapsot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מְחַפֵּשׂ אֶת הַמַּפְתֵּחַ",
+        "tr": "ani mechapes et hamafteach",
+        "fr": "je cherche la clé"
+      }
+    ]
+  },
+  {
+    "he": "לִמְצֹא",
+    "fr": "trouver",
+    "formes": [
+      {
+        "he": "מוֹצֵא",
+        "tr": "motse"
+      },
+      {
+        "he": "מוֹצֵאת",
+        "tr": "motset"
+      },
+      {
+        "he": "מוֹצְאִים",
+        "tr": "motsim"
+      },
+      {
+        "he": "מוֹצְאוֹת",
+        "tr": "motsot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הִיא מוֹצֵאת מָקוֹם טוֹב",
+        "tr": "hi motset makom tov",
+        "fr": "elle trouve une bonne place"
+      }
+    ]
+  },
+  {
+    "he": "לְקַבֵּל",
+    "fr": "recevoir",
+    "formes": [
+      {
+        "he": "מְקַבֵּל",
+        "tr": "mekabel"
+      },
+      {
+        "he": "מְקַבֶּלֶת",
+        "tr": "mekabelet"
+      },
+      {
+        "he": "מְקַבְּלִים",
+        "tr": "mekablim"
+      },
+      {
+        "he": "מְקַבְּלוֹת",
+        "tr": "mekablot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מְקַבֵּל מַתָּנָה יָפָה",
+        "tr": "hayeled mekabel matanah yafah",
+        "fr": "l'enfant reçoit un beau cadeau"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲזֹר",
+    "fr": "aider",
+    "formes": [
+      {
+        "he": "עוֹזֵר",
+        "tr": "'ozer"
+      },
+      {
+        "he": "עוֹזֶרֶת",
+        "tr": "'ozeret"
+      },
+      {
+        "he": "עוֹזְרִים",
+        "tr": "'ozrim"
+      },
+      {
+        "he": "עוֹזְרוֹת",
+        "tr": "'ozrot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "famille-personnes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אַתָּה יָכוֹל לַעֲזֹר לִי?",
+        "tr": "atah yakhol la'azor li?",
+        "fr": "tu peux m'aider ?"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְחַתֵּן",
+    "fr": "se marier",
+    "formes": [
+      {
+        "he": "מִתְחַתֵּן",
+        "tr": "mitchaten"
+      },
+      {
+        "he": "מִתְחַתֶּנֶת",
+        "tr": "mitchatenet"
+      },
+      {
+        "he": "מִתְחַתְּנִים",
+        "tr": "mitchatnim"
+      },
+      {
+        "he": "מִתְחַתְּנוֹת",
+        "tr": "mitchatnot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הֵם מִתְחַתְּנִים הַיּוֹם",
+        "tr": "hem mitchatnim hayom",
+        "fr": "ils se marient aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְגָּרֵשׁ",
+    "fr": "divorcer",
+    "formes": [
+      {
+        "he": "מִתְגָּרֵשׁ",
+        "tr": "mitgaresh"
+      },
+      {
+        "he": "מִתְגָּרֶשֶׁת",
+        "tr": "mitgareshet"
+      },
+      {
+        "he": "מִתְגָּרְשִׁים",
+        "tr": "mitgarshim"
+      },
+      {
+        "he": "מִתְגָּרְשׁוֹת",
+        "tr": "mitgarshot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הֵם מִתְגָּרְשִׁים עַכְשָׁיו",
+        "tr": "hem mitgarshim 'akhshav",
+        "fr": "ils divorcent maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לְהִוָּלֵד",
+    "fr": "naître",
+    "formes": [
+      {
+        "he": "נוֹלָד",
+        "tr": "nolad"
+      },
+      {
+        "he": "נוֹלֶדֶת",
+        "tr": "noledet"
+      },
+      {
+        "he": "נוֹלָדִים",
+        "tr": "noladim"
+      },
+      {
+        "he": "נוֹלָדוֹת",
+        "tr": "noladot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "תִּינוֹקוֹת נוֹלָדִים בְּבֵית חוֹלִים",
+        "tr": "tinokot noladim beveit cholim",
+        "fr": "des bébés naissent dans un hôpital"
+      }
+    ]
+  },
+  {
+    "he": "לְגַדֵּל",
+    "fr": "élever (un enfant)",
+    "formes": [
+      {
+        "he": "מְגַדֵּל",
+        "tr": "megadel"
+      },
+      {
+        "he": "מְגַדֶּלֶת",
+        "tr": "megadelet"
+      },
+      {
+        "he": "מְגַדְּלִים",
+        "tr": "megadlim"
+      },
+      {
+        "he": "מְגַדְּלוֹת",
+        "tr": "megadlot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַהוֹרִים מְגַדְּלִים אֶת הַיְלָדִים",
+        "tr": "hahorim megadlim et hayladim",
+        "fr": "les parents élèvent les enfants"
+      }
+    ]
+  },
+  {
+    "he": "לְחַכּוֹת",
+    "fr": "attendre",
+    "formes": [
+      {
+        "he": "מְחַכֶּה",
+        "tr": "mechakeh"
+      },
+      {
+        "he": "מְחַכָּה",
+        "tr": "mechakah"
+      },
+      {
+        "he": "מְחַכִּים",
+        "tr": "mechakim"
+      },
+      {
+        "he": "מְחַכּוֹת",
+        "tr": "mechakot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מְחַכֶּה לָאוֹטוֹבּוּס",
+        "tr": "ani mechakeh la'otobus",
+        "fr": "j'attends le bus"
+      }
+    ]
+  },
+  {
+    "he": "לְהִשְׁתַּמֵּשׁ",
+    "fr": "utiliser (avec בְּ)",
+    "formes": [
+      {
+        "he": "מִשְׁתַּמֵּשׁ",
+        "tr": "mishtamesh"
+      },
+      {
+        "he": "מִשְׁתַּמֶּשֶׁת",
+        "tr": "mishtameshet"
+      },
+      {
+        "he": "מִשְׁתַּמְּשִׁים",
+        "tr": "mishtamshim"
+      },
+      {
+        "he": "מִשְׁתַּמְּשׁוֹת",
+        "tr": "mishtamshot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מִשְׁתַּמֵּשׁ בַּטֶּלֶפוֹן כָּל הַיּוֹם",
+        "tr": "ani mishtamesh batelefon kol hayom",
+        "fr": "j'utilise le téléphone toute la journée"
+      }
+    ]
+  },
+  {
+    "he": "לְהַצְלִיחַ",
+    "fr": "réussir",
+    "formes": [
+      {
+        "he": "מַצְלִיחַ",
+        "tr": "matsliach"
+      },
+      {
+        "he": "מַצְלִיחָה",
+        "tr": "matslichah"
+      },
+      {
+        "he": "מַצְלִיחִים",
+        "tr": "matslichim"
+      },
+      {
+        "he": "מַצְלִיחוֹת",
+        "tr": "matslichot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הִיא מַצְלִיחָה בָּעֲבוֹדָה הַחֲדָשָׁה",
+        "tr": "hi matslichah ba'avodah hachadashah",
+        "fr": "elle réussit dans son nouveau travail"
+      }
+    ]
+  },
+  {
+    "he": "לִבְנוֹת",
+    "fr": "construire",
+    "formes": [
+      {
+        "he": "בּוֹנֶה",
+        "tr": "boneh"
+      },
+      {
+        "he": "בּוֹנָה",
+        "tr": "bonah"
+      },
+      {
+        "he": "בּוֹנִים",
+        "tr": "bonim"
+      },
+      {
+        "he": "בּוֹנוֹת",
+        "tr": "bonot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הֵם בּוֹנִים בַּיִת חָדָשׁ בָּעִיר",
+        "tr": "hem bonim bayit chadash ba'ir",
+        "fr": "ils construisent une nouvelle maison en ville"
+      }
+    ]
+  },
+  {
+    "he": "לִשְׁבֹּר",
+    "fr": "casser",
+    "formes": [
+      {
+        "he": "שׁוֹבֵר",
+        "tr": "shover"
+      },
+      {
+        "he": "שׁוֹבֶרֶת",
+        "tr": "shoveret"
+      },
+      {
+        "he": "שׁוֹבְרִים",
+        "tr": "shovrim"
+      },
+      {
+        "he": "שׁוֹבְרוֹת",
+        "tr": "shovrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד שׁוֹבֵר אֶת הַצַּלַּחַת",
+        "tr": "hayeled shover et hatsalachat",
+        "fr": "l'enfant casse l'assiette"
+      }
+    ]
+  },
+  {
+    "he": "לְתַקֵּן",
+    "fr": "réparer",
+    "formes": [
+      {
+        "he": "מְתַקֵּן",
+        "tr": "metaken"
+      },
+      {
+        "he": "מְתַקֶּנֶת",
+        "tr": "metakenet"
+      },
+      {
+        "he": "מְתַקְּנִים",
+        "tr": "metaknim"
+      },
+      {
+        "he": "מְתַקְּנוֹת",
+        "tr": "metaknot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הוּא מְתַקֵּן אֶת הַשָּׁעוֹן הַיָּשָׁן",
+        "tr": "hu metaken et hasha'on hayashan",
+        "fr": "il répare la vieille montre"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲבֹר דִּירָה",
+    "fr": "déménager",
+    "formes": [
+      {
+        "he": "עוֹבֵר דִּירָה",
+        "tr": "'over dirah"
+      },
+      {
+        "he": "עוֹבֶרֶת דִּירָה",
+        "tr": "'overet dirah"
+      },
+      {
+        "he": "עוֹבְרִים דִּירָה",
+        "tr": "'ovrim dirah"
+      },
+      {
+        "he": "עוֹבְרוֹת דִּירָה",
+        "tr": "'ovrot dirah"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ עוֹבְרִים דִּירָה הַשָּׁבוּעַ",
+        "tr": "anachnu 'ovrim dirah hashavu'a",
+        "fr": "nous déménageons cette semaine"
+      }
+    ]
+  },
+  {
+    "he": "לַחְתֹּךְ",
+    "fr": "couper",
+    "formes": [
+      {
+        "he": "חוֹתֵךְ",
+        "tr": "chotekh"
+      },
+      {
+        "he": "חוֹתֶכֶת",
+        "tr": "chotekhet"
+      },
+      {
+        "he": "חוֹתְכִים",
+        "tr": "chotkhim"
+      },
+      {
+        "he": "חוֹתְכוֹת",
+        "tr": "chotkhot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אִמָּא חוֹתֶכֶת יְרָקוֹת לַסָּלָט",
+        "tr": "ima chotekhet yerakot lasalat",
+        "fr": "maman coupe des légumes pour la salade"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְרַחֵץ",
+    "fr": "se laver",
+    "formes": [
+      {
+        "he": "מִתְרַחֵץ",
+        "tr": "mitrachets"
+      },
+      {
+        "he": "מִתְרַחֶצֶת",
+        "tr": "mitrachetset"
+      },
+      {
+        "he": "מִתְרַחֲצִים",
+        "tr": "mitrachatsim"
+      },
+      {
+        "he": "מִתְרַחֲצוֹת",
+        "tr": "mitrachatsot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְרַחֵץ בַּבֹּקֶר",
+        "tr": "ani mitrachets baboker",
+        "fr": "je me lave le matin"
+      }
+    ]
+  },
+  {
+    "he": "לְצַחְצֵחַ",
+    "fr": "se brosser les dents",
+    "formes": [
+      {
+        "he": "מְצַחְצֵחַ",
+        "tr": "metsachtse'ach"
+      },
+      {
+        "he": "מְצַחְצַחַת",
+        "tr": "metsachtsachat"
+      },
+      {
+        "he": "מְצַחְצְחִים",
+        "tr": "metsachtschim"
+      },
+      {
+        "he": "מְצַחְצְחוֹת",
+        "tr": "metsachtschot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מְצַחְצֵחַ אֶת הַשִּׁנַּיִם",
+        "tr": "ani metsachtse'ach et hashinayim",
+        "fr": "je me brosse les dents"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְנַגֵּב",
+    "fr": "se sécher",
+    "formes": [
+      {
+        "he": "מִתְנַגֵּב",
+        "tr": "mitnagev"
+      },
+      {
+        "he": "מִתְנַגֶּבֶת",
+        "tr": "mitnagevet"
+      },
+      {
+        "he": "מִתְנַגְּבִים",
+        "tr": "mitnagvim"
+      },
+      {
+        "he": "מִתְנַגְּבוֹת",
+        "tr": "mitnagvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְנַגֵּב אַחֲרֵי הַמִּקְלַחַת",
+        "tr": "ani mitnagev acharei hamiklachat",
+        "fr": "je me sèche après la douche"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְפַּשֵּׁט",
+    "fr": "se déshabiller",
+    "formes": [
+      {
+        "he": "מִתְפַּשֵּׁט",
+        "tr": "mitpashet"
+      },
+      {
+        "he": "מִתְפַּשֶּׁטֶת",
+        "tr": "mitpashetet"
+      },
+      {
+        "he": "מִתְפַּשְּׁטִים",
+        "tr": "mitpashtim"
+      },
+      {
+        "he": "מִתְפַּשְּׁטוֹת",
+        "tr": "mitpashtot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הוּא מִתְפַּשֵּׁט לִפְנֵי הַמִּקְלַחַת",
+        "tr": "hu mitpashet lifnei hamiklachat",
+        "fr": "il se déshabille avant la douche"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְאַפֵּר",
+    "fr": "se maquiller",
+    "formes": [
+      {
+        "he": "מִתְאַפֵּר",
+        "tr": "mit'aper"
+      },
+      {
+        "he": "מִתְאַפֶּרֶת",
+        "tr": "mit'aperet"
+      },
+      {
+        "he": "מִתְאַפְּרִים",
+        "tr": "mit'aprim"
+      },
+      {
+        "he": "מִתְאַפְּרוֹת",
+        "tr": "mit'aprot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הִיא מִתְאַפֶּרֶת לִפְנֵי הַמְּסִבָּה",
+        "tr": "hi mit'aperet lifnei hamsibah",
+        "fr": "elle se maquille avant la fête"
+      }
+    ]
+  },
+  {
+    "he": "לְכַבֵּס",
+    "fr": "laver (le linge)",
+    "formes": [
+      {
+        "he": "מְכַבֵּס",
+        "tr": "mechabes"
+      },
+      {
+        "he": "מְכַבֶּסֶת",
+        "tr": "mechabeset"
+      },
+      {
+        "he": "מְכַבְּסִים",
+        "tr": "mechabsim"
+      },
+      {
+        "he": "מְכַבְּסוֹת",
+        "tr": "mechabsot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מְכַבֵּס אֶת הַכְּבִיסָה",
+        "tr": "ani mechabes et hakvisah",
+        "fr": "je lave le linge"
+      }
+    ]
+  },
+  {
+    "he": "לְהַדְלִיק",
+    "fr": "allumer",
+    "formes": [
+      {
+        "he": "מַדְלִיק",
+        "tr": "madlik"
+      },
+      {
+        "he": "מַדְלִיקָה",
+        "tr": "madlikah"
+      },
+      {
+        "he": "מַדְלִיקִים",
+        "tr": "madlikim"
+      },
+      {
+        "he": "מַדְלִיקוֹת",
+        "tr": "madlikot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מַדְלִיק אֶת הַטֶּלֶפוֹן",
+        "tr": "ani madlik et hatelefon",
+        "fr": "j'allume le téléphone"
+      }
+    ]
+  },
+  {
+    "he": "לְכַבּוֹת",
+    "fr": "éteindre",
+    "formes": [
+      {
+        "he": "מְכַבֶּה",
+        "tr": "mechabeh"
+      },
+      {
+        "he": "מְכַבָּה",
+        "tr": "mechabah"
+      },
+      {
+        "he": "מְכַבִּים",
+        "tr": "mechabim"
+      },
+      {
+        "he": "מְכַבּוֹת",
+        "tr": "mechabot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מְכַבֶּה אֶת הַטֶּלֶפוֹן",
+        "tr": "ani mechabeh et hatelefon",
+        "fr": "j'éteins le téléphone"
+      }
+    ]
+  },
+  {
+    "he": "לְקַפֵּל",
+    "fr": "plier (le linge)",
+    "formes": [
+      {
+        "he": "מְקַפֵּל",
+        "tr": "mekapel"
+      },
+      {
+        "he": "מְקַפֶּלֶת",
+        "tr": "mekapelet"
+      },
+      {
+        "he": "מְקַפְּלִים",
+        "tr": "mekaplim"
+      },
+      {
+        "he": "מְקַפְּלוֹת",
+        "tr": "mekaplot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אִמָּא מְקַפֶּלֶת אֶת הַכְּבִיסָה",
+        "tr": "ima mekapelet et hakvisah",
+        "fr": "maman plie le linge"
+      }
+    ]
+  },
+  {
+    "he": "לִסְפֹּר",
+    "fr": "compter",
+    "formes": [
+      {
+        "he": "סוֹפֵר",
+        "tr": "sofer"
+      },
+      {
+        "he": "סוֹפֶרֶת",
+        "tr": "soferet"
+      },
+      {
+        "he": "סוֹפְרִים",
+        "tr": "sofrim"
+      },
+      {
+        "he": "סוֹפְרוֹת",
+        "tr": "sofrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד סוֹפֵר עַד עֶשֶׂר",
+        "tr": "hayeled sofer 'ad 'eser",
+        "fr": "l'enfant compte jusqu'à dix"
+      }
+    ]
+  },
+  {
+    "he": "לְשַׁנּוֹת",
+    "fr": "changer",
+    "formes": [
+      {
+        "he": "מְשַׁנֶּה",
+        "tr": "meshaneh"
+      },
+      {
+        "he": "מְשַׁנָּה",
+        "tr": "meshanah"
+      },
+      {
+        "he": "מְשַׁנִּים",
+        "tr": "meshanim"
+      },
+      {
+        "he": "מְשַׁנּוֹת",
+        "tr": "meshanot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מְשַׁנִּים אֶת הַדֶּרֶךְ הַיּוֹם",
+        "tr": "anachnu meshanim et haderekh hayom",
+        "fr": "nous changeons de chemin aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְקַיֵּם",
+    "fr": "exister",
+    "formes": [
+      {
+        "he": "מִתְקַיֵּם",
+        "tr": "mitkayem"
+      },
+      {
+        "he": "מִתְקַיֶּמֶת",
+        "tr": "mitkayemet"
+      },
+      {
+        "he": "מִתְקַיְּמִים",
+        "tr": "mitkaymim"
+      },
+      {
+        "he": "מִתְקַיְּמוֹת",
+        "tr": "mitkaymot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַחַיִּים מִתְקַיְּמִים תָּמִיד",
+        "tr": "hachayim mitkaymim tamid",
+        "fr": "la vie existe toujours"
+      }
+    ]
+  },
+  {
+    "he": "לְהַסְכִּים",
+    "fr": "accepter / être d'accord",
+    "formes": [
+      {
+        "he": "מַסְכִּים",
+        "tr": "maskim"
+      },
+      {
+        "he": "מַסְכִּימָה",
+        "tr": "maskimah"
+      },
+      {
+        "he": "מַסְכִּימִים",
+        "tr": "maskimim"
+      },
+      {
+        "he": "מַסְכִּימוֹת",
+        "tr": "maskimot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מַסְכִּים עִם הָרַעְיוֹן הַזֶּה",
+        "tr": "ani maskim 'im hara'yon hazeh",
+        "fr": "je suis d'accord avec cette idée"
+      }
+    ]
+  },
+  {
+    "he": "לַחְתֹּם",
+    "fr": "signer",
+    "formes": [
+      {
+        "he": "חוֹתֵם",
+        "tr": "chotem"
+      },
+      {
+        "he": "חוֹתֶמֶת",
+        "tr": "chotemet"
+      },
+      {
+        "he": "חוֹתְמִים",
+        "tr": "chotmim"
+      },
+      {
+        "he": "חוֹתְמוֹת",
+        "tr": "chotmot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הוּא חוֹתֵם עַל הַטֹּפֶס",
+        "tr": "hu chotem 'al hatofes",
+        "fr": "Il signe le formulaire"
+      }
+    ]
+  },
+  {
+    "he": "לְמַלֵּא",
+    "fr": "remplir",
+    "formes": [
+      {
+        "he": "מְמַלֵּא",
+        "tr": "memale"
+      },
+      {
+        "he": "מְמַלֵּאת",
+        "tr": "memalet"
+      },
+      {
+        "he": "מְמַלְּאִים",
+        "tr": "memal'im"
+      },
+      {
+        "he": "מְמַלְּאוֹת",
+        "tr": "memal'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מְמַלֵּא אֶת הַטֹּפֶס",
+        "tr": "ani memale et hatofes",
+        "fr": "Je remplis le formulaire"
+      }
+    ]
+  },
+  {
+    "he": "לְהַעֲסִיק",
+    "fr": "embaucher, employer",
+    "formes": [
+      {
+        "he": "מַעֲסִיק",
+        "tr": "ma'asik"
+      },
+      {
+        "he": "מַעֲסִיקָה",
+        "tr": "ma'asikah"
+      },
+      {
+        "he": "מַעֲסִיקִים",
+        "tr": "ma'asikim"
+      },
+      {
+        "he": "מַעֲסִיקוֹת",
+        "tr": "ma'asikot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַמִּשְׂרָד מַעֲסִיק סְטוּדֶנְטִים",
+        "tr": "hamisrad ma'asik studentim",
+        "fr": "le bureau (l'entreprise) emploie des étudiants"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְפַּטֵּר",
+    "fr": "démissionner",
+    "formes": [
+      {
+        "he": "מִתְפַּטֵּר",
+        "tr": "mitpater"
+      },
+      {
+        "he": "מִתְפַּטֶּרֶת",
+        "tr": "mitpateret"
+      },
+      {
+        "he": "מִתְפַּטְּרִים",
+        "tr": "mitpatrim"
+      },
+      {
+        "he": "מִתְפַּטְּרוֹת",
+        "tr": "mitpatrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הָעוֹבֵד מִתְפַּטֵּר מֵהָעֲבוֹדָה",
+        "tr": "ha'oved mitpater meha'avodah",
+        "fr": "l'employé démissionne de son travail"
+      }
+    ]
+  },
+  {
+    "he": "לְהַצִּיג",
+    "fr": "présenter (un exposé)",
+    "formes": [
+      {
+        "he": "מַצִּיג",
+        "tr": "matsig"
+      },
+      {
+        "he": "מַצִּיגָה",
+        "tr": "matsigah"
+      },
+      {
+        "he": "מַצִּיגִים",
+        "tr": "matsigim"
+      },
+      {
+        "he": "מַצִּיגוֹת",
+        "tr": "matsigot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַסְּטוּדֶנְט מַצִּיג בַּכִּתָּה",
+        "tr": "hastudent matsig bakitah",
+        "fr": "l'étudiant présente (son exposé) en classe"
+      }
+    ]
+  },
+  {
+    "he": "לְהִכָּשֵׁל",
+    "fr": "échouer",
+    "formes": [
+      {
+        "he": "נִכְשָׁל",
+        "tr": "nikhshal"
+      },
+      {
+        "he": "נִכְשֶׁלֶת",
+        "tr": "nikhshelet"
+      },
+      {
+        "he": "נִכְשָׁלִים",
+        "tr": "nikhshalim"
+      },
+      {
+        "he": "נִכְשָׁלוֹת",
+        "tr": "nikhshalot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַתַּלְמִיד נִכְשָׁל בְּעִבְרִית",
+        "tr": "hatalmid nikhshal be'ivrit",
+        "fr": "l'élève échoue en hébreu"
+      }
+    ]
+  },
+  {
+    "he": "לְהַגִּישׁ",
+    "fr": "soumettre, rendre (un devoir, un CV)",
+    "formes": [
+      {
+        "he": "מַגִּישׁ",
+        "tr": "magish"
+      },
+      {
+        "he": "מַגִּישָׁה",
+        "tr": "magishah"
+      },
+      {
+        "he": "מַגִּישִׁים",
+        "tr": "magishim"
+      },
+      {
+        "he": "מַגִּישׁוֹת",
+        "tr": "magishot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַסְּטוּדֶנְט מַגִּישׁ אֶת הָעֲבוֹדָה",
+        "tr": "hastudent magish et ha'avodah",
+        "fr": "l'étudiant rend son devoir"
+      }
+    ]
+  },
+  {
+    "he": "לְהוֹסִיף",
+    "fr": "ajouter",
+    "formes": [
+      {
+        "he": "מוֹסִיף",
+        "tr": "mosif"
+      },
+      {
+        "he": "מוֹסִיפָה",
+        "tr": "mosifah"
+      },
+      {
+        "he": "מוֹסִיפִים",
+        "tr": "mosifim"
+      },
+      {
+        "he": "מוֹסִיפוֹת",
+        "tr": "mosifot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הִיא מוֹסִיפָה מִלָּה חֲדָשָׁה",
+        "tr": "hi mosifah milah chadashah",
+        "fr": "elle ajoute un mot nouveau"
+      }
+    ]
+  },
+  {
+    "he": "לְהַרְוִיחַ",
+    "fr": "gagner (de l'argent)",
+    "formes": [
+      {
+        "he": "מַרְוִיחַ",
+        "tr": "marviach"
+      },
+      {
+        "he": "מַרְוִיחָה",
+        "tr": "marvichah"
+      },
+      {
+        "he": "מַרְוִיחִים",
+        "tr": "marvichim"
+      },
+      {
+        "he": "מַרְוִיחוֹת",
+        "tr": "marvichot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנִי מַרְוִיחַ כֶּסֶף בָּעֲבוֹדָה",
+        "tr": "ani marviach kesef ba'avodah",
+        "fr": "je gagne de l'argent au travail"
+      }
+    ]
+  },
+  {
+    "he": "לְהִשְׁתַּתֵּף",
+    "fr": "participer",
+    "formes": [
+      {
+        "he": "מִשְׁתַּתֵּף",
+        "tr": "mishtatef"
+      },
+      {
+        "he": "מִשְׁתַּתֶּפֶת",
+        "tr": "mishtatefet"
+      },
+      {
+        "he": "מִשְׁתַּתְּפִים",
+        "tr": "mishtatfim"
+      },
+      {
+        "he": "מִשְׁתַּתְּפוֹת",
+        "tr": "mishtatfot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הוּא מִשְׁתַּתֵּף בַּיְּשִׁיבָה.",
+        "tr": "hu mishtatef bayshivah",
+        "fr": "Il participe à la réunion."
+      }
+    ]
+  },
+  {
+    "he": "לְתַכְנֵן",
+    "fr": "planifier, prévoir",
+    "formes": [
+      {
+        "he": "מְתַכְנֵן",
+        "tr": "metakhnen"
+      },
+      {
+        "he": "מְתַכְנֶנֶת",
+        "tr": "metakhnenet"
+      },
+      {
+        "he": "מְתַכְנְנִים",
+        "tr": "metakhnnim"
+      },
+      {
+        "he": "מְתַכְנְנוֹת",
+        "tr": "metakhnnot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מְתַכְנְנִים אֶת הַטִּיּוּל.",
+        "tr": "anachnu metakhnnim et hatiyul",
+        "fr": "Nous planifions l'excursion."
+      }
+    ]
+  },
+  {
+    "he": "לִבְדֹּק",
+    "fr": "vérifier, contrôler",
+    "formes": [
+      {
+        "he": "בּוֹדֵק",
+        "tr": "bodek"
+      },
+      {
+        "he": "בּוֹדֶקֶת",
+        "tr": "bodeket"
+      },
+      {
+        "he": "בּוֹדְקִים",
+        "tr": "bodkim"
+      },
+      {
+        "he": "בּוֹדְקוֹת",
+        "tr": "bodkot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה בּוֹדֵק אֶת הַמִּבְחָנִים.",
+        "tr": "hamoreh bodek et hamivchanim",
+        "fr": "Le professeur vérifie les examens."
+      }
+    ]
+  },
+  {
+    "he": "לִפְתֹּר",
+    "fr": "résoudre",
+    "formes": [
+      {
+        "he": "פּוֹתֵר",
+        "tr": "poter"
+      },
+      {
+        "he": "פּוֹתֶרֶת",
+        "tr": "poteret"
+      },
+      {
+        "he": "פּוֹתְרִים",
+        "tr": "potrim"
+      },
+      {
+        "he": "פּוֹתְרוֹת",
+        "tr": "potrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "הַתַּלְמִיד פּוֹתֵר אֶת הַתַּרְגִּיל.",
+        "tr": "hatalmid poter et hatargil",
+        "fr": "L'élève résout l'exercice."
+      }
+    ]
+  },
+  {
+    "he": "לְשַׂחֵק",
+    "fr": "jouer",
+    "formes": [
+      {
+        "he": "מְשַׂחֵק",
+        "tr": "mesachek"
+      },
+      {
+        "he": "מְשַׂחֶקֶת",
+        "tr": "mesacheket"
+      },
+      {
+        "he": "מְשַׂחֲקִים",
+        "tr": "mesachakim"
+      },
+      {
+        "he": "מְשַׂחֲקוֹת",
+        "tr": "mesachakot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיְּלָדִים מְשַׂחֲקִים בַּגַּן",
+        "tr": "hayeladim mesachakim bagan",
+        "fr": "les enfants jouent au parc"
+      }
+    ]
+  },
+  {
+    "he": "לָשִׁיר",
+    "fr": "chanter",
+    "formes": [
+      {
+        "he": "שָׁר",
+        "tr": "shar"
+      },
+      {
+        "he": "שָׁרָה",
+        "tr": "sharah"
+      },
+      {
+        "he": "שָׁרִים",
+        "tr": "sharim"
+      },
+      {
+        "he": "שָׁרוֹת",
+        "tr": "sharot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים שָׁרִים שִׁיר בְּבֵית הַסֵּפֶר",
+        "tr": "hayladim sharim shir beveit hasefer",
+        "fr": "les enfants chantent une chanson à l'école"
+      }
+    ]
+  },
+  {
+    "he": "לִרְקֹד",
+    "fr": "danser",
+    "formes": [
+      {
+        "he": "רוֹקֵד",
+        "tr": "roked"
+      },
+      {
+        "he": "רוֹקֶדֶת",
+        "tr": "rokedet"
+      },
+      {
+        "he": "רוֹקְדִים",
+        "tr": "rokdim"
+      },
+      {
+        "he": "רוֹקְדוֹת",
+        "tr": "rokdot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הִיא רוֹקֶדֶת יָפֶה מְאֹד",
+        "tr": "hi rokedet yafeh me'od",
+        "fr": "elle danse très bien"
+      }
+    ]
+  },
+  {
+    "he": "לְנַצֵּחַ",
+    "fr": "gagner (un match)",
+    "formes": [
+      {
+        "he": "מְנַצֵּחַ",
+        "tr": "menatseach"
+      },
+      {
+        "he": "מְנַצַּחַת",
+        "tr": "menatsachat"
+      },
+      {
+        "he": "מְנַצְּחִים",
+        "tr": "menatschim"
+      },
+      {
+        "he": "מְנַצְּחוֹת",
+        "tr": "menatschot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַקְּבוּצָה הַקְּטַנָּה מְנַצַּחַת בַּמִּשְׂחָק",
+        "tr": "hakvutsah haktanah menatsachat bamischak",
+        "fr": "la petite équipe gagne le match"
+      }
+    ]
+  },
+  {
+    "he": "לְהַפְסִיד",
+    "fr": "perdre (un match)",
+    "formes": [
+      {
+        "he": "מַפְסִיד",
+        "tr": "mafsid"
+      },
+      {
+        "he": "מַפְסִידָה",
+        "tr": "mafsidah"
+      },
+      {
+        "he": "מַפְסִידִים",
+        "tr": "mafsidim"
+      },
+      {
+        "he": "מַפְסִידוֹת",
+        "tr": "mafsidot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַקְּבוּצָה שֶׁלִּי מַפְסִידָה הַיּוֹם",
+        "tr": "hakvutsah sheli mafsidah hayom",
+        "fr": "mon équipe perd aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְאַמֵּן",
+    "fr": "s'entraîner",
+    "formes": [
+      {
+        "he": "מִתְאַמֵּן",
+        "tr": "mit'amen"
+      },
+      {
+        "he": "מִתְאַמֶּנֶת",
+        "tr": "mit'amenet"
+      },
+      {
+        "he": "מִתְאַמְּנִים",
+        "tr": "mit'amnim"
+      },
+      {
+        "he": "מִתְאַמְּנוֹת",
+        "tr": "mit'amnot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הוּא מִתְאַמֵּן כָּל יוֹם בָּעֶרֶב",
+        "tr": "hu mit'amen kol yom ba'erev",
+        "fr": "il s'entraîne tous les soirs"
+      }
+    ]
+  },
+  {
+    "he": "לָנוּחַ",
+    "fr": "se reposer",
+    "formes": [
+      {
+        "he": "נָח",
+        "tr": "nach"
+      },
+      {
+        "he": "נָחָה",
+        "tr": "nachah"
+      },
+      {
+        "he": "נָחִים",
+        "tr": "nachim"
+      },
+      {
+        "he": "נָחוֹת",
+        "tr": "nachot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "אַחֲרֵי הָעֲבוֹדָה אֲנִי נָח בַּבַּיִת",
+        "tr": "acharei ha'avodah ani nach babayit",
+        "fr": "après le travail je me repose à la maison"
+      }
+    ]
+  },
+  {
+    "he": "לְנַגֵּן",
+    "fr": "jouer (d'un instrument)",
+    "formes": [
+      {
+        "he": "מְנַגֵּן",
+        "tr": "menagen"
+      },
+      {
+        "he": "מְנַגֶּנֶת",
+        "tr": "menagenet"
+      },
+      {
+        "he": "מְנַגְּנִים",
+        "tr": "menagnim"
+      },
+      {
+        "he": "מְנַגְּנוֹת",
+        "tr": "menagnot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מְנַגֵּן מוּזִיקָה יָפָה",
+        "tr": "hayeled menagen muzikah yafah",
+        "fr": "l'enfant joue une belle musique"
+      }
+    ]
+  },
+  {
+    "he": "לְצַלֵּם",
+    "fr": "photographier",
+    "formes": [
+      {
+        "he": "מְצַלֵּם",
+        "tr": "metsalem"
+      },
+      {
+        "he": "מְצַלֶּמֶת",
+        "tr": "metsalemet"
+      },
+      {
+        "he": "מְצַלְּמִים",
+        "tr": "metsalmim"
+      },
+      {
+        "he": "מְצַלְּמוֹת",
+        "tr": "metsalmot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "אֲנִי מְצַלֵּם אֶת הַיָּם בַּחֻפְשָׁה",
+        "tr": "ani metsalem et hayam bachufshah",
+        "fr": "je photographie la mer en vacances"
+      }
+    ]
+  },
+  {
+    "he": "לְצַיֵּר",
+    "fr": "dessiner / peindre",
+    "formes": [
+      {
+        "he": "מְצַיֵּר",
+        "tr": "metsayer"
+      },
+      {
+        "he": "מְצַיֶּרֶת",
+        "tr": "metsayeret"
+      },
+      {
+        "he": "מְצַיְּרִים",
+        "tr": "metsayrim"
+      },
+      {
+        "he": "מְצַיְּרוֹת",
+        "tr": "metsayrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה מְצַיֶּרֶת צִיּוּר יָפֶה",
+        "tr": "hayaldah metsayeret tsiyur yafeh",
+        "fr": "la fille dessine un beau dessin"
+      }
+    ]
+  },
+  {
+    "he": "לֶאֱסֹף",
+    "fr": "collectionner",
+    "formes": [
+      {
+        "he": "אוֹסֵף",
+        "tr": "osef"
+      },
+      {
+        "he": "אוֹסֶפֶת",
+        "tr": "osefet"
+      },
+      {
+        "he": "אוֹסְפִים",
+        "tr": "osfim"
+      },
+      {
+        "he": "אוֹסְפוֹת",
+        "tr": "osfot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹסֵף תְּמוּנוֹת יָפוֹת",
+        "tr": "ani osef temunot yafot",
+        "fr": "je collectionne de belles photos"
+      }
+    ]
+  },
+  {
+    "he": "לִצְחֹק",
+    "fr": "rire",
+    "formes": [
+      {
+        "he": "צוֹחֵק",
+        "tr": "tsochek"
+      },
+      {
+        "he": "צוֹחֶקֶת",
+        "tr": "tsocheket"
+      },
+      {
+        "he": "צוֹחֲקִים",
+        "tr": "tsochakim"
+      },
+      {
+        "he": "צוֹחֲקוֹת",
+        "tr": "tsochakot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים צוֹחֲקִים כִּי הַסֶּרֶט מַצְחִיק",
+        "tr": "hayladim tsochakim ki haseret matschik",
+        "fr": "les enfants rient parce que le film est drôle"
+      }
+    ]
+  },
+  {
+    "he": "לִבְכּוֹת",
+    "fr": "pleurer",
+    "formes": [
+      {
+        "he": "בּוֹכֶה",
+        "tr": "bokheh"
+      },
+      {
+        "he": "בּוֹכָה",
+        "tr": "bokhah"
+      },
+      {
+        "he": "בּוֹכִים",
+        "tr": "bokhim"
+      },
+      {
+        "he": "בּוֹכוֹת",
+        "tr": "bokhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַתִּינוֹק בּוֹכֶה בַּלַּיְלָה",
+        "tr": "hatinok bokheh balaylah",
+        "fr": "le bébé pleure la nuit"
+      }
+    ]
+  },
+  {
+    "he": "לִדְאֹג",
+    "fr": "s'inquiéter",
+    "formes": [
+      {
+        "he": "דּוֹאֵג",
+        "tr": "do'eg"
+      },
+      {
+        "he": "דּוֹאֶגֶת",
+        "tr": "do'eget"
+      },
+      {
+        "he": "דּוֹאֲגִים",
+        "tr": "do'agim"
+      },
+      {
+        "he": "דּוֹאֲגוֹת",
+        "tr": "do'agot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "אִמָּא דּוֹאֶגֶת כִּי הַיֶּלֶד חוֹלֶה",
+        "tr": "ima do'eget ki hayeled choleh",
+        "fr": "maman s'inquiète parce que l'enfant est malade"
+      }
+    ]
+  },
+  {
+    "he": "לְפַחֵד",
+    "fr": "avoir peur (de)",
+    "formes": [
+      {
+        "he": "מְפַחֵד",
+        "tr": "mefached"
+      },
+      {
+        "he": "מְפַחֶדֶת",
+        "tr": "mefachedet"
+      },
+      {
+        "he": "מְפַחֲדִים",
+        "tr": "mefachadim"
+      },
+      {
+        "he": "מְפַחֲדוֹת",
+        "tr": "mefachadot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מְפַחֵד מֵהַכֶּלֶב הַגָּדוֹל",
+        "tr": "hayeled mefached mehakelev hagadol",
+        "fr": "l'enfant a peur du grand chien"
+      }
+    ]
+  },
+  {
+    "he": "לְהִשְׁתַּעֲמֵם",
+    "fr": "s'ennuyer",
+    "formes": [
+      {
+        "he": "מִשְׁתַּעֲמֵם",
+        "tr": "mishta'amem"
+      },
+      {
+        "he": "מִשְׁתַּעֲמֶמֶת",
+        "tr": "mishta'amemet"
+      },
+      {
+        "he": "מִשְׁתַּעֲמְמִים",
+        "tr": "mishta'amemim"
+      },
+      {
+        "he": "מִשְׁתַּעֲמְמוֹת",
+        "tr": "mishta'amemot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מִשְׁתַּעֲמֵם בַּבַּיִת",
+        "tr": "hayeled mishta'amem babayit",
+        "fr": "l'enfant s'ennuie à la maison"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְרַגֵּז",
+    "fr": "se fâcher",
+    "formes": [
+      {
+        "he": "מִתְרַגֵּז",
+        "tr": "mitragez"
+      },
+      {
+        "he": "מִתְרַגֶּזֶת",
+        "tr": "mitragezet"
+      },
+      {
+        "he": "מִתְרַגְּזִים",
+        "tr": "mitragzim"
+      },
+      {
+        "he": "מִתְרַגְּזוֹת",
+        "tr": "mitragzot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הוּא מִתְרַגֵּז כִּי הָאוֹטוֹבּוּס לֹא בָּא",
+        "tr": "hu mitragez ki ha'otobus lo ba",
+        "fr": "il se fâche parce que le bus ne vient pas"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְבַּיֵּשׁ",
+    "fr": "avoir honte",
+    "formes": [
+      {
+        "he": "מִתְבַּיֵּשׁ",
+        "tr": "mitbayesh"
+      },
+      {
+        "he": "מִתְבַּיֶּשֶׁת",
+        "tr": "mitbayeshet"
+      },
+      {
+        "he": "מִתְבַּיְּשִׁים",
+        "tr": "mitbayshim"
+      },
+      {
+        "he": "מִתְבַּיְּשׁוֹת",
+        "tr": "mitbayshot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה הַבַּיְשָׁנִית מִתְבַּיֶּשֶׁת",
+        "tr": "hayaldah habayshanit mitbayeshet",
+        "fr": "la fille timide a honte"
+      }
+    ]
+  },
+  {
+    "he": "לְקַנֵּא",
+    "fr": "être jaloux, envier",
+    "formes": [
+      {
+        "he": "מְקַנֵּא",
+        "tr": "mekane"
+      },
+      {
+        "he": "מְקַנֵּאת",
+        "tr": "mekanet"
+      },
+      {
+        "he": "מְקַנְּאִים",
+        "tr": "mekan'im"
+      },
+      {
+        "he": "מְקַנְּאוֹת",
+        "tr": "mekan'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מְקַנֵּא בֶּחָבֵר שֶׁלּוֹ",
+        "tr": "hayeled mekane bechaver shelo",
+        "fr": "l'enfant est jaloux de son ami"
+      }
+    ]
+  },
+  {
+    "he": "לְהַפְתִּיעַ",
+    "fr": "surprendre, étonner",
+    "formes": [
+      {
+        "he": "מַפְתִּיעַ",
+        "tr": "mafti'a"
+      },
+      {
+        "he": "מַפְתִּיעָה",
+        "tr": "mafti'ah"
+      },
+      {
+        "he": "מַפְתִּיעִים",
+        "tr": "mafti'im"
+      },
+      {
+        "he": "מַפְתִּיעוֹת",
+        "tr": "mafti'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַסֶּרֶט מַפְתִּיעַ אֶת הַיְלָדִים",
+        "tr": "haseret mafti'a et hayladim",
+        "fr": "le film surprend les enfants"
+      }
+    ]
+  },
+  {
+    "he": "לִזְרֹחַ",
+    "fr": "briller (soleil)",
+    "formes": [
+      {
+        "he": "זוֹרֵחַ",
+        "tr": "zoreach"
+      },
+      {
+        "he": "זוֹרַחַת",
+        "tr": "zorachat"
+      },
+      {
+        "he": "זוֹרְחִים",
+        "tr": "zorchim"
+      },
+      {
+        "he": "זוֹרְחוֹת",
+        "tr": "zorchot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַשֶּׁמֶשׁ זוֹרַחַת בַּבֹּקֶר",
+        "tr": "hashemesh zorachat baboker",
+        "fr": "le soleil brille le matin"
+      }
+    ]
+  },
+  {
+    "he": "לִנְשֹׁב",
+    "fr": "souffler (vent)",
+    "formes": [
+      {
+        "he": "נוֹשֵׁב",
+        "tr": "noshev"
+      },
+      {
+        "he": "נוֹשֶׁבֶת",
+        "tr": "noshevet"
+      },
+      {
+        "he": "נוֹשְׁבִים",
+        "tr": "noshvim"
+      },
+      {
+        "he": "נוֹשְׁבוֹת",
+        "tr": "noshvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הָרוּחַ נוֹשֶׁבֶת חָזָק בַּחוֹרֶף",
+        "tr": "haruach noshevet chazak bachoref",
+        "fr": "le vent souffle fort en hiver"
+      }
+    ]
+  },
+  {
+    "he": "לִפְרֹחַ",
+    "fr": "fleurir / pousser",
+    "formes": [
+      {
+        "he": "פּוֹרֵחַ",
+        "tr": "poreach"
+      },
+      {
+        "he": "פּוֹרַחַת",
+        "tr": "porachat"
+      },
+      {
+        "he": "פּוֹרְחִים",
+        "tr": "porchim"
+      },
+      {
+        "he": "פּוֹרְחוֹת",
+        "tr": "porchot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַפְּרָחִים פּוֹרְחִים בָּאָבִיב",
+        "tr": "haprachim porchim ba'aviv",
+        "fr": "les fleurs fleurissent au printemps"
+      }
+    ]
+  },
+  {
+    "he": "לְהַמְטִיר",
+    "fr": "pleuvoir",
+    "formes": [
+      {
+        "he": "מַמְטִיר",
+        "tr": "mamtir"
+      },
+      {
+        "he": "מַמְטִירָה",
+        "tr": "mamtirah"
+      },
+      {
+        "he": "מַמְטִירִים",
+        "tr": "mamtirim"
+      },
+      {
+        "he": "מַמְטִירוֹת",
+        "tr": "mamtirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַשָּׁמַיִם מַמְטִירִים גֶּשֶׁם חָזָק",
+        "tr": "hashamayim mamtirim geshem chazak",
+        "fr": "le ciel déverse une pluie forte"
+      }
+    ]
+  },
+  {
+    "he": "לְמַהֵר",
+    "fr": "se dépêcher",
+    "formes": [
+      {
+        "he": "מְמַהֵר",
+        "tr": "memaher"
+      },
+      {
+        "he": "מְמַהֶרֶת",
+        "tr": "memaheret"
+      },
+      {
+        "he": "מְמַהֲרִים",
+        "tr": "memaharim"
+      },
+      {
+        "he": "מְמַהֲרוֹת",
+        "tr": "memaharot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "אֲנִי מְמַהֵר לָאוֹטוֹבּוּס בַּבֹּקֶר",
+        "tr": "ani memaher la'otobus baboker",
+        "fr": "je me dépêche pour le bus le matin"
+      }
+    ]
+  },
+  {
+    "he": "לְאַחֵר",
+    "fr": "être en retard",
+    "formes": [
+      {
+        "he": "מְאַחֵר",
+        "tr": "me'acher"
+      },
+      {
+        "he": "מְאַחֶרֶת",
+        "tr": "me'acheret"
+      },
+      {
+        "he": "מְאַחֲרִים",
+        "tr": "me'acharim"
+      },
+      {
+        "he": "מְאַחֲרוֹת",
+        "tr": "me'acharot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הָאוֹטוֹבּוּס מְאַחֵר הַיּוֹם",
+        "tr": "ha'otobus me'acher hayom",
+        "fr": "le bus est en retard aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "לְהִמָּשֵׁךְ",
+    "fr": "durer",
+    "formes": [
+      {
+        "he": "נִמְשָׁךְ",
+        "tr": "nimshakh"
+      },
+      {
+        "he": "נִמְשֶׁכֶת",
+        "tr": "nimshekhet"
+      },
+      {
+        "he": "נִמְשָׁכִים",
+        "tr": "nimshakhim"
+      },
+      {
+        "he": "נִמְשָׁכוֹת",
+        "tr": "nimshakhot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַשִּׁעוּר נִמְשָׁךְ שָׁעָה",
+        "tr": "hashi'ur nimshakh sha'ah",
+        "fr": "le cours dure une heure"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְרַגֵּשׁ",
+    "fr": "être ému, s'émouvoir",
+    "formes": [
+      {
+        "he": "מִתְרַגֵּשׁ",
+        "tr": "mitragesh"
+      },
+      {
+        "he": "מִתְרַגֶּשֶׁת",
+        "tr": "mitrageshet"
+      },
+      {
+        "he": "מִתְרַגְּשִׁים",
+        "tr": "mitragshim"
+      },
+      {
+        "he": "מִתְרַגְּשׁוֹת",
+        "tr": "mitragshot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְרַגֵּשׁ לִפְנֵי הַהוֹפָעָה.",
+        "tr": "ani mitragesh lifnei hahofa'ah",
+        "fr": "Je suis ému avant le spectacle."
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְעַנְיֵן",
+    "fr": "s'intéresser",
+    "formes": [
+      {
+        "he": "מִתְעַנְיֵן",
+        "tr": "mit'anyen"
+      },
+      {
+        "he": "מִתְעַנְיֶנֶת",
+        "tr": "mit'anyenet"
+      },
+      {
+        "he": "מִתְעַנְיְנִים",
+        "tr": "mit'anynim"
+      },
+      {
+        "he": "מִתְעַנְיְנוֹת",
+        "tr": "mit'anynot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הוּא מִתְעַנְיֵן בְּהִיסְטוֹרְיָה.",
+        "tr": "hu mit'anyen behistoryah",
+        "fr": "Il s'intéresse à l'histoire."
+      }
+    ]
+  },
+  {
+    "he": "לֵהָנוֹת",
+    "fr": "profiter, apprécier",
+    "formes": [
+      {
+        "he": "נֶהֱנֶה",
+        "tr": "neheneh"
+      },
+      {
+        "he": "נֶהֱנֵית",
+        "tr": "neheneit"
+      },
+      {
+        "he": "נֶהֱנִים",
+        "tr": "nehenim"
+      },
+      {
+        "he": "נֶהֱנוֹת",
+        "tr": "nehenot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ נֶהֱנִים מֵהַמְּסִבָּה.",
+        "tr": "anachnu nehenim mehamsibah",
+        "fr": "Nous profitons de la fête."
+      }
+    ]
+  },
+  {
+    "he": "לַחְגֹּג",
+    "fr": "fêter, célébrer",
+    "formes": [
+      {
+        "he": "חוֹגֵג",
+        "tr": "chogeg"
+      },
+      {
+        "he": "חוֹגֶגֶת",
+        "tr": "chogeget"
+      },
+      {
+        "he": "חוֹגְגִים",
+        "tr": "choggim"
+      },
+      {
+        "he": "חוֹגְגוֹת",
+        "tr": "choggot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַמִּשְׁפָּחָה חוֹגֶגֶת אֶת יוֹם הַהֻלֶּדֶת.",
+        "tr": "hamishpachah chogeget et yom hahuledet",
+        "fr": "La famille fête l'anniversaire."
+      }
+    ]
+  }
+]

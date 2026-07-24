@@ -1,0 +1,254 @@
+{
+  "section": "Expressions / Divers",
+  "entries": [
+    {
+      "he": "שָׁלוֹם",
+      "tr": "shalom",
+      "fr": "bonjour / au revoir / paix (entre amis, l'oral dit aussi הַיי, hai)",
+      "niveau": "A1",
+      "exemples": [],
+      "fr_court": "bonjour / au revoir / paix",
+      "note": "entre amis, l'oral dit aussi הַיי"
+    },
+    {
+      "he": "תּוֹדָה",
+      "tr": "todah",
+      "fr": "merci",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "בְּבַקָּשָׁה",
+      "tr": "bevakashah",
+      "fr": "s'il te plaît / je t'en prie",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "סְלִיחָה",
+      "tr": "slichah",
+      "fr": "pardon / excuse-moi",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "כֵּן",
+      "tr": "ken",
+      "fr": "oui",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "לֹא",
+      "tr": "lo",
+      "fr": "non",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אוּלַי",
+      "tr": "ulai",
+      "fr": "peut-être",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "בְּסֵדֶר",
+      "tr": "beseder",
+      "fr": "d'accord / ça va",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "בֹּקֶר טוֹב",
+      "tr": "boker tov",
+      "fr": "bonjour (le matin)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "עֶרֶב טוֹב",
+      "tr": "'erev tov",
+      "fr": "bonsoir",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "לַיְלָה טוֹב",
+      "tr": "laylah tov",
+      "fr": "bonne nuit",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "לְהִתְרָאוֹת",
+      "tr": "lehitraot",
+      "fr": "au revoir (à bientôt)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "מָה נִשְׁמָע",
+      "tr": "mah nishma'",
+      "fr": "quoi de neuf",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "מָה שְׁלוֹמְךָ",
+      "tr": "mah shlomkha",
+      "fr": "comment vas-tu (à un homme)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "מָה שְׁלוֹמֵךְ",
+      "tr": "mah shlomekh",
+      "fr": "comment vas-tu (à une femme)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "תּוֹדָה רַבָּה",
+      "tr": "todah rabah",
+      "fr": "merci beaucoup",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אֵין בְּעָיָה",
+      "tr": "ein be'ayah",
+      "fr": "pas de problème",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "אֵין דָּבָר",
+      "tr": "ein davar",
+      "fr": "de rien / ce n'est rien",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "בְּתֵאָבוֹן",
+      "tr": "bete'avon",
+      "fr": "bon appétit",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "לְחַיִּים",
+      "tr": "lechayim",
+      "fr": "santé (pour trinquer)",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "מַזָּל טוֹב",
+      "tr": "mazal tov",
+      "fr": "félicitations",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "נָעִים מְאֹד",
+      "tr": "na'im me'od",
+      "fr": "enchanté(e)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "חֲבָל",
+      "tr": "chaval",
+      "fr": "dommage",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "רֶגַע",
+      "tr": "rega'",
+      "fr": "un instant / attends",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "אֲנִי לֹא מֵבִין",
+      "tr": "ani lo mevin",
+      "fr": "je ne comprends pas (masc.)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אֲנִי לֹא יוֹדֵעַ",
+      "tr": "ani lo yode'a",
+      "fr": "je ne sais pas (masc.)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יָאלְלָה",
+      "tr": "yallah",
+      "fr": "allez / on y va (familier)",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "סַבָּבָּה",
+      "tr": "sababah",
+      "fr": "cool / ça va (familier)",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "וַאלָה",
+      "tr": "valah",
+      "fr": "vraiment ?! (étonnement — à ne pas confondre avec יָאלְלָה ci-dessus, qui veut dire \"allez\")",
+      "niveau": "B2",
+      "exemples": [],
+      "fr_court": "vraiment ?!",
+      "note": "étonnement — à ne pas confondre avec יָאלְלָה"
+    },
+    {
+      "he": "כַּמָּה זֶה עוֹלֶה",
+      "tr": "kamah zeh 'oleh",
+      "fr": "combien ça coûte",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אֵיפֹה הַשֵּׁרוּתִים",
+      "tr": "eifoh hasherutim",
+      "fr": "où sont les toilettes",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אֲפִילוּ",
+      "tr": "afilu",
+      "fr": "même (y compris) — ex. אֲפִילוּ אֲנִי = même moi ; אֲפִילוּ לֹא = même pas",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "בְּיַחַד",
+      "tr": "beyachad",
+      "fr": "ensemble",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "מָחֳרָתַיִם",
+      "tr": "machoratayim",
+      "fr": "après-demain",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "מָה זֶה אוֹמֵר?",
+      "tr": "mah zeh omer?",
+      "fr": "qu'est-ce que ça veut dire ?",
+      "niveau": "A2",
+      "exemples": []
+    }
+  ]
+}

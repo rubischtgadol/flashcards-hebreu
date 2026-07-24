@@ -1,0 +1,78 @@
+{
+  "section": "Nombres ordinaux",
+  "entries": [
+    {
+      "he": "רִאשׁוֹן",
+      "tr": "rishon",
+      "fr": "premier",
+      "niveau": "A1",
+      "exemples": [],
+      "note": "féminin : רִאשׁוֹנָה (rishonah)"
+    },
+    {
+      "he": "שֵׁנִי",
+      "tr": "sheni",
+      "fr": "deuxième",
+      "niveau": "A1",
+      "exemples": [],
+      "note": "féminin : שְׁנִיָּה (shniyah)"
+    },
+    {
+      "he": "שְׁלִישִׁי",
+      "tr": "shlishi",
+      "fr": "troisième",
+      "niveau": "A1",
+      "exemples": [],
+      "note": "féminin : שְׁלִישִׁית (shlishit)"
+    },
+    {
+      "he": "רְבִיעִי",
+      "tr": "revi'i",
+      "fr": "quatrième",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "חֲמִישִׁי",
+      "tr": "chamishi",
+      "fr": "cinquième",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "שִׁשִּׁי",
+      "tr": "shishi",
+      "fr": "sixième",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "שְׁבִיעִי",
+      "tr": "shvi'i",
+      "fr": "septième",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "שְׁמִינִי",
+      "tr": "shmini",
+      "fr": "huitième",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "תְּשִׁיעִי",
+      "tr": "tshi'i",
+      "fr": "neuvième",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "עֲשִׂירִי",
+      "tr": "'asiri",
+      "fr": "dixième",
+      "niveau": "A2",
+      "exemples": []
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "section": "Mots de quantité",
+  "entries": [
+    {
+      "he": "הַרְבֵּה",
+      "tr": "harbeh",
+      "fr": "beaucoup",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ הַרְבֵּה אֲנָשִׁים בַּשּׁוּק",
+          "tr": "yesh harbeh anashim bashuk",
+          "fr": "il y a beaucoup de monde au marché"
+        }
+      ]
+    },
+    {
+      "he": "מְעַט",
+      "tr": "me'at",
+      "fr": "peu",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "יוֹתֵר",
+      "tr": "yoter",
+      "fr": "plus",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹצֶה יוֹתֵר מַיִם",
+          "tr": "ani rotseh yoter mayim",
+          "fr": "je veux plus d'eau"
+        }
+      ]
+    },
+    {
+      "he": "פָּחוֹת",
+      "tr": "pachot",
+      "fr": "moins",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "הַכֹּל",
+      "tr": "hakol",
+      "fr": "tout",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַכֹּל בְּסֵדֶר, תּוֹדָה",
+          "tr": "hakol beseder, todah",
+          "fr": "tout va bien, merci"
+        }
+      ]
+    },
+    {
+      "he": "כְּלוּם",
+      "tr": "klum",
+      "fr": "rien",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "קְצָת",
+      "tr": "ktsat",
+      "fr": "un peu (courant à l'oral, équivalent de מְעַט)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ קְצָת חָלָב בַּמְּקָרֵר",
+          "tr": "yesh ktsat chalav bamekarer",
+          "fr": "il y a un peu de lait dans le réfrigérateur"
+        }
+      ],
+      "fr_court": "un peu",
+      "note": "courant à l'oral, = מְעַט"
+    },
+    {
+      "he": "מַסְפִּיק",
+      "tr": "maspik",
+      "fr": "assez, suffisamment",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "מְאֹד",
+      "tr": "me'od",
+      "fr": "très",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הָאֹכֶל הַזֶּה טָעִים מְאֹד",
+          "tr": "ha'okhel hazeh ta'im me'od",
+          "fr": "ce plat est très bon"
+        }
+      ]
+    },
+    {
+      "he": "כָּל",
+      "tr": "kol",
+      "fr": "chaque / tout le, tous les",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי לוֹמֵד עִבְרִית כָּל יוֹם",
+          "tr": "ani lomed 'ivrit kol yom",
+          "fr": "j'étudie l'hébreu chaque jour"
+        }
+      ]
+    },
+    {
+      "he": "מִדַּי",
+      "tr": "miday",
+      "fr": "trop",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַקָּפֶה הַזֶּה חַם מִדַּי",
+          "tr": "hakafeh hazeh cham miday",
+          "fr": "ce café est trop chaud"
+        }
+      ]
+    },
+    {
+      "he": "כָּל כָּךְ",
+      "tr": "kol kakh",
+      "fr": "tellement, si",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הָאֹכֶל הַזֶּה כָּל כָּךְ טָעִים",
+          "tr": "ha'okhel hazeh kol kakh ta'im",
+          "fr": "ce plat est tellement bon"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "section": "Adverbes",
+  "entries": [
+    {
+      "he": "עַכְשָׁיו",
+      "tr": "'akhshav",
+      "fr": "maintenant",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי לוֹמֵד עִבְרִית עַכְשָׁיו",
+          "tr": "ani lomed 'ivrit 'akhshav",
+          "fr": "j'étudie l'hébreu maintenant"
+        }
+      ]
+    },
+    {
+      "he": "הַיּוֹם",
+      "tr": "hayom",
+      "fr": "aujourd'hui",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַיּוֹם הַשֶּׁמֶשׁ חַמָּה מְאֹד",
+          "tr": "hayom hashemesh chamah me'od",
+          "fr": "aujourd'hui le soleil est très chaud"
+        }
+      ]
+    },
+    {
+      "he": "אֶתְמוֹל",
+      "tr": "etmol",
+      "fr": "hier",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֶתְמוֹל אָכַלְתִּי בַּמִּסְעָדָה",
+          "tr": "etmol akhalti bamis'adah",
+          "fr": "hier j'ai mangé au restaurant"
+        }
+      ]
+    },
+    {
+      "he": "מָחָר",
+      "tr": "machar",
+      "fr": "demain",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מָחָר אֲנִי הוֹלֵךְ לָרוֹפֵא",
+          "tr": "machar ani holekh larofe",
+          "fr": "demain je vais chez le médecin"
+        }
+      ]
+    },
+    {
+      "he": "כְּבָר",
+      "tr": "kvar",
+      "fr": "déjà",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַיְּלָדִים כְּבָר יְשֵׁנִים",
+          "tr": "hayladim kvar yeshenim",
+          "fr": "les enfants dorment déjà"
+        }
+      ]
+    },
+    {
+      "he": "שׁוּב",
+      "tr": "shuv",
+      "fr": "de nouveau, encore",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הוּא קוֹרֵא אֶת הַסֵּפֶר שׁוּב",
+          "tr": "hu kore et hasefer shuv",
+          "fr": "il lit le livre de nouveau"
+        }
+      ]
+    },
+    {
+      "he": "תָּמִיד",
+      "tr": "tamid",
+      "fr": "toujours",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי תָּמִיד שׁוֹתֶה תֵּה בַּבֹּקֶר",
+          "tr": "ani tamid shoteh teh baboker",
+          "fr": "je bois toujours du thé le matin"
+        }
+      ]
+    },
+    {
+      "he": "אַף פַּעַם",
+      "tr": "af pa'am",
+      "fr": "jamais",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא אַף פַּעַם לֹא אוֹכֶלֶת בָּשָׂר",
+          "tr": "hi af pa'am lo okhelet basar",
+          "fr": "elle ne mange jamais de viande"
+        }
+      ]
+    },
+    {
+      "he": "לִפְעָמִים",
+      "tr": "lif'amim",
+      "fr": "parfois",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "לִפְעָמִים אֲנַחְנוּ אוֹכְלִים בַּמִּסְעָדָה",
+          "tr": "lif'amim anachnu okhlim bamis'adah",
+          "fr": "parfois nous mangeons au restaurant"
+        }
+      ]
+    },
+    {
+      "he": "מֻקְדָּם",
+      "tr": "mukdam",
+      "fr": "tôt",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי קָם מֻקְדָּם בַּבֹּקֶר",
+          "tr": "ani kam mukdam baboker",
+          "fr": "je me lève tôt le matin"
+        }
+      ]
+    },
+    {
+      "he": "מְאֻחָר",
+      "tr": "me'uchar",
+      "fr": "tard",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הוּא חוֹזֵר מְאֻחָר בַּלַּיְלָה",
+          "tr": "hu chozer me'uchar balaylah",
+          "fr": "il rentre tard dans la nuit"
+        }
+      ]
+    },
+    {
+      "he": "כָּאן",
+      "tr": "kan",
+      "fr": "ici",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי מְחַכֶּה לְךָ כָּאן",
+          "tr": "ani mechakeh lekha kan",
+          "fr": "je t'attends ici"
+        }
+      ]
+    },
+    {
+      "he": "שָׁם",
+      "tr": "sham",
+      "fr": "là, là-bas",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַסֵּפֶר שֶׁלִּי שָׁם עַל הַכִּסֵּא",
+          "tr": "hasefer sheli sham 'al hakise",
+          "fr": "mon livre est là sur la chaise"
+        }
+      ]
+    },
+    {
+      "he": "יָמִין",
+      "tr": "yamin",
+      "fr": "droite",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַחֲנוּת מִיָּמִין לַתַּחֲנָה",
+          "tr": "hachanut miyamin latachanah",
+          "fr": "le magasin est à droite de la station"
+        }
+      ],
+      "note": "vers la droite : יָמִינָה (yaminah)"
+    },
+    {
+      "he": "שְׂמֹאל",
+      "tr": "smol",
+      "fr": "gauche",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַסּוּפֶּרְמַרְקֶט מִשְּׂמֹאל לַבַּנְק",
+          "tr": "hasupermarket mismol labank",
+          "fr": "le supermarché est à gauche de la banque"
+        }
+      ],
+      "note": "vers la gauche : שְׂמֹאלָה (smolah)"
+    },
+    {
+      "he": "לְמַעְלָה",
+      "tr": "lema'lah",
+      "fr": "en haut",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַחֲדָרִים שֶׁל הַיְּלָדִים לְמַעְלָה",
+          "tr": "hachadarim shel hayladim lema'lah",
+          "fr": "les chambres des enfants sont en haut"
+        }
+      ]
+    },
+    {
+      "he": "לְמַטָּה",
+      "tr": "lematah",
+      "fr": "en bas",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי מְחַכֶּה לְךָ לְמַטָּה",
+          "tr": "ani mechakeh lekha lematah",
+          "fr": "je t'attends en bas"
+        }
+      ]
+    },
+    {
+      "he": "בַּחוּץ",
+      "tr": "bachuts",
+      "fr": "dehors",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בַּחוּץ קַר מְאֹד הַיּוֹם",
+          "tr": "bachuts kar me'od hayom",
+          "fr": "dehors il fait très froid aujourd'hui"
+        }
+      ]
+    },
+    {
+      "he": "בִּפְנִים",
+      "tr": "bifnim",
+      "fr": "dedans, à l'intérieur",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בִּפְנִים חַם וְנָעִים",
+          "tr": "bifnim cham vena'im",
+          "fr": "dedans il fait chaud et agréable"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "section": "Nombres (0–10)",
+  "entries": [
+    {
+      "he": "אֶפֶס",
+      "tr": "efes",
+      "fr": "zéro",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַחַת",
+      "tr": "achat",
+      "fr": "un",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "שְׁתַּיִם",
+      "tr": "shtayim",
+      "fr": "deux",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "שָׁלוֹשׁ",
+      "tr": "shalosh",
+      "fr": "trois",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַרְבַּע",
+      "tr": "arba'",
+      "fr": "quatre",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "חָמֵשׁ",
+      "tr": "chamesh",
+      "fr": "cinq",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "שֵׁשׁ",
+      "tr": "shesh",
+      "fr": "six",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "שֶׁבַע",
+      "tr": "sheva'",
+      "fr": "sept",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "שְׁמוֹנֶה",
+      "tr": "shmoneh",
+      "fr": "huit",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "תֵּשַׁע",
+      "tr": "tesha'",
+      "fr": "neuf",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "עֶשֶׂר",
+      "tr": "'eser",
+      "fr": "dix",
+      "niveau": "A1",
+      "exemples": []
+    }
+  ]
+}

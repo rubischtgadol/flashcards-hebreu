@@ -1,0 +1,47 @@
+{
+  "section": "Conjonctions",
+  "entries": [
+    {
+      "he": "אֲבָל",
+      "tr": "aval",
+      "fr": "mais",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "כִּי",
+      "tr": "ki",
+      "fr": "parce que",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אָז",
+      "tr": "az",
+      "fr": "alors / donc",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "גַּם",
+      "tr": "gam",
+      "fr": "aussi",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אִם",
+      "tr": "im",
+      "fr": "si (condition)",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "אוֹ",
+      "tr": "o",
+      "fr": "ou",
+      "niveau": "A1",
+      "exemples": []
+    }
+  ]
+}

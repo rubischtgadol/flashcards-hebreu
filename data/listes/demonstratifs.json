@@ -1,0 +1,26 @@
+{
+  "section": "Démonstratifs",
+  "entries": [
+    {
+      "he": "זֶה",
+      "tr": "zeh",
+      "fr": "ce, cet, ceci (masc.) / c'est",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "זֹאת",
+      "tr": "zot",
+      "fr": "cette, celle-ci (fém.) / c'est",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אֵלֶּה",
+      "tr": "eleh",
+      "fr": "ces, ceux-ci, celles-ci (plur.)",
+      "niveau": "A1",
+      "exemples": []
+    }
+  ]
+}
