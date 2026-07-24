@@ -11,13 +11,14 @@
  *                                         # latin  → sous-chaîne dans .fr / note / exemples
  *   node cherche_mots.js --stats          # répartition du corpus (sections, niveaux, thèmes)
  *
- * Consultation pure : n'écrit jamais rien. Réutilise l'extraction de build.js
- * (jamais de troisième parseur — doctrine SPEC_AJOUTE_MOTS §1).
+ * Consultation pure : n'écrit jamais rien. Réutilise chargeDonnees/deriveCartes
+ * de build.js (jamais de troisième parseur — doctrine SPEC_AJOUTE_MOTS §1).
  */
 'use strict';
 
 const fs = require('fs');
-const { extractCards, NOTEBOOK, stripNikud, orthographeVoisine,
+const path = require('path');
+const { chargeDonnees, deriveCartes, stripNikud, orthographeVoisine,
         EXPECTED_LEVELS, EXPECTED_THEMES } = require('./build.js');
 
 const MAX_HITS = 8; // par terme — au-delà on compte, on ne liste pas (sortie bornée)
@@ -27,13 +28,25 @@ function normFr(s){
   return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
 
-// Ligne (approximative) où vit un hébreu — première occurrence dans le source.
-function ligneDe(html, he){
-  const i = html.indexOf(he);
-  return i < 0 ? '?' : html.slice(0, i).split('\n').length;
+// Emplacement (approximatif) où vit un hébreu — fichier + ligne, première
+// occurrence dans data/*.json (noms/adjectifs/verbes + chaque data/listes/*).
+// Remplace l'ancienne ancre « carnet L<n> » : la source d'un mot est désormais
+// data/, le carnet (vocabulaire_hebreu.html) n'en est qu'un dérivé généré.
+function construitIndexFichiers(racine){
+  const rels = ['data/noms.json', 'data/adjectifs.json', 'data/verbes.json'];
+  for (const f of fs.readdirSync(path.join(racine, 'data', 'listes')).sort())
+    rels.push('data/listes/' + f);
+  return rels.map(rel => ({ rel, texte: fs.readFileSync(path.join(racine, rel), 'utf8') }));
+}
+function ligneDe(index, he){
+  for (const { rel, texte } of index){
+    const i = texte.indexOf(he);
+    if (i >= 0) return rel + ':' + (texte.slice(0, i).split('\n').length);
+  }
+  return '?';
 }
 
-function chercheTerme(cards, html, terme){
+function chercheTerme(cards, index, terme){
   const hits = [];
   const voisins = [];   // ktiv male/haser — rubrique distincte, jamais mêlée aux exactes
   const enHebreu = /[֐-׿]/.test(terme);
@@ -71,7 +84,7 @@ function chercheTerme(cards, html, terme){
 
   const liste = (arr, indent) => {
     for (const h of arr.slice(0, MAX_HITS))
-      console.log(indent + h.c.cat + ' L' + ligneDe(html, h.c.he) + ' · ' + h.quoi);
+      console.log(indent + h.c.cat + ' ' + ligneDe(index, h.c.he) + ' · ' + h.quoi);
     if (arr.length > MAX_HITS)
       console.log(indent + '… +' + (arr.length - MAX_HITS) + ' autres (affiner le terme)');
   };
@@ -136,10 +149,12 @@ function main(){
     console.error('Usage : node cherche_mots.js TERME [TERME…] | --stats');
     process.exit(1);
   }
-  const html = fs.readFileSync(NOTEBOOK, 'utf8');
-  const cards = extractCards(html);
+  const cards = deriveCartes(chargeDonnees(__dirname));
   if (modeStats) stats(cards);
-  for (const t of args) chercheTerme(cards, html, t);
+  if (args.length){
+    const index = construitIndexFichiers(__dirname);
+    for (const t of args) chercheTerme(cards, index, t);
+  }
 }
 
 main();

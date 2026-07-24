@@ -29,7 +29,7 @@
 'use strict';
 const fs = require('fs');
 const vm = require('vm');
-const { extractCards, NOTEBOOK, APP } = require('./build.js');
+const { chargeDonnees, deriveCartes, NOTEBOOK, APP } = require('./build.js');
 
 // ---------- fonctions de l'appli, extraites telles quelles d'app.html ----------
 function grabFunction(src, name){
@@ -54,7 +54,7 @@ const editDist = (a, b) => vm.runInContext('editDist(' + JSON.stringify(a) + ','
 const LEVELS = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
 function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
 
-const cards = extractCards(fs.readFileSync(NOTEBOOK, 'utf8'));
+const cards = deriveCartes(chargeDonnees(__dirname));
 // he_plain (mot + formes) → meilleur (plus bas) niveau connu ; 0 = non classé (toujours permis).
 const lexicon = new Map();
 function feed(hePlain, niveau){
@@ -81,6 +81,9 @@ cards.forEach(c => {
 //   2. on n'ajoute qu'un mot *inconnu*, au niveau 0 (non classé = toujours
 //      permis) — jamais d'écrasement, sans quoi un mot de grammaire
 //      rabaisserait à 0 le niveau d'une carte et neutraliserait le contrôle 5.
+// Ce balayage reste sur le carnet généré (NOTEBOOK) et non sur data/ : ces
+// sections de grammaire sont de la prose fixe dans src/carnet/sections/, sans
+// entrée data/*.json correspondante — chargeDonnees() n'a rien à offrir ici.
 const horsExemples = fs.readFileSync(NOTEBOOK, 'utf8')
   .replace(/<ul class="exemples">[\s\S]*?<\/ul>/g, ' ');
 for (const m of horsExemples.matchAll(/<span class="he"[^>]*>([^<]*)<\/span>/g)) {
