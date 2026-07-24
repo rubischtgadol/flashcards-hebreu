@@ -6,14 +6,13 @@
 <title>Variantes DA — planche comparative</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Instrument+Serif:ital@0;1&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
 /* ================================================================
    BASE COMMUNE — la structure SENTRY, les couleurs par variante
    ================================================================ */
 :root{
   --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
-  --display: 'Instrument Serif',Georgia,serif;
   --cond:    'Saira Condensed','Arial Narrow',sans-serif;
   --mono:    'Share Tech Mono','Courier New',monospace;
 }
@@ -26,8 +25,8 @@ body{
 .galerie{max-width:1500px;margin:0 auto}
 .galerie>header{margin-bottom:44px}
 .galerie h1{
-  font-family:var(--display);font-style:italic;font-weight:400;
-  font-size:2.4rem;color:#54ff8a;text-shadow:0 0 6px currentColor;
+  font-family:var(--mono);font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:#54ff8a;text-shadow:0 0 6px currentColor;
 }
 .meta-ligne{color:#f0b32a;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
 .meta-ligne::before{content:'▸ ';color:#54ff8a}
@@ -94,7 +93,7 @@ body{
   text-shadow:0 0 14px var(--halo);
 }
 .tr-ligne{font-family:var(--mono);text-align:center;font-size:1rem;letter-spacing:.18em;color:var(--actif);text-shadow:0 0 6px var(--halo-actif)}
-.fr-ligne{font-family:var(--display);font-style:italic;text-align:center;font-size:1.5rem;color:var(--neutre)}
+.fr-ligne{font-family:var(--mono);text-align:center;font-size:1.05rem;letter-spacing:.08em;color:var(--neutre)}
 .exemple{border-top:1px solid var(--ligne);padding-top:13px}
 .exemple .he-ex{font-family:var(--he);font-weight:500;font-size:1.3rem;direction:rtl;text-align:center;margin-bottom:6px;color:var(--texte)}
 .exemple .fr-ex{font-size:.82rem;color:var(--neutre);opacity:.85;text-align:center}
@@ -169,7 +168,7 @@ body{
 .essai .tag{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#8a8578;text-align:left}
 .essai .he-mini{font-family:var(--he);font-weight:900;font-size:2.2rem;direction:rtl;color:#f0b32a;text-shadow:0 0 12px rgba(240,179,42,.3)}
 .essai .tr-mini{font-family:var(--mono);font-size:.9rem;letter-spacing:.18em;color:#54ff8a;text-shadow:0 0 6px rgba(84,255,138,.3)}
-.t1 .fr{font-family:var(--display);font-style:italic;font-size:1.5rem;color:#cfd6e6}
+.t1 .fr{font-family:var(--mono);font-size:1.05rem;letter-spacing:.08em;color:#cfd6e6}
 .t2 .fr{font-family:var(--he);font-weight:500;font-size:1.3rem;color:#cfd6e6}
 .t3 .fr{font-family:var(--cond);font-weight:400;font-size:1.25rem;letter-spacing:.06em;color:#cfd6e6}
 .t4 .fr{font-family:var(--mono);font-size:1.05rem;letter-spacing:.08em;color:#cfd6e6}
@@ -316,7 +315,7 @@ body{
 <div class="essais">
 
   <div class="essai t1">
-    <span class="tag">T1 · Instrument Serif italique (actuel)</span>
+    <span class="tag">T1 · Share Tech Mono (retenu — T4 d'origine)</span>
     <div class="he-mini" lang="he">שָׁלוֹם</div>
     <div class="tr-mini">SHALOM</div>
     <div class="fr">paix · bonjour</div>
