@@ -10,41 +10,43 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
 
 ```text
 ┌─────────────────────────────────────────────────────────────────┐
-│                     vocabulaire_hebreu.html                      │
-│              LE CARNET — source unique de vérité                 │
-│         (grammaire + vocabulaire, ~6000 lignes de HTML)          │
-└───────────────┬────────────────────────────────┬────────────────┘
-                │ fetch() + extractCards()       │ lu par build.js
-                │ au chargement, dans le         │ (réplique regex
-                │ navigateur                     │  de extractCards)
-                ▼                                ▼
-┌───────────────────────────┐    ┌───────────────────────────────┐
-│         app.html          │───▶│    flashcards_hebreu.html     │
-│  app flashcards EN LIGNE  │    │  app flashcards AUTONOME      │
-│  (derrière le portail     │    │  (hors ligne, double-clic)    │
-│   index.html à la racine) │    │  = app.html dont le bloc      │
-│  bloc BUILD:ONLINE-ONLY   │    │  réseau est remplacé par      │
-│  (fetch + extraction)     │    │  const CARDS = [...] intégré  │
-└───────────────────────────┘    │  100 % GÉNÉRÉ par build.js —  │
-                                 │  ne jamais éditer à la main   │
-                                 └───────────────────────────────┘
+│                   data/*.json  +  src/carnet/                    │
+│        SOURCE UNIQUE DE VÉRITÉ — contenu (data/) et gabarits      │
+│                      purs (src/carnet/)                           │
+└───────────────────────────────┬───────────────────────────────────┘
+                                │ node build.js
+                                ▼
+        trois artefacts committés, 100 % GÉNÉRÉS — jamais édités à la main :
+        • vocabulaire_hebreu.html — le carnet, lu par les humains
+        • cards.json — {version, cartes}, lu par app.html
+        • flashcards_hebreu.html — app AUTONOME hors ligne (cartes inlinées)
+                                │
+                                │ fetch('./cards.json')
+                                ▼
+                      ┌───────────────────────┐
+                      │        app.html         │
+                      │  flashcards EN LIGNE     │
+                      │ (derrière le portail      │
+                      │  index.html à la racine)  │
+                      └───────────────────────┘
 ```
 
-Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un portail léger) et **qu'une seule source de contenu** (le carnet). Le fichier autonome est une projection mécanique des deux.
+Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un portail léger) et **qu'une seule source de contenu** (`data/*.json`). Le carnet, `cards.json` et le fichier autonome sont trois projections mécaniques de cette même source, produites par `node build.js`.
 
 ## Les fichiers
 
 | Fichier | Rôle | Édité à la main ? |
 | --- | --- | --- |
-| [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire. Toute modification de contenu se fait ici. | ✅ oui |
+| [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire, lu par les humains. Généré depuis `data/*.json` + `src/carnet/` — le contenu s'édite dans `data/`, jamais ici. | ❌ **jamais** — généré par `build.js` |
 | [index.html](index.html) | Le **portail** : la porte d'entrée à la racine, en deux temps — accueil plein écran (« Ruben vous souhaite la bienvenue ! » / « ראובן מקבל אתכם בברכה! » au hasard, le א doré de l'icône en vectoriel, deux ménorahs à sept branches qui éclairent les côtés), puis le choix entre deux portes égales (flashcards, carnet). Sans JS, l'accueil s'efface et les portes sont directement là. Sans vocabulaire ni couplage build. | ✅ oui |
-| [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle l'extrait du carnet au chargement. | ✅ oui |
+| [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle charge ses cartes via `fetch('./cards.json')` au démarrage. | ✅ oui |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
-| [build.js](build.js) | Dev only. Régénère le fichier autonome, compte les cartes par section, échoue si une section attendue tombe à 0. | ✅ oui |
+| [cards.json](cards.json) | `{version, cartes}` — snapshot JSON des cartes dérivées de `data/`, chargé par `app.html` au démarrage. | ❌ **jamais** — généré par `build.js` |
+| [build.js](build.js) | Dev only. Lit `data/*.json`, valide (`valideDonnees`), régénère les **trois** artefacts committés (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`), compte les cartes par section/niveau/thème, échoue si une section ou un niveau attendu tombe à 0. `--check` compare les trois artefacts régénérés aux committés sans écrire. | ✅ oui |
 | [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, niveau du vocabulaire) + règle de couverture : tout nom, adjectif ou verbe sans exemple est une erreur bloquante. Son lexique lit **les cartes et les sections de grammaire** — voir § 5.1 pour les deux garde-fous qui l'empêchent de devenir circulaire. | ✅ oui |
-| [audit_carnet_mecanique.js](audit_carnet_mecanique.js) | Dev only. Étage 0 de l'audit du carnet (plan supprimé du dépôt à la clôture du 21/07 — historique git) : 14 contrôles mécaniques à 0 token (intégrité `he_plain`, doublons/homographes, cardinalité des formes, lettres finales, accords réguliers en drapeaux, cohérence malé/haser, présence du mot vedette dans ses exemples…) et découpe des cartes (789 à ce jour) en tranches de travail dans `audit/` (dossier **gitignoré**, régénérable). Sorties : erreurs (certaines), drapeaux (à trancher par l'audit LLM), données. | ✅ oui |
-| [ajoute_mots.js](ajoute_mots.js) | Dev only. Générateur de fiche, étage 1 (contrat : [SPEC_AJOUTE_MOTS.md](SPEC_AJOUTE_MOTS.md)) : consomme un petit `nouveaux_mots.json` (nom, adjectif, verbe, mot de liste, exemple sur mot existant) et fait tout le mécanique — balisage byte-conforme aux gabarits du carnet, `tr` dérivés via le `he2tr` d'app.html (extraction textuelle + `vm`, comme `verifie_exemples.js`), placement par frontière de section, doublons corpus entier (idempotent — comparaison **exacte** sur `he_plain`, à quoi s'ajoute un signal « orthographe voisine » ktiv male/haser purement **informatif**, qui ne bloque jamais), tout-ou-rien. Valide en **sandbox** (copie temporaire de build + verifie + app + carnet candidat) et n'écrit le carnet réel qu'avec `--ecrire` après vert complet ; dry-run par défaut. `--parite` (jsdom) exécute l'`extractCards()` d'app.html en Node et le compare à celui de build.js — le chaînon que `--check` n'a jamais couvert. Réutilise les exports de build.js : aucun troisième parseur, aucune constante dupliquée. | ✅ oui |
-| [cherche_mots.js](cherche_mots.js) | Dev only. Consultation **en lecture seule** du carnet (n'écrit jamais rien) — le canal cheap du piège n°15 de CLAUDE.md. `node cherche_mots.js TERME…` : terme hébreu = comparaison exacte sur `he_plain` (headwords, puis formes pluriel/MS/FS/MP/FP, puis mot exact dans les exemples), **puis, seulement si l'exacte échoue, l'appariement ktiv male/haser** (`orthographeVoisine`) sorti en rubrique séparée « orthographe voisine » — le carnet vocalisé s'écrit défectif (עִתּוֹן → `עתון`) quand on cherche plein (`עיתון`), et sans cette rubrique 6 mots sur 24 ressortaient `ABSENT` en étant présents ; terme latin = sous-chaîne à frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `SECTION Lnnnn · hébreu — français` (ancre de lecture fenêtrée), `ABSENT` seulement si ni exacte ni voisine, bornée à 8 occurrences par rubrique (surplus compté). `--stats` : total + répartition section/niveau/thème (du moins doté au plus doté). Répond « ce mot existe-t-il ? où ? quel thème est sous-doté ? » pour ~200 tokens au lieu de lire le carnet. Réutilise les exports de build.js (`extractCards`, `stripNikud`, `orthographeVoisine`, `NOTEBOOK`…) : aucun troisième parseur. | ✅ oui |
+| [audit_carnet_mecanique.js](audit_carnet_mecanique.js) | Dev only. Étage 0 de l'audit du carnet (plan supprimé du dépôt à la clôture du 21/07 — historique git) : 14 contrôles mécaniques à 0 token (intégrité `he_plain`, doublons/homographes, cardinalité des formes, lettres finales, accords réguliers en drapeaux, cohérence malé/haser, présence du mot vedette dans ses exemples…) et découpe des cartes en tranches de travail dans `audit/` (dossier **gitignoré**, régénérable). Sorties : erreurs (certaines), drapeaux (à trancher par l'audit LLM), données. | ✅ oui |
+| [ajoute_mots.js](ajoute_mots.js) | Dev only. Générateur de fiche, étage 1 (contrat : [SPEC_AJOUTE_MOTS.md](SPEC_AJOUTE_MOTS.md)) : consomme un petit `nouveaux_mots.json` (nom, adjectif, verbe, mot de liste, exemple sur mot existant) et insère les entrées correspondantes dans `data/*.json` — `tr` dérivés via le `he2tr` d'app.html (extraction textuelle + `vm`, comme `verifie_exemples.js`), placement par frontière de section, doublons corpus entier (idempotent — comparaison **exacte** sur `he_plain`, à quoi s'ajoute un signal « orthographe voisine » ktiv male/haser purement **informatif**, qui ne bloque jamais), tout-ou-rien. Valide en **sandbox** (`chargeDonnees`/`valideDonnees`/`deriveCartes`/`assertFormeCartes` + build + verifie sur une copie temporaire des données candidates) et n'écrit `data/*.json` qu'avec `--ecrire` après vert complet ; dry-run par défaut. Réutilise les exports de build.js : aucun troisième parseur, aucune constante dupliquée. | ✅ oui |
+| [cherche_mots.js](cherche_mots.js) | Dev only. Consultation **en lecture seule** de `data/*.json` (n'écrit jamais rien) — le canal cheap du piège n°15 de CLAUDE.md. `node cherche_mots.js TERME…` : terme hébreu = comparaison exacte sur `he_plain` (headwords, puis formes pluriel/MS/FS/MP/FP, puis mot exact dans les exemples), **puis, seulement si l'exacte échoue, l'appariement ktiv male/haser** (`orthographeVoisine`) sorti en rubrique séparée « orthographe voisine » — le carnet vocalisé s'écrit défectif (עִתּוֹן → `עתון`) quand on cherche plein (`עיתון`), et sans cette rubrique 6 mots sur 24 ressortaient `ABSENT` en étant présents ; terme latin = sous-chaîne à frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `CATÉGORIE fichier:ligne · hébreu — français` (ancre dans `data/*.json`, qui remplace l'ancienne ancre « carnet Lnnnn » — la source d'un mot est désormais `data/`, le carnet n'en est qu'un dérivé généré), `ABSENT` seulement si ni exacte ni voisine, bornée à 8 occurrences par rubrique (surplus compté). `--stats` : total + répartition section/niveau/thème (du moins doté au plus doté). Répond « ce mot existe-t-il ? où ? quel thème est sous-doté ? » pour ~200 tokens au lieu de lire le carnet. Réutilise les exports de build.js (`chargeDonnees`, `deriveCartes`, `stripNikud`, `orthographeVoisine`…) : aucun troisième parseur. | ✅ oui |
 | [manifest.webmanifest](manifest.webmanifest), [sw.js](sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
 ## La couche PWA
@@ -158,36 +160,36 @@ d'hébreu ne doit pas le casser (contrôlé : 3 résultats pour « שלום », 
 
 ### 1. Le carnet expose une structure conventionnelle
 
-Chaque section du carnet est un `<h2>` contenant un `<span class="count">LABEL</span>`. **Le texte exact du label est la clé d'extraction** (`'Verbes'`, `'Noms'`, `'Nombres (0–10)'`…) : le renommer détache silencieusement la section des flashcards.
+Cette structure vit désormais dans `data/*.json` (schéma complet dans `data/SCHEMA.md`) ; le carnet généré ne fait que l'afficher selon les mêmes conventions visuelles qu'avant — il n'est plus jamais reparcouru pour en extraire quoi que ce soit.
 
-Deux formats d'entrées :
+Chaque fichier de liste (`data/listes/<slug>.json`) porte un champ `section`. **Le texte exact de ce champ est la clé d'extraction** (`'Verbes'`, `'Noms'`, `'Nombres (0–10)'`…) — il doit correspondre au label `.count` du `<h2>` que `genereCarnet()` rend dans le carnet ; une valeur orpheline détache silencieusement la section des flashcards.
 
-- **Tables** (`<table><tbody><tr>`) pour Verbes, Adjectifs, Noms. Lecture **positionnelle** : Verbes exige ≥ 5 colonnes (infinitif + il/elle/ils/elles), Adjectifs ≥ 4 (m. sing. + f. sing./m. plur./f. plur.), Noms ≥ 3 (mot, genre `m`/`f`, pluriel). Ajouter une colonne casse l'extraction.
-- **Listes** (`<ul class="word-list"><li>`) pour pronoms, prépositions, nombres, expressions, **phrases**, etc. (voir la map `listCats`). La section **Phrases** (label `.count` = `Phrases`) contient des phrases entières du quotidien : elles deviennent des cartes ordinaires (catégorie `Phrases`) et traversent tous les modes. Ajouter une entrée `listCats` impose de la répercuter dans `build.js` (objet `listCats` **et** `EXPECTED_CATS`).
+Deux formes d'entrées :
 
-Les champs sont portés par des spans enfants : `.he` (hébreu avec nikud), `.tr` (translittération), `.fr` (français). Un `<li>` peut porter des attributs qui pilotent la carte sans toucher au code de l'app :
+- **`data/noms.json`, `data/adjectifs.json`, `data/verbes.json`** — un objet par mot (`he`, `fr`, `niveau`, `theme`, `groupe`, `exemples`, et selon la catégorie `genre`/`pluriel` ou `formes` ×3/×4). Rendus en tables par `genereCarnet()` ; lus directement par `deriveCartes()`, sans lecture positionnelle de colonnes.
+- **`data/listes/<slug>.json`** — `{ section, entries: [{ he, tr, fr, fr_court?, niveau, groupe?, exemples, note? }] }` pour pronoms, prépositions, nombres, expressions, **phrases**, etc. (voir la map `listCats`). La section **Phrases** (`section: 'Phrases'`) contient des phrases entières du quotidien : elles deviennent des cartes ordinaires (catégorie `Phrases`) et traversent tous les modes. Ajouter une entrée `listCats` impose de la répercuter dans `build.js` (objet `listCats` **et** `EXPECTED_CATS`).
 
-- `data-fr-court` — français court affiché sur la carte à la place du `.fr` long du carnet ;
-- `data-note` — précision affichée sous la réponse ;
-- `data-niveau` — niveau CECRL fin (`A1`…`C2`) du mot, porté aussi par les `<tr>` des trois tables (voir § 4). Attribut **optionnel** : un mot sans niveau reste visible quel que soit le filtre de l'app — le carnet peut s'annoter progressivement sans jamais perdre une carte.
-- `data-theme` — champ sémantique du mot (voir § 4.1), porté **uniquement par les `<tr>` des trois tables** Noms/Adjectifs/Verbes, où il est **obligatoire** (garde de couverture dans `build.js`). Les listes n'en portent pas — déjà mono-thème par nature — et `build.js` refuse un `data-theme` posé hors des tables.
+Une entrée peut porter des champs qui pilotent la carte sans toucher au code de l'app :
 
-Un mot peut aussi porter des **exemples en situation** (voir § 5) : une sous-liste `<ul class="exemples"><li>` — chaque `<li>` avec les spans `.he`/`.tr`/`.fr` habituels — imbriquée **dans le `<li>` du mot** (sections listes) ou **en fin de première cellule** des tables (après les spans du mot : l'extraction lit toujours le *premier* `.he`/`.fr` du fragment, l'ordre est donc significatif). ⚠️ Ces `<li>` imbriqués interdisent les regex non-gourmandes : `lisOf` (build.js) délimite les `<li>` de premier niveau par balayage à profondeur, et le DOM d'app.html utilise `ul.word-list > li` (enfant direct). Toute évolution du parsing doit préserver cette robustesse.
+- `fr_court` — français court affiché sur la carte à la place du `fr` long ;
+- `note` — précision affichée sous la réponse ;
+- `niveau` — niveau CECRL fin (`A1`…`C2`) du mot (voir § 4). **Obligatoire sur toute entrée**, tables et listes confondues : `valideDonnees()` refuse une entrée sans `niveau` valide.
+- `theme` — champ sémantique du mot (voir § 4.1), **obligatoire uniquement sur `noms.json`/`adjectifs.json`/`verbes.json`** (garde de couverture dans `build.js`). Les listes n'en portent pas — déjà mono-thème par nature — et `valideDonnees()` refuse un `theme` posé sur une entrée de liste.
 
-Les sections purement grammaticales (phrase sans verbe, racine, présent, passé, futur, impératif, conditionnel, binyanim, article, smikhut, suffixes possessifs, prépositions fléchies, particule d'objet את, hé directionnel, négation) ont un label `.count` **sans** entrée dans les maps d'extraction : elles sont volontairement exclues des flashcards. C'est aussi la façon d'**enseigner un mot sans créer de carte** : le hé directionnel (2026-07-20) a été ajouté pour que `הַבַּיְתָה` cesse d'être « hors carnet » dans l'exemple de `לַחֲזֹר`, et le compte des cartes n'a pas bougé d'une unité — le lexique du validateur lit les sections de grammaire (§ 5.1), l'extraction non.
+Un mot peut aussi porter des **exemples en situation** (voir § 5) dans son champ `exemples` (tableau de `{he, tr, fr}`). `genereCarnet()` les rend en `<ul class="exemples"><li>` — imbriquée dans le `<li>` du mot (listes) ou en fin de première cellule (tables) — mais `deriveCartes()` les lit directement dans `donnees`, jamais en reparcourant ce HTML.
 
-### 2. Deux implémentations de la même extraction (couplage critique)
+Les sections purement grammaticales (phrase sans verbe, racine, présent, passé, futur, impératif, conditionnel, binyanim, article, smikhut, suffixes possessifs, prépositions fléchies, particule d'objet את, hé directionnel, négation) n'ont pas d'équivalent dans `data/` : elles vivent en HTML statique dans `src/carnet/sections/` et sont volontairement exclues des flashcards. C'est aussi la façon d'**enseigner un mot sans créer de carte** — le lexique du validateur lit ces sections de grammaire (§ 5.1), `deriveCartes()` non.
 
-`extractCards()` existe **deux fois** et doit rester identique en comportement :
+### 2. Le contrat gabarits/données (l'extraction HTML a disparu)
 
-- [app.html:2317](app.html#L2317) — version navigateur (DOM, `querySelector`), dans le bloc `BUILD:ONLINE-ONLY` ;
-- [build.js:209](build.js#L209) — réplique en parsing regex (pas de DOM sous Node).
+Il n'y a plus d'`extractCards()`, ni côté `app.html` ni côté `build.js` : les deux implémentations regex/DOM qui devaient rester synchrones ont été supprimées au chantier 2, avec le mode `node build.js --verrou` qui avait servi à prouver leur équivalence avant la coupure, et le harnais `outils_migration/compare_carnets.js`.
 
-Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node build.js --check` régénère en mémoire et **compare au byte près** avec `flashcards_hebreu.html` sur disque.
+À la place, un seul chemin : `chargeDonnees(racine)` (build.js) lit `data/*.json` en mémoire, `valideDonnees(donnees)` la valide (champs, niveaux, thèmes, thème interdit sur une entrée de liste), puis deux fonctions consomment cette même structure sans jamais repasser par du HTML :
 
-⚠️ **Ce garde-fou ne couvre que l'extracteur de `build.js`** : l'instantané comparé vient de lui seul, l'`extractCards()` d'`app.html` ne tourne jamais sous Node. Une dérive de ce côté-là est donc invisible à toute la chaîne d'outillage. Le seul moyen de l'exercer est de **charger `app.html` en HTTP et de le laisser fetcher le carnet** — recette validée le 2026-07-24 : `python3 -m http.server` à la racine, jsdom en `runScripts:'dangerously'` + `resources:'usable'`, et le `fetch` de Node injecté (jsdom n'en fournit pas). Passage vert ce jour-là : **1070 cartes, 0 erreur console**, en accord avec le compte de `build.js`. À refaire dès qu'on touche l'un des deux extracteurs.
+- `genereCarnet(donnees, srcCarnet)` — assemble le carnet HTML depuis les gabarits de `src/carnet/` ;
+- `deriveCartes(donnees)` — dérive directement le tableau de cartes, validé en sortie par `assertFormeCartes(cards)` (forme des cartes : `cat`/`he`/`fr`/`he_plain` non vides, `tr === ''` sur les cartes de table, 4 formes pour un verbe, 3 pour un adjectif, 0 ou 1 pour un nom).
 
-⚠️ **La portée de ce garde-fou est plus étroite que sa réputation** (relevé le 21/07). Le snapshot embarqué dans le fichier autonome vient de l'extracteur de `build.js` **seul** ; l'`extractCards()` d'`app.html` ne s'exécute jamais sous Node, donc sa sortie n'est comparée à rien. `--check` attrape donc : un autonome obsolète, une dérive de l'extracteur de `build.js`, une dérive du gabarit d'`app.html` (markup, CSS, JS hors extraction). Il n'attrape **pas** une dérive de l'`extractCards()` d'`app.html` lui-même — celle-là ne se voit qu'en chargeant l'appli contre le carnet, ou en relisant les deux fonctions côte à côte. Ce qui tient vraiment les deux extracteurs ensemble reste la relecture, pas l'outillage : c'est la raison d'être de cette section.
+Le garde-fou : `node build.js --check` régénère les trois artefacts en mémoire et les **compare au contenu près** à ce qui est committé (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`). N'ayant plus qu'une seule fonction de dérivation par artefact, il n'existe plus de « côté non couvert » comme au temps des deux extracteurs : ce que `--check` valide couvre tout le chemin `data/` → artefacts.
 
 ### 3. Le schéma de carte produit
 
@@ -195,25 +197,25 @@ Toute modification de l'une doit être miroir dans l'autre. Le garde-fou : `node
 {
   cat,        // catégorie ('Verbes', 'Noms', 'Nombres', 'Phrases', …)
   he,         // hébreu avec nikud (une phrase entière pour la catégorie 'Phrases')
-  tr,         // translittération du carnet ('' pour les cartes issues de tables)
+  tr,         // translittération de data/*.json, autoritaire ('' pour les cartes issues de tables)
   fr,         // français (préfixé '(infinitif) ' pour les verbes, suffixé ' (m)'/' (f)' pour les noms)
   he_plain,   // he sans nikud (stripNikud)
-  note?,      // depuis data-note
-  niveau?,    // depuis data-niveau ('A1'…'C2' — absent si le mot n'est pas classé)
-  theme?,     // depuis data-theme (slug de la taxonomie § 4.1 — cartes des trois tables uniquement)
-  exemples?: [{ he, tr, fr, he_plain }], // phrases en situation (ul.exemples du carnet)
+  note?,      // depuis le champ note
+  niveau?,    // depuis le champ niveau ('A1'…'C2' — obligatoire dans data/, donc toujours présent)
+  theme?,     // depuis le champ theme (slug de la taxonomie § 4.1 — cartes des trois tables uniquement)
+  exemples?: [{ he, tr, fr, he_plain }], // depuis le champ exemples de l'entrée
   genre?,     // 'm' | 'f' (noms)
   forms?: [{ he, tr, label, he_plain }]  // conjugaisons, accords, pluriel
 }
 ```
 
-⚠️ L'**ordre d'insertion des propriétés** doit rester identique entre les deux extracteurs — et c'est une règle de relecture, pas une règle tenue par l'outillage. Un `niveau` posé avant `forms` dans `build.js` change le snapshot et casse `--check` ; le même déplacement dans `app.html` ne casse rien du tout, puisque cet extracteur-là ne produit jamais le snapshot (voir l'avertissement du § « Le couplage critique »).
+Ce schéma est produit par une unique fonction, `deriveCartes(donnees)` (build.js) : il n'y a plus deux implémentations dont l'ordre d'insertion des propriétés devrait rester synchrone — un changement d'ordre ici se répercute identiquement dans le carnet, `cards.json` et le fichier autonome, puisque les trois sortent de la même fonction.
 
 Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2tr(card.he)`. Les cartes de catégorie `Phrases` reçoivent un affichage réduit (`.big-he.phrase` / `.big-fr.phrase`) pour que les longues phrases passent à la ligne proprement.
 
 ### 4. Les niveaux de difficulté (CECRL)
 
-Le carnet stocke le **CECRL fin** (six valeurs, `data-niveau="A1"…"C2"`) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'app.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet actuel n'ayant rien au-delà de B2, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un carnet sans aucun `data-niveau` masque le groupe entier.
+`data/*.json` stocke le **CECRL fin** (six valeurs, `niveau: "A1"…"C2"`, rendu en `data-niveau` sur le carnet généré) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'app.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet actuel n'ayant rien au-delà de B2, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un corpus sans aucun niveau classé masque le groupe entier.
 
 **Méthode de classement** (passe initiale du 2026-07-18, 709 mots, distribution A1 327 / A2 268 / B1 107 / B2 7 ; état au 2026-07-19 après les ajouts : 713 mots, A1 328 / A2 271 / B1 107 / B2 7 ; état au 2026-07-21 après le micro-lot niveaux et le lot santé/sécurité de l'audit phase 2 : 729 mots, A1 339 / A2 275 / B1 111 / B2 4 ; état au 2026-07-21 après le lot santé/sécurité P2+P3 : 757 mots, A1 339 / A2 295 / B1 119 / B2 4 ; état au 2026-07-21 après le lot argent-achats/loisirs-culture : **789 mots**, A1 350 / A2 311 / B1 124 / B2 4) — trois critères croisés, dans cet ordre :
 
@@ -266,7 +268,7 @@ Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, t
 Le contrôle « ce mot est-il enseigné par le carnet ? » repose sur un lexique que
 `verifie_exemples.js` construit en deux temps.
 
-1. **Les cartes** (`extractCards`), avec leur `data-niveau` et leurs formes conjuguées.
+1. **Les cartes** (`deriveCartes`, sur les données chargées par `chargeDonnees()`), avec leur `niveau` et leurs formes conjuguées.
 2. **L'hébreu des sections de grammaire** — ajout du 2026-07-19. Les prépositions fléchies,
    les conjugaisons et l'article ne produisent **aucune carte**, mais leurs formes sont bel et
    bien enseignées : שֶׁלְּךָ et שֶׁלָּנוּ figurent en toutes lettres dans le carnet et étaient
@@ -288,15 +290,15 @@ Les deux garde-fous de l'étape 2, chacun contre un mode de panne silencieuse :
 
 `node build.js` (ou `--check` pour vérifier sans écrire) :
 
-1. Lit le carnet, extrait les cartes, **affiche le compte par section, par niveau CECRL, par thème et par section d'exemples** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide, **ou si une seule carte sort sans `niveau`** (garde de couverture, 2026-07-19 : elle nomme les mots fautifs et affiche une ligne « couverture N/N », de sorte que le contrôle annonce ce qu'il mesure) — mêmes règles pour les thèmes depuis le 2026-07-21 : couverture 541/541 sur les tables Noms/Adjectifs/Verbes, slug hors `EXPECTED_THEMES` refusé, `data-theme` hors des tables refusé (§ 4.1). Motif : le garde-fou par niveau n'attrapait qu'une disparition *entière*, si bien qu'un mot ajouté sans `data-niveau` passait en silence — et comme l'appli laisse volontairement les cartes non classées franchir tous les filtres, il se serait affiché jusque dans « Facile ». La couverture était vraie par chance (713/713) ; elle est désormais tenue par l'outillage.
+1. Lit `data/*.json` (`chargeDonnees`), valide (`valideDonnees`), dérive les cartes (`deriveCartes`) et régénère le carnet (`genereCarnet`) depuis `src/carnet/`. **Affiche le compte par section, par niveau CECRL, par thème et par section d'exemples** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide, **ou si une seule entrée sort sans `niveau` valide** (garde de couverture : elle nomme les mots fautifs et affiche une ligne « couverture N/N », de sorte que le contrôle annonce ce qu'il mesure) — mêmes règles pour les thèmes : slug hors `EXPECTED_THEMES` refusé, `theme` hors des trois tables refusé (§ 4.1). Ces gardes vivent désormais dans `valideDonnees()`, au niveau des données, avant même la dérivation des cartes.
 2. Copie `app.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
    - bannière « fichier généré » après le doctype ;
    - suppression du loader, panneau setup visible d'emblée ;
-   - `let CARDS = []` → `const CARDS = [...]` (snapshot JSON du vocabulaire) ;
+   - `let CARDS = []` → `const CARDS = [...]` (snapshot JSON des cartes dérivées) ;
    - bloc `BUILD:ONLINE-ONLY` → démarrage direct (`buildChips()` + `updateStart()`).
-3. Vérifie qu'aucune trace du chemin réseau (`fetch(`, `DOMParser`, `extractCards`) ne subsiste dans le fichier généré.
+3. Vérifie qu'aucune trace du chemin réseau (`fetch(`, `DOMParser`) ne subsiste dans le fichier autonome.
 
-**Règle de travail : lancer `node build.js` après toute édition du carnet ou d'`app.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
+**Règle de travail : lancer `node build.js` après toute édition de `data/*.json` ou d'`app.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
 
 ## Anatomie d'app.html (~2370 lignes)
 
@@ -394,11 +396,11 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 ## Garde-fous contre la casse silencieuse
 
-L'extraction étant couplée au markup du carnet, quatre filets détectent les cartes perdues :
+Quatre filets détectent les cartes perdues :
 
 1. **`init()` dans app.html** ([app.html:2435](app.html#L2435)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
-3. **`node build.js --check`** : détecte un fichier autonome obsolète et toute dérive de l'extracteur de `build.js` ou du gabarit d'`app.html` (comparaison byte à byte). Ne couvre pas l'`extractCards()` d'`app.html`, qui ne s'exécute jamais sous Node — cf. § « Le couplage critique ».
+3. **`node build.js --check`** : compare les trois artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`) au contenu committé — un artefact obsolète, une dérive des gabarits ou une dérive de `data/*.json` non répercutée se voient tous les trois, puisque les trois sortent de la même donnée.
 4. **Garde de taxonomie de `build.js`** (21/07) : `EXPECTED_THEMES` est comparé aux slugs de la constante `THEMES` d'`app.html`, lue dans le fichier. Un thème ajouté d'un seul côté échoue le build en nommant la liste fautive ; la disparition de la constante échoue aussi, plutôt que de passer au vert en ne comparant rien.
 
 ## Développement et déploiement
@@ -451,7 +453,7 @@ PRODUCT.md.
 ```bash
 graphify explain "checkAnswer"                   # ligne source exacte + appelants/appelés
 graphify query "comment le verdict est-il annulable ?"
-graphify path "extractCards" "recordResult"      # comment deux choses se relient
+graphify path "deriveCartes" "recordResult"      # comment deux choses se relient
 ```
 
 `graphify explain` remplace les ancres `near line NNN` que CLAUDE.md portait : celles-ci
@@ -463,6 +465,12 @@ chaque édition structurelle du fichier.
 
 ⚠️ **Le graphe est un instantané, pas une vérité vivante.** Il se périme exactement comme les
 ancres — la différence est qu'il se régénère en une commande au lieu de se vérifier à la main.
+Concrètement, ce graphe **date d'avant les chantiers 1-2** de la réorganisation du dépôt
+généré : il ne connaît ni `data/`, ni `src/carnet/`, ni la disparition des extracteurs HTML —
+une requête sur ces sujets répondra depuis l'ancien monde (l'extraction depuis le carnet, les
+deux implémentations d'`extractCards`). La dette est enregistrée par les flags
+`⚠️ GRAPHE À RECALER` de TODO.md « Reprendre ici » ; le recalage reste, comme toujours, une
+décision explicite, jamais automatique.
 En cas de contradiction entre le graphe et le fichier, **le fichier fait foi**, et le graphe
 doit être reconstruit :
 
@@ -499,9 +507,9 @@ pas les identifiants forgés par les autres.
 
 ## Check-list d'une modification de contenu
 
-1. Éditer `vocabulaire_hebreu.html` (et lui seul pour le vocabulaire).
+1. Éditer `data/*.json` (et lui seul pour le vocabulaire — jamais `vocabulaire_hebreu.html`, généré).
 2. `node build.js` — vérifier les comptes par section.
 3. Si du vocabulaire ou des exemples ont changé : `node verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
 4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
 5. `/graphify . --update` — recaler le graphe, sinon CLAUDE.md envoie interroger un instantané périmé.
-6. Committer le carnet, `flashcards_hebreu.html` régénéré **et** `graphify-out/graph.json`, pousser sur `main`.
+6. Committer `data/*.json` et les trois artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`) **et** `graphify-out/graph.json`, pousser sur `main`.
