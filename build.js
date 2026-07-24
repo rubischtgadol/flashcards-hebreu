@@ -13,15 +13,18 @@
  * Affiche le compte de cartes par section et échoue bruyamment si une section
  * attendue tombe à zéro, ou si data/ est invalide (valideDonnees).
  *
- * L'ancien parseur regex (extractCards + ses helpers rowsOf/lisOf/closeOf/…) reste
- * dans ce fichier et exporté : verifie_exemples.js, cherche_mots.js et ajoute_mots.js
- * l'utilisent encore pour lire vocabulaire_hebreu.html (migration prévue tâche 10) ;
- * le mode --verrou s'en sert aussi, comme oracle de non-régression pour deriveCartes.
+ * L'ancien parseur regex du carnet HTML (fonction de scrape retirée + les helpers
+ * rowsOf/lisOf) a servi d'oracle de non-régression pour deriveCartes le temps de la
+ * migration (chantier 2, tâche 7 : mode --verrou, VERROU OK avant suppression) puis
+ * de pont pour les derniers lecteurs de HTML (verifie_exemples.js, cherche_mots.js,
+ * ajoute_mots.js) — supprimé à la tâche 11, une fois ce dernier basculé sur data/
+ * (voir task-11-report.md). Une partie des helpers reste : ils servent encore aux
+ * scripts ponctuels de outils_migration/ (decoupe_carnet.js, extrait_donnees.js),
+ * qui eux lisent toujours le carnet HTML — cf. leur propre en-tête pour pourquoi.
  *
  * Usage :
  *   node build.js           # régénère les trois artefacts
  *   node build.js --check   # vérifie sans écrire (artefacts en phase avec data/ ?)
- *   node build.js --verrou  # VERROU OK si deriveCartes(data/) === extractCards(carnet régénéré)
  */
 'use strict';
 const fs = require('fs');
@@ -53,9 +56,9 @@ const EXPECTED_THEMES = ['famille-personnes','corps-sante','nourriture','maison-
 // couverture que data-niveau : tenue par l'outillage, pas par la discipline).
 const THEMED_CATS = ['Noms','Adjectifs','Verbes'];
 // Sections du carnet en <ul class="word-list"> → catégorie de carte. Au niveau
-// module (et non locale à extractCards) : ajoute_mots.js valide ses labels de
-// section contre cette table — une seule source côté Node. Miroir du listCats
-// d'extractCards() dans app.html (toute entrée ajoutée doit l'être des deux côtés).
+// module : ajoute_mots.js et deriveCartes() valident/lisent les labels de section
+// contre cette table — une seule source côté Node (outils_migration/decoupe_carnet.js
+// et extrait_donnees.js s'y réfèrent aussi, pour leur propre lecture du carnet HTML).
 const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'Démonstratifs',
   'Verbes modaux':'Verbes modaux',
   'Prépositions':'Prépositions', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
@@ -101,7 +104,7 @@ function blocksOf(html, re){
   return out;
 }
 
-// ---------- réplique de extractCards() (app.html) ----------
+// ---------- helpers hébreu + lecture du carnet HTML (encore utiles à outils_migration/) ----------
 function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
 
 // ---------- appariement ktiv male / ktiv haser ----------
@@ -151,16 +154,6 @@ function parseSections(html){
   });
   return sections;
 }
-function rowsOf(sections, name){
-  // renvoie chaque <tr> COMPLET (balise ouvrante incluse, pour lire son data-niveau)
-  const body = sections[name] || '';
-  const rows = [];
-  blocksOf(body, /<tbody\b[^>]*>([\s\S]*?)<\/tbody>/g).forEach(tb => {
-    let m; const re = /<tr\b[^>]*>[\s\S]*?<\/tr>/g;
-    while ((m = re.exec(tb))) rows.push(m[0]);
-  });
-  return rows;
-}
 // Fin du bloc ouvert à openTag.index : suit la profondeur des <tag>/<\/tag> imbriqués
 // (une regex non-gourmande s'arrêterait au premier fermant — celui d'un enfant).
 function closeOf(html, openEnd, tag){
@@ -172,27 +165,6 @@ function closeOf(html, openEnd, tag){
     if (depth === 0) return t.index;
   }
   return html.length;
-}
-function lisOf(sections, name){
-  // renvoie chaque <li> COMPLET de premier niveau (balise ouvrante incluse, pour
-  // lire ses data-*) — les <ul class="exemples"> imbriqués et leurs <li> restent
-  // à l'intérieur du fragment, jamais énumérés comme des mots.
-  const body = sections[name] || '';
-  const lis = [];
-  const ulRe = /<ul\b[^>]*\bclass="word-list"[^>]*>/g;
-  let ul;
-  while ((ul = ulRe.exec(body))){
-    const end = closeOf(body, ul.index + ul[0].length, 'ul');
-    const inner = body.slice(ul.index + ul[0].length, end);
-    const liRe = /<\/?li\b[^>]*>/g;
-    let depth = 0, start = -1, t;
-    while ((t = liRe.exec(inner))){
-      if (t[0][1] !== '/'){ if (depth === 0) start = t.index; depth++; }
-      else { depth--; if (depth === 0 && start >= 0){ lis.push(inner.slice(start, t.index + t[0].length)); start = -1; } }
-    }
-    ulRe.lastIndex = end;
-  }
-  return lis;
 }
 // Exemples en situation : <ul class="exemples"><li> .he/.tr/.fr </li></ul> dans un
 // <li> de word-list ou dans la première cellule d'une table. Champ optionnel.
@@ -216,86 +188,6 @@ function attrOf(fragment, name){
   return m ? decodeEntities(m[1]).trim() : '';
 }
 function tdsOf(tr){ return blocksOf(tr, /<td\b[^>]*>([\s\S]*?)<\/td>/g); }
-
-function extractCards(html){
-  const sections = parseSections(html);
-  const cards = [];
-
-  rowsOf(sections, 'Verbes').forEach(tr => {
-    const tds = tdsOf(tr); if (tds.length < 5) return;
-    const he = firstSpanText(tds[0], 'he'); const fr = firstSpanText(tds[0], 'fr');
-    const labels = ['il','elle','ils','elles']; const forms = [];
-    for (let i = 1; i < 5; i++){
-      const fhe = firstSpanText(tds[i], 'he'); const ftr = firstSpanText(tds[i], 'tr');
-      forms.push({ he: fhe, tr: ftr, label: labels[i-1], he_plain: stripNikud(fhe) });
-    }
-    if (he){
-      const card = { cat: 'Verbes', he, tr: '', fr: '(infinitif) ' + fr, forms };
-      const niveau = attrOf(tr, 'data-niveau');
-      if (niveau) card.niveau = niveau;
-      const theme = attrOf(tr, 'data-theme');
-      if (theme) card.theme = theme;
-      const ex = exemplesOf(tds[0]);
-      if (ex.length) card.exemples = ex;
-      cards.push(card);
-    }
-  });
-
-  rowsOf(sections, 'Adjectifs').forEach(tr => {
-    const tds = tdsOf(tr); if (tds.length < 4) return;
-    const he = firstSpanText(tds[0], 'he'); const fr = firstSpanText(tds[0], 'fr');
-    const labels = ['f. sing.','m. plur.','f. plur.']; const forms = [];
-    for (let i = 1; i < 4; i++){
-      const fhe = firstSpanText(tds[i], 'he'); const ftr = firstSpanText(tds[i], 'tr');
-      if (fhe) forms.push({ he: fhe, tr: ftr, label: labels[i-1], he_plain: stripNikud(fhe) });
-    }
-    if (he){
-      const card = { cat: 'Adjectifs', he, tr: '', fr, forms };
-      const niveau = attrOf(tr, 'data-niveau');
-      if (niveau) card.niveau = niveau;
-      const theme = attrOf(tr, 'data-theme');
-      if (theme) card.theme = theme;
-      const ex = exemplesOf(tds[0]);
-      if (ex.length) card.exemples = ex;
-      cards.push(card);
-    }
-  });
-
-  rowsOf(sections, 'Noms').forEach(tr => {
-    const tds = tdsOf(tr); if (tds.length < 3) return;
-    const he = firstSpanText(tds[0], 'he'); const fr = firstSpanText(tds[0], 'fr');
-    const genre = textContent(tds[1]).trim();
-    const plHe = firstSpanText(tds[2], 'he'); const plTr = firstSpanText(tds[2], 'tr');
-    const card = { cat: 'Noms', he, tr: '', fr: fr + ((genre === 'm' || genre === 'f') ? (' (' + genre + ')') : '') };
-    if (genre === 'm' || genre === 'f') card.genre = genre;
-    if (plHe && plHe !== '—'){ card.forms = [{ he: plHe, tr: plTr, label: 'pluriel', he_plain: stripNikud(plHe) }]; }
-    const niveau = attrOf(tr, 'data-niveau');
-    if (niveau) card.niveau = niveau;
-    const theme = attrOf(tr, 'data-theme');
-    if (theme) card.theme = theme;
-    const ex = exemplesOf(tds[0]);
-    if (ex.length) card.exemples = ex;
-    if (he) cards.push(card);
-  });
-
-  Object.keys(listCats).forEach(sec => {
-    lisOf(sections, sec).forEach(li => {
-      const he = firstSpanText(li, 'he'); if (!he) return;
-      // data-fr-court / data-note : mêmes attributs que lit extractCards() d'app.html
-      const card = { cat: listCats[sec], he, tr: firstSpanText(li, 'tr'), fr: attrOf(li, 'data-fr-court') || firstSpanText(li, 'fr') };
-      const note = attrOf(li, 'data-note');
-      if (note) card.note = note;
-      const niveau = attrOf(li, 'data-niveau');
-      if (niveau) card.niveau = niveau;
-      const ex = exemplesOf(li);
-      if (ex.length) card.exemples = ex;
-      cards.push(card);
-    });
-  });
-
-  cards.forEach(c => { c.he_plain = stripNikud(c.he); });
-  return cards;
-}
 
 // ---------- data/ : chargement + validation (absorbé d'outils_migration/valide_donnees.js) ----------
 
@@ -487,9 +379,10 @@ function genereCarnet(donnees, srcCarnet){
 
 // ---------- data/ → cartes (remplace l'extraction regex dans le pipeline principal) ----------
 
-// deriveCartes(donnees) : même schéma exact que extractCards() ci-dessus, même ordre
-// d'insertion des propriétés (le verrou --verrou compare les deux par JSON.stringify
-// strict — un ordre différent romprait l'égalité sans rien changer au contenu réel).
+// deriveCartes(donnees) : schéma de carte figé (cf. card schema, CLAUDE.md/ARCHITECTURE.md),
+// même ordre d'insertion des propriétés d'un appel à l'autre — cards.json et le fichier
+// autonome en dépendent pour rester stables d'un build à l'autre sans rien changer au
+// contenu réel de data/.
 function deriveCartes(donnees){
   const cards = [];
   const withPlain = (exs) => (exs || []).map(x => ({ he: x.he, tr: x.tr, fr: x.fr, he_plain: stripNikud(x.he) }));
@@ -636,7 +529,8 @@ function report(cards){
   // seulement le commentaire posé plus haut. Un thème ajouté d'un seul côté passait
   // donc au vert — slug accepté au build mais aucune pastille dans l'appli, ou
   // l'inverse, une pastille qui ne filtre rien. Relevé le 21/07 en traçant le pont
-  // extractCards dans le graphe : les deux listes n'avaient aucun lien mécanique.
+  // entre les deux extracteurs (alors encore l'un DOM, l'autre regex) dans le graphe :
+  // les deux listes n'avaient aucun lien mécanique.
   // Seuls les slugs sont comparés ; les libellés restent libres côté app.
   const appThemes = (() => {
     const src = fs.readFileSync(APP, 'utf8');
@@ -728,7 +622,7 @@ function generateStandalone(cards){
     'bloc BUILD:ONLINE-ONLY');
 
   // Garde-fous : plus aucune trace du chemin réseau dans le fichier autonome.
-  ['fetch(', 'DOMParser', 'extractCards'].forEach(tok => {
+  ['fetch(', 'DOMParser'].forEach(tok => {
     if (out.includes(tok)){
       console.error('✗ Le fichier généré contient encore « ' + tok + ' » — marqueurs BUILD:ONLINE-ONLY déplacés ?');
       process.exit(1);
@@ -746,19 +640,9 @@ function generateStandalone(cards){
   return out;
 }
 
-// Diagnostic de la première carte divergente entre deux tableaux (utilisé par --verrou
-// pour itérer sur deriveCartes sans avoir à relire tout le JSON à l'œil).
-function premiereDivergence(a, b){
-  if (a.length !== b.length) return `${a.length} carte(s) via deriveCartes contre ${b.length} via extractCards`;
-  let i = 0;
-  while (i < a.length && JSON.stringify(a[i]) === JSON.stringify(b[i])) i++;
-  return `carte #${i} diverge :\n    deriveCartes  : ${JSON.stringify(a[i])}\n    extractCards  : ${JSON.stringify(b[i])}`;
-}
-
 function main(){
   const argv = process.argv.slice(2);
   const check = argv.includes('--check');
-  const verrou = argv.includes('--verrou');
 
   let donnees;
   try {
@@ -766,21 +650,6 @@ function main(){
     valideDonnees(donnees);
   } catch (e) {
     console.error('✗ données invalides (data/) : ' + e.message);
-    process.exit(1);
-  }
-
-  // Step 1/2 du brief chantier 2 tâche 7 : le verrou avant la clé — tant qu'il n'est pas
-  // vert, l'ancien parseur regex (extractCards) reste l'oracle, jamais supprimé.
-  if (verrou){
-    const carnetGenere = genereCarnet(donnees, SRC_CARNET);
-    const viaData = deriveCartes(donnees);
-    const viaRegex = extractCards(carnetGenere);
-    if (JSON.stringify(viaData) === JSON.stringify(viaRegex)){
-      console.log('VERROU OK — ' + viaData.length + ' cartes identiques (deriveCartes === extractCards).');
-      return;
-    }
-    console.error('✗ VERROU — deriveCartes(data/) diverge de extractCards(carnet régénéré).');
-    console.error('  ' + premiereDivergence(viaData, viaRegex));
     process.exit(1);
   }
 
@@ -848,14 +717,17 @@ function main(){
   }
 }
 
-// Réutilisable en module : verifie_exemples.js, cherche_mots.js et ajoute_mots.js
-// s'appuient encore sur l'extraction regex (extractCards et ses helpers) pour lire
-// vocabulaire_hebreu.html — migration vers cards.json/chargeDonnees prévue tâche 10,
-// seul moment où ce parseur pourra vraiment disparaître. chargeDonnees/valideDonnees/
-// genereCarnet/deriveCartes sont la nouvelle API v2 du build ; chargeDonnees est déjà
-// requise par la tâche 10. Jamais de troisième parseur, jamais de constante dupliquée.
-module.exports = { extractCards, NOTEBOOK, APP, CARDS_JSON,
-  parseSections, closeOf, lisOf, exemplesOf, firstSpanText, attrOf, tdsOf,
+// Réutilisable en module : chargeDonnees/valideDonnees/genereCarnet/deriveCartes sont
+// l'API v2 du build — verifie_exemples.js, cherche_mots.js et ajoute_mots.js s'appuient
+// dessus (tâches 10-11, chantier 2). Le parseur regex de vocabulaire_hebreu.html
+// (fonction de scrape + rowsOf/lisOf) a servi d'oracle de non-régression puis de pont
+// pour ces trois scripts ; supprimé à la tâche 11, une fois le dernier (ajoute_mots.js) basculé.
+// Les helpers HTML restants (parseSections, closeOf, exemplesOf, firstSpanText, attrOf,
+// tdsOf, decodeEntities, listCats) restent exportés : outils_migration/decoupe_carnet.js
+// et extrait_donnees.js, scripts ponctuels du chantier 1, lisent toujours le carnet HTML.
+// Jamais de troisième parseur, jamais de constante dupliquée.
+module.exports = { NOTEBOOK, APP, CARDS_JSON,
+  parseSections, closeOf, exemplesOf, firstSpanText, attrOf, tdsOf,
   stripNikud, decodeEntities, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,
   chargeDonnees, valideDonnees, genereCarnet, deriveCartes };
