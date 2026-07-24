@@ -6,17 +6,21 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 > À juger sur téléphone (le soir, en conditions réelles d'étude) :
 >
-> **➡️ La page-témoin (direction retenue : A Observatoire + Share Tech Mono) :**
+> **➡️ LA page à ouvrir — la page-témoin v0.4, charte complète et arbitrée** (A Observatoire,
+> trois voix typo sans italique, 12 modules intégrés, écran Bilan) :
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-nerv.html
 >
-> **➡️ La planche des variantes (A/B/C/D + banc d'essai typo) :**
+> Archives d'arbitrage (déjà tranchées, à consulter seulement pour repêcher) :
 >
->     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-variantes.html
->
-> **➡️ Les effets candidats (9 propositions à cocher, un bloc par effet) :**
+> **➡️ Les 21 effets candidats** (12 retenus et intégrés ; 9 écartés « pour l'instant » :
+> halo, bloom, balayage, glitch, équerres, bande, lettre fantôme, ticker, réticule) :
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-effets.html
+>
+> **➡️ La planche des variantes A/B/C/D + bancs d'essai typo :**
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-variantes.html
 >
 > Le miroir raw.githack suit la branche : chaque push met les liens à jour. Spec de la
 > charte : [docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md).
