@@ -19,6 +19,12 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-hebreu.html
 >
+> **➡️ LE DUEL — Miriam Mono CLM contre GNU Unifont** : alphabet entier, cinq finales, les
+> 14 marques, dix mots du carnet couvrant les 27 signes, et la carte d'étude reconstituée
+> dans chacune :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/duel-miriam-unifont.html
+>
 > **➡️ Les monospaces hébreux, hors catalogue** — la voix « données » de la charte cherche son
 > équivalent en hébreu. Trois candidates tiennent (Miriam Mono CLM, GNU Unifont, FreeMono), les
 > polices de terminal classiques tombent :

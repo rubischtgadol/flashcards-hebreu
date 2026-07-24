@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Miriam Mono CLM contre GNU Unifont — duel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* Jetons v0.2 — repris tels quels de prototype-nerv.html (qui fait foi) */
+:root{
+  --bg:#05040A; --panneau:#0A0814; --grille:#0F0C1C; --ligne:#7a5a14;
+  --ambre:#f0b32a; --vert:#54ff8a; --rouge:#FF4747; --orange:#ff6a1f; --lune:#cfd6e6;
+  --cond:'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:'Share Tech Mono','Courier New',monospace;
+  --taille:2.4rem;
+}
+@font-face{font-family:'Miriam Mono CLM';src:url('polices/MiriamMonoCLM.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Miriam Mono CLM';src:url('polices/MiriamMonoCLM-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'GNU Unifont';src:url('polices/Unifont.woff2') format('woff2');font-display:swap}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{font-family:var(--cond);color:var(--ambre);background:#030208;font-size:15px;line-height:1.45;
+  padding:26px 18px calc(70px + env(safe-area-inset-bottom));-webkit-text-size-adjust:100%}
+.page{max-width:1100px;margin:0 auto}
+h1{font-family:var(--mono);font-size:1.2rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor}
+.chapeau{color:var(--lune);font-size:.92rem;margin:12px 0 4px;max-width:66ch}
+.chapeau b{color:var(--ambre);font-weight:400}
+.section-titre{font-family:var(--cond);font-weight:600;color:var(--ambre);font-size:.85rem;
+  letter-spacing:.2em;text-transform:uppercase;margin:42px 0 14px;display:flex;align-items:center;gap:14px}
+.section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
+
+/* étiquette de police, toujours visible : on doit savoir laquelle on regarde */
+.tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--ligne);border-radius:9999px;padding:1px 8px;white-space:nowrap;flex-shrink:0}
+.tag.m{color:var(--vert);border-color:var(--vert)}
+.tag.u{color:var(--orange);border-color:var(--orange)}
+
+.bloc{border:1px solid var(--ligne);padding:14px 16px;margin-bottom:14px;background:
+  repeating-linear-gradient(0deg,transparent 0 31px,var(--grille) 31px 32px),
+  repeating-linear-gradient(90deg,transparent 0 31px,var(--grille) 31px 32px),var(--bg)}
+.bloc>header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bloc>header .quoi{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lune);opacity:.8}
+
+.alphabet{direction:rtl;display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:flex-start;
+  font-size:var(--taille);line-height:1.55;color:var(--ambre)}
+.alphabet span{min-width:1.2em;text-align:center}
+.miriam{font-family:'Miriam Mono CLM'}
+.unifont{font-family:'GNU Unifont'}
+
+.mot-duel{border:1px solid var(--ligne);padding:12px 14px 10px;background:
+  repeating-linear-gradient(0deg,transparent 0 31px,var(--grille) 31px 32px),
+  repeating-linear-gradient(90deg,transparent 0 31px,var(--grille) 31px 32px),var(--bg)}
+.mot-duel .fr{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--lune);opacity:.85;margin-bottom:9px}
+.mot-duel .paire{display:flex;align-items:center;gap:10px;padding:5px 0}
+.mot-duel .paire + .paire{border-top:1px solid var(--grille)}
+.mot-duel .he{direction:rtl;flex:1;text-align:right;font-size:var(--taille);line-height:1.6;
+  color:var(--ambre);text-shadow:0 0 14px rgba(240,179,42,.28)}
+.grille-mots{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+
+.carte-demo{border:1px solid var(--ligne);padding:16px;background:
+  repeating-linear-gradient(0deg,transparent 0 31px,var(--grille) 31px 32px),
+  repeating-linear-gradient(90deg,transparent 0 31px,var(--grille) 31px 32px),var(--bg);
+  display:flex;flex-direction:column;gap:10px}
+.carte-demo .barre{display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;border-bottom:1px solid var(--ligne);padding-bottom:8px}
+.carte-demo .barre .live{color:var(--vert);text-shadow:0 0 6px currentColor}
+.carte-demo .vedette{direction:rtl;text-align:center;font-size:calc(var(--taille) * 1.5);
+  color:var(--ambre);text-shadow:0 0 14px rgba(240,179,42,.35);line-height:1.5}
+.carte-demo .tr{text-align:center;font-size:.95rem;letter-spacing:.16em;color:var(--vert);
+  text-shadow:0 0 6px rgba(84,255,138,.4)}
+.carte-demo .trad{text-align:center;font-size:1rem;color:var(--lune)}
+.carte-demo .log{border-top:1px solid var(--ligne);padding-top:9px;font-size:.8rem;color:var(--ambre);
+  white-space:nowrap;overflow-x:auto}
+
+.reglages{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 8px;position:sticky;top:0;z-index:5;
+  background:#030208;padding:10px 0}
+.btn{font-family:var(--cond);font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:7px 15px;cursor:pointer;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2)}
+.btn.actif{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+body[data-vue="m"] .seul-u{display:none}
+body[data-vue="u"] .seul-m{display:none}
+
+.fiche{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:16px}
+.fiche .col{border:1px solid var(--ligne);padding:13px 15px}
+.fiche .col.m{border-color:var(--vert)}
+.fiche .col.u{border-color:var(--orange)}
+.fiche h3{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px}
+.fiche .col.m h3{color:var(--vert)} .fiche .col.u h3{color:var(--orange)}
+.fiche ul{margin-left:16px;font-size:.84rem;color:var(--lune)}
+.fiche li{margin:5px 0}
+.fiche b{color:var(--ambre);font-weight:400}
+.methode{margin-top:44px;border-top:1px solid var(--ligne);padding-top:16px;color:var(--lune);
+  font-size:.82rem;max-width:72ch}
+.methode p{margin-bottom:10px}
+.methode code{font-family:var(--mono);color:var(--vert);font-size:.78rem}
+.methode a{color:var(--vert)}
+</style>
+</head>
+<body data-vue="deux">
+<div class="page">
+  <h1>Miriam Mono CLM · contre · GNU Unifont</h1>
+  <p class="chapeau">Les deux finalistes pour la voix « données » de la charte, sur tout ce qu'elles
+  auront à porter : <b>l'alphabet entier</b>, les <b>14 marques vocaliques</b>, <b>dix mots du carnet
+  qui couvrent les 27 signes</b>, et une carte d'étude reconstituée. Les deux ont le nikoud complet ;
+  ce qui se joue ici, c'est la lisibilité et le caractère.</p>
+  <p class="chapeau">Étiquette <b class="tag m">M</b> pour Miriam, <b class="tag u">U</b> pour
+  Unifont — jamais deux hébreux côte à côte sans savoir lequel est lequel.</p>
+
+  <div class="reglages">
+    <button class="btn" data-taille="1.7rem">Petit</button>
+    <button class="btn actif" data-taille="2.4rem">Lecture</button>
+    <button class="btn" data-taille="3.6rem">Vedette</button>
+    <button class="btn" data-vue="deux">Les deux</button>
+    <button class="btn" data-vue="m">Miriam seule</button>
+    <button class="btn" data-vue="u">Unifont seule</button>
+  </div>
+
+  <h2 class="section-titre">L'alphabet entier — 22 lettres</h2>
+  <div class="bloc seul-m">
+    <header><span class="tag m">M</span><span class="quoi">Miriam Mono CLM</span></header>
+    <div class="alphabet miriam" lang="he"><span>א</span><span>ב</span><span>ג</span><span>ד</span><span>ה</span><span>ו</span><span>ז</span><span>ח</span><span>ט</span><span>י</span><span>כ</span><span>ל</span><span>מ</span><span>נ</span><span>ס</span><span>ע</span><span>פ</span><span>צ</span><span>ק</span><span>ר</span><span>ש</span><span>ת</span></div>
+  </div>
+  <div class="bloc seul-u">
+    <header><span class="tag u">U</span><span class="quoi">GNU Unifont</span></header>
+    <div class="alphabet unifont" lang="he"><span>א</span><span>ב</span><span>ג</span><span>ד</span><span>ה</span><span>ו</span><span>ז</span><span>ח</span><span>ט</span><span>י</span><span>כ</span><span>ל</span><span>מ</span><span>נ</span><span>ס</span><span>ע</span><span>פ</span><span>צ</span><span>ק</span><span>ר</span><span>ש</span><span>ת</span></div>
+  </div>
+
+  <h2 class="section-titre">Les cinq finales</h2>
+  <div class="bloc seul-m">
+    <header><span class="tag m">M</span><span class="quoi">Miriam Mono CLM</span></header>
+    <div class="alphabet miriam" lang="he"><span>ך</span><span>ם</span><span>ן</span><span>ף</span><span>ץ</span></div>
+  </div>
+  <div class="bloc seul-u">
+    <header><span class="tag u">U</span><span class="quoi">GNU Unifont</span></header>
+    <div class="alphabet unifont" lang="he"><span>ך</span><span>ם</span><span>ן</span><span>ף</span><span>ץ</span></div>
+  </div>
+
+  <h2 class="section-titre">Les 14 marques, posées sur alef (et shin pour les deux points)</h2>
+  <div class="bloc seul-m">
+    <header><span class="tag m">M</span><span class="quoi">Miriam Mono CLM</span></header>
+    <div class="alphabet miriam" lang="he"><span title="shva">אְ</span><span title="hataf segol">אֱ</span><span title="hataf patah">אֲ</span><span title="hataf qamats">אֳ</span><span title="hiriq">אִ</span><span title="tsere">אֵ</span><span title="segol">אֶ</span><span title="patah">אַ</span><span title="qamats">אָ</span><span title="holam">אֹ</span><span title="qubuts">אֻ</span><span title="dagesh">בּ</span><span title="point shin">שׁ</span><span title="point sin">שׂ</span></div>
+  </div>
+  <div class="bloc seul-u">
+    <header><span class="tag u">U</span><span class="quoi">GNU Unifont</span></header>
+    <div class="alphabet unifont" lang="he"><span title="shva">אְ</span><span title="hataf segol">אֱ</span><span title="hataf patah">אֲ</span><span title="hataf qamats">אֳ</span><span title="hiriq">אִ</span><span title="tsere">אֵ</span><span title="segol">אֶ</span><span title="patah">אַ</span><span title="qamats">אָ</span><span title="holam">אֹ</span><span title="qubuts">אֻ</span><span title="dagesh">בּ</span><span title="point shin">שׁ</span><span title="point sin">שׂ</span></div>
+  </div>
+
+  <h2 class="section-titre">Dix mots du carnet — les 27 signes et 12 marques sur 14</h2>
+  <div class="grille-mots">
+    <article class="mot-duel">
+      <div class="fr">université</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">אוּנִיבֶרְסִיטָה</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">אוּנִיבֶרְסִיטָה</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">s'ennuyer</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">לְהִשְׁתַּעֲמֵם</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">לְהִשְׁתַּעֲמֵם</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">vieux, âgé</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">זָקֵן</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">זָקֵן</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">peur</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">פַּחַד</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">פַּחַד</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">cuillère</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">כַּף</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">כַּף</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">pneu</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">צָמִיג</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">צָמִיג</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">arbre</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">עֵץ</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">עֵץ</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">va</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">לֵךְ</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">לֵךְ</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">aimer</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">לֶאֱהֹב</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">לֶאֱהֹב</span></div>
+    </article>
+    <article class="mot-duel">
+      <div class="fr">légal</div>
+      <div class="paire seul-m"><span class="tag m">M</span><span class="he miriam" lang="he">חֻקִּי</span></div>
+      <div class="paire seul-u"><span class="tag u">U</span><span class="he unifont" lang="he">חֻקִּי</span></div>
+    </article>
+  </div>
+
+  <h2 class="section-titre">En situation — la carte d'étude</h2>
+  <div class="fiche">
+    <div class="carte-demo seul-m">
+      <div class="barre"><span>Mode · Cartes</span><span class="tag m">M</span></div>
+      <div class="vedette miriam" lang="he">שָׁלוֹם</div>
+      <div class="tr">SHALOM</div>
+      <div class="trad">paix · bonjour</div>
+      <div class="log miriam">▸ CARTE 0421 · <span lang="he">לְהִשְׁתַּעֲמֵם</span></div>
+    </div>
+    <div class="carte-demo seul-u">
+      <div class="barre"><span>Mode · Cartes</span><span class="tag u">U</span></div>
+      <div class="vedette unifont" lang="he">שָׁלוֹם</div>
+      <div class="tr">SHALOM</div>
+      <div class="trad">paix · bonjour</div>
+      <div class="log unifont">▸ CARTE 0421 · <span lang="he">לְהִשְׁתַּעֲמֵם</span></div>
+    </div>
+  </div>
+
+  <h2 class="section-titre">Ce que les fichiers disent</h2>
+  <div class="fiche">
+    <div class="col m">
+      <h3>Miriam Mono CLM</h3>
+      <ul>
+        <li>nikoud <b>14/14</b>, lettres <b>27/27</b></li>
+        <li>chasse des lettres <b>600, uniforme</b> ; marques à <b>chasse 0</b></li>
+        <li>marques <b>classées « marque »</b> dans GDEF, attachées par <code>mark</code> et
+          <code>mkmk</code> — le placement ne dépend d'aucune compensation du moteur</li>
+        <li>deux graisses (livre et gras)</li>
+        <li>projet Culmus 0.140 · GPL v2 + exception · sous-ensemble 10 Ko</li>
+      </ul>
+    </div>
+    <div class="col u">
+      <h3>GNU Unifont</h3>
+      <ul>
+        <li>nikoud <b>14/14</b>, lettres <b>27/27</b></li>
+        <li>chasse des lettres <b>512, uniforme</b></li>
+        <li><b>aucune table de positionnement</b> : le moteur place les marques seul — c'est
+          précisément ce que cette page donne à juger</li>
+        <li>une seule graisse</li>
+        <li>GNU Unifont 14.0.04 · GPL v2+ avec exception · matricielle 8×16 · sous-ensemble 4 Ko</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="methode">
+    <p><b>Les dix mots viennent du carnet</b>, pas d'une liste inventée : ils sont extraits de
+    <code>vocabulaire_hebreu.html</code> avec leur vocalisation d'origine, puis choisis par couverture
+    gloutonne — huit suffisent aux 27 signes, les deux derniers vont chercher des marques encore
+    absentes. Il en manque deux au compte final (hataf qamats et point sin) : la ligne des 14 marques
+    ci-dessus les montre toutes, posées sur alef.</p>
+    <p><b>Pages voisines</b> : <a href="specimen-monospace-hebreu.html">la recherche complète des
+    monospaces hébreux</a> (et pourquoi Cascadia, Terminus et DejaVu sont hors jeu), et
+    <a href="specimen-hebreu.html">שָׁלוֹם dans les 62 familles Google Fonts</a>.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  document.querySelectorAll('[data-taille]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('[data-taille]').forEach(function(x){ x.classList.remove('actif'); });
+      b.classList.add('actif');
+      document.documentElement.style.setProperty('--taille', b.dataset.taille);
+    });
+  });
+  document.querySelectorAll('[data-vue]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('[data-vue]').forEach(function(x){ x.classList.remove('actif'); });
+      b.classList.add('actif');
+      document.body.dataset.vue = b.dataset.vue;
+    });
+  });
+})();
+</script>
+</body>
+</html>

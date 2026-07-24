@@ -8,8 +8,8 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html,
 prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
-specimen-monospace-hebreu.html et polices/ (créés, branche
-refonte-retrofuturiste).
+specimen-monospace-hebreu.html, duel-miriam-unifont.html et polices/ (créés,
+branche refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -81,6 +81,11 @@ Les pièces, dans cet ordre de lecture :
   ⚠️ Leçon inscrite dans la planche : la chasse déclarée d'une marque **ne dit pas**
   où elle s'affiche — les moteurs l'annulent d'office. Une première conclusion tirée
   des seules tables était fausse, le rendu l'a démentie.
+- **`duel-miriam-unifont.html`** — la finale entre les deux monospaces hébreux
+  retenus, sur pièces : alphabet entier, cinq finales, les 14 marques posées sur
+  alef, **dix mots extraits du carnet** (couverture gloutonne : 27/27 signes,
+  12/14 marques) et la carte d'étude reconstituée dans chacune. Vue « les deux »,
+  « Miriam seule », « Unifont seule », trois tailles. **Arbitrage en attente.**
 - **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
 - **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
 - Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
@@ -109,7 +114,7 @@ suite du chantier 1). La branche traîne donc un **doublon périmé** de
 tout**, ne garder de cette branche que les **fichiers de la DA**
 (`prototype-nerv.html`, `prototype-effets.html`, `prototype-variantes.html`,
 `test-crt-iphone.html`, `specimen-hebreu.html`, `specimen-monospace-hebreu.html`,
-`polices/` et le spec) et, si voulu, l'encart
+`duel-miriam-unifont.html`, `polices/` et le spec) et, si voulu, l'encart
 README. Divergence mesurée le 24/07 : **13 commits
 de retard, 17 d'avance**.
 
