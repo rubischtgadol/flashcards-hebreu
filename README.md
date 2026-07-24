@@ -31,7 +31,13 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-variantes.html
 >
-> Le miroir raw.githack suit la branche : chaque push met les liens à jour. Spec de la
+> ⚠️ **Le miroir raw.githack met en cache.** Il suit la branche, mais un fichier
+> peut rester servi dans sa version précédente pendant un moment — sans rien qui le
+> signale. Payé une fois le 24/07 : le test CRT a été passé sur une version périmée
+> de l'outil, et les deux réponses de recette ont été perdues. **Après un push,
+> ouvrir les liens avec un suffixe `?v=<n>` incrémenté** (`…/prototype-nerv.html?v=5`),
+> ou remplacer le nom de branche par le SHA du commit — les deux servent la version
+> fraîche immédiatement. Spec de la
 > charte : [docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md).
 > (Encart propre à cette branche — ne pas le fusionner dans `main`.)
 
