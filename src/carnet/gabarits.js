@@ -57,4 +57,6 @@ function itemListe(e) {
   return `  <li${court}${note} data-niveau="${e.niveau}">\n    <span class="word-main"><span class="he" lang="he">${e.he}</span></span>\n    <span class="meta"><span class="tr">${esc(e.tr)}</span><span class="fr">${escFr(e.fr)}</span></span>\n  ${exemplesHtml(e.exemples)}</li>`;
 }
 
-module.exports = { ligneNom, ligneAdjectif, ligneVerbe, itemListe, exemplesHtml };
+// escFr exportée pour la garde de schéma de build.js:valideDonnees (aucun hébreu qui
+// échapperait au wrappage — même motif HEBREW_RUN, une seule source, jamais dupliqué).
+module.exports = { ligneNom, ligneAdjectif, ligneVerbe, itemListe, exemplesHtml, escFr };

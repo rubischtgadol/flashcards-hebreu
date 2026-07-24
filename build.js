@@ -1,28 +1,39 @@
 #!/usr/bin/env node
 /*
- * build.js — outil de développement (non déployé).
+ * build.js — outil de développement (non déployé). v2 (chantier 2) : data/*.json
+ * (source de vérité) devient l'ENTRÉE du build, plus jamais vocabulaire_hebreu.html.
  *
- * Régénère ENTIÈREMENT flashcards_hebreu.html (version autonome, hors ligne) :
- *   - le vocabulaire est extrait de vocabulaire_hebreu.html en répliquant
- *     exactement extractCards() d'app.html ;
- *   - le reste du fichier (HTML, CSS, JS) est copié depuis app.html, dont le
- *     bloc marqué BUILD:ONLINE-ONLY (fetch + extraction runtime) est remplacé
- *     par le snapshot `const CARDS = [...]` et un démarrage direct.
+ * Régénère TROIS artefacts depuis data/ + src/carnet/ + app.html :
+ *   - vocabulaire_hebreu.html (le carnet)      via genereCarnet()  (gabarits.js)
+ *   - cards.json ({version, cartes})           via deriveCartes()
+ *   - flashcards_hebreu.html (version autonome) via generateStandalone(cards), inchangé :
+ *     le reste du fichier (HTML, CSS, JS) est copié depuis app.html, dont le bloc marqué
+ *     BUILD:ONLINE-ONLY (fetch + extraction runtime) est remplacé par le snapshot
+ *     `const CARDS = [...]` et un démarrage direct.
  * Affiche le compte de cartes par section et échoue bruyamment si une section
- * attendue tombe à zéro.
+ * attendue tombe à zéro, ou si data/ est invalide (valideDonnees).
+ *
+ * L'ancien parseur regex (extractCards + ses helpers rowsOf/lisOf/closeOf/…) reste
+ * dans ce fichier et exporté : verifie_exemples.js, cherche_mots.js et ajoute_mots.js
+ * l'utilisent encore pour lire vocabulaire_hebreu.html (migration prévue tâche 10) ;
+ * le mode --verrou s'en sert aussi, comme oracle de non-régression pour deriveCartes.
  *
  * Usage :
- *   node build.js           # régénère flashcards_hebreu.html
- *   node build.js --check   # vérifie sans écrire (fichier autonome en phase ?)
+ *   node build.js           # régénère les trois artefacts
+ *   node build.js --check   # vérifie sans écrire (artefacts en phase avec data/ ?)
+ *   node build.js --verrou  # VERROU OK si deriveCartes(data/) === extractCards(carnet régénéré)
  */
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const gabarits = require('./src/carnet/gabarits.js');
 
 const ROOT = __dirname;
 const NOTEBOOK = path.join(ROOT, 'vocabulaire_hebreu.html');
 const APP = path.join(ROOT, 'app.html');
 const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
+const CARDS_JSON = path.join(ROOT, 'cards.json');
+const SRC_CARNET = path.join(ROOT, 'src', 'carnet');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
@@ -286,6 +297,243 @@ function extractCards(html){
   return cards;
 }
 
+// ---------- data/ : chargement + validation (absorbé d'outils_migration/valide_donnees.js) ----------
+
+function chargeDonnees(racine){
+  const d = (f) => JSON.parse(fs.readFileSync(path.join(racine, 'data', f), 'utf8'));
+  const listes = {};
+  for (const f of fs.readdirSync(path.join(racine, 'data', 'listes')).sort())
+    listes[f.replace(/\.json$/, '')] = d(path.join('listes', f));
+  return { noms: d('noms.json'), adjectifs: d('adjectifs.json'), verbes: d('verbes.json'), listes };
+}
+
+// Garde de schéma (chantier 2, watch-item de revue de branche) : un champ .fr contenant
+// de l'hébreu que le motif HEBREW_RUN de gabarits.js (escFr) ne capturerait pas
+// entièrement produirait, une fois généré, de l'hébreu nu dans la prose française — sans
+// lang="he" ni la taille 1.15em de la rampe typo (DESIGN.md §3, trap 6 de CLAUDE.md).
+// Rejoue escFr() (même motif, jamais dupliqué) et vérifie qu'aucun caractère du bloc
+// hébreu (U+0591–U+05F4, la plage couverte par HEBREW_RUN) ne survit hors d'un <span>
+// généré. Invariant vérifié 17/17 en revue le 24/07 — cette garde le verrouille.
+const HEBREW_BLOCK = /[֑-״]/;
+function heNonWrappe(fr){
+  const wrapped = gabarits.escFr(String(fr == null ? '' : fr));
+  const sansSpans = wrapped.replace(/<span lang="he">[^<]*<\/span>/g, '');
+  return HEBREW_BLOCK.test(sansSpans);
+}
+
+function valideDonnees(donnees){
+  const echec = (ou, e, msg) => { throw new Error(`${ou} — « ${e.he || '?'} / ${e.fr || '?'} » : ${msg}`); };
+  const commun = (ou, e, theme) => {
+    if (!e.he || !e.fr) echec(ou, e, 'he/fr manquant');
+    if (!EXPECTED_LEVELS.includes(e.niveau)) echec(ou, e, `niveau « ${e.niveau} » invalide`);
+    if (theme && !EXPECTED_THEMES.includes(e.theme)) echec(ou, e, `theme « ${e.theme} » invalide`);
+    if (theme && !(e.exemples || []).length) echec(ou, e, 'aucun exemple');
+    (e.exemples || []).forEach(x => { if (!x.he || !x.tr || !x.fr) echec(ou, e, 'exemple incomplet'); });
+    if (heNonWrappe(e.fr)) echec(ou, e, 'hébreu du champ fr non entièrement capturé par le motif de wrappage des gabarits (HEBREW_RUN) — un fragment resterait affiché sans lang="he"');
+  };
+  donnees.noms.forEach(e => { commun('noms', e, true);
+    if (!['m','f'].includes(e.genre)) echec('noms', e, `genre « ${e.genre} »`); });
+  donnees.adjectifs.forEach(e => { commun('adjectifs', e, true);
+    if ((e.formes || []).length !== 3) echec('adjectifs', e, 'formes ≠ 3'); });
+  donnees.verbes.forEach(e => { commun('verbes', e, true);
+    if ((e.formes || []).length !== 4) echec('verbes', e, 'formes ≠ 4'); });
+  for (const [slug, l] of Object.entries(donnees.listes)){
+    if (!l.entries.length) throw new Error(`listes/${slug} : section vide`);
+    l.entries.forEach(e => commun(`listes/${slug}`, e, false));
+  }
+  return true;
+}
+
+// ---------- carnet : assemblage depuis src/carnet/ (absorbé d'outils_migration/genere_carnet.js) ----------
+
+const ENTETE_GENERE =
+  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : data/ + src/carnet/. Regénération : node build.js. -->';
+
+// Insère l'en-tête juste après la première ligne du HTML (la ligne <!DOCTYPE html>).
+function insereEntete(html){
+  const finLigne = html.indexOf('\n');
+  if (finLigne === -1){
+    throw new Error('genereCarnet: HTML sans retour à la ligne après la première ligne — insertion de l\'en-tête impossible');
+  }
+  return html.slice(0, finLigne + 1) + ENTETE_GENERE + '\n' + html.slice(finLigne + 1);
+}
+
+// Extrait le "cle" d'un placeholder <!-- @ENTREES:cle --> ; non gourmand pour
+// s'arrêter au premier « -->» rencontré.
+const PLACEHOLDER_RE = /<!-- @ENTREES:(.*?) -->/g;
+
+/**
+ * genereCarnet(donnees, srcCarnet) → chaîne HTML complète du carnet.
+ * `donnees`   : { noms, adjectifs, verbes, listes } — forme de chargeDonnees().
+ * `srcCarnet` : chemin absolu vers src/carnet (contient tete.html, pied.html,
+ *               sections.json, sections/, carnet.css, carnet.js) ;
+ *               src/tokens.css est lu un niveau au-dessus.
+ * Garde anti-perte silencieuse : un placeholder qui ne consomme aucune entrée, ou une
+ * entrée qu'aucun placeholder n'a consommée, est une erreur bloquante nommée — jamais
+ * un carnet tronqué en silence.
+ */
+function genereCarnet(donnees, srcCarnet){
+  const lire = (f) => fs.readFileSync(path.join(srcCarnet, f), 'utf8');
+  const tete = lire('tete.html');
+  const pied = lire('pied.html');
+  const sectionsListees = JSON.parse(lire('sections.json'));
+  const tokens = fs.readFileSync(path.join(srcCarnet, '..', 'tokens.css'), 'utf8');
+  const cssCarnet = lire('carnet.css');
+  const jsCarnet = lire('carnet.js');
+
+  const corps = sectionsListees
+    .map(f => fs.readFileSync(path.join(srcCarnet, 'sections', f), 'utf8'))
+    .join('');
+
+  let html = tete + corps + pied;
+  // Remplacement par fonction (jamais par chaîne) : le contenu de tokens.css /
+  // carnet.css / carnet.js peut contenir des séquences "$&", "$1"… que
+  // String.prototype.replace interpréterait comme des motifs de substitution
+  // si on lui passait une chaîne — la fonction insère le résultat au mot près.
+  html = html.replace('<!-- @TOKENS -->', () => tokens);
+  html = html.replace('<!-- @CSS:carnet -->', () => cssCarnet);
+  html = html.replace('<!-- @JS:carnet -->', () => jsCarnet);
+
+  // ---------- substitution des placeholders @ENTREES + garde anti-perte ----------
+
+  const TABLES = {
+    noms: { arr: donnees.noms, gabarit: gabarits.ligneNom },
+    adjectifs: { arr: donnees.adjectifs, gabarit: gabarits.ligneAdjectif },
+    verbes: { arr: donnees.verbes, gabarit: gabarits.ligneVerbe },
+  };
+  // indices consommés, par table / par slug de liste — sert la garde anti-perte
+  const consommeesTable = { noms: new Set(), adjectifs: new Set(), verbes: new Set() };
+  const consommeesListe = {}; // slug -> Set(indices)
+
+  const vusPlaceholders = new Set();
+
+  html = html.replace(PLACEHOLDER_RE, (m, cle) => {
+    if (vusPlaceholders.has(cle)){
+      throw new Error(`placeholder @ENTREES:${cle} apparaît plus d'une fois — cible ambiguë`);
+    }
+    vusPlaceholders.add(cle);
+
+    if (cle.startsWith('listes/')){
+      const reste = cle.slice('listes/'.length);
+      const sepIdx = reste.indexOf('#');
+      const slug = sepIdx === -1 ? reste : reste.slice(0, sepIdx);
+      const groupe = sepIdx === -1 ? undefined : reste.slice(sepIdx + 1);
+
+      const liste = donnees.listes[slug];
+      if (!liste) throw new Error(`placeholder @ENTREES:${cle} — liste "${slug}" introuvable dans data/listes/`);
+      if (!consommeesListe[slug]) consommeesListe[slug] = new Set();
+
+      const indices = [];
+      liste.entries.forEach((e, i) => {
+        const consomme = groupe === undefined ? true : (e.groupe || '') === groupe;
+        if (consomme) indices.push(i);
+      });
+      if (!indices.length){
+        throw new Error(`placeholder @ENTREES:${cle} ne consomme aucune entrée (garde anti-perte) — vérifier le "groupe" attendu`);
+      }
+      indices.forEach(i => consommeesListe[slug].add(i));
+      return indices.map(i => gabarits.itemListe(liste.entries[i])).join('\n');
+    }
+
+    const sepIdx = cle.indexOf('#');
+    if (sepIdx === -1) throw new Error(`placeholder @ENTREES:${cle} — forme inconnue (attendu "table#groupe" ou "listes/slug[#groupe]")`);
+    const table = cle.slice(0, sepIdx);
+    const groupe = cle.slice(sepIdx + 1);
+
+    const def = TABLES[table];
+    if (!def) throw new Error(`placeholder @ENTREES:${cle} — table "${table}" inconnue (attendu noms/adjectifs/verbes)`);
+
+    const indices = [];
+    def.arr.forEach((e, i) => { if ((e.groupe || '') === groupe) indices.push(i); });
+    if (!indices.length){
+      throw new Error(`placeholder @ENTREES:${cle} ne consomme aucune entrée (garde anti-perte) — groupe "${groupe}" absent de data/${table}.json`);
+    }
+    indices.forEach(i => consommeesTable[table].add(i));
+    return indices.map(i => def.gabarit(def.arr[i])).join('\n');
+  });
+
+  // Toute entrée qu'aucun placeholder n'a consommée = erreur bloquante nommée.
+  for (const table of Object.keys(TABLES)){
+    const arr = TABLES[table].arr;
+    const vus = consommeesTable[table];
+    if (vus.size !== arr.length){
+      const idx = arr.findIndex((_, i) => !vus.has(i));
+      const e = arr[idx];
+      throw new Error(`garde anti-perte : ${vus.size}/${arr.length} entrées de data/${table}.json consommées par un placeholder — première orpheline #${idx} (« ${e.he} / ${e.fr} », groupe "${e.groupe}")`);
+    }
+  }
+  for (const slug of Object.keys(donnees.listes)){
+    const entries = donnees.listes[slug].entries;
+    const vus = consommeesListe[slug] || new Set();
+    if (vus.size !== entries.length){
+      const idx = entries.findIndex((_, i) => !vus.has(i));
+      const e = entries[idx];
+      throw new Error(`garde anti-perte : ${vus.size}/${entries.length} entrées de data/listes/${slug}.json consommées par un placeholder — première orpheline #${idx} (« ${e.he} / ${e.fr} »)`);
+    }
+  }
+
+  return insereEntete(html);
+}
+
+// ---------- data/ → cartes (remplace l'extraction regex dans le pipeline principal) ----------
+
+// deriveCartes(donnees) : même schéma exact que extractCards() ci-dessus, même ordre
+// d'insertion des propriétés (le verrou --verrou compare les deux par JSON.stringify
+// strict — un ordre différent romprait l'égalité sans rien changer au contenu réel).
+function deriveCartes(donnees){
+  const cards = [];
+  const withPlain = (exs) => (exs || []).map(x => ({ he: x.he, tr: x.tr, fr: x.fr, he_plain: stripNikud(x.he) }));
+
+  donnees.verbes.forEach(e => {
+    const labels = ['il','elle','ils','elles'];
+    const forms = (e.formes || []).map((f, i) => ({ he: f.he, tr: f.tr, label: labels[i], he_plain: stripNikud(f.he) }));
+    const card = { cat: 'Verbes', he: e.he, tr: '', fr: '(infinitif) ' + e.fr, forms };
+    if (e.niveau) card.niveau = e.niveau;
+    if (e.theme) card.theme = e.theme;
+    if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
+    cards.push(card);
+  });
+
+  donnees.adjectifs.forEach(e => {
+    const labels = ['f. sing.','m. plur.','f. plur.'];
+    const forms = [];
+    (e.formes || []).forEach((f, i) => { if (f.he) forms.push({ he: f.he, tr: f.tr, label: labels[i], he_plain: stripNikud(f.he) }); });
+    const card = { cat: 'Adjectifs', he: e.he, tr: '', fr: e.fr, forms };
+    if (e.niveau) card.niveau = e.niveau;
+    if (e.theme) card.theme = e.theme;
+    if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
+    cards.push(card);
+  });
+
+  donnees.noms.forEach(e => {
+    const genre = e.genre;
+    const card = { cat: 'Noms', he: e.he, tr: '', fr: e.fr + ((genre === 'm' || genre === 'f') ? (' (' + genre + ')') : '') };
+    if (genre === 'm' || genre === 'f') card.genre = genre;
+    if (e.pluriel && e.pluriel.he) card.forms = [{ he: e.pluriel.he, tr: e.pluriel.tr, label: 'pluriel', he_plain: stripNikud(e.pluriel.he) }];
+    if (e.niveau) card.niveau = e.niveau;
+    if (e.theme) card.theme = e.theme;
+    if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
+    cards.push(card);
+  });
+
+  const listeParSection = {};
+  Object.values(donnees.listes).forEach(l => { listeParSection[l.section] = l; });
+  Object.keys(listCats).forEach(sec => {
+    const liste = listeParSection[sec];
+    if (!liste) return; // couvert par valideDonnees / la garde anti-perte de genereCarnet
+    liste.entries.forEach(e => {
+      const card = { cat: listCats[sec], he: e.he, tr: e.tr, fr: e.fr_court || e.fr };
+      if (e.note) card.note = e.note;
+      if (e.niveau) card.niveau = e.niveau;
+      if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
+      cards.push(card);
+    });
+  });
+
+  cards.forEach(c => { c.he_plain = stripNikud(c.he); });
+  return cards;
+}
+
 // ---------- comptes + garde-fous ----------
 function report(cards){
   const counts = {};
@@ -488,38 +736,117 @@ function generateStandalone(cards){
   return out;
 }
 
+// Diagnostic de la première carte divergente entre deux tableaux (utilisé par --verrou
+// pour itérer sur deriveCartes sans avoir à relire tout le JSON à l'œil).
+function premiereDivergence(a, b){
+  if (a.length !== b.length) return `${a.length} carte(s) via deriveCartes contre ${b.length} via extractCards`;
+  let i = 0;
+  while (i < a.length && JSON.stringify(a[i]) === JSON.stringify(b[i])) i++;
+  return `carte #${i} diverge :\n    deriveCartes  : ${JSON.stringify(a[i])}\n    extractCards  : ${JSON.stringify(b[i])}`;
+}
+
 function main(){
-  const check = process.argv.includes('--check');
-  const notebook = fs.readFileSync(NOTEBOOK, 'utf8');
-  const cards = extractCards(notebook);
-  console.log('Cartes extraites de vocabulaire_hebreu.html :');
+  const argv = process.argv.slice(2);
+  const check = argv.includes('--check');
+  const verrou = argv.includes('--verrou');
+
+  let donnees;
+  try {
+    donnees = chargeDonnees(ROOT);
+    valideDonnees(donnees);
+  } catch (e) {
+    console.error('✗ données invalides (data/) : ' + e.message);
+    process.exit(1);
+  }
+
+  // Step 1/2 du brief chantier 2 tâche 7 : le verrou avant la clé — tant qu'il n'est pas
+  // vert, l'ancien parseur regex (extractCards) reste l'oracle, jamais supprimé.
+  if (verrou){
+    const carnetGenere = genereCarnet(donnees, SRC_CARNET);
+    const viaData = deriveCartes(donnees);
+    const viaRegex = extractCards(carnetGenere);
+    if (JSON.stringify(viaData) === JSON.stringify(viaRegex)){
+      console.log('VERROU OK — ' + viaData.length + ' cartes identiques (deriveCartes === extractCards).');
+      return;
+    }
+    console.error('✗ VERROU — deriveCartes(data/) diverge de extractCards(carnet régénéré).');
+    console.error('  ' + premiereDivergence(viaData, viaRegex));
+    process.exit(1);
+  }
+
+  const notebookGenerated = genereCarnet(donnees, SRC_CARNET);
+  const cards = deriveCartes(donnees);
+  console.log('Cartes dérivées de data/ :');
   report(cards);
 
-  const generated = generateStandalone(cards);
-  const onDisk = fs.existsSync(STANDALONE) ? fs.readFileSync(STANDALONE, 'utf8') : '';
+  const standaloneGenerated = generateStandalone(cards);
+  const cardsJson = JSON.stringify({ version: new Date().toISOString().slice(0, 10), cartes: cards }, null, 2) + '\n';
+
+  const notebookOnDisk = fs.existsSync(NOTEBOOK) ? fs.readFileSync(NOTEBOOK, 'utf8') : '';
+  const standaloneOnDisk = fs.existsSync(STANDALONE) ? fs.readFileSync(STANDALONE, 'utf8') : '';
+  const cardsOnDiskRaw = fs.existsSync(CARDS_JSON) ? fs.readFileSync(CARDS_JSON, 'utf8') : '';
+  let cardsOnDiskCartes = null;
+  if (cardsOnDiskRaw){
+    try { cardsOnDiskCartes = JSON.parse(cardsOnDiskRaw).cartes; } catch (e) { cardsOnDiskCartes = null; }
+  }
+  // Comparaison de contenu (jamais la « version » — la date du jour du build changerait
+  // seule, sans rien dire sur data/ — --check doit rester stable d'un jour à l'autre).
+  const cardsContentUpToDate = JSON.stringify(cardsOnDiskCartes) === JSON.stringify(cards);
 
   if (check){
-    if (generated === onDisk) console.log('\n✓ flashcards_hebreu.html en phase avec le carnet et app.html.');
-    else {
-      console.error('\n✗ flashcards_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
-      process.exit(1);
+    // --check compare désormais les TROIS artefacts régénérés aux committés (chantier 2).
+    let ok = true;
+    if (notebookGenerated !== notebookOnDisk){
+      console.error('\n✗ vocabulaire_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
+      ok = false;
     }
+    if (!cardsContentUpToDate){
+      console.error('\n✗ cards.json obsolète (cartes) — lance `node build.js` pour le régénérer.');
+      ok = false;
+    }
+    if (standaloneGenerated !== standaloneOnDisk){
+      console.error('\n✗ flashcards_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
+      ok = false;
+    }
+    if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json et flashcards_hebreu.html en phase avec data/.');
+    else process.exit(1);
     return;
   }
 
-  if (generated === onDisk){
-    console.log('\n✓ flashcards_hebreu.html déjà à jour.');
+  if (notebookGenerated === notebookOnDisk){
+    console.log('\n✓ vocabulaire_hebreu.html déjà à jour.');
   } else {
-    fs.writeFileSync(STANDALONE, generated);
-    console.log('\n✓ flashcards_hebreu.html régénéré (' + cards.length + ' cartes).');
+    fs.writeFileSync(NOTEBOOK, notebookGenerated);
+    // Bogue corrigé en absorbant (revue de branche) : .length compte des unités UTF-16,
+    // pas des octets — Buffer.byteLength donne le vrai compte, celui que le mot « octets »
+    // promet (fichier UTF-8 chargé de nikoud, l'écart n'est pas anecdotique).
+    console.log('\n✓ vocabulaire_hebreu.html régénéré (' + Buffer.byteLength(notebookGenerated, 'utf8') + ' octets).');
+  }
+
+  if (cardsOnDiskRaw === cardsJson){
+    console.log('✓ cards.json déjà à jour.');
+  } else {
+    fs.writeFileSync(CARDS_JSON, cardsJson);
+    console.log('✓ cards.json régénéré (' + cards.length + ' cartes).');
+  }
+
+  if (standaloneGenerated === standaloneOnDisk){
+    console.log('✓ flashcards_hebreu.html déjà à jour.');
+  } else {
+    fs.writeFileSync(STANDALONE, standaloneGenerated);
+    console.log('✓ flashcards_hebreu.html régénéré (' + cards.length + ' cartes).');
   }
 }
 
-// Réutilisable en module : verifie_exemples.js s'appuie sur la même extraction ;
-// ajoute_mots.js (générateur de fiche) réutilise les helpers de parsing et les
-// constantes — jamais de troisième parseur, jamais de constante dupliquée.
-module.exports = { extractCards, NOTEBOOK, APP,
+// Réutilisable en module : verifie_exemples.js, cherche_mots.js et ajoute_mots.js
+// s'appuient encore sur l'extraction regex (extractCards et ses helpers) pour lire
+// vocabulaire_hebreu.html — migration vers cards.json/chargeDonnees prévue tâche 10,
+// seul moment où ce parseur pourra vraiment disparaître. chargeDonnees/valideDonnees/
+// genereCarnet/deriveCartes sont la nouvelle API v2 du build ; chargeDonnees est déjà
+// requise par la tâche 10. Jamais de troisième parseur, jamais de constante dupliquée.
+module.exports = { extractCards, NOTEBOOK, APP, CARDS_JSON,
   parseSections, closeOf, lisOf, exemplesOf, firstSpanText, attrOf, tdsOf,
   stripNikud, decodeEntities, orthographeVoisine,
-  EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats };
+  EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,
+  chargeDonnees, valideDonnees, genereCarnet, deriveCartes };
 if (require.main === module) main();
