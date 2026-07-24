@@ -572,7 +572,7 @@ function report(cards){
     const badThemes = Object.keys(themes).filter(k => !EXPECTED_THEMES.includes(k));
     if (badThemes.length){
       console.error('\n✗ Thème(s) hors taxonomie : ' + badThemes.join(', '));
-      console.error('  (faute de frappe dans un data-theme ? nouveau thème → l\'ajouter à EXPECTED_THEMES ici ET à THEMES dans app.html.)');
+      console.error('  (faute de frappe dans un data-theme ? nouveau thème → l\'ajouter à EXPECTED_THEMES ici ET à THEMES dans src/app/js/00-tout.js.)');
       process.exit(1);
     }
   }
@@ -613,7 +613,32 @@ function assembleApp(srcApp){
   const coquille = lire('coquille.html');
   const cssApp = lire('app.css');
   const ordre = JSON.parse(lire('ordre.json'));
-  const jsApp = ordre.map(f => fs.readFileSync(path.join(srcApp, 'js', f), 'utf8')).join('');
+
+  // Garde d'orphelin entre src/app/ordre.json et le contenu réel de src/app/js/ (round de
+  // correction Task 13, minor 2) : sans elle, un fichier retiré de l'un des deux sans toucher
+  // l'autre est omis du build EN SILENCE — soit ordre.json pointe sur un module qui n'existe
+  // plus, soit un nouveau module JS traîne dans le dossier sans jamais être concaténé. Les deux
+  // sens sont vérifiés séparément pour nommer le fichier fautif, pas un diff vague.
+  const jsDir = path.join(srcApp, 'js');
+  const jsSurDisque = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
+  const manquants = ordre.filter(f => !jsSurDisque.includes(f));
+  if (manquants.length){
+    console.error('\n✗ src/app/ordre.json liste des fichiers absents de src/app/js/ : ' + manquants.join(', '));
+    console.error('  (fichier renommé ou supprimé sans mettre ordre.json à jour ?)');
+    process.exit(1);
+  }
+  const orphelins = jsSurDisque.filter(f => !ordre.includes(f));
+  if (orphelins.length){
+    console.error('\n✗ Fichier(s) dans src/app/js/ absent(s) de src/app/ordre.json : ' + orphelins.join(', '));
+    console.error('  (nouveau module JS ajouté sans l\'inscrire dans ordre.json ? il serait omis du build en silence.)');
+    process.exit(1);
+  }
+
+  // Séparateur explicite entre modules (round de correction Task 13, minor 1) : dès que
+  // ordre.json liste plusieurs fichiers (Task 14+), un module sans retour à la ligne final
+  // collerait sinon au suivant. Sans effet sur le cas actuel à un seul fichier — join() ne
+  // pose un séparateur qu'ENTRE éléments, jamais après le dernier ni avant le seul.
+  const jsApp = ordre.map(f => fs.readFileSync(path.join(jsDir, f), 'utf8')).join('\n');
   const tokens = fs.readFileSync(path.join(srcApp, '..', 'tokens.css'), 'utf8');
 
   // Piège d'indentation (résolu à l'assemblage, jamais en éditant app.html — task-13-brief.md
@@ -628,9 +653,19 @@ function assembleApp(srcApp){
   // 00-tout.js peut contenir des séquences "$&", "$1"… que String.prototype.replace
   // interpréterait comme des motifs de substitution si on lui passait une chaîne — la
   // fonction insère le résultat au caractère près (même remarque que genereCarnet).
-  html = html.replace('<!-- @TOKENS -->', () => tokensIndentes);
-  html = html.replace('<!-- @CSS:app -->', () => cssApp);
-  html = html.replace('<!-- @JS:app -->', () => jsApp);
+  // Les trois substitutions passent par mustReplace (round de correction Task 13, finding
+  // Important) : sans garde, un marqueur retiré de coquille.html (@CSS:app en tête, éprouvé
+  // par le relecteur) fait tomber le CSS ou le :root en silence — app.html "régénère" quand
+  // même, plus petit de plusieurs dizaines de Ko, et --check repasse vert sur l'artefact cassé.
+  html = mustReplace(html, '<!-- @TOKENS -->', () => tokensIndentes,
+    'marqueur <!-- @TOKENS --> absent (le bloc :root/charte serait perdu, en silence)',
+    'src/app/coquille.html');
+  html = mustReplace(html, '<!-- @CSS:app -->', () => cssApp,
+    'marqueur <!-- @CSS:app --> absent (tout le CSS d\'app.html serait perdu, en silence)',
+    'src/app/coquille.html');
+  html = mustReplace(html, '<!-- @JS:app -->', () => jsApp,
+    'marqueur <!-- @JS:app --> absent (tout le JS d\'app.html serait perdu, en silence)',
+    'src/app/coquille.html');
   return html;
 }
 
@@ -673,10 +708,14 @@ function verifieTaxonomieApp(appSource){
 }
 
 // ---------- génération du fichier autonome depuis l'app assemblée ----------
-function mustReplace(src, from, to, what){
+// `fichier` (optionnel, défaut 'app.html') : où l'auteur doit aller corriger — assembleApp()
+// passe 'src/app/coquille.html' pour ses trois marqueurs (round de correction Task 13,
+// finding Important : les trois substitutions n'étaient gardées par rien avant ce round).
+function mustReplace(src, from, to, what, fichier){
+  fichier = fichier || 'app.html';
   const out = typeof from === 'string' ? src.replace(from, to) : src.replace(from, to);
   if (out === src){
-    console.error('✗ Point d\'ancrage introuvable dans app.html : ' + what);
+    console.error('✗ Point d\'ancrage introuvable dans ' + fichier + ' : ' + what);
     process.exit(1);
   }
   return out;
