@@ -192,9 +192,18 @@ async function critere3(JSDOM, refHtml, candHtml) {
 }
 
 // ---------- Critère 4 : node build.js imprime les mêmes comptes ----------
-
+//
+// ⚠️ Portée réduite depuis le chantier 2 (build.js v2, Task 7) — round 1 de revue (I2) :
+// build.js ne lit PLUS vocabulaire_hebreu.html en entrée, il lit data/*.json. Écraser
+// vocabulaire_hebreu.html par le candidat (ci-dessous) n'a donc plus aucun effet sur ce
+// que `node build.js` calcule : référence et candidat produisent des comptes strictement
+// identiques quel que soit le contenu du candidat. Ce critère ne peut plus distinguer un
+// carnet candidat d'un carnet de référence — il ne prouve plus que « le build tourne et
+// ses comptes sont lisibles », pas leur égalité au sens du critère original (chantier 1).
+// Hors périmètre de la tâche 7 de redessiner ce critère (compare_carnets.js reste tel
+// quel jusqu'à la tâche 20) ; ce commentaire documente la limite pour qui le relit.
 function countsBlock(output) {
-  const marker = `Cartes extraites de ${NOTEBOOK_NAME} :`;
+  const marker = `Cartes dérivées de data/ :`;
   const idx = output.indexOf(marker);
   if (idx === -1) return null;
   const rest = output.slice(idx + marker.length);
