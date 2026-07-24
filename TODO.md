@@ -8,31 +8,30 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1120
-cartes**, 968 exemples, 15 thèmes (903/903 sur les 3 tables), niveaux A1 402 /
-A2 455 / B1 254 / B2 9, `sw.js` en **v29**, `--check` en phase.
+**Rien n'est en attente — la suite est libre.** État au 2026-07-24 : **1220
+cartes**, 1068 exemples, 15 thèmes (1003/1003 sur les 3 tables), niveaux A1 402 /
+A2 474 / B1 335 / B2 9, `sw.js` en **v30**, `--check` en phase.
 
-Deux lots d'adjectifs le 24/07 : **20 puis 30** mots (164 → 214), qui portent
-le B1 de 223 à 254 — c'était le niveau le plus maigre du carnet. Le vivier des
-adjectifs courants est maintenant largement épuisé : sur ~120 candidats passés
-à `cherche_mots.js`, la moitié était déjà là, souvent sous une autre orthographe
-(rubrique ktiv male/haser). Trois leçons du générateur, valables pour le
-prochain lot :
+Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
+24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
+335 (désormais le deuxième niveau le plus fourni, après A2). Rédaction en
+sous-agents Opus, **deux passes** : la première a proposé 100 candidats
+« courants » dont **77 existaient déjà** (carnet mûr) — 23 neufs seulement ; la
+seconde, armée de l'**inventaire complet des 903 têtes de table en liste
+d'exclusion**, a visé du vocabulaire plus spécifique (ustensiles, matières,
+symptômes, rôles, notions abstraites) qui a survécu presque intact au
+dédoublonnage. Leçon réutilisable : **donner l'inventaire d'exclusion aux
+rédacteurs dès la première passe** — sans lui, on paie une passe entière pour
+~20 % de neuf.
 
-- **La ligne éditoriale « 3–8 mots » est bloquante**, pas un avertissement :
-  deux exemples de trois mots comptés à deux (הירקות קפואים) ont fait échouer
-  la sandbox.
-- **Le lexique de `verifie_exemples.js` est un vrai garde-fou de rédaction** :
-  il a fait réécrire 12 exemples (גג, נהג, שיטה, עישון, אוויר, עדיין, רק,
-  תלמידה, רשימה, שפעת, בניין, כולם — tous hors carnet). ⚠️ Le carnet n'a **aucun
-  nom de maladie** (שפעת et מחלה absents) : un exemple sur מַדְבִּיק a dû se
-  rabattre sur « cet enfant est contagieux ».
 - **`he2tr` faute de façon reproductible** sur : shva initial devant sifflante
   (`shekufah` pour shkufah), yud consonantique (`meiuman` pour meyuman,
   `veiafah` pour veyafah), redoublement (`boddim` pour bodedim, `chiurim` pour
-  chivrim), et alef final (`achray` pour achra'i, `kefuot` pour kefu'ot).
-  26 `tr` fournis à la main sur les deux lots — c'est le tableau du verdict
-  qu'il faut relire, pas le diff.
+  chivrim), et alef final (`achray` pour achra'i, `kefuot` pour kefu'ot). Ce lot
+  n'a fourni **aucun `tr` à la main** : les 307 dérivés ont été relus dans le
+  tableau du verdict, aucune de ces fautes présente — les `⚠` restants relèvent
+  du shva initial « jugement », laissé tel quel (`pegishah`, `kerovim`,
+  `tekufah`).
 
 Les deux derniers chantiers sont soldés et archivés dans
 [TODO_ARCHIVE.md](TODO_ARCHIVE.md) § « Chantiers clos — archivés le 2026-07-24 » :
