@@ -57,8 +57,8 @@ body.en-test{overflow:hidden}
     repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
     repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
     var(--bg);
-  /* la réserve du bas laisse le pied — donc le titre d'alerte, qui porte la
-     cadence 2,6 s — hors du bandeau de verdict : sinon on testerait un élément caché */
+  /* la réserve du bas garde le pied entier hors du bandeau de verdict : un écran
+     d'étude amputé de son pied ne serait plus l'écran qu'on prétend juger */
   padding:calc(20px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) calc(22px + env(safe-area-inset-bottom) + var(--bandeau-h, 0px)) calc(18px + env(safe-area-inset-left));
   display:flex;flex-direction:column;
   overflow:hidden;
@@ -78,10 +78,8 @@ body[data-bruit="0"] .ecran::before{display:none}
 body[data-vign="0"]  .ecran::after{display:none}
 
 @keyframes noiseShift{0%{transform:translateY(0)}100%{transform:translateY(3px)}}
-/* scintillement — trois crans, trois jeux d'images-clés (aucun var() animé) */
-@keyframes flick{      0%,88%,100%{opacity:1} 90%{opacity:.72} 92%{opacity:1} 95%{opacity:.85} }
-@keyframes flickDoux{  0%,88%,100%{opacity:1} 90%{opacity:.86} 92%{opacity:1} 95%{opacity:.93} }
-@keyframes flickMini{  0%,88%,100%{opacity:1} 90%{opacity:.93} 92%{opacity:1} 95%{opacity:.97} }
+/* Le scintillement a quitté la charte le 24/07 (arbitrage sur device) : ce test ne
+   porte plus que sur deux calques. Ce qui est vivant garde son halo, sans battre. */
 
 /* ⚠ pas de règle prefers-reduced-motion ici : la page DOIT rester animée.
    Si le réglage iOS est actif, l'écran de garde bloque le test au lieu de
@@ -208,7 +206,7 @@ body[data-vign="0"]  .ecran::after{display:none}
 .temoin{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.8rem;color:var(--ambre)}
 .temoin .barre{width:26px;height:26px;border:1px solid var(--ligne);position:relative;overflow:hidden}
 .temoin .barre i{position:absolute;inset:0;background:repeating-linear-gradient(0deg, var(--ambre) 0 1px, transparent 1px 4px);animation:noiseShift 1.2s steps(3) infinite}
-.temoin .pastille{width:10px;height:10px;border-radius:50%;background:var(--vert);box-shadow:0 0 8px currentColor;animation:flick 4s steps(1) infinite}
+.temoin .pastille{width:10px;height:10px;border-radius:50%;background:var(--vert);box-shadow:0 0 8px currentColor}
 
 /* barre de temps du protocole */
 .chrono{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;color:var(--ambre)}
@@ -259,20 +257,21 @@ body[data-vign="0"]  .ecran::after{display:none}
 .masque{display:none !important}
 </style>
 </head>
-<body data-bruit="0" data-vign="0" data-flick="0">
+<body data-bruit="0" data-vign="0">
 
 <!-- ================= ÉCRAN DE GARDE ================= -->
 <section class="page" id="garde">
   <h1>Test CRT · iPhone réel</h1>
-  <p><span class="cle">But</span> — juger le coût perceptif des trois calques de la charte v2
-  (bruit, vignettage, scintillement) sur le vrai écran, en conditions d'étude.
+  <p><span class="cle">But</span> — juger le coût perceptif des deux calques de la charte v2
+  (bruit et vignettage) sur le vrai écran, en conditions d'étude. Le scintillement,
+  troisième calque de la première passation, a été retiré de la charte le 24/07.
   L'émulation ne prouve rien ici : elle modèle la mise en page, pas le confort.</p>
 
   <div id="blocage" class="attention masque" style="margin:18px 0">
     <div class="corps">
       <div class="titre">Test impossible en l'état</div>
       Le réglage <span class="cle">Réglages ▸ Accessibilité ▸ Mouvement ▸ Réduire les animations</span>
-      est <b>activé</b> : iOS fige le bruit et le scintillement. La page paraîtrait confortable
+      est <b>activé</b> : iOS fige le calque de bruit. La page paraîtrait confortable
       parce qu'elle serait morte. Désactive-le, puis recharge cette page.
     </div>
   </div>
@@ -284,22 +283,23 @@ body[data-vign="0"]  .ecran::after{display:none}
       et Night Shift laissés comme d'habitude</span> : on teste ce que tu vivras.</li>
     <li><span class="cle">Mode économie d'énergie désactivé</span> (il bride les animations).</li>
     <li>Safari en plein écran ; ne fais pas défiler pendant un test.</li>
-    <li>Compte <span class="cle">8 à 10 minutes</span> : on ne juge pas un scintillement de 4 s
-      en trois secondes.</li>
+    <li>Compte <span class="cle">6 à 8 minutes</span> : deux calques isolés, plus la passe
+      d'ensemble et la recette.</li>
   </ol>
 
   <h2>Témoin d'animation</h2>
-  <p>Ces deux repères doivent <span class="cle">bouger</span> : les rayures sautent par crans,
-  la pastille verte cligne brièvement toutes les 4 s. S'ils sont immobiles, le test est nul.</p>
+  <p>Les rayures doivent <span class="cle">sauter par crans</span>. Si elles sont immobiles,
+  iOS a figé les animations et le test est nul. (La pastille verte, elle, ne bat plus :
+  le scintillement a quitté la charte — elle sert ici de repère de halo.)</p>
   <p class="temoin"><span class="barre"><i></i></span> rayures &nbsp;·&nbsp;
-     <span class="pastille"></span> pastille</p>
+     <span class="pastille"></span> halo</p>
 
   <h2>Déroulé</h2>
   <ul>
     <li>Avant chaque passe, un <span class="cle">écran de briefing</span> te dit ce que tu vas
       voir et les trois points à regarder. Ton œil se repose 3 s, puis tu affiches l'écran
       quand tu es prêt.</li>
-    <li><span class="cle">Trois passes d'isolement</span> : un seul calque allumé à la fois,
+    <li><span class="cle">Deux passes d'isolement</span> : un seul calque allumé à la fois,
       aux valeurs du spec, sur le même écran d'étude — seul le calque change.</li>
     <li>Si un calque gêne, il est <span class="cle">aussitôt reproposé plus doux</span>
       (moitié, puis quart). C'est le calibrage : ton retour doit être réglable, pas binaire.</li>
@@ -344,7 +344,7 @@ body[data-vign="0"]  .ecran::after{display:none}
     <div class="attention">
       <div class="corps">
         <div class="titre" id="alerte">⚠ Voix indisponible</div>
-        Cadence nerveuse, 2,6 s.
+        Alerte au repos : rouge et halo, sans battement.
       </div>
     </div>
     <div class="feed"><div class="l ok">CALQUES · TEST EN COURS</div></div>
@@ -438,9 +438,8 @@ body[data-vign="0"]  .ecran::after{display:none}
   var VAL = {
     bruit: { 1:'.022', 0.5:'.011', 0.25:'.0055' },
     vign:  { 1:'.5',   0.5:'.25',  0.25:'.125'  },
-    flick: { 1:'flick', 0.5:'flickDoux', 0.25:'flickMini' }
   };
-  var NOM = { bruit:'BRUIT', vign:'VIGNETTAGE', flick:'SCINTILLEMENT' };
+  var NOM = { bruit:'BRUIT', vign:'VIGNETTAGE' };
 
   /* Ce que chaque passe demande de regarder. Trois points concrets par calque :
      un sur l'hébreu (ce qu'on étudie), un sur le reste de l'écran, un sur la fatigue. */
@@ -461,16 +460,8 @@ body[data-vign="0"]  .ecran::after{display:none}
         'Ton regard : ramené au centre sans y penser, ou gêné par les bords ?'
       ]
     },
-    flick: {
-      quoi:'Deux clignotements brefs, jamais sur le contenu d’étude : la charte réserve le mouvement à ce qui est vivant.',
-      puces:[
-        '« ● Session », en haut à droite : creux toutes les 4 s. Vivant, ou défaillant ?',
-        '« ⚠ Voix indisponible », en bas : cadence plus nerveuse, 2,6 s. Alerte utile, ou harcèlement ?',
-        'Pendant que tu lis l’hébreu : le clignotement te décroche-t-il de la lecture ?'
-      ]
-    },
     ensemble: {
-      quoi:'Les trois calques ensemble, aux crans que tu viens de retenir. C’est la vraie question : peux-tu étudier là-dedans ?',
+      quoi:'Les deux calques ensemble, aux crans que tu viens de retenir. C’est la vraie question : peux-tu étudier là-dedans ?',
       puces:[
         'Étudie pour de bon : lis le mot, ses voyelles, la translittération, les deux exemples.',
         'Au bout de 60 s : est-ce que tu tiendrais dix minutes, ou est-ce que tu aurais posé le téléphone ?',
@@ -513,28 +504,24 @@ body[data-vign="0"]  .ecran::after{display:none}
   var file, idx, retenu, journal, recette, minuteur, t, cibleT, courant, verrou;
 
   function reset(){
-    file = [ {c:'bruit',cran:1}, {c:'vign',cran:1}, {c:'flick',cran:1} ];
+    file = [ {c:'bruit',cran:1}, {c:'vign',cran:1} ];
     idx = 0;
-    retenu  = { bruit:null, vign:null, flick:null };   // cran retenu, null = rejeté
-    journal = { bruit:[], vign:[], flick:[] };          // ['spec=gêne','doux=ok']
+    retenu  = { bruit:null, vign:null };   // cran retenu, null = rejeté
+    journal = { bruit:[], vign:[] };        // ['spec=gêne','doux=ok']
     recette = { nikoud:null, grille:null };
-    calques(0,0,0);
+    calques(0,0);
   }
 
-  function calques(bruit, vign, flick){
+  function calques(bruit, vign){
     body.dataset.bruit = bruit ? String(bruit) : '0';
     body.dataset.vign  = vign  ? String(vign)  : '0';
-    body.dataset.flick = flick ? String(flick) : '0';
     document.documentElement.style.setProperty('--bruit-a', bruit ? VAL.bruit[bruit] : '0');
     document.documentElement.style.setProperty('--vign-a',  vign  ? VAL.vign[vign]   : '0');
-    var anim = flick ? VAL.flick[flick] : 'none';
-    document.getElementById('live').style.animation   = flick ? anim + ' 4s steps(1) infinite'   : 'none';
-    document.getElementById('alerte').style.animation = flick ? anim + ' 2.6s steps(1) infinite' : 'none';
   }
 
   /* ---- réserve de place pour le bandeau, puis contrôle de débordement ----
-     Le pied porte le titre d'alerte à 2,6 s : s'il passait sous le bandeau ou
-     hors de l'écran, on jugerait une cadence invisible. La réserve ne suffit
+     Le pied fait partie de l'écran jugé : s'il passait sous le bandeau ou hors
+     de l'écran, on jugerait une carte amputée. La réserve ne suffit
      pas seule — les polices Google changent les hauteurs en arrivant — donc on
      mesure et on resserre l'écart de la scène jusqu'à ce que tout tienne. */
   var elBandeau = document.querySelector('.bandeau-test');
@@ -548,8 +535,7 @@ body[data-vign="0"]  .ecran::after{display:none}
   }
   /* Le critère n'est pas scrollHeight — la réserve dépasse volontairement la
      hauteur du bandeau, donc quelques pixels de débord de boîte ne cachent rien.
-     Ce qui doit être vrai, c'est que le pied (et son alerte à 2,6 s) reste
-     au-dessus du bandeau : sinon on juge une cadence invisible. */
+     Ce qui doit être vrai, c'est que le pied reste au-dessus du bandeau. */
   var elPied = document.querySelector('.pied');
   function deborde(){
     return elPied.getBoundingClientRect().bottom > elBandeau.getBoundingClientRect().top;
@@ -651,17 +637,16 @@ body[data-vign="0"]  .ecran::after{display:none}
         joueIsolement);
     } else {
       courant = { c:'ensemble' };
-      descEnsemble = 'Crans retenus : ' + ['bruit', 'vign', 'flick'].map(function(c){
+      descEnsemble = 'Crans retenus : ' + ['bruit', 'vign'].map(function(c){
         return NOM[c].toLowerCase() + ' ' + (retenu[c] ? CRANS[retenu[c]] : 'éteint');
       }).join(' · ');
-      montreBrief('ensemble', 'Passe finale · les trois calques', joueEnsemble);
+      montreBrief('ensemble', 'Passe finale · les deux calques', joueEnsemble);
     }
   }
 
   function joueIsolement(){
     calques(courant.c === 'bruit' ? courant.cran : 0,
-            courant.c === 'vign'  ? courant.cran : 0,
-            courant.c === 'flick' ? courant.cran : 0);
+            courant.c === 'vign'  ? courant.cran : 0);
     elQuoi.innerHTML = 'Passe ' + (idx + 1) + ' sur ' + file.length + ' · <b>' + NOM[courant.c] +
                        ' seul, cran ' + CRANS[courant.cran] + '</b>' +
                        (courant.cran === 1 ? '' : ' <b>(recalibré)</b>');
@@ -669,8 +654,8 @@ body[data-vign="0"]  .ecran::after{display:none}
   }
 
   function joueEnsemble(){
-    calques(retenu.bruit || 0, retenu.vign || 0, retenu.flick || 0);
-    elQuoi.innerHTML = 'Passe finale · <b>les trois calques ensemble</b>';
+    calques(retenu.bruit || 0, retenu.vign || 0);
+    elQuoi.innerHTML = 'Passe finale · <b>les deux calques ensemble</b>';
     majRecette();
     lanceChrono(60);
   }
@@ -743,7 +728,7 @@ body[data-vign="0"]  .ecran::after{display:none}
     body.classList.remove('en-test');
     elEcran.classList.add('masque');
     elFin.classList.remove('masque');
-    calques(0, 0, 0);
+    calques(0, 0);
 
     var d = new Date();
     var date = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' +
@@ -751,7 +736,7 @@ body[data-vign="0"]  .ecran::after{display:none}
     var ecranTxt = window.screen.width + '×' + window.screen.height + '@' +
                    (window.devicePixelRatio || 1);
     var parts = ['CRT-iPhone ' + date, ecranTxt + ' anim=' + (figee ? 'FIGÉE' : 'ON')];
-    ['bruit', 'vign', 'flick'].forEach(function(c){
+    ['bruit', 'vign'].forEach(function(c){
       parts.push(NOM[c] + ' ' + journal[c].join('→') +
                  ' ⇒ ' + (retenu[c] ? 'retenu ' + CRANS[retenu[c]] : 'REJETÉ'));
     });

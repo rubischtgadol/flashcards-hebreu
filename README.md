@@ -6,14 +6,16 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 > À juger sur téléphone (le soir, en conditions réelles d'étude) :
 >
-> **➡️ À FAIRE MAINTENANT — le test des trois calques CRT sur iPhone réel** (protocole guidé,
-> 8 à 10 min : chaque calque isolé, recalibré s'il gêne, puis les trois ensemble ; la page
-> refuse de se lancer si « Réduire les animations » est actif, et rend une ligne de verdict
-> à recopier) :
+> **➡️ À FAIRE — la recette sur iPhone réel** (protocole guidé, 6 à 8 min). Les calques
+> ont été validés sur device le 24/07 ; il manque les deux vérifications de recette du
+> spec § 6 (nikoud lisible sous le halo, grille de fond discrète), la première passation
+> ayant eu lieu sur une version qui ne les exigeait pas. Deux calques désormais — le
+> scintillement a quitté la charte. La page refuse de se lancer si « Réduire les
+> animations » est actif, et rend une ligne de verdict à recopier :
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/test-crt-iphone.html
 >
-> **➡️ La page-témoin v0.4, charte complète et arbitrée** (A Observatoire,
+> **➡️ La page-témoin v0.5, charte complète et arbitrée** (A Observatoire,
 > trois voix typo sans italique, 12 modules intégrés, écran Bilan) :
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-nerv.html

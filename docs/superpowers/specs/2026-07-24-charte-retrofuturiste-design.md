@@ -25,12 +25,13 @@ Charte extraite mécaniquement (Playwright WebKit, CSS calculé) le 2026-07-24.
   S1 Instrument Serif italique. Corollaire acté dans le même arbitrage : **plus aucun
   italique dans la charte** ; Instrument Serif, qui n'avait plus d'emploi, quitte la
   typographie. Les titres d'écran passent en Saira Condensed 600 capitales.
-- Registre d'effets : celui de la référence (bruit, vignettage, scintillement) — validé
+- Registre d'effets : celui de la référence (bruit, vignettage ; le scintillement,
+  d'abord retenu, a été retiré le 24/07 — voir § 5) — validé
   visuellement, à re-juger sur iPhone réel avant généralisation (piège n°14 : jamais de
   verdict de confort sur émulation).
 - **Modules retenus** (arbitrage sur `prototype-effets.html`, 21 candidats) :
   **01** radar de révision (accueil : blips = cartes, distance au centre = échéance SRS,
-  dues clignotantes), **02** carte orbitale des thèmes (bilan : orbites = niveaux, points
+  dues en vert + halo — elles clignotaient jusqu'au retrait du scintillement, § 5), **02** carte orbitale des thèmes (bilan : orbites = niveaux, points
   = thèmes), **03** timeline de session (traits vert/rouge par réponse sur la piste),
   **04** numérotation systématique (matricule `0421` sur cartes et feed), **05** bandeau
   de boot (3 lignes tapées à l'ouverture, **une seule fois**, repli statique sans
@@ -93,18 +94,28 @@ mesurées, pas encore une gamme nommée).
 - **Feed de données** : lignes mono préfixées `▸ ` (vert), segments séparés par ` · `,
   numéros à trois chiffres (`CARTE 012`).
 - **États** : vide = 1px pointillé `--ligne` (hérité v1 : pointillé = « rien ici ») ;
-  warning = bordure rouge, fond rouge 5%, titre clignotant.
+  warning = bordure rouge, fond rouge 5%, titre rouge + halo (il clignotait avant le
+  retrait du scintillement, § 5).
 
-## 5. Effets — les trois calques CRT
+## 5. Effets — les deux calques CRT
 
 1. **Bruit** : rayures horizontales 1px blanches à 2,2%, animées en `steps(3)` (1.2s).
 2. **Vignettage** : radial noir 50% aux bords.
-3. **Scintillement** : `@keyframes flick` en `steps(1)` (creux à 88–95%), deux cadences —
-   **4s** sur les indicateurs vivants (`● SESSION`), **2,6s** (plus nerveuse) sur les
-   alertes (`⚠`, titres de warning, verdict d'erreur).
+
+**Valeurs confirmées sur iPhone réel** (16 Pro, 2026-07-24, protocole
+`test-crt-iphone.html`) : les deux calques sont retenus **au cran du spec**, et
+l'empilement complet a été jugé tenable pour étudier. Ce sont donc des valeurs
+mesurées sur device, plus des propositions.
+
+**Le scintillement est retiré de la charte** (arbitrage du propriétaire, 24/07). Il
+avait pourtant passé le test sur device : le retrait est un parti pris, pas la
+correction d'un défaut. Ce qui est vivant se signale désormais par le seul **glow**
+(`text-shadow` `currentColor`) — la règle de la lampe sans le clignotement. Étaient
+concernés `● SESSION` (4s) et les alertes (2,6s : `⚠`, titres de warning, verdict
+d'erreur, blips dus du radar) ; tous gardent leur halo, aucun ne bat.
 
 **Mouvement réduit** (ajout normatif) : sous `prefers-reduced-motion: reduce`, toute
-animation se fige — bruit et scintillement immobiles, vignettage conservé (il est
+animation se fige — le bruit s'immobilise, le vignettage est conservé (il est
 statique). Implémenté dans le prototype.
 
 Règles : **tout mouvement est en `steps()`, jamais de transition fluide** (l'esthétique
@@ -116,8 +127,11 @@ la lampe » v1 : *l'alarme ne sonne que quand il se passe quelque chose*.
 
 - **Recette visuelle** : nikoud lisible à taille réelle sur `--bg` (le halo ambre ne doit
   jamais noyer les points-voyelles), contrastes AA sur texte courant, lisibilité de la
-  grille de fond sous le texte, et confirmation **sur iPhone réel** des trois calques CRT
-  (coût perceptif à juger sur device, pas en émulation). **Outil : `test-crt-iphone.html`**
+  grille de fond sous le texte, et confirmation **sur iPhone réel** des calques CRT
+  (coût perceptif à juger sur device, pas en émulation). **Fait le 24/07 pour les
+  calques** (verdict au § 5) ; **les deux vérifications de recette — nikoud sous le halo,
+  grille de fond — restent à recueillir**, la première passation ayant été menée sur une
+  version de l'outil qui ne les exigeait pas. **Outil : `test-crt-iphone.html`**
   — protocole guidé (isolement, calibrage à la moitié puis au quart pour tout calque qui
   gêne, passe d'ensemble, ligne de verdict). Les valeurs du § 5 sont son défaut ; un cran
   retenu plus bas se reporte ici **et** dans `prototype-nerv.html`.

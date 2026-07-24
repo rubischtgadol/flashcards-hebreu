@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prototype DA v0.4 — Console d'étude</title>
+<title>Prototype DA v0.5 — Console d'étude</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -89,12 +89,9 @@ body{
   background:radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.5) 100%);
 }
 @keyframes noiseShift{0%{transform:translateY(0)}100%{transform:translateY(3px)}}
-@keyframes flick{
-  0%,88%,100%{opacity:1}
-  90%{opacity:.72}
-  92%{opacity:1}
-  95%{opacity:.85}
-}
+/* Le scintillement a été RETIRÉ de la charte (arbitrage du 2026-07-24, sur device).
+   Il avait passé le test CRT sur iPhone réel — le retrait est un choix, pas un défaut :
+   ce qui est vivant se signale par le glow, sans clignoter. Restent deux calques CRT. */
 /* mouvement réduit : les calques se figent, le vignettage reste */
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important}
@@ -131,8 +128,8 @@ body{
   border-bottom:1px solid var(--ligne);
   padding-bottom:9px;margin-bottom:12px;
 }
-.statusbar .live{color:var(--vert);text-shadow:0 0 6px currentColor;animation:flick 4s steps(1) infinite}
-.statusbar .alerte{color:var(--rouge);text-shadow:0 0 6px currentColor;animation:flick 2.6s steps(1) infinite}
+.statusbar .live{color:var(--vert);text-shadow:0 0 6px currentColor}
+.statusbar .alerte{color:var(--rouge);text-shadow:0 0 6px currentColor}
 
 /* -- data feed : lignes de log -- */
 .feed{font-family:var(--mono);font-size:.72rem;line-height:1.7;color:var(--ambre)}
@@ -217,7 +214,7 @@ body{
 /* -- warning -- */
 .attention{border:1px solid var(--rouge);background:rgba(255,71,71,.05)}
 .attention .corps{padding:11px 14px;font-size:.85rem;color:var(--lune)}
-.attention .titre{color:var(--rouge);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;margin-bottom:4px;text-shadow:0 0 6px currentColor;animation:flick 2.6s steps(1) infinite}
+.attention .titre{color:var(--rouge);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;margin-bottom:4px;text-shadow:0 0 6px currentColor}
 
 /* -- état vide -- */
 .vide{
@@ -244,7 +241,7 @@ body{
 .radar .anneau{fill:none;stroke:var(--grille);stroke-width:1}
 .radar .axe{stroke:var(--grille);stroke-width:1}
 .radar .blip{fill:var(--ambre)}
-.radar .blip.due{fill:var(--vert);animation:flick 2.6s steps(1) infinite}
+.radar .blip.due{fill:var(--vert)}
 .radar .centre{fill:var(--rouge)}
 /* 15 ── insigne hexagonal de niveau */
 .hexniv{width:34px;height:38px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--ligne);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -310,7 +307,7 @@ body{
 .verdict-ko .carton{color:var(--rouge);text-shadow:0 0 22px rgba(255,71,71,.4)}
 .mention{font-family:var(--cond);font-weight:600;text-align:center;letter-spacing:.3em;text-transform:uppercase;font-size:.8rem}
 .verdict-ok .mention{color:var(--vert);text-shadow:0 0 6px currentColor}
-.verdict-ko .mention{color:var(--rouge);text-shadow:0 0 6px currentColor;animation:flick 2.6s steps(1) infinite}
+.verdict-ko .mention{color:var(--rouge);text-shadow:0 0 6px currentColor}
 .compare{font-family:var(--mono);display:flex;flex-direction:column;gap:6px;font-size:.82rem}
 .compare .l{display:flex;justify-content:space-between}
 .compare .attendu{color:var(--vert)}
@@ -335,7 +332,7 @@ body{
 
 <header>
   <h1>Console d'étude</h1>
-  <p class="meta-ligne">Prototype DA v0.4 · 12 modules retenus · S2 acté : trois voix typo, plus d'italique</p>
+  <p class="meta-ligne">Prototype DA v0.5 · 12 modules retenus · trois voix typo, zéro italique · deux calques CRT (le scintillement retiré, 24/07, sur device)</p>
 </header>
 
 <!-- ================= ÉCRAN 1 : CARTE ================= -->
