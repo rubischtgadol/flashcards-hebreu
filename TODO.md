@@ -6,7 +6,8 @@
 
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
-(créé) ; 2026-07-24 : prototype-nerv.html (créé, branche refonte-retrofuturiste).
+(créé) ; 2026-07-24 : prototype-nerv.html et prototype-variantes.html (créés,
+branche refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 **Chantier ouvert : la réorganisation profonde « le dépôt généré ».** Spec

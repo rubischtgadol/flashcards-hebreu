@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Variantes DA — planche comparative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Instrument+Serif:ital@0;1&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   BASE COMMUNE — la structure SENTRY, les couleurs par variante
+   ================================================================ */
+:root{
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --display: 'Instrument Serif',Georgia,serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{
+  font-family:var(--cond);color:#cfd6e6;background:#030208;
+  padding:32px 20px 80px;font-size:15px;line-height:1.45;
+}
+.galerie{max-width:1500px;margin:0 auto}
+.galerie>header{margin-bottom:44px}
+.galerie h1{
+  font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:2.4rem;color:#54ff8a;text-shadow:0 0 6px currentColor;
+}
+.meta-ligne{color:#f0b32a;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:#54ff8a}
+.section-titre{
+  font-weight:600;color:#f0b32a;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  margin:60px 0 22px;display:flex;align-items:center;gap:14px;
+}
+.section-titre::after{content:'';flex:1;height:1px;background:#7a5a14}
+.rangee{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-start}
+
+/* ---- chaque variante définit ses tokens sur son conteneur ---- */
+.variante{width:352px;max-width:100%}
+.var-titre{font-size:.9rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:4px;color:#cfd6e6}
+.var-recette{font-size:.72rem;letter-spacing:.06em;color:#8a8578;margin-bottom:10px;min-height:52px}
+
+.ecran{
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  border:1px solid var(--ligne);
+  padding:20px 18px 22px;
+  min-height:600px;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  color:var(--texte);
+}
+.ecran::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.022) 0 1px, transparent 1px 3px);
+  animation:noiseShift 1.2s steps(3) infinite;
+}
+.ecran::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,.5) 100%);
+}
+@keyframes noiseShift{0%{transform:translateY(0)}100%{transform:translateY(3px)}}
+@keyframes flick{0%,88%,100%{opacity:1}90%{opacity:.72}92%{opacity:1}95%{opacity:.85}}
+.ecran>*{position:relative;z-index:2}
+
+.viseur{position:absolute;font-family:var(--mono);font-size:12px;color:var(--ligne);z-index:2;line-height:1}
+.viseur.tl{top:4px;left:6px}.viseur.tr{top:4px;right:6px}
+.viseur.bl{bottom:4px;left:6px}.viseur.br{bottom:4px;right:6px}
+
+.statusbar{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid var(--ligne);padding-bottom:9px;margin-bottom:12px;
+}
+.statusbar .live{color:var(--actif);text-shadow:0 0 6px currentColor;animation:flick 4s steps(1) infinite}
+
+.onglet{
+  display:inline-block;font-weight:600;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  background:var(--actif);color:var(--bg);
+  padding:3px 16px 3px 10px;
+  clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);
+}
+
+.scene{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.carton{
+  font-family:var(--he);font-weight:900;font-size:2.6rem;line-height:1.15;
+  text-align:center;color:var(--texte);direction:rtl;
+  text-shadow:0 0 14px var(--halo);
+}
+.tr-ligne{font-family:var(--mono);text-align:center;font-size:1rem;letter-spacing:.18em;color:var(--actif);text-shadow:0 0 6px var(--halo-actif)}
+.fr-ligne{font-family:var(--display);font-style:italic;text-align:center;font-size:1.5rem;color:var(--neutre)}
+.exemple{border-top:1px solid var(--ligne);padding-top:13px}
+.exemple .he-ex{font-family:var(--he);font-weight:500;font-size:1.3rem;direction:rtl;text-align:center;margin-bottom:6px;color:var(--texte)}
+.exemple .fr-ex{font-size:.82rem;color:var(--neutre);opacity:.85;text-align:center}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{
+  font-family:var(--cond);font-weight:600;font-size:.78rem;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--texte);background:transparent;
+  border:1px solid var(--ligne);border-radius:9999px;
+  padding:9px 20px;cursor:pointer;
+}
+.btn.primaire{
+  border-color:var(--actif);color:var(--actif);
+  text-shadow:0 0 6px var(--halo-actif);
+  box-shadow:0 0 10px var(--halo-actif), inset 0 0 10px color-mix(in srgb, var(--actif) 8%, transparent);
+}
+.btn.danger{border-color:var(--alerte);color:var(--alerte)}
+.pied{margin-top:auto;padding-top:14px}
+.feed{font-family:var(--mono);font-size:.72rem;line-height:1.7;color:var(--texte)}
+.feed .l::before{content:'▸ ';color:var(--actif)}
+.feed .ok{color:var(--actif)}
+
+/* ================================================================
+   LES 4 VARIANTES
+   ================================================================ */
+/* A — Observatoire (v0.2, la référence SENTRY telle quelle) */
+.va{
+  --bg:#05040A; --grille:#0F0C1C; --ligne:#7a5a14;
+  --texte:#f0b32a; --actif:#54ff8a; --alerte:#FF4747; --neutre:#cfd6e6;
+  --halo:rgba(240,179,42,.35); --halo-actif:rgba(84,255,138,.3);
+}
+/* B — Phosphore (monochrome vert, Nostromo) */
+.vb{
+  --bg:#020805; --grille:#07160e; --ligne:#14522a;
+  --texte:#52e07c; --actif:#8dffb4; --alerte:#f0b32a; --neutre:#9adfb2;
+  --halo:rgba(82,224,124,.35); --halo-actif:rgba(141,255,180,.35);
+}
+.vb .ecran::before{
+  background:repeating-linear-gradient(0deg, rgba(141,255,180,.04) 0 1px, transparent 1px 3px);
+}
+/* C — NERV (orange dominant, angles durs) */
+.vc{
+  --bg:#0b0b12; --grille:#16121c; --ligne:#5a3a1a;
+  --texte:#e8e2d4; --actif:#ff6b1a; --alerte:#e63946; --neutre:#8a8578;
+  --halo:rgba(232,226,212,.2); --halo-actif:rgba(255,107,26,.35);
+}
+.vc .btn{border-radius:0;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%)}
+.vc .carton{color:var(--actif);text-shadow:0 0 16px var(--halo-actif)}
+.vc .tr-ligne{color:var(--texte);text-shadow:none}
+.vc .onglet{background:var(--alerte);color:#fff}
+/* D — Or ancien (pont avec la charte actuelle, sans bruit CRT) */
+.vd{
+  --bg:#12181f; --grille:#1a222b; --ligne:#4a3d24;
+  --texte:#e8e2d4; --actif:#d4a24c; --alerte:#e63946; --neutre:#b8b2a4;
+  --halo:rgba(212,162,76,.28); --halo-actif:rgba(212,162,76,.3);
+}
+.vd .ecran::before{display:none}
+.vd .ecran::after{background:radial-gradient(ellipse at 50% 45%, transparent 65%, rgba(0,0,0,.35) 100%)}
+.vd .statusbar .live{animation:none}
+.vd .carton{color:var(--actif)}
+
+/* ================================================================
+   BANC D'ESSAI TYPO — la ligne de traduction
+   ================================================================ */
+.essais{display:flex;flex-wrap:wrap;gap:26px}
+.essai{
+  width:352px;max-width:100%;
+  background:#05040A;border:1px solid #7a5a14;
+  padding:26px 20px;text-align:center;
+  display:flex;flex-direction:column;gap:14px;
+}
+.essai .tag{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#8a8578;text-align:left}
+.essai .he-mini{font-family:var(--he);font-weight:900;font-size:2.2rem;direction:rtl;color:#f0b32a;text-shadow:0 0 12px rgba(240,179,42,.3)}
+.essai .tr-mini{font-family:var(--mono);font-size:.9rem;letter-spacing:.18em;color:#54ff8a;text-shadow:0 0 6px rgba(84,255,138,.3)}
+.t1 .fr{font-family:var(--display);font-style:italic;font-size:1.5rem;color:#cfd6e6}
+.t2 .fr{font-family:var(--he);font-weight:500;font-size:1.3rem;color:#cfd6e6}
+.t3 .fr{font-family:var(--cond);font-weight:400;font-size:1.25rem;letter-spacing:.06em;color:#cfd6e6}
+.t4 .fr{font-family:var(--mono);font-size:1.05rem;letter-spacing:.08em;color:#cfd6e6}
+</style>
+</head>
+<body>
+<div class="galerie">
+
+<header>
+  <h1>Variantes DA</h1>
+  <p class="meta-ligne">Planche comparative · même écran, quatre directions · choisissez</p>
+</header>
+
+<h2 class="section-titre">Quatre directions — la carte verso à contenu égal</h2>
+<div class="rangee">
+
+  <!-- ============ A ============ -->
+  <div class="variante va">
+    <p class="var-titre">A — Observatoire</p>
+    <p class="var-recette">La référence SENTRY telle quelle : ambre dominant, vert phosphore actif, rouge alerte, bruit + vignettage + scintillement.</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
+      <span class="onglet">Réponse</span>
+      <div class="scene">
+        <div class="carton" lang="he">שָׁלוֹם</div>
+        <div class="tr-ligne">SHALOM</div>
+        <div class="fr-ligne">paix · bonjour</div>
+        <div class="exemple">
+          <div class="he-ex" lang="he">שָׁלוֹם, מַה שְּׁלוֹמְךָ?</div>
+          <div class="fr-ex">shalom, ma shlomkha ? — « Bonjour, comment vas-tu ? »</div>
+        </div>
+        <div class="actions">
+          <button class="btn danger">✗ À revoir</button>
+          <button class="btn primaire">✓ Acquise</button>
+        </div>
+      </div>
+      <div class="pied">
+        <div class="feed">
+          <div class="l ok">RÉPONSE VALIDÉE · SRS +1</div>
+          <div class="l">CARTE 012 · NOMS · J+3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ B ============ -->
+  <div class="variante vb">
+    <p class="var-titre">B — Phosphore</p>
+    <p class="var-recette">Monochrome vert façon Nostromo : tout est phosphore, l'ambre ne sert que d'alerte. Le plus « terminal » des quatre.</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
+      <span class="onglet">Réponse</span>
+      <div class="scene">
+        <div class="carton" lang="he">שָׁלוֹם</div>
+        <div class="tr-ligne">SHALOM</div>
+        <div class="fr-ligne">paix · bonjour</div>
+        <div class="exemple">
+          <div class="he-ex" lang="he">שָׁלוֹם, מַה שְּׁלוֹמְךָ?</div>
+          <div class="fr-ex">shalom, ma shlomkha ? — « Bonjour, comment vas-tu ? »</div>
+        </div>
+        <div class="actions">
+          <button class="btn danger">✗ À revoir</button>
+          <button class="btn primaire">✓ Acquise</button>
+        </div>
+      </div>
+      <div class="pied">
+        <div class="feed">
+          <div class="l ok">RÉPONSE VALIDÉE · SRS +1</div>
+          <div class="l">CARTE 012 · NOMS · J+3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ C ============ -->
+  <div class="variante vc">
+    <p class="var-titre">C — NERV</p>
+    <p class="var-recette">Orange alerte dominant, texte blanc cassé, angles durs (boutons à coin coupé, plus de pilules). Le plus Evangelion.</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
+      <span class="onglet">Réponse</span>
+      <div class="scene">
+        <div class="carton" lang="he">שָׁלוֹם</div>
+        <div class="tr-ligne">SHALOM</div>
+        <div class="fr-ligne">paix · bonjour</div>
+        <div class="exemple">
+          <div class="he-ex" lang="he">שָׁלוֹם, מַה שְּׁלוֹמְךָ?</div>
+          <div class="fr-ex">shalom, ma shlomkha ? — « Bonjour, comment vas-tu ? »</div>
+        </div>
+        <div class="actions">
+          <button class="btn danger">✗ À revoir</button>
+          <button class="btn primaire">✓ Acquise</button>
+        </div>
+      </div>
+      <div class="pied">
+        <div class="feed">
+          <div class="l ok">RÉPONSE VALIDÉE · SRS +1</div>
+          <div class="l">CARTE 012 · NOMS · J+3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ D ============ -->
+  <div class="variante vd">
+    <p class="var-titre">D — Or ancien</p>
+    <p class="var-recette">Le pont avec l'identité actuelle : nuit d'encre #12181f et or #d4a24c dans la structure SENTRY, sans bruit CRT ni scintillement. Rétro chic, calme.</p>
+    <div class="ecran">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="live">● Session</span></div>
+      <span class="onglet">Réponse</span>
+      <div class="scene">
+        <div class="carton" lang="he">שָׁלוֹם</div>
+        <div class="tr-ligne">SHALOM</div>
+        <div class="fr-ligne">paix · bonjour</div>
+        <div class="exemple">
+          <div class="he-ex" lang="he">שָׁלוֹם, מַה שְּׁלוֹמְךָ?</div>
+          <div class="fr-ex">shalom, ma shlomkha ? — « Bonjour, comment vas-tu ? »</div>
+        </div>
+        <div class="actions">
+          <button class="btn danger">✗ À revoir</button>
+          <button class="btn primaire">✓ Acquise</button>
+        </div>
+      </div>
+      <div class="pied">
+        <div class="feed">
+          <div class="l ok">RÉPONSE VALIDÉE · SRS +1</div>
+          <div class="l">CARTE 012 · NOMS · J+3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<h2 class="section-titre">Banc d'essai — la ligne de traduction « paix · bonjour »</h2>
+<div class="essais">
+
+  <div class="essai t1">
+    <span class="tag">T1 · Instrument Serif italique (actuel)</span>
+    <div class="he-mini" lang="he">שָׁלוֹם</div>
+    <div class="tr-mini">SHALOM</div>
+    <div class="fr">paix · bonjour</div>
+  </div>
+
+  <div class="essai t2">
+    <span class="tag">T2 · Frank Ruhl Libre — même famille que l'hébreu</span>
+    <div class="he-mini" lang="he">שָׁלוֹם</div>
+    <div class="tr-mini">SHALOM</div>
+    <div class="fr">paix · bonjour</div>
+  </div>
+
+  <div class="essai t3">
+    <span class="tag">T3 · Saira Condensed — la voix des labels</span>
+    <div class="he-mini" lang="he">שָׁלוֹם</div>
+    <div class="tr-mini">SHALOM</div>
+    <div class="fr">paix · bonjour</div>
+  </div>
+
+  <div class="essai t4">
+    <span class="tag">T4 · Share Tech Mono — la voix des données</span>
+    <div class="he-mini" lang="he">שָׁלוֹם</div>
+    <div class="tr-mini">SHALOM</div>
+    <div class="fr">paix · bonjour</div>
+  </div>
+
+</div>
+
+</div>
+</body>
+</html>
