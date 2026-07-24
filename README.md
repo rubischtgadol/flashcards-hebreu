@@ -14,6 +14,11 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-nerv.html
 >
+> **➡️ La planche des polices hébraïques** — שָׁלוֹם dans les 62 familles Google Fonts qui
+> couvrent l'hébreu, avec pour chacune un **verdict nikoud mesuré dans le fichier de fonte** :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-hebreu.html
+>
 > Archives d'arbitrage (déjà tranchées, à consulter seulement pour repêcher) :
 >
 > **➡️ Le protocole de test des calques sur device** (soldé : les trois effets ont été

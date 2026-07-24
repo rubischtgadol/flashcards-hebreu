@@ -7,8 +7,8 @@
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html,
-prototype-effets.html et test-crt-iphone.html (créés, branche
-refonte-retrofuturiste).
+prototype-effets.html, test-crt-iphone.html et specimen-hebreu.html (créés,
+branche refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -63,6 +63,12 @@ Les pièces, dans cet ordre de lecture :
   **soldé** (les trois effets ont été rejetés) et conservé pour un futur effet à
   juger. Son écran de garde le dit, pour qu'une repasse ne soit pas prise pour un
   verdict de charte.
+- **`specimen-hebreu.html`** — שָׁלוֹם dans les **62 familles Google Fonts qui
+  couvrent l'hébreu**, classées par voix typographique, sur le fond de la charte.
+  Chaque carte porte un **verdict nikoud mesuré dans le fichier de fonte** (table
+  `cmap` du sous-ensemble hébreu, 14 marques vérifiées) : 57 complètes,
+  Solitreo 13/14, **Cascadia Code et Cascadia Mono 6/14**, **Handjet et Google Sans
+  sans aucune marque**. Contrôle du protocole : Frank Ruhl Libre ressort à 14/14.
 - **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
 - **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
 - Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
@@ -88,9 +94,10 @@ de `bcf71d0` (« Chantier 1 : extraction du vocabulaire vers `data/` »), un com
 suite du chantier 1). La branche traîne donc un **doublon périmé** de
 `data/*.json` et `outils_migration/extrait_donnees.js`, plus un `TODO.md` et un
 `README.md` figés au 24/07. Au merge : **prendre la version de `main` pour
-tout**, ne garder de cette branche que les **quatre fichiers de la DA**
-(`prototype-nerv.html`, `prototype-effets.html`, `prototype-variantes.html` et le
-spec) et, si voulu, l'encart README. Divergence mesurée le 24/07 : **13 commits
+tout**, ne garder de cette branche que les **six fichiers de la DA**
+(`prototype-nerv.html`, `prototype-effets.html`, `prototype-variantes.html`,
+`test-crt-iphone.html`, `specimen-hebreu.html` et le spec) et, si voulu, l'encart
+README. Divergence mesurée le 24/07 : **13 commits
 de retard, 17 d'avance**.
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
