@@ -16,10 +16,33 @@
  * Usage :
  *   node outils_migration/genere_carnet.js                → HTML sur stdout
  *   node outils_migration/genere_carnet.js <chemin>        → HTML écrit au chemin donné
+ *   node outils_migration/genere_carnet.js --ecrire        → écrit en place sur
+ *                                                             vocabulaire_hebreu.html
+ *                                                             (racine du dépôt)
+ *
+ * L'en-tête « FICHIER GÉNÉRÉ » (tâche 6) est inséré juste après la première ligne
+ * (<!DOCTYPE html>) dans TOUS les modes — stdout, chemin explicite ou --ecrire : c'est
+ * un commentaire HTML, il documente l'origine du fichier quelle que soit la façon dont
+ * il a été produit, et n'affecte aucun des 4 critères de compare_carnets.js (vérifié
+ * task 6 : ni l'extraction de cartes ni la comparaison DOM normalisée ne considèrent
+ * les commentaires).
  */
 const fs = require('fs');
 const path = require('path');
 const gabarits = require('../src/carnet/gabarits.js');
+
+const ENTETE_GENERE =
+  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : data/ + src/carnet/. ' +
+  'Regénération : node outils_migration/genere_carnet.js (chantier 2 : node build.js). -->';
+
+// Insère l'en-tête juste après la première ligne du HTML (la ligne <!DOCTYPE html>).
+function insereEntete(html) {
+  const finLigne = html.indexOf('\n');
+  if (finLigne === -1) {
+    throw new Error('genereCarnet: HTML sans retour à la ligne après la première ligne — insertion de l\'en-tête impossible');
+  }
+  return html.slice(0, finLigne + 1) + ENTETE_GENERE + '\n' + html.slice(finLigne + 1);
+}
 
 // Extrait le "cle" d'un placeholder <!-- @ENTREES:cle --> ; non gourmand pour
 // s'arrêter au premier « -->» rencontré.
@@ -133,7 +156,7 @@ function genereCarnet(donnees, srcCarnet) {
     }
   }
 
-  return html;
+  return insereEntete(html);
 }
 
 if (require.main === module) {
@@ -142,7 +165,12 @@ if (require.main === module) {
   const donnees = chargeDonnees(ROOT);
   const html = genereCarnet(donnees, path.join(ROOT, 'src', 'carnet'));
 
-  const sortie = process.argv[2];
+  const argv = process.argv.slice(2);
+  const ecrire = argv.includes('--ecrire');
+  const sortie = ecrire
+    ? path.join(ROOT, 'vocabulaire_hebreu.html')
+    : argv.find(a => a !== '--ecrire');
+
   if (sortie) {
     fs.writeFileSync(sortie, html);
     console.error(`Carnet généré → ${sortie} (${html.length} octets)`);

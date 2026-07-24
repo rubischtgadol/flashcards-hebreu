@@ -8,20 +8,34 @@
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé). Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
-**Chantier ouvert : la réorganisation profonde « le dépôt généré ».** Spec
-validée ([docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md](docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md) —
-source de vérité en `data/*.json`, carnet entièrement généré, mort du double
-extracteur, 5 principes directeurs) et **plan complet relu deux fois** :
-[docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)
-(4 chantiers / 21 tasks, un chantier = une session). **Rien n'est encore
-implémenté.** Prochaine session = **chantier 1** (Tasks 1–6 : extraction vers
-`data/` + fragments `src/carnet/`, équivalence 4/4), task par task en
-sous-agents, contraintes globales du plan en tête.
+⚠️ GRAPHE À RECALER — 2026-07-24 : data/**, src/carnet/**, src/tokens.css,
+outils_migration/** créés ; vocabulaire_hebreu.html régénéré (chantier 1).
 
-État au 2026-07-24 : **1220 cartes**, 1068 exemples, 15 thèmes (1003/1003 sur
-les 3 tables), niveaux A1 402 / A2 474 / B1 335 / B2 9, `sw.js` en **v30**,
-`--check` en phase. Un `prototype-nerv.html` non suivi traîne à la racine
-(pas à moi — à trier par Ruben).
+**Chantier 1 de la réorganisation profonde « le dépôt généré » : soldé.**
+Spec validée ([docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md](docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md))
+et plan complet ([docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md),
+4 chantiers / 21 tasks). Les Tasks 1–6 sont faites : le contenu vit dans
+`data/*.json` (noms, adjectifs, verbes, listes) + les gabarits purs de
+`src/carnet/gabarits.js` ; `outils_migration/genere_carnet.js` assemble
+`vocabulaire_hebreu.html` à partir de `src/carnet/{tete,pied}.html` +
+`sections.json` + `src/carnet/sections/*.html`, avec garde anti-perte
+silencieuse. `vocabulaire_hebreu.html` **est maintenant le fichier généré**
+(en-tête « FICHIER GÉNÉRÉ — ne pas éditer » en première ligne, régénération :
+`node outils_migration/genere_carnet.js --ecrire`), prouvé équivalent au
+carnet manuscrit précédent par les 4 critères de
+`outils_migration/compare_carnets.js` (cartes identiques, DOM normalisé
+identique, comptes navigateur identiques, comptes `build.js` identiques).
+`build.js` et `app.html` sont **inchangés** : ils scrapent toujours le carnet
+généré exactement comme avant (leur double extracteur ne meurt qu'au
+chantier 2). Prochaine session = **chantier 2** (Task 7 et suivantes,
+`build.js` v2 qui génère carnet + `cards.json` + standalone depuis `data/`,
+suppression du parseur regex et de `extractCards`), plan en tête.
+
+État au 2026-07-24 : **1220 cartes** (comptes identiques avant/après la
+bascule), 1068 exemples, 15 thèmes (1003/1003 sur les 3 tables), niveaux A1
+402 / A2 474 / B1 335 / B2 9, `sw.js` en **v31**, `--check` en phase. Un
+`prototype-nerv.html` non suivi traîne à la racine (pas à moi — à trier par
+Ruben).
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
