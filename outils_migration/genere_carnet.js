@@ -161,8 +161,17 @@ function genereCarnet(donnees, srcCarnet) {
 
 if (require.main === module) {
   const ROOT = path.join(__dirname, '..');
-  const { chargeDonnees } = require('./valide_donnees.js');
-  const donnees = chargeDonnees(ROOT);
+  const { chargeDonnees, valideDonnees } = require('./valide_donnees.js');
+
+  let donnees;
+  try {
+    donnees = chargeDonnees(ROOT);
+    valideDonnees(donnees);
+  } catch (e) {
+    console.error('✗ données invalides (data/) : ' + e.message);
+    process.exit(1);
+  }
+
   const html = genereCarnet(donnees, path.join(ROOT, 'src', 'carnet'));
 
   const argv = process.argv.slice(2);
