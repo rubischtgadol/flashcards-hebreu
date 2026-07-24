@@ -7,8 +7,9 @@
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
 (créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html,
-prototype-effets.html, test-crt-iphone.html et specimen-hebreu.html (créés,
-branche refonte-retrofuturiste).
+prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
+specimen-monospace-hebreu.html et polices/ (créés, branche
+refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -69,6 +70,17 @@ Les pièces, dans cet ordre de lecture :
   `cmap` du sous-ensemble hébreu, 14 marques vérifiées) : 57 complètes,
   Solitreo 13/14, **Cascadia Code et Cascadia Mono 6/14**, **Handjet et Google Sans
   sans aucune marque**. Contrôle du protocole : Frank Ruhl Libre ressort à 14/14.
+- **`specimen-monospace-hebreu.html`** + **`polices/`** — la voix « données » de la
+  charte (Share Tech Mono) cherche son équivalent hébreu. **Aucune police de
+  terminal du catalogue n'est vocalisable** (Cascadia 6/14, Terminus 0/14, DejaVu
+  Sans Mono sans hébreu du tout). Trois tiennent, hors catalogue : **Miriam Mono
+  CLM** (Culmus — la plus propre, marques déclarées et attachées), **GNU Unifont**
+  (matricielle 8×16, la plus « afficheur »), **FreeMono** (tables fautives mais
+  rendu correct). Repli dans le catalogue : **Cousine**. Fontes embarquées en
+  sous-ensembles de 1 à 4 Ko, licences dans `polices/LICENCES.md`.
+  ⚠️ Leçon inscrite dans la planche : la chasse déclarée d'une marque **ne dit pas**
+  où elle s'affiche — les moteurs l'annulent d'office. Une première conclusion tirée
+  des seules tables était fausse, le rendu l'a démentie.
 - **`prototype-effets.html`** — les 21 modules candidats, retenus et écartés.
 - **`prototype-variantes.html`** — les 4 directions et les bancs d'essai typo.
 - Liens iPhone et ordinateur : encart en tête de [README.md](README.md).
@@ -94,9 +106,10 @@ de `bcf71d0` (« Chantier 1 : extraction du vocabulaire vers `data/` »), un com
 suite du chantier 1). La branche traîne donc un **doublon périmé** de
 `data/*.json` et `outils_migration/extrait_donnees.js`, plus un `TODO.md` et un
 `README.md` figés au 24/07. Au merge : **prendre la version de `main` pour
-tout**, ne garder de cette branche que les **six fichiers de la DA**
+tout**, ne garder de cette branche que les **fichiers de la DA**
 (`prototype-nerv.html`, `prototype-effets.html`, `prototype-variantes.html`,
-`test-crt-iphone.html`, `specimen-hebreu.html` et le spec) et, si voulu, l'encart
+`test-crt-iphone.html`, `specimen-hebreu.html`, `specimen-monospace-hebreu.html`,
+`polices/` et le spec) et, si voulu, l'encart
 README. Divergence mesurée le 24/07 : **13 commits
 de retard, 17 d'avance**.
 

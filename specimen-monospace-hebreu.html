@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Monospaces hébreux — hors catalogue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&family=Cousine:wght@400;700&family=Frank+Ruhl+Libre:wght@500;900&display=swap" rel="stylesheet">
+<style>
+/* Jetons v0.2 — repris tels quels de prototype-nerv.html (qui fait foi) */
+:root{
+  --bg:#05040A; --panneau:#0A0814; --grille:#0F0C1C; --ligne:#7a5a14;
+  --ambre:#f0b32a; --vert:#54ff8a; --rouge:#FF4747; --orange:#ff6a1f; --lune:#cfd6e6;
+  --cond:'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:'Share Tech Mono','Courier New',monospace;
+  --taille:3rem;
+}
+
+/* Les quatre polices hors catalogue, en sous-ensemble (licences : polices/LICENCES.md) */
+@font-face{font-family:'Miriam Mono CLM';src:url('polices/MiriamMonoCLM.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Miriam Mono CLM';src:url('polices/MiriamMonoCLM-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'FreeMono';src:url('polices/FreeMono.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'GNU Unifont';src:url('polices/Unifont.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Terminus TTF';src:url('polices/TerminusTTF.woff2') format('woff2');font-display:swap}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{font-family:var(--cond);color:var(--ambre);background:#030208;font-size:15px;line-height:1.45;
+  padding:26px 18px calc(60px + env(safe-area-inset-bottom));-webkit-text-size-adjust:100%}
+.page{max-width:1100px;margin:0 auto}
+h1{font-family:var(--mono);font-size:1.25rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor}
+.chapeau{color:var(--lune);font-size:.92rem;margin:12px 0 4px;max-width:66ch}
+.chapeau b{color:var(--ambre);font-weight:400}
+.section-titre{font-family:var(--cond);font-weight:600;color:var(--ambre);font-size:.85rem;
+  letter-spacing:.2em;text-transform:uppercase;margin:44px 0 16px;display:flex;align-items:center;gap:14px}
+.section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
+.planche{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.specimen{border:1px solid var(--ligne);background:
+  repeating-linear-gradient(0deg,transparent 0 31px,var(--grille) 31px 32px),
+  repeating-linear-gradient(90deg,transparent 0 31px,var(--grille) 31px 32px),var(--bg);
+  padding:14px 16px 12px;display:flex;flex-direction:column;gap:10px}
+.specimen.retenu{border-color:var(--vert);box-shadow:0 0 12px rgba(84,255,138,.15)}
+.specimen.reserve{border-color:var(--orange)}
+.specimen.hors{border-color:var(--rouge)}
+.specimen header{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.nom{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambre)}
+.pastille{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);
+  border-radius:9999px;padding:2px 9px;color:var(--ambre);white-space:nowrap}
+.pastille.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.pastille.att{border-color:var(--orange);color:var(--orange)}
+.pastille.ko{border-color:var(--rouge);color:var(--rouge)}
+.mot{direction:rtl;text-align:center;font-size:var(--taille);line-height:1.5;color:var(--ambre);
+  text-shadow:0 0 14px rgba(240,179,42,.35);padding:4px 0}
+.mot.nu{font-size:calc(var(--taille) * .5);opacity:.72;text-shadow:none;padding:0 0 4px;
+  border-top:1px solid var(--ligne)}
+.ligne-log{border-top:1px solid var(--ligne);padding-top:9px;font-size:.95rem;color:var(--ambre);
+  white-space:nowrap;overflow-x:auto}
+.mesures{font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;line-height:1.8;
+  color:var(--ambre);opacity:.9;border-top:1px solid var(--ligne);padding-top:9px}
+.mesures .ko{color:var(--rouge)} .mesures .ok{color:var(--vert)} .mesures .att{color:var(--orange)}
+.mesures .src{color:var(--lune);opacity:.75}
+.verdict-txt{font-size:.82rem;color:var(--lune)}
+.reglages{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 6px}
+.btn{font-family:var(--cond);font-weight:600;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:8px 18px;cursor:pointer;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2)}
+.btn.actif{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+.encadre{border:1px solid var(--ligne);padding:14px 16px;margin:18px 0 0;max-width:72ch;
+  color:var(--lune);font-size:.86rem;background:rgba(10,8,20,.6)}
+.encadre b{color:var(--ambre);font-weight:400}
+.encadre .titre{font-family:var(--cond);font-weight:600;color:var(--vert);font-size:.72rem;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px}
+table.mes{width:100%;border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:.68rem}
+table.mes th,table.mes td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--grille)}
+table.mes th{color:var(--ambre);font-weight:400;letter-spacing:.08em}
+table.mes td:first-child,table.mes th:first-child{text-align:left;color:var(--lune)}
+.methode{margin-top:46px;border-top:1px solid var(--ligne);padding-top:16px;color:var(--lune);
+  font-size:.82rem;max-width:72ch}
+.methode p{margin-bottom:10px}
+.methode code{font-family:var(--mono);color:var(--vert);font-size:.78rem}
+.methode a,.encadre a{color:var(--vert)}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Monospaces hébreux · hors catalogue</h1>
+  <p class="chapeau">Google Fonts ne contient <b>aucune police de terminal hébraïque vocalisable</b> :
+  Cascadia Code et Cascadia Mono, les seules vraiment « terminal », ne portent que 6 des 14 marques.
+  Cette planche cherche ailleurs — projets libres historiques, hors catalogue.</p>
+  <p class="chapeau">Trois candidates tiennent la route, et la question ne se joue pas où on
+  l'attendait. Une police monospace donne à chaque glyphe la même largeur ; une marque vocalique doit
+  se poser <b>sous</b> sa lettre sans en occuper une. Les deux règles semblent se contredire — mais
+  les moteurs de rendu annulent d'office la chasse des marques, quoi qu'en dise la fonte. Le vrai
+  point de rupture n'est donc pas le placement : <b>c'est l'absence pure et simple des marques</b>,
+  et c'est là que les polices de terminal tombent.</p>
+
+  <div class="reglages">
+    <button class="btn" data-taille="2rem">Taille carte</button>
+    <button class="btn actif" data-taille="3rem">Taille lecture</button>
+    <button class="btn" data-taille="4.6rem">Taille vedette</button>
+  </div>
+
+  <h2 class="section-titre">La référence — ce que tu veux retrouver</h2>
+  <div class="planche">
+    <article class="specimen">
+      <header><span class="nom">Share Tech Mono</span><span class="pastille ko">aucun hébreu</span></header>
+      <div class="mot" style="font-family:var(--mono);direction:ltr">SHALOM</div>
+      <div class="mot nu" style="font-family:var(--mono);direction:ltr">▸ CARTE 0421</div>
+      <div class="mesures">
+        <span class="src">La voix « données » de la charte, en latin seulement.</span><br>
+        couverture hébraïque · <span class="ko">nulle</span><br>
+        c'est son caractère que les candidates doivent égaler
+      </div>
+    </article>
+  </div>
+
+  <h2 class="section-titre">Les trois qui tiennent — vrai monospace, 14 marques sur 14</h2>
+  <div class="planche">
+
+    <article class="specimen retenu">
+      <header><span class="nom">Miriam Mono CLM</span><span class="pastille ok">la plus propre</span></header>
+      <div class="mot" lang="he" style="font-family:'Miriam Mono CLM'">שָׁלוֹם</div>
+      <div class="mot nu" lang="he" style="font-family:'Miriam Mono CLM'">שלום</div>
+      <div class="ligne-log" style="font-family:'Miriam Mono CLM'">▸ CARTE 0421 · <span lang="he">שָׁלוֹם</span></div>
+      <div class="mesures">
+        nikoud · <span class="ok">14/14</span> · lettres <span class="ok">27/27</span><br>
+        chasse des lettres · <span class="ok">600, uniforme</span><br>
+        marques · <span class="ok">chasse 0, classées « marque », attache mark + mkmk</span><br>
+        encre sous la ligne de base · <span class="ok">14–15 px</span> à 64 px, contre 0 sans nikoud<br>
+        <span class="src">projet Culmus 0.140 · GPL v2 + exception · 2 graisses</span>
+      </div>
+      <p class="verdict-txt">Le monospace hébreu des consoles Linux, et la seule des trois dont les
+      tables déclarent proprement ses marques comme telles. Elle ne dépend donc d'aucune
+      compensation du moteur de rendu.</p>
+    </article>
+
+    <article class="specimen retenu">
+      <header><span class="nom">GNU Unifont</span><span class="pastille ok">la plus terminal</span></header>
+      <div class="mot" lang="he" style="font-family:'GNU Unifont'">שָׁלוֹם</div>
+      <div class="mot nu" lang="he" style="font-family:'GNU Unifont'">שלום</div>
+      <div class="ligne-log" style="font-family:'GNU Unifont'">▸ CARTE 0421 · <span lang="he">שָׁלוֹם</span></div>
+      <div class="mesures">
+        nikoud · <span class="ok">14/14</span> · lettres <span class="ok">27/27</span><br>
+        chasse des lettres · <span class="ok">512, uniforme</span><br>
+        marques · <span class="att">aucune table de positionnement</span> — le moteur les place seul<br>
+        encre sous la ligne de base · <span class="ok">8 px</span> à 64 px, contre 0 sans nikoud<br>
+        <span class="src">GNU Unifont 14.0.04 · GPL v2+ avec exception · matricielle 8×16</span>
+      </div>
+      <p class="verdict-txt">Dessinée pixel par pixel sur une grille de 16 lignes : littéralement un
+      afficheur. Le registre le plus proche de la direction, et le plus radical. Sans table
+      d'attache, le placement des points repose entièrement sur le moteur — c'est à juger à l'œil,
+      pas sur la fiche.</p>
+    </article>
+
+    <article class="specimen reserve">
+      <header><span class="nom">FreeMono</span><span class="pastille att">une réserve</span></header>
+      <div class="mot" lang="he" style="font-family:'FreeMono'">שָׁלוֹם</div>
+      <div class="mot nu" lang="he" style="font-family:'FreeMono'">שלום</div>
+      <div class="ligne-log" style="font-family:'FreeMono'">▸ CARTE 0421 · <span lang="he">שָׁלוֹם</span></div>
+      <div class="mesures">
+        nikoud · <span class="ok">14/14</span> · lettres <span class="ok">27/27</span><br>
+        chasse des lettres · <span class="ok">600, uniforme</span><br>
+        marques · <span class="att">chasse 600 et classées « base » — deux erreurs de table</span><br>
+        encre sous la ligne de base · <span class="ok">13 px</span> à 64 px, contre 0 sans nikoud<br>
+        <span class="src">GNU FreeFont 20120503 · GPL v3 + exception de fonte</span>
+      </div>
+      <p class="verdict-txt">Ses tables sont fautives : les marques y sont déclarées comme des
+      lettres ordinaires, avec une largeur. À l'écran ça ne se voit pas — le moteur annule la chasse
+      des marques d'après leur catégorie Unicode et les repose sous la lettre, mesuré ici. Mais elle
+      s'en remet à cette compensation. Utilisable, en connaissance de cause.</p>
+    </article>
+
+  </div>
+
+  <div class="encadre">
+    <div class="titre">Ce que la mesure a corrigé</div>
+    <p>Première conclusion, tirée des seules tables de chasse : « FreeMono donne une largeur à ses
+    points, donc elle les posera à côté des lettres ». <b>Faux</b> — le rendu la dément. Les moteurs
+    modernes remettent à zéro la chasse de toute marque, y compris quand la fonte prétend le
+    contraire. Une largeur mesurée dans un fichier ne dit pas ce qui s'affiche.</p>
+    <table class="mes">
+      <tr><th>Police</th><th>largeur vocalisé</th><th>largeur nu</th><th>encre sous ligne</th></tr>
+      <tr><td>Miriam Mono CLM</td><td>154</td><td>154</td><td>15</td></tr>
+      <tr><td>FreeMono</td><td>154</td><td>154</td><td>13</td></tr>
+      <tr><td>GNU Unifont</td><td>128</td><td>128</td><td>8</td></tr>
+      <tr><td>Cousine</td><td>154</td><td>154</td><td>11</td></tr>
+    </table>
+    <p style="margin-top:10px">Mesures en pixels, WebKit, texte à 64 px, שָׁלוֹם contre שלום,
+    arrondies au pixel — l'encre sous la ligne varie de ±1 px selon la densité d'écran (Miriam
+    donne 15 px à densité 3, 14 px à densité 1). Aucune des quatre n'élargit le mot en le
+    vocalisant, et toutes descendent de l'encre sous la ligne de base là où le mot nu n'en a pas :
+    les points sont bien <b>sous</b> les lettres.</p>
+  </div>
+
+  <h2 class="section-titre">Hors jeu — et pourquoi</h2>
+  <div class="planche">
+
+    <article class="specimen hors">
+      <header><span class="nom">Terminus TTF</span><span class="pastille ko">0/14</span></header>
+      <div class="mot" lang="he" style="font-family:'Terminus TTF'">שָׁלוֹם</div>
+      <div class="mot nu" lang="he" style="font-family:'Terminus TTF'">שלום</div>
+      <div class="mesures">
+        nikoud · <span class="ko">0/14</span> · lettres <span class="ok">27/27</span><br>
+        chasse des lettres · 500, uniforme<br>
+        <span class="src">Terminus TTF 4.49.3 · SIL OFL 1.1</span>
+      </div>
+      <p class="verdict-txt">La police de console par excellence, l'hébreu y est complet — mais sans
+      une seule marque vocalique. Les points que tu vois ci-dessus viennent d'une autre police, posés
+      par le navigateur.</p>
+    </article>
+
+    <article class="specimen hors">
+      <header><span class="nom">Cascadia Code · Cascadia Mono</span><span class="pastille ko">6/14</span></header>
+      <div class="mesures" style="border-top:0;padding-top:0">
+        présentes · patah, qamats, holam, dagesh, points shin et sin<br>
+        <span class="ko">manquent · shva, hiriq, tsere, segol, qubuts, les trois hataf</span><br>
+        <span class="src">Microsoft · SIL OFL 1.1 · sur Google Fonts</span>
+      </div>
+      <p class="verdict-txt">Toutes les manquantes sont faites de <b>points multiples sous la
+      lettre</b>. Cascadia a reçu l'hébreu pour afficher des noms de fichiers, pas du texte vocalisé —
+      ce qui ne s'écrit jamais dans un terminal.</p>
+    </article>
+
+    <article class="specimen hors">
+      <header><span class="nom">DejaVu Sans Mono</span><span class="pastille ko">aucun hébreu</span></header>
+      <div class="mesures" style="border-top:0;padding-top:0">
+        lettres hébraïques · <span class="ko">0/27</span><br>
+        <span class="src">DejaVu 2.37 · licence Bitstream Vera</span>
+      </div>
+      <p class="verdict-txt">Souvent citée comme la police libre qui couvre tout : elle ne couvre pas
+      l'hébreu du tout. Vérifié dans le fichier, pas supposé.</p>
+    </article>
+
+  </div>
+
+  <h2 class="section-titre">Dans le catalogue — la solution de repli</h2>
+  <div class="planche">
+    <article class="specimen">
+      <header><span class="nom">Cousine</span><span class="pastille ok">14/14</span></header>
+      <div class="mot" lang="he" style="font-family:'Cousine'">שָׁלוֹם</div>
+      <div class="mot nu" lang="he" style="font-family:'Cousine'">שלום</div>
+      <div class="ligne-log" style="font-family:'Cousine'">▸ CARTE 0421 · <span lang="he">שָׁלוֹם</span></div>
+      <div class="mesures">
+        nikoud · <span class="ok">14/14</span> · encre sous la ligne · <span class="ok">11 px</span><br>
+        <span class="src">Google Fonts · Apache 2.0 · métriques de Courier New</span>
+      </div>
+      <p class="verdict-txt">La seule monospace vocalisable du catalogue : rien à héberger, servie
+      par Google Fonts. Mais son caractère tient de la machine à écrire, pas de l'instrument.</p>
+    </article>
+  </div>
+
+  <div class="methode">
+    <p><b>Méthode.</b> Deux niveaux, parce que le premier seul induit en erreur. Dans les fichiers :
+    table <code>cmap</code> pour la couverture des 14 marques et des 27 lettres, <code>hmtx</code>
+    pour les chasses, <code>GDEF</code> pour la classe des glyphes et <code>GPOS</code> pour les
+    attaches <code>mark</code>/<code>mkmk</code>. À l'écran ensuite, en WebKit : largeur du mot
+    vocalisé contre le mot nu, et hauteur d'encre sous la ligne de base — c'est cette seconde mesure
+    qui tranche, la première ayant produit une conclusion fausse.</p>
+    <p><b>Sources.</b> Culmus (Debian), GNU FreeFont et GNU Unifont (ftp.gnu.org, unifoundry.com),
+    Terminus TTF (files.ax86.net). Les polices sont embarquées ici en <b>sous-ensembles de quelques
+    glyphes</b> (1 à 4 Ko chacune) ; licences et sources exactes dans
+    <a href="polices/LICENCES.md">polices/LICENCES.md</a>.</p>
+    <p><b>Planche complémentaire</b> : <a href="specimen-hebreu.html">שָׁלוֹם dans les 62 familles
+    Google Fonts qui couvrent l'hébreu</a>.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  document.querySelectorAll('[data-taille]').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('[data-taille]').forEach(function(x){ x.classList.remove('actif'); });
+      b.classList.add('actif');
+      document.documentElement.style.setProperty('--taille', b.dataset.taille);
+    });
+  });
+})();
+</script>
+</body>
+</html>

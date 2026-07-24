@@ -19,6 +19,12 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-hebreu.html
 >
+> **➡️ Les monospaces hébreux, hors catalogue** — la voix « données » de la charte cherche son
+> équivalent en hébreu. Trois candidates tiennent (Miriam Mono CLM, GNU Unifont, FreeMono), les
+> polices de terminal classiques tombent :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/specimen-monospace-hebreu.html
+>
 > Archives d'arbitrage (déjà tranchées, à consulter seulement pour repêcher) :
 >
 > **➡️ Le protocole de test des calques sur device** (soldé : les trois effets ont été
