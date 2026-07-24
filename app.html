@@ -2362,7 +2362,7 @@ async function init(){
     loader.style.display='none';
     if(!bootResumed) document.getElementById('setup').classList.remove('hidden');
     const note=document.getElementById('count-note');
-    note.textContent = CARDS.length + ' mots chargés depuis le carnet';
+    note.textContent = CARDS.length + ' mots chargés';
     // Garde-fou : un titre de section renommé ou une table restructurée dans le
     // carnet fait disparaître ses cartes sans erreur — signaler toute catégorie vide.
     const counts={};

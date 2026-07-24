@@ -4,15 +4,39 @@
 
 ## Reprendre ici (prochaine session)
 
-⏸️ **PAUSE 24/07 en plein chantier 2.** Task 7 **implémenté et poussé** (4 commits
-`f724402..4030fcb` sur `origin/main`) mais **PAS ENCORE RELU** — la revue de task du
-skill `superpowers:subagent-driven-development` n'a pas eu lieu avant la pause. À la
-reprise : (1) faire la revue du Task 7 avant tout — package `f724402..4030fcb`, arbitrer
-la réserve n°1 de l'implémenteur : `extractCards` + ses helpers sont **gardés et exportés**
-(pas supprimés) alors que le plan Step 3 dit « supprimer le parseur regex » — vérifier que
-cette lecture tient (3 scripts en dépendent encore, leur bascule = Task 10 ; le verrou
-`--verrou` reste vert) ; (2) puis Tasks 8→12. Ledger de reprise complet + réserves 2-4 :
-`.superpowers/sdd/2026-07-24-reorganisation-depot-genere/progress.md` et `task-7-report.md`.
+**Chantier 2 de la réorganisation profonde « le dépôt généré » : soldé.**
+Tasks 7 à 12 faites et relues une par une (revues de branche incluses).
+Prochaine étape : **Task 13** (chantier 3, session 3 : découpage d'`app.html`
+en modules — plan complet dans
+[docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)).
+
+Ce que le chantier a produit : `data/*.json` est désormais l'unique source de
+vérité du contenu. `node build.js` régénère à partir de `data/` les trois
+artefacts `vocabulaire_hebreu.html`, `cards.json` et `flashcards_hebreu.html`.
+`app.html` charge `cards.json` au démarrage — **plus aucun extracteur HTML
+n'existe dans le dépôt** : `extractCards` (les deux implémentations, carnet et
+`app.html`) et le mode `node build.js --verrou` qui prouvait leur équivalence
+ont été retirés une fois la preuve faite ; `outils_migration/
+compare_carnets.js`, le harnais qui portait cette preuve, a été supprimé avec
+eux, sa mission remplie. `verifie_exemples.js`, `cherche_mots.js` et
+`ajoute_mots.js` lisent tous `data/`. `sw.js` est en **v32** et précache
+`cards.json`. État : **1220 cartes**, `--check` en phase.
+
+⚠️ **`CLAUDE.md` et `ARCHITECTURE.md` décrivent encore l'ancienne
+architecture** — la section « The extraction coupling » de CLAUDE.md, le
+double extracteur, et l'affirmation que `vocabulaire_hebreu.html` est
+« single source of truth » sont désormais FAUX. Leur recalage est le **Task
+20** (chantier 4), volontairement différé pour ne pas le refaire une deuxième
+fois après le déménagement des outils vers `tools/`. D'ici là, ne pas leur
+faire confiance sur le flux de données — se fier à ce paragraphe et à
+ARCHITECTURE.md/CLAUDE.md eux-mêmes une fois le Task 20 fait.
+
+⚠️ **Sécurité des deux outils de migration survivants**
+(`outils_migration/extrait_donnees.js`, `decoupe_carnet.js`) : ils écrivent
+**sans confirmation ni dry-run par défaut** (`decoupe_carnet.js` sans
+`--verifie` écrit 8 fichiers). Un lancement accidentel a écrit dans
+`src/carnet/tete.html` pendant ce chantier (annulé, sans dégât). À garder en
+tête jusqu'à leur retrait au Task 20.
 
 ⚠️ GRAPHE À RECALER — 2026-07-23 : SPEC_AJOUTE_MOTS.md (créé), ajoute_mots.js
 (créé), SPEC_ECONOMIE_TOKENS.md (créé), cherche_mots.js (créé), TODO_ARCHIVE.md
@@ -21,48 +45,10 @@ cette lecture tient (3 scripts en dépendent encore, leur bascule = Task 10 ; le
 ⚠️ GRAPHE À RECALER — 2026-07-24 : data/**, src/carnet/**, src/tokens.css,
 outils_migration/** créés ; vocabulaire_hebreu.html régénéré (chantier 1).
 
-⚠️ GRAPHE À RECALER — 2026-07-24 (chantier 2, Task 7) : cards.json créé ;
-outils_migration/genere_carnet.js et outils_migration/valide_donnees.js
-supprimés (logique absorbée dans build.js).
-
-**Chantier 1 de la réorganisation profonde « le dépôt généré » : soldé.**
-Spec validée ([docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md](docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md))
-et plan complet ([docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md),
-4 chantiers / 21 tasks). Les Tasks 1–6 sont faites : le contenu vit dans
-`data/*.json` (noms, adjectifs, verbes, listes) + les gabarits purs de
-`src/carnet/gabarits.js`.
-
-**Chantier 2, Task 7 faite : `build.js` v2.** `data/*.json` est maintenant
-l'ENTRÉE du build (plus jamais `vocabulaire_hebreu.html`). `build.js` absorbe
-`outils_migration/valide_donnees.js` (`chargeDonnees`, `valideDonnees` — avec
-une garde de schéma neuve : aucun hébreu d'un champ `.fr` qui échapperait au
-motif de wrappage `HEBREW_RUN` des gabarits) et `outils_migration/
-genere_carnet.js` (`genereCarnet`, garde anti-perte inchangée), tous deux
-supprimés du dépôt. `node build.js` régénère désormais TROIS artefacts :
-`vocabulaire_hebreu.html` (en-tête « Regénération : node build.js »),
-`cards.json` (`{version, cartes}`, nouveau fichier) et `flashcards_hebreu.html`
-(inchangé). `deriveCartes(donnees)` remplace l'extraction regex dans le
-pipeline principal ; l'ancien parseur (`extractCards` et ses helpers) reste en
-place et exporté — encore utilisé par `verifie_exemples.js`, `cherche_mots.js`,
-`ajoute_mots.js`, et maintenant par le mode `node build.js --verrou` lui-même,
-qui sert d'oracle de non-régression (`deriveCartes(data/) === extractCards
-(carnet régénéré)` — vert dès la première itération, 1220 cartes). Sa
-suppression n'est prévue qu'à la Task 10, quand ces trois scripts basculeront
-sur `cards.json`/`chargeDonnees`. `app.html` est **inchangé** : il scrape
-toujours le carnet exactement comme avant (son propre `extractCards` ne meurt
-qu'à la Task 8). `node build.js --check` compare désormais les trois
-artefacts régénérés aux committés. `git diff` du carnet limité à l'en-tête,
-standalone byte-identique. Au passage (watch-items relevés en revue de
-branche) : `compare_carnets.js` corrigé — étiquette de double panne erronée
-au critère 4 (buildErr/gitErr distincts), dossier `mkdtemp` désormais nettoyé.
-Prochaine session = **revue du Task 7 (voir bannière ⏸️ en tête), puis chantier 2
-Tasks 8→12**, plan en tête.
-
-État au 2026-07-24 : **1220 cartes** (comptes identiques avant/après la
-bascule), 1068 exemples, 15 thèmes (1003/1003 sur les 3 tables), niveaux A1
-402 / A2 474 / B1 335 / B2 9, `sw.js` en **v31**, `--check` en phase. Un
-`prototype-nerv.html` non suivi traîne à la racine (pas à moi — à trier par
-Ruben).
+⚠️ GRAPHE À RECALER — 2026-07-24 (chantier 2, Tasks 7-12) : cards.json créé ;
+outils_migration/genere_carnet.js, outils_migration/valide_donnees.js et
+outils_migration/compare_carnets.js supprimés (logique absorbée dans
+build.js, harnais d'équivalence devenu inutile une fois la preuve faite).
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
@@ -93,15 +79,11 @@ maintenant les distracteurs par cascade — même thème + même catégorie, pui
 thème + autre catégorie, puis les étages d'avant, puis le dernier recours ;
 prouvé en jsdom, 5/5 en logique pure et 6/6 en parcours de bout en bout).
 
-Deux choses à savoir avant d'ouvrir le prochain chantier, toutes deux acquises
-le 24/07 :
+Une chose à savoir avant d'ouvrir le prochain chantier, acquise le 24/07 et
+toujours vraie (chantier 2 a supprimé `extractCards`, donc la recette
+d'exercice qui vivait ici avant le chantier ne s'applique plus — voir
+l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
 
-- **Exercer l'`extractCards()` d'`app.html` est possible, et c'est le seul
-  moyen** : `--check` ne compare que l'extracteur de `build.js`, donc une dérive
-  côté `app.html` est invisible à l'outillage (CLAUDE.md § extraction coupling).
-  Recette : `python3 -m http.server`, jsdom en `runScripts:'dangerously'` +
-  `resources:'usable'`, le `fetch` de Node injecté (jsdom n'en fournit pas).
-  Passage vert le 24/07 : 1070 cartes, 0 erreur console.
 - **Découverte hors chantier, non corrigée** : au tout premier lancement, si
   aucun chip de niveau n'est sélectionné, `state.niveaux` reste vide et le
   bouton « démarrer » ne fait rien. Jugé conforme à l'intention lors du contrôle,
