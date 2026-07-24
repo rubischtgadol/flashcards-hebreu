@@ -2310,100 +2310,7 @@ document.addEventListener('keydown', e=>{
 });
 
 // ===== BUILD:ONLINE-ONLY : bloc remplace par build.js dans le fichier autonome =====
-// ---------- Runtime extraction from the vocab notebook ----------
-function stripNikud(s){ return s.replace(/[\u0591-\u05C7]/g,''); }
-function firstText(el, sel){ const x = el.querySelector(sel); return x ? x.textContent.trim() : ''; }
-
-function extractCards(doc){
-  const cards = [];
-  const sections = {};
-  doc.querySelectorAll('h2').forEach(h2=>{
-    const c = h2.querySelector('.count'); if(!c) return;
-    const name = c.textContent.trim();
-    const els = []; let n = h2.nextElementSibling;
-    while(n && n.tagName!=='H2'){ els.push(n); n = n.nextElementSibling; }
-    sections[name] = els;
-  });
-  function rowsOf(name){
-    const out=[]; (sections[name]||[]).forEach(el=>{
-      if(el.querySelectorAll) el.querySelectorAll('table tbody tr').forEach(tr=>out.push(tr));
-    }); return out;
-  }
-  function lisOf(name){
-    const out=[]; (sections[name]||[]).forEach(el=>{
-      if(el.matches && el.matches('ul.word-list')) el.querySelectorAll(':scope > li').forEach(li=>out.push(li));
-      else if(el.querySelectorAll) el.querySelectorAll('ul.word-list > li').forEach(li=>out.push(li));
-    }); return out;
-  }
-  // Exemples en situation : sous-liste <ul class="exemples"> dans le <li> du mot
-  // ou dans la première cellule d'une table. Optionnel — mot sans exemple = carte normale.
-  function exOf(el){
-    const out=[];
-    el.querySelectorAll('ul.exemples > li').forEach(x=>{
-      const he=firstText(x,'.he'); if(!he) return;
-      out.push({he, tr:firstText(x,'.tr'), fr:firstText(x,'.fr'), he_plain:stripNikud(he)});
-    });
-    return out;
-  }
-  rowsOf('Verbes').forEach(tr=>{
-    const tds=[...tr.children]; if(tds.length<5) return;
-    const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
-    const labels=['il','elle','ils','elles']; const forms=[];
-    for(let i=1;i<5;i++){ const fhe=firstText(tds[i],'.he'); const ftr=firstText(tds[i],'.tr');
-      forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
-    if(he){ const card={cat:'Verbes',he,tr:'',fr:'(infinitif) '+fr,forms};
-      if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
-      if(tr.dataset.theme) card.theme=tr.dataset.theme;
-      const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
-      cards.push(card); }
-  });
-  rowsOf('Adjectifs').forEach(tr=>{
-    const tds=[...tr.children]; if(tds.length<4) return;
-    const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
-    const labels=['f. sing.','m. plur.','f. plur.']; const forms=[];
-    for(let i=1;i<4;i++){ const fhe=firstText(tds[i],'.he'); const ftr=firstText(tds[i],'.tr');
-      if(fhe) forms.push({he:fhe,tr:ftr,label:labels[i-1],he_plain:stripNikud(fhe)}); }
-    if(he){ const card={cat:'Adjectifs',he,tr:'',fr, forms};
-      if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
-      if(tr.dataset.theme) card.theme=tr.dataset.theme;
-      const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
-      cards.push(card); }
-  });
-  rowsOf('Noms').forEach(tr=>{
-    const tds=[...tr.children]; if(tds.length<3) return;
-    const he=firstText(tds[0],'.he'); const fr=firstText(tds[0],'.fr');
-    const genre=tds[1].textContent.trim();
-    const plHe=firstText(tds[2],'.he'); const plTr=firstText(tds[2],'.tr');
-    const card={cat:'Noms',he,tr:'',fr:fr+((genre==='m'||genre==='f')?(' ('+genre+')'):'')};
-    if(genre==='m'||genre==='f') card.genre=genre;
-    if(plHe && plHe!=='—'){ card.forms=[{he:plHe,tr:plTr,label:'pluriel',he_plain:stripNikud(plHe)}]; }
-    if(tr.dataset.niveau) card.niveau=tr.dataset.niveau;
-    if(tr.dataset.theme) card.theme=tr.dataset.theme;
-    const ex=exOf(tds[0]); if(ex.length) card.exemples=ex;
-    if(he) cards.push(card);
-  });
-  const listCats={'Pronoms personnels':'Pronoms personnels','Démonstratifs':'Démonstratifs',
-    'Verbes modaux':'Verbes modaux',
-    'Prépositions':'Prépositions','Conjonctions':'Conjonctions','Mots interrogatifs':'Mots interrogatifs',
-    'Nombres (0–10)':'Nombres','Nombres (11 et plus)':'Nombres','Nombres ordinaux':'Nombres',
-    'Jours de la semaine':'Jours de la semaine','Adverbes':'Adverbes','Saisons & mois':'Saisons & mois',
-    'Mots de quantité':'Mots de quantité','Expressions / Divers':'Expressions',
-    'Existence et possession':'Existence','Phrases':'Phrases'};
-  Object.keys(listCats).forEach(sec=>{
-    lisOf(sec).forEach(li=>{
-      const he=firstText(li,'.he'); if(!he) return;
-      // data-fr-court : version courte pour la carte quand le .fr du carnet est trop long ;
-      // data-note : précision affichée sous la réponse.
-      const card={cat:listCats[sec],he,tr:firstText(li,'.tr'),fr:li.dataset.frCourt||firstText(li,'.fr')};
-      if(li.dataset.note) card.note=li.dataset.note;
-      if(li.dataset.niveau) card.niveau=li.dataset.niveau;
-      const ex=exOf(li); if(ex.length) card.exemples=ex;
-      cards.push(card);
-    });
-  });
-  cards.forEach(c=>{ c.he_plain=stripNikud(c.he); });
-  return cards;
-}
+// ---------- Chargement runtime des cartes (cards.json, généré par build.js) ----------
 
 function showLoaderError(reason){
   const loader=document.getElementById('loader');
@@ -2437,12 +2344,10 @@ async function init(){
   const msg=document.getElementById('loader-msg');
   try{
     const tB0=performance.now();
-    const res = await fetch('./vocabulaire_hebreu.html', {cache:'no-store'});
+    const res = await fetch('./cards.json', {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
-    const text = await res.text();
     const tB1=performance.now();
-    const doc = new DOMParser().parseFromString(text, 'text/html');
-    CARDS = extractCards(doc);
+    CARDS = (await res.json()).cartes;
     const tB2=performance.now();
     if(!CARDS.length) throw new Error('empty');
     buildChips();
