@@ -10,6 +10,16 @@
 branche refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
+**Chantier ouvert : la charte v2 « La console d'étude » (branche
+`refonte-retrofuturiste`).** Direction actée par le propriétaire : rétrofuturisme
+d'après la référence SENTRY (variante A Observatoire + traduction en Share Tech
+Mono), spec relu et corrigé
+([docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md)),
+page-témoin `prototype-nerv.html` faisant foi, variantes écartées dans
+`prototype-variantes.html`. Reste : confirmation des calques CRT sur iPhone réel,
+puis portage — qui attend la fin de la réorganisation ci-dessous. Rien n'est
+poussé ; `main` intact.
+
 **Chantier ouvert : la réorganisation profonde « le dépôt généré ».** Spec
 validée ([docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md](docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md) —
 source de vérité en `data/*.json`, carnet entièrement généré, mort du double
