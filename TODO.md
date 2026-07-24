@@ -4,11 +4,100 @@
 
 ## Reprendre ici (prochaine session)
 
-**Chantier 2 de la réorganisation profonde « le dépôt généré » : soldé.**
-Tasks 7 à 12 faites et relues une par une (revues de branche incluses).
-Prochaine étape : **Task 13** (chantier 3, session 3 : découpage d'`app.html`
-en modules — plan complet dans
+**Chantier 3 de la réorganisation « le dépôt généré » : Tasks 13, 14 et 15
+faites et relues. Reste le Task 16, session interrompue avant lui.**
+Prochaine étape : **Task 16** (contrôle A/B visuel, bump `sw.js` → **v33**,
+sortie de chantier — plan complet dans
 [docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)).
+
+### Ce que le chantier 3 a produit (df5ccfc..d518269, poussé sur `main`)
+
+**`app.html` n'est plus une source : c'est le 4ᵉ artefact généré.** `node
+build.js` l'assemble par `assembleApp()` depuis `src/app/coquille.html` (trois
+marqueurs `<!-- @TOKENS -->`, `<!-- @CSS:app -->`, `<!-- @JS:app -->`),
+`src/tokens.css`, les **6 fragments** de `src/app/css/` et les **14 modules**
+de `src/app/js/`, l'ordre des deux concaténations étant porté par
+`src/app/ordre.json`. **N'édite plus `app.html` à la main** — comme les trois
+autres artefacts, il est écrasé au prochain build. `node build.js --check`
+couvre désormais les **4** artefacts (le 5ᵉ, `index.html`, ne devient généré
+qu'au Task 18).
+
+⚠️ **Les deux concaténations n'ont pas le même séparateur, et c'est voulu** :
+les modules JS sont joints par `join('\n')` (`build.js:657`), les fragments CSS
+par `join('')` (`build.js:663`) — c'est ce `join('')` qui porte la
+byte-identité du CSS. Un fragment CSS finit donc par un saut de ligne, un
+module JS **jamais**. Corollaire payé une fois : `99-principal.js` doit
+conserver son `\n` final explicite, sinon le regex de fence de `build.js` ne
+matche plus (rien ne suit `<!-- @JS:app -->` dans la coquille).
+
+**Comment le découpage a été prouvé sans rien casser** : Tasks 13 et 14
+byte-identiques (`app.html` régénéré identique au committé, à l'en-tête
+« FICHIER GÉNÉRÉ » près). Task 15 : les 83 fonctions top-level retrouvées une à
+une, les lignes triées identiques à l'écart près des 14 en-têtes `// Expose :`,
+et surtout — vérifié **au parseur (acorn), pas au grep** — les 148 nœuds
+top-level appariés des deux côtés, dont les **39 instructions exécutées au
+chargement dans une séquence identique indice par indice**, toutes regroupées
+dans `99-principal.js`. Les 812 lignes d'`app.html` situées **hors du
+`<script>`** (head, CSS, balisage) sont **byte-identiques** à l'avant-chantier :
+aucun changement de rendu n'est structurellement possible. Comportement exercé
+en jsdom, 29/29 PASS, 0 erreur console : cartes (flip/answer/undo), saisie
+(verdict, correction, clavier hébreu), QCM, révision espacée, recherche, les
+6 segments de `SEG_KEYS`.
+
+⚠️ **Ce qui reste dû au Task 16, ne pas le sauter** :
+
+1. **Bump `sw.js` → `v33`** (il est resté en **v32** : `app.html` et
+   `flashcards_hebreu.html` ont changé, iso-fonctionnellement, sans bump).
+2. Le **contrôle A/B WebKit** prévu par le plan (iPhone 16 Pro émulé + desktop
+   1440/1280/992/900/768, piège 13) n'a **pas** été lancé. La byte-identité du
+   hors-`<script>` le rend redondant sur le rendu ; il reste la gate formelle du
+   plan si on veut la cocher.
+3. **Un finding Important laissé ouvert exprès, à traiter là** :
+   `build.js:788` — la liste de jetons interdits du fichier autonome n'a que
+   `['fetch(', 'DOMParser']`. **Éprouvé en bac à sable par le relecteur** : une
+   fence `BUILD:ONLINE-ONLY` coupée en deux blocs fait sortir le build en **0**
+   sans un mot, et le standalone livré enregistre alors un service worker et
+   appelle un `init()` inexistant (le regex non-greedy ne retire que le premier
+   bloc). **Ajouter `serviceWorker` et `BUILD:ONLINE-ONLY` à la liste.**
+4. Trois minors gelés parce qu'ils cassaient une gate byte-identique tant que
+   le chantier tournait : `build.js:693` (l'en-tête du standalone annonce
+   encore « depuis app.html + vocabulaire_hebreu.html », provenance réelle
+   `src/app/`) ; `build.js:733` (l'étiquette par défaut de `mustReplace` reste
+   `'app.html'`, or les ancres s'éditent dans `src/app/coquille.html` et
+   `src/app/js/` — le message envoie l'auteur vers un artefact généré) ;
+   `build.js:575` (le message de `report()` renvoie encore à `THEMES` « dans
+   app.html »).
+5. Trois en-têtes `// Expose :` incomplets, relevés en revue :
+   `src/app/js/07-filtres.js:1` omet 9 de ses 27 déclarations (`NIVEAUX`,
+   `SPK_SVG`, `catCounts`, `nivCounts`, `themeCounts`, `catsEl`, `nivEl`,
+   `themeEl`, `catOrder`) que `13-reglages.js:1` déclare pourtant « utiliser
+   (07) » — contrat auto-contradictoire ; `06-voix.js:1` omet `voicesCache` ;
+   `08-srs.js:1` omet `SRS_INTERVALS`, `SRS_MASTER`, `lastRecord`.
+
+**Deux minors hérités du chantier 2, toujours ouverts** : `app.html`
+l'étiquette de diagnostic « extraction » mesure désormais `JSON.parse` ;
+`cherche_mots.js:56-59` duplique l'énumération de `data/listes` de `build.js`.
+
+**Ce que le chantier 3 a durci au passage (quatre gardes neuves, toutes
+éprouvées par cas fabriqué en bac à sable, échec réel constaté)** : les 3
+marqueurs de coquille passent par `mustReplace` — un marqueur disparu fait
+`exit 1` en le nommant, **avant** toute écriture (sans elle, supprimer
+`<!-- @CSS:app -->` produisait un `app.html` amputé de tout son CSS avec
+`exit 0`, puis un `--check` au vert sur l'artefact cassé) ; `verifieOrphelins()`
+(`build.js:37-52`, partagée JS/CSS) échoue **dans les deux sens** — fichier
+présent non listé dans `ordre.json`, ou listé mais absent du disque ; la garde
+de taxonomie `THEMES` a quitté `report()` pour `verifieTaxonomieApp(appSource)`
+et s'exerce désormais sur la source **assemblée en mémoire**, fatale en mode
+normal **comme en `--check`** ; `generateStandalone(cards, appSource)` ne lit
+plus `app.html` du disque — sans quoi `--check`, qui n'écrit rien, aurait
+dérivé le standalone d'un fichier périmé.
+
+**Le ledger de reprise** (dispatches, verdicts de revue, arbitrages, preuves de
+gardes) est dans `.superpowers/sdd/2026-07-24-reorganisation-depot-genere/progress.md`
+— **gitignoré, donc local à la machine** ; il porte aussi les briefs et les
+revues des Tasks 13 à 15. Le chantier 4 (Tasks 17 à 21) n'a **pas** été entamé.
+
+### Ce que le chantier 2 avait produit
 
 Ce que le chantier a produit : `data/*.json` est désormais l'unique source de
 vérité du contenu. `node build.js` régénère à partir de `data/` les trois
@@ -64,6 +153,13 @@ outils_migration/** créés ; vocabulaire_hebreu.html régénéré (chantier 1).
 outils_migration/genere_carnet.js, outils_migration/valide_donnees.js et
 outils_migration/compare_carnets.js supprimés (logique absorbée dans
 build.js, harnais d'équivalence devenu inutile une fois la preuve faite).
+
+⚠️ GRAPHE À RECALER — 2026-07-25 (chantier 3, Tasks 13-15) : `src/app/**` créé
+(`coquille.html`, `ordre.json`, 6 fragments `css/`, 14 modules `js/`),
+`outils_migration/decoupe_app.js` créé ; `app.html` est devenu un artefact
+généré. Le graphe connaît encore les 83 fonctions de l'app **comme si elles
+vivaient dans `app.html`** — les lignes qu'il cite n'existent plus là où il le
+dit. Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
