@@ -2363,8 +2363,9 @@ async function init(){
     if(!bootResumed) document.getElementById('setup').classList.remove('hidden');
     const note=document.getElementById('count-note');
     note.textContent = CARDS.length + ' mots chargés';
-    // Garde-fou : un titre de section renommé ou une table restructurée dans le
-    // carnet fait disparaître ses cartes sans erreur — signaler toute catégorie vide.
+    // Garde-fou : une catégorie disparue de data/ ou un décalage de listCats entre
+    // build.js et app.html fait disparaître ses cartes de cards.json sans erreur —
+    // signaler toute catégorie vide.
     const counts={};
     CARDS.forEach(c=>{ counts[c.cat]=(counts[c.cat]||0)+1; });
     console.log('Cartes par catégorie :', counts);
@@ -2372,7 +2373,7 @@ async function init(){
     if(missing.length){
       console.warn('Catégories attendues sans carte :', missing);
       note.innerHTML += '<br><span style="color:var(--red)">Aucune carte dans : '
-        + missing.join(', ') + ' — section renommée dans le carnet ?</span>';
+        + missing.join(', ') + ' — vocabulaire manquant dans data/ ?</span>';
     }
   }catch(err){
     showLoaderError(err);

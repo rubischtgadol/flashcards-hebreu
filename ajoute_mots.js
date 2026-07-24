@@ -47,7 +47,7 @@ const vm = require('vm');
 const { spawnSync, execFileSync } = require('child_process');
 
 const {
-  chargeDonnees, valideDonnees, deriveCartes, NOTEBOOK, APP,
+  chargeDonnees, valideDonnees, deriveCartes, APP,
   stripNikud, orthographeVoisine,
   EXPECTED_LEVELS, EXPECTED_THEMES, listCats,
 } = require('./build.js');
@@ -669,7 +669,7 @@ function main(){
     console.log('\nDry-run : rien n\'est écrit. Relire le tableau des tr dérivés puis relancer avec --ecrire.');
   }
 
-  console.log('\n↪ PWA : le carnet est servi en stale-while-revalidate (sw.js) — les mots neufs atteignent');
+  console.log('\n↪ PWA : cards.json est servi en stale-while-revalidate (sw.js) — les mots neufs atteignent');
   console.log('  l\'iPhone au 2ᵉ lancement sans bump ; bump VERSION dans sw.js si tu les veux au 1ᵉʳ.');
   console.log('  (Le script ne bump jamais lui-même — décision de fil principal.)');
 }
