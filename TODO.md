@@ -29,14 +29,22 @@ contenu**, pas celle du dernier build. Sans conséquence aujourd'hui — personn
 ne le lit (`app.html`, `sw.js` et le standalone l'ignorent) — mais à savoir si
 on veut un jour s'en servir pour invalider un cache.
 
-⚠️ **`CLAUDE.md` et `ARCHITECTURE.md` décrivent encore l'ancienne
-architecture** — la section « The extraction coupling » de CLAUDE.md, le
-double extracteur, et l'affirmation que `vocabulaire_hebreu.html` est
-« single source of truth » sont désormais FAUX. Leur recalage est le **Task
-20** (chantier 4), volontairement différé pour ne pas le refaire une deuxième
-fois après le déménagement des outils vers `tools/`. D'ici là, ne pas leur
-faire confiance sur le flux de données — se fier à ce paragraphe et à
-ARCHITECTURE.md/CLAUDE.md eux-mêmes une fois le Task 20 fait.
+**`CLAUDE.md` et `ARCHITECTURE.md` ont été recalés** (passe d'exactitude du
+24/07, après le chantier 2) : on peut leur faire confiance sur le flux de
+données. La section « The extraction coupling » de CLAUDE.md a été remplacée en
+place par un exposé court du pipeline `data/` → `build.js` → artefacts, les
+pièges 1/6/8 et le rituel sont recalés, et ARCHITECTURE.md décrit le contrat
+gabarits/données au lieu des deux extracteurs. Ce qui **reste** au **Task 20**
+est éditorial, pas factuel : la version définitive de la section pipeline, la
+renumérotation des pièges, et le recalage des chemins d'outils vers `tools/`
+(volontairement différé — les outils déménagent au chantier 4, l'écrire
+maintenant serait à refaire).
+
+⚠️ **Le graphe (`graphify-out/`), lui, date d'avant les chantiers 1-2** : il ne
+connaît ni `data/`, ni `src/carnet/`, ni la disparition des extracteurs. Un
+`graphify explain` sur ce périmètre peut répondre à côté — vérifier au `grep`.
+Les flags ci-dessous enregistrent la dette ; le recalage reste une décision
+explicite, jamais automatique.
 
 ⚠️ **Sécurité des deux outils de migration survivants**
 (`outils_migration/extrait_donnees.js`, `decoupe_carnet.js`) : ils écrivent
