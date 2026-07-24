@@ -228,8 +228,18 @@ function valideDonnees(donnees){
   const commun = (ou, e, theme) => {
     if (!e.he || !e.fr) echec(ou, e, 'he/fr manquant');
     if (!EXPECTED_LEVELS.includes(e.niveau)) echec(ou, e, `niveau « ${e.niveau} » invalide`);
-    if (theme && !EXPECTED_THEMES.includes(e.theme)) echec(ou, e, `theme « ${e.theme} » invalide`);
-    if (theme && !(e.exemples || []).length) echec(ou, e, 'aucun exemple');
+    if (theme){
+      if (!EXPECTED_THEMES.includes(e.theme)) echec(ou, e, `theme « ${e.theme} » invalide`);
+      if (!(e.exemples || []).length) echec(ou, e, 'aucun exemple');
+    } else if (e.theme){
+      // Piège 8 (CLAUDE.md) : les listes sont mono-thème par nature — un theme sur une
+      // entrée de liste est une erreur. deriveCartes() ne le copie jamais dans la carte
+      // dérivée (seules Noms/Adjectifs/Verbes le font), donc c'est ICI, sur la donnée
+      // d'entrée, qu'il faut le repérer : une garde côté carte ne le verrait jamais
+      // (revue de branche, chantier 2 — la garde `stray` de report() était devenue
+      // structurellement inatteignable).
+      echec(ou, e, `theme « ${e.theme} » interdit sur une entrée de liste (mono-thème par nature)`);
+    }
     (e.exemples || []).forEach(x => { if (!x.he || !x.tr || !x.fr) echec(ou, e, 'exemple incomplet'); });
     if (heNonWrappe(e.fr)) echec(ou, e, 'hébreu du champ fr non entièrement capturé par le motif de wrappage des gabarits (HEBREW_RUN) — un fragment resterait affiché sans lang="he"');
   };
@@ -423,7 +433,12 @@ function deriveCartes(donnees){
   Object.values(donnees.listes).forEach(l => { listeParSection[l.section] = l; });
   Object.keys(listCats).forEach(sec => {
     const liste = listeParSection[sec];
-    if (!liste) return; // couvert par valideDonnees / la garde anti-perte de genereCarnet
+    // Une section de listCats absente de data/listes/ (l.section ne correspond à aucune
+    // clé) : ni valideDonnees ni la garde anti-perte de genereCarnet ne valident l.section,
+    // donc ni l'une ni l'autre n'attrape ce cas. Le vrai filet est plus loin : la section
+    // "sec" tombe alors à zéro carte, et la garde EXPECTED_CATS de report() (« Sections
+    // attendues sans aucune carte ») fait échouer le build en la nommant.
+    if (!liste) return;
     liste.entries.forEach(e => {
       const card = { cat: listCats[sec], he: e.he, tr: e.tr, fr: e.fr_court || e.fr };
       if (e.note) card.note = e.note;
@@ -435,6 +450,38 @@ function deriveCartes(donnees){
 
   cards.forEach(c => { c.he_plain = stripNikud(c.he); });
   return cards;
+}
+
+// ---------- garde de forme des cartes dérivées ----------
+// Remplace en partie ce que la suppression d'extractCards et du mode --verrou a emporté
+// (revue de branche, chantier 2) : `node build.js --check` compare des artefacts
+// régénérés aux artefacts committés, donc il attrape « artefacts déphasés » mais jamais
+// « deriveCartes est faux » — une dérivation modifiée suivie d'un rebuild passe tous les
+// gates au vert puisque les committés seraient régénérés avec la même (mauvaise) logique.
+// Cette garde teste la FORME de chaque carte dérivée, indépendamment de tout artefact
+// committé, et nomme la carte fautive.
+// Cardinalités mesurées sur data/ réel (1220 cartes, 24/07/2026) plutôt que supposées :
+// Verbes → toujours 4 formes (il/elle/ils/elles), Adjectifs → toujours 3
+// (f. sing./m. plur./f. plur.), Noms → 0 ou 1 (pluriel optionnel). tr === '' pour les
+// trois tables (l'UI retombe sur he2tr(card.he) en son absence).
+const ARITE_FORMES = { Verbes: n => n === 4, Adjectifs: n => n === 3, Noms: n => n === 0 || n === 1 };
+function assertFormeCartes(cards){
+  const echec = (c, msg) => {
+    console.error('\n✗ carte mal formée (' + (c.cat || '?') + ' — « ' + (c.he || '?') + ' / ' + (c.fr || '?') + ' ») : ' + msg);
+    process.exit(1);
+  };
+  cards.forEach(c => {
+    if (!c.cat) echec(c, 'cat manquant');
+    if (!c.he) echec(c, 'he manquant');
+    if (!c.fr) echec(c, 'fr manquant');
+    if (!c.he_plain) echec(c, 'he_plain manquant');
+    if (THEMED_CATS.includes(c.cat) && c.tr !== '') echec(c, `tr devrait être '' pour une carte de table, trouvé « ${c.tr} »`);
+    const arite = ARITE_FORMES[c.cat];
+    if (arite){
+      const n = (c.forms || []).length;
+      if (!arite(n)) echec(c, `nombre de formes inattendu pour ${c.cat} (${n})`);
+    }
+  });
 }
 
 // ---------- comptes + garde-fous ----------
@@ -490,6 +537,10 @@ function report(cards){
   // sur les trois tables (un mot ajouté sans data-theme échoue en le nommant)
   // et slugs verrouillés (une faute de frappe créerait un thème fantôme,
   // invisible dans l'appli sous son vrai libellé).
+  // (Le theme parasite sur une entrée de liste n'est PAS testé ici : deriveCartes()
+  // ne le copie jamais dans la carte dérivée, donc une garde sur les cartes ne pourrait
+  // jamais déclencher — revue de branche, chantier 2. Il est repéré plus tôt, sur la
+  // donnée d'entrée, dans valideDonnees().)
   const themes = {};
   cards.forEach(c => { if (c.theme) themes[c.theme] = (themes[c.theme] || 0) + 1; });
   if (Object.keys(themes).length){
@@ -513,13 +564,6 @@ function report(cards){
     if (badThemes.length){
       console.error('\n✗ Thème(s) hors taxonomie : ' + badThemes.join(', '));
       console.error('  (faute de frappe dans un data-theme ? nouveau thème → l\'ajouter à EXPECTED_THEMES ici ET à THEMES dans app.html.)');
-      process.exit(1);
-    }
-    const stray = cards.filter(c => c.theme && !THEMED_CATS.includes(c.cat));
-    if (stray.length){
-      console.error('\n✗ data-theme hors des tables Noms/Adjectifs/Verbes : ' +
-        stray.slice(0, 5).map(c => c.cat + ' — ' + c.he).join(' ; '));
-      console.error('  Les listes ne portent pas de thème (déjà mono-thème par nature).');
       process.exit(1);
     }
   }
@@ -655,6 +699,7 @@ function main(){
 
   const notebookGenerated = genereCarnet(donnees, SRC_CARNET);
   const cards = deriveCartes(donnees);
+  assertFormeCartes(cards);
   console.log('Cartes dérivées de data/ :');
   report(cards);
 
@@ -702,8 +747,8 @@ function main(){
     console.log('\n✓ vocabulaire_hebreu.html régénéré (' + Buffer.byteLength(notebookGenerated, 'utf8') + ' octets).');
   }
 
-  if (cardsOnDiskRaw === cardsJson){
-    console.log('✓ cards.json déjà à jour.');
+  if (cardsContentUpToDate){
+    console.log('✓ cards.json déjà à jour (contenu inchangé, version conservée).');
   } else {
     fs.writeFileSync(CARDS_JSON, cardsJson);
     console.log('✓ cards.json régénéré (' + cards.length + ' cartes).');
@@ -730,5 +775,5 @@ module.exports = { NOTEBOOK, APP, CARDS_JSON,
   parseSections, closeOf, exemplesOf, firstSpanText, attrOf, tdsOf,
   stripNikud, decodeEntities, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,
-  chargeDonnees, valideDonnees, genereCarnet, deriveCartes };
+  chargeDonnees, valideDonnees, genereCarnet, deriveCartes, assertFormeCartes };
 if (require.main === module) main();
