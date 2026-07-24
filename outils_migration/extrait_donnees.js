@@ -59,18 +59,51 @@ const adjectifs = extraisTable('Adjectifs', (tds) => ({ ...celluleVedette(tds[0]
 const verbes = extraisTable('Verbes', (tds) => ({ ...celluleVedette(tds[0]),
   formes: [1,2,3,4].map(i => heTr(tds[i])) }));
 
+// lisOf() n'est exporté que pour (sections, name) — deux sections (Adverbes,
+// Saisons & mois) ont deux <ul class="word-list"> côte à côte (une par
+// <h3 class="subtheme">, correctif contrôleur) ; on doit donc pouvoir
+// l'appliquer à un fragment de section (g.corps), pas seulement à la section
+// entière — réimplémentation locale sur un corps de texte, même logique.
+function lisOfBody(body){
+  const lis = [];
+  const ulRe = /<ul\b[^>]*\bclass="word-list"[^>]*>/g;
+  let ul;
+  while ((ul = ulRe.exec(body))){
+    const end = B.closeOf(body, ul.index + ul[0].length, 'ul');
+    const inner = body.slice(ul.index + ul[0].length, end);
+    const liRe = /<\/?li\b[^>]*>/g;
+    let depth = 0, start = -1, t;
+    while ((t = liRe.exec(inner))){
+      if (t[0][1] !== '/'){ if (depth === 0) start = t.index; depth++; }
+      else { depth--; if (depth === 0 && start >= 0){ lis.push(inner.slice(start, t.index + t[0].length)); start = -1; } }
+    }
+    ulRe.lastIndex = end;
+  }
+  return lis;
+}
+
 const listes = {};
 for (const label of Object.keys(B.listCats)){
-  const entries = B.lisOf(sections, label).map(li => {
-    const e = { he: B.firstSpanText(li, 'he'), tr: B.firstSpanText(li, 'tr'),
-      fr: B.firstSpanText(li, 'fr'), niveau: B.attrOf(li, 'data-niveau'),
-      exemples: B.exemplesOf(li).map(x => ({ he: x.he, tr: x.tr, fr: x.fr })) };
-    const court = B.attrOf(li, 'data-fr-court'); if (court) e.fr_court = court;
-    // (a) note : même attribut data-note qu'extractCards() lit pour les listes
-    // (build.js L275) — c'est la seule source réelle de note dans le carnet
-    // (17 occurrences, toutes sur des <li>, 0 sur des <tr> — vérifié par grep).
-    const note = B.attrOf(li, 'data-note'); if (note) e.note = note;
-    return e; });
+  const entries = [];
+  // même découpe aux <h3 class="subtheme"> que les tables (groupesOf, garde
+  // d'unicité incluse) : la plupart des sections n'ont aucun h3, donc un seul
+  // groupe '' — groupe omis sur l'entrée (14 fichiers inchangés, octet pour
+  // octet). Adverbes et Saisons & mois ont chacune deux <h3>, donc e.groupe
+  // posé sur chaque entrée.
+  for (const g of groupesOf(sections[label])){
+    for (const li of lisOfBody(g.corps)){
+      const e = { he: B.firstSpanText(li, 'he'), tr: B.firstSpanText(li, 'tr'),
+        fr: B.firstSpanText(li, 'fr'), niveau: B.attrOf(li, 'data-niveau') };
+      if (g.groupe) e.groupe = g.groupe;
+      e.exemples = B.exemplesOf(li).map(x => ({ he: x.he, tr: x.tr, fr: x.fr }));
+      const court = B.attrOf(li, 'data-fr-court'); if (court) e.fr_court = court;
+      // (a) note : même attribut data-note qu'extractCards() lit pour les listes
+      // (build.js L275) — c'est la seule source réelle de note dans le carnet
+      // (17 occurrences, toutes sur des <li>, 0 sur des <tr> — vérifié par grep).
+      const note = B.attrOf(li, 'data-note'); if (note) e.note = note;
+      entries.push(e);
+    }
+  }
   listes[slug(label)] = { section: label, entries };
 }
 

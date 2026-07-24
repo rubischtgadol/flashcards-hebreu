@@ -6,8 +6,11 @@
 // garde require.main : usage CLI direct, comme extrait_donnees.js).
 //
 // Convention de placeholder (le seul contrat avec genere_carnet.js, Task 5) :
-//   <!-- @ENTREES:verbes#<groupe> -->     (resp. adjectifs, noms) — tbody de table
-//   <!-- @ENTREES:listes/<slug> -->       — <li> d'un <ul class="word-list">
+//   <!-- @ENTREES:verbes#<groupe> -->        (resp. adjectifs, noms) — tbody de table
+//   <!-- @ENTREES:listes/<slug> -->          — <li> d'un <ul class="word-list"> seul dans sa section
+//   <!-- @ENTREES:listes/<slug>#<groupe> -->  — idem, quand la section a des sous-thèmes
+//     <h3 class="subtheme"> (correctif contrôleur : mécanisme de groupe des tables
+//     étendu aux listes — résout Adverbes/Saisons & mois, qui ont deux <ul> chacune)
 //   <!-- @TOKENS --> / <!-- @CSS:carnet --> / <!-- @JS:carnet -->  — tete/pied
 //
 // Les contenus retirés (lignes de données) ne sont PAS persistés par ce script
@@ -42,12 +45,16 @@ function reindent(text, prefix){
 
 // Remplace, dans `chunk`, le contenu de chaque <tbody>…</tbody> par le
 // placeholder de la clé `cat#groupe`, en empilant l'original retiré dans
-// `originaux` (Map clé -> file d'attente FIFO ; plusieurs tbody pourraient en
-// théorie partager une clé, gérés dans l'ordre du document).
-function remplaceTbodies(chunk, cat, groupe, originaux){
+// `originaux` (Map clé -> file d'attente FIFO). `gardeSection` (Set, propre à
+// la section en cours) fait qu'une même clé vue deux fois dans une section est
+// une erreur nommée — pas une fusion silencieuse.
+function remplaceTbodies(chunk, cat, groupe, originaux, gardeSection){
   const key = `${cat}#${groupe}`;
   const re = /(<tbody\b[^>]*>)([\s\S]*?)(<\/tbody>)/g;
   return chunk.replace(re, (m, open, inner, close) => {
+    if (gardeSection.has(key)) throw new Error(
+      `clé de placeholder dupliquée dans la section "${cat}" : "${key}" produite par au moins deux <tbody>`);
+    gardeSection.add(key);
     if (!originaux.has(key)) originaux.set(key, []);
     originaux.get(key).push(inner);
     return open + `<!-- @ENTREES:${key} -->` + close;
@@ -60,7 +67,8 @@ function remplaceTbodies(chunk, cat, groupe, originaux){
 // le groupe '' ; l'unicité des slugs de groupe est une erreur nommée, comme Task 2.
 function traiteTable(cat, sectionHtml, originaux){
   const parts = sectionHtml.split(/<h3 class="subtheme">([\s\S]*?)<\/h3>/);
-  let out = remplaceTbodies(parts[0], cat, '', originaux);
+  const gardeSection = new Set();
+  let out = remplaceTbodies(parts[0], cat, '', originaux, gardeSection);
   const vus = new Set(['']);
   for (let i = 1; i < parts.length; i += 2){
     const g = slug(B.decodeEntities(parts[i].replace(/<[^>]*>/g, '')));
@@ -69,36 +77,57 @@ function traiteTable(cat, sectionHtml, originaux){
       `de la section "${cat}" (titre en cause : « ${B.decodeEntities(parts[i].replace(/<[^>]*>/g, ''))} »)`);
     vus.add(g);
     out += '<h3 class="subtheme">' + parts[i] + '</h3>';
-    out += remplaceTbodies(parts[i + 1], cat, g, originaux);
+    out += remplaceTbodies(parts[i + 1], cat, g, originaux, gardeSection);
   }
   return out;
 }
 
-// Remplace, dans une section de liste (listCats), le contenu de chaque
-// <ul class="word-list">…</ul> par le placeholder listes/<slug> — fermeture
-// trouvée par B.closeOf (profondeur de balise, robuste aux <ul class="exemples">
-// imbriqués dans les <li>). Deux sections (Adverbes, Saisons & mois) ont deux
-// <ul class="word-list"> côte à côte (un par <h3 class="subtheme">) : la même
-// clé y apparaît deux fois, résolue dans l'ordre du document (FIFO) — ⚠️ Task 2
-// aplatit déjà ces deux listes dans un seul data/listes/<slug>.json sans
-// distinguer le sous-groupe, donc cette tâche ne peut pas faire mieux ici ; à
-// signaler pour Task 5 (voir rapport).
-function traiteListe(sslug, sectionHtml, originaux){
-  const key = `listes/${sslug}`;
+// Remplace, dans `chunk`, le contenu de chaque <ul class="word-list">…</ul> par
+// le placeholder de la clé (listes/<slug>, ou listes/<slug>#<groupe> dans un
+// sous-thème) — fermeture trouvée par B.closeOf (profondeur de balise, robuste
+// aux <ul class="exemples"> imbriqués dans les <li>). Même garde d'unicité de
+// clé par section que remplaceTbodies.
+function remplaceUlsListe(chunk, sslug, groupe, originaux, gardeSection){
+  const key = groupe ? `listes/${sslug}#${groupe}` : `listes/${sslug}`;
   const re = /<ul\b[^>]*class="word-list"[^>]*>/g;
   let out = '', last = 0, m;
-  while ((m = re.exec(sectionHtml))){
+  while ((m = re.exec(chunk))){
     const openEnd = m.index + m[0].length;
-    const closeIdx = B.closeOf(sectionHtml, openEnd, 'ul');
-    out += sectionHtml.slice(last, openEnd);
-    const inner = sectionHtml.slice(openEnd, closeIdx);
+    const closeIdx = B.closeOf(chunk, openEnd, 'ul');
+    out += chunk.slice(last, openEnd);
+    const inner = chunk.slice(openEnd, closeIdx);
+    if (gardeSection.has(key)) throw new Error(
+      `clé de placeholder dupliquée dans la section liste "${sslug}" : "${key}" produite par au moins deux <ul class="word-list">`);
+    gardeSection.add(key);
     if (!originaux.has(key)) originaux.set(key, []);
     originaux.get(key).push(inner);
     out += `<!-- @ENTREES:${key} -->`;
     last = closeIdx;
     re.lastIndex = closeIdx;
   }
-  out += sectionHtml.slice(last);
+  out += chunk.slice(last);
+  return out;
+}
+
+// Découpe une section de liste (listCats) aux <h3 class="subtheme"> — même
+// mécanisme que traiteTable (correctif contrôleur, 2026-07-24) : la plupart des
+// sections n'ont aucun h3 (un seul <ul>, clé plate listes/<slug>) ; Adverbes et
+// Saisons & mois en ont deux (Temps/Lieu & direction, Saisons/Mois) → clés
+// listes/<slug>#<groupe> distinctes, une par sous-thème.
+function traiteListe(sslug, sectionHtml, originaux){
+  const parts = sectionHtml.split(/<h3 class="subtheme">([\s\S]*?)<\/h3>/);
+  const gardeSection = new Set();
+  let out = remplaceUlsListe(parts[0], sslug, '', originaux, gardeSection);
+  const vus = new Set(['']);
+  for (let i = 1; i < parts.length; i += 2){
+    const g = slug(B.decodeEntities(parts[i].replace(/<[^>]*>/g, '')));
+    if (vus.has(g)) throw new Error(
+      `groupe dupliqué : le slug "${g}" est produit par au moins deux <h3 class="subtheme"> ` +
+      `de la section liste "${sslug}" (titre en cause : « ${B.decodeEntities(parts[i].replace(/<[^>]*>/g, ''))} »)`);
+    vus.add(g);
+    out += '<h3 class="subtheme">' + parts[i] + '</h3>';
+    out += remplaceUlsListe(parts[i + 1], sslug, g, originaux, gardeSection);
+  }
   return out;
 }
 

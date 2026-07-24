@@ -6,6 +6,7 @@
       "tr": "'akhshav",
       "fr": "maintenant",
       "niveau": "A1",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "אֲנִי לוֹמֵד עִבְרִית עַכְשָׁיו",
@@ -19,6 +20,7 @@
       "tr": "hayom",
       "fr": "aujourd'hui",
       "niveau": "A1",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "הַיּוֹם הַשֶּׁמֶשׁ חַמָּה מְאֹד",
@@ -32,6 +34,7 @@
       "tr": "etmol",
       "fr": "hier",
       "niveau": "A1",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "אֶתְמוֹל אָכַלְתִּי בַּמִּסְעָדָה",
@@ -45,6 +48,7 @@
       "tr": "machar",
       "fr": "demain",
       "niveau": "A1",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "מָחָר אֲנִי הוֹלֵךְ לָרוֹפֵא",
@@ -58,6 +62,7 @@
       "tr": "kvar",
       "fr": "déjà",
       "niveau": "A2",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "הַיְּלָדִים כְּבָר יְשֵׁנִים",
@@ -71,6 +76,7 @@
       "tr": "shuv",
       "fr": "de nouveau, encore",
       "niveau": "A2",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "הוּא קוֹרֵא אֶת הַסֵּפֶר שׁוּב",
@@ -84,6 +90,7 @@
       "tr": "tamid",
       "fr": "toujours",
       "niveau": "A1",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "אֲנִי תָּמִיד שׁוֹתֶה תֵּה בַּבֹּקֶר",
@@ -97,6 +104,7 @@
       "tr": "af pa'am",
       "fr": "jamais",
       "niveau": "A2",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "הִיא אַף פַּעַם לֹא אוֹכֶלֶת בָּשָׂר",
@@ -110,6 +118,7 @@
       "tr": "lif'amim",
       "fr": "parfois",
       "niveau": "A2",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "לִפְעָמִים אֲנַחְנוּ אוֹכְלִים בַּמִּסְעָדָה",
@@ -123,6 +132,7 @@
       "tr": "mukdam",
       "fr": "tôt",
       "niveau": "A2",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "אֲנִי קָם מֻקְדָּם בַּבֹּקֶר",
@@ -136,6 +146,7 @@
       "tr": "me'uchar",
       "fr": "tard",
       "niveau": "A2",
+      "groupe": "temps",
       "exemples": [
         {
           "he": "הוּא חוֹזֵר מְאֻחָר בַּלַּיְלָה",
@@ -149,6 +160,7 @@
       "tr": "kan",
       "fr": "ici",
       "niveau": "A1",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "אֲנִי מְחַכֶּה לְךָ כָּאן",
@@ -162,6 +174,7 @@
       "tr": "sham",
       "fr": "là, là-bas",
       "niveau": "A1",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "הַסֵּפֶר שֶׁלִּי שָׁם עַל הַכִּסֵּא",
@@ -175,6 +188,7 @@
       "tr": "yamin",
       "fr": "droite",
       "niveau": "A1",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "הַחֲנוּת מִיָּמִין לַתַּחֲנָה",
@@ -189,6 +203,7 @@
       "tr": "smol",
       "fr": "gauche",
       "niveau": "A1",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "הַסּוּפֶּרְמַרְקֶט מִשְּׂמֹאל לַבַּנְק",
@@ -203,6 +218,7 @@
       "tr": "lema'lah",
       "fr": "en haut",
       "niveau": "A2",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "הַחֲדָרִים שֶׁל הַיְּלָדִים לְמַעְלָה",
@@ -216,6 +232,7 @@
       "tr": "lematah",
       "fr": "en bas",
       "niveau": "A2",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "אֲנִי מְחַכֶּה לְךָ לְמַטָּה",
@@ -229,6 +246,7 @@
       "tr": "bachuts",
       "fr": "dehors",
       "niveau": "A2",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "בַּחוּץ קַר מְאֹד הַיּוֹם",
@@ -242,6 +260,7 @@
       "tr": "bifnim",
       "fr": "dedans, à l'intérieur",
       "niveau": "A2",
+      "groupe": "lieu-direction",
       "exemples": [
         {
           "he": "בִּפְנִים חַם וְנָעִים",
