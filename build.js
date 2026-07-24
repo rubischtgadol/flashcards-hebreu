@@ -8,7 +8,7 @@
  *   - vocabulaire_hebreu.html (le carnet)      via genereCarnet()   (gabarits.js)
  *   - cards.json ({version, cartes})           via deriveCartes()
  *   - app.html (les flashcards en ligne)       via assembleApp() depuis src/app/
- *     (coquille.html + app.css + js/*.js dans l'ordre de ordre.json + src/tokens.css)
+ *     (coquille.html + css/*.css et js/*.js dans l'ordre de ordre.json + src/tokens.css)
  *   - flashcards_hebreu.html (version autonome) via generateStandalone(cards, appAssemble),
  *     inchangé sur le fond : dérivé de l'app FRAÎCHEMENT ASSEMBLÉE (jamais de l'ancien
  *     app.html du disque — sinon --check, qui n'écrit rien, validerait un déphasage), dont
@@ -605,13 +605,12 @@ function report(cards){
  * « FICHIER GÉNÉRÉ » (celui-ci reste la responsabilité de l'appelant — insereEntete()
  * — pour que generateStandalone() puisse dériver du même contenu brut et poser son
  * propre en-tête distinct sans en empiler deux, cf. task-13-brief.md § Couture B).
- * `srcApp` : chemin absolu vers src/app (contient coquille.html, app.css, ordre.json, js/) ;
+ * `srcApp` : chemin absolu vers src/app (contient coquille.html, css/, js/, ordre.json) ;
  * src/tokens.css est lu un niveau au-dessus, comme pour le carnet (genereCarnet).
  */
 function assembleApp(srcApp){
   const lire = (f) => fs.readFileSync(path.join(srcApp, f), 'utf8');
   const coquille = lire('coquille.html');
-  const cssApp = lire('app.css');
   const ordre = JSON.parse(lire('ordre.json'));
 
   // Garde d'orphelin entre src/app/ordre.json et le contenu réel de src/app/js/ (round de
@@ -621,24 +620,49 @@ function assembleApp(srcApp){
   // sens sont vérifiés séparément pour nommer le fichier fautif, pas un diff vague.
   const jsDir = path.join(srcApp, 'js');
   const jsSurDisque = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
-  const manquants = ordre.filter(f => !jsSurDisque.includes(f));
+  const manquants = ordre.js.filter(f => !jsSurDisque.includes(f));
   if (manquants.length){
-    console.error('\n✗ src/app/ordre.json liste des fichiers absents de src/app/js/ : ' + manquants.join(', '));
+    console.error('\n✗ src/app/ordre.json (clé js) liste des fichiers absents de src/app/js/ : ' + manquants.join(', '));
     console.error('  (fichier renommé ou supprimé sans mettre ordre.json à jour ?)');
     process.exit(1);
   }
-  const orphelins = jsSurDisque.filter(f => !ordre.includes(f));
+  const orphelins = jsSurDisque.filter(f => !ordre.js.includes(f));
   if (orphelins.length){
-    console.error('\n✗ Fichier(s) dans src/app/js/ absent(s) de src/app/ordre.json : ' + orphelins.join(', '));
+    console.error('\n✗ Fichier(s) dans src/app/js/ absent(s) de src/app/ordre.json (clé js) : ' + orphelins.join(', '));
     console.error('  (nouveau module JS ajouté sans l\'inscrire dans ordre.json ? il serait omis du build en silence.)');
     process.exit(1);
   }
 
-  // Séparateur explicite entre modules (round de correction Task 13, minor 1) : dès que
-  // ordre.json liste plusieurs fichiers (Task 14+), un module sans retour à la ligne final
-  // collerait sinon au suivant. Sans effet sur le cas actuel à un seul fichier — join() ne
-  // pose un séparateur qu'ENTRE éléments, jamais après le dernier ni avant le seul.
-  const jsApp = ordre.map(f => fs.readFileSync(path.join(jsDir, f), 'utf8')).join('\n');
+  // Même garde d'orphelin, côté src/app/css/ (Task 14 : le CSS monolithique app.css est
+  // scindé en 6 fragments cascadés par ordre.json/css). Symétrique à la garde JS ci-dessus,
+  // pour la même raison : un fragment retiré du dossier sans toucher ordre.json, ou l'inverse,
+  // serait sinon omis du CSS servi EN SILENCE.
+  const cssDir = path.join(srcApp, 'css');
+  const cssSurDisque = fs.readdirSync(cssDir).filter(f => f.endsWith('.css'));
+  const cssManquants = ordre.css.filter(f => !cssSurDisque.includes(f));
+  if (cssManquants.length){
+    console.error('\n✗ src/app/ordre.json (clé css) liste des fichiers absents de src/app/css/ : ' + cssManquants.join(', '));
+    console.error('  (fichier renommé ou supprimé sans mettre ordre.json à jour ?)');
+    process.exit(1);
+  }
+  const cssOrphelins = cssSurDisque.filter(f => !ordre.css.includes(f));
+  if (cssOrphelins.length){
+    console.error('\n✗ Fichier(s) dans src/app/css/ absent(s) de src/app/ordre.json (clé css) : ' + cssOrphelins.join(', '));
+    console.error('  (nouveau fragment CSS ajouté sans l\'inscrire dans ordre.json ? il serait omis du build en silence.)');
+    process.exit(1);
+  }
+
+  // Séparateur explicite entre modules JS (round de correction Task 13, minor 1) : dès que
+  // ordre.json liste plusieurs fichiers, un module sans retour à la ligne final collerait
+  // sinon au suivant. Sans effet sur le cas actuel à un seul fichier — join() ne pose un
+  // séparateur qu'ENTRE éléments, jamais après le dernier ni avant le seul.
+  const jsApp = ordre.js.map(f => fs.readFileSync(path.join(jsDir, f), 'utf8')).join('\n');
+  // CSS : concaténation SANS séparateur (contrairement au JS ci-dessus). Les 6 fragments sont
+  // des coupures pures aux frontières de lignes de l'ancien app.css (Task 14, un octet ne
+  // change pas) : chacun se termine déjà par le \n exact de la coupure d'origine, donc join('')
+  // reproduit l'original au caractère près — un join('\n') ajouterait une ligne vide à chacune
+  // des 5 frontières et romprait l'identité byte-à-byte avec l'app.html committé.
+  const cssApp = ordre.css.map(f => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('');
   const tokens = fs.readFileSync(path.join(srcApp, '..', 'tokens.css'), 'utf8');
 
   // Piège d'indentation (résolu à l'assemblage, jamais en éditant app.html — task-13-brief.md

@@ -1,0 +1,28 @@
+  /* ---------- Mode QCM ---------- */
+  /* Carte plus compacte : question en haut, réponses cliquables en dessous. */
+  body.quiz-mode .flip{ min-height:150px; height:auto; max-height:none; }
+  body.quiz-mode .stage{ flex:0 0 auto; margin-bottom:6px; }
+  body.quiz-mode .face{ padding:34px 20px 30px; }
+  .quiz-zone{ margin-top:6px; }
+  .quiz-choices{ display:flex; flex-direction:column; gap:10px; }
+  .qc{
+    width:100%; border:1px solid var(--line); background:var(--card); color:var(--ink);
+    font-family:inherit; font-size:1.1rem; padding:14px 16px; border-radius:12px;
+    cursor:pointer; text-align:center; transition:border-color .12s ease, background .12s ease, color .12s ease;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+  }
+  .qc .qc-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.7rem; direction:rtl; line-height:1.15; }
+  .qc .qc-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.82rem; color:var(--ink-dim); direction:ltr; }
+  .qc:hover{ border-color:var(--gold); }
+  .qc:disabled{ cursor:default; }
+  .qc.ok{ border-color:var(--green); background:rgba(91,189,122,.14); color:var(--green); }
+  .qc.ok .qc-tr{ color:var(--green); }
+  .qc.no{ border-color:var(--red); background:rgba(217,106,91,.13); color:var(--red); }
+  .qc.no .qc-tr{ color:var(--red); }
+  .qc.dim{ opacity:.5; }
+  /* Options « Phrases » : quatre phrases complètes empilées feraient des boutons
+     très hauts sur petit écran — corps réduit et boutons plus serrés. */
+  .qc.ph{ font-size:.95rem; padding:10px 14px; line-height:1.35; }
+  .qc.ph .qc-he{ font-size:1.15rem; line-height:1.3; }
+  #quiz-next{ margin-top:14px; }
+

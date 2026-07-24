@@ -1,0 +1,172 @@
+  /* ---------- Setup panel ---------- */
+  .panel{
+    background:linear-gradient(180deg, var(--card), var(--bg2));
+    border:1px solid var(--card-edge); border-radius:16px;
+    padding:16px 15px; max-width:520px; width:100%; margin:8px auto 0;
+  }
+  .panel h2{
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:.84rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.12em; color:var(--gold);
+    margin:0 0 9px;
+  }
+  .panel h2:not(:first-of-type){ margin-top:18px; }
+  /* L'action du jour n'est pas un réglage : elle sort de la voix Title (étiquette de
+     repère) pour la voix display, au pas « marque » du barème. Pas d'or ajouté — la
+     carte de révision porte déjà la seule teinte dorée au repos. */
+  .panel h2.lead{
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+    font-size:1.5rem; font-weight:700; text-transform:none; letter-spacing:0;
+    color:var(--ink); margin-bottom:12px;
+  }
+
+  /* ---------- Search ---------- */
+  .search-wrap{ position:relative; margin:20px 0 4px; }
+  .search-ico{ position:absolute; left:13px; top:50%; transform:translateY(-50%); width:18px; height:18px; color:var(--ink-dim); pointer-events:none; }
+  #search-input{
+    width:100%; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1rem;
+    padding:12px 48px 12px 40px; transition:border-color .15s ease;
+  }
+  #search-input:focus{ border-color:var(--gold); }
+  .search-clear{
+    position:absolute; right:2px; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%; border:none; background:transparent;
+    color:var(--ink-dim); font-size:1.3rem; line-height:1; cursor:pointer;
+  }
+  /* Pas de défilement imbriqué : les résultats s'étirent et la page défile. */
+  .search-results{ margin:10px 0 4px; display:flex; flex-direction:column; gap:6px; }
+  .sr-count{ font-size:.84rem; color:var(--ink-dim); padding:2px 2px 4px; }
+  .sr-row{
+    display:flex; align-items:center; gap:11px; padding:9px 11px;
+    border:1px solid var(--line); border-radius:11px; background:var(--bg2); cursor:pointer;
+    transition:border-color .12s ease;
+  }
+  .sr-row:hover{ border-color:var(--gold); }
+  .sr-speak{
+    flex:none; width:44px; height:44px; border-radius:50%;
+    border:1px solid var(--line); background:transparent; color:var(--gold);
+    display:flex; align-items:center; justify-content:center; padding:0;
+  }
+  .sr-speak svg{ width:17px; height:17px; }
+  .sr-body{ flex:1; min-width:0; }
+  .sr-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.3rem; direction:rtl; }
+  .sr-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.84rem; color:var(--ink-dim); margin-inline-start:8px; }
+  .sr-fr{ color:var(--ink); font-size:.9rem; margin-top:1px; }
+  .sr-cat{ flex:none; font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:3px 9px; white-space:nowrap; }
+  .search-empty{ color:var(--ink-dim); font-size:.95rem; padding:10px 2px; }
+  .sr-item{ border:1px solid var(--line); border-radius:11px; background:var(--bg2); overflow:hidden; }
+  .sr-item .sr-row{ border:none; border-radius:0; background:transparent; }
+  .sr-item.open{ border-color:var(--gold); }
+  .sr-chev{ flex:none; color:var(--ink-dim); font-size:1.3rem; line-height:1; transition:transform .18s ease; }
+  .sr-item.open .sr-chev{ transform:rotate(90deg); color:var(--gold); }
+  .sr-detail{ padding:2px 12px 12px 12px; border-top:1px dashed var(--line); margin:0 0 2px; }
+  .srd-title{ font-size:.76rem; text-transform:uppercase; letter-spacing:.1em; color:var(--gold); margin:10px 0 7px; }
+  .srd-forms{ display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; direction:rtl; }
+  .srd-f{ display:flex; align-items:baseline; gap:7px; }
+  .srd-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.15rem; direction:rtl; }
+  .srd-lbl{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.8rem; color:var(--ink-dim); direction:ltr; }
+  .srd-note{ font-size:.8rem; color:var(--ink-dim); font-style:italic; margin-top:10px; direction:ltr; }
+  .chips{ display:flex; flex-wrap:wrap; gap:7px; }
+  .chip{
+    border:1px solid var(--line); background:transparent; color:var(--ink);
+    font-family:inherit; font-size:.95rem; padding:7px 13px; border-radius:999px;
+    cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease, opacity .15s ease; user-select:none;
+  }
+  .chip:hover{ border-color:var(--gold); }
+  .chip[aria-pressed="true"]{
+    background:var(--gold); color:#1a1206; border-color:var(--gold); font-weight:600;
+  }
+  /* Sans voix hébraïque, le réglage « Prononciation » est sans effet → chips inertes. */
+  .chip:disabled{ opacity:.45; cursor:not-allowed; border-color:var(--line); }
+  .chip .n{ opacity:.6; font-size:.76em; margin-inline-start:5px; }
+  /* Au doigt : chips à hauteur de cible confortable (~44px), sans épaissir le bureau. */
+  @media (pointer:coarse){
+    .chip{ padding:11px 16px; }
+    .cat-row .chip{ padding:9px 13px; }
+  }
+  .chip[aria-pressed="true"] .n{ opacity:.7; }
+  .seg{ display:flex; gap:7px; flex-wrap:wrap; }
+  .cat-row{ display:flex; align-items:center; gap:8px; margin-bottom:9px; }
+  .cat-row .chip{ font-size:.9rem; padding:5px 11px; }
+  .selall{
+    background:none; border:none; color:var(--gold); font-family:inherit;
+    font-size:.9rem; cursor:pointer; text-decoration:underline; padding:0;
+  }
+  .start{
+    margin-top:20px; width:100%; border:1px solid transparent; border-radius:12px;
+    background:linear-gradient(180deg, var(--gold-soft), var(--gold));
+    color:#1a1206; font-family:inherit; font-weight:700; font-size:1rem;
+    padding:14px; cursor:pointer; letter-spacing:.01em;
+    box-shadow:0 6px 18px -8px var(--gold);
+    /* Propriétés listées une à une, jamais `all` : le raccourci capture les
+       longhands `outline-*`, que WebKit fige alors sur leurs valeurs initiales —
+       l'anneau de focus doré disparaît sans qu'aucun sélecteur cesse de matcher. */
+    transition:background .13s ease, border-color .13s ease, color .13s ease, box-shadow .13s ease;
+  }
+  /* Une seule lampe à la fois. Des cartes sont dues → la révision est l'action
+     encouragée, et « Commencer » lui cède la lumière sans cesser d'être offert.
+     Il prend la peau de `.exit` (--card plein + --card-edge), l'or ne revenant
+     qu'au survol et au focus, donc jamais sur un état au repos. */
+  body.has-due .start:enabled{
+    background:var(--card); border-color:var(--card-edge); color:var(--ink);
+    box-shadow:none;
+  }
+  body.has-due .start:enabled:hover{ border-color:var(--gold); }
+  /* Désactivé, « Commencer » quitte l'or : la lampe n'éclaire jamais un état inerte
+     (règle de la lampe). Peau pleine et opaque plutôt qu'une opacité, qui laissait
+     le contenu de la page transparaître à travers le bouton.
+     ⚠️ Ce qui le sépare du secondaire actif ci-dessus n'est PAS le filet — --line
+     (#2a3440) et --card-edge (#2c3844) sont indiscernables à l'écran — mais la
+     surface (aucune contre une peau pleine) et le texte (estompé contre plein). */
+  .start:disabled{
+    background:none; border-color:var(--line); color:var(--ink-dim);
+    cursor:not-allowed; box-shadow:none;
+  }
+  /* Au doigt, « Commencer » reste dans la zone du pouce pendant le défilement —
+     mais seulement une fois actif ET seul allumé. Épinglé alors que la révision
+     est la lampe, il resterait la seule action visible pendant que la lampe
+     défile hors de vue : la hiérarchie corrigée dans l'espace, réintroduite dans
+     le temps. La carte de révision, elle, est en tête — elle n'a rien à épingler. */
+  @media (pointer:coarse){
+    body:not(.has-due) .start:enabled{ position:sticky; bottom:12px; z-index:2; }
+  }
+
+  /* ---------- Pli « Réglages avancés » ---------- */
+  /* Ordre/Longueur/Prononciation se règlent une fois (mémorisés) : repliés,
+     l'écran raccourcit et « Commencer » remonte. */
+  .adv{ margin-top:18px; border:1px solid var(--line); border-radius:12px; background:var(--bg2); }
+  .adv summary{
+    display:flex; align-items:baseline; gap:10px; cursor:pointer; list-style:none;
+    padding:12px 14px; border-radius:12px; -webkit-tap-highlight-color:transparent;
+    font-size:.95rem; font-weight:600; color:var(--ink); transition:color .13s ease;
+  }
+  .adv summary::-webkit-details-marker{ display:none; }
+  .adv summary:hover .adv-chev{ color:var(--gold); }
+  .adv-sub{ margin-left:auto; font-weight:400; font-size:.8rem; color:var(--ink-dim);
+    min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .adv-chev{ color:var(--ink-dim); transition:transform .15s ease; align-self:center; }
+  .adv[open] .adv-chev{ transform:rotate(90deg); }
+  .adv-body{ padding:2px 14px 16px; }
+  /* « Catégories » et « Niveau » se replient dans le même pli. Leur <h2> devient la
+     rangée du summary (il reste le nom accessible du role="group") : il prend donc la
+     voix du libellé de pli, et non la voix Title des sections restées dépliées — un
+     groupe replié se lit comme un pli, pas comme une section. */
+  .adv summary h2.adv-lbl{
+    font-family:inherit; font-size:inherit; font-weight:600; text-transform:none;
+    letter-spacing:0; color:var(--ink); margin:0;
+  }
+  /* Le summary est la seule cible tactile du groupe replié. */
+  @media (pointer:coarse){
+    .adv summary{ min-height:44px; box-sizing:border-box; align-items:center; }
+  }
+  /* Remise à zéro : discrète au repos, rouge assumé au moment de confirmer. */
+  .reset-zone{ margin-top:20px; padding-top:4px; border-top:1px solid var(--line); }
+  .reset-call:hover{ border-color:var(--red); color:var(--red); }
+  .reset-confirm{ margin-top:10px; padding:12px 14px; border:1px solid var(--red); border-radius:12px; background:rgba(217,106,91,.07); }
+  .reset-confirm p{ margin:0 0 12px; font-size:.9rem; line-height:1.5; }
+  .reset-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  .danger-btn{ background:var(--red); border:1px solid var(--red); border-radius:10px; color:#1a0d0a;
+    font-family:inherit; font-size:.9rem; font-weight:600; padding:9px 14px; cursor:pointer; transition:filter .13s ease; }
+  .danger-btn:hover{ filter:brightness(1.1); }
+  .reset-done{ margin-top:10px; font-size:.9rem; color:var(--green); }
+

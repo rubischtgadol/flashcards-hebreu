@@ -1,3 +1,13 @@
-[
-  "00-tout.js"
-]
+{
+  "css": [
+    "10-base.css",
+    "20-selection.css",
+    "30-cartes.css",
+    "40-reponses.css",
+    "50-qcm.css",
+    "60-revision.css"
+  ],
+  "js": [
+    "00-tout.js"
+  ]
+}

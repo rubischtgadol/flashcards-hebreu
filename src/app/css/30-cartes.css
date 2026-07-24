@@ -1,0 +1,147 @@
+  /* ---------- Study screen ---------- */
+  .study{ display:none; flex-direction:column; flex:1; max-width:520px; width:100%; margin:0 auto; }
+  .study.active{ display:flex; }
+  .setup.hidden{ display:none; }
+
+  .progress-wrap{ display:flex; align-items:center; gap:12px; margin:6px 2px 16px; }
+  .bar{ flex:1; height:5px; background:var(--line); border-radius:999px; overflow:hidden; }
+  .bar > span{ display:block; height:100%; width:100%; background:var(--gold); border-radius:999px; transform:scaleX(0); transform-origin:left; transition:transform .35s ease; }
+  .counter{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.88rem; color:var(--ink-dim); white-space:nowrap; }
+  .exit{ display:inline-flex; align-items:center; gap:3px; min-height:44px; background:var(--card); border:1px solid var(--card-edge); color:var(--ink-dim); font-family:inherit; font-size:.95rem; line-height:1; cursor:pointer; padding:9px 12px 9px 10px; border-radius:10px; -webkit-tap-highlight-color:transparent; }
+  .exit > span{ font-size:.82rem; letter-spacing:.02em; }
+  .exit:hover, .exit:active{ color:var(--ink); border-color:var(--ink-dim); }
+
+  /* ---------- The card ---------- */
+  .stage{ flex:1; display:flex; align-items:center; justify-content:center; margin-bottom:4px; }
+  .flip{
+    position:relative; width:100%; max-width:420px;
+    display:flex; flex-direction:column;
+    border-radius:20px; border:1px solid var(--card-edge);
+    background:linear-gradient(160deg, var(--card), var(--bg2));
+    box-shadow:0 20px 50px -22px #000, inset 0 1px 0 rgba(255,255,255,.03);
+    cursor:pointer; overflow:hidden;
+    min-height:340px; max-height:520px; height:min(60vh,520px);
+    transition:transform .12s ease;
+  }
+  /* En mode saisie, carte plus compacte pour que réponse + Suivant tiennent à l'écran. */
+  body.input-mode .flip{ min-height:190px; height:min(32vh,290px); }
+  body.input-mode .stage{ flex:0 0 auto; margin-bottom:2px; }
+  .flip:active{ transform:scale(.994); }
+  .face{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:44px 22px 40px; text-align:center; overflow-y:auto;
+  }
+  /* Marges auto : garde le contenu centré, mais si la carte déborde (carte compacte
+     du mode saisie) le haut du texte reste atteignable au défilement. */
+  #face-content{ margin-block:auto; }
+  .face .eyebrow{
+    position:absolute; top:16px; left:0; right:0;
+    font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:600;
+  }
+  .face .hint{
+    position:absolute; bottom:14px; left:0; right:0;
+    font-size:.84rem; color:var(--ink-dim);
+  }
+  .speak-btn{
+    position:absolute; top:12px; right:14px;
+    width:40px; height:40px; border-radius:50%;
+    border:1px solid var(--line); background:rgba(0,0,0,.18);
+    color:var(--gold); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; padding:0; transition:transform .1s ease, color .15s ease, border-color .15s ease;
+    z-index:2;
+  }
+  .speak-btn svg{ width:21px; height:21px; }
+  .speak-btn:active{ transform:scale(.9); }
+  .speak-btn.speaking{ color:var(--gold-soft); border-color:var(--gold); }
+  .speak-btn.hide{ display:none !important; }
+  /* Pas de voix hébraïque sur l'appareil : on masque les boutons audio plutôt
+     que de laisser la voix par défaut prononcer l'hébreu de travers. */
+  body.no-he-voice .speak-btn, body.no-he-voice .sr-speak, body.no-he-voice .spk-hint, body.no-he-voice .ex-speak{ display:none !important; }
+  .audio-note, .seg-note{ color:var(--ink-dim); font-size:.76rem; margin-top:8px; }
+  /* Vide dans la version autonome (pas de chargement réseau à mesurer) : masqué. */
+  #perf-boot:empty{ display:none; }
+  /* Identifiant AVFoundation de la voix retenue. C'est lui, et non `name`, qui porte
+     la qualité (« …-compact » / « .enhanced. ») : au niveau système ce sont deux champs
+     distincts, et l'API Web Speech n'expose pas le second. Seul diagnostic possible
+     depuis le web sur iOS. Voix Label, LTR, coupable n'importe où (un identifiant est
+     long et n'a pas de mots). */
+  .voice-id{
+    display:block; margin-top:3px; direction:ltr;
+    font-family:'JetBrains Mono','Courier New',monospace; font-size:.7rem;
+    word-break:break-all;
+  }
+  .face.flip-anim{ animation:cardIn .26s ease; }
+  @keyframes cardIn{ from{ opacity:.4; transform:translateY(4px); } to{ opacity:1; transform:none; } }
+
+  /* Tailles uniformes : un même élément (mot, translittération, inflexions…)
+     garde la même taille partout où il apparaît (carte, feedback, les deux sens). */
+  .big-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.6rem; line-height:1.15; direction:rtl; }
+  .big-he.cursive{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:3.2rem; color:var(--gold-soft); }
+  .big-fr{ font-size:2.4rem; font-weight:600; font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; }
+  /* Phrases : plus longues qu'un mot → taille réduite et retour à la ligne propre. */
+  .big-he.phrase{ font-size:2.15rem; line-height:1.45; }
+  .big-fr.phrase{ font-size:1.5rem; line-height:1.35; }
+  @media (max-width:480px){ .big-he.phrase{ font-size:1.9rem; } .big-fr.phrase{ font-size:1.35rem; } }
+  .translit{ font-family:'JetBrains Mono','Courier New',monospace; font-size:1.1rem; color:var(--ink-dim); margin-top:12px; direction:ltr; }
+  .sub-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.9rem; direction:rtl; margin-top:6px; }
+  .sub-fr{ font-size:1.15rem; color:var(--ink); margin-top:10px; }
+  .cursive-line{ font-family:'Playpen Sans Hebrew','Segoe Script','Comic Sans MS',cursive; font-weight:300; font-size:1.7rem; color:var(--gold-soft); direction:rtl; margin-top:8px; }
+  .note-line{ font-size:1rem; color:var(--ink-dim); margin-top:14px; max-width:90%; font-style:italic; }
+  /* --- Exemples en situation : pli « Voir un exemple » (verso, feedback, QCM) --- */
+  .ex-wrap{ margin-top:16px; }
+  .ex-toggle{
+    background:none; border:1px solid var(--line); border-radius:10px;
+    color:var(--ink-dim); font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:.88rem;
+    padding:7px 14px; cursor:pointer; transition:border-color .15s ease, color .15s ease;
+  }
+  .ex-toggle:hover{ border-color:var(--gold); color:var(--gold); }
+  .ex-toggle[aria-expanded="true"]{ color:var(--gold); }
+  .ex-box{ margin-top:12px; display:flex; flex-direction:column; gap:10px; }
+  .ex-item{ display:flex; align-items:center; justify-content:center; gap:10px; }
+  .ex-body{ min-width:0; }
+  .ex-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.5rem; line-height:1.45; direction:rtl; }
+  .ex-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.8rem; color:var(--ink-dim); direction:ltr; margin-top:2px; }
+  .ex-fr{ font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif; font-size:.95rem; margin-top:2px; }
+  .ex-speak{
+    flex:0 0 auto; width:40px; height:40px; padding:9px; border-radius:50%;
+    border:1px solid var(--line); background:none; color:var(--ink-dim); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .ex-speak:hover{ border-color:var(--gold); color:var(--gold); }
+  .ex-speak svg{ width:100%; height:100%; }
+  /* Au doigt, toute la famille passe la barre des 44px — pas seulement les deux
+     contrôles traités au premier passage. .ex-toggle et les boutons de correction
+     comptent double : ce sont ceux qu'on vise juste après s'être trompé. */
+  @media (pointer:coarse){
+    .ex-speak, #speak-btn{ width:44px; height:44px; }
+    .ex-toggle, #fix-verdict, #quiz-fix, #btn-skip, #reset-btn{
+      min-height:44px; padding-block:10px;
+    }
+    #selall, .src-link a{
+      display:inline-flex; align-items:center; min-height:44px;
+    }
+  }
+  .quiz-ex{ text-align:center; margin-top:4px; }
+  /* Dans le tiroir de la recherche : version compacte, alignée à gauche comme le reste du tiroir. */
+  .srd-ex{ display:flex; align-items:center; gap:8px; margin:6px 0; }
+  .srd-ex .ex-he{ font-size:1.15rem; }
+  .srd-ex .ex-tr{ font-size:.76rem; margin-top:0; }
+  .srd-ex .ex-fr{ font-size:.8rem; margin-top:0; }
+  .srd-ex .ex-speak{ width:34px; height:34px; padding:7px; }
+  /* Inflexions : chaque forme est une cellule empilée (mot au-dessus, étiquette
+     dessous), le tout centré et en retour à la ligne — jamais de mélange rtl/ltr
+     sur une même ligne (source des chevauchements) et une taille lisible. */
+  .forms{
+    margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start;
+    gap:14px 22px; direction:rtl; max-width:100%;
+  }
+  /* Verbes : les 4 formes se rangent en 2×2 — singulier au-dessus, pluriel
+     dessous ; en lecture RTL (direction:rtl ci-dessus) le masculin tombe à
+     droite, le féminin à gauche, exactement comme une table de conjugaison. */
+  .forms.forms-grid{ display:grid; grid-template-columns:repeat(2,max-content); justify-content:center; gap:14px 34px; }
+  .forms .form-cell{ display:flex; flex-direction:column; align-items:center; gap:3px; min-width:78px; }
+  .forms .f-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:2rem; line-height:1.1; direction:rtl; }
+  .forms .f-lbl{ font-size:.85rem; color:var(--ink-dim); direction:ltr; line-height:1.2; white-space:nowrap; }
+

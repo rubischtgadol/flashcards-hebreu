@@ -1,0 +1,134 @@
+  /* ---------- Answer controls ---------- */
+  .controls{ display:flex; gap:10px; margin-top:18px; min-height:52px; }
+  .controls button{
+    flex:1; border-radius:12px; font-family:inherit; font-weight:600; font-size:.95rem;
+    padding:13px; cursor:pointer; border:1px solid var(--line); background:var(--card); color:var(--ink);
+    transition:background .13s ease, color .13s ease, border-color .13s ease, opacity .13s ease;
+  }
+  .btn-flip{ background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206; border:none; font-weight:700; }
+  .btn-again{ border-color:var(--red); color:var(--red); }
+  .btn-again:hover{ background:var(--red); color:#1a0d0a; }
+  .btn-good{ border-color:var(--green); color:var(--green); }
+  .btn-good:hover{ background:var(--green); color:#0a1a0f; }
+  .hide{ display:none !important; }
+
+  /* ---------- Input mode ---------- */
+  .input-zone{ margin-top:18px; }
+  .input-row{ display:flex; gap:10px; }
+  #answer-input{
+    flex:1; border-radius:12px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); font-family:inherit; font-size:1.1rem;
+    padding:13px 15px; transition:border-color .15s ease;
+  }
+  #answer-input:focus{ border-color:var(--gold); }
+  #answer-input.ok{ border-color:var(--green); }
+  #answer-input.no{ border-color:var(--red); }
+  #btn-check{
+    border:none; border-radius:12px; font-family:inherit; font-weight:700; font-size:.95rem;
+    padding:13px 20px; cursor:pointer;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206;
+  }
+  .btn-next{
+    margin-top:14px; width:100%; border:none; border-radius:12px; font-family:inherit;
+    font-weight:700; font-size:.95rem; padding:14px; cursor:pointer;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206;
+  }
+  .feedback{ margin-top:14px; text-align:center; font-size:1rem; min-height:1.2em; }
+  .feedback .verdict{ font-weight:700; font-size:1.1rem; }
+  .feedback .verdict.ok{ color:var(--green); }
+  .feedback .verdict.no{ color:var(--red); }
+  .feedback .answer{ margin-top:8px; color:var(--ink); }
+  .feedback .answer .he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.9rem; direction:rtl; }
+  .feedback .answer .tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:1.1rem; color:var(--ink-dim); }
+  .feedback .your-answer{ font-size:.9rem; color:var(--ink-dim); margin-top:6px; }
+  .feedback .your-answer s{ opacity:.7; }
+  /* « Corriger » / « Annuler » : même bouton discret dans les trois modes. */
+  .fix-btn{
+    margin-top:12px; border:1px solid var(--line); background:transparent; color:var(--ink-dim);
+    border-radius:10px; font-family:inherit; font-size:.86rem; padding:8px 14px; cursor:pointer; transition:background .13s ease, color .13s ease, border-color .13s ease, opacity .13s ease;
+  }
+  .fix-btn:hover{ color:var(--gold); border-color:var(--gold); }
+  .fix-btn[disabled]{ opacity:.5; cursor:default; }
+  .fix-row{ text-align:center; }
+
+  /* ---------- Done screen ---------- */
+  .done{ display:none; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; max-width:520px; margin:0 auto; }
+  .done.active{ display:flex; }
+  .done .score{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:3.4rem; color:var(--gold); }
+  .done .score small{ font-size:1.4rem; color:var(--ink-dim); }
+  .done p{ color:var(--ink-dim); margin:6px 0 24px; }
+  /* Récapitulatif des ratées : mêmes rangées posées que la recherche, en lecture seule. */
+  .missed-list{
+    list-style:none; margin:0 0 24px; padding:0; width:100%; max-width:420px;
+    display:flex; flex-direction:column; gap:6px; text-align:left;
+  }
+  .missed-list li{
+    display:flex; flex-wrap:wrap; align-items:baseline; column-gap:14px; row-gap:2px;
+    padding:9px 13px; border:1px solid var(--line); border-radius:11px; background:var(--bg2);
+  }
+  .missed-list .m-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.3rem; line-height:1.3; direction:rtl; }
+  .missed-list .m-fr{ color:var(--ink-dim); font-size:.95rem; margin-inline-start:auto; }
+  .again-btns{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+  .again-btns button{
+    border-radius:12px; font-family:inherit; font-weight:600; font-size:.95rem; padding:12px 20px; cursor:pointer;
+    border:1px solid var(--line); background:var(--card); color:var(--ink);
+  }
+  .again-btns .primary{ background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#1a1206; border:none; }
+
+  kbd{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.84rem; background:var(--line); padding:1px 5px; border-radius:4px; color:var(--ink-dim); }
+  .kbd-hint{ text-align:center; color:var(--ink-dim); font-size:.84rem; margin-top:12px; }
+  @media (max-width:480px){ .kbd-hint{ display:none; } .big-he{ font-size:3.2rem; } .big-he.cursive{ font-size:2.8rem; } .big-fr{ font-size:2rem; } .forms{ gap:12px 16px; } .forms .f-he{ font-size:1.9rem; } }
+
+  .loader{ max-width:520px; margin:40px auto; text-align:center; color:var(--ink-dim); }
+  .loader .spin{ width:34px; height:34px; margin:0 auto 14px; border:3px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .count-note{ text-align:center; color:var(--ink-dim); font-size:.88rem; margin-top:12px; }
+  .exit-note{ text-align:center; color:var(--ink-dim); font-size:.9rem; margin:2px 0 14px; }
+  /* Au-dessus du bouton (et non dessous) : reste visible même quand « Commencer »
+     est collé en bas de l'écran au doigt. */
+  .start-hint{ text-align:center; color:var(--gold); font-size:.86rem; margin:16px 0 -8px; }
+  .loader .retry{
+    margin-top:16px; border:1px solid var(--gold); background:transparent; color:var(--gold);
+    border-radius:10px; font-family:inherit; font-weight:600; font-size:.9rem; padding:10px 20px; cursor:pointer; transition:background .13s ease, color .13s ease, border-color .13s ease, opacity .13s ease;
+  }
+  .loader .retry:hover{ background:var(--gold); color:#1a1206; }
+  .loader .loader-title{ color:var(--ink); font-size:1.1rem; font-weight:600; }
+  .loader .loader-detail{ font-size:.9rem; opacity:.85; margin-top:6px; }
+  .loader .loader-detail code{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.85em; background:var(--line); padding:1px 5px; border-radius:4px; }
+  .src-link{ text-align:center; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
+  .src-link a{ color:var(--gold); text-decoration:none; font-size:.95rem; }
+  .src-link a:hover{ text-decoration:underline; }
+  /* ---------- Saisie : passer + clavier hébreu ---------- */
+  .input-actions{ display:flex; align-items:center; gap:10px; margin-top:10px; }
+  .ghost-btn{
+    background:none; border:1px solid var(--line); border-radius:10px; color:var(--ink-dim);
+    font-family:inherit; font-size:.9rem; padding:9px 14px; cursor:pointer; transition:background .13s ease, color .13s ease, border-color .13s ease, opacity .13s ease;
+  }
+  .ghost-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  #btn-skip{ margin-left:auto; }
+  .hebkb{ margin-top:12px; display:flex; flex-direction:column; gap:6px; }
+  .kb-row{ display:flex; gap:6px; direction:rtl; }
+  .hebkb button{
+    flex:1; min-width:0;
+    font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:1.35rem;
+    padding:10px 0; border-radius:9px; border:1px solid var(--line);
+    background:var(--bg2); color:var(--ink); cursor:pointer; line-height:1;
+  }
+  .hebkb button:active{ background:var(--gold); color:#1a1206; }
+  .hebkb .kb-final{ color:var(--gold-soft); }
+  .hebkb .kb-ctl{ font-family:inherit; font-size:.9rem; color:var(--ink-dim); }
+  .hebkb .kb-space{ flex:3; }
+  /* Sur tactile (iPhone), le clavier virtuel est superflu et encombrant : le
+     système fournit un clavier hébreu natif, et la translittération tapée est
+     acceptée. Il n'existe que sur pointeur fin — l'AZERTY du bureau, lui, ne
+     sait pas taper l'hébreu. (!important : prime sur les bascules .hide du JS.) */
+  @media (pointer:coarse){ #kb-toggle, .hebkb{ display:none !important; } }
+  /* Inflexions sous la correction en mode saisie : mêmes cellules empilées,
+     espacement et taille resserrés pour tenir dans la carte compacte. */
+  .feedback .forms{ margin:12px auto 0; gap:10px 16px; }
+  .feedback .forms .f-he{ font-size:1.7rem; }
+  .feedback .note-line{ margin-top:10px; }
+  /* Inflexions sur la carte elle-même (mode saisie, sens hébreu→français) */
+  body.input-mode #face-content .forms{ margin:12px auto 0; gap:10px 14px; }
+  body.input-mode #face-content .forms .f-he{ font-size:1.7rem; }
+

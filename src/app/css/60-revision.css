@@ -1,0 +1,25 @@
+  /* ---------- Révision espacée (SRS) ---------- */
+  .review-card{
+    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    border:1px solid var(--gold); border-radius:14px; cursor:pointer;
+    background:linear-gradient(135deg, rgba(212,162,76,.16), rgba(212,162,76,.05));
+    color:var(--ink); font-family:inherit; padding:13px 15px; transition:background .13s ease, color .13s ease, border-color .13s ease;
+  }
+  .review-card:hover{ background:linear-gradient(135deg, rgba(212,162,76,.24), rgba(212,162,76,.08)); }
+  /* Peau pleine, pas d'opacité : `opacity:.55` enfreignait DESIGN.md §5 deux fois —
+     il disait l'état inerte par une transparence, et laissait l'icône en or PÂLI
+     plutôt que de la sortir de l'or. Un état inactif n'est jamais éclairé. */
+  .review-card:disabled{ cursor:default; border-color:var(--line); background:var(--bg2); color:var(--ink-dim); }
+  .review-card:disabled .review-ico{ color:var(--ink-dim); }
+  .review-ico{ flex:none; width:24px; height:24px; color:var(--gold); }
+  .review-ico svg{ width:100%; height:100%; }
+  .review-body{ flex:1; min-width:0; }
+  .review-title{ font-weight:700; font-size:1rem; }
+  .review-sub{ font-size:.84rem; color:var(--ink-dim); margin-top:1px; }
+  .review-card:disabled .review-sub{ color:var(--ink-dim); }
+  .review-arrow{ flex:none; color:var(--gold); font-size:1.3rem; }
+  .review-card:disabled .review-arrow{ display:none; }
+  .mastery{ margin-top:12px; font-size:.9rem; color:var(--ink-dim); }
+  .mastery b{ color:var(--gold-soft); font-weight:700; }
+  .mastery .mbar{ height:6px; border-radius:999px; background:var(--line); overflow:hidden; margin-top:7px; }
+  .mastery .mbar > span{ display:block; height:100%; width:100%; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); border-radius:999px; transform:scaleX(0); transform-origin:left; transition:transform .5s ease; }
