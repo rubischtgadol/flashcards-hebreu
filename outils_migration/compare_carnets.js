@@ -28,6 +28,7 @@
  */
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
@@ -212,7 +213,7 @@ function firstDivergentLine(a, b) {
 
 function runBuild() {
   try {
-    return execFileSync('node', ['build.js'], { cwd: ROOT, encoding: 'utf8' });
+    return execFileSync('node', ['build.js'], { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
   } catch (e) {
     return (e.stdout || '') + (e.stderr || '');
   }
@@ -224,7 +225,7 @@ function critere4(candidatPath) {
 
   const dirty = execFileSync(
     'git', ['status', '--porcelain', '--', NOTEBOOK_NAME, STANDALONE_NAME],
-    { cwd: ROOT, encoding: 'utf8' }
+    { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
   ).trim();
   if (dirty) {
     fail(4, `dépôt non propre sur ces fichiers avant le critère (${dirty.split('\n')[0]}) — commit/annulation requis d'abord`);
@@ -233,7 +234,20 @@ function critere4(candidatPath) {
   const refOut = runBuild();
   const refBlock = countsBlock(refOut);
 
-  let ok, detail, caught;
+  // Sauvegarde explicite AVANT d'écraser le carnet vivant (brief : « sauvegarder
+  // vocabulaire_hebreu.html dans le scratchpad ») — filet de secours si `git checkout --`
+  // lui-même échoue (verrou, permissions) : on restaure depuis cette copie plutôt que de
+  // laisser une pile Node brute s'échapper avec le dépôt dans un état incertain. Le
+  // standalone est sauvegardé au même titre : build.js peut le réécrire, et un `git
+  // checkout` qui échoue le laisserait sans filet sinon.
+  const backupDir = fs.mkdtempSync(path.join(os.tmpdir(), 'compare-carnets-'));
+  const notebookBackup = path.join(backupDir, NOTEBOOK_NAME);
+  const standaloneBackup = path.join(backupDir, STANDALONE_NAME);
+  fs.copyFileSync(notebookLive, notebookBackup);
+  const hadStandalone = fs.existsSync(standaloneLive);
+  if (hadStandalone) fs.copyFileSync(standaloneLive, standaloneBackup);
+
+  let ok, detail, caught, gitCheckoutOk = true;
   try {
     fs.copyFileSync(candidatPath, notebookLive);
     const candOut = runBuild();
@@ -252,15 +266,29 @@ function critere4(candidatPath) {
     // un FAIL propre — jamais une pile Node brute — et le dépôt doit quand même être restauré.
     caught = e;
   } finally {
-    execFileSync('git', ['checkout', '--', NOTEBOOK_NAME, STANDALONE_NAME], { cwd: ROOT });
+    try {
+      execFileSync('git', ['checkout', '--', NOTEBOOK_NAME, STANDALONE_NAME],
+        { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'] });
+    } catch (gitErr) {
+      // git checkout lui-même a échoué : repli sur la sauvegarde prise avant l'écrasement.
+      gitCheckoutOk = false;
+      caught = caught || gitErr;
+      try {
+        fs.copyFileSync(notebookBackup, notebookLive);
+        if (hadStandalone) fs.copyFileSync(standaloneBackup, standaloneLive);
+      } catch (copyErr) {
+        fail(4, `restauration impossible (git ET repli scratchpad ont échoué) — ${truncate(copyErr.message.split('\n')[0], 140)}`);
+      }
+    }
     const after = execFileSync(
       'git', ['status', '--porcelain', '--', NOTEBOOK_NAME, STANDALONE_NAME],
-      { cwd: ROOT, encoding: 'utf8' }
+      { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
     ).trim();
     if (after) {
-      console.log(`CRITÈRE 4 : FAIL — restauration incomplète (${truncate(after.split('\n')[0], 120)})`);
-      console.log('ÉCHEC AU CRITÈRE 4');
-      process.exit(1);
+      fail(4, `restauration incomplète (${truncate(after.split('\n')[0], 120)})`);
+    }
+    if (!gitCheckoutOk) {
+      fail(4, `git checkout de restauration a échoué, repli scratchpad utilisé — ${truncate(caught.message.split('\n')[0], 140)}`);
     }
     if (caught) {
       fail(4, `panne pendant la copie/le build — ${truncate(caught.message.split('\n')[0], 160)}`);
@@ -284,7 +312,7 @@ async function main() {
   try {
     refHtml = execFileSync(
       'git', ['show', `HEAD:${NOTEBOOK_NAME}`],
-      { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }
+      { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] }
     );
   } catch (e) {
     fail(1, `référence illisible (git show HEAD:${NOTEBOOK_NAME}) — ${e.message.split('\n')[0]}`);
