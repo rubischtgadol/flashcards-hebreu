@@ -11,25 +11,41 @@
 ⚠️ GRAPHE À RECALER — 2026-07-24 : data/**, src/carnet/**, src/tokens.css,
 outils_migration/** créés ; vocabulaire_hebreu.html régénéré (chantier 1).
 
+⚠️ GRAPHE À RECALER — 2026-07-24 (chantier 2, Task 7) : cards.json créé ;
+outils_migration/genere_carnet.js et outils_migration/valide_donnees.js
+supprimés (logique absorbée dans build.js).
+
 **Chantier 1 de la réorganisation profonde « le dépôt généré » : soldé.**
 Spec validée ([docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md](docs/superpowers/specs/2026-07-24-reorganisation-depot-genere-design.md))
 et plan complet ([docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md),
 4 chantiers / 21 tasks). Les Tasks 1–6 sont faites : le contenu vit dans
 `data/*.json` (noms, adjectifs, verbes, listes) + les gabarits purs de
-`src/carnet/gabarits.js` ; `outils_migration/genere_carnet.js` assemble
-`vocabulaire_hebreu.html` à partir de `src/carnet/{tete,pied}.html` +
-`sections.json` + `src/carnet/sections/*.html`, avec garde anti-perte
-silencieuse. `vocabulaire_hebreu.html` **est maintenant le fichier généré**
-(en-tête « FICHIER GÉNÉRÉ — ne pas éditer » en première ligne, régénération :
-`node outils_migration/genere_carnet.js --ecrire`), prouvé équivalent au
-carnet manuscrit précédent par les 4 critères de
-`outils_migration/compare_carnets.js` (cartes identiques, DOM normalisé
-identique, comptes navigateur identiques, comptes `build.js` identiques).
-`build.js` et `app.html` sont **inchangés** : ils scrapent toujours le carnet
-généré exactement comme avant (leur double extracteur ne meurt qu'au
-chantier 2). Prochaine session = **chantier 2** (Task 7 et suivantes,
-`build.js` v2 qui génère carnet + `cards.json` + standalone depuis `data/`,
-suppression du parseur regex et de `extractCards`), plan en tête.
+`src/carnet/gabarits.js`.
+
+**Chantier 2, Task 7 faite : `build.js` v2.** `data/*.json` est maintenant
+l'ENTRÉE du build (plus jamais `vocabulaire_hebreu.html`). `build.js` absorbe
+`outils_migration/valide_donnees.js` (`chargeDonnees`, `valideDonnees` — avec
+une garde de schéma neuve : aucun hébreu d'un champ `.fr` qui échapperait au
+motif de wrappage `HEBREW_RUN` des gabarits) et `outils_migration/
+genere_carnet.js` (`genereCarnet`, garde anti-perte inchangée), tous deux
+supprimés du dépôt. `node build.js` régénère désormais TROIS artefacts :
+`vocabulaire_hebreu.html` (en-tête « Regénération : node build.js »),
+`cards.json` (`{version, cartes}`, nouveau fichier) et `flashcards_hebreu.html`
+(inchangé). `deriveCartes(donnees)` remplace l'extraction regex dans le
+pipeline principal ; l'ancien parseur (`extractCards` et ses helpers) reste en
+place et exporté — encore utilisé par `verifie_exemples.js`, `cherche_mots.js`,
+`ajoute_mots.js`, et maintenant par le mode `node build.js --verrou` lui-même,
+qui sert d'oracle de non-régression (`deriveCartes(data/) === extractCards
+(carnet régénéré)` — vert dès la première itération, 1220 cartes). Sa
+suppression n'est prévue qu'à la Task 10, quand ces trois scripts basculeront
+sur `cards.json`/`chargeDonnees`. `app.html` est **inchangé** : il scrape
+toujours le carnet exactement comme avant (son propre `extractCards` ne meurt
+qu'à la Task 8). `node build.js --check` compare désormais les trois
+artefacts régénérés aux committés. `git diff` du carnet limité à l'en-tête,
+standalone byte-identique. Au passage (watch-items relevés en revue de
+branche) : `compare_carnets.js` corrigé — étiquette de double panne erronée
+au critère 4 (buildErr/gitErr distincts), dossier `mkdtemp` désormais nettoyé.
+Prochaine session = **chantier 2, Task 8 et suivantes**, plan en tête.
 
 État au 2026-07-24 : **1220 cartes** (comptes identiques avant/après la
 bascule), 1068 exemples, 15 thèmes (1003/1003 sur les 3 tables), niveaux A1
