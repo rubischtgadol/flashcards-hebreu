@@ -2,6 +2,22 @@
 
 Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en français : un **carnet de grammaire et de vocabulaire** à consulter, et une **application de flashcards** pour réviser.
 
+> **🚧 Branche `refonte-retrofuturiste` — prototypes de la charte v2 « La console d'étude »**
+>
+> À juger sur téléphone (le soir, en conditions réelles d'étude) :
+>
+> **➡️ La page-témoin (direction retenue : A Observatoire + Share Tech Mono) :**
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-nerv.html
+>
+> **➡️ La planche des variantes (A/B/C/D + banc d'essai typo) :**
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-variantes.html
+>
+> Le miroir raw.githack suit la branche : chaque push met les liens à jour. Spec de la
+> charte : [docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md).
+> (Encart propre à cette branche — ne pas le fusionner dans `main`.)
+
 ## 🔗 Accès rapide (aucun téléchargement)
 
 Ouvre ces liens sur n'importe quelle machine — ordinateur, téléphone, tablette :
