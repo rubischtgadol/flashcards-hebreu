@@ -20,6 +20,18 @@ Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 > autorité** — tous les paragraphes sous celui-ci sont un instantané figé au
 > point de départ de la branche (24/07) et sont **périmés**.
 
+> **Fin de session du 2026-07-25 — rien n'est en cours, rien n'attend d'être fini.**
+> Trois chantiers ont été soldés ce jour-là : le **test des calques CRT sur iPhone
+> réel** (les trois effets rejetés, charte en v0.6), l'**exploration typographique
+> hébraïque** (classée, on garde Frank Ruhl Libre) et la **recette du spec § 6**
+> (nikoud et grille jugés lisibles sur l'appareil). Le propriétaire reprendra
+> **après la refonte complète du code sur `main`**. Deux chantiers restent, tous
+> deux listés plus bas : le système de thèmes et le portage.
+>
+> **Premier geste à la reprise** : vérifier où en est la réorganisation de `main`,
+> puis relire le PIÈGE AU MERGE en bas de cette section — la divergence a doublé
+> depuis l'ouverture de la branche.
+
 **Chantier de cette branche : la charte v2 « La console d'étude ». Direction
 artistique SOLDÉE**, arbitrée de bout en bout par le propriétaire, sur pièces.
 
@@ -117,8 +129,10 @@ tout**, ne garder de cette branche que les **fichiers de la DA**
 (`prototype-nerv.html`, `prototype-effets.html`, `prototype-variantes.html`,
 `test-crt-iphone.html`, `specimen-hebreu.html`, `specimen-monospace-hebreu.html`,
 `duel-miriam-unifont.html`, `unifont-nikoud-repare.html`, `polices/` et le spec) et, si voulu, l'encart
-README. Divergence mesurée le 24/07 : **13 commits
-de retard, 17 d'avance**.
+README. Divergence **remesurée le 25/07 en fin de session : 30 commits de retard,
+28 d'avance** (elle était de 13/17 à l'ouverture de la branche — elle continuera de
+croître tant que la réorganisation de `main` avance, ce qui est normal et sans
+gravité puisque rien n'est partagé entre les deux côtés hors des docs).
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
