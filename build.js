@@ -3,13 +3,17 @@
  * build.js — outil de développement (non déployé). v2 (chantier 2) : data/*.json
  * (source de vérité) devient l'ENTRÉE du build, plus jamais vocabulaire_hebreu.html.
  *
- * Régénère TROIS artefacts depuis data/ + src/carnet/ + app.html :
- *   - vocabulaire_hebreu.html (le carnet)      via genereCarnet()  (gabarits.js)
+ * Régénère QUATRE artefacts depuis data/ + src/carnet/ + src/app/ (chantier 3, tâche 13 :
+ * app.html a rejoint le carnet côté « généré », plus jamais une source qu'on édite à la main) :
+ *   - vocabulaire_hebreu.html (le carnet)      via genereCarnet()   (gabarits.js)
  *   - cards.json ({version, cartes})           via deriveCartes()
- *   - flashcards_hebreu.html (version autonome) via generateStandalone(cards), inchangé :
- *     le reste du fichier (HTML, CSS, JS) est copié depuis app.html, dont le bloc marqué
- *     BUILD:ONLINE-ONLY (fetch + extraction runtime) est remplacé par le snapshot
- *     `const CARDS = [...]` et un démarrage direct.
+ *   - app.html (les flashcards en ligne)       via assembleApp() depuis src/app/
+ *     (coquille.html + app.css + js/*.js dans l'ordre de ordre.json + src/tokens.css)
+ *   - flashcards_hebreu.html (version autonome) via generateStandalone(cards, appAssemble),
+ *     inchangé sur le fond : dérivé de l'app FRAÎCHEMENT ASSEMBLÉE (jamais de l'ancien
+ *     app.html du disque — sinon --check, qui n'écrit rien, validerait un déphasage), dont
+ *     le bloc marqué BUILD:ONLINE-ONLY (fetch + extraction runtime) est remplacé par le
+ *     snapshot `const CARDS = [...]` et un démarrage direct.
  * Affiche le compte de cartes par section et échoue bruyamment si une section
  * attendue tombe à zéro, ou si data/ est invalide (valideDonnees).
  *
@@ -23,8 +27,8 @@
  * qui eux lisent toujours le carnet HTML — cf. leur propre en-tête pour pourquoi.
  *
  * Usage :
- *   node build.js           # régénère les trois artefacts
- *   node build.js --check   # vérifie sans écrire (artefacts en phase avec data/ ?)
+ *   node build.js           # régénère les quatre artefacts
+ *   node build.js --check   # vérifie sans écrire (artefacts en phase avec data/ + src/ ?)
  */
 'use strict';
 const fs = require('fs');
@@ -37,6 +41,7 @@ const APP = path.join(ROOT, 'app.html');
 const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
 const CARDS_JSON = path.join(ROOT, 'cards.json');
 const SRC_CARNET = path.join(ROOT, 'src', 'carnet');
+const SRC_APP = path.join(ROOT, 'src', 'app');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
@@ -260,14 +265,18 @@ function valideDonnees(donnees){
 
 const ENTETE_GENERE =
   '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : data/ + src/carnet/. Regénération : node build.js. -->';
+const ENTETE_GENERE_APP =
+  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : src/app/. Regénération : node build.js. -->';
 
 // Insère l'en-tête juste après la première ligne du HTML (la ligne <!DOCTYPE html>).
-function insereEntete(html){
+// `entete` par défaut = ENTETE_GENERE (carnet) ; assembleApp() passe ENTETE_GENERE_APP.
+function insereEntete(html, entete){
+  entete = entete || ENTETE_GENERE;
   const finLigne = html.indexOf('\n');
   if (finLigne === -1){
-    throw new Error('genereCarnet: HTML sans retour à la ligne après la première ligne — insertion de l\'en-tête impossible');
+    throw new Error('insereEntete: HTML sans retour à la ligne après la première ligne — insertion de l\'en-tête impossible');
   }
-  return html.slice(0, finLigne + 1) + ENTETE_GENERE + '\n' + html.slice(finLigne + 1);
+  return html.slice(0, finLigne + 1) + entete + '\n' + html.slice(finLigne + 1);
 }
 
 // Extrait le "cle" d'un placeholder <!-- @ENTREES:cle --> ; non gourmand pour
@@ -568,37 +577,9 @@ function report(cards){
     }
   }
 
-  // Synchronisation de la taxonomie entre les deux fichiers. EXPECTED_THEMES ici et
-  // THEMES dans app.html décrivent la même liste de slugs, mais rien ne les reliait :
-  // seulement le commentaire posé plus haut. Un thème ajouté d'un seul côté passait
-  // donc au vert — slug accepté au build mais aucune pastille dans l'appli, ou
-  // l'inverse, une pastille qui ne filtre rien. Relevé le 21/07 en traçant le pont
-  // entre les deux extracteurs (alors encore l'un DOM, l'autre regex) dans le graphe :
-  // les deux listes n'avaient aucun lien mécanique.
-  // Seuls les slugs sont comparés ; les libellés restent libres côté app.
-  const appThemes = (() => {
-    const src = fs.readFileSync(APP, 'utf8');
-    const i = src.indexOf('const THEMES = [');
-    if (i === -1) return null;
-    const end = src.indexOf('];', i);
-    if (end === -1) return null;
-    return [...src.slice(i, end).matchAll(/key\s*:\s*'([^']+)'/g)].map(m => m[1]);
-  })();
-  if (!appThemes){
-    console.error('\n✗ Constante THEMES introuvable dans app.html (renommée ? reformatée ?).');
-    console.error('  Ce garde-fou compare la taxonomie des deux fichiers ; il ne peut plus le faire.');
-    process.exit(1);
-  }
-  const onlyBuild = EXPECTED_THEMES.filter(t => !appThemes.includes(t));
-  const onlyApp   = appThemes.filter(t => !EXPECTED_THEMES.includes(t));
-  if (onlyBuild.length || onlyApp.length){
-    console.error('\n✗ Taxonomie désynchronisée entre build.js et app.html :');
-    if (onlyBuild.length) console.error('    EXPECTED_THEMES (build.js) seul : ' + onlyBuild.join(', '));
-    if (onlyApp.length)   console.error('    THEMES (app.html) seul        : ' + onlyApp.join(', '));
-    console.error('  Un nouveau thème doit être ajouté aux DEUX listes (mêmes slugs).');
-    process.exit(1);
-  }
-  console.log('\nTaxonomie : ' + EXPECTED_THEMES.length + ' thèmes, build.js et app.html en phase.');
+  // Synchronisation de la taxonomie entre les deux fichiers : voir verifieTaxonomieApp()
+  // (chantier 3, tâche 13 — sortie de report() pour s'exercer sur l'app.html FRAÎCHEMENT
+  // ASSEMBLÉE en mémoire, jamais sur le disque : app.html n'est plus une source).
 
   // Exemples en situation (étape 6 du plan UX) : comptes par section.
   const exCounts = {};
@@ -617,7 +598,81 @@ function report(cards){
   }
 }
 
-// ---------- génération du fichier autonome depuis app.html ----------
+// ---------- app.html : assemblage depuis src/app/ (chantier 3, tâche 13) ----------
+
+/**
+ * assembleApp(srcApp) → chaîne HTML complète d'app.html, SANS l'en-tête
+ * « FICHIER GÉNÉRÉ » (celui-ci reste la responsabilité de l'appelant — insereEntete()
+ * — pour que generateStandalone() puisse dériver du même contenu brut et poser son
+ * propre en-tête distinct sans en empiler deux, cf. task-13-brief.md § Couture B).
+ * `srcApp` : chemin absolu vers src/app (contient coquille.html, app.css, ordre.json, js/) ;
+ * src/tokens.css est lu un niveau au-dessus, comme pour le carnet (genereCarnet).
+ */
+function assembleApp(srcApp){
+  const lire = (f) => fs.readFileSync(path.join(srcApp, f), 'utf8');
+  const coquille = lire('coquille.html');
+  const cssApp = lire('app.css');
+  const ordre = JSON.parse(lire('ordre.json'));
+  const jsApp = ordre.map(f => fs.readFileSync(path.join(srcApp, 'js', f), 'utf8')).join('');
+  const tokens = fs.readFileSync(path.join(srcApp, '..', 'tokens.css'), 'utf8');
+
+  // Piège d'indentation (résolu à l'assemblage, jamais en éditant app.html — task-13-brief.md
+  // § Arbitrages) : le :root d'app.html est imbriqué dans <style> avec 2 espaces de plus que
+  // src/tokens.css (qui pose ":root{" à la racine — cf. vocabulaire_hebreu.html, où ça matche
+  // tel quel car le carnet pose son :root à la racine aussi). On réindente donc tokens.css de
+  // 2 espaces ici, spécifiquement pour l'app.
+  const tokensIndentes = tokens.split('\n').map(l => l ? '  ' + l : l).join('\n');
+
+  let html = coquille;
+  // Remplacement par fonction (jamais par chaîne) : le contenu de tokens.css / app.css /
+  // 00-tout.js peut contenir des séquences "$&", "$1"… que String.prototype.replace
+  // interpréterait comme des motifs de substitution si on lui passait une chaîne — la
+  // fonction insère le résultat au caractère près (même remarque que genereCarnet).
+  html = html.replace('<!-- @TOKENS -->', () => tokensIndentes);
+  html = html.replace('<!-- @CSS:app -->', () => cssApp);
+  html = html.replace('<!-- @JS:app -->', () => jsApp);
+  return html;
+}
+
+/**
+ * verifieTaxonomieApp(appSource) — garde de synchronisation de la taxonomie entre les
+ * deux fichiers. EXPECTED_THEMES ici et THEMES dans app.html décrivent la même liste de
+ * slugs, mais rien ne les reliait mécaniquement avant le 21/07 (relevé en traçant le pont
+ * entre les deux extracteurs, alors encore l'un DOM l'autre regex, dans le graphe). Un
+ * thème ajouté d'un seul côté passait donc au vert — slug accepté au build mais aucune
+ * pastille dans l'appli, ou l'inverse, une pastille qui ne filtre rien. Seuls les slugs
+ * sont comparés ; les libellés restent libres côté app.
+ * `appSource` : la chaîne HTML d'app.html FRAÎCHEMENT ASSEMBLÉE (assembleApp()) — jamais
+ * lue du disque : depuis la tâche 13, app.html est un artefact généré, et --check (qui
+ * n'écrit rien) validerait un déphasage s'il comparait à l'ancien app.html du disque.
+ * Fatale (process.exit(1)) — exercée en mode normal comme en --check, cf. main().
+ */
+function verifieTaxonomieApp(appSource){
+  const appThemes = (() => {
+    const i = appSource.indexOf('const THEMES = [');
+    if (i === -1) return null;
+    const end = appSource.indexOf('];', i);
+    if (end === -1) return null;
+    return [...appSource.slice(i, end).matchAll(/key\s*:\s*'([^']+)'/g)].map(m => m[1]);
+  })();
+  if (!appThemes){
+    console.error('\n✗ Constante THEMES introuvable dans app.html assemblé (renommée ? reformatée ?).');
+    console.error('  Ce garde-fou compare la taxonomie des deux fichiers ; il ne peut plus le faire.');
+    process.exit(1);
+  }
+  const onlyBuild = EXPECTED_THEMES.filter(t => !appThemes.includes(t));
+  const onlyApp   = appThemes.filter(t => !EXPECTED_THEMES.includes(t));
+  if (onlyBuild.length || onlyApp.length){
+    console.error('\n✗ Taxonomie désynchronisée entre build.js et app.html :');
+    if (onlyBuild.length) console.error('    EXPECTED_THEMES (build.js) seul : ' + onlyBuild.join(', '));
+    if (onlyApp.length)   console.error('    THEMES (app.html) seul        : ' + onlyApp.join(', '));
+    console.error('  Un nouveau thème doit être ajouté aux DEUX listes (mêmes slugs).');
+    process.exit(1);
+  }
+  console.log('\nTaxonomie : ' + EXPECTED_THEMES.length + ' thèmes, build.js et app.html en phase.');
+}
+
+// ---------- génération du fichier autonome depuis l'app assemblée ----------
 function mustReplace(src, from, to, what){
   const out = typeof from === 'string' ? src.replace(from, to) : src.replace(from, to);
   if (out === src){
@@ -627,9 +682,12 @@ function mustReplace(src, from, to, what){
   return out;
 }
 
-function generateStandalone(cards){
-  const app = fs.readFileSync(APP, 'utf8');
-  let out = app;
+// `appSource` : l'app FRAÎCHEMENT ASSEMBLÉE en mémoire (assembleApp()), SANS l'en-tête
+// « FICHIER GÉNÉRÉ » d'app.html — jamais lue du disque (tâche 13 : sinon --check, qui
+// n'écrit rien, dériverait le standalone de l'ancien app.html et validerait un déphasage ;
+// et l'en-tête d'app.html s'empilerait avec celui posé juste dessous par ce mustReplace).
+function generateStandalone(cards, appSource){
+  let out = appSource;
 
   out = mustReplace(out, '<!DOCTYPE html>',
     '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node build.js` depuis app.html + vocabulaire_hebreu.html — ne pas éditer à la main. -->',
@@ -703,10 +761,17 @@ function main(){
   console.log('Cartes dérivées de data/ :');
   report(cards);
 
-  const standaloneGenerated = generateStandalone(cards);
+  // assembleApp() s'exécute AVANT generateStandalone() : celui-ci se dérive de l'app
+  // fraîchement assemblée, jamais de l'ancien app.html du disque (task-13-brief.md § Step 2).
+  const appAssembled = assembleApp(SRC_APP);
+  verifieTaxonomieApp(appAssembled); // fatale — exercée en mode normal comme en --check
+  const appGenerated = insereEntete(appAssembled, ENTETE_GENERE_APP);
+
+  const standaloneGenerated = generateStandalone(cards, appAssembled);
   const cardsJson = JSON.stringify({ version: new Date().toISOString().slice(0, 10), cartes: cards }, null, 2) + '\n';
 
   const notebookOnDisk = fs.existsSync(NOTEBOOK) ? fs.readFileSync(NOTEBOOK, 'utf8') : '';
+  const appOnDisk = fs.existsSync(APP) ? fs.readFileSync(APP, 'utf8') : '';
   const standaloneOnDisk = fs.existsSync(STANDALONE) ? fs.readFileSync(STANDALONE, 'utf8') : '';
   const cardsOnDiskRaw = fs.existsSync(CARDS_JSON) ? fs.readFileSync(CARDS_JSON, 'utf8') : '';
   let cardsOnDiskCartes = null;
@@ -718,7 +783,8 @@ function main(){
   const cardsContentUpToDate = JSON.stringify(cardsOnDiskCartes) === JSON.stringify(cards);
 
   if (check){
-    // --check compare désormais les TROIS artefacts régénérés aux committés (chantier 2).
+    // --check compare désormais les QUATRE artefacts régénérés aux committés (chantier 3,
+    // tâche 13 : app.html rejoint vocabulaire_hebreu.html/cards.json/flashcards_hebreu.html).
     let ok = true;
     if (notebookGenerated !== notebookOnDisk){
       console.error('\n✗ vocabulaire_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
@@ -728,11 +794,15 @@ function main(){
       console.error('\n✗ cards.json obsolète (cartes) — lance `node build.js` pour le régénérer.');
       ok = false;
     }
+    if (appGenerated !== appOnDisk){
+      console.error('\n✗ app.html obsolète — lance `node build.js` pour le régénérer.');
+      ok = false;
+    }
     if (standaloneGenerated !== standaloneOnDisk){
       console.error('\n✗ flashcards_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
       ok = false;
     }
-    if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json et flashcards_hebreu.html en phase avec data/.');
+    if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json, app.html et flashcards_hebreu.html en phase avec data/ + src/.');
     else process.exit(1);
     return;
   }
@@ -752,6 +822,13 @@ function main(){
   } else {
     fs.writeFileSync(CARDS_JSON, cardsJson);
     console.log('✓ cards.json régénéré (' + cards.length + ' cartes).');
+  }
+
+  if (appGenerated === appOnDisk){
+    console.log('✓ app.html déjà à jour.');
+  } else {
+    fs.writeFileSync(APP, appGenerated);
+    console.log('✓ app.html régénéré (' + Buffer.byteLength(appGenerated, 'utf8') + ' octets).');
   }
 
   if (standaloneGenerated === standaloneOnDisk){
