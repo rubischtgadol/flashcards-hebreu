@@ -1,0 +1,6526 @@
+[
+  {
+    "he": "גָּדוֹל",
+    "fr": "grand",
+    "formes": [
+      {
+        "he": "גְּדוֹלָה",
+        "tr": "gdolah"
+      },
+      {
+        "he": "גְּדוֹלִים",
+        "tr": "gdolim"
+      },
+      {
+        "he": "גְּדוֹלוֹת",
+        "tr": "gdolot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָהֶם בַּיִת גָּדוֹל",
+        "tr": "yesh lahem bayit gadol",
+        "fr": "ils ont une grande maison"
+      }
+    ]
+  },
+  {
+    "he": "קָטָן",
+    "fr": "petit",
+    "formes": [
+      {
+        "he": "קְטַנָּה",
+        "tr": "ktanah"
+      },
+      {
+        "he": "קְטַנִּים",
+        "tr": "ktanim"
+      },
+      {
+        "he": "קְטַנּוֹת",
+        "tr": "ktanot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֶדֶר שֶׁלִּי קָטָן",
+        "tr": "hacheder sheli katan",
+        "fr": "ma chambre est petite"
+      }
+    ]
+  },
+  {
+    "he": "טוֹב",
+    "fr": "bon",
+    "formes": [
+      {
+        "he": "טוֹבָה",
+        "tr": "tovah"
+      },
+      {
+        "he": "טוֹבִים",
+        "tr": "tovim"
+      },
+      {
+        "he": "טוֹבוֹת",
+        "tr": "tovot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה סֵפֶר טוֹב מְאֹד",
+        "tr": "zeh sefer tov me'od",
+        "fr": "c'est un très bon livre"
+      }
+    ]
+  },
+  {
+    "he": "רַע",
+    "fr": "mauvais",
+    "formes": [
+      {
+        "he": "רָעָה",
+        "tr": "ra'ah"
+      },
+      {
+        "he": "רָעִים",
+        "tr": "ra'im"
+      },
+      {
+        "he": "רָעוֹת",
+        "tr": "ra'ot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֶּרֶט הַזֶּה רַע",
+        "tr": "haseret hazeh ra'",
+        "fr": "ce film est mauvais"
+      }
+    ]
+  },
+  {
+    "he": "יָפֶה",
+    "fr": "beau / joli",
+    "formes": [
+      {
+        "he": "יָפָה",
+        "tr": "yafah"
+      },
+      {
+        "he": "יָפִים",
+        "tr": "yafim"
+      },
+      {
+        "he": "יָפוֹת",
+        "tr": "yafot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיָּם יָפֶה בָּעֶרֶב",
+        "tr": "hayam yafeh ba'erev",
+        "fr": "la mer est belle le soir"
+      }
+    ]
+  },
+  {
+    "he": "מְכֹעָר",
+    "fr": "laid",
+    "formes": [
+      {
+        "he": "מְכֹעֶרֶת",
+        "tr": "mekho'eret"
+      },
+      {
+        "he": "מְכֹעָרִים",
+        "tr": "mekho'arim"
+      },
+      {
+        "he": "מְכֹעָרוֹת",
+        "tr": "mekho'arot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכּוֹבַע הַזֶּה מְכֹעָר",
+        "tr": "hakova' hazeh mekho'ar",
+        "fr": "ce chapeau est laid"
+      }
+    ]
+  },
+  {
+    "he": "חָדָשׁ",
+    "fr": "nouveau",
+    "formes": [
+      {
+        "he": "חֲדָשָׁה",
+        "tr": "chadashah"
+      },
+      {
+        "he": "חֲדָשִׁים",
+        "tr": "chadashim"
+      },
+      {
+        "he": "חֲדָשׁוֹת",
+        "tr": "chadashot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי טֶלֶפוֹן חָדָשׁ",
+        "tr": "yesh li telefon chadash",
+        "fr": "j'ai un nouveau téléphone"
+      }
+    ]
+  },
+  {
+    "he": "יָשָׁן",
+    "fr": "vieux, ancien (pour un objet)",
+    "formes": [
+      {
+        "he": "יְשָׁנָה",
+        "tr": "yeshanah"
+      },
+      {
+        "he": "יְשָׁנִים",
+        "tr": "yeshanim"
+      },
+      {
+        "he": "יְשָׁנוֹת",
+        "tr": "yeshanot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבַּיִת הַזֶּה יָשָׁן מְאֹד",
+        "tr": "habayit hazeh yashan me'od",
+        "fr": "cette maison est très vieille"
+      }
+    ]
+  },
+  {
+    "he": "עָיֵף",
+    "fr": "fatigué",
+    "formes": [
+      {
+        "he": "עֲיֵפָה",
+        "tr": "'ayefah"
+      },
+      {
+        "he": "עֲיֵפִים",
+        "tr": "'ayefim"
+      },
+      {
+        "he": "עֲיֵפוֹת",
+        "tr": "'ayefot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי עָיֵף אַחֲרֵי הָעֲבוֹדָה",
+        "tr": "ani 'ayef acharei ha'avodah",
+        "fr": "je suis fatigué après le travail"
+      }
+    ]
+  },
+  {
+    "he": "רַעֲנָן",
+    "fr": "frais, reposé",
+    "formes": [
+      {
+        "he": "רַעֲנַנָּה",
+        "tr": "ra'ananah"
+      },
+      {
+        "he": "רַעֲנַנִּים",
+        "tr": "ra'ananim"
+      },
+      {
+        "he": "רַעֲנַנּוֹת",
+        "tr": "ra'ananot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבֹּקֶר אֲנִי מַרְגִּישׁ רַעֲנָן",
+        "tr": "haboker ani margish ra'anan",
+        "fr": "ce matin je me sens frais"
+      }
+    ]
+  },
+  {
+    "he": "שָׂמֵחַ",
+    "fr": "heureux",
+    "formes": [
+      {
+        "he": "שְׂמֵחָה",
+        "tr": "smechah"
+      },
+      {
+        "he": "שְׂמֵחִים",
+        "tr": "smechim"
+      },
+      {
+        "he": "שְׂמֵחוֹת",
+        "tr": "smechot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הִיא שְׂמֵחָה לִרְאוֹת אוֹתְךָ",
+        "tr": "hi smechah lir'ot otkha",
+        "fr": "elle est heureuse de te voir"
+      }
+    ]
+  },
+  {
+    "he": "עָצוּב",
+    "fr": "triste",
+    "formes": [
+      {
+        "he": "עֲצוּבָה",
+        "tr": "'atsuvah"
+      },
+      {
+        "he": "עֲצוּבִים",
+        "tr": "'atsuvim"
+      },
+      {
+        "he": "עֲצוּבוֹת",
+        "tr": "'atsuvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד עָצוּב כִּי הֶחָבֵר לֹא בָּא",
+        "tr": "hayeled 'atsuv ki hechaver lo ba",
+        "fr": "l'enfant est triste parce que son ami ne vient pas"
+      }
+    ]
+  },
+  {
+    "he": "רָעֵב",
+    "fr": "affamé (avoir faim)",
+    "formes": [
+      {
+        "he": "רְעֵבָה",
+        "tr": "re'evah"
+      },
+      {
+        "he": "רְעֵבִים",
+        "tr": "re'evim"
+      },
+      {
+        "he": "רְעֵבוֹת",
+        "tr": "re'evot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי רָעֵב — מָתַי אוֹכְלִים?",
+        "tr": "ani ra'ev — matai okhlim?",
+        "fr": "j'ai faim — quand mange-t-on ?"
+      }
+    ]
+  },
+  {
+    "he": "צָמֵא",
+    "fr": "assoiffé (avoir soif)",
+    "formes": [
+      {
+        "he": "צְמֵאָה",
+        "tr": "tsme'ah"
+      },
+      {
+        "he": "צְמֵאִים",
+        "tr": "tsme'im"
+      },
+      {
+        "he": "צְמֵאוֹת",
+        "tr": "tsme'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי צָמֵא אַחֲרֵי הַמִּשְׂחָק",
+        "tr": "ani tsame acharei hamischak",
+        "fr": "j'ai soif après le match"
+      }
+    ]
+  },
+  {
+    "he": "נֶחְמָד",
+    "fr": "sympa, agréable",
+    "formes": [
+      {
+        "he": "נֶחְמָדָה",
+        "tr": "nechmadah"
+      },
+      {
+        "he": "נֶחְמָדִים",
+        "tr": "nechmadim"
+      },
+      {
+        "he": "נֶחְמָדוֹת",
+        "tr": "nechmadot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה שֶׁלִּי נֶחְמָד מְאֹד",
+        "tr": "hamoreh sheli nechmad me'od",
+        "fr": "mon professeur est très sympa"
+      }
+    ]
+  },
+  {
+    "he": "טָעִים",
+    "fr": "savoureux",
+    "formes": [
+      {
+        "he": "טְעִימָה",
+        "tr": "te'imah"
+      },
+      {
+        "he": "טְעִימִים",
+        "tr": "te'imim"
+      },
+      {
+        "he": "טְעִימוֹת",
+        "tr": "te'imot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמָּרָק שֶׁל סָבְתָא טָעִים",
+        "tr": "hamarak shel savta ta'im",
+        "fr": "la soupe de grand-mère est savoureuse"
+      }
+    ]
+  },
+  {
+    "he": "צָעִיר",
+    "fr": "jeune",
+    "formes": [
+      {
+        "he": "צְעִירָה",
+        "tr": "tse'irah"
+      },
+      {
+        "he": "צְעִירִים",
+        "tr": "tse'irim"
+      },
+      {
+        "he": "צְעִירוֹת",
+        "tr": "tse'irot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַזַּמָּר הַזֶּה צָעִיר מְאֹד",
+        "tr": "hazamar hazeh tsa'ir me'od",
+        "fr": "ce chanteur est très jeune"
+      }
+    ]
+  },
+  {
+    "he": "זָקֵן",
+    "fr": "vieux, âgé (pour une personne)",
+    "formes": [
+      {
+        "he": "זְקֵנָה",
+        "tr": "zkenah"
+      },
+      {
+        "he": "זְקֵנִים",
+        "tr": "zkenim"
+      },
+      {
+        "he": "זְקֵנוֹת",
+        "tr": "zkenot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "סַבָּא כְּבָר זָקֵן אֲבָל חָזָק",
+        "tr": "saba kevar zaken aval chazak",
+        "fr": "grand-père est déjà âgé mais fort"
+      }
+    ]
+  },
+  {
+    "he": "רַוָּק",
+    "fr": "célibataire",
+    "formes": [
+      {
+        "he": "רַוָּקָה",
+        "tr": "ravakah"
+      },
+      {
+        "he": "רַוָּקִים",
+        "tr": "ravakim"
+      },
+      {
+        "he": "רַוָּקוֹת",
+        "tr": "ravakot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבָּחוּר הַזֶּה רַוָּק",
+        "tr": "habachur hazeh ravak",
+        "fr": "ce jeune homme est célibataire"
+      }
+    ]
+  },
+  {
+    "he": "נָשׂוּי",
+    "fr": "marié",
+    "formes": [
+      {
+        "he": "נְשׂוּאָה",
+        "tr": "nesu'ah"
+      },
+      {
+        "he": "נְשׂוּאִים",
+        "tr": "nesu'im"
+      },
+      {
+        "he": "נְשׂוּאוֹת",
+        "tr": "nesu'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הֵם נְשׂוּאִים כְּבָר עֶשֶׂר שָׁנִים",
+        "tr": "hem nesu'im kevar 'eser shanim",
+        "fr": "ils sont mariés depuis déjà dix ans"
+      }
+    ]
+  },
+  {
+    "he": "גָּרוּשׁ",
+    "fr": "divorcé",
+    "formes": [
+      {
+        "he": "גְּרוּשָׁה",
+        "tr": "gerushah"
+      },
+      {
+        "he": "גְּרוּשִׁים",
+        "tr": "gerushim"
+      },
+      {
+        "he": "גְּרוּשׁוֹת",
+        "tr": "gerushot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הִיא גְּרוּשָׁה וְגָרָה עִם הַיְלָדִים",
+        "tr": "hi gerushah vegarah 'im hayeladim",
+        "fr": "elle est divorcée et habite avec les enfants"
+      }
+    ]
+  },
+  {
+    "he": "חָכָם",
+    "fr": "intelligent",
+    "formes": [
+      {
+        "he": "חֲכָמָה",
+        "tr": "chakhamah"
+      },
+      {
+        "he": "חֲכָמִים",
+        "tr": "chakhamim"
+      },
+      {
+        "he": "חֲכָמוֹת",
+        "tr": "chakhamot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה הַחֲכָמָה עוֹנָה עַל הַשְּׁאֵלָה",
+        "tr": "hayaldah hachakhamah 'onah 'al hashelah",
+        "fr": "la fille intelligente répond à la question"
+      }
+    ]
+  },
+  {
+    "he": "חַם",
+    "fr": "chaud",
+    "formes": [
+      {
+        "he": "חַמָּה",
+        "tr": "chamah"
+      },
+      {
+        "he": "חַמִּים",
+        "tr": "chamim"
+      },
+      {
+        "he": "חַמּוֹת",
+        "tr": "chamot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "חַם מְאֹד בַּקַּיִץ",
+        "tr": "cham me'od bakayits",
+        "fr": "il fait très chaud en été"
+      }
+    ]
+  },
+  {
+    "he": "קַר",
+    "fr": "froid",
+    "formes": [
+      {
+        "he": "קָרָה",
+        "tr": "karah"
+      },
+      {
+        "he": "קָרִים",
+        "tr": "karim"
+      },
+      {
+        "he": "קָרוֹת",
+        "tr": "karot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "קַר בַּחוּץ בַּחוֹרֶף",
+        "tr": "kar bachuts bachoref",
+        "fr": "il fait froid dehors en hiver"
+      }
+    ]
+  },
+  {
+    "he": "פִּרְאִי",
+    "fr": "sauvage",
+    "formes": [
+      {
+        "he": "פִּרְאִית",
+        "tr": "pir'it"
+      },
+      {
+        "he": "פִּרְאִיִּים",
+        "tr": "pir'iyim"
+      },
+      {
+        "he": "פִּרְאִיּוֹת",
+        "tr": "pir'iyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאַרְיֵה פִּרְאִי וְהַכֶּלֶב לֹא",
+        "tr": "ha'aryeh pir'i vehakelev lo",
+        "fr": "le lion est sauvage et le chien ne l'est pas"
+      }
+    ]
+  },
+  {
+    "he": "קַל",
+    "fr": "facile, léger",
+    "formes": [
+      {
+        "he": "קַלָּה",
+        "tr": "kalah"
+      },
+      {
+        "he": "קַלִּים",
+        "tr": "kalim"
+      },
+      {
+        "he": "קַלּוֹת",
+        "tr": "kalot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשִּׁעוּר הַיּוֹם קַל",
+        "tr": "hashi'ur hayom kal",
+        "fr": "le cours d'aujourd'hui est facile"
+      }
+    ]
+  },
+  {
+    "he": "קָשֶׁה",
+    "fr": "difficile, dur (texture)",
+    "formes": [
+      {
+        "he": "קָשָׁה",
+        "tr": "kashah"
+      },
+      {
+        "he": "קָשִׁים",
+        "tr": "kashim"
+      },
+      {
+        "he": "קָשׁוֹת",
+        "tr": "kashot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "עִבְרִית לֹא כָּל כָּךְ קָשָׁה",
+        "tr": "'ivrit lo kol kakh kashah",
+        "fr": "l'hébreu n'est pas si difficile"
+      }
+    ]
+  },
+  {
+    "he": "מָהִיר",
+    "fr": "rapide",
+    "formes": [
+      {
+        "he": "מְהִירָה",
+        "tr": "mehirah"
+      },
+      {
+        "he": "מְהִירִים",
+        "tr": "mehirim"
+      },
+      {
+        "he": "מְהִירוֹת",
+        "tr": "mehirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָרַכֶּבֶת הַחֲדָשָׁה מְהִירָה",
+        "tr": "harakevet hachadashah mehirah",
+        "fr": "le nouveau train est rapide"
+      }
+    ]
+  },
+  {
+    "he": "אִטִּי",
+    "fr": "lent",
+    "formes": [
+      {
+        "he": "אִטִּית",
+        "tr": "itit"
+      },
+      {
+        "he": "אִטִּיִּים",
+        "tr": "itiyim"
+      },
+      {
+        "he": "אִטִּיּוֹת",
+        "tr": "itiyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאוֹטוֹבּוּס אִטִּי בַּבֹּקֶר",
+        "tr": "haotobus iti baboker",
+        "fr": "le bus est lent le matin"
+      }
+    ]
+  },
+  {
+    "he": "חָזָק",
+    "fr": "fort, puissant",
+    "formes": [
+      {
+        "he": "חֲזָקָה",
+        "tr": "chazakah"
+      },
+      {
+        "he": "חֲזָקִים",
+        "tr": "chazakim"
+      },
+      {
+        "he": "חֲזָקוֹת",
+        "tr": "chazakot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַקָּפֶה הַזֶּה חָזָק מְאֹד",
+        "tr": "hakafeh hazeh chazak me'od",
+        "fr": "ce café est très fort"
+      }
+    ]
+  },
+  {
+    "he": "חַלָּשׁ",
+    "fr": "faible",
+    "formes": [
+      {
+        "he": "חַלָּשָׁה",
+        "tr": "chalashah"
+      },
+      {
+        "he": "חַלָּשִׁים",
+        "tr": "chalashim"
+      },
+      {
+        "he": "חַלָּשׁוֹת",
+        "tr": "chalashot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי חַלָּשׁ בְּלִי קָפֶה בַּבֹּקֶר",
+        "tr": "ani chalash beli kafeh baboker",
+        "fr": "je suis faible sans café le matin"
+      }
+    ]
+  },
+  {
+    "he": "נָקִי",
+    "fr": "propre",
+    "formes": [
+      {
+        "he": "נְקִיָּה",
+        "tr": "nekiyah"
+      },
+      {
+        "he": "נְקִיִּים",
+        "tr": "nekiyim"
+      },
+      {
+        "he": "נְקִיּוֹת",
+        "tr": "nekiyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבַּיִת נָקִי לִפְנֵי הַחַג",
+        "tr": "habayit naki lifnei hachag",
+        "fr": "la maison est propre avant la fête"
+      }
+    ]
+  },
+  {
+    "he": "מְלֻכְלָךְ",
+    "fr": "sale",
+    "formes": [
+      {
+        "he": "מְלֻכְלֶכֶת",
+        "tr": "melukhlekhet"
+      },
+      {
+        "he": "מְלֻכְלָכִים",
+        "tr": "melukhlakhim"
+      },
+      {
+        "he": "מְלֻכְלָכוֹת",
+        "tr": "melukhlakhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֻלְצָה מְלֻכְלֶכֶת אַחֲרֵי הַמִּשְׂחָק",
+        "tr": "hachultsah melukhlekhet acharei hamischak",
+        "fr": "la chemise est sale après le match"
+      }
+    ]
+  },
+  {
+    "he": "מְרוּוָח",
+    "fr": "spacieux",
+    "formes": [
+      {
+        "he": "מְרוּוַחַת",
+        "tr": "meruvachat"
+      },
+      {
+        "he": "מְרוּוָחִים",
+        "tr": "meruvachim"
+      },
+      {
+        "he": "מְרוּוָחוֹת",
+        "tr": "meruvachot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַדִּירָה הַחֲדָשָׁה מְרוּוַחַת מְאֹד",
+        "tr": "hadirah hachadashah meruvachat me'od",
+        "fr": "le nouvel appartement est très spacieux"
+      }
+    ]
+  },
+  {
+    "he": "נוֹחַ",
+    "fr": "confortable",
+    "formes": [
+      {
+        "he": "נוֹחָה",
+        "tr": "nochah"
+      },
+      {
+        "he": "נוֹחִים",
+        "tr": "nochim"
+      },
+      {
+        "he": "נוֹחוֹת",
+        "tr": "nochot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכִּסֵּא הֶחָדָשׁ נוֹחַ מְאֹד",
+        "tr": "hakise hechadash noach me'od",
+        "fr": "la nouvelle chaise est très confortable"
+      }
+    ]
+  },
+  {
+    "he": "מוּאָר",
+    "fr": "lumineux, éclairé",
+    "formes": [
+      {
+        "he": "מוּאֶרֶת",
+        "tr": "mu'eret"
+      },
+      {
+        "he": "מוּאָרִים",
+        "tr": "mu'arim"
+      },
+      {
+        "he": "מוּאָרוֹת",
+        "tr": "mu'arot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֶדֶר מוּאָר בַּבֹּקֶר",
+        "tr": "hacheder mu'ar baboker",
+        "fr": "la chambre est éclairée le matin"
+      }
+    ]
+  },
+  {
+    "he": "חָשׁוּךְ",
+    "fr": "sombre",
+    "formes": [
+      {
+        "he": "חֲשׁוּכָה",
+        "tr": "chashukhah"
+      },
+      {
+        "he": "חֲשׁוּכִים",
+        "tr": "chashukhim"
+      },
+      {
+        "he": "חֲשׁוּכוֹת",
+        "tr": "chashukhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֶדֶר חָשׁוּךְ בַּלַּיְלָה",
+        "tr": "hacheder chashukh balaylah",
+        "fr": "la chambre est sombre la nuit"
+      }
+    ]
+  },
+  {
+    "he": "מָלֵא",
+    "fr": "plein",
+    "formes": [
+      {
+        "he": "מְלֵאָה",
+        "tr": "mele'ah"
+      },
+      {
+        "he": "מְלֵאִים",
+        "tr": "mele'im"
+      },
+      {
+        "he": "מְלֵאוֹת",
+        "tr": "meleot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכּוֹס מְלֵאָה מַיִם קָרִים",
+        "tr": "hakos mele'ah mayim karim",
+        "fr": "le verre est plein d'eau froide"
+      }
+    ]
+  },
+  {
+    "he": "רֵיק",
+    "fr": "vide",
+    "formes": [
+      {
+        "he": "רֵיקָה",
+        "tr": "reikah"
+      },
+      {
+        "he": "רֵיקִים",
+        "tr": "reikim"
+      },
+      {
+        "he": "רֵיקוֹת",
+        "tr": "reikot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבַּקְבּוּק עַל הַשֻּׁלְחָן רֵיק",
+        "tr": "habakbuk 'al hashulchan reik",
+        "fr": "la bouteille sur la table est vide"
+      }
+    ]
+  },
+  {
+    "he": "יָקָר",
+    "fr": "cher, coûteux",
+    "formes": [
+      {
+        "he": "יְקָרָה",
+        "tr": "yekarah"
+      },
+      {
+        "he": "יְקָרִים",
+        "tr": "yekarim"
+      },
+      {
+        "he": "יְקָרוֹת",
+        "tr": "yekarot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמָּלוֹן הַזֶּה יָקָר מִדַּי",
+        "tr": "hamalon hazeh yakar midai",
+        "fr": "cet hôtel est trop cher"
+      }
+    ]
+  },
+  {
+    "he": "זוֹל",
+    "fr": "bon marché",
+    "formes": [
+      {
+        "he": "זוֹלָה",
+        "tr": "zolah"
+      },
+      {
+        "he": "זוֹלִים",
+        "tr": "zolim"
+      },
+      {
+        "he": "זוֹלוֹת",
+        "tr": "zolot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַפֵּרוֹת זוֹלִים בַּשּׁוּק",
+        "tr": "haperot zolim bashuk",
+        "fr": "les fruits sont bon marché au marché"
+      }
+    ]
+  },
+  {
+    "he": "חִנָּמִי",
+    "fr": "gratuit",
+    "formes": [
+      {
+        "he": "חִנָּמִית",
+        "tr": "chinamit"
+      },
+      {
+        "he": "חִנָּמִיִּים",
+        "tr": "chinamiyim"
+      },
+      {
+        "he": "חִנָּמִיּוֹת",
+        "tr": "chinamiyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמַּיִם בַּמִּסְעָדָה חִנָּמִיִּים",
+        "tr": "hamayim bamis'adah chinamiyim",
+        "fr": "l'eau au restaurant est gratuite"
+      }
+    ]
+  },
+  {
+    "he": "פָּתוּחַ",
+    "fr": "ouvert",
+    "formes": [
+      {
+        "he": "פְּתוּחָה",
+        "tr": "petuchah"
+      },
+      {
+        "he": "פְּתוּחִים",
+        "tr": "petuchim"
+      },
+      {
+        "he": "פְּתוּחוֹת",
+        "tr": "petuchot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֲנוּת פְּתוּחָה עַד הָעֶרֶב",
+        "tr": "hachanut petuchah 'ad ha'erev",
+        "fr": "le magasin est ouvert jusqu'au soir"
+      }
+    ]
+  },
+  {
+    "he": "סָגוּר",
+    "fr": "fermé",
+    "formes": [
+      {
+        "he": "סְגוּרָה",
+        "tr": "segurah"
+      },
+      {
+        "he": "סְגוּרִים",
+        "tr": "segurim"
+      },
+      {
+        "he": "סְגוּרוֹת",
+        "tr": "segurot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבַּנְק סָגוּר בְּשַׁבָּת",
+        "tr": "habank sagur beshabat",
+        "fr": "la banque est fermée le chabbat"
+      }
+    ]
+  },
+  {
+    "he": "עָסוּק",
+    "fr": "occupé",
+    "formes": [
+      {
+        "he": "עֲסוּקָה",
+        "tr": "'asukah"
+      },
+      {
+        "he": "עֲסוּקִים",
+        "tr": "'asukim"
+      },
+      {
+        "he": "עֲסוּקוֹת",
+        "tr": "'asukot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אַבָּא עָסוּק בָּעֲבוֹדָה כָּל הַיּוֹם",
+        "tr": "aba 'asuk ba'avodah kol hayom",
+        "fr": "papa est occupé au travail toute la journée"
+      }
+    ]
+  },
+  {
+    "he": "חָפְשִׁי",
+    "fr": "libre",
+    "formes": [
+      {
+        "he": "חָפְשִׁיָּה",
+        "tr": "chofshiyah"
+      },
+      {
+        "he": "חָפְשִׁיִּים",
+        "tr": "chofshiyim"
+      },
+      {
+        "he": "חָפְשִׁיּוֹת",
+        "tr": "chofshiyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי חָפְשִׁי בְּיוֹם רִאשׁוֹן",
+        "tr": "ani chafshi beyom rishon",
+        "fr": "je suis libre dimanche"
+      }
+    ]
+  },
+  {
+    "he": "עֵר",
+    "fr": "réveillé / éveillé",
+    "formes": [
+      {
+        "he": "עֵרָה",
+        "tr": "erah"
+      },
+      {
+        "he": "עֵרִים",
+        "tr": "erim"
+      },
+      {
+        "he": "עֵרוֹת",
+        "tr": "erot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי עֵר עַכְשָׁיו",
+        "tr": "ani er 'akhshav",
+        "fr": "je suis réveillé maintenant"
+      }
+    ]
+  },
+  {
+    "he": "רָגוּעַ",
+    "fr": "calme",
+    "formes": [
+      {
+        "he": "רְגוּעָה",
+        "tr": "regu'ah"
+      },
+      {
+        "he": "רְגוּעִים",
+        "tr": "regu'im"
+      },
+      {
+        "he": "רְגוּעוֹת",
+        "tr": "regu'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיָּם רָגוּעַ הָעֶרֶב",
+        "tr": "hayam ragu'a ha'erev",
+        "fr": "la mer est calme ce soir"
+      }
+    ]
+  },
+  {
+    "he": "מַצְחִיק",
+    "fr": "drôle",
+    "formes": [
+      {
+        "he": "מַצְחִיקָה",
+        "tr": "matschikah"
+      },
+      {
+        "he": "מַצְחִיקִים",
+        "tr": "matschikim"
+      },
+      {
+        "he": "מַצְחִיקוֹת",
+        "tr": "matschikot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסִּפּוּר הַזֶּה מַצְחִיק מְאֹד",
+        "tr": "hasipur hazeh matschik me'od",
+        "fr": "cette histoire est très drôle"
+      }
+    ]
+  },
+  {
+    "he": "מְשַׁעֲמֵם",
+    "fr": "ennuyeux",
+    "formes": [
+      {
+        "he": "מְשַׁעֲמֶמֶת",
+        "tr": "mesha'amemet"
+      },
+      {
+        "he": "מְשַׁעֲמְמִים",
+        "tr": "mesha'amemim"
+      },
+      {
+        "he": "מְשַׁעֲמְמוֹת",
+        "tr": "mesha'amemot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֶּרֶט מְשַׁעֲמֵם אָז אֲנַחְנוּ יוֹצְאִים",
+        "tr": "haseret mesha'amem az anachnu yotsim",
+        "fr": "le film est ennuyeux alors nous sortons"
+      }
+    ]
+  },
+  {
+    "he": "מְעַנְיֵן",
+    "fr": "intéressant",
+    "formes": [
+      {
+        "he": "מְעַנְיֶנֶת",
+        "tr": "me'anyenet"
+      },
+      {
+        "he": "מְעַנְיְנִים",
+        "tr": "me'anyenim"
+      },
+      {
+        "he": "מְעַנְיְנוֹת",
+        "tr": "me'anyenot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסִּפּוּר הַזֶּה מְעַנְיֵן",
+        "tr": "hasipur hazeh me'anyen",
+        "fr": "cette histoire est intéressante"
+      }
+    ]
+  },
+  {
+    "he": "חָשׁוּב",
+    "fr": "important",
+    "formes": [
+      {
+        "he": "חֲשׁוּבָה",
+        "tr": "chashuvah"
+      },
+      {
+        "he": "חֲשׁוּבִים",
+        "tr": "chashuvim"
+      },
+      {
+        "he": "חֲשׁוּבוֹת",
+        "tr": "chashuvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשִּׁעוּר הַזֶּה חָשׁוּב מְאֹד",
+        "tr": "hashi'ur hazeh chashuv me'od",
+        "fr": "ce cours est très important"
+      }
+    ]
+  },
+  {
+    "he": "שׁוֹנֶה",
+    "fr": "différent",
+    "formes": [
+      {
+        "he": "שׁוֹנָה",
+        "tr": "shonah"
+      },
+      {
+        "he": "שׁוֹנִים",
+        "tr": "shonim"
+      },
+      {
+        "he": "שׁוֹנוֹת",
+        "tr": "shonot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "כָּל יֶלֶד שׁוֹנֶה",
+        "tr": "kol yeled shoneh",
+        "fr": "chaque enfant est différent"
+      }
+    ]
+  },
+  {
+    "he": "זֶהֶה",
+    "fr": "identique, pareil",
+    "formes": [
+      {
+        "he": "זֶהָה",
+        "tr": "zehah"
+      },
+      {
+        "he": "זֶהִים",
+        "tr": "zehim"
+      },
+      {
+        "he": "זֶהוֹת",
+        "tr": "zehot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתְּמוּנוֹת הָאֵלֶּה זֶהוֹת",
+        "tr": "hatmunot ha'eleh zehot",
+        "fr": "ces images sont identiques"
+      }
+    ]
+  },
+  {
+    "he": "נָכוֹן",
+    "fr": "correct, vrai",
+    "formes": [
+      {
+        "he": "נְכוֹנָה",
+        "tr": "nekhonah"
+      },
+      {
+        "he": "נְכוֹנִים",
+        "tr": "nekhonim"
+      },
+      {
+        "he": "נְכוֹנוֹת",
+        "tr": "nekhonot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתְּשׁוּבָה שֶׁלְּךָ נְכוֹנָה",
+        "tr": "hatshuvah shelkha nekhonah",
+        "fr": "ta réponse est correcte"
+      }
+    ]
+  },
+  {
+    "he": "שָׁגוּי",
+    "fr": "faux, erroné",
+    "formes": [
+      {
+        "he": "שְׁגוּיָה",
+        "tr": "shguyah"
+      },
+      {
+        "he": "שְׁגוּיִים",
+        "tr": "shguyim"
+      },
+      {
+        "he": "שְׁגוּיוֹת",
+        "tr": "shguyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמִּסְפָּר הַזֶּה שָׁגוּי",
+        "tr": "hamispar hazeh shaguy",
+        "fr": "ce numéro est faux"
+      }
+    ]
+  },
+  {
+    "he": "אֶפְשָׁרִי",
+    "fr": "possible",
+    "formes": [
+      {
+        "he": "אֶפְשָׁרִית",
+        "tr": "efsharit"
+      },
+      {
+        "he": "אֶפְשָׁרִיִּים",
+        "tr": "efshariyim"
+      },
+      {
+        "he": "אֶפְשָׁרִיּוֹת",
+        "tr": "efshariyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכֹּל אֶפְשָׁרִי עִם סַבְלָנוּת",
+        "tr": "hakol efshari 'im savlanut",
+        "fr": "tout est possible avec de la patience"
+      }
+    ]
+  },
+  {
+    "he": "עָשִׁיר",
+    "fr": "riche",
+    "formes": [
+      {
+        "he": "עֲשִׁירָה",
+        "tr": "'ashirah"
+      },
+      {
+        "he": "עֲשִׁירִים",
+        "tr": "'ashirim"
+      },
+      {
+        "he": "עֲשִׁירוֹת",
+        "tr": "'ashirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאִישׁ הֶעָשִׁיר גָּר בְּבַיִת גָּדוֹל",
+        "tr": "ha'ish he'ashir gar bevayit gadol",
+        "fr": "l'homme riche habite dans une grande maison"
+      }
+    ]
+  },
+  {
+    "he": "עָנִי",
+    "fr": "pauvre",
+    "formes": [
+      {
+        "he": "עֲנִיָּה",
+        "tr": "'aniyah"
+      },
+      {
+        "he": "עֲנִיִּים",
+        "tr": "'aniyim"
+      },
+      {
+        "he": "עֲנִיּוֹת",
+        "tr": "'aniyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבָּחוּר הֶעָנִי עוֹבֵד הַרְבֵּה",
+        "tr": "habachur he'ani 'oved harbeh",
+        "fr": "le jeune homme pauvre travaille beaucoup"
+      }
+    ]
+  },
+  {
+    "he": "חַיָּב",
+    "fr": "endetté, redevable (d'argent)",
+    "formes": [
+      {
+        "he": "חַיֶּבֶת",
+        "tr": "chayevet"
+      },
+      {
+        "he": "חַיָּבִים",
+        "tr": "chayavim"
+      },
+      {
+        "he": "חַיָּבוֹת",
+        "tr": "chayavot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא חַיָּב כֶּסֶף לַבַּנְק",
+        "tr": "hu chayav kesef labank",
+        "fr": "il doit de l'argent à la banque"
+      }
+    ]
+  },
+  {
+    "he": "חִסְכּוֹנִי",
+    "fr": "économe",
+    "formes": [
+      {
+        "he": "חִסְכּוֹנִית",
+        "tr": "chiskonit"
+      },
+      {
+        "he": "חִסְכּוֹנִיִּים",
+        "tr": "chiskoniyim"
+      },
+      {
+        "he": "חִסְכּוֹנִיּוֹת",
+        "tr": "chiskoniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הִיא אִשָּׁה חִסְכּוֹנִית",
+        "tr": "hi ishah chiskonit",
+        "fr": "c'est une femme économe"
+      }
+    ]
+  },
+  {
+    "he": "מְנֻמָּס",
+    "fr": "poli",
+    "formes": [
+      {
+        "he": "מְנֻמֶּסֶת",
+        "tr": "menumeset"
+      },
+      {
+        "he": "מְנֻמָּסִים",
+        "tr": "menumasim"
+      },
+      {
+        "he": "מְנֻמָּסוֹת",
+        "tr": "menumasot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד הַמְּנֻמָּס אוֹמֵר תּוֹדָה",
+        "tr": "hayeled hamnumas omer todah",
+        "fr": "l'enfant poli dit merci"
+      }
+    ]
+  },
+  {
+    "he": "שָׁמֵן",
+    "fr": "gros",
+    "formes": [
+      {
+        "he": "שְׁמֵנָה",
+        "tr": "shmenah"
+      },
+      {
+        "he": "שְׁמֵנִים",
+        "tr": "shmenim"
+      },
+      {
+        "he": "שְׁמֵנוֹת",
+        "tr": "shmenot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הֶחָתוּל שֶׁל סָבְתָא שָׁמֵן",
+        "tr": "hechatul shel savta shamen",
+        "fr": "le chat de grand-mère est gros"
+      }
+    ]
+  },
+  {
+    "he": "רָזֶה",
+    "fr": "mince",
+    "formes": [
+      {
+        "he": "רָזָה",
+        "tr": "razah"
+      },
+      {
+        "he": "רָזִים",
+        "tr": "razim"
+      },
+      {
+        "he": "רָזוֹת",
+        "tr": "razot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבַּחוּרָה הַזֹּאת רָזָה מְאֹד",
+        "tr": "habachurah hazot razah me'od",
+        "fr": "cette jeune fille est très mince"
+      }
+    ]
+  },
+  {
+    "he": "אָרוֹךְ",
+    "fr": "long",
+    "formes": [
+      {
+        "he": "אֲרֻכָּה",
+        "tr": "arukah"
+      },
+      {
+        "he": "אֲרֻכִּים",
+        "tr": "arukim"
+      },
+      {
+        "he": "אֲרֻכּוֹת",
+        "tr": "arukot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַדֶּרֶךְ לָעִיר אֲרֻכָּה",
+        "tr": "haderekh la'ir arukah",
+        "fr": "le chemin vers la ville est long"
+      }
+    ]
+  },
+  {
+    "he": "קָצָר",
+    "fr": "court",
+    "formes": [
+      {
+        "he": "קְצָרָה",
+        "tr": "ktsarah"
+      },
+      {
+        "he": "קְצָרִים",
+        "tr": "ktsarim"
+      },
+      {
+        "he": "קְצָרוֹת",
+        "tr": "ktsarot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשִּׁעוּר הַיּוֹם קָצָר",
+        "tr": "hashi'ur hayom katsar",
+        "fr": "le cours d'aujourd'hui est court"
+      }
+    ]
+  },
+  {
+    "he": "גָּבוֹהַּ",
+    "fr": "haut",
+    "formes": [
+      {
+        "he": "גְּבוֹהָה",
+        "tr": "gvohah"
+      },
+      {
+        "he": "גְּבוֹהִים",
+        "tr": "gvohim"
+      },
+      {
+        "he": "גְּבוֹהוֹת",
+        "tr": "gvohot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָהָר הַזֶּה גָּבוֹהַּ מְאֹד",
+        "tr": "hahar hazeh gavoha me'od",
+        "fr": "cette montagne est très haute"
+      }
+    ]
+  },
+  {
+    "he": "נָמוּךְ",
+    "fr": "bas",
+    "formes": [
+      {
+        "he": "נְמוּכָה",
+        "tr": "nmukhah"
+      },
+      {
+        "he": "נְמוּכִים",
+        "tr": "nmukhim"
+      },
+      {
+        "he": "נְמוּכוֹת",
+        "tr": "nmukhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֻּׁלְחָן הַזֶּה נָמוּךְ",
+        "tr": "hashulchan hazeh namukh",
+        "fr": "cette table est basse"
+      }
+    ]
+  },
+  {
+    "he": "רָחָב",
+    "fr": "large",
+    "formes": [
+      {
+        "he": "רְחָבָה",
+        "tr": "rechavah"
+      },
+      {
+        "he": "רְחָבִים",
+        "tr": "rechavim"
+      },
+      {
+        "he": "רְחָבוֹת",
+        "tr": "rechavot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכְּבִישׁ הֶחָדָשׁ רָחָב",
+        "tr": "hakvish hechadash rachav",
+        "fr": "la nouvelle route est large"
+      }
+    ]
+  },
+  {
+    "he": "צַר",
+    "fr": "étroit",
+    "formes": [
+      {
+        "he": "צָרָה",
+        "tr": "tsarah"
+      },
+      {
+        "he": "צָרִים",
+        "tr": "tsarim"
+      },
+      {
+        "he": "צָרוֹת",
+        "tr": "tsarot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָרְחוֹב הַיָּשָׁן צַר",
+        "tr": "harchov hayashan tsar",
+        "fr": "la vieille rue est étroite"
+      }
+    ]
+  },
+  {
+    "he": "כָּבֵד",
+    "fr": "lourd",
+    "formes": [
+      {
+        "he": "כְּבֵדָה",
+        "tr": "kvedah"
+      },
+      {
+        "he": "כְּבֵדִים",
+        "tr": "kvedim"
+      },
+      {
+        "he": "כְּבֵדוֹת",
+        "tr": "kvedot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתִּיק שֶׁל הַתַּלְמִיד כָּבֵד",
+        "tr": "hatik shel hatalmid kaved",
+        "fr": "le sac de l'élève est lourd"
+      }
+    ]
+  },
+  {
+    "he": "רַךְ",
+    "fr": "mou, doux (texture)",
+    "formes": [
+      {
+        "he": "רַכָּה",
+        "tr": "rakah"
+      },
+      {
+        "he": "רַכִּים",
+        "tr": "rakim"
+      },
+      {
+        "he": "רַכּוֹת",
+        "tr": "rakot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסַּפָּה הַחֲדָשָׁה רַכָּה",
+        "tr": "hasapah hachadashah rakah",
+        "fr": "le nouveau canapé est moelleux"
+      }
+    ]
+  },
+  {
+    "he": "יָבֵשׁ",
+    "fr": "sec",
+    "formes": [
+      {
+        "he": "יְבֵשָׁה",
+        "tr": "yveshah"
+      },
+      {
+        "he": "יְבֵשִׁים",
+        "tr": "yveshim"
+      },
+      {
+        "he": "יְבֵשׁוֹת",
+        "tr": "yveshot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַדֶּשֶׁא יָבֵשׁ בַּקַּיִץ",
+        "tr": "hadeshe yavesh bakayits",
+        "fr": "l'herbe est sèche en été"
+      }
+    ]
+  },
+  {
+    "he": "רָטֹב",
+    "fr": "mouillé",
+    "formes": [
+      {
+        "he": "רְטֻבָּה",
+        "tr": "retubah"
+      },
+      {
+        "he": "רְטֻבִּים",
+        "tr": "retubim"
+      },
+      {
+        "he": "רְטֻבּוֹת",
+        "tr": "retubot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכֶּלֶב רָטֹב מֵהַגֶּשֶׁם",
+        "tr": "hakelev ratov mehageshem",
+        "fr": "le chien est mouillé par la pluie"
+      }
+    ]
+  },
+  {
+    "he": "קָרוֹב",
+    "fr": "proche",
+    "formes": [
+      {
+        "he": "קְרוֹבָה",
+        "tr": "krovah"
+      },
+      {
+        "he": "קְרוֹבִים",
+        "tr": "krovim"
+      },
+      {
+        "he": "קְרוֹבוֹת",
+        "tr": "krovot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסּוּפֶּרְמַרְקֶט קָרוֹב לַבַּיִת",
+        "tr": "hasupermarket karov labayit",
+        "fr": "le supermarché est proche de la maison"
+      }
+    ]
+  },
+  {
+    "he": "רָחוֹק",
+    "fr": "loin, lointain",
+    "formes": [
+      {
+        "he": "רְחוֹקָה",
+        "tr": "rechokah"
+      },
+      {
+        "he": "רְחוֹקִים",
+        "tr": "rechokim"
+      },
+      {
+        "he": "רְחוֹקוֹת",
+        "tr": "rechokot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "שְׂדֵה הַתְּעוּפָה רָחוֹק מֵהָעִיר",
+        "tr": "sedeh hat'ufah rachok meha'ir",
+        "fr": "l'aéroport est loin de la ville"
+      }
+    ]
+  },
+  {
+    "he": "עַצְבָּנִי",
+    "fr": "nerveux",
+    "formes": [
+      {
+        "he": "עַצְבָּנִית",
+        "tr": "'atsbanit"
+      },
+      {
+        "he": "עַצְבָּנִיִּים",
+        "tr": "'atsbaniyim"
+      },
+      {
+        "he": "עַצְבָּנִיּוֹת",
+        "tr": "'atsbaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אַבָּא עַצְבָּנִי כִּי אֵין קָפֶה",
+        "tr": "aba 'atsbani ki ein kafeh",
+        "fr": "papa est nerveux parce qu'il n'y a pas de café"
+      }
+    ]
+  },
+  {
+    "he": "מְסֻכָּן",
+    "fr": "dangereux",
+    "formes": [
+      {
+        "he": "מְסֻכֶּנֶת",
+        "tr": "mesukenet"
+      },
+      {
+        "he": "מְסֻכָּנִים",
+        "tr": "mesukanim"
+      },
+      {
+        "he": "מְסֻכָּנוֹת",
+        "tr": "mesukanot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכְּבִישׁ מְסֻכָּן בַּגֶּשֶׁם",
+        "tr": "hakvish mesukan bageshem",
+        "fr": "la route est dangereuse sous la pluie"
+      }
+    ]
+  },
+  {
+    "he": "בָּטוּחַ",
+    "fr": "sûr (sécurité / certain)",
+    "formes": [
+      {
+        "he": "בְּטוּחָה",
+        "tr": "betuchah"
+      },
+      {
+        "he": "בְּטוּחִים",
+        "tr": "betuchim"
+      },
+      {
+        "he": "בְּטוּחוֹת",
+        "tr": "betuchot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי בָּטוּחַ שֶׁזֹּאת הַתְּשׁוּבָה",
+        "tr": "ani batuach shezot hatshuvah",
+        "fr": "je suis sûr que c'est la réponse"
+      }
+    ]
+  },
+  {
+    "he": "פָּשׁוּט",
+    "fr": "simple",
+    "formes": [
+      {
+        "he": "פְּשׁוּטָה",
+        "tr": "pshutah"
+      },
+      {
+        "he": "פְּשׁוּטִים",
+        "tr": "pshutim"
+      },
+      {
+        "he": "פְּשׁוּטוֹת",
+        "tr": "pshutot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשְּׁאֵלָה פְּשׁוּטָה וְהַתְּשׁוּבָה קַלָּה",
+        "tr": "hashelah peshutah vehatshuvah kalah",
+        "fr": "la question est simple et la réponse facile"
+      }
+    ]
+  },
+  {
+    "he": "מְסֻבָּךְ",
+    "fr": "compliqué",
+    "formes": [
+      {
+        "he": "מְסֻבֶּכֶת",
+        "tr": "mesubekhet"
+      },
+      {
+        "he": "מְסֻבָּכִים",
+        "tr": "mesubakhim"
+      },
+      {
+        "he": "מְסֻבָּכוֹת",
+        "tr": "mesubakhot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסִּפּוּר הַזֶּה מְסֻבָּךְ",
+        "tr": "hasipur hazeh mesubakh",
+        "fr": "cette histoire est compliquée"
+      }
+    ]
+  },
+  {
+    "he": "מְפֻרְסָם",
+    "fr": "célèbre",
+    "formes": [
+      {
+        "he": "מְפֻרְסֶמֶת",
+        "tr": "mefursemet"
+      },
+      {
+        "he": "מְפֻרְסָמִים",
+        "tr": "mefursamim"
+      },
+      {
+        "he": "מְפֻרְסָמוֹת",
+        "tr": "mefursamot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַזַּמָּר הַזֶּה מְפֻרְסָם בְּיִשְׂרָאֵל",
+        "tr": "hazamar hazeh mefursam beYisra'el",
+        "fr": "ce chanteur est célèbre en Israël"
+      }
+    ]
+  },
+  {
+    "he": "מְיֻחָד",
+    "fr": "spécial",
+    "formes": [
+      {
+        "he": "מְיֻחֶדֶת",
+        "tr": "meyuchedet"
+      },
+      {
+        "he": "מְיֻחָדִים",
+        "tr": "meyuchadim"
+      },
+      {
+        "he": "מְיֻחָדוֹת",
+        "tr": "meyuchadot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיּוֹם הַזֶּה יוֹם מְיֻחָד",
+        "tr": "hayom hazeh yom meiuchad",
+        "fr": "ce jour est un jour spécial"
+      }
+    ]
+  },
+  {
+    "he": "נוֹרְמָלִי",
+    "fr": "normal",
+    "formes": [
+      {
+        "he": "נוֹרְמָלִית",
+        "tr": "normalit"
+      },
+      {
+        "he": "נוֹרְמָלִיִּים",
+        "tr": "normaliyim"
+      },
+      {
+        "he": "נוֹרְמָלִיּוֹת",
+        "tr": "normaliyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה יוֹם נוֹרְמָלִי בָּעֲבוֹדָה",
+        "tr": "zeh yom normali ba'avodah",
+        "fr": "c'est une journée normale au travail"
+      }
+    ]
+  },
+  {
+    "he": "מוּזָר",
+    "fr": "étrange, bizarre",
+    "formes": [
+      {
+        "he": "מוּזָרָה",
+        "tr": "muzarah"
+      },
+      {
+        "he": "מוּזָרִים",
+        "tr": "muzarim"
+      },
+      {
+        "he": "מוּזָרוֹת",
+        "tr": "muzarot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹמֵעַ קוֹל מוּזָר בַּלַּיְלָה",
+        "tr": "ani shome'a kol muzar balaylah",
+        "fr": "j'entends un bruit étrange dans la nuit"
+      }
+    ]
+  },
+  {
+    "he": "חוֹלֶה",
+    "fr": "malade",
+    "formes": [
+      {
+        "he": "חוֹלָה",
+        "tr": "cholah"
+      },
+      {
+        "he": "חוֹלִים",
+        "tr": "cholim"
+      },
+      {
+        "he": "חוֹלוֹת",
+        "tr": "cholot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא חוֹלֶה, הוּא בַּמִּטָּה",
+        "tr": "hu choleh, hu bamitah",
+        "fr": "il est malade, il est au lit"
+      }
+    ]
+  },
+  {
+    "he": "בָּרִיא",
+    "fr": "en bonne santé",
+    "formes": [
+      {
+        "he": "בְּרִיאָה",
+        "tr": "bri'ah"
+      },
+      {
+        "he": "בְּרִיאִים",
+        "tr": "bri'im"
+      },
+      {
+        "he": "בְּרִיאוֹת",
+        "tr": "bri'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים בְּרִיאִים וּשְׂמֵחִים",
+        "tr": "hayladim beriyim usmechim",
+        "fr": "les enfants sont en bonne santé et heureux"
+      }
+    ]
+  },
+  {
+    "he": "אָבוּד",
+    "fr": "perdu",
+    "formes": [
+      {
+        "he": "אֲבוּדָה",
+        "tr": "avudah"
+      },
+      {
+        "he": "אֲבוּדִים",
+        "tr": "avudim"
+      },
+      {
+        "he": "אֲבוּדוֹת",
+        "tr": "avudot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד הָאָבוּד בּוֹכֶה וּמְחַפֵּשׂ אֶת אִמָּא",
+        "tr": "hayeled ha'avud bokheh umechapes et ima",
+        "fr": "l'enfant perdu pleure et cherche maman"
+      }
+    ]
+  },
+  {
+    "he": "צָפוּף",
+    "fr": "bondé",
+    "formes": [
+      {
+        "he": "צְפוּפָה",
+        "tr": "tsfufah"
+      },
+      {
+        "he": "צְפוּפִים",
+        "tr": "tsfufim"
+      },
+      {
+        "he": "צְפוּפוֹת",
+        "tr": "tsfufot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאוֹטוֹבּוּס צָפוּף מְאֹד הַיּוֹם",
+        "tr": "ha'otobus tsafuf me'od hayom",
+        "fr": "le bus est très bondé aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "מָתוֹק",
+    "fr": "sucré",
+    "formes": [
+      {
+        "he": "מְתוּקָה",
+        "tr": "metukah"
+      },
+      {
+        "he": "מְתוּקִים",
+        "tr": "metukim"
+      },
+      {
+        "he": "מְתוּקוֹת",
+        "tr": "metukot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַדְּבַשׁ מָתוֹק מְאֹד",
+        "tr": "hadvash matok me'od",
+        "fr": "le miel est très sucré"
+      }
+    ]
+  },
+  {
+    "he": "מָלוּחַ",
+    "fr": "salé",
+    "formes": [
+      {
+        "he": "מְלוּחָה",
+        "tr": "meluchah"
+      },
+      {
+        "he": "מְלוּחִים",
+        "tr": "meluchim"
+      },
+      {
+        "he": "מְלוּחוֹת",
+        "tr": "meluchot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַגְּבִינָה הַזֹּאת מְלוּחָה",
+        "tr": "hagvinah hazot meluchah",
+        "fr": "ce fromage est salé"
+      }
+    ]
+  },
+  {
+    "he": "מַר",
+    "fr": "amer",
+    "formes": [
+      {
+        "he": "מָרָה",
+        "tr": "marah"
+      },
+      {
+        "he": "מָרִים",
+        "tr": "marim"
+      },
+      {
+        "he": "מָרוֹת",
+        "tr": "marot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַקָּפֶה מַר בְּלִי סֻכָּר",
+        "tr": "hakafeh mar beli sukar",
+        "fr": "le café est amer sans sucre"
+      }
+    ]
+  },
+  {
+    "he": "חָרִיף",
+    "fr": "épicé, piquant",
+    "formes": [
+      {
+        "he": "חֲרִיפָה",
+        "tr": "charifah"
+      },
+      {
+        "he": "חֲרִיפִים",
+        "tr": "charifim"
+      },
+      {
+        "he": "חֲרִיפוֹת",
+        "tr": "charifot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַפָּלָאפֶל הַזֶּה חָרִיף מְאֹד",
+        "tr": "hafalafel hazeh charif me'od",
+        "fr": "ce falafel est très épicé"
+      }
+    ]
+  },
+  {
+    "he": "צִמְחוֹנִי",
+    "fr": "végétarien",
+    "formes": [
+      {
+        "he": "צִמְחוֹנִית",
+        "tr": "tsimchonit"
+      },
+      {
+        "he": "צִמְחוֹנִים",
+        "tr": "tsimchonim"
+      },
+      {
+        "he": "צִמְחוֹנִיּוֹת",
+        "tr": "tsimchoniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הֶחָבֵר שֶׁלִּי צִמְחוֹנִי וְלֹא אוֹכֵל בָּשָׂר",
+        "tr": "hechaver sheli tsimchoni velo okhel basar",
+        "fr": "mon ami est végétarien et ne mange pas de viande"
+      }
+    ]
+  },
+  {
+    "he": "שָׁוֶה",
+    "fr": "égal",
+    "formes": [
+      {
+        "he": "שָׁוָה",
+        "tr": "shavah"
+      },
+      {
+        "he": "שָׁוִים",
+        "tr": "shavim"
+      },
+      {
+        "he": "שָׁווֹת",
+        "tr": "shavot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "שְׁתַּיִם וּשְׁתַּיִם שָׁוֶה אַרְבַּע",
+        "tr": "shetayim ushtayim shaveh arba'",
+        "fr": "deux et deux, ça fait quatre"
+      }
+    ]
+  },
+  {
+    "he": "מוּכָן",
+    "fr": "prêt",
+    "formes": [
+      {
+        "he": "מוּכָנָה",
+        "tr": "mukhanah"
+      },
+      {
+        "he": "מוּכָנִים",
+        "tr": "mukhanim"
+      },
+      {
+        "he": "מוּכָנוֹת",
+        "tr": "mukhanot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאֹכֶל מוּכָן וְהַמִּשְׁפָּחָה בָּאָה",
+        "tr": "ha'okhel mukhan vehamishpachah ba'ah",
+        "fr": "le repas est prêt et la famille arrive"
+      }
+    ]
+  },
+  {
+    "he": "חִיּוּבִי",
+    "fr": "positif",
+    "formes": [
+      {
+        "he": "חִיּוּבִית",
+        "tr": "chiyuvit"
+      },
+      {
+        "he": "חִיּוּבִיִּים",
+        "tr": "chiyuviyim"
+      },
+      {
+        "he": "חִיּוּבִיּוֹת",
+        "tr": "chiyuviyot"
+      }
+    ],
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה רַעְיוֹן חִיּוּבִי",
+        "tr": "zeh ra'yon chiyuvi",
+        "fr": "c'est une idée positive"
+      }
+    ]
+  },
+  {
+    "he": "שְׁלִילִי",
+    "fr": "négatif",
+    "formes": [
+      {
+        "he": "שְׁלִילִית",
+        "tr": "shlilit"
+      },
+      {
+        "he": "שְׁלִילִיִּים",
+        "tr": "shliliyim"
+      },
+      {
+        "he": "שְׁלִילִיּוֹת",
+        "tr": "shliliyot"
+      }
+    ],
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה רַעְיוֹן שְׁלִילִי",
+        "tr": "zeh ra'yon shlili",
+        "fr": "c'est une idée négative"
+      }
+    ]
+  },
+  {
+    "he": "הֶכְרֵחִי",
+    "fr": "nécessaire",
+    "formes": [
+      {
+        "he": "הֶכְרֵחִית",
+        "tr": "hekhrechit"
+      },
+      {
+        "he": "הֶכְרֵחִיִּים",
+        "tr": "hekhrechiyim"
+      },
+      {
+        "he": "הֶכְרֵחִיּוֹת",
+        "tr": "hekhrechiyot"
+      }
+    ],
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמַּיִם הֶכְרֵחִיִּים לַחַיִּים",
+        "tr": "hamayim hekhrechiyim lachayim",
+        "fr": "l'eau est nécessaire à la vie"
+      }
+    ]
+  },
+  {
+    "he": "צוֹדֵק",
+    "fr": "juste, qui a raison",
+    "formes": [
+      {
+        "he": "צוֹדֶקֶת",
+        "tr": "tsodeket"
+      },
+      {
+        "he": "צוֹדְקִים",
+        "tr": "tsodkim"
+      },
+      {
+        "he": "צוֹדְקוֹת",
+        "tr": "tsodkot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אַתָּה צוֹדֵק, זֶה נָכוֹן",
+        "tr": "atah tsodek, zeh nachon",
+        "fr": "tu as raison, c'est vrai"
+      }
+    ]
+  },
+  {
+    "he": "מוֹעִיל",
+    "fr": "utile",
+    "formes": [
+      {
+        "he": "מוֹעִילָה",
+        "tr": "mo'ilah"
+      },
+      {
+        "he": "מוֹעִילִים",
+        "tr": "mo'ilim"
+      },
+      {
+        "he": "מוֹעִילוֹת",
+        "tr": "mo'ilot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֵּפֶר הַזֶּה מוֹעִיל מְאֹד",
+        "tr": "hasefer hazeh mo'il me'od",
+        "fr": "ce livre est très utile"
+      }
+    ]
+  },
+  {
+    "he": "מֻדְאָג",
+    "fr": "inquiet",
+    "formes": [
+      {
+        "he": "מֻדְאֶגֶת",
+        "tr": "mudeget"
+      },
+      {
+        "he": "מֻדְאָגִים",
+        "tr": "mudagim"
+      },
+      {
+        "he": "מֻדְאָגוֹת",
+        "tr": "mudagot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אִמָּא מֻדְאֶגֶת כִּי הַיֶּלֶד חוֹלֶה",
+        "tr": "ima mudeget ki hayeled choleh",
+        "fr": "maman est inquiète parce que l'enfant est malade"
+      }
+    ]
+  },
+  {
+    "he": "מְרֻצֶּה",
+    "fr": "content, satisfait",
+    "formes": [
+      {
+        "he": "מְרֻצָּה",
+        "tr": "merutsah"
+      },
+      {
+        "he": "מְרֻצִּים",
+        "tr": "merutsim"
+      },
+      {
+        "he": "מְרֻצּוֹת",
+        "tr": "merutsot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה מְרֻצֶּה מֵהַתַּלְמִידִים",
+        "tr": "hamoreh merutseh mehatalmidim",
+        "fr": "l'enseignant est satisfait des élèves"
+      }
+    ]
+  },
+  {
+    "he": "כּוֹעֵס",
+    "fr": "en colère",
+    "formes": [
+      {
+        "he": "כּוֹעֶסֶת",
+        "tr": "ko'eset"
+      },
+      {
+        "he": "כּוֹעֲסִים",
+        "tr": "ko'asim"
+      },
+      {
+        "he": "כּוֹעֲסוֹת",
+        "tr": "ko'asot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא כּוֹעֵס כִּי הָאוֹטוֹבּוּס לֹא בָּא",
+        "tr": "hu ko'es ki haotobus lo ba",
+        "fr": "il est en colère parce que le bus ne vient pas"
+      }
+    ]
+  },
+  {
+    "he": "יָשָׁר",
+    "fr": "honnête",
+    "formes": [
+      {
+        "he": "יְשָׁרָה",
+        "tr": "yesharah"
+      },
+      {
+        "he": "יְשָׁרִים",
+        "tr": "yesharim"
+      },
+      {
+        "he": "יְשָׁרוֹת",
+        "tr": "yesharot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבָּחוּר הַזֶּה יָשָׁר וְטוֹב",
+        "tr": "habachur hazeh yashar vetov",
+        "fr": "ce garçon est honnête et bon"
+      }
+    ]
+  },
+  {
+    "he": "סַבְלָנִי",
+    "fr": "patient (caractère)",
+    "formes": [
+      {
+        "he": "סַבְלָנִית",
+        "tr": "savlanit"
+      },
+      {
+        "he": "סַבְלָנִיִּים",
+        "tr": "savlaniyim"
+      },
+      {
+        "he": "סַבְלָנִיּוֹת",
+        "tr": "savlaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוֹרָה סַבְלָנִית עִם הַתַּלְמִידִים",
+        "tr": "hamorah savlanit 'im hatalmidim",
+        "fr": "l'enseignante est patiente avec les élèves"
+      }
+    ]
+  },
+  {
+    "he": "סַקְרָן",
+    "fr": "curieux",
+    "formes": [
+      {
+        "he": "סַקְרָנִית",
+        "tr": "sakranit"
+      },
+      {
+        "he": "סַקְרָנִים",
+        "tr": "sakranim"
+      },
+      {
+        "he": "סַקְרָנִיּוֹת",
+        "tr": "sakraniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד הַסַּקְרָן שׁוֹאֵל הַרְבֵּה שְׁאֵלוֹת",
+        "tr": "hayeled hasakran sho'el harbeh she'elot",
+        "fr": "l'enfant curieux pose beaucoup de questions"
+      }
+    ]
+  },
+  {
+    "he": "רְצִינִי",
+    "fr": "sérieux",
+    "formes": [
+      {
+        "he": "רְצִינִית",
+        "tr": "retsinit"
+      },
+      {
+        "he": "רְצִינִיִּים",
+        "tr": "retsiniyim"
+      },
+      {
+        "he": "רְצִינִיּוֹת",
+        "tr": "retsiniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסְּטוּדֶנְט רְצִינִי וְלוֹמֵד הַרְבֵּה",
+        "tr": "hastudent retsini velomed harbeh",
+        "fr": "l'étudiant est sérieux et étudie beaucoup"
+      }
+    ]
+  },
+  {
+    "he": "בַּיְשָׁן",
+    "fr": "timide",
+    "formes": [
+      {
+        "he": "בַּיְשָׁנִית",
+        "tr": "bayshanit"
+      },
+      {
+        "he": "בַּיְשָׁנִים",
+        "tr": "bayshanim"
+      },
+      {
+        "he": "בַּיְשָׁנִיּוֹת",
+        "tr": "bayshaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה הַבַּיְשָׁנִית לֹא מְדַבֶּרֶת הַרְבֵּה",
+        "tr": "hayaldah habayshanit lo medaberet harbeh",
+        "fr": "la fille timide ne parle pas beaucoup"
+      }
+    ]
+  },
+  {
+    "he": "אַמִּיץ",
+    "fr": "courageux",
+    "formes": [
+      {
+        "he": "אַמִּיצָה",
+        "tr": "amitsah"
+      },
+      {
+        "he": "אַמִּיצִים",
+        "tr": "amitsim"
+      },
+      {
+        "he": "אַמִּיצוֹת",
+        "tr": "amitsot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשּׁוֹטֵר הָאַמִּיץ עוֹזֵר לָאֲנָשִׁים",
+        "tr": "hashoter ha'amits 'ozer la'anashim",
+        "fr": "le policier courageux aide les gens"
+      }
+    ]
+  },
+  {
+    "he": "עַצְלָן",
+    "fr": "paresseux",
+    "formes": [
+      {
+        "he": "עַצְלָנִית",
+        "tr": "'atslanit"
+      },
+      {
+        "he": "עַצְלָנִים",
+        "tr": "'atslanim"
+      },
+      {
+        "he": "עַצְלָנִיּוֹת",
+        "tr": "'atslaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הֶחָתוּל הָעַצְלָן יָשֵׁן כָּל הַיּוֹם",
+        "tr": "hechatul ha'atslan yashen kol hayom",
+        "fr": "le chat paresseux dort toute la journée"
+      }
+    ]
+  },
+  {
+    "he": "חָרוּץ",
+    "fr": "travailleur",
+    "formes": [
+      {
+        "he": "חֲרוּצָה",
+        "tr": "charutsah"
+      },
+      {
+        "he": "חֲרוּצִים",
+        "tr": "charutsim"
+      },
+      {
+        "he": "חֲרוּצוֹת",
+        "tr": "charutsot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתַּלְמִיד הֶחָרוּץ מַצְלִיחַ בַּכֹּל",
+        "tr": "hatalmid hecharuts matsliyach bakol",
+        "fr": "l'élève travailleur réussit en tout"
+      }
+    ]
+  },
+  {
+    "he": "אָדִיב",
+    "fr": "gentil",
+    "formes": [
+      {
+        "he": "אֲדִיבָה",
+        "tr": "adivah"
+      },
+      {
+        "he": "אֲדִיבִים",
+        "tr": "adivim"
+      },
+      {
+        "he": "אֲדִיבוֹת",
+        "tr": "adivot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד אָדִיב מְאֹד",
+        "tr": "hayeled adiv me'od",
+        "fr": "l'enfant est très gentil"
+      }
+    ]
+  },
+  {
+    "he": "גֵּאֶה",
+    "fr": "fier",
+    "formes": [
+      {
+        "he": "גֵּאָה",
+        "tr": "ge'ah"
+      },
+      {
+        "he": "גֵּאִים",
+        "tr": "ge'im"
+      },
+      {
+        "he": "גֵּאוֹת",
+        "tr": "ge'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אִמָּא גֵּאָה בַּיֶּלֶד",
+        "tr": "ima ge'ah bayeled",
+        "fr": "maman est fière de l'enfant"
+      }
+    ]
+  },
+  {
+    "he": "נַדְבָן",
+    "fr": "généreux",
+    "formes": [
+      {
+        "he": "נַדְבָנִית",
+        "tr": "nadvanit"
+      },
+      {
+        "he": "נַדְבָנִים",
+        "tr": "nadvanim"
+      },
+      {
+        "he": "נַדְבָנִיּוֹת",
+        "tr": "nadvaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה נַדְבָן וְעוֹזֵר לַתַּלְמִידִים",
+        "tr": "hamoreh nadvan ve'ozer latalmidim",
+        "fr": "le professeur est généreux et il aide les élèves"
+      }
+    ]
+  },
+  {
+    "he": "אֶגוֹאִיסְט",
+    "fr": "égoïste",
+    "formes": [
+      {
+        "he": "אֶגוֹאִיסְטִית",
+        "tr": "egoistit"
+      },
+      {
+        "he": "אֶגוֹאִיסְטִים",
+        "tr": "egoistim"
+      },
+      {
+        "he": "אֶגוֹאִיסְטִיּוֹת",
+        "tr": "egoistiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא אֶגוֹאִיסְט וְלֹא עוֹזֵר",
+        "tr": "hu egoist velo 'ozer",
+        "fr": "il est égoïste et il n'aide pas"
+      }
+    ]
+  },
+  {
+    "he": "עַקְשָׁן",
+    "fr": "têtu",
+    "formes": [
+      {
+        "he": "עַקְשָׁנִית",
+        "tr": "akshanit"
+      },
+      {
+        "he": "עַקְשָׁנִים",
+        "tr": "akshanim"
+      },
+      {
+        "he": "עַקְשָׁנִיּוֹת",
+        "tr": "akshaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא עַקְשָׁן מְאֹד",
+        "tr": "hu akshan me'od",
+        "fr": "il est très têtu"
+      }
+    ]
+  },
+  {
+    "he": "אוֹפְּטִימִי",
+    "fr": "optimiste",
+    "formes": [
+      {
+        "he": "אוֹפְּטִימִית",
+        "tr": "optimit"
+      },
+      {
+        "he": "אוֹפְּטִימִיִּים",
+        "tr": "optimiyim"
+      },
+      {
+        "he": "אוֹפְּטִימִיּוֹת",
+        "tr": "optimiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הִיא תָּמִיד אוֹפְּטִימִית",
+        "tr": "hi tamid optimit",
+        "fr": "elle est toujours optimiste"
+      }
+    ]
+  },
+  {
+    "he": "פֶּסִימִי",
+    "fr": "pessimiste",
+    "formes": [
+      {
+        "he": "פֶּסִימִית",
+        "tr": "pesimit"
+      },
+      {
+        "he": "פֶּסִימִיִּים",
+        "tr": "pesimiyim"
+      },
+      {
+        "he": "פֶּסִימִיּוֹת",
+        "tr": "pesimiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא פֶּסִימִי וְעָצוּב",
+        "tr": "hu pesimi ve'atsuv",
+        "fr": "il est pessimiste et triste"
+      }
+    ]
+  },
+  {
+    "he": "אָדֹם",
+    "fr": "rouge",
+    "formes": [
+      {
+        "he": "אֲדֻמָּה",
+        "tr": "adumah"
+      },
+      {
+        "he": "אֲדֻמִּים",
+        "tr": "adumim"
+      },
+      {
+        "he": "אֲדֻמּוֹת",
+        "tr": "adumot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָעַגְבָנִיָּה הַזֹּאת אֲדֻמָּה",
+        "tr": "ha'agvaniyah hazot adumah",
+        "fr": "cette tomate est rouge"
+      }
+    ]
+  },
+  {
+    "he": "כָּחֹל",
+    "fr": "bleu",
+    "formes": [
+      {
+        "he": "כְּחֻלָּה",
+        "tr": "kchulah"
+      },
+      {
+        "he": "כְּחֻלִּים",
+        "tr": "kchulim"
+      },
+      {
+        "he": "כְּחֻלּוֹת",
+        "tr": "kchulot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשָּׁמַיִם כְּחֻלִּים הַיּוֹם",
+        "tr": "hashamayim kchulim hayom",
+        "fr": "le ciel est bleu aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "יָרֹק",
+    "fr": "vert",
+    "formes": [
+      {
+        "he": "יְרֻקָּה",
+        "tr": "yerukah"
+      },
+      {
+        "he": "יְרֻקִּים",
+        "tr": "yerukim"
+      },
+      {
+        "he": "יְרֻקּוֹת",
+        "tr": "yerukot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַדֶּשֶׁא יָרֹק בָּאָבִיב",
+        "tr": "hadeshe yarok ba'aviv",
+        "fr": "l'herbe est verte au printemps"
+      }
+    ]
+  },
+  {
+    "he": "צָהֹב",
+    "fr": "jaune",
+    "formes": [
+      {
+        "he": "צְהֻבָּה",
+        "tr": "tsehubah"
+      },
+      {
+        "he": "צְהֻבִּים",
+        "tr": "tsehubim"
+      },
+      {
+        "he": "צְהֻבּוֹת",
+        "tr": "tsehubot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֶּׁמֶשׁ צְהֻבָּה וְחַמָּה",
+        "tr": "hashemesh tsehubah vechamah",
+        "fr": "le soleil est jaune et chaud"
+      }
+    ]
+  },
+  {
+    "he": "שָׁחוֹר",
+    "fr": "noir",
+    "formes": [
+      {
+        "he": "שְׁחוֹרָה",
+        "tr": "shchorah"
+      },
+      {
+        "he": "שְׁחוֹרִים",
+        "tr": "shchorim"
+      },
+      {
+        "he": "שְׁחוֹרוֹת",
+        "tr": "shchorot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הֶחָתוּל שֶׁלָּנוּ שָׁחוֹר",
+        "tr": "hechatul shelanu shachor",
+        "fr": "notre chat est noir"
+      }
+    ]
+  },
+  {
+    "he": "לָבָן",
+    "fr": "blanc",
+    "formes": [
+      {
+        "he": "לְבָנָה",
+        "tr": "levanah"
+      },
+      {
+        "he": "לְבָנִים",
+        "tr": "levanim"
+      },
+      {
+        "he": "לְבָנוֹת",
+        "tr": "levanot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֶּׁלֶג לָבָן וְיָפֶה",
+        "tr": "hasheleg lavan veyafeh",
+        "fr": "la neige est blanche et belle"
+      }
+    ]
+  },
+  {
+    "he": "אָפֹר",
+    "fr": "gris",
+    "formes": [
+      {
+        "he": "אֲפֹרָה",
+        "tr": "aforah"
+      },
+      {
+        "he": "אֲפֹרִים",
+        "tr": "aforim"
+      },
+      {
+        "he": "אֲפֹרוֹת",
+        "tr": "aforot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הֶעָנָן הָאָפֹר מֵבִיא גֶּשֶׁם",
+        "tr": "he'anan ha'afor mevi geshem",
+        "fr": "le nuage gris apporte la pluie"
+      }
+    ]
+  },
+  {
+    "he": "כָּתֹם",
+    "fr": "orange (couleur)",
+    "formes": [
+      {
+        "he": "כְּתֻמָּה",
+        "tr": "ktumah"
+      },
+      {
+        "he": "כְּתֻמִּים",
+        "tr": "ktumim"
+      },
+      {
+        "he": "כְּתֻמּוֹת",
+        "tr": "ktumot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֶּׁמֶשׁ כְּתֻמָּה בָּעֶרֶב",
+        "tr": "hashemesh ketumah ba'erev",
+        "fr": "le soleil est orange le soir"
+      }
+    ]
+  },
+  {
+    "he": "וָרֹד",
+    "fr": "rose",
+    "formes": [
+      {
+        "he": "וְרֻדָּה",
+        "tr": "vrudah"
+      },
+      {
+        "he": "וְרֻדִּים",
+        "tr": "vrudim"
+      },
+      {
+        "he": "וְרֻדּוֹת",
+        "tr": "vrudot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַפֶּרַח הַוָּרֹד יָפֶה מְאֹד",
+        "tr": "haperach havarod yafeh me'od",
+        "fr": "la fleur rose est très belle"
+      }
+    ]
+  },
+  {
+    "he": "סָגֹל",
+    "fr": "violet",
+    "formes": [
+      {
+        "he": "סְגֻלָּה",
+        "tr": "sgulah"
+      },
+      {
+        "he": "סְגֻלִּים",
+        "tr": "sgulim"
+      },
+      {
+        "he": "סְגֻלּוֹת",
+        "tr": "sgulot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשָּׁמַיִם סְגֻלִּים בָּעֶרֶב",
+        "tr": "hashamayim segulim ba'erev",
+        "fr": "le ciel est violet le soir"
+      }
+    ]
+  },
+  {
+    "he": "חוּם",
+    "fr": "marron, brun",
+    "formes": [
+      {
+        "he": "חוּמָה",
+        "tr": "chumah"
+      },
+      {
+        "he": "חוּמִים",
+        "tr": "chumim"
+      },
+      {
+        "he": "חוּמוֹת",
+        "tr": "chumot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכֶּלֶב הַחוּם מְשַׂחֵק בַּגַּן",
+        "tr": "hakelev hachum mesachek bagan",
+        "fr": "le chien marron joue dans le parc"
+      }
+    ]
+  },
+  {
+    "he": "זָהֹב",
+    "fr": "doré",
+    "formes": [
+      {
+        "he": "זְהֻבָּה",
+        "tr": "zehubah"
+      },
+      {
+        "he": "זְהֻבִּים",
+        "tr": "zehubim"
+      },
+      {
+        "he": "זְהֻבּוֹת",
+        "tr": "zehubot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשָּׁעוֹן שֶׁלִּי זָהֹב",
+        "tr": "hasha'on sheli zahov",
+        "fr": "ma montre est dorée"
+      }
+    ]
+  },
+  {
+    "he": "בָּהִיר",
+    "fr": "clair (couleur)",
+    "formes": [
+      {
+        "he": "בְּהִירָה",
+        "tr": "behirah"
+      },
+      {
+        "he": "בְּהִירִים",
+        "tr": "behirim"
+      },
+      {
+        "he": "בְּהִירוֹת",
+        "tr": "behirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֻלְצָה שֶׁלִּי יְרֻקָּה בְּהִירָה",
+        "tr": "hachultsah sheli yerukah behirah",
+        "fr": "ma chemise est vert clair"
+      }
+    ]
+  },
+  {
+    "he": "כֵּהֶה",
+    "fr": "foncé (couleur)",
+    "formes": [
+      {
+        "he": "כֵּהָה",
+        "tr": "kehah"
+      },
+      {
+        "he": "כֵּהִים",
+        "tr": "kehim"
+      },
+      {
+        "he": "כֵּהוֹת",
+        "tr": "kehot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמְּעִיל שֶׁלִּי חוּם כֵּהֶה",
+        "tr": "hame'il sheli chum keheh",
+        "fr": "mon manteau est marron foncé"
+      }
+    ]
+  },
+  {
+    "he": "אֶלֶגַנְטִי",
+    "fr": "élégant",
+    "formes": [
+      {
+        "he": "אֶלֶגַנְטִית",
+        "tr": "elegantit"
+      },
+      {
+        "he": "אֶלֶגַנְטִיִּים",
+        "tr": "elegantiyim"
+      },
+      {
+        "he": "אֶלֶגַנְטִיּוֹת",
+        "tr": "elegantiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשִּׂמְלָה הַזֹּאת אֶלֶגַנְטִית מְאֹד",
+        "tr": "hasimlah hazot elegantit me'od",
+        "fr": "cette robe est très élégante"
+      }
+    ]
+  },
+  {
+    "he": "צָמוּד",
+    "fr": "serré (vêtement)",
+    "formes": [
+      {
+        "he": "צְמוּדָה",
+        "tr": "tsmudah"
+      },
+      {
+        "he": "צְמוּדִים",
+        "tr": "tsmudim"
+      },
+      {
+        "he": "צְמוּדוֹת",
+        "tr": "tsmudot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמִּכְנָסַיִם הָאֵלֶּה צְמוּדִים מִדַּי",
+        "tr": "hamikhnasayim ha'eleh tsmudim midai",
+        "fr": "ce pantalon est trop serré"
+      }
+    ]
+  },
+  {
+    "he": "אָלֶרְגִּי",
+    "fr": "allergique",
+    "formes": [
+      {
+        "he": "אָלֶרְגִּית",
+        "tr": "alergit"
+      },
+      {
+        "he": "אָלֶרְגִּיִּים",
+        "tr": "alergiyim"
+      },
+      {
+        "he": "אָלֶרְגִּיּוֹת",
+        "tr": "alergiyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי אָלֶרְגִּי לְחָלָב",
+        "tr": "ani alergi lechalav",
+        "fr": "Je suis allergique au lait"
+      }
+    ]
+  },
+  {
+    "he": "פָּצוּעַ",
+    "fr": "blessé",
+    "formes": [
+      {
+        "he": "פְּצוּעָה",
+        "tr": "petsu'ah"
+      },
+      {
+        "he": "פְּצוּעִים",
+        "tr": "petsu'im"
+      },
+      {
+        "he": "פְּצוּעוֹת",
+        "tr": "petsu'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד פָּצוּעַ אַחֲרֵי הַתְּאוּנָה",
+        "tr": "hayeled patsu'a acharei hate'unah",
+        "fr": "l'enfant est blessé après l'accident"
+      }
+    ]
+  },
+  {
+    "he": "חֵרֵשׁ",
+    "fr": "sourd",
+    "formes": [
+      {
+        "he": "חֵרֶשֶׁת",
+        "tr": "chereshet"
+      },
+      {
+        "he": "חֵרְשִׁים",
+        "tr": "chershim"
+      },
+      {
+        "he": "חֵרְשׁוֹת",
+        "tr": "chershot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסַּבָּא שֶׁלִּי חֵרֵשׁ",
+        "tr": "hasaba sheli cheresh",
+        "fr": "mon grand-père est sourd"
+      }
+    ]
+  },
+  {
+    "he": "עִוֵּר",
+    "fr": "aveugle",
+    "formes": [
+      {
+        "he": "עִוֶּרֶת",
+        "tr": "iveret"
+      },
+      {
+        "he": "עִוְרִים",
+        "tr": "ivrim"
+      },
+      {
+        "he": "עִוְרוֹת",
+        "tr": "ivrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכֶּלֶב שֶׁלִּי עִוֵּר",
+        "tr": "hakelev sheli iver",
+        "fr": "mon chien est aveugle"
+      }
+    ]
+  },
+  {
+    "he": "נָפוּחַ",
+    "fr": "enflé, gonflé",
+    "formes": [
+      {
+        "he": "נְפוּחָה",
+        "tr": "nefuchah"
+      },
+      {
+        "he": "נְפוּחִים",
+        "tr": "nefuchim"
+      },
+      {
+        "he": "נְפוּחוֹת",
+        "tr": "nefuchot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָרֶגֶל שֶׁלּוֹ נְפוּחָה אַחֲרֵי הַתְּאוּנָה",
+        "tr": "haregel shelo nefuchah acharei hate'unah",
+        "fr": "sa jambe est enflée après l'accident"
+      }
+    ]
+  },
+  {
+    "he": "הַבָּא",
+    "fr": "prochain",
+    "formes": [
+      {
+        "he": "הַבָּאָה",
+        "tr": "haba'ah"
+      },
+      {
+        "he": "הַבָּאִים",
+        "tr": "haba'im"
+      },
+      {
+        "he": "הַבָּאוֹת",
+        "tr": "haba'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "בַּשָּׁבוּעַ הַבָּא אֲנִי נוֹסֵעַ לְתֵל אָבִיב",
+        "tr": "bashavu'a haba ani nose'a leTel Aviv",
+        "fr": "la semaine prochaine je vais à Tel-Aviv"
+      }
+    ]
+  },
+  {
+    "he": "הַקּוֹדֵם",
+    "fr": "précédent / dernier",
+    "formes": [
+      {
+        "he": "הַקּוֹדֶמֶת",
+        "tr": "hakodemet"
+      },
+      {
+        "he": "הַקּוֹדְמִים",
+        "tr": "hakodmim"
+      },
+      {
+        "he": "הַקּוֹדְמוֹת",
+        "tr": "hakodmot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשִּׁעוּר הַקּוֹדֵם הָיָה קָשֶׁה",
+        "tr": "hashi'ur hakodem hayah kasheh",
+        "fr": "le cours précédent était difficile"
+      }
+    ]
+  },
+  {
+    "he": "דַּיְקָן",
+    "fr": "ponctuel",
+    "formes": [
+      {
+        "he": "דַּיְקָנִית",
+        "tr": "daykanit"
+      },
+      {
+        "he": "דַּיְקָנִים",
+        "tr": "daykanim"
+      },
+      {
+        "he": "דַּיְקָנִיּוֹת",
+        "tr": "daykaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה שֶׁלִּי דַּיְקָן מְאֹד",
+        "tr": "hamoreh sheli daykan me'od",
+        "fr": "mon enseignant est très ponctuel"
+      }
+    ]
+  },
+  {
+    "he": "יוֹמִי",
+    "fr": "quotidien",
+    "formes": [
+      {
+        "he": "יוֹמִית",
+        "tr": "yomit"
+      },
+      {
+        "he": "יוֹמִיִּים",
+        "tr": "yomiyim"
+      },
+      {
+        "he": "יוֹמִיּוֹת",
+        "tr": "yomiyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי שִׁעוּר יוֹמִי בְּעִבְרִית",
+        "tr": "yesh li shi'ur yomi be'ivrit",
+        "fr": "j'ai un cours quotidien d'hébreu"
+      }
+    ]
+  },
+  {
+    "he": "מְנֻסֶּה",
+    "fr": "expérimenté",
+    "formes": [
+      {
+        "he": "מְנֻסָּה",
+        "tr": "menusah"
+      },
+      {
+        "he": "מְנֻסִּים",
+        "tr": "menusim"
+      },
+      {
+        "he": "מְנֻסּוֹת",
+        "tr": "menusot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה מְנֻסֶּה מְאֹד",
+        "tr": "hamoreh menuseh me'od",
+        "fr": "l'enseignant est très expérimenté"
+      }
+    ]
+  },
+  {
+    "he": "מֻסְמָך",
+    "fr": "diplômé, qualifié",
+    "formes": [
+      {
+        "he": "מֻסְמֶכֶת",
+        "tr": "musmekhet"
+      },
+      {
+        "he": "מֻסְמָכִים",
+        "tr": "musmakhim"
+      },
+      {
+        "he": "מֻסְמָכוֹת",
+        "tr": "musmakhot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָרוֹפֵא הַזֶּה מֻסְמָך מְאֹד",
+        "tr": "harofe hazeh musmakh me'od",
+        "fr": "ce médecin est très qualifié"
+      }
+    ]
+  },
+  {
+    "he": "מֻכְשָׁר",
+    "fr": "doué, talentueux",
+    "formes": [
+      {
+        "he": "מֻכְשֶׁרֶת",
+        "tr": "mukhsheret"
+      },
+      {
+        "he": "מֻכְשָׁרִים",
+        "tr": "mukhsharim"
+      },
+      {
+        "he": "מֻכְשָׁרוֹת",
+        "tr": "mukhsharot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסְּטוּדֶנְט הַזֶּה מֻכְשָׁר מְאֹד",
+        "tr": "hastudent hazeh mukhshar me'od",
+        "fr": "cet étudiant est très doué"
+      }
+    ]
+  },
+  {
+    "he": "אֳמָּנוּתִי",
+    "fr": "artistique",
+    "formes": [
+      {
+        "he": "אֳמָּנוּתִיָּה",
+        "tr": "omanutiyah"
+      },
+      {
+        "he": "אֳמָּנוּתִיִּים",
+        "tr": "omanutiyim"
+      },
+      {
+        "he": "אֳמָּנוּתִיּוֹת",
+        "tr": "omanutiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַצִּיּוּר הַזֶּה אֳמָּנוּתִי מְאֹד",
+        "tr": "hatsiyur hazeh omanuti me'od",
+        "fr": "ce dessin est très artistique"
+      }
+    ]
+  },
+  {
+    "he": "מוּזִיקָלִי",
+    "fr": "musical",
+    "formes": [
+      {
+        "he": "מוּזִיקָלִיָּה",
+        "tr": "muzikaliyah"
+      },
+      {
+        "he": "מוּזִיקָלִיִּים",
+        "tr": "muzikaliyim"
+      },
+      {
+        "he": "מוּזִיקָלִיּוֹת",
+        "tr": "muzikaliyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאָח שֶׁלִּי מוּזִיקָלִי מְאֹד",
+        "tr": "ha'ach sheli muzikali me'od",
+        "fr": "mon frère est très musical"
+      }
+    ]
+  },
+  {
+    "he": "סְפּוֹרְטִיבִי",
+    "fr": "sportif",
+    "formes": [
+      {
+        "he": "סְפּוֹרְטִיבִיָּה",
+        "tr": "sportiviyah"
+      },
+      {
+        "he": "סְפּוֹרְטִיבִיִּים",
+        "tr": "sportiviyim"
+      },
+      {
+        "he": "סְפּוֹרְטִיבִיּוֹת",
+        "tr": "sportiviyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא סְפּוֹרְטִיבִי וְאוֹהֵב כַּדּוּרֶגֶל",
+        "tr": "hu sportivi ve'ohev kaduregel",
+        "fr": "il est sportif et aime le football"
+      }
+    ]
+  },
+  {
+    "he": "מְרַתֵּק",
+    "fr": "passionnant",
+    "formes": [
+      {
+        "he": "מְרַתֶּקֶת",
+        "tr": "meratteket"
+      },
+      {
+        "he": "מְרַתְּקִים",
+        "tr": "meratkim"
+      },
+      {
+        "he": "מְרַתְּקוֹת",
+        "tr": "meratkot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֶּרֶט הֶחָדָשׁ מְרַתֵּק",
+        "tr": "haseret hechadash meratek",
+        "fr": "le nouveau film est captivant"
+      }
+    ]
+  },
+  {
+    "he": "מְשַׁעֲשֵׁעַ",
+    "fr": "amusant",
+    "formes": [
+      {
+        "he": "מְשַׁעֲשַׁעַת",
+        "tr": "mesha'asha'at"
+      },
+      {
+        "he": "מְשַׁעֲשְׁעִים",
+        "tr": "mesha'ash'im"
+      },
+      {
+        "he": "מְשַׁעֲשְׁעוֹת",
+        "tr": "mesha'ash'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמִּשְׂחָק הַזֶּה מְשַׁעֲשֵׁעַ מְאֹד",
+        "tr": "hamischak hazeh mesha'ashe'a me'od",
+        "fr": "ce jeu est très amusant"
+      }
+    ]
+  },
+  {
+    "he": "שָׁקֵט",
+    "fr": "silencieux",
+    "formes": [
+      {
+        "he": "שְׁקֵטָה",
+        "tr": "shketah"
+      },
+      {
+        "he": "שְׁקֵטִים",
+        "tr": "shketim"
+      },
+      {
+        "he": "שְׁקֵטוֹת",
+        "tr": "shketot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד שָׁקֵט בַּכִּתָּה",
+        "tr": "hayeled shaket bakitah",
+        "fr": "l'enfant est silencieux en classe"
+      }
+    ]
+  },
+  {
+    "he": "דַּבְּרָן",
+    "fr": "bavard",
+    "formes": [
+      {
+        "he": "דַּבְּרָנִית",
+        "tr": "davranit"
+      },
+      {
+        "he": "דַּבְּרָנִים",
+        "tr": "davranim"
+      },
+      {
+        "he": "דַּבְּרָנִיּוֹת",
+        "tr": "davraniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחָבֵר שֶׁלִּי דַּבְּרָן מְאֹד",
+        "tr": "hachaver sheli davran me'od",
+        "fr": "mon ami est très bavard"
+      }
+    ]
+  },
+  {
+    "he": "בָּרוּר",
+    "fr": "clair (compréhensible)",
+    "formes": [
+      {
+        "he": "בְּרוּרָה",
+        "tr": "brurah"
+      },
+      {
+        "he": "בְּרוּרִים",
+        "tr": "brurim"
+      },
+      {
+        "he": "בְּרוּרוֹת",
+        "tr": "brurot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמִּכְתָּב שֶׁל הַמּוֹרֶה בָּרוּר",
+        "tr": "hamikhtav shel hamoreh barur",
+        "fr": "la lettre de l'enseignant est claire"
+      }
+    ]
+  },
+  {
+    "he": "מְבֻלְבָּל",
+    "fr": "confus",
+    "formes": [
+      {
+        "he": "מְבֻלְבֶּלֶת",
+        "tr": "mevulbelet"
+      },
+      {
+        "he": "מְבֻלְבָּלִים",
+        "tr": "mevulbalim"
+      },
+      {
+        "he": "מְבֻלְבָּלוֹת",
+        "tr": "mevulbalot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתַּלְמִיד מְבֻלְבָּל בַּכִּתָּה",
+        "tr": "hatalmid mevulbal bakitah",
+        "fr": "l'élève est confus en classe"
+      }
+    ]
+  },
+  {
+    "he": "עָמֹק",
+    "fr": "profond",
+    "formes": [
+      {
+        "he": "עֲמֻקָּה",
+        "tr": "'amukah"
+      },
+      {
+        "he": "עֲמֻקִּים",
+        "tr": "'amukim"
+      },
+      {
+        "he": "עֲמֻקּוֹת",
+        "tr": "'amukot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיָּם עָמֹק מְאֹד",
+        "tr": "hayam 'amok me'od",
+        "fr": "la mer est très profonde"
+      }
+    ]
+  },
+  {
+    "he": "עָבֶה",
+    "fr": "épais",
+    "formes": [
+      {
+        "he": "עָבָה",
+        "tr": "'avah"
+      },
+      {
+        "he": "עָבִים",
+        "tr": "'avim"
+      },
+      {
+        "he": "עָבוֹת",
+        "tr": "'avot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֵּפֶר הַזֶּה עָבֶה",
+        "tr": "hasefer hazeh 'aveh",
+        "fr": "ce livre est épais"
+      }
+    ]
+  },
+  {
+    "he": "דַּק",
+    "fr": "fin, peu épais",
+    "formes": [
+      {
+        "he": "דַּקָּה",
+        "tr": "dakah"
+      },
+      {
+        "he": "דַּקִּים",
+        "tr": "dakim"
+      },
+      {
+        "he": "דַּקּוֹת",
+        "tr": "dakot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֵּפֶר הַזֶּה דַּק מְאֹד",
+        "tr": "hasefer hazeh dak me'od",
+        "fr": "ce livre est très fin"
+      }
+    ]
+  },
+  {
+    "he": "עָגֹל",
+    "fr": "rond",
+    "formes": [
+      {
+        "he": "עֲגֻלָּה",
+        "tr": "'agulah"
+      },
+      {
+        "he": "עֲגֻלִּים",
+        "tr": "'agulim"
+      },
+      {
+        "he": "עֲגֻלּוֹת",
+        "tr": "'agulot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֻּׁלְחָן הַזֶּה עָגֹל",
+        "tr": "hashulchan hazeh 'agol",
+        "fr": "cette table est ronde"
+      }
+    ]
+  },
+  {
+    "he": "טָרִי",
+    "fr": "frais",
+    "formes": [
+      {
+        "he": "טְרִיָּה",
+        "tr": "teriyah"
+      },
+      {
+        "he": "טְרִיִּים",
+        "tr": "teriyim"
+      },
+      {
+        "he": "טְרִיּוֹת",
+        "tr": "teriyot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַלֶּחֶם הַזֶּה טָרִי",
+        "tr": "halechem hazeh tari",
+        "fr": "ce pain est frais"
+      }
+    ]
+  },
+  {
+    "he": "אֲמִיתִּי",
+    "fr": "véritable, authentique",
+    "formes": [
+      {
+        "he": "אֲמִיתִּית",
+        "tr": "amitit"
+      },
+      {
+        "he": "אֲמִיתִּיִּים",
+        "tr": "amitiyim"
+      },
+      {
+        "he": "אֲמִיתִּיּוֹת",
+        "tr": "amitiyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה חָבֵר אֲמִיתִּי",
+        "tr": "zeh chaver amiti",
+        "fr": "c'est un véritable ami"
+      }
+    ]
+  },
+  {
+    "he": "רוֹעֵשׁ",
+    "fr": "bruyant",
+    "formes": [
+      {
+        "he": "רוֹעֶשֶׁת",
+        "tr": "ro'eshet"
+      },
+      {
+        "he": "רוֹעֲשִׁים",
+        "tr": "ro'ashim"
+      },
+      {
+        "he": "רוֹעֲשׁוֹת",
+        "tr": "ro'ashot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמָּקוֹם הַזֶּה רוֹעֵשׁ מְאֹד",
+        "tr": "hamakom hazeh ro'esh me'od",
+        "fr": "cet endroit est très bruyant"
+      }
+    ]
+  },
+  {
+    "he": "חַי",
+    "fr": "vivant",
+    "formes": [
+      {
+        "he": "חַיָּה",
+        "tr": "chayah"
+      },
+      {
+        "he": "חַיִּים",
+        "tr": "chayim"
+      },
+      {
+        "he": "חַיּוֹת",
+        "tr": "chayot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַדָּג הַזֶּה חַי",
+        "tr": "hadag hazeh chay",
+        "fr": "ce poisson est vivant"
+      }
+    ]
+  },
+  {
+    "he": "חַד",
+    "fr": "tranchant, aigu",
+    "formes": [
+      {
+        "he": "חַדָּה",
+        "tr": "chadah"
+      },
+      {
+        "he": "חַדִּים",
+        "tr": "chadim"
+      },
+      {
+        "he": "חַדּוֹת",
+        "tr": "chadot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסַּכִּין חַדָּה מְאֹד",
+        "tr": "hasakin chadah me'od",
+        "fr": "le couteau est très tranchant"
+      }
+    ]
+  },
+  {
+    "he": "שָׁקוּף",
+    "fr": "transparent",
+    "formes": [
+      {
+        "he": "שְׁקוּפָה",
+        "tr": "shkufah"
+      },
+      {
+        "he": "שְׁקוּפִים",
+        "tr": "shkufim"
+      },
+      {
+        "he": "שְׁקוּפוֹת",
+        "tr": "shkufot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחַלּוֹן שָׁקוּף וְנָקִי",
+        "tr": "hachalon shakuf venaki",
+        "fr": "la fenêtre est transparente et propre"
+      }
+    ]
+  },
+  {
+    "he": "שָׁטוּחַ",
+    "fr": "plat",
+    "formes": [
+      {
+        "he": "שְׁטוּחָה",
+        "tr": "shtuchah"
+      },
+      {
+        "he": "שְׁטוּחִים",
+        "tr": "shtuchim"
+      },
+      {
+        "he": "שְׁטוּחוֹת",
+        "tr": "shtuchot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֻּׁלְחָן הַזֶּה שָׁטוּחַ וְנָקִי",
+        "tr": "hashulchan hazeh shatuach venaki",
+        "fr": "cette table est plate et propre"
+      }
+    ]
+  },
+  {
+    "he": "עָמִיד",
+    "fr": "résistant, durable",
+    "formes": [
+      {
+        "he": "עֲמִידָה",
+        "tr": "'amidah"
+      },
+      {
+        "he": "עֲמִידִים",
+        "tr": "'amidim"
+      },
+      {
+        "he": "עֲמִידוֹת",
+        "tr": "'amidot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכִּסֵּא הַזֶּה עָמִיד וְחָזָק",
+        "tr": "hakise hazeh 'amid vechazak",
+        "fr": "cette chaise est résistante et solide"
+      }
+    ]
+  },
+  {
+    "he": "נָדִיר",
+    "fr": "rare",
+    "formes": [
+      {
+        "he": "נְדִירָה",
+        "tr": "nedirah"
+      },
+      {
+        "he": "נְדִירִים",
+        "tr": "nedirim"
+      },
+      {
+        "he": "נְדִירוֹת",
+        "tr": "nedirot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה סֵפֶר נָדִיר מְאֹד",
+        "tr": "zeh sefer nadir me'od",
+        "fr": "c'est un livre très rare"
+      }
+    ]
+  },
+  {
+    "he": "שָׁכִיחַ",
+    "fr": "fréquent, courant",
+    "formes": [
+      {
+        "he": "שְׁכִיחָה",
+        "tr": "shkhichah"
+      },
+      {
+        "he": "שְׁכִיחִים",
+        "tr": "shkhichim"
+      },
+      {
+        "he": "שְׁכִיחוֹת",
+        "tr": "shkhichot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה שֵׁם שָׁכִיחַ בְּיִשְׂרָאֵל",
+        "tr": "zeh shem shakhiach beyisra'el",
+        "fr": "c'est un prénom courant en Israël"
+      }
+    ]
+  },
+  {
+    "he": "דּוֹמֶה",
+    "fr": "semblable, ressemblant",
+    "formes": [
+      {
+        "he": "דּוֹמָה",
+        "tr": "domah"
+      },
+      {
+        "he": "דּוֹמִים",
+        "tr": "domim"
+      },
+      {
+        "he": "דּוֹמוֹת",
+        "tr": "domot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַבֵּן דּוֹמֶה לְאַבָּא שֶׁלּוֹ",
+        "tr": "haben domeh le'aba shelo",
+        "fr": "le fils ressemble à son père"
+      }
+    ]
+  },
+  {
+    "he": "מְדֻיָּק",
+    "fr": "précis, exact",
+    "formes": [
+      {
+        "he": "מְדֻיֶּקֶת",
+        "tr": "meduyeket"
+      },
+      {
+        "he": "מְדֻיָּקִים",
+        "tr": "meduyakim"
+      },
+      {
+        "he": "מְדֻיָּקוֹת",
+        "tr": "meduyakot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשָּׁעוֹן שֶׁלִּי מְדֻיָּק מְאֹד",
+        "tr": "hasha'on sheli meduyak me'od",
+        "fr": "ma montre est très précise"
+      }
+    ]
+  },
+  {
+    "he": "חָמוּץ",
+    "fr": "acide, aigre",
+    "formes": [
+      {
+        "he": "חֲמוּצָה",
+        "tr": "chamutsah"
+      },
+      {
+        "he": "חֲמוּצִים",
+        "tr": "chamutsim"
+      },
+      {
+        "he": "חֲמוּצוֹת",
+        "tr": "chamutsot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַלִּימוֹן חָמוּץ מְאֹד",
+        "tr": "halimon chamuts me'od",
+        "fr": "le citron est très acide"
+      }
+    ]
+  },
+  {
+    "he": "פָּנוּי",
+    "fr": "libre, disponible",
+    "formes": [
+      {
+        "he": "פְּנוּיָה",
+        "tr": "pnuyah"
+      },
+      {
+        "he": "פְּנוּיִים",
+        "tr": "pnuyim"
+      },
+      {
+        "he": "פְּנוּיוֹת",
+        "tr": "pnuyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אַתָּה פָּנוּי הָעֶרֶב",
+        "tr": "atah panuy ha'erev",
+        "fr": "es-tu libre ce soir"
+      }
+    ]
+  },
+  {
+    "he": "מְבֻלְגָּן",
+    "fr": "en désordre, brouillon",
+    "formes": [
+      {
+        "he": "מְבֻלְגֶּנֶת",
+        "tr": "mevulgenet"
+      },
+      {
+        "he": "מְבֻלְגָּנִים",
+        "tr": "mevulganim"
+      },
+      {
+        "he": "מְבֻלְגָּנוֹת",
+        "tr": "mevulganot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֶדֶר שֶׁל הַיֶּלֶד מְבֻלְגָּן",
+        "tr": "hacheder shel hayeled mevulgan",
+        "fr": "la chambre de l'enfant est en désordre"
+      }
+    ]
+  },
+  {
+    "he": "טִפֵּשׁ",
+    "fr": "bête, idiot",
+    "formes": [
+      {
+        "he": "טִפְּשָׁה",
+        "tr": "tipshah"
+      },
+      {
+        "he": "טִפְּשִׁים",
+        "tr": "tipshim"
+      },
+      {
+        "he": "טִפְּשׁוֹת",
+        "tr": "tipshot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא לֹא טִפֵּשׁ, הוּא חָכָם",
+        "tr": "hu lo tipesh, hu chakham",
+        "fr": "il n'est pas bête, il est intelligent"
+      }
+    ]
+  },
+  {
+    "he": "זָהִיר",
+    "fr": "prudent",
+    "formes": [
+      {
+        "he": "זְהִירָה",
+        "tr": "zehirah"
+      },
+      {
+        "he": "זְהִירִים",
+        "tr": "zehirim"
+      },
+      {
+        "he": "זְהִירוֹת",
+        "tr": "zehirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אִמָּא זְהִירָה מְאֹד בַּכְּבִישׁ",
+        "tr": "ima zehirah me'od bakvish",
+        "fr": "maman est très prudente sur la route"
+      }
+    ]
+  },
+  {
+    "he": "נָדִיב",
+    "fr": "généreux",
+    "formes": [
+      {
+        "he": "נְדִיבָה",
+        "tr": "nedivah"
+      },
+      {
+        "he": "נְדִיבִים",
+        "tr": "nedivim"
+      },
+      {
+        "he": "נְדִיבוֹת",
+        "tr": "nedivot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא אָדָם נָדִיב מְאֹד",
+        "tr": "hu adam nadiv me'od",
+        "fr": "c'est quelqu'un de très généreux"
+      }
+    ]
+  },
+  {
+    "he": "נֶאֱמָן",
+    "fr": "fidèle, loyal",
+    "formes": [
+      {
+        "he": "נֶאֱמָנָה",
+        "tr": "ne'emanah"
+      },
+      {
+        "he": "נֶאֱמָנִים",
+        "tr": "ne'emanim"
+      },
+      {
+        "he": "נֶאֱמָנוֹת",
+        "tr": "ne'emanot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא חָבֵר נֶאֱמָן",
+        "tr": "hu chaver ne'eman",
+        "fr": "c'est un ami fidèle"
+      }
+    ]
+  },
+  {
+    "he": "מִקְצוֹעִי",
+    "fr": "professionnel",
+    "formes": [
+      {
+        "he": "מִקְצוֹעִית",
+        "tr": "miktso'it"
+      },
+      {
+        "he": "מִקְצוֹעִיִּים",
+        "tr": "miktso'iyim"
+      },
+      {
+        "he": "מִקְצוֹעִיּוֹת",
+        "tr": "miktso'iyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָעֲבוֹדָה שֶׁלּוֹ מִקְצוֹעִית מְאֹד",
+        "tr": "ha'avodah shelo miktso'it me'od",
+        "fr": "son travail est très professionnel"
+      }
+    ]
+  },
+  {
+    "he": "יָעִיל",
+    "fr": "efficace",
+    "formes": [
+      {
+        "he": "יְעִילָה",
+        "tr": "ye'ilah"
+      },
+      {
+        "he": "יְעִילִים",
+        "tr": "ye'ilim"
+      },
+      {
+        "he": "יְעִילוֹת",
+        "tr": "ye'ilot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתְּרוּפָה הַזֹּאת יְעִילָה מְאֹד",
+        "tr": "hatrufah hazot ye'ilah me'od",
+        "fr": "ce médicament est très efficace"
+      }
+    ]
+  },
+  {
+    "he": "מַזִּיק",
+    "fr": "nocif, nuisible",
+    "formes": [
+      {
+        "he": "מַזִּיקָה",
+        "tr": "mazikah"
+      },
+      {
+        "he": "מַזִּיקִים",
+        "tr": "mazikim"
+      },
+      {
+        "he": "מַזִּיקוֹת",
+        "tr": "mazikot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֻּכָּר מַזִּיק לַשִּׁנַּיִם",
+        "tr": "hasukar mazik lashinayim",
+        "fr": "le sucre est nocif pour les dents"
+      }
+    ]
+  },
+  {
+    "he": "מְעֻנָּן",
+    "fr": "nuageux",
+    "formes": [
+      {
+        "he": "מְעֻנֶּנֶת",
+        "tr": "me'unenet"
+      },
+      {
+        "he": "מְעֻנָּנִים",
+        "tr": "me'unanim"
+      },
+      {
+        "he": "מְעֻנָּנוֹת",
+        "tr": "me'unanot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיּוֹם מְעֻנָּן וְקַר",
+        "tr": "hayom me'unan vekar",
+        "fr": "aujourd'hui il fait nuageux et froid"
+      }
+    ]
+  },
+  {
+    "he": "לַח",
+    "fr": "humide",
+    "formes": [
+      {
+        "he": "לַחָה",
+        "tr": "lachah"
+      },
+      {
+        "he": "לַחִים",
+        "tr": "lachim"
+      },
+      {
+        "he": "לַחוֹת",
+        "tr": "lachot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכְּבִיסָה לַחָה וְקָרָה",
+        "tr": "hakvisah lachah vekarah",
+        "fr": "le linge est humide et froid"
+      }
+    ]
+  },
+  {
+    "he": "חָלָק",
+    "fr": "lisse",
+    "formes": [
+      {
+        "he": "חֲלָקָה",
+        "tr": "chalakah"
+      },
+      {
+        "he": "חֲלָקִים",
+        "tr": "chalakim"
+      },
+      {
+        "he": "חֲלָקוֹת",
+        "tr": "chalakot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֻּׁלְחָן חָלָק וְנָקִי",
+        "tr": "hashulchan chalak venaki",
+        "fr": "la table est lisse et propre"
+      }
+    ]
+  },
+  {
+    "he": "מְחֻסְפָּס",
+    "fr": "rugueux",
+    "formes": [
+      {
+        "he": "מְחֻסְפֶּסֶת",
+        "tr": "mechuspeset"
+      },
+      {
+        "he": "מְחֻסְפָּסִים",
+        "tr": "mechuspasim"
+      },
+      {
+        "he": "מְחֻסְפָּסוֹת",
+        "tr": "mechuspasot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַקִּיר הַזֶּה מְחֻסְפָּס",
+        "tr": "hakir hazeh mechuspas",
+        "fr": "ce mur est rugueux"
+      }
+    ]
+  },
+  {
+    "he": "גָּמִישׁ",
+    "fr": "souple, flexible",
+    "formes": [
+      {
+        "he": "גְּמִישָׁה",
+        "tr": "gemishah"
+      },
+      {
+        "he": "גְּמִישִׁים",
+        "tr": "gemishim"
+      },
+      {
+        "he": "גְּמִישׁוֹת",
+        "tr": "gemishot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַנַּעֲלַיִם הָאֵלֶּה גְּמִישׁוֹת",
+        "tr": "hana'alayim ha'eleh gemishot",
+        "fr": "ces chaussures sont souples"
+      }
+    ]
+  },
+  {
+    "he": "שָׁבִיר",
+    "fr": "fragile, cassant",
+    "formes": [
+      {
+        "he": "שְׁבִירָה",
+        "tr": "shevirah"
+      },
+      {
+        "he": "שְׁבִירִים",
+        "tr": "shevirim"
+      },
+      {
+        "he": "שְׁבִירוֹת",
+        "tr": "shevirot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכּוֹס הַזֹּאת שְׁבִירָה",
+        "tr": "hakos hazot shevirah",
+        "fr": "ce verre est fragile"
+      }
+    ]
+  },
+  {
+    "he": "מַבְרִיק",
+    "fr": "brillant",
+    "formes": [
+      {
+        "he": "מַבְרִיקָה",
+        "tr": "mavrikah"
+      },
+      {
+        "he": "מַבְרִיקִים",
+        "tr": "mavrikim"
+      },
+      {
+        "he": "מַבְרִיקוֹת",
+        "tr": "mavrikot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַנַּעֲלַיִם שֶׁלּוֹ מַבְרִיקוֹת",
+        "tr": "hana'alayim shelo mavrikot",
+        "fr": "ses chaussures sont brillantes"
+      }
+    ]
+  },
+  {
+    "he": "צִבְעוֹנִי",
+    "fr": "coloré",
+    "formes": [
+      {
+        "he": "צִבְעוֹנִית",
+        "tr": "tsiv'onit"
+      },
+      {
+        "he": "צִבְעוֹנִיִּים",
+        "tr": "tsiv'oniyim"
+      },
+      {
+        "he": "צִבְעוֹנִיּוֹת",
+        "tr": "tsiv'oniyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתְּמוּנָה צִבְעוֹנִית וְיָפָה",
+        "tr": "hatmunah tsiv'onit veyafah",
+        "fr": "le tableau est coloré et beau"
+      }
+    ]
+  },
+  {
+    "he": "עַלִּיז",
+    "fr": "gai, joyeux",
+    "formes": [
+      {
+        "he": "עַלִּיזָה",
+        "tr": "'alizah"
+      },
+      {
+        "he": "עַלִּיזִים",
+        "tr": "'alizim"
+      },
+      {
+        "he": "עַלִּיזוֹת",
+        "tr": "'alizot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד עַלִּיז הַבֹּקֶר",
+        "tr": "hayeled 'aliz haboker",
+        "fr": "l'enfant est gai ce matin"
+      }
+    ]
+  },
+  {
+    "he": "נִרְגָּשׁ",
+    "fr": "ému, tout excité",
+    "formes": [
+      {
+        "he": "נִרְגֶּשֶׁת",
+        "tr": "nirgeshet"
+      },
+      {
+        "he": "נִרְגָּשִׁים",
+        "tr": "nirgashim"
+      },
+      {
+        "he": "נִרְגָּשׁוֹת",
+        "tr": "nirgashot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי נִרְגָּשׁ מְאֹד הַיּוֹם",
+        "tr": "ani nirgash me'od hayom",
+        "fr": "je suis très ému aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "מְאֻכְזָב",
+    "fr": "déçu",
+    "formes": [
+      {
+        "he": "מְאֻכְזֶבֶת",
+        "tr": "me'ukhzevet"
+      },
+      {
+        "he": "מְאֻכְזָבִים",
+        "tr": "me'ukhzavim"
+      },
+      {
+        "he": "מְאֻכְזָבוֹת",
+        "tr": "me'ukhzavot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא מְאֻכְזָב מֵהַסֶּרֶט",
+        "tr": "hu me'ukhzav mehaseret",
+        "fr": "il est déçu par le film"
+      }
+    ]
+  },
+  {
+    "he": "בּוֹדֵד",
+    "fr": "seul, solitaire",
+    "formes": [
+      {
+        "he": "בּוֹדֶדֶת",
+        "tr": "bodedet"
+      },
+      {
+        "he": "בּוֹדְדִים",
+        "tr": "bodedim"
+      },
+      {
+        "he": "בּוֹדְדוֹת",
+        "tr": "bodedot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא מַרְגִּישׁ בּוֹדֵד בָּעִיר",
+        "tr": "hu margish boded ba'ir",
+        "fr": "il se sent seul en ville"
+      }
+    ]
+  },
+  {
+    "he": "לָחוּץ",
+    "fr": "stressé, sous pression",
+    "formes": [
+      {
+        "he": "לְחוּצָה",
+        "tr": "lechutsah"
+      },
+      {
+        "he": "לְחוּצִים",
+        "tr": "lechutsim"
+      },
+      {
+        "he": "לְחוּצוֹת",
+        "tr": "lechutsot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי לָחוּץ לִפְנֵי הַמִּבְחָן",
+        "tr": "ani lachuts lifnei hamivchan",
+        "fr": "je suis stressé avant l'examen"
+      }
+    ]
+  },
+  {
+    "he": "צָנוּעַ",
+    "fr": "modeste",
+    "formes": [
+      {
+        "he": "צְנוּעָה",
+        "tr": "tsenu'ah"
+      },
+      {
+        "he": "צְנוּעִים",
+        "tr": "tsenu'im"
+      },
+      {
+        "he": "צְנוּעוֹת",
+        "tr": "tsenu'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הִיא אִשָּׁה צְנוּעָה",
+        "tr": "hi ishah tsenu'ah",
+        "fr": "c'est une femme modeste"
+      }
+    ]
+  },
+  {
+    "he": "אַכְזָרִי",
+    "fr": "cruel",
+    "formes": [
+      {
+        "he": "אַכְזָרִית",
+        "tr": "akhzarit"
+      },
+      {
+        "he": "אַכְזָרִיִּים",
+        "tr": "akhzariyim"
+      },
+      {
+        "he": "אַכְזָרִיּוֹת",
+        "tr": "akhzariyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה סִפּוּר אַכְזָרִי",
+        "tr": "zeh sipur akhzari",
+        "fr": "c'est une histoire cruelle"
+      }
+    ]
+  },
+  {
+    "he": "אַחְרַאי",
+    "fr": "responsable",
+    "formes": [
+      {
+        "he": "אַחְרָאִית",
+        "tr": "achra'it"
+      },
+      {
+        "he": "אַחְרָאִים",
+        "tr": "achra'im"
+      },
+      {
+        "he": "אַחְרָאִיּוֹת",
+        "tr": "achra'iyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא אַחְרַאי עַל הַכֶּסֶף",
+        "tr": "hu achra'i 'al hakesef",
+        "fr": "il est responsable de l'argent"
+      }
+    ]
+  },
+  {
+    "he": "מְיֻמָּן",
+    "fr": "habile, chevronné",
+    "formes": [
+      {
+        "he": "מְיֻמֶּנֶת",
+        "tr": "meyumenet"
+      },
+      {
+        "he": "מְיֻמָּנִים",
+        "tr": "meyumanim"
+      },
+      {
+        "he": "מְיֻמָּנוֹת",
+        "tr": "meyumanot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָרוֹפֵא הַזֶּה מְיֻמָּן מְאֹד",
+        "tr": "harofe hazeh meyuman me'od",
+        "fr": "ce médecin est très chevronné"
+      }
+    ]
+  },
+  {
+    "he": "שְׁאַפְתָּנִי",
+    "fr": "ambitieux",
+    "formes": [
+      {
+        "he": "שְׁאַפְתָּנִית",
+        "tr": "she'aftanit"
+      },
+      {
+        "he": "שְׁאַפְתָּנִיִּים",
+        "tr": "she'aftaniyim"
+      },
+      {
+        "he": "שְׁאַפְתָּנִיּוֹת",
+        "tr": "she'aftaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא רוֹפֵא שְׁאַפְתָּנִי מְאֹד",
+        "tr": "hu rofe she'aftani me'od",
+        "fr": "c'est un médecin très ambitieux"
+      }
+    ]
+  },
+  {
+    "he": "מְעֻדְכָּן",
+    "fr": "à jour, mis à jour",
+    "formes": [
+      {
+        "he": "מְעֻדְכֶּנֶת",
+        "tr": "me'udkenet"
+      },
+      {
+        "he": "מְעֻדְכָּנִים",
+        "tr": "me'udkanim"
+      },
+      {
+        "he": "מְעֻדְכָּנוֹת",
+        "tr": "me'udkanot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמַּחְשֵׁב שֶׁלִּי מְעֻדְכָּן",
+        "tr": "hamachshev sheli me'udkan",
+        "fr": "mon ordinateur est à jour"
+      }
+    ]
+  },
+  {
+    "he": "מְפֹרָט",
+    "fr": "détaillé",
+    "formes": [
+      {
+        "he": "מְפֹרֶטֶת",
+        "tr": "meforetet"
+      },
+      {
+        "he": "מְפֹרָטִים",
+        "tr": "meforatim"
+      },
+      {
+        "he": "מְפֹרָטוֹת",
+        "tr": "meforatot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֵּפֶר הַזֶּה מְפֹרָט מְאֹד",
+        "tr": "hasefer hazeh meforat me'od",
+        "fr": "ce livre est très détaillé"
+      }
+    ]
+  },
+  {
+    "he": "זְמַנִּי",
+    "fr": "temporaire, provisoire",
+    "formes": [
+      {
+        "he": "זְמַנִּית",
+        "tr": "zemanit"
+      },
+      {
+        "he": "זְמַנִּיִּים",
+        "tr": "zemaniyim"
+      },
+      {
+        "he": "זְמַנִּיּוֹת",
+        "tr": "zemaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָעֲבוֹדָה שֶׁלִּי זְמַנִּית",
+        "tr": "ha'avodah sheli zemanit",
+        "fr": "mon travail est temporaire"
+      }
+    ]
+  },
+  {
+    "he": "קָבוּעַ",
+    "fr": "fixe, permanent",
+    "formes": [
+      {
+        "he": "קְבוּעָה",
+        "tr": "kevu'ah"
+      },
+      {
+        "he": "קְבוּעִים",
+        "tr": "kevu'im"
+      },
+      {
+        "he": "קְבוּעוֹת",
+        "tr": "kevu'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי מָקוֹם קָבוּעַ בַּכִּתָּה",
+        "tr": "yesh li makom kavu'a bakitah",
+        "fr": "j'ai une place fixe en classe"
+      }
+    ]
+  },
+  {
+    "he": "מְגֻוָּן",
+    "fr": "varié",
+    "formes": [
+      {
+        "he": "מְגֻוֶּנֶת",
+        "tr": "meguvenet"
+      },
+      {
+        "he": "מְגֻוָּנִים",
+        "tr": "meguvanim"
+      },
+      {
+        "he": "מְגֻוָּנוֹת",
+        "tr": "meguvanot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאֹכֶל כָּאן מְגֻוָּן מְאֹד",
+        "tr": "ha'okhel kan meguvan me'od",
+        "fr": "la nourriture ici est très variée"
+      }
+    ]
+  },
+  {
+    "he": "זָעִיר",
+    "fr": "minuscule",
+    "formes": [
+      {
+        "he": "זְעִירָה",
+        "tr": "ze'irah"
+      },
+      {
+        "he": "זְעִירִים",
+        "tr": "ze'irim"
+      },
+      {
+        "he": "זְעִירוֹת",
+        "tr": "ze'irot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַטֶּלֶפוֹן הֶחָדָשׁ זָעִיר",
+        "tr": "hatelefon hechadash za'ir",
+        "fr": "le nouveau téléphone est minuscule"
+      }
+    ]
+  },
+  {
+    "he": "חֻקִּי",
+    "fr": "légal",
+    "formes": [
+      {
+        "he": "חֻקִּית",
+        "tr": "chukit"
+      },
+      {
+        "he": "חֻקִּיִּים",
+        "tr": "chukiyim"
+      },
+      {
+        "he": "חֻקִּיּוֹת",
+        "tr": "chukiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה לֹא חֻקִּי",
+        "tr": "zeh lo chuki",
+        "fr": "ce n'est pas légal"
+      }
+    ]
+  },
+  {
+    "he": "מְטֻשְׁטָשׁ",
+    "fr": "flou",
+    "formes": [
+      {
+        "he": "מְטֻשְׁטֶשֶׁת",
+        "tr": "metushteshet"
+      },
+      {
+        "he": "מְטֻשְׁטָשִׁים",
+        "tr": "metushtashim"
+      },
+      {
+        "he": "מְטֻשְׁטָשׁוֹת",
+        "tr": "metushtashot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַתְּמוּנָה הַזֹּאת מְטֻשְׁטֶשֶׁת",
+        "tr": "hatmunah hazot metushteshet",
+        "fr": "cette photo est floue"
+      }
+    ]
+  },
+  {
+    "he": "חִוֵּר",
+    "fr": "pâle",
+    "formes": [
+      {
+        "he": "חִוֶּרֶת",
+        "tr": "chiveret"
+      },
+      {
+        "he": "חִוְּרִים",
+        "tr": "chivrim"
+      },
+      {
+        "he": "חִוְּרוֹת",
+        "tr": "chivrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא חִוֵּר כִּי הוּא חוֹלֶה",
+        "tr": "hu chiver ki hu choleh",
+        "fr": "il est pâle parce qu'il est malade"
+      }
+    ]
+  },
+  {
+    "he": "מַדְבִּיק",
+    "fr": "contagieux",
+    "formes": [
+      {
+        "he": "מַדְבִּיקָה",
+        "tr": "madbikah"
+      },
+      {
+        "he": "מַדְבִּיקִים",
+        "tr": "madbikim"
+      },
+      {
+        "he": "מַדְבִּיקוֹת",
+        "tr": "madbikot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד הַזֶּה מַדְבִּיק",
+        "tr": "hayeled hazeh madbik",
+        "fr": "cet enfant est contagieux"
+      }
+    ]
+  },
+  {
+    "he": "קָפוּא",
+    "fr": "congelé, gelé",
+    "formes": [
+      {
+        "he": "קְפוּאָה",
+        "tr": "kefu'ah"
+      },
+      {
+        "he": "קְפוּאִים",
+        "tr": "kefu'im"
+      },
+      {
+        "he": "קְפוּאוֹת",
+        "tr": "kefu'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיְרָקוֹת הָאֵלֶּה קְפוּאִים",
+        "tr": "hayerakot ha'eleh kefu'im",
+        "fr": "ces légumes sont congelés"
+      }
+    ]
+  },
+  {
+    "he": "עָמוּס",
+    "fr": "bondé, chargé",
+    "formes": [
+      {
+        "he": "עֲמוּסָה",
+        "tr": "'amusah"
+      },
+      {
+        "he": "עֲמוּסִים",
+        "tr": "'amusim"
+      },
+      {
+        "he": "עֲמוּסוֹת",
+        "tr": "'amusot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאוֹטוֹבּוּס עָמוּס בַּבֹּקֶר",
+        "tr": "haotobus 'amus baboker",
+        "fr": "le bus est bondé le matin"
+      }
+    ]
+  },
+  {
+    "he": "נָגִישׁ",
+    "fr": "accessible",
+    "formes": [
+      {
+        "he": "נְגִישָׁה",
+        "tr": "negishah"
+      },
+      {
+        "he": "נְגִישִׁים",
+        "tr": "negishim"
+      },
+      {
+        "he": "נְגִישׁוֹת",
+        "tr": "negishot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאוֹטוֹבּוּס הַזֶּה נָגִישׁ",
+        "tr": "haotobus hazeh nagish",
+        "fr": "ce bus est accessible"
+      }
+    ]
+  },
+  {
+    "he": "סוֹעֵר",
+    "fr": "agité, houleux",
+    "formes": [
+      {
+        "he": "סוֹעֶרֶת",
+        "tr": "so'eret"
+      },
+      {
+        "he": "סוֹעֲרִים",
+        "tr": "so'arim"
+      },
+      {
+        "he": "סוֹעֲרוֹת",
+        "tr": "so'arot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיָּם סוֹעֵר הַיּוֹם",
+        "tr": "hayam so'er hayom",
+        "fr": "la mer est agitée aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "נָעִים",
+    "fr": "agréable",
+    "formes": [
+      {
+        "he": "נְעִימָה",
+        "tr": "ne'imah"
+      },
+      {
+        "he": "נְעִימִים",
+        "tr": "ne'imim"
+      },
+      {
+        "he": "נְעִימוֹת",
+        "tr": "ne'imot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיּוֹם מֶזֶג הָאֲוִיר נָעִים.",
+        "tr": "hayom mezeg ha'avir na'im",
+        "fr": "Aujourd'hui le temps est agréable."
+      }
+    ]
+  },
+  {
+    "he": "נָפוֹץ",
+    "fr": "courant, répandu",
+    "formes": [
+      {
+        "he": "נְפוֹצָה",
+        "tr": "nefotsah"
+      },
+      {
+        "he": "נְפוֹצִים",
+        "tr": "nefotsim"
+      },
+      {
+        "he": "נְפוֹצוֹת",
+        "tr": "nefotsot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה שֵׁם נָפוֹץ בְּעִבְרִית.",
+        "tr": "zeh shem nafots be'ivrit",
+        "fr": "C'est un prénom courant en hébreu."
+      }
+    ]
+  },
+  {
+    "he": "עָקֹם",
+    "fr": "tordu, courbé",
+    "formes": [
+      {
+        "he": "עֲקֻמָּה",
+        "tr": "'akumah"
+      },
+      {
+        "he": "עֲקֻמִּים",
+        "tr": "'akumim"
+      },
+      {
+        "he": "עֲקֻמּוֹת",
+        "tr": "'akumot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַקַּו שֶׁצִּיַּרְתָּ קְצָת עָקֹם.",
+        "tr": "hakav shetsiyarta ketsat 'akom",
+        "fr": "La ligne que tu as dessinée est un peu tordue."
+      }
+    ]
+  },
+  {
+    "he": "דָּבִיק",
+    "fr": "collant, poisseux",
+    "formes": [
+      {
+        "he": "דְּבִיקָה",
+        "tr": "devikah"
+      },
+      {
+        "he": "דְּבִיקִים",
+        "tr": "devikim"
+      },
+      {
+        "he": "דְּבִיקוֹת",
+        "tr": "devikot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיָּדַיִם שֶׁלִּי דְּבִיקוֹת מֵהַדְּבַשׁ.",
+        "tr": "hayadayim sheli devikot mehadvash",
+        "fr": "Mes mains sont collantes à cause du miel."
+      }
+    ]
+  },
+  {
+    "he": "מְאֻבָּק",
+    "fr": "poussiéreux",
+    "formes": [
+      {
+        "he": "מְאֻבֶּקֶת",
+        "tr": "me'ubeket"
+      },
+      {
+        "he": "מְאֻבָּקִים",
+        "tr": "me'ubakim"
+      },
+      {
+        "he": "מְאֻבָּקוֹת",
+        "tr": "me'ubakot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסְּפָרִים עַל הַמַּדָּף מְאֻבָּקִים.",
+        "tr": "hasfarim 'al hamadaf me'ubakim",
+        "fr": "Les livres sur l'étagère sont poussiéreux."
+      }
+    ]
+  },
+  {
+    "he": "מוּצָק",
+    "fr": "solide, ferme",
+    "formes": [
+      {
+        "he": "מוּצֶקֶת",
+        "tr": "mutseket"
+      },
+      {
+        "he": "מוּצָקִים",
+        "tr": "mutsakim"
+      },
+      {
+        "he": "מוּצָקוֹת",
+        "tr": "mutsakot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשֻּׁלְחָן עָשׂוּי מֵעֵץ מוּצָק.",
+        "tr": "hashulchan 'asuy me'ets mutsak",
+        "fr": "La table est faite en bois solide."
+      }
+    ]
+  },
+  {
+    "he": "חַשְׁדָן",
+    "fr": "méfiant, soupçonneux",
+    "formes": [
+      {
+        "he": "חַשְׁדָנִית",
+        "tr": "chashdanit"
+      },
+      {
+        "he": "חַשְׁדָנִים",
+        "tr": "chashdanim"
+      },
+      {
+        "he": "חַשְׁדָנִיּוֹת",
+        "tr": "chashdaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא אָדָם חַשְׁדָן וְלֹא בּוֹטֵחַ בְּאִישׁ.",
+        "tr": "hu adam chashdan velo boteach be'ish",
+        "fr": "C'est un homme méfiant qui ne fait confiance à personne."
+      }
+    ]
+  },
+  {
+    "he": "חָלוּד",
+    "fr": "rouillé",
+    "formes": [
+      {
+        "he": "חֲלוּדָה",
+        "tr": "chaludah"
+      },
+      {
+        "he": "חֲלוּדִים",
+        "tr": "chaludim"
+      },
+      {
+        "he": "חֲלוּדוֹת",
+        "tr": "chaludot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמַּפְתֵּחַ הַיָּשָׁן חָלוּד.",
+        "tr": "hamafteach hayashan chalud",
+        "fr": "La vieille clé est rouillée."
+      }
+    ]
+  },
+  {
+    "he": "עָדִין",
+    "fr": "délicat, doux",
+    "formes": [
+      {
+        "he": "עֲדִינָה",
+        "tr": "'adinah"
+      },
+      {
+        "he": "עֲדִינִים",
+        "tr": "'adinim"
+      },
+      {
+        "he": "עֲדִינוֹת",
+        "tr": "'adinot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הִיא אִשָּׁה עֲדִינָה וְנֶחְמָדָה.",
+        "tr": "hi ishah 'adinah venechmadah",
+        "fr": "C'est une femme délicate et gentille."
+      }
+    ]
+  },
+  {
+    "he": "גַּס",
+    "fr": "grossier, vulgaire",
+    "formes": [
+      {
+        "he": "גַּסָּה",
+        "tr": "gasah"
+      },
+      {
+        "he": "גַּסִּים",
+        "tr": "gasim"
+      },
+      {
+        "he": "גַּסּוֹת",
+        "tr": "gasot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא דִּבֵּר בְּצוּרָה גַּסָּה מְאוֹד.",
+        "tr": "hu diber betsurah gasah meod",
+        "fr": "Il a parlé d'une manière très grossière."
+      }
+    ]
+  },
+  {
+    "he": "אָדִישׁ",
+    "fr": "indifférent, apathique",
+    "formes": [
+      {
+        "he": "אֲדִישָׁה",
+        "tr": "adishah"
+      },
+      {
+        "he": "אֲדִישִׁים",
+        "tr": "adishim"
+      },
+      {
+        "he": "אֲדִישׁוֹת",
+        "tr": "adishot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא נִשְׁאַר אָדִישׁ לְמַה שֶּׁקָּרָה.",
+        "tr": "hu nishar adish lemah shekarah",
+        "fr": "Il est resté indifférent à ce qui s'est passé."
+      }
+    ]
+  },
+  {
+    "he": "עֵרָנִי",
+    "fr": "alerte, vif",
+    "formes": [
+      {
+        "he": "עֵרָנִית",
+        "tr": "'eranit"
+      },
+      {
+        "he": "עֵרָנִיִּים",
+        "tr": "'eraniyim"
+      },
+      {
+        "he": "עֵרָנִיּוֹת",
+        "tr": "'eraniyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אַחֲרֵי הַקָּפֶה אֲנִי מַרְגִּישׁ עֵרָנִי.",
+        "tr": "acharei hakafeh ani margish 'erani",
+        "fr": "Après le café je me sens alerte."
+      }
+    ]
+  },
+  {
+    "he": "רָגִישׁ",
+    "fr": "sensible",
+    "formes": [
+      {
+        "he": "רְגִישָׁה",
+        "tr": "regishah"
+      },
+      {
+        "he": "רְגִישִׁים",
+        "tr": "regishim"
+      },
+      {
+        "he": "רְגִישׁוֹת",
+        "tr": "regishot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד רָגִישׁ מְאוֹד וּבוֹכֶה בְּקַלּוּת.",
+        "tr": "hayeled ragish meod uvokheh bekalut",
+        "fr": "L'enfant est très sensible et pleure facilement."
+      }
+    ]
+  },
+  {
+    "he": "יָהִיר",
+    "fr": "arrogant, hautain",
+    "formes": [
+      {
+        "he": "יְהִירָה",
+        "tr": "yehirah"
+      },
+      {
+        "he": "יְהִירִים",
+        "tr": "yehirim"
+      },
+      {
+        "he": "יְהִירוֹת",
+        "tr": "yehirot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמְּנַהֵל הֶחָדָשׁ יָהִיר וְלֹא מַקְשִׁיב.",
+        "tr": "hamnahel hechadash yahir velo makshiv",
+        "fr": "Le nouveau directeur est arrogant et n'écoute pas."
+      }
+    ]
+  },
+  {
+    "he": "מָתוּחַ",
+    "fr": "tendu, crispé",
+    "formes": [
+      {
+        "he": "מְתוּחָה",
+        "tr": "metuchah"
+      },
+      {
+        "he": "מְתוּחִים",
+        "tr": "metuchim"
+      },
+      {
+        "he": "מְתוּחוֹת",
+        "tr": "metuchot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָיִיתִי מָתוּחַ לִפְנֵי הַמִּבְחָן.",
+        "tr": "hayiti matuach lifnei hamivchan",
+        "fr": "J'étais tendu avant l'examen."
+      }
+    ]
+  },
+  {
+    "he": "תָּלוּל",
+    "fr": "escarpé, en forte pente",
+    "formes": [
+      {
+        "he": "תְּלוּלָה",
+        "tr": "telulah"
+      },
+      {
+        "he": "תְּלוּלִים",
+        "tr": "telulim"
+      },
+      {
+        "he": "תְּלוּלוֹת",
+        "tr": "telulot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשְּׁבִיל לָהָר תָּלוּל מְאוֹד.",
+        "tr": "hashvil lahar talul meod",
+        "fr": "Le sentier vers la montagne est très escarpé."
+      }
+    ]
+  },
+  {
+    "he": "צָלוּל",
+    "fr": "limpide, clair (liquide, esprit)",
+    "formes": [
+      {
+        "he": "צְלוּלָה",
+        "tr": "tselulah"
+      },
+      {
+        "he": "צְלוּלִים",
+        "tr": "tselulim"
+      },
+      {
+        "he": "צְלוּלוֹת",
+        "tr": "tselulot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "מֵי הַנַּחַל צְלוּלִים וְקָרִים.",
+        "tr": "mei hanachal tselulim vekarim",
+        "fr": "L'eau du ruisseau est limpide et froide."
+      }
+    ]
+  },
+  {
+    "he": "יַצִּיב",
+    "fr": "stable",
+    "formes": [
+      {
+        "he": "יַצִּיבָה",
+        "tr": "yatsivah"
+      },
+      {
+        "he": "יַצִּיבִים",
+        "tr": "yatsivim"
+      },
+      {
+        "he": "יַצִּיבוֹת",
+        "tr": "yatsivot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמַּצָּב הַכַּלְכָּלִי יַצִּיב הַשָּׁנָה.",
+        "tr": "hamatsav hakalkali yatsiv hashanah",
+        "fr": "La situation économique est stable cette année."
+      }
+    ]
+  },
+  {
+    "he": "רָפוּי",
+    "fr": "relâché, flasque",
+    "formes": [
+      {
+        "he": "רְפוּיָה",
+        "tr": "refuyah"
+      },
+      {
+        "he": "רְפוּיִים",
+        "tr": "refuyim"
+      },
+      {
+        "he": "רְפוּיוֹת",
+        "tr": "refuyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשְּׁרִירִים שֶׁלּוֹ רְפוּיִים אַחֲרֵי הָעִסּוּי.",
+        "tr": "hashririm shelo refuyim acharei ha'isuy",
+        "fr": "Ses muscles sont relâchés après le massage."
+      }
+    ]
+  }
+]

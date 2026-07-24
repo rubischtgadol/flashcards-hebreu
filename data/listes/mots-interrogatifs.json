@@ -1,0 +1,178 @@
+{
+  "section": "Mots interrogatifs",
+  "entries": [
+    {
+      "he": "מָה",
+      "tr": "mah",
+      "fr": "quoi",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מָה אַתָּה עוֹשֶׂה עַכְשָׁיו?",
+          "tr": "mah atah 'oseh 'akhshav",
+          "fr": "que fais-tu maintenant ?"
+        }
+      ]
+    },
+    {
+      "he": "מִי",
+      "tr": "mi",
+      "fr": "qui",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מִי גָּר בַּדִּירָה הַזֹּאת?",
+          "tr": "mi gar badirah hazot",
+          "fr": "qui habite dans cet appartement ?"
+        }
+      ]
+    },
+    {
+      "he": "אֵיפֹה",
+      "tr": "eifoh",
+      "fr": "où",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֵיפֹה הַמַּפְתֵּחַ שֶׁל הַדֶּלֶת?",
+          "tr": "eifoh hamafteach shel hadelet",
+          "fr": "où est la clé de la porte ?"
+        }
+      ]
+    },
+    {
+      "he": "מָתַי",
+      "tr": "matai",
+      "fr": "quand",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מָתַי מַתְחִיל הַשִּׁעוּר שֶׁלָּנוּ?",
+          "tr": "matai matchil hashi'ur shelanu",
+          "fr": "quand commence notre cours ?"
+        }
+      ]
+    },
+    {
+      "he": "לָמָּה",
+      "tr": "lamah",
+      "fr": "pourquoi",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "לָמָּה אַתָּה לֹא אוֹכֵל?",
+          "tr": "lamah atah lo okhel",
+          "fr": "pourquoi ne manges-tu pas ?"
+        }
+      ]
+    },
+    {
+      "he": "אֵיךְ",
+      "tr": "eikh",
+      "fr": "comment",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֵיךְ אוֹמְרִים אֶת זֶה בְּעִבְרִית?",
+          "tr": "eikh omrim et zeh be'ivrit",
+          "fr": "comment dit-on cela en hébreu ?"
+        }
+      ]
+    },
+    {
+      "he": "כַּמָּה",
+      "tr": "kamah",
+      "fr": "combien",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "כַּמָּה עוֹלֶה הַסֵּפֶר הַזֶּה?",
+          "tr": "kamah 'oleh hasefer hazeh",
+          "fr": "combien coûte ce livre ?"
+        }
+      ]
+    },
+    {
+      "he": "אֵיזֶה",
+      "tr": "eizeh",
+      "fr": "quel (masc.)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֵיזֶה סֶרֶט אַתֶּם רוֹצִים לִרְאוֹת?",
+          "tr": "eizeh seret atem rotsim lirot",
+          "fr": "quel film voulez-vous voir ?"
+        }
+      ]
+    },
+    {
+      "he": "אֵיזוֹ",
+      "tr": "eizo",
+      "fr": "quelle (fém.)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֵיזוֹ עוּגָה אַתְּ אוֹהֶבֶת?",
+          "tr": "eizo 'ugah at ohevet",
+          "fr": "quel gâteau aimes-tu ?"
+        }
+      ]
+    },
+    {
+      "he": "אֵילוּ",
+      "tr": "eilu",
+      "fr": "quels / quelles (plur.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֵילוּ סְפָרִים אַתָּה קוֹרֵא?",
+          "tr": "eilu sfarim atah kore",
+          "fr": "quels livres lis-tu ?"
+        }
+      ]
+    },
+    {
+      "he": "לְאָן",
+      "tr": "le'an",
+      "fr": "vers où",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "לְאָן אַתֶּם נוֹסְעִים בַּקַּיִץ?",
+          "tr": "le'an atem nos'im bakayits",
+          "fr": "où allez-vous cet été ?"
+        }
+      ]
+    },
+    {
+      "he": "מֵאַיִן",
+      "tr": "me'ayin",
+      "fr": "d'où (quasi absent de l'oral — on dit plutôt מֵאֵיפֹה, me'eifoh)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מֵאַיִן הַסְּטוּדֶנְטִים הַחֲדָשִׁים?",
+          "tr": "me'ayin hastudentim hachadashim",
+          "fr": "d'où viennent les nouveaux étudiants ?"
+        }
+      ],
+      "fr_court": "d'où",
+      "note": "quasi absent de l'oral — on dit plutôt מֵאֵיפֹה"
+    },
+    {
+      "he": "הַאִם",
+      "tr": "ha'im",
+      "fr": "est-ce que (marque la question oui/non)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַאִם אַתָּה מְדַבֵּר עִבְרִית?",
+          "tr": "ha'im atah medaber 'ivrit",
+          "fr": "est-ce que tu parles hébreu ?"
+        }
+      ],
+      "fr_court": "est-ce que",
+      "note": "marque la question oui/non"
+    }
+  ]
+}

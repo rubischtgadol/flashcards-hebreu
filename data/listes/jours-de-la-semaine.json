@@ -1,0 +1,54 @@
+{
+  "section": "Jours de la semaine",
+  "entries": [
+    {
+      "he": "יוֹם רִאשׁוֹן",
+      "tr": "yom rishon",
+      "fr": "dimanche",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יוֹם שֵׁנִי",
+      "tr": "yom sheni",
+      "fr": "lundi",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יוֹם שְׁלִישִׁי",
+      "tr": "yom shlishi",
+      "fr": "mardi",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יוֹם רְבִיעִי",
+      "tr": "yom revi'i",
+      "fr": "mercredi",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יוֹם חֲמִישִׁי",
+      "tr": "yom chamishi",
+      "fr": "jeudi",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יוֹם שִׁישִׁי",
+      "tr": "yom shishi",
+      "fr": "vendredi",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "שַׁבָּת",
+      "tr": "shabat",
+      "fr": "samedi",
+      "niveau": "A1",
+      "exemples": []
+    }
+  ]
+}

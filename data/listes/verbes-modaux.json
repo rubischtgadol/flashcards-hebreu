@@ -1,0 +1,57 @@
+{
+  "section": "Verbes modaux",
+  "entries": [
+    {
+      "he": "יָכוֹל",
+      "tr": "yakhol",
+      "fr": "pouvoir",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי יָכוֹל לָבוֹא מָחָר",
+          "tr": "ani yakhol lavo machar",
+          "fr": "je peux venir demain"
+        }
+      ],
+      "note": "s'accorde : יָכוֹל / יְכוֹלָה / יְכוֹלִים / יְכוֹלוֹת. Ex. אֲנִי יָכוֹל לָלֶכֶת = je peux aller."
+    },
+    {
+      "he": "צָרִיךְ",
+      "tr": "tsarikh",
+      "fr": "il faut / devoir",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי צָרִיךְ לָלֶכֶת עַכְשָׁיו",
+          "tr": "ani tsarikh lalekhet 'akhshav",
+          "fr": "je dois partir maintenant"
+        }
+      ],
+      "note": "s'accorde : צָרִיךְ / צְרִיכָה / צְרִיכִים / צְרִיכוֹת. Ex. אֲנִי צָרִיךְ לָלֶכֶת = je dois y aller."
+    },
+    {
+      "he": "מוּתָּר",
+      "tr": "mutar",
+      "fr": "il est permis",
+      "niveau": "A2",
+      "exemples": [],
+      "note": "invariable. Ex. מוּתָּר לְעַשֵּׁן = il est permis de fumer."
+    },
+    {
+      "he": "אָסוּר",
+      "tr": "asur",
+      "fr": "il est interdit",
+      "niveau": "A2",
+      "exemples": [],
+      "note": "invariable. Ex. אָסוּר לְעַשֵּׁן = il est interdit de fumer."
+    },
+    {
+      "he": "כְּדַאי",
+      "tr": "kday",
+      "fr": "il vaut mieux / ça vaut le coup",
+      "niveau": "B1",
+      "exemples": [],
+      "note": "invariable. Ex. כְּדַאי לְךָ לָלֶכֶת = tu ferais mieux d'y aller."
+    }
+  ]
+}

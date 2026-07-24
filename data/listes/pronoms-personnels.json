@@ -1,0 +1,75 @@
+{
+  "section": "Pronoms personnels",
+  "entries": [
+    {
+      "he": "אֲנִי",
+      "tr": "ani",
+      "fr": "je",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַתָּה",
+      "tr": "atah",
+      "fr": "tu (masc.)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַתְּ",
+      "tr": "at",
+      "fr": "tu (fém.)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "הוּא",
+      "tr": "hu",
+      "fr": "il",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "הִיא",
+      "tr": "hi",
+      "fr": "elle",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אֲנַחְנוּ",
+      "tr": "anachnu",
+      "fr": "nous",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַתֶּם",
+      "tr": "atem",
+      "fr": "vous (masc./mixte)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַתֶּן",
+      "tr": "aten",
+      "fr": "vous (fém.)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "הֵם",
+      "tr": "hem",
+      "fr": "ils",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "הֵן",
+      "tr": "hen",
+      "fr": "elles",
+      "niveau": "A1",
+      "exemples": []
+    }
+  ]
+}

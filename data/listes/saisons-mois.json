@@ -1,0 +1,117 @@
+{
+  "section": "Saisons & mois",
+  "entries": [
+    {
+      "he": "אָבִיב",
+      "tr": "aviv",
+      "fr": "printemps",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "קַיִץ",
+      "tr": "kayits",
+      "fr": "été",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "סְתָיו",
+      "tr": "stav",
+      "fr": "automne",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "חוֹרֶף",
+      "tr": "choref",
+      "fr": "hiver",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "יָנוּאָר",
+      "tr": "yanuar",
+      "fr": "janvier",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "פֶבְּרוּאָר",
+      "tr": "februar",
+      "fr": "février",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "מֶרְץ",
+      "tr": "merts",
+      "fr": "mars",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַפְּרִיל",
+      "tr": "april",
+      "fr": "avril",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "מַאי",
+      "tr": "mai",
+      "fr": "mai",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יוּנִי",
+      "tr": "yuni",
+      "fr": "juin",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "יוּלִי",
+      "tr": "yuli",
+      "fr": "juillet",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אוֹגוּסְט",
+      "tr": "ogust",
+      "fr": "août",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "סֶפְּטֶמְבֶּר",
+      "tr": "september",
+      "fr": "septembre",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אוֹקְטוֹבֶּר",
+      "tr": "oktober",
+      "fr": "octobre",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "נוֹבֶמְבֶּר",
+      "tr": "november",
+      "fr": "novembre",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "דֶּצֶמְבֶּר",
+      "tr": "detsember",
+      "fr": "décembre",
+      "niveau": "A1",
+      "exemples": []
+    }
+  ]
+}
