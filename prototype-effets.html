@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Effets candidats — démonstration pièce par pièce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Instrument+Serif:ital@0;1&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05040A; --panneau:#0A0814; --grille:#0F0C1C; --ligne:#7a5a14;
+  --ambre:#f0b32a; --vert:#54ff8a; --rouge:#FF4747; --lune:#cfd6e6;
+  --he:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --display:'Instrument Serif',Georgia,serif;
+  --cond:'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:'Share Tech Mono','Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 20px 80px;font-size:15px;line-height:1.45}
+.galerie{max-width:1400px;margin:0 auto}
+h1{font-family:var(--display);font-style:italic;font-weight:400;font-size:2.4rem;color:var(--vert);text-shadow:0 0 6px currentColor}
+.meta-ligne{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px;margin-bottom:40px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+.rangee{display:flex;flex-wrap:wrap;gap:26px;align-items:stretch}
+.demo{
+  width:400px;max-width:100%;
+  border:1px solid var(--ligne);background:var(--bg);
+  display:flex;flex-direction:column;
+}
+.demo .titre{
+  border-bottom:1px solid var(--ligne);padding:10px 14px;
+  font-weight:600;font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;
+}
+.demo .titre .n{color:var(--vert);font-family:var(--mono);margin-right:8px}
+.demo .note{padding:8px 14px 0;font-size:.75rem;color:var(--lune);opacity:.75;letter-spacing:.04em}
+.demo .scene{
+  flex:1;min-height:250px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  margin:12px;padding:16px;
+}
+@keyframes flick{0%,88%,100%{opacity:1}90%{opacity:.72}92%{opacity:1}95%{opacity:.85}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+.feed{font-family:var(--mono);font-size:.72rem;line-height:1.8;color:var(--ambre)}
+.feed .l::before{content:'▸ ';color:var(--vert)}
+.feed .ok{color:var(--vert)}
+.feed .ko{color:var(--rouge)}
+.etiquette{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+.etiquette .num{font-family:var(--mono)}
+
+/* 1 ── radar */
+.radar text{font-family:var(--mono);font-size:8px;fill:var(--ligne);letter-spacing:.1em}
+.radar .anneau{fill:none;stroke:var(--grille);stroke-width:1}
+.radar .axe{stroke:var(--grille);stroke-width:1}
+.radar .blip{fill:var(--ambre)}
+.radar .blip.due{fill:var(--vert);animation:flick 2.6s steps(1) infinite}
+.radar .centre{fill:var(--rouge)}
+
+/* 2 ── orbites */
+.orbites .orbite{fill:none;stroke:var(--grille);stroke-width:1}
+.orbites text{font-family:var(--mono);font-size:8px;fill:var(--ligne);letter-spacing:.1em}
+.orbites .theme{fill:var(--ambre)}
+.orbites .theme.gros{fill:var(--vert)}
+.orbites .soleil{fill:var(--rouge)}
+
+/* 3 ── timeline */
+.piste{height:3px;background:var(--grille);position:relative;width:100%}
+.piste .fait{position:absolute;inset:0 30% 0 0;background:var(--rouge)}
+.piste .poignee{position:absolute;top:-6px;left:calc(70% - 7px);width:14px;height:15px;background:var(--vert);clip-path:polygon(50% 0,100% 35%,100% 100%,0 100%,0 35%);box-shadow:0 0 8px rgba(84,255,138,.5)}
+.tick{position:absolute;top:-7px;width:2px;height:8px}
+.tick.v{background:var(--vert)}
+.tick.r{background:var(--rouge)}
+
+/* 5 ── boot */
+.bootbox{font-family:var(--mono);font-size:.8rem;line-height:2;color:var(--ambre);width:100%}
+.bootline{overflow:hidden;white-space:nowrap;width:0;animation:tape 8s steps(24) infinite}
+.bootline::before{content:'▸ ';color:var(--vert)}
+.bootline:nth-child(2){animation-delay:.9s}
+.bootline:nth-child(3){animation-delay:1.8s;color:var(--vert)}
+@keyframes tape{0%{width:0}12%{width:0}30%,95%{width:100%}100%{width:100%}}
+
+/* 6 ── halo lunaire */
+.halo-scene{position:relative}
+.halo-scene::before{
+  content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:230px;height:230px;border-radius:50%;
+  background:radial-gradient(circle, rgba(207,214,230,.10) 0%, rgba(207,214,230,.05) 45%, transparent 70%);
+}
+.carton{font-family:var(--he);font-weight:900;font-size:4rem;text-align:center;color:var(--ambre);text-shadow:0 0 14px rgba(240,179,42,.35);direction:rtl;position:relative}
+
+/* 7 ── bloom */
+.mini{width:160px;height:210px;border:1px solid var(--ligne);position:relative;overflow:hidden;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+.mini .mot{font-family:var(--he);font-weight:900;font-size:2rem;color:var(--ambre);direction:rtl}
+.mini .lab{font-family:var(--mono);font-size:.6rem;color:var(--vert);letter-spacing:.15em}
+.mini.bloom::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 90% 60% at 50% 45%, rgba(240,179,42,.09) 0%, rgba(240,179,42,.03) 50%, transparent 75%);
+}
+.vs{display:flex;gap:18px;align-items:center}
+.vs .lab-sous{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;margin-top:6px;opacity:.7}
+
+/* 8 ── graduations */
+.regle{position:relative;width:100%;height:230px;border:1px solid var(--ligne)}
+.regle .bord{position:absolute}
+.regle .haut,.regle .bas{left:0;right:0;height:7px;
+  background:
+    repeating-linear-gradient(90deg, var(--ligne) 0 1px, transparent 1px 60px),
+    repeating-linear-gradient(90deg, rgba(122,90,20,.55) 0 1px, transparent 1px 12px)}
+.regle .haut{top:0}.regle .bas{bottom:0;transform:scaleY(-1)}
+.regle .gauche,.regle .droite{top:0;bottom:0;width:7px;
+  background:
+    repeating-linear-gradient(0deg, var(--ligne) 0 1px, transparent 1px 60px),
+    repeating-linear-gradient(0deg, rgba(122,90,20,.55) 0 1px, transparent 1px 12px)}
+.regle .gauche{left:0}.regle .droite{right:0;transform:scaleX(-1)}
+.regle .centre-txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+
+/* 9 ── pilules audio */
+.statusbar{display:flex;justify-content:space-between;align-items:center;width:100%;
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid var(--ligne);padding-bottom:9px}
+.pilule{font-family:var(--cond);font-weight:600;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--ligne);border-radius:9999px;padding:3px 12px}
+.pilule.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.pilule.off{border-color:var(--rouge);color:var(--rouge);opacity:.8}
+</style>
+</head>
+<body>
+<div class="galerie">
+
+<h1>Effets candidats</h1>
+<p class="meta-ligne">Un bloc par proposition · tokens de la variante A · cochez vos numéros</p>
+
+<div class="rangee">
+
+<!-- ═══════════ 1. RADAR DE RÉVISION ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">01</span>Le radar de révision</div>
+  <p class="note">Chaque point = une carte. La distance au centre = l'échéance SRS : les vertes clignotantes sont dues aujourd'hui. Pièce maîtresse proposée pour l'accueil.</p>
+  <div class="scene">
+    <svg class="radar" viewBox="0 0 260 260" width="260" height="260">
+      <circle class="anneau" cx="130" cy="130" r="36"/>
+      <circle class="anneau" cx="130" cy="130" r="66"/>
+      <circle class="anneau" cx="130" cy="130" r="96"/>
+      <circle class="anneau" cx="130" cy="130" r="122"/>
+      <line class="axe" x1="130" y1="8" x2="130" y2="252"/>
+      <line class="axe" x1="8" y1="130" x2="252" y2="130"/>
+      <line class="axe" x1="44" y1="44" x2="216" y2="216"/>
+      <line class="axe" x1="216" y1="44" x2="44" y2="216"/>
+      <text x="134" y="100">AUJ.</text>
+      <text x="134" y="70">J+3</text>
+      <text x="134" y="40">J+7</text>
+      <circle class="centre" cx="130" cy="130" r="3"/>
+      <circle class="blip due" cx="152" cy="112" r="4"/>
+      <circle class="blip due" cx="110" cy="148" r="4"/>
+      <circle class="blip due" cx="145" cy="155" r="4"/>
+      <circle class="blip" cx="90" cy="95" r="3"/>
+      <circle class="blip" cx="175" cy="85" r="3"/>
+      <circle class="blip" cx="185" cy="160" r="3"/>
+      <circle class="blip" cx="70" cy="165" r="3"/>
+      <circle class="blip" cx="120" cy="55" r="2.5"/>
+      <circle class="blip" cx="200" cy="115" r="2.5"/>
+      <circle class="blip" cx="55" cy="120" r="2.5"/>
+      <circle class="blip" cx="160" cy="215" r="2.5"/>
+      <circle class="blip" cx="95" cy="210" r="2.5"/>
+    </svg>
+  </div>
+  <p class="note" style="padding-bottom:12px">Sous le radar, en réel : <span class="feed"><span class="l ok">3 DUES · 9 EN ORBITE</span></span></p>
+</div>
+
+<!-- ═══════════ 2. CARTE ORBITALE DES THÈMES ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">02</span>La carte orbitale des thèmes</div>
+  <p class="note">Les niveaux A1 → C1 en orbites, un point par thème, sa taille = le nombre de mots. Proposé pour l'écran de statistiques.</p>
+  <div class="scene">
+    <svg class="orbites" viewBox="0 0 340 220" width="340" height="220">
+      <ellipse class="orbite" cx="170" cy="110" rx="50" ry="20"/>
+      <ellipse class="orbite" cx="170" cy="110" rx="90" ry="38"/>
+      <ellipse class="orbite" cx="170" cy="110" rx="128" ry="56"/>
+      <ellipse class="orbite" cx="170" cy="110" rx="160" ry="74"/>
+      <circle class="soleil" cx="170" cy="110" r="4"/>
+      <text x="222" y="108">A1</text>
+      <text x="262" y="90">A2</text>
+      <text x="300" y="72">B1</text>
+      <text x="330" y="54">B2</text>
+      <circle class="theme gros" cx="128" cy="94" r="7"/><text x="96" y="86">VIE QUOT.</text>
+      <circle class="theme" cx="212" cy="126" r="5"/><text x="222" y="140">FAMILLE</text>
+      <circle class="theme gros" cx="94" cy="130" r="6"/><text x="52" y="146">NOURRITURE</text>
+      <circle class="theme" cx="240" cy="82" r="4"/><text x="248" y="76">TRAVAIL</text>
+      <circle class="theme" cx="80" cy="76" r="4"/><text x="46" y="68">CORPS</text>
+      <circle class="theme" cx="260" cy="150" r="3.5"/><text x="268" y="164">ABSTRAIT</text>
+      <circle class="theme" cx="42" cy="110" r="3"/><text x="18" y="100">TEMPS</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ═══════════ 3. TIMELINE DE SESSION ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">03</span>La timeline de session</div>
+  <p class="note">Le curseur déjà adopté, enrichi : un trait par carte répondue — vert = juste, rouge = à revoir. En fin de session, la barre est le bilan.</p>
+  <div class="scene" style="align-items:center">
+    <div style="width:100%">
+      <div class="etiquette" style="margin-bottom:18px">Session · carte <span class="num">14</span> / <span class="num">20</span></div>
+      <div class="piste">
+        <div class="fait"></div>
+        <div class="tick v" style="left:4%"></div>
+        <div class="tick v" style="left:9%"></div>
+        <div class="tick r" style="left:14%"></div>
+        <div class="tick v" style="left:19%"></div>
+        <div class="tick v" style="left:24%"></div>
+        <div class="tick v" style="left:29%"></div>
+        <div class="tick r" style="left:34%"></div>
+        <div class="tick v" style="left:39%"></div>
+        <div class="tick v" style="left:45%"></div>
+        <div class="tick v" style="left:50%"></div>
+        <div class="tick r" style="left:55%"></div>
+        <div class="tick v" style="left:60%"></div>
+        <div class="tick v" style="left:65%"></div>
+        <div class="poignee"></div>
+      </div>
+      <div class="feed" style="margin-top:18px"><div class="l">11 JUSTES · 3 À REVOIR</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 4. NUMÉROTATION SYSTÉMATIQUE ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">04</span>La numérotation systématique</div>
+  <p class="note">Chaque carte porte son matricule, le feed en rend compte. Peu coûteux, très « console ».</p>
+  <div class="scene" style="flex-direction:column;gap:20px;justify-content:center">
+    <div class="etiquette">Objet <span class="num">0421</span> · Noms · A2</div>
+    <div style="font-family:var(--he);font-weight:900;font-size:2.4rem;color:var(--ambre);direction:rtl" lang="he">שָׁלוֹם</div>
+    <div class="feed">
+      <div class="l ok">CARTE 0421 · ACQUISE · SRS +1</div>
+      <div class="l ko">CARTE 0422 · ERREUR · REVOIR J+1</div>
+      <div class="l">CARTE 0423 · EN ATTENTE</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 5. BANDEAU DE BOOT ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">05</span>Le bandeau de boot</div>
+  <p class="note">Trois lignes qui s'écrivent à l'ouverture, puis l'accueil. (Ici en boucle pour la démo ; en réel : une seule fois.)</p>
+  <div class="scene">
+    <div class="bootbox">
+      <div class="bootline">BOOT · CARNET UPLINK OK</div>
+      <div class="bootline">1220 OBJ · 15 THÈMES · 6 NIVEAUX</div>
+      <div class="bootline">SESSION PRÊTE</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 6. HALO LUNAIRE ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">06</span>Le halo lunaire</div>
+  <p class="note">Un disque de lumière diffuse derrière le mot vedette — la Lune de SENTRY. De la profondeur sans toucher au nikoud.</p>
+  <div class="scene halo-scene">
+    <div class="carton" lang="he">שָׁלוֹם</div>
+  </div>
+</div>
+
+<!-- ═══════════ 7. BLOOM ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">07</span>Le bloom</div>
+  <p class="note">Une nappe de lumière ambrée très légère au centre de l'écran — le tube cathodique qui éclaire. Comparez :</p>
+  <div class="scene">
+    <div class="vs">
+      <div>
+        <div class="mini">
+          <div class="mot" lang="he">אוֹר</div>
+          <div class="lab">SANS</div>
+        </div>
+        <div class="lab-sous">Actuel</div>
+      </div>
+      <div>
+        <div class="mini bloom">
+          <div class="mot" lang="he">אוֹר</div>
+          <div class="lab">AVEC</div>
+        </div>
+        <div class="lab-sous">+ bloom</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 8. GRADUATIONS EN BORD D'ÉCRAN ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">08</span>Les graduations en bord d'écran</div>
+  <p class="note">De fins traits de règle le long des bords, façon cadran. Statique, discret.</p>
+  <div class="scene">
+    <div class="regle">
+      <div class="bord haut"></div><div class="bord bas"></div>
+      <div class="bord gauche"></div><div class="bord droite"></div>
+      <div class="centre-txt">
+        <span style="font-family:var(--he);font-weight:900;font-size:2.4rem;direction:rtl" lang="he">לַיְלָה</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 9. PILULE D'ÉTAT AUDIO ═══════════ -->
+<div class="demo">
+  <div class="titre"><span class="n">09</span>La pilule d'état audio</div>
+  <p class="note">Le diagnostic de voix existant, promu dans la barre d'état — comme le badge AUDIO de SENTRY.</p>
+  <div class="scene" style="flex-direction:column;gap:26px">
+    <div class="statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+    <div class="statusbar"><span>Mode · Cartes</span><span class="pilule off">Voix · Muette</span></div>
+  </div>
+</div>
+
+</div>
+</div>
+</body>
+</html>

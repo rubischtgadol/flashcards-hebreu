@@ -14,6 +14,10 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-variantes.html
 >
+> **➡️ Les effets candidats (9 propositions à cocher, un bloc par effet) :**
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-effets.html
+>
 > Le miroir raw.githack suit la branche : chaque push met les liens à jour. Spec de la
 > charte : [docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md](docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md).
 > (Encart propre à cette branche — ne pas le fusionner dans `main`.)
