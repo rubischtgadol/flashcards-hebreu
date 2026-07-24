@@ -125,3 +125,47 @@ la lampe » v1 : *l'alarme ne sonne que quand il se passe quelque chose*.
   piège n°13 à honorer au portage).
 - **Prochaine étape** : plan d'implémentation (skill writing-plans) quand le portage
   sera d'actualité ; d'ici là, toute itération de DA se fait sur `prototype-nerv.html`.
+
+## 7. Deux chartes coexistantes — le sélecteur à l'accueil (idée, 2026-07-24)
+
+Décision de direction du propriétaire : **ne pas remplacer, mais ajouter**. « La console
+d'étude » (§ 2–5) devient un thème parmi deux ; « Le carnet d'étude du soir » (la charte
+v1) est conservé et **choisissable à l'accueil**. Cela recadre tout le portage : la cible
+n'est plus « repeindre les surfaces » mais « paramétrer la surface par un thème ».
+
+**L'ancienne charte n'est pas perdue** — elle vit dans `DESIGN.md` (prose complète, règles
+nommées) et dans les tokens des fichiers déployés sur `main`. Elle est reproduite ici en
+jeu de tokens nommé pour qu'elle devienne un thème au même format que la console :
+
+| Rôle | Console (v2) | Carnet du soir (v1) |
+|---|---|---|
+| Fond | `#05040A` | `#12181f` (nuit d'encre) |
+| Surface | `#0A0814` | `#1a222b` (carte), couche `#161e28` |
+| Filet/bordure | `#7a5a14` | `#2a3440` (filet), `#2c3844` (bord) |
+| Accent identité | `#f0b32a` (ambre) | `#d4a24c` (or ancien), `#e6c68a` (or tendre) |
+| Actif/succès | `#54ff8a` (vert phosphore) | `#5bbd7a` (vert juste) |
+| Alerte | `#FF4747` | `#d96a5b` (rouge à revoir) |
+| Texte | `#e8e2d4` | `#ece7dd` (parchemin), `#9aa3ac` estompé |
+| Hébreu | Frank Ruhl Libre 900 | Frank Ruhl Libre |
+| UI | Saira Condensed | Assistant |
+| Données | Share Tech Mono | JetBrains Mono |
+| Cursive | — | Playpen Sans Hebrew (or tendre) |
+
+**Implications pour l'architecture** (à trancher au portage, en phase avec la
+réorganisation « dépôt généré » en cours sur `main`) :
+- Chaque charte est un **jeu de custom properties** appliqué sur `:root` via un attribut
+  (`data-charte="console" | "carnet"`), le choix mémorisé en `localStorage` et lu au
+  tout premier paint (avant le CSS, pour éviter le flash de thème).
+- **Ce ne sont pas que des couleurs** : les polices, et surtout les *ornements* (calques
+  CRT, viseurs, radar, graduations) sont propres à la console. Le carnet doit pouvoir les
+  **désactiver en bloc** — un thème n'est pas qu'une palette, c'est un ensemble de règles.
+  Piste : les ornements CRT gardés derrière une classe `.charte-console` sur `<body>`.
+- Le sélecteur vit à l'accueil (le portail actuel `index.html`, ou l'écran d'accueil de
+  l'app), à côté des réglages existants ; deux vignettes de prévisualisation.
+- **Invariant à préserver** : le trap n°5 (le premier bloc `:root` byte-identique entre
+  carnet, app et portail) devient « byte-identique **par thème** » — chaque charte a son
+  bloc de référence, partagé à l'identique entre les surfaces.
+
+Statut : **idée cadrée, non planifiée**. Ne rien implémenter avant (a) la fin de la
+réorganisation du dépôt et (b) une session de conception dédiée au système de thèmes
+(brainstorming → writing-plans). Consigné ici pour ne pas perdre la décision.
