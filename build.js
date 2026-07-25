@@ -729,6 +729,80 @@ function verifieTaxonomieApp(appSource){
   console.log('\nTaxonomie : ' + EXPECTED_THEMES.length + ' thèmes, build.js et app.html en phase.');
 }
 
+/*
+ * verifieCharte(appAssembled, notebookGenerated) — tripwires de charte (lot du 2026-07-25),
+ * un contrôle mécanique par piège de CLAUDE.md dont la violation passait au vert :
+ *  - piège n°2 : `transition:…all` dans l'app assemblée. WebKit fige alors les longhands
+ *    outline-* à leur valeur initiale — l'anneau de focus or disparaît SANS casser
+ *    :focus-visible, donc sans aucun symptôme côté build ni côté console.
+ *  - piège n°3 : un `font-size` posé sur le sélecteur `html`. Les 22px vivent sur body ;
+ *    1rem doit rester 16px, dans le carnet comme dans l'app (les tailles y sont calibrées
+ *    sur ce qu'elles rendent réellement).
+ *  - piège n°5 (première moitié) : index.html est encore copié à la main (jusqu'au
+ *    Task 18) — son bloc :root doit contenir src/tokens.css tel quel (brut ou réindenté
+ *    de 2 espaces, les deux formes que le dépôt connaît).
+ *  - piège n°5 (seconde moitié) : si `--bg` change dans src/tokens.css, la couleur doit
+ *    suivre dans manifest.webmanifest (theme_color, background_color) et dans chaque
+ *    <meta name="theme-color"> déployé — et les icônes sont à régénérer (ça, aucune
+ *    commande ne peut le vérifier : le message le rappelle).
+ * Fatale (process.exit(1)), tous les échecs nommés d'un coup — exercée en mode normal
+ * comme en --check, cf. main() (même régime que verifieTaxonomieApp : une garde qui ne
+ * s'exerce qu'au moment d'écrire laisse --check valider un dépôt cassé).
+ */
+function verifieCharte(appAssembled, notebookGenerated){
+  const echecs = [];
+
+  if (/transition\s*:[^;{}]*\ball\b/.test(appAssembled)){
+    echecs.push('`transition: all` détecté dans l\'app assemblée (piège n°2 : WebKit fige les longhands outline-*, l\'anneau de focus or disparaît sans symptôme). Cherche dans src/app/css/*.css et src/app/coquille.html ; liste les propriétés animées explicitement.');
+  }
+
+  // Le parcours de blocs `sélecteur{…}` ne s'applique qu'aux contenus <style> : denses en
+  // accolades, il y reste linéaire. Sur le document entier, `[^{}]+\{` repartait de chaque
+  // position d'un long run HTML sans accolade — quadratique, build gelé (payé à
+  // l'installation du lot : ~1 Mo de carnet, --check ne rendait plus la main).
+  for (const [nom, source] of [['l\'app assemblée', appAssembled], ['le carnet généré', notebookGenerated]]){
+    const css = [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map(m => m[1]).join('\n');
+    for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)){
+      const selecteurs = m[1].split(',').map(s => s.trim().split(/\s+/).pop());
+      if (selecteurs.includes('html') && /font-size/.test(m[2])){
+        echecs.push('un `font-size` est posé sur le sélecteur `html` dans ' + nom + ' (piège n°3 : les 22px vivent sur body, 1rem doit rester 16px) — bloc fautif : « ' + m[0].replace(/\s+/g, ' ').slice(0, 90) + ' ».');
+      }
+    }
+  }
+
+  const tokens = fs.readFileSync(path.join(ROOT, 'src', 'tokens.css'), 'utf8');
+  const tokensIndentes = tokens.split('\n').map(l => l ? '  ' + l : l).join('\n');
+  const indexHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  if (!indexHtml.includes(tokens) && !indexHtml.includes(tokensIndentes)){
+    echecs.push('le bloc :root d\'index.html a dérivé de src/tokens.css (piège n°5 : la charte doit rester byte-identique dans les cinq fichiers déployés). Recopie src/tokens.css dans index.html — copie manuelle jusqu\'au Task 18, qui rendra le portail généré.');
+  }
+
+  const bg = (tokens.match(/--bg\s*:\s*(#[0-9a-fA-F]{3,8})/) || [])[1];
+  if (!bg){
+    echecs.push('`--bg` introuvable dans src/tokens.css (renommé ? reformaté ?) — la garde theme-color ne peut plus comparer.');
+  } else {
+    const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.webmanifest'), 'utf8'));
+    for (const champ of ['theme_color', 'background_color']){
+      if (manifest[champ] !== bg){
+        echecs.push('manifest.webmanifest.' + champ + ' vaut « ' + manifest[champ] + ' » mais --bg vaut « ' + bg + ' » (piège n°5). Aligne le manifest — et si --bg a changé : régénère les icônes (icons/), aucune commande ne le vérifie.');
+      }
+    }
+    for (const [nom, source] of [['l\'app assemblée', appAssembled], ['le carnet généré', notebookGenerated], ['index.html', indexHtml]]){
+      const meta = (source.match(/<meta name="theme-color" content="([^"]+)"/) || [])[1];
+      if (meta !== bg){
+        echecs.push('<meta name="theme-color"> de ' + nom + ' vaut « ' + meta + ' » mais --bg vaut « ' + bg + ' » (piège n°5).');
+      }
+    }
+  }
+
+  if (echecs.length){
+    console.error('\n✗ Charte violée (' + echecs.length + ' contrôle' + (echecs.length > 1 ? 's' : '') + ') :');
+    for (const e of echecs) console.error('  - ' + e);
+    process.exit(1);
+  }
+  console.log('Charte : transition:all absent, font-size hors de html, tokens et theme-color (' + bg + ') en phase.');
+}
+
 // ---------- génération du fichier autonome depuis l'app assemblée ----------
 // `fichier` (optionnel, défaut 'app.html') : où l'auteur doit aller corriger — assembleApp()
 // passe 'src/app/coquille.html' pour ses trois marqueurs (round de correction Task 13,
@@ -785,7 +859,11 @@ function generateStandalone(cards, appSource){
     'bloc BUILD:ONLINE-ONLY');
 
   // Garde-fous : plus aucune trace du chemin réseau dans le fichier autonome.
-  ['fetch(', 'DOMParser'].forEach(tok => {
+  // « serviceWorker » et « BUILD:ONLINE-ONLY » ajoutés au lot tripwires (2026-07-25) :
+  // une fence coupée en deux blocs ne fait retirer que le premier par le regex non-greedy
+  // ci-dessus — le second bloc livrait un standalone qui enregistre un service worker,
+  // build en exit 0 (éprouvé en bac à sable par le relecteur du chantier 3).
+  ['fetch(', 'DOMParser', 'serviceWorker', 'BUILD:ONLINE-ONLY'].forEach(tok => {
     if (out.includes(tok)){
       console.error('✗ Le fichier généré contient encore « ' + tok + ' » — marqueurs BUILD:ONLINE-ONLY déplacés ?');
       process.exit(1);
@@ -826,6 +904,7 @@ function main(){
   // fraîchement assemblée, jamais de l'ancien app.html du disque (task-13-brief.md § Step 2).
   const appAssembled = assembleApp(SRC_APP);
   verifieTaxonomieApp(appAssembled); // fatale — exercée en mode normal comme en --check
+  verifieCharte(appAssembled, notebookGenerated); // fatale — même régime (tripwires de charte)
   const appGenerated = insereEntete(appAssembled, ENTETE_GENERE_APP);
 
   const standaloneGenerated = generateStandalone(cards, appAssembled);
