@@ -5,9 +5,12 @@
 ## Reprendre ici (prochaine session)
 
 **Où en est le dépôt (25/07/2026, tout poussé sur `main`).** La réorganisation
-« le dépôt généré » a soldé ses chantiers 1 à 3 et les **Tasks 17 à 20** du
-chantier 4 : **il ne reste que le Task 21** (contrôle global + livraison). Le
-dépôt est désormais rangé ainsi :
+« le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
+contrôle de sortie compris (Task 21 — preuve plus bas). **Aucun chantier n'est
+ouvert** sur `main` ; la suite se choisit dans « Dette ouverte » (petits défauts
+connus), dans le contenu (`data/*.json`), ou dans l'une des deux branches
+latérales — voir « Deux branches latérales » plus bas. Le dépôt est rangé
+ainsi :
 
 | Où | Quoi | S'édite à la main ? |
 | --- | --- | --- |
@@ -27,37 +30,82 @@ dépôt est désormais rangé ainsi :
 `ROOT = path.join(__dirname, '..')`, exporté par `build.js` et consommé par les
 trois autres — jamais recalculé ailleurs.
 
-**Prochaine (et dernière) étape : Task 21** — contrôle global et livraison. Plan
-complet dans
-[le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md) :
+### La preuve de sortie (Task 21, 25/07) — et comment la rejouer
 
-- **Task 21** — (1) rituel complet : `node tools/build.js && node tools/build.js --check
-  && node tools/verifie_exemples.js`, `node tools/cherche_mots.js שלום` répond,
-  dry-run d'`ajoute_mots.js` sur un mot **absent** du carnet (un mot déjà présent
-  court-circuite sur l'idempotence et ne prouve PAS le bac à sable — vérifier que
-  la sortie contient bien les deux lignes « ✓ … bac à sable ») ; (2) sous-agent
-  Sonnet WebKit : parcours PWA complet en local (portail → app → une session de
-  chaque mode → carnet), « PASS/FAIL par étape + erreurs console, max 10 lignes » ;
-  (3) push, puis vérifier que `https://rubischtgadol.github.io/flashcards-hebreu/cards.json`
-  répond 200 après redéploiement. Rappeler à Ruben : sur l'iPhone, deux lancements
-  pour voir la nouvelle version (stale-while-revalidate).
-  → **État au commit du Task 20 : le (1) est déjà vert**, les cinq commandes passées
-  une à une, et le hook `pre-commit` en rejoue deux à chaque commit. Ce qui reste
-  vraiment ouvert, c'est le **(2) parcours WebKit** — jamais rejoué depuis le
-  découpage de l'app au chantier 3 — et le (3).
+Ce qu'a établi le contrôle final. Chaque ligne dit **la commande**, pas son
+résultat du jour : c'est elle qui refait la preuve, à n'importe quelle date.
+Plan complet dans
+[le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md).
 
-⚠️ **Cinq choses apprises aux Tasks 17-20, à ne pas réapprendre.**
+1. **Rituel en ligne de commande** — `node tools/build.js`, puis
+   `node tools/build.js --check`, puis `node tools/verifie_exemples.js`
+   (0 erreur exigée ; les ⚠ sont des signaux éditoriaux),
+   `node tools/cherche_mots.js שלום` répond.
+   ⚠️ **Le dry-run d'`ajoute_mots.js` ne prouve son bac à sable que sur un mot
+   ABSENT du carnet** — un mot déjà présent court-circuite sur l'idempotence et
+   ne prouve rien. Choisir le candidat avec `node tools/cherche_mots.js <mot>`
+   jusqu'à obtenir `ABSENT`, puis exiger dans la sortie les **deux** lignes
+   `✓ build.js bac à sable : vert (N cartes, concordantes avec le candidat)` et
+   `✓ verifie_exemples.js bac à sable : 0 erreur`, et un `git status` propre.
+2. **Parcours WebKit complet**, en sous-agent Sonnet (jamais depuis le fil
+   principal) : serveur `python3 -m http.server` **depuis la racine**,
+   `devices['iPhone 16 Pro']`, portail → app → une session de **chacun** des
+   trois modes (`cards`, `input`, `quiz`) → révision du jour → carnet.
+   Les 8 étapes sont passées PASS le 25/07, dont : cartes chargées par l'app
+   **égales** à `node -e "console.log(require('./cards.json').cartes.length)"`,
+   0 erreur console, 0 réponse HTTP ≥ 400, carnet sans débordement horizontal.
+   C'était le premier parcours complet depuis le découpage de l'app en 14
+   modules — **aucune régression**.
+   ⚠️ Piège de pilotage, à ne pas rechercher : le portail ouvre sur un écran
+   d'accueil plein écran (`#accueil`) qui **intercepte les clics** tant qu'il
+   n'a pas été cliqué lui-même. Un script qui vise les portes directement
+   échoue sans rien avoir prouvé.
+3. **Livraison** — push sur `main`, puis `https://rubischtgadol.github.io/flashcards-hebreu/cards.json`
+   doit répondre 200 après le redéploiement Pages (une à deux minutes).
+   ⚠️ Sur l'iPhone, **deux lancements** pour voir la nouvelle version : le
+   service worker sert d'abord le cache et rafraîchit derrière
+   (stale-while-revalidate).
 
-1. **Le plan du chantier a été écrit avant le lot tripwires du 25/07 : il ne
-   connaît pas `verifieCharte()` ni `.githooks/`.** Ses `grep` de contrôle sont
-   bornés aux `.md` et ratent donc trois familles de références : les **chaînes
-   d'usage et messages d'erreur dans les scripts eux-mêmes** (dont trois
-   sortent dans l'en-tête « FICHIER GÉNÉRÉ » des artefacts — les toucher force
-   un rebuild, qui réestampille `sw.js` au passage), l'allowlist
-   `.claude/settings.local.json`, et les **liens markdown à fragment**
-   (`](…#L42)`). Élargi comme tel au Task 20 — les quatre familles y étaient
-   vierges, mais c'est le balayage qui le prouve. Le Task 19 y a ajouté une quatrième
-   famille : le **bac à sable d'`ajoute_mots.js`**, qui recopie un dépôt
+### Deux branches latérales vivantes — et ce que la réorganisation leur coûte
+
+`main` n'en portait aucune trace : consigné ici pour qu'une session ne les
+redécouvre pas par hasard. L'écart se relit à tout moment —
+`git rev-list --count main..<branche>` (devant) et
+`git rev-list --count <branche>..main` (derrière).
+
+- **`refonte-retrofuturiste`** — la charte v2 « La console d'étude », arbitrée
+  de bout en bout mais invisible depuis `main`. Elle est **sortie en worktree**
+  (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`), donc on
+  ne la `checkout` pas ici. Intention retenue : les deux chartes coexisteront
+  via un sélecteur à l'accueil.
+- **`pilier-oral`** — verso des verbes en grille 2×2, accueil idiomatique,
+  quelques points de vocabulaire.
+
+⚠️ **Le vrai coût, à savoir avant d'ouvrir l'une ou l'autre** : les deux
+branches ont divergé **avant** la réorganisation, donc elles éditent encore
+`app.html`, `index.html` et `vocabulaire_hebreu.html` **à la main**. Ces trois
+fichiers sont maintenant des artefacts générés : un `git merge` produira des
+conflits sur des fichiers qui, de toute façon, seront **écrasés au prochain
+`node tools/build.js`**. Le report ne se fait donc pas par merge mais par
+**re-portage du changement dans sa source** — `src/app/` pour l'app,
+`src/portail/` pour le portail, `data/` + `src/carnet/` pour le carnet —, en
+lisant le diff de la branche comme une spécification, pas comme un patch à
+appliquer. Le prévoir dans l'estimation : ce n'est pas un merge, c'est une
+réécriture guidée.
+
+### Cinq leçons de méthode — le chantier est clos, elles engagent la suite
+
+Elles ne sont pas archivées avec le chantier : chacune décrit une manière de se
+tromper qui reste ouverte au prochain garde-fou, au prochain déménagement de
+fichier, au prochain export supprimé.
+
+1. **Quand un fichier bouge ou disparaît, un `grep` borné aux `.md` rate quatre
+   familles de références.** (1) Les **chaînes d'usage et messages d'erreur dans
+   les scripts eux-mêmes** — dont trois sortent dans l'en-tête « FICHIER
+   GÉNÉRÉ » des artefacts, donc les toucher force un rebuild, qui réestampille
+   `sw.js` au passage ; (2) l'allowlist `.claude/settings.local.json` ; (3) les
+   **liens markdown à fragment** (`](…#L42)`) ; (4) le **bac à sable
+   d'`ajoute_mots.js`**, qui recopie un dépôt
    miniature — toute garde neuve qui lit un fichier de la racine casse le
    dry-run tant que le fichier n'est pas dans `FICHIERS_RACINE_BAC_A_SABLE`
    (payé au Task 17 avec `index.html`, re-payé au Task 19 avec `sw.js`).

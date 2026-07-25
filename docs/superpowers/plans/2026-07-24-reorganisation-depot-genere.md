@@ -499,9 +499,9 @@ fs.writeFileSync(path.join(ROOT, 'sw.js'),
 
 ### Task 21 : Contrôle final global + livraison
 
-- [ ] **Step 1 :** rituel complet : `node tools/build.js && node tools/build.js --check && node tools/verifie_exemples.js` → vert ; `node tools/cherche_mots.js שלום` → répond ; `node tools/ajoute_mots.js` dry-run canonique → même verdict qu'au Task 11.
-- [ ] **Step 2 :** sous-agent Sonnet WebKit : parcours complet PWA en local (portail → app → une session de chaque mode → carnet), « PASS/FAIL par étape + erreurs console, max 10 lignes ».
-- [ ] **Step 3 :** push sur `main`. Vérifier ensuite sur l'URL publique (un fetch de `https://rubischtgadol.github.io/flashcards-hebreu/cards.json` doit répondre 200 après le redéploiement Pages). Signaler à Ruben : première ouverture sur l'iPhone = 2 lancements pour voir la nouvelle version (stale-while-revalidate), comme d'habitude.
+- [x] **Step 1 :** rituel complet → vert. `node tools/build.js` **idempotent** (les cinq artefacts « déjà à jour », `VERSION` déjà estampillée) ; `--check` vert, charte comprise ; `verifie_exemples.js` **0 erreur** (⚠ éditoriaux seulement) ; `cherche_mots.js שלום` répond. ⚠️ **Le dry-run d'`ajoute_mots.js` a été refait sur un mot ABSENT** (`פנס`, choisi en interrogeant `cherche_mots.js` jusqu'à obtenir `ABSENT`) — un mot présent court-circuite sur l'idempotence et ne prouve pas le bac à sable. Les deux lignes de preuve sont sorties (`✓ build.js bac à sable : vert (N cartes, concordantes avec le candidat)`, `✓ verifie_exemples.js bac à sable : 0 erreur`) et `git status` est resté propre.
+- [x] **Step 2 :** sous-agent Sonnet WebKit, 8 étapes **8/8 PASS** — portail (2 portes) → app → mode `cards` (3 cartes enchaînées, textes distincts) → mode `input` (faux vs juste : classes `.no` / `.ok` distinctes) → mode `quiz` (4 propositions, exactement 1 correcte) → révision du jour (armée par la carte ratée, session démarrée) → carnet (36 `h2`, aucun débordement horizontal). Cartes chargées par l'app **égales** à `cards.json`. **0 erreur console, 0 réponse HTTP ≥ 400.** Premier parcours complet depuis le découpage en 14 modules : aucune régression. ⚠️ Piège de pilotage consigné dans TODO.md : l'écran d'accueil `#accueil` du portail intercepte les clics tant qu'il n'est pas cliqué.
+- [x] **Step 3 :** push sur `main` + contrôle 200 sur `cards.json` public. Rappel stale-while-revalidate transmis.
 
 ---
 

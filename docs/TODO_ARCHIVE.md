@@ -1943,9 +1943,9 @@ d'acceptation qui les exigeait était mal écrit, pas violé.
 Le problème est réel et mesurable dans le CSS. Quand des cartes sont dues, **deux surfaces
 dorées coexistent** sur le même écran :
 
-- `.review-card` ([app.html:511](app.html#L511)) — bordure `--gold` pleine + dégradé d'or
+- `.review-card` (`app.html`, avant le chantier 3) — bordure `--gold` pleine + dégradé d'or
   135° (16 % → 5 %), icône et flèche en or ;
-- `.start` ([app.html:148](app.html#L148)) — dégradé d'or **plein** + lueur portée
+- `.start` (`app.html`, avant le chantier 3) — dégradé d'or **plein** + lueur portée
   `0 6px 18px -8px var(--gold)`.
 
 C'est exactement ce que la règle de la lampe interdit : deux lumières d'égale intensité,
@@ -1969,7 +1969,7 @@ texte `--ink` plein + bordure qui passe à l'or au survol), et **le vérifier à
 d'affordance — ce qui serait pire.
 
 🔎 **Trouvé en explorant, à traiter avec** : `.review-card:disabled` porte `opacity:.55`
-([app.html:518](app.html#L518)) — or DESIGN.md §5 interdit désormais d'exprimer un état
+(`app.html`, avant le chantier 3) — or DESIGN.md §5 interdit désormais d'exprimer un état
 désactivé par une opacité, règle apprise en juillet sur ce même bouton « Commencer ». Ici
 le fond doré *est* bien remplacé par `--bg2`, donc le symptôme grave (l'or translucide)
 n'existe pas ; mais l'opacité fait aussi pâlir le texte et l'icône, qui restent en or. À
@@ -1984,7 +1984,7 @@ sémantique du filtre n'aurait donc *aucun effet observable* aujourd'hui.
 
 **En revanche l'exploration a mis au jour un vrai trou** : rien ne garantit que cette
 couverture tienne. `build.js` compte les niveaux et n'échoue que si un niveau **entier**
-disparaît (`EXPECTED_LEVELS`, [build.js:33](build.js#L33)) ; un mot ajouté **sans**
+disparaît (`EXPECTED_LEVELS`, `tools/build.js`) ; un mot ajouté **sans**
 `data-niveau` passe donc en silence — et il sera visible sous tous les filtres, y compris
 « Facile ». C'est précisément le scénario qui rendrait la piste A pertinente, sauf qu'on ne
 le verrait jamais venir.
