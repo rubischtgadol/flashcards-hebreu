@@ -152,7 +152,9 @@ body{
    halo de la ménorah continue de pulser malgré la demande d'arrêt.
    ================================================================ */
 @media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation:none !important;transition:none !important}
+  body:not(.force-anim) *,
+  body:not(.force-anim) *::before,
+  body:not(.force-anim) *::after{animation:none !important;transition:none !important}
 }
 
 /* ================================================================
@@ -265,6 +267,31 @@ body{
 .tableau-bord .l .quoi b{color:var(--ambre);opacity:1;font-weight:600}
 .pied-note{margin-top:52px;border-top:1px solid var(--ligne);padding-top:16px;font-size:.74rem;color:var(--lune);opacity:.7;max-width:76ch}
 .pied-note b{color:var(--ambre);opacity:1}
+
+/* ================================================================
+   L'ALARME DE MOUVEMENT RÉDUIT
+   Payé le 25/07 : la planche a été ouverte sur un appareil réglé sur
+   « Réduire les animations » et n'a rien joué du tout, sans rien dire.
+   Un outil de jugement qui meurt en silence fait perdre une passation.
+   Il s'annonce donc, et propose une dérogation locale.
+   ================================================================ */
+.alarme{
+  border:1px solid var(--rouge);background:rgba(255,71,71,.06);
+  padding:14px 16px;margin:0 0 26px;position:relative;
+}
+.alarme[hidden]{display:none}
+.alarme .titre{
+  color:var(--rouge);letter-spacing:.2em;text-transform:uppercase;
+  font-size:.7rem;margin-bottom:6px;text-shadow:0 0 6px currentColor;font-weight:600;
+}
+.alarme p{font-size:.82rem;color:var(--lune);max-width:74ch;margin-bottom:10px}
+.alarme p b{color:var(--ambre)}
+.alarme .comment{font-family:var(--mono);font-size:.74rem;color:var(--ambre);opacity:.85;margin-bottom:12px}
+.indice{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--lune);
+  opacity:.55;margin:-10px 0 24px;
+}
+.indice::before{content:'▸ ';color:var(--vert)}
 </style>
 </head>
 <body>
@@ -288,6 +315,18 @@ body{
   <p><b>Ce que cette planche teste vraiment</b>, au-delà de chaque effet : neuf micro-mouvements irréprochables un par un peuvent faire un écran qui <b>grouille</b>. D'où l'écran cumulé en bas, et le bouton « tout couper » pour le comparer à l'écran nu — c'est la seule comparaison qui tranche.</p>
 </div>
 
+<div class="alarme" id="alarme" hidden>
+  <div class="titre">Rien ne bougera sur cet appareil</div>
+  <p><b>Ce n'est pas un défaut de la planche.</b> Votre système est réglé sur
+  <b>« Réduire les animations »</b>, et cette page respecte ce réglage : elle fige
+  absolument tout. C'est le comportement voulu pour le produit — mais il rend cet
+  outil de jugement inutilisable tant qu'il s'applique.</p>
+  <p class="comment">iPhone · Réglages ▸ Accessibilité ▸ Mouvement ▸ Réduire les animations<br>
+  macOS · Réglages ▸ Accessibilité ▸ Moniteur ▸ Réduire les animations</p>
+  <p>Vous pouvez aussi <b>déroger ici seulement</b>, sans rien changer à votre appareil :</p>
+  <button class="btn primaire" id="forcer">▶ Animer quand même, sur cette page</button>
+</div>
+<p class="indice">Tous les effets démarrent éteints : rien ne bouge tant que vous n'avez pas allumé un interrupteur.</p>
 <div class="barre">
   <span class="lab">Registre</span>
   <button class="btn primaire" id="registre">steps()</button>
@@ -548,7 +587,21 @@ body{
 (function(){
   'use strict';
   var banc = document.getElementById('banc');
-  var REDUIT = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- l'alarme de mouvement réduit + la dérogation locale ---- */
+  var MQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  function reduit(){
+    return !!(MQ && MQ.matches) && !document.body.classList.contains('force-anim');
+  }
+  var alarme = document.getElementById('alarme');
+  var bForcer = document.getElementById('forcer');
+  function majAlarme(){ if (alarme) alarme.hidden = !(MQ && MQ.matches); }
+  majAlarme();
+  if (MQ && MQ.addEventListener) MQ.addEventListener('change', majAlarme);
+  if (bForcer) bForcer.addEventListener('click', function(){
+    var actif = document.body.classList.toggle('force-anim');
+    bForcer.textContent = actif ? '■ Rendre la page immobile' : '▶ Animer quand même, sur cette page';
+  });
 
   /* ---- interrupteurs : plusieurs boutons peuvent piloter le même effet
      (la vignette isolée et le tableau de bord). On les tient synchronisés. ---- */
@@ -599,7 +652,7 @@ body{
   ];
   var timerFeed = null, iLigne = 0;
   function demarreFeed(){
-    if (timerFeed || REDUIT) return;
+    if (timerFeed || reduit()) return;
     timerFeed = setInterval(function(){
       document.querySelectorAll('[data-feed]').forEach(function(f){
         var l = document.createElement('span');

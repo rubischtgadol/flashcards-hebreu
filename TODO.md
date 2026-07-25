@@ -176,6 +176,23 @@ Les pièces, dans cet ordre de lecture :
    une dérive lente par à-coups n'étant pas une dérive lente.
    **En attente du verdict** : garder / jeter / garder mais moins, pour chacune des 9.
 
+   ⚠️ **Incident du 25/07, à ne pas repayer — et question ouverte pour le
+   propriétaire.** La planche du mouvement a été ouverte sur son appareil et
+   **aucune animation n'a joué**. Le fichier servi était pourtant byte-identique
+   (53 390 octets, comparaison binaire) : la cause était le réglage système
+   **« Réduire les animations »**, que les deux planches respectaient en figeant
+   tout — **en silence**. Le précédent existait pourtant : `test-crt-iphone.html`
+   affiche un écran « TEST IMPOSSIBLE EN L'ÉTAT » pour exactement ce cas, il n'avait
+   pas été transposé. **Règle qui en sort : une page de jugement doit annoncer
+   quand un réglage d'accessibilité la neutralise, et offrir une dérogation locale.**
+   Les deux planches portent désormais un encart `#alarme` (visible seulement si le
+   média correspond) et un bouton `#forcer` qui pose `body.force-anim` ; la coupure
+   est devenue `body:not(.force-anim) *,…::before,…::after`.
+   ⚠️ **Question non tranchée : si « Réduire les animations » est un réglage
+   permanent chez le propriétaire, alors tout le chantier du mouvement ne le
+   concernera pas en usage réel** — l'app respectera le réglage. À confirmer avant
+   d'investir davantage dans les animations.
+
 4. **Session de conception du système de thèmes** (brainstorming →
    writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
 5. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
