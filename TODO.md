@@ -10,6 +10,16 @@ Prochaine étape : **Task 16** (contrôle A/B visuel, bump `sw.js` → **v33**,
 sortie de chantier — plan complet dans
 [docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)).
 
+**Lot transversal du 25/07, hors chantier : les tripwires** (demande du
+propriétaire : « si je change quelque chose, la casse doit être détectée
+mécaniquement »). `verifieCharte()` dans `build.js` mécanise les pièges n°2, 3
+et 5 ; les jetons interdits du standalone s'élargissent (le point 3 du Task 16
+ci-dessous est **soldé**) ; un hook `pre-commit` versionné arrive dans
+`.githooks/`. Chaque garde éprouvée par casse fabriquée (exit 1 réel, échec
+nommé). Artefacts inchangés au byte — **aucun bump `sw.js` dû par ce lot**, le
+v33 reste dû au Task 16. Détail : ARCHITECTURE.md § Garde-fous, TODO § Rituel
+étape 4.
+
 ### Ce que le chantier 3 a produit (df5ccfc..d518269, poussé sur `main`)
 
 **`app.html` n'est plus une source : c'est le 4ᵉ artefact généré.** `node
@@ -52,13 +62,10 @@ en jsdom, 29/29 PASS, 0 erreur console : cartes (flip/answer/undo), saisie
    1440/1280/992/900/768, piège 13) n'a **pas** été lancé. La byte-identité du
    hors-`<script>` le rend redondant sur le rendu ; il reste la gate formelle du
    plan si on veut la cocher.
-3. **Un finding Important laissé ouvert exprès, à traiter là** :
-   `build.js:788` — la liste de jetons interdits du fichier autonome n'a que
-   `['fetch(', 'DOMParser']`. **Éprouvé en bac à sable par le relecteur** : une
-   fence `BUILD:ONLINE-ONLY` coupée en deux blocs fait sortir le build en **0**
-   sans un mot, et le standalone livré enregistre alors un service worker et
-   appelle un `init()` inexistant (le regex non-greedy ne retire que le premier
-   bloc). **Ajouter `serviceWorker` et `BUILD:ONLINE-ONLY` à la liste.**
+3. ~~Un finding Important laissé ouvert exprès~~ — **SOLDÉ le 25/07 (lot
+   tripwires)** : `serviceWorker` et `BUILD:ONLINE-ONLY` ajoutés aux jetons
+   interdits de `generateStandalone()`, garde re-prouvée par fence coupée en
+   deux blocs (exit 1 réel constaté, jeton nommé).
 4. Trois minors gelés parce qu'ils cassaient une gate byte-identique tant que
    le chantier tournait : `build.js:693` (l'en-tête du standalone annonce
    encore « depuis app.html + vocabulaire_hebreu.html », provenance réelle
@@ -160,6 +167,9 @@ build.js, harnais d'équivalence devenu inutile une fois la preuve faite).
 généré. Le graphe connaît encore les 83 fonctions de l'app **comme si elles
 vivaient dans `app.html`** — les lignes qu'il cite n'existent plus là où il le
 dit. Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
+
+⚠️ GRAPHE À RECALER — 2026-07-25 (lot tripwires) : `.githooks/pre-commit` créé
+(hook versionné) ; `verifieCharte()` ajoutée à build.js.
 
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
@@ -318,6 +328,17 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
    passe toujours au vert, c'est la leçon de la garde de couverture de `build.js`.
    Doctrine complète dans CLAUDE.md § *The token-economy doctrine — STANDING DIRECTIVE*.
 4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
+
+   ⚠️ **Depuis le 25/07, un hook `pre-commit` versionné tient le filet** (`.githooks/
+   pre-commit` ; installation, une fois par machine : `git config core.hooksPath
+   .githooks`). Il exécute `node build.js --check` + `node verifie_exemples.js` avant
+   chaque commit et **refuse** un commit qui change un fichier servi (artefacts,
+   `index.html`, `manifest.webmanifest`, `sw.js`, `icons/`) sans bump de `VERSION`
+   dans `sw.js` (bypass assumé, à justifier dans le message : `git commit
+   --no-verify`). Le hook est le filet, pas le rituel : continuer à lancer les étapes
+   à la main. Il devient partiellement inutile au Task 19 (VERSION estampillée par le
+   build). Les tripwires de charte (pièges n°2, 3, 5), eux, vivent dans
+   `verifieCharte()` de `build.js` — détail dans ARCHITECTURE.md § Garde-fous.
 5. **Le graphe ne se recale JAMAIS dans le rituel — au plus il se FLAGGE (règle de
    Ruben, 21/07).** `/graphify . --update` coûte **~235 000 tokens** (mesuré le 20/07) :
    le lancer est toujours une décision séparée et explicite. **Le flag ne déclenche pas
