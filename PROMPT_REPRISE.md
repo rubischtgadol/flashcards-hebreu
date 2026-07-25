@@ -161,6 +161,40 @@ verdict du propriétaire — c'est le premier sujet à reprendre.
      GLOBE (12) sont les deux seuls à coûter réellement en composition, à juger
      sur l'appareil et jamais en émulation (piège n°14).
 
+     ⚠️ La même page porte en plus une FAMILLE F : LA SÉQUENCE D'OUVERTURE
+     (ornement 19), demandée en cours de session le 25/07. Un hexagramme à
+     triangles ENTRELACÉS se trace, verrouille son tissage, se pose dans un
+     cadran, tourne d'un sixième de tour, puis TROIS de ses six arêtes deviennent
+     les trois traits d'un ALEF, qui se solidifie en Frank Ruhl Libre et monte se
+     ranger en marque en découvrant l'accueil. Six beats, ~6,5 s en intégrale et
+     ~2,2 s en abrégée (bascule sur la page), bouton rejouer.
+     Ce n'est PAS un ornement mais une SÉQUENCE — début, fin, ne joue qu'une
+     fois — donc un quatrième régime, au spec § 5 ter bis. Le précédent est
+     acquis : le bandeau de boot (module 05) est retenu. Et l'interdiction des
+     effets de surface (§ 5) ne la concerne pas : elle porte sur des calques
+     PERMANENTS pendant l'usage, pas sur un écran d'ouverture qui disparaît.
+     Le morph est GÉOMÉTRIQUEMENT FONDÉ, ne le refais pas « mieux » : sur un
+     hexagramme de circonradius 88, les 6 arêtes font toutes 152,4 px aux angles
+     ±60° et 180°, et les 3 traits du alef visé sont à ≈128° (diagonale, long.
+     140) et ≈40° (bras, 62 et 58). Donc 3 arêtes y sont DÉJÀ presque : 8° de
+     rotation pour la diagonale, 20° par bras. C'est l'hexagramme qui contient la
+     lettre. Les 6 valeurs et les 3 écarts sont en commentaire dans la feuille de
+     style, au-dessus de la séquence.
+     ⚠️ POINT NORMATIF valable pour TOUTE séquence, et contre-intuitif : sous
+     prefers-reduced-motion, une animation d'ouverture NE SE GÈLE PAS, elle se
+     rend DÉJÀ TERMINÉE. Les 18 ornements partent d'un état neutre et les figer
+     ne casse rien ; une séquence part d'un ÉCRAN NOIR et construit l'accueil,
+     donc animation:none laisserait une PAGE VIDE — une app qui ne démarre pas.
+     La coupure pose l'état FINAL. C'est le pendant du piège
+     *,*::before,*::after du § 5 bis.
+     ⚠️ Deux réserves déjà consignées : le risque est D'USAGE et non technique
+     (6,5 s est somptueux la 1re fois, pénible la 30e sur une app ouverte
+     plusieurs fois par jour — d'où lancement à froid seulement, interruptible au
+     premier appui, abrégée dès la 2e ouverture du jour, coupable par réglage) ;
+     et l'ÉTOILE DE DAVID est un symbole identitaire et religieux, donc ouvrir
+     l'app dessus est une déclaration — même régime d'arbitrage que la guématrie
+     (09) et la rosace (05), au propriétaire et pas à un agent.
+
 ════════ CE QUI RESTE, DANS L'ORDRE DU TODO ════════
 
   1. recueillir les VERDICTS sur les quatre planches ci-dessus, puis inscrire les

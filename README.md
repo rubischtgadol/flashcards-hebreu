@@ -43,7 +43,8 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-parures.html
 >
-> **➡️ La planche du décor** (25/07) — **18 ornements entièrement gratuits** pour décorer tout
+> **➡️ La planche du décor** (25/07) — **18 ornements entièrement gratuits + 1 séquence
+> d'ouverture** pour décorer tout
 > le site, chacun en bascule **sans / avec**, étiqueté **discret / affirmé / spectaculaire**, avec
 > sa surface visée et son coût. Cinq familles : **le châssis** (plaque constructeur, filet double,
 > ruban perforé) · **l'alphabet comme ornement** (métier à tisser, rosace hébraïque, plotter qui
@@ -61,6 +62,29 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 > ⚠️ Seule la **famille E** porte une provenance mesurée sur la référence ; les douze autres sont
 > **composés**, et la planche le dit au lieu de laisser croire le contraire. Elle a demandé une
 > troisième règle de charte, la **règle du mobilier** (spec § 5 ter, **non arbitrée**).
+>
+> **➡️ La séquence d'ouverture** (famille F de la même page, ornement 19) — un **hexagramme à
+> triangles entrelacés** se trace, verrouille son tissage, se pose dans un cadran, tourne d'un
+> sixième de tour, puis **trois de ses six arêtes deviennent les trois traits d'un alef**, qui se
+> solidifie en Frank Ruhl Libre et monte se ranger en marque, découvrant l'accueil. Six beats,
+> **~6,5 s** en intégrale et **~2,2 s** en abrégée (bascule sur la page), avec un bouton
+> **rejouer**.
+>
+> Le morph n'est pas arbitraire, et c'est l'intérêt de la chose : sur un hexagramme de circonradius
+> 88, **les six arêtes font toutes 152,4 px aux angles ±60° et 180°**, et les trois traits d'un alef
+> sont à ≈128° et ≈40°. **Trois des six arêtes sont donc déjà presque à l'angle de la lettre** — la
+> transformation ne demande que **8° de rotation pour la diagonale et 20° par bras**. C'est
+> l'hexagramme qui contient l'alef ; la séquence le révèle au lieu de l'interpoler. L'entrelacement
+> est réel lui aussi : trois « ponts » du triangle montant sont posés par-dessus le descendant **à
+> un croisement sur deux** (azimuts 0°, 120°, 240°), et leur verrouillage est **le seul endroit du
+> chantier où `steps()` est pleinement justifié** — un tissage se cliquette.
+>
+> ⚠️ **Le risque est d'usage, pas technique** : 6,5 s est somptueux la première fois et pénible la
+> trentième, sur une app ouverte plusieurs fois par jour. Si elle est retenue : **lancement à froid
+> seulement**, **interruptible au premier appui**, **abrégée dès la deuxième ouverture du jour**,
+> **coupable par réglage**. Et une réserve de fond, qui n'est pas esthétique : l'étoile de David est
+> un **symbole identitaire et religieux**, donc ouvrir l'app dessus est une déclaration — même
+> régime d'arbitrage que la guématrie et la rosace.
 >
 > **➡️ La planche des polices hébraïques** — שָׁלוֹם dans les 62 familles Google Fonts qui
 > couvrent l'hébreu, avec pour chacune un **verdict nikoud mesuré dans le fichier de fonte** :

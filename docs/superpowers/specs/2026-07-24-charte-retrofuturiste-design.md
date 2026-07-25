@@ -236,6 +236,57 @@ seconde passe SENTRY du 25/07 (voir [REFERENCES_SENTRY.md](../../../REFERENCES_S
 et un **compteur d'animations actives** : dix-huit ornements irréprochables un par un peuvent faire
 un écran qui grouille, et c'est le nombre que le propriétaire **retire** qui est le verdict.
 
+### 5 ter bis. La séquence d'ouverture — un quatrième cas, qui n'est pas un ornement
+
+Demandée le 2026-07-25 : « une animation à l'ouverture de l'application, très spectaculaire, une
+étoile de David avec les triangles entrelacés qui se transforme en alef progressivement pour ensuite
+donner l'écran d'accueil ». C'est la **famille F** de la planche (ornement 19), et elle relève d'un
+régime à part : une séquence a un **début, une fin, et ne joue qu'une fois**. La règle du mobilier ne
+la couvre pas — le mobilier est permanent, une séquence est transitoire. Le précédent existe déjà et
+il est acquis : le **bandeau de boot (module 05) est retenu**, et c'est le seul mouvement qui ait
+survécu au retrait des trois calques.
+
+**Ce qui n'est pas en cause** : l'interdiction des effets de surface d'écran (§ 5) porte sur des
+calques **permanents** posés pendant l'usage, pas sur un écran d'ouverture qui est un écran à lui
+seul puis disparaît. Le distinguer explicitement évite qu'une session future croie la règle violée.
+
+**La géométrie est mesurée, et c'est ce qui fait la valeur de la proposition.** Sur un hexagramme de
+circonradius 88, les six arêtes font toutes **152,4 px**, aux angles **±60° et 180°**. Les trois
+traits de l'alef visé sont à **≈128°** (diagonale, longueur 140) et **≈40°** (les deux bras, 62 et
+58). L'appariement qui en découle ne demande que **8° de rotation pour la diagonale et 20° par
+bras** — autrement dit **l'hexagramme contient déjà la lettre**, et la séquence la révèle au lieu de
+l'interpoler. Les trois arêtes qui s'effacent (les deux horizontales et une diagonale) sont
+exactement celles qui n'ont pas d'emploi dans l'alef. Les six valeurs et les trois écarts sont en
+commentaire au-dessus de la séquence dans la feuille de style.
+
+L'**entrelacement est réel** : les six croisements sont les sommets de l'hexagone intérieur de rayon
+88/√3 = 50,8 ; le triangle descendant passe devant partout, et **trois ponts** — fragments du
+triangle montant — sont posés par-dessus **à un croisement sur deux** (azimuts 0°, 120°, 240°). Le
+verrouillage de ces trois ponts est le **seul endroit de tout le chantier où `steps()` est pleinement
+justifié** : un tissage se cliquette, il ne glisse pas. C'est un argument pour la règle du § 5, et
+le premier qui soit fondé sur autre chose qu'un matériau retiré.
+
+> ⚠️ **Point normatif payé par le raisonnement, valable pour TOUTE séquence.** Sous
+> `prefers-reduced-motion`, une animation d'ouverture **ne se gèle pas — elle se rend déjà
+> terminée**. Les dix-huit ornements partent d'un état neutre et les figer ne casse rien ; une
+> séquence part d'un **écran noir** et construit l'accueil, donc `animation:none` laisserait une
+> **page vide**, c'est-à-dire une app qui ne démarre pas. La coupure doit poser l'état **final**.
+> C'est le pendant du piège `*,*::before,*::after` du § 5 bis : les deux concernent la coupure du
+> mouvement, et les deux sont invisibles jusqu'à ce qu'on les mesure.
+
+⚠️ **Le risque de cette proposition n'est pas technique, il est d'usage, et il est sérieux.** Une
+ouverture de 6,5 s est somptueuse la première fois et pénible la trentième, sur une app ouverte
+plusieurs fois par jour. Si elle est retenue, elle doit l'être **au lancement à froid seulement**,
+**interruptible au premier appui**, **abrégée (2,2 s) dès la deuxième ouverture du jour** et
+**coupable par réglage**. La planche porte la bascule intégrale / abrégée pour que les deux durées
+soient jugées, pas pour illustrer un choix déjà fait.
+
+⚠️ **Et une réserve de fond, qui n'est pas d'ordre esthétique** : l'étoile de David est un **symbole
+identitaire et religieux**, et c'est le seul élément du chantier qui ferait **ouvrir l'app sur une
+déclaration**. Le propriétaire l'a demandée explicitement et elle est livrée telle quelle ; la
+décision n'est simplement pas de même nature que « prendre ou jeter un filet double ». Même régime
+que la guématrie (09) et la rosace (05) : arbitrage du propriétaire, pas d'un agent.
+
 ⚠️ **Deux questions restent ouvertes et attendent son arbitrage, pas une décision d'agent** : la
 **guématrie** (ornement 09) est un usage traditionnel et religieux, alors que le dépôt a écarté
 sciemment la vie religieuse du périmètre du *vocabulaire* — on ne sait pas si cette décision couvre

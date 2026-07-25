@@ -29,7 +29,9 @@ Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 > Ajouté cette session, à la demande du propriétaire (« je veux que mon app soit
 > vraiment ultra belle, avec des animations vraiment cosmétiques et esthétiques,
 > qui ne sont PAS forcément en rapport direct avec l'utilisation ») :
-> **`prototype-decor.html`** — **18 ornements gratuits en 5 familles**, chacun en
+> **`prototype-decor.html`** — **18 ornements gratuits en 5 familles, plus une
+> SÉQUENCE D'OUVERTURE en famille F** (l'hexagramme entrelacé qui devient un alef,
+> demandée en cours de session), chacun en
 > bascule sans / avec, étiqueté discret / affirmé / spectaculaire, avec sa surface
 > visée et son coût. Plus une **scène cumulée** pilotée par les mêmes
 > interrupteurs et un **compteur d'animations actives**. 11 des 18 sont statiques.
@@ -160,6 +162,16 @@ Les pièces, dans cet ordre de lecture :
     **les 6 procédés prélevés**), 11 statiques, plus une scène cumulée et un
     compteur. Seule la famille E porte une **provenance mesurée** ; les 12 autres
     sont composés, et la planche le dit au lieu de laisser croire le contraire.
+    **+ famille F, la SÉQUENCE D'OUVERTURE** (ornement 19, demandée le 25/07) : un
+    hexagramme à triangles entrelacés se trace, verrouille son tissage, tourne, puis
+    **trois de ses six arêtes deviennent les trois traits d'un alef**, qui se
+    solidifie et monte en marque en découvrant l'accueil. ~6,5 s en intégrale,
+    ~2,2 s en abrégée, avec bouton rejouer. **Le morph est géométriquement fondé** :
+    les 6 arêtes font toutes 152,4 px à ±60°/180°, les 3 traits du alef sont à ≈128°
+    et ≈40°, donc 3 arêtes y sont déjà presque — 8° et 20° de rotation suffisent.
+    Spec § 5 ter bis. ⚠️ Son risque est **d'usage, pas technique** (6,5 s à chaque
+    ouverture devient pénible), et l'étoile de David est un **symbole religieux** :
+    arbitrage du propriétaire.
 - **`test-crt-iphone.html`** — le protocole de test des calques sur device,
   **soldé** (les trois effets ont été rejetés) et conservé pour un futur effet à
   juger. Son écran de garde le dit, pour qu'une repasse ne soit pas prise pour un
