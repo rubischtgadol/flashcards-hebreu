@@ -40,11 +40,9 @@ artistique SOLDÉE**, arbitrée de bout en bout par le propriétaire, sur pièce
 Décisions actées :
 
 - **Référence fondatrice** : l'app SENTRY (`sentry-by-artificial-isa.fuser.app`),
-  charte extraite mécaniquement (Playwright WebKit, CSS calculé). **Liens, méthode
-  d'extraction, ce qui a été prélevé et ce qui reste à prélever :
-  [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md).** ⚠️ Le propriétaire a mentionné un
-  **second lien** le 25/07 — il n'était consigné nulle part, il reste à ajouter dans
-  ce fichier.
+  charte extraite mécaniquement (Playwright WebKit, CSS calculé). **Les deux liens
+  (app déployée et vue Fuser Studio), la méthode d'extraction, ce qui a été prélevé
+  et ce qui reste à prélever : [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md).**
 - **Variante A « Observatoire »**, contre B Phosphore (monochrome vert), C NERV
   (orange dominant) et D Or ancien (pont avec la charte actuelle).
 - **Typographie à trois voix, zéro italique** : Frank Ruhl Libre 900 (hébreu

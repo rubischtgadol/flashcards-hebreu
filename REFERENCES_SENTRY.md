@@ -9,12 +9,19 @@ qui reste à explorer**.
 
 | Lien | Ce que c'est |
 |---|---|
-| https://sentry-by-artificial-isa.fuser.app | L'application elle-même. C'est d'elle que la charte a été extraite mécaniquement le 2026-07-24. |
-| _(second lien à ajouter)_ | ⚠️ Le propriétaire en a mentionné un second le 25/07 ; il n'était consigné nulle part dans le dépôt. **À compléter à la prochaine session.** |
+| **https://sentry-by-artificial-isa.fuser.app/** | **L'application déployée** — titre `Sentry Encounter Scope`, ~163 Ko. C'est d'elle que la charte a été extraite le 2026-07-24, et c'est elle qu'il faut piloter pour la suite. |
+| **https://app.fuser.studio/view/ee4f1ac3-ddc4-44bf-b34c-9600b6dc0263** | **La vue Fuser Studio du même projet** — titre `SENTRY - Fuser`, ~64 Ko. Une seconde entrée sur la référence, utile si l'app déployée bougeait ou disparaissait. |
+
+Les deux ont répondu `200` sans authentification le 2026-07-25, vérifié en fin de session.
+⚠️ Ce sont des adresses de service tiers : elles peuvent changer ou tomber. Si la prochaine
+passe les trouve mortes, ce qui a déjà été prélevé reste intact dans le spec, dans
+`prototype-nerv.html` et dans `prototype-effets.html` — c'est le **gisement restant** qui serait
+perdu, pas la charte.
 
 ## Comment la charte en a été extraite
 
-Playwright + WebKit, en lisant le **CSS calculé** de l'app (pas son code source) : couleurs
+Playwright + WebKit sur **l'app déployée** (premier lien), en lisant le **CSS calculé**
+(pas le code source) : couleurs
 résolues, familles et graisses de police, épaisseurs de filet, rayons, ombres. C'est cette méthode
 qui a produit les jetons du § 2 du spec — ambre `#f0b32a` sur quasi-noir `#05040A`, phosphore
 `#54ff8a`, alerte `#FF4747`. La même méthode resservira pour aller chercher les animations.
