@@ -834,13 +834,25 @@ function he2tr(he){
     var j=i+1, marks=[];
     while(j<s.length){ var c=s.charCodeAt(j); if(c>=0x0591&&c<=0x05C7){ marks.push(c); j++; } else break; }
     function has(m){ return marks.indexOf(m)!==-1; }
+    // Le yod qui suit clôt-il le mot ? (sert au cas de l'alef muet : achra'i)
+    var yodFinal=false;
+    if(s[j]==='י'){
+      yodFinal=true;
+      for(var q=j+1;q<s.length;q++){
+        var cq=s.charCodeAt(q);
+        if(cq>=0x0591&&cq<=0x05C7) continue;
+        yodFinal=(s[q]===' '); break;
+      }
+    }
     var hasVowel=marks.some(function(m){ return V[m]; });
     var isFinal=(j>=s.length || s[j]===' ');
     var cons='';
     switch(ch){
       // Standard de translittération (cf. carnet) : א = ' entre deux voyelles
       // seulement (tsme'a) ; ע = ' partout ('ivrit, be'er, rega').
-      case 'א': cons=(hasVowel && !wordStart && /[aeiou]$/.test(out))?"'":''; break;
+      // א = ' entre deux voyelles (tsme'ah), et devant un yod FINAL porteur du
+      // i, où l'alef s'entend également (achra'i, et non achray).
+      case 'א': cons=(!wordStart && /[aeiou]$/.test(out) && (hasVowel || yodFinal))?"'":''; break;
       case 'ע': cons="'"; break;
       case 'ב': cons=has(0x05BC)?'b':'v'; break;
       case 'ג': cons='g'; break;
@@ -878,11 +890,16 @@ function he2tr(he){
     var emitted=false;
     for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
     // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
-    if(!emitted && wordStart && cons && cons!==' ' && has(0x05B0)) out+='e';
+    if(!emitted && wordStart && cons && cons!==' ' && has(0x05B0) && !(/[שסכצ]/.test(ch) && !/[אהחער]/.test(s[j]))) out+='e';
+    // Shva entre deux consonnes IDENTIQUES : il s'entend toujours (bodedim, et
+    // non boddim) — la gémination n'est pas prononçable, l'hébreu insère la
+    // voyelle. s[j] est la lettre suivante, les signes ayant été consommés.
+    else if(!emitted && cons && cons!==' ' && has(0x05B0) && s[j]===ch) out+='e';
     if(ch===' ') wordStart=true; else if(cons||emitted) wordStart=false;
   }
   out=out.replace(/iy(?![aeiou])/g,'i');
-  out=out.replace(/ey/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
+  out=out.replace(/ey(?![aeiou])/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
+  out=out.replace(/'y(?=\s|$)/g,"'i");     // alef + yod final : achra'i, et non achra'y
   // Le hé final se garde (standard : atah, zeh, morah).
   return out;
 }
@@ -890,6 +907,12 @@ function trKey(s){
   s=(s||'').toLowerCase().replace(/[^a-z]/g,'');
   s=s.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
   s=s.replace(/ou/g,'u').replace(/ch/g,'h');
+  // Shva initial : il s'entend ou non selon le mot (shkufah mais ledaber, cf.
+  // CLAUDE.md § Transliteration standard). he2tr tranche pour l'affichage ;
+  // la SAISIE, elle, doit accepter les deux graphies — on replie donc le « e »
+  // qui sépare les deux consonnes d'attaque. Sans ce pliage, corriger he2tr
+  // rétrograderait « shekufah » de Correct à Presque.
+  s=s.replace(/^([^aeiou]{1,2})e(?=[^aeiou])/,'$1');
   s=s.replace(/(.)\1+/g,'$1');
   return s;
 }
