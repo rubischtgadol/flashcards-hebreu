@@ -275,7 +275,7 @@ Côté app, le filtre est **optionnel** — c'est sa différence voulue avec Cat
 
 Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans app.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Le libellé du pli suit son état (« Voir un exemple » ↔ « Masquer l'exemple », géré dans `exActivate`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
 
-**Ligne éditoriale** (lot pilote du 2026-07-18 : 77 exemples ; lots du 2026-07-19 : 430 de plus ; lot de clôture du 2026-07-20 : les 54 mots-outils de Prépositions, Adverbes et Mots interrogatifs ; lot santé/sécurité du 2026-07-21 : 13 de plus ; lot santé/sécurité P2+P3 du même jour : 28 de plus ; lot argent-achats/loisirs-culture du même jour encore : 32 de plus, soit **637 au total** — les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec ; verbes = phrase au présent) : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple proche du niveau du mot (les niveaux de § 4 disent par où commencer) — **le validateur tolère +1 niveau et n'alerte qu'à +2**, calibrage du 2026-07-19 : une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב) qui sont A2 par nature, alerter à +1 noyait le signal dans l'inévitable —, une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node tools/verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node tools/build.js`, avant commit.
+**Ligne éditoriale.** Les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec (verbes : phrase au présent). Le compte courant s'affiche à chaque `node tools/build.js`. Les règles : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple proche du niveau du mot (les niveaux de § 4 disent par où commencer) — **le validateur tolère +1 niveau et n'alerte qu'à +2**, calibrage du 2026-07-19 : une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב) qui sont A2 par nature, alerter à +1 noyait le signal dans l'inévitable —, une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node tools/verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node tools/build.js`, avant commit.
 
 ### 5.1 Le lexique du validateur (deux garde-fous à ne pas retirer)
 
@@ -444,25 +444,30 @@ répondre à une question coûte des dizaines de milliers de tokens, là où une
 graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
 baisse quand le graphe grossit — `graphify benchmark` le remesure.
 
-**Ce que contient le graphe** — 420 nœuds, 679 arêtes, 28 communautés (recalage du
-2026-07-21 en fin de journée : 10 fichiers ré-extraits — les deux scripts `build.js`/`sw.js`
-et les huit documents, dont le carnet, `app.html` et les cinq `.md`). Ce recalage **solde la
-dette du lot grammaire** : le carnet est ré-extrait avec ses 35 sections `<h2>`, ses trois
-blocs `:root` ancrés à leur ligne réelle et ses régimes d'attributs mesurés (`data-niveau`
-A1 350 / A2 311 / B1 124 / B2 4, `data-theme` sur les trois tables, 15 slugs). Le diff est
-franc — 183 nœuds neufs, 362 arêtes neuves, 98 nœuds et 194 arêtes remplacés — parce que la
-passe précédente décrivait le carnet de l'extérieur là où celle-ci en suit la structure. Le
-recalage du 20/07 avait au contraire fait **rétrécir délibérément** le graphe (438 → 335) :
-la passe antérieure dupliquait le standalone généré en ~90 nœuds de fonctions identiques à
-celles d'`app.html` ; il est depuis ~10 nœuds d'artefact reliés à ce dont il dérive. Les
-huit plus grosses communautés couvrent l'essentiel des nœuds :
+**Ce que contient le graphe** — 420 nœuds, 679 arêtes, 28 communautés, figés au dernier
+recalage décidé (2026-07-21). ⚠️ **Tous les chiffres que le graphe porte sur le CONTENU du
+carnet — nombre de sections, répartition `data-niveau`, ancres de ligne — datent de ce
+jour-là et ne valent plus.** Les comptes courants s'obtiennent par commande, jamais par
+lecture : `node tools/build.js --check` (sections, niveaux, thèmes, exemples) et
+`node tools/cherche_mots.js --stats`. Ce qui reste fiable dans le graphe, c'est la
+**structure** de ce qui n'a pas bougé — le balisage du carnet, les règles de design, les
+pièges. L'état d'obsolescence fichier par fichier est tenu dans TODO.md § Dette de graphe,
+seule référence.
+
+⚠️ **Leçon payée le 21/07, la seule qui arme encore quelque chose** : recaler après un lot
+de pur contenu a **churné** le graphe au lieu de l'étendre (des centaines de nœuds
+remplacés, pour ~4× le travail utile), parce qu'un lot de vocabulaire déplace tout le
+carnet sans rien changer à sa structure. D'où la règle du propriétaire : `--update` ne part
+jamais d'un rituel, seulement d'une décision explicite.
+
+Les huit plus grosses communautés couvrent l'essentiel des nœuds :
 
 | Communauté | Contenu |
 | --- | --- |
 | Mode Cartes et moteur de réponse (62) | `render`, `answer`, `doFlip`, `checkAnswer`, `editDist`, le clavier hébreu, les régions live |
 | `build.js` — chaîne de génération (50) | `build.js` et ses fonctions (extraction regex, `EXPECTED_CATS`/`EXPECTED_THEMES`, `generateStandalone`) |
-| Audit mécanique du carnet (39) | `audit_carnet_mecanique.js` et ses fonctions (drapeaux, distance d'édition, formes attendues) — ⚠️ **communauté morte** : le script a été supprimé au chantier 4 (son objet, auditer le HTML du carnet, a disparu avec la génération depuis `data/`) ; ces 39 nœuds partiront au prochain recalage décidé |
-| Carnet : sections et régimes d'attributs (38) | les 35 sections `<h2>`, les trois tables, les 18 `word-list`, `data-niveau`/`data-theme`, le script cursive |
+| Audit mécanique du carnet (39) | `audit_carnet_mecanique.js` et ses fonctions — ⚠️ **communauté morte**, le script n'existe plus (cf. TODO.md § Dette de graphe) |
+| Carnet : sections et régimes d'attributs (38) | les sections `<h2>`, les trois tables, les `word-list`, `data-niveau`/`data-theme`, le script cursive |
 | Amorçage, filtres et préférences (36) | `init`, `applyPrefs`, `buildChips`, `buildNivChips`/`buildThemeChips`, la barrière `BUILD:ONLINE-ONLY` |
 | Architecture : extraction et contrats (35) | le couplage des deux extracteurs, le schéma de carte, le contrat de balisage, les garde-fous |
 | Doctrine du dépôt et pièges (31) | les 14 pièges de CLAUDE.md, la charte unifiée, la couche PWA, le diagnostic de latence |

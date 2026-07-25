@@ -33,7 +33,11 @@ Plan complet dans
 
 - **Task 19** — `VERSION` de `sw.js` estampillée par un hash du contenu servi.
   **Clôt le piège n°10** (bump oublié) et rend inutile le contrôle n°3 du hook
-  `pre-commit`.
+  `pre-commit`. ⚠️ Le hash porte sur les **cinq artefacts + `manifest.webmanifest`**,
+  jamais sur `sw.js` lui-même : il s'y écrit, donc l'y inclure ferait courir la
+  version après sa propre queue. La liste du plan est déjà juste — ne pas
+  « compléter ». Et `--check` doit recalculer le hash, sinon un artefact peut
+  être committé sans son estampille.
 - **Task 20** — suppression d'`outils_migration/`, passe de documentation finale.
 - **Task 21** — contrôle global (rituel + parcours WebKit en sous-agent) et
   livraison.
@@ -119,25 +123,13 @@ rencontre.
   (piège documenté dans CLAUDE.md § Transliteration standard).
 ## Outillage (WSL, à recréer en début de session si besoin)
 
-- **Consultation du carnet par commande** (`cherche_mots.js`, versionné, dev-only, zéro
-  dépendance, ne modifie rien — le canal cheap du piège n°15) : `node tools/cherche_mots.js TERME
-  [TERME…]` répond « existe-t-il ? où ? » — terme hébreu = comparaison exacte sur `he_plain`
-  (headwords, puis formes, puis mot exact dans les exemples), **puis, seulement si l'exacte
-  échoue, l'appariement ktiv male/haser** en rubrique séparée « orthographe voisine » (le
-  carnet est vocalisé donc défectif : עִתּוֹן s'y écrit `עתון` quand on cherche `עיתון` —
-  sans cette rubrique, 6 mots sur 24 ressortaient `ABSENT` alors qu'ils étaient là, le sens
-  qui fait insérer un doublon) ; terme latin = sous-chaîne à
-  frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `SECTION Lnnnn · hébreu —
-  français` (le n° de ligne sert d'ancre de lecture fenêtrée), `ABSENT` seulement si ni
-  exacte ni voisine, bornée à 8
-  occurrences par rubrique (surplus compté, jamais tronqué en silence). `node tools/cherche_mots.js --stats` :
-  total, répartition par section/niveau/thème (du moins doté au plus doté) — l'arbitrage
-  « quel thème/niveau est sous-doté ? » sans lire le carnet. Réutilise `extractCards` &
-  cie exportés par `build.js` (pas de troisième parseur), dont `orthographeVoisine` —
-  règle mesurée : insertion de ו/י seulement, forme courte ≥ 3 lettres, ≤ 2 insertions,
-  soit 37 paires sur 1053 mots. Les garde-fous ne sont pas décoratifs : sans eux לישן
-  (dormir) s'apparie à לשון (langue). `ajoute_mots.js` consomme le même helper en
-  **informatif non bloquant** — son garde doublons reste la comparaison exacte.
+- **Consultation du carnet par commande** : `node tools/cherche_mots.js TERME…` (« ce mot
+  existe-t-il, où ? ») et `--stats` (thèmes/niveaux sous-dotés). Le canal cheap du piège
+  n°15 : une question d'existence, de compte ou d'emplacement se paie par commande, jamais
+  par une lecture ni un sous-agent. ⚠️ **`ABSENT` ne conclut rien sans lire la rubrique
+  « orthographe voisine »** : le carnet est vocalisé donc défectif, et l'appariement ktiv
+  male/haser est la seule chose qui empêche d'insérer un doublon. Contrat complet dans
+  ARCHITECTURE.md § Les fichiers.
 - **Logique/DOM** : Node + jsdom dans le scratchpad de session
   (`npm i jsdom playwright` — installer les DEUX ensemble, npm évince l'autre sinon),
   booter `flashcards_hebreu.html` avec `runScripts:'dangerously'`.
@@ -168,7 +160,7 @@ rencontre.
   compare **deux copies du fichier**, l'une avec le bloc CSS en cause retiré, aux six
   largeurs 1440/1280/992/900/768 + iPhone 16 Pro, et mesure : débordement horizontal du
   document (`scrollWidth` vs `clientWidth`), `clientWidth`/`scrollWidth` de **chacune**
-  des 29 `.table-wrap` — c'est le contrôle qui a attrapé les deux régressions du jour —,
+  des `.table-wrap` — c'est le contrôle qui a attrapé les deux régressions du jour —,
   les axes de centrage, et les **caractères par ligne** de la prose.
   ⚠️ **La mesure des caractères par ligne ne peut pas se faire au plus long nœud texte** :
   la prose du carnet est fragmentée par des `<span>` hébreux et des `<b>`, si bien que le
@@ -182,16 +174,14 @@ rencontre.
   `node <base-skill>/scripts/detect.mjs --json <fichier>`. Ses findings sont des *signaux*,
   pas des verdicts : les vérifier à la main avant d'agir (l'`em-dash-overuse` du carnet est
   un faux positif — la règle vise l'anglais).
-- **Graphe de connaissance** (`graphify-out/`, versionné depuis le 20/07) : cartographie du
-  dépôt — 335 nœuds, 511 arêtes, 28 communautés (recalé le 21/07 après le ménage de
-  clôture ; le standalone n'est plus dupliqué en ~90 nœuds depuis le 20/07). **À
-  interroger avant d'ouvrir un gros fichier** : `graphify explain "checkAnswer"` donne la ligne source exacte et les
+- **Graphe de connaissance** (`graphify-out/`, versionné) : **à interroger avant d'ouvrir un
+  gros fichier** — `graphify explain "checkAnswer"` donne la ligne source et les
   appelants/appelés en ~15 lignes, `graphify query "…"` répond en ~2 300 tokens là où lire
-  `app.html` en coûte des dizaines de milliers (10,5× d'économie, mesurée le 20/07 par
-  `graphify benchmark`). Se reconstruit par
-  `/graphify . --update`. ⚠️ C'est un **instantané** : en cas de contradiction avec le fichier,
-  le fichier fait foi. Détail et limites connues dans ARCHITECTURE.md § Le graphe de
-  connaissance du dépôt.
+  `app.html` en coûte des dizaines de milliers. ⚠️ C'est un **instantané**, et il est
+  périmé sur tout ce que les chantiers 1 à 4 ont créé (voir « Dette de graphe » ci-dessus,
+  seul état de référence) : en cas de contradiction avec le fichier, le fichier fait foi.
+  Contenu, communautés et coût de recalage dans ARCHITECTURE.md § Le graphe de connaissance
+  du dépôt.
 - **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch le carnet).
 - **Piège jsdom** : `const CARDS` au premier niveau d'un script **n'apparaît pas** sur
   `window` (les `const` ne créent pas de propriété globale) — inutile de chercher
@@ -273,11 +263,20 @@ rencontre.
    retirés) montre qu'il **brasse** le graphe au lieu de l'étendre — raison de plus pour ne
    pas le lancer pour rien.
 6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
-   fichier (surtout « Reprendre ici »). ⚠️ Les **comptes** cités dans les docs (cartes,
-   exemples, nœuds `lang="he"`) se recalent à chaque ajout de vocabulaire — et le compte
-   de nœuds `lang="he"` se **mesure dans le navigateur, il ne se calcule pas** : une
-   entrée ajoutée crée aussi ses `span.cursive` générés, donc elle pèse plus d'un nœud
-   (5003 → 5015 pour 3 mots, le 19/07, là où le calcul de tête donnait 5010).
+   fichier (surtout « Reprendre ici »).
+
+   ⚠️ **Règle des comptes gelés — n'écris pas un nombre que personne ne recalculera.**
+   Cartes, exemples, mots, sections, tables, nœuds : tous se périment au lot suivant, en
+   silence, et une doc fausse coûte plus qu'une doc muette (payé deux fois : « aucune
+   table ne dépasse 894px » et les répartitions `data-niveau` du graphe, toutes deux
+   restées écrites longtemps après être devenues fausses). **Écris la commande qui donne
+   le chiffre, pas le chiffre** : `node tools/build.js --check` (sections, niveaux,
+   thèmes, exemples), `node tools/cherche_mots.js --stats` (thèmes/niveaux sous-dotés),
+   `grep -c` pour le reste. N'inscris un nombre en dur que s'il est **mesuré et stable
+   par nature** (une largeur en px, un seuil de contraste) — et dis alors ce qui le
+   remesure. Seule exception connue : le compte de nœuds `lang="he"` se **mesure dans le
+   navigateur, il ne se calcule pas** (une entrée crée aussi ses `span.cursive` générés,
+   donc elle pèse plus d'un nœud) — raison de plus pour ne pas le figer dans la prose.
 7. **Plus aucune ancre de ligne vers `app.html` dans la doc — et ne pas en réintroduire**
    (clos au Task 16, 25/07). Elles avaient dérivé **cinq fois** (19/07 au matin ; toutes
    fausses le soir, +25 ; après les plis, de +22 à +82 selon l'endroit ; +11 uniforme le
