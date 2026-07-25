@@ -22,18 +22,36 @@ Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 > autorité** — tous les paragraphes sous celui-ci sont un instantané figé au
 > point de départ de la branche (24/07) et sont **périmés**.
 
-> **Fin de session du 2026-07-25 — rien n'est en cours, rien n'attend d'être fini.**
-> Trois chantiers ont été soldés ce jour-là : le **test des calques CRT sur iPhone
-> réel** (les trois effets rejetés, charte en v0.6), l'**exploration typographique
-> hébraïque** (classée, on garde Frank Ruhl Libre) et la **recette du spec § 6**
-> (nikoud et grille jugés lisibles sur l'appareil). Le propriétaire reprendra
-> **après la refonte complète du code sur `main`**. Trois chantiers restent, tous
-> listés plus bas : le prélèvement des animations sur SENTRY, le système de thèmes,
-> et le portage.
+> **Fin de session du 2026-07-25 (soir) — dernier commit `f72c55c`. Rien n'est en
+> cours, rien n'attend d'être fini. Trois planches attendent un verdict.**
+>
+> Soldé le 25/07 au matin : le **test des calques CRT sur iPhone réel** (les trois
+> effets rejetés, charte en v0.6), l'**exploration typographique hébraïque**
+> (classée, on garde Frank Ruhl Libre) et la **recette du spec § 6**.
+>
+> Soldé le 25/07 au soir : le **prélèvement du mouvement sur SENTRY** — résultat
+> **négatif et acquis, à ne pas refaire** (le gisement est sec, trois `@keyframes`
+> dont deux déjà rejetés et un mort) ; l'**audit d'animation** du site déployé et
+> des cinq pages-témoins (5 défauts corrigés dans la branche, 4 relevés sur `main`
+> et laissés) ; et la construction des **trois planches de jugement**.
+>
+> **Ce qui attend le propriétaire, et rien d'autre : donner son verdict sur les
+> trois planches** — `prototype-mouvement.html` (A/B/rien par moment),
+> `prototype-ame.html` (garder / jeter / garder mais moins) et
+> `prototype-parures.html` (prendre / jeter / prendre plus discret). Deux textes du
+> spec sont écrits pour être **remplacés par ces verdicts** : le rectificatif de la
+> règle `steps()` au § 5, et la règle de la veilleuse au § 5 bis.
+>
+> ⚠️ **Question posée au propriétaire le 25/07, restée sans réponse** : « Réduire
+> les animations » est-il **permanent** sur son appareil ? Si oui, le chantier du
+> mouvement et celui de l'ambiant ne le concernent pas en usage réel. À poser
+> **avant** d'investir davantage dans les animations.
 >
 > **Premier geste à la reprise** : vérifier où en est la réorganisation de `main`,
-> puis relire le PIÈGE AU MERGE en bas de cette section — la divergence a doublé
-> depuis l'ouverture de la branche.
+> puis relire le PIÈGE AU MERGE en bas de cette section.
+>
+> **Le prompt à copier dans une session neuve est à jour au 25/07 soir :
+> [PROMPT_REPRISE.md](PROMPT_REPRISE.md).**
 >
 > **Le prompt à copier dans une session neuve est versionné :
 > [PROMPT_REPRISE.md](PROMPT_REPRISE.md).** Il est autoportant et porte un bloc
@@ -82,6 +100,14 @@ Les pièces, dans cet ordre de lecture :
 - **`prototype-nerv.html`** — la page-témoin v0.6 ; **elle fait foi en cas de
   désaccord avec le spec**. Quatre écrans (carte recto/verso, accueil,
   révélation, bilan) plus l'inventaire (nuancier, gamme typo, états).
+- **Les trois planches en attente de verdict** (créées le 25/07, contrôlées en
+  WebKit, aucune arbitrée) — elles ne se recouvrent pas et se tranchent séparément :
+  - **`prototype-mouvement.html`** — « qu'est-ce qui bouge quand il se passe quelque
+    chose » : les 9 moments, chacun rendu deux fois, `steps()` contre fluide.
+  - **`prototype-ame.html`** — « qu'est-ce qui vit quand rien ne se passe » : 9
+    mouvements ambiants, isolés puis cumulés, avec compteur d'animations actives.
+  - **`prototype-parures.html`** — « de quoi l'app est-elle faite » : 13 ornements
+    en bascule sans / avec, dont 11 statiques.
 - **`test-crt-iphone.html`** — le protocole de test des calques sur device,
   **soldé** (les trois effets ont été rejetés) et conservé pour un futur effet à
   juger. Son écran de garde le dit, pour qu'une repasse ne soit pas prise pour un
