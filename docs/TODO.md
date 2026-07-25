@@ -41,6 +41,10 @@ complet dans
   (3) push, puis vérifier que `https://rubischtgadol.github.io/flashcards-hebreu/cards.json`
   répond 200 après redéploiement. Rappeler à Ruben : sur l'iPhone, deux lancements
   pour voir la nouvelle version (stale-while-revalidate).
+  → **État au commit du Task 20 : le (1) est déjà vert**, les cinq commandes passées
+  une à une, et le hook `pre-commit` en rejoue deux à chaque commit. Ce qui reste
+  vraiment ouvert, c'est le **(2) parcours WebKit** — jamais rejoué depuis le
+  découpage de l'app au chantier 3 — et le (3).
 
 ⚠️ **Cinq choses apprises aux Tasks 17-20, à ne pas réapprendre.**
 
@@ -151,6 +155,7 @@ rencontre.
   redoublement (`boddim` pour bodedim), alef final (`achray` pour achra'i). Les
   `tr` du carnet font foi — ne jamais les régénérer en masse depuis `he2tr`
   (piège documenté dans CLAUDE.md § Transliteration standard).
+
 ## Outillage (WSL, à recréer en début de session si besoin)
 
 - **Consultation du carnet par commande** : `node tools/cherche_mots.js TERME…` (« ce mot
