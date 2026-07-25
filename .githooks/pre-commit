@@ -7,14 +7,14 @@ set -e
 cd "$(git rev-parse --show-toplevel)"
 
 # 1. Les quatre artefacts générés doivent être en phase avec data/ + src/ — attrape à la
-#    fois « j'ai édité data/ ou src/ sans relancer node build.js » et « j'ai édité un
+#    fois « j'ai édité data/ ou src/ sans relancer node tools/build.js » et « j'ai édité un
 #    artefact généré à la main » (piège n°1).
-echo "[pre-commit] node build.js --check"
-node build.js --check >/dev/null
+echo "[pre-commit] node tools/build.js --check"
+node tools/build.js --check >/dev/null
 
 # 2. Zéro erreur bloquante sur les exemples (piège n°9 ; les warnings restent éditoriaux).
-echo "[pre-commit] node verifie_exemples.js"
-node verifie_exemples.js >/dev/null
+echo "[pre-commit] node tools/verifie_exemples.js"
+node tools/verifie_exemples.js >/dev/null
 
 # 3. Piège n°10 : un fichier servi qui change doit s'accompagner d'un bump de VERSION dans
 #    sw.js, dans le même commit (stale-while-revalidate : sans bump, l'ancien fichier est

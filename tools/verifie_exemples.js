@@ -23,13 +23,13 @@
  * suit le style du carnet — non contrôlé ici, c'est la relecture éditoriale.
  *
  * Usage :
- *   node verifie_exemples.js            # tout le carnet
- *   node verifie_exemples.js --strict   # les avertissements deviennent bloquants
+ *   node tools/verifie_exemples.js            # tout le carnet
+ *   node tools/verifie_exemples.js --strict   # les avertissements deviennent bloquants
  */
 'use strict';
 const fs = require('fs');
 const vm = require('vm');
-const { chargeDonnees, deriveCartes, NOTEBOOK, APP } = require('./build.js');
+const { chargeDonnees, deriveCartes, ROOT, NOTEBOOK, APP } = require('./build.js');
 
 // ---------- fonctions de l'appli, extraites telles quelles d'app.html ----------
 function grabFunction(src, name){
@@ -54,7 +54,7 @@ const editDist = (a, b) => vm.runInContext('editDist(' + JSON.stringify(a) + ','
 const LEVELS = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
 function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
 
-const cards = deriveCartes(chargeDonnees(__dirname));
+const cards = deriveCartes(chargeDonnees(ROOT));
 // he_plain (mot + formes) → meilleur (plus bas) niveau connu ; 0 = non classé (toujours permis).
 const lexicon = new Map();
 function feed(hePlain, niveau){

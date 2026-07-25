@@ -12,7 +12,7 @@
  * liste, exemple) et fait tout le mécanique : validation complète en amont,
  * placement dans le bon tableau/liste de data/ (par sous-thème/groupe, jamais par
  * numéro de ligne), translittération dérivée (he2tr d'app.html, surchargeable),
- * preuve par bac à sable (node build.js + node verifie_exemples.js sur la donnée
+ * preuve par bac à sable (node tools/build.js + node tools/verifie_exemples.js sur la donnée
  * candidate, copiée dans un dossier temporaire), verdict avec diff ciblé (les
  * entrées JSON insérées) et tableau des tr dérivés.
  *
@@ -21,9 +21,9 @@
  * réelles qu'après vert complet — et seulement avec --ecrire.
  *
  * Usage :
- *   node ajoute_mots.js nouveaux_mots.json                       # dry-run (défaut) : ne touche RIEN
- *   node ajoute_mots.js nouveaux_mots.json --ecrire              # insère dans data/, build, vérifie, garde si vert
- *   node ajoute_mots.js nouveaux_mots.json --ecrire --force      # passe outre les doublons même-section
+ *   node tools/ajoute_mots.js nouveaux_mots.json                       # dry-run (défaut) : ne touche RIEN
+ *   node tools/ajoute_mots.js nouveaux_mots.json --ecrire              # insère dans data/, build, vérifie, garde si vert
+ *   node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force      # passe outre les doublons même-section
  *
  * Aucun troisième parseur : la donnée vient de chargeDonnees()/valideDonnees()/
  * deriveCartes() (build.js). Aucune troisième translittération : he2tr est
@@ -47,12 +47,10 @@ const vm = require('vm');
 const { spawnSync, execFileSync } = require('child_process');
 
 const {
-  chargeDonnees, valideDonnees, deriveCartes, APP,
+  chargeDonnees, valideDonnees, deriveCartes, ROOT, APP,
   stripNikud, orthographeVoisine,
   EXPECTED_LEVELS, EXPECTED_THEMES, listCats,
 } = require('./build.js');
-
-const ROOT = __dirname;
 
 // ---------- he2tr : extraite telle quelle d'app.html (procédé de verifie_exemples.js) ----------
 function grabFunction(src, name){
@@ -106,7 +104,7 @@ const inconnus = argv.filter(a => a.startsWith('--') && !['--ecrire', '--force']
 const jsonPath = argv.find(a => !a.startsWith('--'));
 if (!jsonPath || inconnus.length){
   if (inconnus.length) console.error('✗ Option(s) inconnue(s) : ' + inconnus.join(', '));
-  console.error('Usage : node ajoute_mots.js nouveaux_mots.json [--ecrire] [--force]');
+  console.error('Usage : node tools/ajoute_mots.js nouveaux_mots.json [--ecrire] [--force]');
   process.exit(1);
 }
 
@@ -303,31 +301,74 @@ function appliqueInsertions(candidat, insertions){
   });
 }
 
-// ---------- bac à sable §7.B : copie build.js + verifie_exemples.js + app.html + src/carnet/
-// + la donnée candidate dans un répertoire temporaire, y lance node build.js puis
-// node verifie_exemples.js — __dirname suit la copie, zéro modification des validateurs,
-// preuve complète sur le candidat avant de toucher le dépôt réel. ----------
+// ---------- bac à sable §7.B : recrée un dépôt miniature dans un répertoire temporaire
+// (les deux validateurs dans `tools/`, `src/`, les fichiers que lit la charte, et la donnée
+// candidate), y lance node tools/build.js puis node tools/verifie_exemples.js — zéro
+// modification des validateurs, preuve complète sur le candidat avant de toucher le dépôt réel.
+//
+// ⚠️ DEUX EXIGENCES, chacune payée une fois :
+//  1. La disposition `tools/` doit être REPRODUITE. Les scripts calculent leur racine par
+//     `path.join(__dirname, '..')` (Task 17) : copiés à plat dans le temporaire, ils
+//     prendraient `os.tmpdir()` pour racine et vérifieraient tout autre chose que le candidat.
+//     Vérifié par casse fabriquée le 25/07 : aujourd'hui la copie à plat échoue *bruyamment*
+//     (`Cannot find module '../src/carnet/gabarits.js'`, exit 1), et non en silence comme le
+//     plan le craignait. Mais ce bruit est un accident heureux du `require` relatif de
+//     build.js — on ne s'appuie pas dessus : c'est `assertBacASableCoherent` ci-dessous qui
+//     tient la garantie.
+//  2. Tout fichier de la racine lu par `verifieCharte()` doit être copié. Ajouter une garde
+//     qui lit un fichier racine sans l'ajouter ici casse le bac à sable (payé le 25/07 :
+//     `verifieCharte` a introduit la lecture d'index.html, et le dry-run est resté cassé
+//     jusqu'au Task 17).
+//
+// ⚠️ ET LE CONTRÔLE DU CONTRÔLE. Le verdict imprimait un compte de cartes calculé
+// **en process** (`comptes(deriveCartes(candidat))`) : il aurait affiché le bon chiffre
+// même si le bac à sable avait validé un tout autre arbre. On lit donc le TOTAL que le
+// bac à sable a lui-même imprimé et on exige qu'il concorde — sans quoi le bac à sable
+// est un témoin muet, qui passe au vert sans rien prouver. ----------
+const FICHIERS_RACINE_BAC_A_SABLE = ['index.html', 'manifest.webmanifest'];
 function indenteTexte(t){ return String(t).trim().split('\n').map(l => '  ' + l).join('\n'); }
 function sandboxValidation(candidat){
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ajoute-mots-'));
   try {
+    fs.mkdirSync(path.join(dir, 'tools'));
     ['build.js', 'verifie_exemples.js'].forEach(f =>
-      fs.copyFileSync(path.join(ROOT, f), path.join(dir, f)));
+      fs.copyFileSync(path.join(ROOT, 'tools', f), path.join(dir, 'tools', f)));
     fs.copyFileSync(APP, path.join(dir, 'app.html'));
+    FICHIERS_RACINE_BAC_A_SABLE.forEach(f =>
+      fs.copyFileSync(path.join(ROOT, f), path.join(dir, f)));
     fs.cpSync(path.join(ROOT, 'src'), path.join(dir, 'src'), { recursive: true });
     ecritDonneesCompletes(dir, candidat);
-    const build = spawnSync(process.execPath, ['build.js'], { cwd: dir, encoding: 'utf8' });
+    const build = spawnSync(process.execPath, [path.join('tools', 'build.js')], { cwd: dir, encoding: 'utf8' });
     if (build.status !== 0){
       return { ok: false, detail: '  [build.js]\n' + indenteTexte(build.stdout + build.stderr) };
     }
-    const verif = spawnSync(process.execPath, ['verifie_exemples.js'], { cwd: dir, encoding: 'utf8' });
+    const verif = spawnSync(process.execPath, [path.join('tools', 'verifie_exemples.js')], { cwd: dir, encoding: 'utf8' });
     if (verif.status !== 0){
       return { ok: false, detail: '  [verifie_exemples.js]\n' + indenteTexte(verif.stdout + verif.stderr) };
     }
     const warnings = (verif.stdout || '').split('\n').filter(l => l.trim().startsWith('⚠'));
-    return { ok: true, warnings };
+    const m = (build.stdout || '').match(/^\s*TOTAL\s+(\d+)\s*$/m);
+    return { ok: true, warnings, total: m ? Number(m[1]) : null };
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
+  }
+}
+
+// Le bac à sable a-t-il bien validé LE candidat ? `attendu` vient du calcul en process,
+// `sb.total` du build qui a réellement tourné dans le temporaire. S'ils divergent — ou si
+// le TOTAL n'a pas pu être lu —, on refuse : mieux vaut un échec bruyant qu'une preuve
+// qui ne prouve rien.
+function assertBacASableCoherent(sb, attendu){
+  if (sb.total === null){
+    console.error('\n✗ Bac à sable : impossible de relire son compte de cartes (« TOTAL <n> » absent de la sortie de build.js).');
+    console.error('  Le format de sortie de build.js a changé ? Sans ce chiffre, le bac à sable ne prouve rien — data/ n\'est PAS modifié.');
+    process.exit(1);
+  }
+  if (sb.total !== attendu){
+    console.error('\n✗ Bac à sable incohérent : il a compté ' + sb.total + ' cartes, on en attendait ' + attendu + '.');
+    console.error('  Le bac à sable a validé un autre arbre que le candidat (disposition tools/ non reproduite ?).');
+    console.error('  data/ réel n\'est PAS modifié.');
+    process.exit(1);
   }
 }
 
@@ -639,7 +680,8 @@ function main(){
     console.error(sb.detail);
     process.exit(1);
   }
-  console.log('  ✓ build.js bac à sable : vert (' + apres.total + ' cartes).');
+  assertBacASableCoherent(sb, apres.total);
+  console.log('  ✓ build.js bac à sable : vert (' + sb.total + ' cartes, concordantes avec le candidat).');
   console.log('  ✓ verifie_exemples.js bac à sable : 0 erreur.');
   if (sb.warnings.length){
     console.log('  Avertissements de verifie_exemples.js (signaux éditoriaux, non bloquants) :');
@@ -657,14 +699,14 @@ function main(){
     });
     changes.forEach(cle => ecritFichier(ROOT, cle, cle.startsWith('listes/') ? candidat.listes[cle.slice(7)] : candidat[cle]));
 
-    const rb = spawnSync(process.execPath, ['build.js'], { cwd: ROOT, encoding: 'utf8' });
+    const rb = spawnSync(process.execPath, [path.join(ROOT, 'tools', 'build.js')], { cwd: ROOT, encoding: 'utf8' });
     if (rb.status !== 0){
       changes.forEach(cle => ecritFichier(ROOT, cle, cle.startsWith('listes/') ? donnees.listes[cle.slice(7)] : donnees[cle]));
-      console.error('\n✗ node build.js a échoué sur les données réelles — data/ restauré tel quel.');
+      console.error('\n✗ node tools/build.js a échoué sur les données réelles — data/ restauré tel quel.');
       console.error((rb.stderr || rb.stdout || '').trim());
       process.exit(1);
     }
-    console.log('\n✓ data/ écrit (' + changes.map(c => 'data/' + c + '.json').join(', ') + ') — carnet, cards.json et standalone régénérés (node build.js).');
+    console.log('\n✓ data/ écrit (' + changes.map(c => 'data/' + c + '.json').join(', ') + ') — carnet, cards.json et standalone régénérés (node tools/build.js).');
   } else {
     console.log('\nDry-run : rien n\'est écrit. Relire le tableau des tr dérivés puis relancer avec --ecrire.');
   }

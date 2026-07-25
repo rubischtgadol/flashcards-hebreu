@@ -44,7 +44,7 @@ un verdict.**
 3. **Écriture : uniquement `data/*.json`.** Jamais `vocabulaire_hebreu.html`
    directement (100 % généré depuis v2), jamais `cards.json`, jamais
    `flashcards_hebreu.html`, jamais `app.html`, jamais `sw.js`. Les trois artefacts
-   déployés/dérivés sont régénérés en appelant `node build.js`, jamais composés par
+   déployés/dérivés sont régénérés en appelant `node tools/build.js`, jamais composés par
    ce script.
 4. **Sous-thème humain → `groupe` de data/ : un seul algorithme, déjà éprouvé.**
    Le champ `groupe` de `data/*.json` est un slug (`"nourriture-repas"`), pas le
@@ -219,7 +219,7 @@ règles d'échappement `&`/`<`/`>`, squelette de nouveau sous-thème) a disparu.
 `JSON.stringify(valeur, null, 2) + '\n'` — round-trip byte-identique au format déjà
 sur disque (prouvé, task-11-report.md). Composer du HTML, échapper `&`/`<`/`>`,
 gérer `lang="he"` : c'est `src/carnet/gabarits.js` qui s'en charge, au moment du
-`node build.js` lancé en aval (§7.B) — jamais ce script.
+`node tools/build.js` lancé en aval (§7.B) — jamais ce script.
 
 Ordre des champs (mêmes conventions que `data/SCHEMA.md`, respecté pour que le
 diff avec l'existant reste minimal) :
@@ -265,7 +265,7 @@ dérivent) n'a plus d'existence possible dans ce modèle.
 
 1. **Ne jamais écrire ailleurs que `data/*.json`.** Les trois artefacts dérivés
    (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`) ne sont
-   jamais composés par ce script — seulement régénérés en appelant `node build.js`
+   jamais composés par ce script — seulement régénérés en appelant `node tools/build.js`
    en aval, après vert bac à sable.
 2. **`data-niveau` obligatoire** partout ; **`theme` sur les 3 tables
    uniquement**, jamais sur une liste — contrôlé par `valideDonnees` (build.js)
@@ -311,21 +311,51 @@ dérivent) n'a plus d'existence possible dans ce modèle.
 
 ### B. Post-insertion (la preuve, au niveau le moins cher)
 
-Le bac à sable copie **build.js, verifie_exemples.js, app.html, tout `src/carnet/`
-(gabarits + squelette + `sections/*.html` + `sections.json` + `tokens.css`)** et
-**la donnée candidate sérialisée en `data/*.json`** dans un répertoire temporaire
-du scratchpad, puis y lance `node build.js` (qui régénère les trois artefacts
-localement) et `node verifie_exemples.js` — `__dirname` suit la copie, zéro
+Le bac à sable recrée un **dépôt miniature** dans un répertoire temporaire : les deux
+validateurs dans un sous-dossier **`tools/`**, `app.html`, tout `src/` (gabarits +
+squelette + `sections/*.html` + `sections.json` + `tokens.css` + `src/app/`), les
+fichiers de la racine que lit `verifieCharte()` — `index.html` et
+`manifest.webmanifest` — et **la donnée candidate sérialisée en `data/*.json`** ; il y
+lance ensuite `node tools/build.js` puis `node tools/verifie_exemples.js`. Zéro
 modification des validateurs, preuve complète sur le candidat avant de toucher le
 dépôt réel.
 
-- Bac à sable `node build.js` — compteurs par section, échec nominatif si une
+⚠️ **Deux invariants, chacun payé une fois — un bac à sable faux passe au vert, comme
+un témoin muet.**
+
+1. **La disposition `tools/` doit être reproduite.** Depuis le chantier 4 les scripts
+   calculent leur racine par `path.join(__dirname, '..')` : copiés *à plat* dans le
+   temporaire, ils prendraient `os.tmpdir()` pour racine et vérifieraient tout autre
+   chose que le candidat. Éprouvé par casse fabriquée le 25/07 — et l'échec observé est
+   **bruyant** (`Cannot find module '../src/carnet/gabarits.js'`, exit 1), non silencieux
+   comme le plan du chantier 4 le craignait. Ce bruit vient du `require` relatif de
+   `build.js` : c'est un accident heureux, pas une garantie, et l'invariant ne s'appuie
+   pas dessus.
+2. **Tout fichier de la racine lu par une garde doit figurer dans
+   `FICHIERS_RACINE_BAC_A_SABLE`.** Le 25/07, `verifieCharte()` a introduit la lecture
+   d'`index.html` sans que le bac à sable la suive : le dry-run est resté cassé
+   (ENOENT) jusqu'au Task 17. Ajouter une garde qui lit un fichier racine, c'est
+   ajouter ce fichier ici.
+
+### Le contrôle du contrôle (`assertBacASableCoherent`, Task 17)
+
+Le verdict imprimait un compte de cartes calculé **en process**
+(`comptes(deriveCartes(candidat))`) : il aurait affiché le bon chiffre même si le bac à
+sable avait validé un tout autre arbre — un témoin muet, vert sans rien prouver. Le
+script relit donc le `TOTAL <n>` que le **bac à sable lui-même** a imprimé et exige la
+concordance avec le compte attendu (`cartes réelles + n` insertions) ; il refuse aussi de
+continuer si ce `TOTAL` n'est pas lisible (format de sortie de `build.js` changé). Les
+deux branches sont éprouvées par casse fabriquée (25/07, exit 1 réel avec message
+nommé) : arbre substitué → « il a compté 1220 cartes, on en attendait 1221 » ; motif
+cassé → « impossible de relire son compte de cartes ».
+
+- Bac à sable `node tools/build.js` — compteurs par section, échec nominatif si une
   carte sort sans `niveau`/`theme` ou hors thèmes, ou si la garde anti-perte de
   `genereCarnet` détecte une entrée orpheline.
-- Bac à sable `node verifie_exemples.js` — **0 erreur requise**, warnings
+- Bac à sable `node tools/verifie_exemples.js` — **0 erreur requise**, warnings
   remontés tels quels (signaux éditoriaux).
 - En `--ecrire`, après vert bac à sable : écriture des seuls fichiers `data/*.json`
-  réellement modifiés, puis `node build.js` **réel** (régénère les trois
+  réellement modifiés, puis `node tools/build.js` **réel** (régénère les trois
   artefacts déployés/dérivés). Si ce build réel échoue (ne devrait jamais arriver
   après un bac à sable vert), rollback des fichiers `data/` modifiés à leur
   contenu d'origine.
@@ -355,9 +385,9 @@ dépôt réel.
 ## 9. Interface & sécurité d'écriture
 
 ```text
-node ajoute_mots.js nouveaux_mots.json              # dry-run (défaut) : valide + verdict + diff, ne touche RIEN
-node ajoute_mots.js nouveaux_mots.json --ecrire     # insère dans data/, build, vérifie, garde si vert
-node ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre les doublons même-section
+node tools/ajoute_mots.js nouveaux_mots.json              # dry-run (défaut) : valide + verdict + diff, ne touche RIEN
+node tools/ajoute_mots.js nouveaux_mots.json --ecrire     # insère dans data/, build, vérifie, garde si vert
+node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre les doublons même-section
 ```
 
 - **Dry-run par défaut** : on voit diff + verdict + tableau des `tr` sans risque ;
@@ -406,7 +436,7 @@ node ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre les doub
    `deriveCartes`, `genereCarnet`, `NOTEBOOK`, `APP`, `stripNikud`,
    `orthographeVoisine`, `EXPECTED_LEVELS`, `EXPECTED_THEMES`, `listCats`) — rien
    à y ajouter pour ce script. L'ancien parseur regex du carnet HTML
-   (`extractCards` + `rowsOf`/`lisOf`) et le mode `node build.js --verrou` ont été
+   (`extractCards` + `rowsOf`/`lisOf`) et le mode `node tools/build.js --verrou` ont été
    supprimés à cette même tâche (11), `ajoute_mots.js` en étant le dernier
    consommateur ; les helpers encore utiles à `outils_migration/decoupe_carnet.js`
    et `extrait_donnees.js` (scripts ponctuels du chantier 1, qui eux lisent

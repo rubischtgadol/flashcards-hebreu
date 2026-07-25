@@ -6,10 +6,10 @@
  * ou d'un inventaire par sous-agent (56k tokens mesurés le 23/07/2026).
  *
  * Usage :
- *   node cherche_mots.js TERME [TERME…]   # hébreu → he_plain exact (headwords + formes),
+ *   node tools/cherche_mots.js TERME [TERME…]   # hébreu → he_plain exact (headwords + formes),
  *                                         #          puis « orthographe voisine » (ktiv male/haser)
  *                                         # latin  → sous-chaîne dans .fr / note / exemples
- *   node cherche_mots.js --stats          # répartition du corpus (sections, niveaux, thèmes)
+ *   node tools/cherche_mots.js --stats          # répartition du corpus (sections, niveaux, thèmes)
  *
  * Consultation pure : n'écrit jamais rien. Réutilise chargeDonnees/deriveCartes
  * de build.js (jamais de troisième parseur — doctrine SPEC_AJOUTE_MOTS §1).
@@ -19,7 +19,7 @@
 const fs = require('fs');
 const path = require('path');
 const { chargeDonnees, deriveCartes, stripNikud, orthographeVoisine,
-        EXPECTED_LEVELS, EXPECTED_THEMES } = require('./build.js');
+        ROOT, EXPECTED_LEVELS, EXPECTED_THEMES } = require('./build.js');
 
 const MAX_HITS = 8; // par terme — au-delà on compte, on ne liste pas (sortie bornée)
 
@@ -146,13 +146,13 @@ function main(){
   const args = process.argv.slice(2).filter(a => a !== '--stats');
   const modeStats = process.argv.includes('--stats');
   if (!args.length && !modeStats){
-    console.error('Usage : node cherche_mots.js TERME [TERME…] | --stats');
+    console.error('Usage : node tools/cherche_mots.js TERME [TERME…] | --stats');
     process.exit(1);
   }
-  const cards = deriveCartes(chargeDonnees(__dirname));
+  const cards = deriveCartes(chargeDonnees(ROOT));
   if (modeStats) stats(cards);
   if (args.length){
-    const index = construitIndexFichiers(__dirname);
+    const index = construitIndexFichiers(ROOT);
     for (const t of args) chercheTerme(cards, index, t);
   }
 }

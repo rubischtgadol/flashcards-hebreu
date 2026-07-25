@@ -27,15 +27,19 @@
  * qui eux lisent toujours le carnet HTML — cf. leur propre en-tête pour pourquoi.
  *
  * Usage :
- *   node build.js           # régénère les quatre artefacts
- *   node build.js --check   # vérifie sans écrire (artefacts en phase avec data/ + src/ ?)
+ *   node tools/build.js           # régénère les quatre artefacts
+ *   node tools/build.js --check   # vérifie sans écrire (artefacts en phase avec data/ + src/ ?)
  */
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const gabarits = require('./src/carnet/gabarits.js');
+const gabarits = require('../src/carnet/gabarits.js');
 
-const ROOT = __dirname;
+// ⚠️ Les scripts vivent dans tools/, la racine du dépôt est donc le dossier parent
+// (chantier 4, Task 17). Les quatre outils partagent cette convention : `ROOT` n'est
+// JAMAIS `__dirname`. Corollaire : tout ce qui recopie ces scripts ailleurs doit
+// reproduire la disposition `tools/` — voir `sandboxValidation` d'ajoute_mots.js.
+const ROOT = path.join(__dirname, '..');
 const NOTEBOOK = path.join(ROOT, 'vocabulaire_hebreu.html');
 const APP = path.join(ROOT, 'app.html');
 const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
@@ -264,9 +268,9 @@ function valideDonnees(donnees){
 // ---------- carnet : assemblage depuis src/carnet/ (absorbé d'outils_migration/genere_carnet.js) ----------
 
 const ENTETE_GENERE =
-  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : data/ + src/carnet/. Regénération : node build.js. -->';
+  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : data/ + src/carnet/. Regénération : node tools/build.js. -->';
 const ENTETE_GENERE_APP =
-  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : src/app/. Regénération : node build.js. -->';
+  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : src/app/. Regénération : node tools/build.js. -->';
 
 // Insère l'en-tête juste après la première ligne du HTML (la ligne <!DOCTYPE html>).
 // `entete` par défaut = ENTETE_GENERE (carnet) ; assembleApp() passe ENTETE_GENERE_APP.
@@ -463,7 +467,7 @@ function deriveCartes(donnees){
 
 // ---------- garde de forme des cartes dérivées ----------
 // Remplace en partie ce que la suppression de l'ancien extracteur HTML et du --verrou a emporté
-// (revue de branche, chantier 2) : `node build.js --check` compare des artefacts
+// (revue de branche, chantier 2) : `node tools/build.js --check` compare des artefacts
 // régénérés aux artefacts committés, donc il attrape « artefacts déphasés » mais jamais
 // « deriveCartes est faux » — une dérivation modifiée suivie d'un rebuild passe tous les
 // gates au vert puisque les committés seraient régénérés avec la même (mauvaise) logique.
@@ -828,7 +832,7 @@ function generateStandalone(cards, appSource){
   let out = appSource;
 
   out = mustReplace(out, '<!DOCTYPE html>',
-    '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node build.js` depuis src/app/ + data/ — ne pas éditer à la main. -->',
+    '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node tools/build.js` depuis src/app/ + data/ — ne pas éditer à la main. -->',
     'doctype', 'src/app/coquille.html');
 
   // La couche PWA n'a aucun sens hors ligne : on n'installe pas une application depuis un
@@ -932,19 +936,19 @@ function main(){
     // tâche 13 : app.html rejoint vocabulaire_hebreu.html/cards.json/flashcards_hebreu.html).
     let ok = true;
     if (notebookGenerated !== notebookOnDisk){
-      console.error('\n✗ vocabulaire_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
+      console.error('\n✗ vocabulaire_hebreu.html obsolète — lance `node tools/build.js` pour le régénérer.');
       ok = false;
     }
     if (!cardsContentUpToDate){
-      console.error('\n✗ cards.json obsolète (cartes) — lance `node build.js` pour le régénérer.');
+      console.error('\n✗ cards.json obsolète (cartes) — lance `node tools/build.js` pour le régénérer.');
       ok = false;
     }
     if (appGenerated !== appOnDisk){
-      console.error('\n✗ app.html obsolète — lance `node build.js` pour le régénérer.');
+      console.error('\n✗ app.html obsolète — lance `node tools/build.js` pour le régénérer.');
       ok = false;
     }
     if (standaloneGenerated !== standaloneOnDisk){
-      console.error('\n✗ flashcards_hebreu.html obsolète — lance `node build.js` pour le régénérer.');
+      console.error('\n✗ flashcards_hebreu.html obsolète — lance `node tools/build.js` pour le régénérer.');
       ok = false;
     }
     if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json, app.html et flashcards_hebreu.html en phase avec data/ + src/.');
@@ -993,7 +997,10 @@ function main(){
 // tdsOf, decodeEntities, listCats) restent exportés : outils_migration/decoupe_carnet.js
 // et extrait_donnees.js, scripts ponctuels du chantier 1, lisent toujours le carnet HTML.
 // Jamais de troisième parseur, jamais de constante dupliquée.
-module.exports = { NOTEBOOK, APP, CARDS_JSON,
+// `ROOT` est exporté depuis le Task 17 : les trois autres outils vivent dans le même
+// dossier et doivent viser la MÊME racine — le recalculer chez eux, c'est trois
+// occasions de le recalculer faux (piège n°1 du Task 17).
+module.exports = { ROOT, NOTEBOOK, APP, CARDS_JSON,
   parseSections, closeOf, exemplesOf, firstSpanText, attrOf, tdsOf,
   stripNikud, decodeEntities, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,

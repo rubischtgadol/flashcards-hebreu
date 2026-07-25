@@ -43,8 +43,8 @@ consultation pure (n'écrit jamais rien). Réutilise `extractCards`, `stripNikud
 (doctrine SPEC_AJOUTE_MOTS §1).
 
 ```text
-node cherche_mots.js TERME [TERME…]   # existe-t-il ? où ?
-node cherche_mots.js --stats          # répartition du corpus
+node tools/cherche_mots.js TERME [TERME…]   # existe-t-il ? où ?
+node tools/cherche_mots.js --stats          # répartition du corpus
 ```
 
 ### 2.1 Sémantique de recherche
@@ -107,8 +107,8 @@ listes sans exemple (licite). Sortie bornée ~40 lignes.
    qui les appariait. Réglage reproductible : 1053 `he_plain` distincts →
    **37 paires** (3,5 %).
 4. Anti-régression : « fin » ne matche plus « (infinitif) ».
-5. Total `--stats` == compteur imprimé par `node build.js`.
-6. `node build.js` et `node verifie_exemples.js` restent verts. ⚠️ La rédaction
+5. Total `--stats` == compteur imprimé par `node tools/build.js`.
+6. `node tools/build.js` et `node tools/verifie_exemples.js` restent verts. ⚠️ La rédaction
    initiale ajoutait « aucune modification de `build.js` — tout est déjà
    exporté » : §10.1 y a depuis posé le helper d'appariement, seul endroit
    licite (jamais de logique dupliquée), et `--check` doit rester vert avec.
@@ -160,7 +160,7 @@ listes sans exemple (licite). Sortie bornée ~40 lignes.
 
 > 15\. ⚠️ **A question of existence, count or location is NEVER paid for by
 > reading a file or dispatching a subagent — a command answers it directly**:
-> `node cherche_mots.js` (notebook: words, French senses, line anchors,
+> `node tools/cherche_mots.js` (notebook: words, French senses, line anchors,
 > `--stats` for theme/level gaps), `graphify explain` (code), `grep -n` (the
 > rest). Corollaries: (a) never `Read` a file over ~30 KB without
 > `offset/limit` — the notebook, `app.html`, `flashcards_hebreu.html`,
@@ -187,18 +187,18 @@ listes sans exemple (licite). Sortie bornée ~40 lignes.
 ### 5.3 Le déroulé standard d'un lot de vocabulaire (gravé par le piège 15)
 
 1. Proposition de N candidats — **`he` + `fr` seulement**, tableau court (~1k).
-2. `node cherche_mots.js` sur les N (~200) — seules les collisions remontent.
+2. `node tools/cherche_mots.js` sur les N (~200) — seules les collisions remontent.
 3. Arbitrage humain sur les collisions + le choix des mots.
 4. Rédaction du JSON complet (niqqud, formes, exemples).
-5. `node ajoute_mots.js lot.json` — dry-run, validation profonde, doublons §7.A
+5. `node tools/ajoute_mots.js lot.json` — dry-run, validation profonde, doublons §7.A
    en filet.
 6. Relecture : tableau des `tr` dérivés + diff ciblé.
 7. `--ecrire`, puis rituel (build, verifie, docs, commit).
 
 ## 6. Ce qui ne change pas (déjà optimal)
 
-Graphe en rung 1 pour le code ; `build.js --check` / `verifie_exemples.js` /
-`--parite` / `audit_carnet_mecanique.js` ; WebKit par sous-agents ; flag graphe
+Graphe en rung 1 pour le code ; `tools/build.js --check` /
+`tools/verifie_exemples.js` ; WebKit par sous-agents ; flag graphe
 sans update automatique ; dry-run + diff ciblé d'`ajoute_mots.js` ;
 ARCHITECTURE/DESIGN non coupés — ce sont des références, la règle de lecture
 fenêtrée par taille (§5.1, corollaire a, qui les nomme explicitement) suffit.
@@ -314,7 +314,7 @@ CLAUDE.md ne détaille pas l'appariement — rien à y changer, vérifier au pas
 1. Les 6 mots ressortent trouvés (rubrique « orthographe voisine »).
 2. Contre-tests **négatifs** : `לישן` ne remonte pas לשון ; `יפה` ne remonte
    pas פה.
-3. `node build.js --check` vert ; `verifie_exemples.js` à **14** avertissements
+3. `node tools/build.js --check` vert ; `verifie_exemples.js` à **14** avertissements
    (pas 15).
 4. `ajoute_mots.js` : rejouer le lot des 24 déjà inséré donne toujours « Rien à
    insérer » (idempotence intacte), et les 12 cas d'erreur du §8 de

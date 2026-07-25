@@ -76,34 +76,35 @@ Autres réglages et fonctions :
 
 ## Mise à jour automatique
 
-Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html` charge [`cards.json`](./cards.json), généré depuis `data/*.json` par `node build.js`. Il suffit donc de régénérer `cards.json` — après avoir modifié le vocabulaire — pour que les flashcards se mettent à jour au prochain rechargement, sans toucher à l'application.
+Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html` charge [`cards.json`](./cards.json), généré depuis `data/*.json` par `node tools/build.js`. Il suffit donc de régénérer `cards.json` — après avoir modifié le vocabulaire — pour que les flashcards se mettent à jour au prochain rechargement, sans toucher à l'application.
 
 ## Fichiers
 
 - `index.html` — le portail : la porte d'entrée à la racine — un accueil plein écran (message de bienvenue en français ou en hébreu au hasard, le א doré de l'icône, deux ménorahs qui éclairent l'écran), puis le choix entre l'application et le carnet
-- `app.html` — l'application de flashcards en ligne (charge le vocabulaire depuis `cards.json` au démarrage), **générée par `build.js` depuis `src/app/`, à ne pas éditer à la main**
-- `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire, **généré par `build.js` depuis `data/*.json`, à ne pas éditer à la main** (hors connexion, l'hébreu retombe sur David Libre plutôt que sur une police système générique, qui rend mal le nikoud)
-- `data/` — le vocabulaire et la grammaire, **source unique de vérité** (`noms.json`, `adjectifs.json`, `verbes.json`, `listes/*.json`) ; `node build.js` en dérive le carnet, `cards.json`, l'application et la version autonome
+- `app.html` — l'application de flashcards en ligne (charge le vocabulaire depuis `cards.json` au démarrage), **générée par `tools/build.js` depuis `src/app/`, à ne pas éditer à la main**
+- `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire, **généré par `tools/build.js` depuis `data/*.json`, à ne pas éditer à la main** (hors connexion, l'hébreu retombe sur David Libre plutôt que sur une police système générique, qui rend mal le nikoud)
+- `data/` — le vocabulaire et la grammaire, **source unique de vérité** (`noms.json`, `adjectifs.json`, `verbes.json`, `listes/*.json`) ; `node tools/build.js` en dérive le carnet, `cards.json`, l'application et la version autonome
 - `src/` — les sources des fichiers générés : `src/carnet/` (gabarits du carnet), `src/app/` (la coquille HTML de l'application, ses fragments de style et ses 14 modules de code) et `src/tokens.css` (les couleurs de la charte). **C'est ici qu'on modifie l'application**, jamais dans `app.html`
-- `cards.json` — le vocabulaire au format que l'application charge, **généré par `build.js`, à ne pas éditer à la main**
-- `flashcards_hebreu.html` — version autonome des flashcards, **générée par `build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
-- `build.js` — outil de développement (non déployé) : régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` depuis `data/` et `src/`
-- `verifie_exemples.js` — outil de développement (non déployé) : contrôle les exemples en situation du carnet (longueur, nikoud, translittération, niveau du vocabulaire) et exige qu'aucun nom, adjectif ou verbe ne reste sans exemple
-- `ajoute_mots.js` — outil de développement (non déployé) : générateur de fiche — insère de nouveaux mots dans le carnet depuis un petit fichier JSON (balisage, translittération dérivée, placement et validation automatiques ; simulation par défaut, n'écrit qu'avec `--ecrire` après validation complète)
-- `audit_carnet_mecanique.js` — outil de développement (non déployé) : pré-passe mécanique de l'audit du carnet (14 contrôles d'intégrité et de cohérence) et découpe du vocabulaire en tranches de travail dans `audit/` (dossier non versionné, régénérable)
-- `cherche_mots.js` — outil de développement (non déployé) : consultation en lecture seule du carnet — `node cherche_mots.js MOT…` répond « ce mot existe-t-il, et où ? » (hébreu ou français), `--stats` montre la répartition par thème et par niveau ; pour vérifier un candidat à moindre coût, sans relire le carnet
+- `cards.json` — le vocabulaire au format que l'application charge, **généré par `tools/build.js`, à ne pas éditer à la main**
+- `flashcards_hebreu.html` — version autonome des flashcards, **générée par `tools/build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
+- `tools/` — les quatre outils de développement (non déployés, zéro dépendance ; se lancent **depuis la racine du dépôt**, jamais depuis `tools/`) :
+  - `tools/build.js` — régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` depuis `data/` et `src/`
+  - `tools/verifie_exemples.js` — contrôle les exemples en situation du carnet (longueur, nikoud, translittération, niveau du vocabulaire) et exige qu'aucun nom, adjectif ou verbe ne reste sans exemple
+  - `tools/ajoute_mots.js` — générateur de fiche : insère de nouveaux mots dans le carnet depuis un petit fichier JSON (balisage, translittération dérivée, placement et validation automatiques ; simulation par défaut, n'écrit qu'avec `--ecrire` après validation complète)
+  - `tools/cherche_mots.js` — consultation en lecture seule du carnet : `node tools/cherche_mots.js MOT…` répond « ce mot existe-t-il, et où ? » (hébreu ou français), `--stats` montre la répartition par thème et par niveau ; pour vérifier un candidat à moindre coût, sans relire le carnet
+- `docs/` — la prose du projet (non déployée) : `ARCHITECTURE.md` (flux de données et contrats), `DESIGN.md` (la charte visuelle), `PRODUCT.md` (registre et intentions), `TODO.md` (état courant, rituel), `TODO_ARCHIVE.md` (chantiers clos) et les deux specs `SPEC_AJOUTE_MOTS.md` / `SPEC_ECONOMIE_TOKENS.md`
 - `manifest.webmanifest`, `sw.js`, `icons/` — la couche PWA : manifeste d'installation, service worker hors-ligne, icônes א aux couleurs de la charte
 - `graphify-out/` — aide au développement (non déployée, sans effet sur le site) : une cartographie du dépôt qui permet à un assistant de code de retrouver une fonction ou une règle sans relire les gros fichiers. `graph.json` et `GRAPH_REPORT.md` sont versionnés ; le reste se régénère localement
 
 ## Modifier le contenu
 
-Pour ajouter ou corriger du vocabulaire, éditer les fichiers `data/*.json` (à la main, ou via `node ajoute_mots.js` pour l'ajout de mots), puis lancer `node build.js` : il régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` depuis `data/` et `src/`. C'est ce résultat régénéré qu'on commite et qu'on remplace sur le dépôt (**Add file → Upload files → glisser les fichiers → Commit changes**). GitHub Pages redéploie automatiquement en une à deux minutes, à la même adresse ; l'application en ligne se met à jour toute seule.
+Pour ajouter ou corriger du vocabulaire, éditer les fichiers `data/*.json` (à la main, ou via `node tools/ajoute_mots.js` pour l'ajout de mots), puis lancer `node tools/build.js` : il régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` depuis `data/` et `src/`. C'est ce résultat régénéré qu'on commite et qu'on remplace sur le dépôt (**Add file → Upload files → glisser les fichiers → Commit changes**). GitHub Pages redéploie automatiquement en une à deux minutes, à la même adresse ; l'application en ligne se met à jour toute seule.
 
 La version autonome, elle, ne se met pas à jour toute seule : après toute modification de `data/` ou de `src/`, lancer
 
-    node build.js
+    node tools/build.js
 
-qui régénère `vocabulaire_hebreu.html`, `cards.json` et `flashcards_hebreu.html`, et affiche le compte de cartes par section (toute section tombée à zéro fait échouer le build — signe qu'un titre de section a disparu de `data/` ou qu'une entrée est mal formée). `node build.js --check` vérifie sans rien écrire.
+qui régénère `vocabulaire_hebreu.html`, `cards.json` et `flashcards_hebreu.html`, et affiche le compte de cartes par section (toute section tombée à zéro fait échouer le build — signe qu'un titre de section a disparu de `data/` ou qu'une entrée est mal formée). `node tools/build.js --check` vérifie sans rien écrire.
 
 ## Mise en ligne (GitHub Pages)
 

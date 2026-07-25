@@ -4,20 +4,45 @@
 
 ## Reprendre ici (prochaine session)
 
-**Chantier 3 de la réorganisation « le dépôt généré » : SOLDÉ (Tasks 13 à 16,
-25/07).** `app.html` est le 4ᵉ artefact généré ; `sw.js` est en **v33**.
-Prochaine étape : **chantier 4, Task 17** (`tools/` et `docs/` — plan complet
-dans
-[docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)).
-⚠️ **Deux choses à savoir avant d'attaquer le Task 17.** (1) Il déplace et
-supprime des fichiers : il **devra** poser son flag « GRAPHE À RECALER »
-(rituel étape 5). (2) Le plan a été écrit avant le lot tripwires et avant le
-chantier 3 — **trois pièges y ont été ajoutés au Task 16 (25/07), à lire avant
-le `git mv`** : les quatre scripts (pas seulement `build.js`) prennent
-`__dirname` pour la racine ; le bac à sable d'`ajoute_mots.js` casse **en
-silence** si la disposition `tools/` n'y est pas reproduite ; et
-`.githooks/pre-commit` appelle `node build.js --check` sans que le `grep` du
-plan, borné aux `.md`, ne le voie.
+**Chantier 4, Task 17 : SOLDÉ (25/07).** Les quatre outils vivent dans
+`tools/`, les sept `.md` de prose dans `docs/`, `audit_carnet_mecanique.js` est
+supprimé. Les commandes du rituel deviennent `node tools/build.js`,
+`node tools/verifie_exemples.js`, `node tools/cherche_mots.js`,
+`node tools/ajoute_mots.js` — **toutes se lancent depuis la racine du dépôt**,
+jamais depuis `tools/`. `sw.js` reste en **v33** : aucun fichier servi n'a
+changé (les quatre artefacts se sont régénérés à l'identique, ce qui est la
+preuve que `ROOT` vise juste). Prochaine étape : **Task 18** (portail et tokens
+générés — plan complet dans
+[docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](superpowers/plans/2026-07-24-reorganisation-depot-genere.md)).
+
+⚠️ **Ce que le Task 17 a appris, et que le plan ne savait pas.**
+
+1. **`ROOT` est désormais exporté par `build.js`.** Les quatre scripts prenaient
+   `__dirname` pour la racine ; ils partagent maintenant un seul
+   `ROOT = path.join(__dirname, '..')`, exporté, pour qu'il n'y ait pas trois
+   occasions de le recalculer faux.
+2. ⚠️ **Le bac à sable d'`ajoute_mots.js` était DÉJÀ cassé avant le
+   déménagement** — pas par lui. `verifieCharte()` (lot tripwires, 25/07) lit
+   `index.html` à la racine, que le bac à sable ne copiait pas : le dry-run
+   sortait en `ENOENT` / exit 1 depuis ce lot. Corrigé ici, avec la liste
+   explicite `FICHIERS_RACINE_BAC_A_SABLE` et la disposition `tools/`
+   reproduite. **Leçon consignée dans SPEC_AJOUTE_MOTS.md §7.B : ajouter une
+   garde qui lit un fichier racine, c'est ajouter ce fichier à cette liste.**
+   ⚠️ Le plan annonçait une casse **silencieuse** : c'est faux, mesuré — la
+   copie à plat échoue bruyamment (`Cannot find module
+   '../src/carnet/gabarits.js'`), par accident du `require` relatif de
+   `build.js`.
+3. ⚠️ **Le bac à sable était un témoin muet, et ça n'avait rien à voir avec le
+   déménagement.** Le compte de cartes du verdict était calculé **en process**,
+   pas relu du bac à sable : il aurait affiché le bon chiffre même si le bac à
+   sable avait validé un autre arbre. Nouvelle garde
+   `assertBacASableCoherent` — le `TOTAL` imprimé par le build du bac à sable
+   doit concorder avec l'attendu, et un `TOTAL` illisible est un échec. Les
+   deux branches éprouvées par casse fabriquée (exit 1, message nommé).
+4. **Le hook `pre-commit` et `.gitignore` ont été recalés** : le `grep` prévu au
+   plan était borné aux `.md` et ne les voyait pas. Le hook a été rejoué à vide
+   (vert) puis éprouvé par casse fabriquée sur `app.html` (`--check` exit 1,
+   puis 0 après restauration).
 
 **Lot transversal du 25/07, hors chantier : les tripwires** (demande du
 propriétaire : « si je change quelque chose, la casse doit être détectée
@@ -35,7 +60,7 @@ marqueurs `<!-- @TOKENS -->`, `<!-- @CSS:app -->`, `<!-- @JS:app -->`),
 `src/tokens.css`, les **6 fragments** de `src/app/css/` et les **14 modules**
 de `src/app/js/`, l'ordre des deux concaténations étant porté par
 `src/app/ordre.json`. **N'édite plus `app.html` à la main** — comme les trois
-autres artefacts, il est écrasé au prochain build. `node build.js --check`
+autres artefacts, il est écrasé au prochain build. `node tools/build.js --check`
 couvre désormais les **4** artefacts (le 5ᵉ, `index.html`, ne devient généré
 qu'au Task 18).
 
@@ -137,11 +162,11 @@ revues des Tasks 13 à 15. Le chantier 4 (Tasks 17 à 21) n'a **pas** été enta
 ### Ce que le chantier 2 avait produit
 
 Ce que le chantier a produit : `data/*.json` est désormais l'unique source de
-vérité du contenu. `node build.js` régénère à partir de `data/` les trois
+vérité du contenu. `node tools/build.js` régénère à partir de `data/` les trois
 artefacts `vocabulaire_hebreu.html`, `cards.json` et `flashcards_hebreu.html`.
 `app.html` charge `cards.json` au démarrage — **plus aucun extracteur HTML
 n'existe dans le dépôt** : `extractCards` (les deux implémentations, carnet et
-`app.html`) et le mode `node build.js --verrou` qui prouvait leur équivalence
+`app.html`) et le mode `node tools/build.js --verrou` qui prouvait leur équivalence
 ont été retirés une fois la preuve faite ; `outils_migration/
 compare_carnets.js`, le harnais qui portait cette preuve, a été supprimé avec
 eux, sa mission remplie. `verifie_exemples.js`, `cherche_mots.js` et
@@ -205,6 +230,14 @@ dit. Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 ⚠️ GRAPHE À RECALER — 2026-07-25 (lot tripwires) : `.githooks/pre-commit` créé
 (hook versionné) ; `verifieCharte()` ajoutée à build.js.
 
+⚠️ GRAPHE À RECALER — 2026-07-25 (chantier 4, Task 17) : `tools/` créé — les
+quatre scripts y sont déplacés (`build.js`, `verifie_exemples.js`,
+`ajoute_mots.js`, `cherche_mots.js`) ; les sept `.md` de prose déplacés dans
+`docs/` ; **`audit_carnet_mecanique.js` supprimé**. Le graphe cite donc ces
+onze fichiers à des chemins qui n'existent plus, et porte une **communauté
+morte** de 39 nœuds (« Audit mécanique du carnet ») dont le fichier n'est plus
+là. Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
+
 Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
 24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
 335 (désormais le deuxième niveau le plus fourni, après A2). Rédaction en
@@ -247,7 +280,7 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
 ## Outillage (WSL, à recréer en début de session si besoin)
 
 - **Consultation du carnet par commande** (`cherche_mots.js`, versionné, dev-only, zéro
-  dépendance, ne modifie rien — le canal cheap du piège n°15) : `node cherche_mots.js TERME
+  dépendance, ne modifie rien — le canal cheap du piège n°15) : `node tools/cherche_mots.js TERME
   [TERME…]` répond « existe-t-il ? où ? » — terme hébreu = comparaison exacte sur `he_plain`
   (headwords, puis formes, puis mot exact dans les exemples), **puis, seulement si l'exacte
   échoue, l'appariement ktiv male/haser** en rubrique séparée « orthographe voisine » (le
@@ -257,7 +290,7 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
   frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `SECTION Lnnnn · hébreu —
   français` (le n° de ligne sert d'ancre de lecture fenêtrée), `ABSENT` seulement si ni
   exacte ni voisine, bornée à 8
-  occurrences par rubrique (surplus compté, jamais tronqué en silence). `node cherche_mots.js --stats` :
+  occurrences par rubrique (surplus compté, jamais tronqué en silence). `node tools/cherche_mots.js --stats` :
   total, répartition par section/niveau/thème (du moins doté au plus doté) — l'arbitrage
   « quel thème/niveau est sous-doté ? » sans lire le carnet. Réutilise `extractCards` &
   cie exportés par `build.js` (pas de troisième parseur), dont `orthographeVoisine` —
@@ -336,14 +369,14 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
 
 ## Rituel à chaque modification
 
-1. `node build.js` — lit `data/*.json` + `src/` et régénère les **quatre** artefacts
+1. `node tools/build.js` — lit `data/*.json` + `src/` et régénère les **quatre** artefacts
    (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`) ; échec
    si une section ou un niveau attendu tombe à 0, si une entrée sort sans `niveau` valide,
    ou si un `theme` sort de `EXPECTED_THEMES` ; vérifier les comptes affichés (sections,
    niveaux, thèmes, exemples).
-2. Si des exemples ont changé : `node verifie_exemples.js` — **0 erreur exigé**.
+2. Si des exemples ont changé : `node tools/verifie_exemples.js` — **0 erreur exigé**.
 3. Vérifier le comportement **au niveau le moins cher qui prouve vraiment quelque chose**.
-   `node build.js --check` compare déjà les **quatre artefacts régénérés** au contenu
+   `node tools/build.js --check` compare déjà les **quatre artefacts régénérés** au contenu
    committé, octet par octet : un changement de **contenu seul est prouvé par les
    étapes 1–2**, rien à ajouter. Serveur local ou jsdom
    quand de la **logique** a bougé. **WebKit/Playwright uniquement si tu as touché à
@@ -369,7 +402,7 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
 
    ⚠️ **Depuis le 25/07, un hook `pre-commit` versionné tient le filet** (`.githooks/
    pre-commit` ; installation, une fois par machine : `git config core.hooksPath
-   .githooks`). Il exécute `node build.js --check` + `node verifie_exemples.js` avant
+   .githooks`). Il exécute `node tools/build.js --check` + `node tools/verifie_exemples.js` avant
    chaque commit et **refuse** un commit qui change un fichier servi (artefacts,
    `index.html`, `manifest.webmanifest`, `sw.js`, `icons/`) sans bump de `VERSION`
    dans `sw.js` (bypass assumé, à justifier dans le message : `git commit
@@ -417,9 +450,11 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
    Contrôle (chaîne littérale, pour ne pas matcher les mentions en prose ;
    `TODO_ARCHIVE.md` est exclu — c'est un gel historique, on n'y touche pas) :
 
-   `grep -rnF '](app.html#L' README.md CLAUDE.md ARCHITECTURE.md DESIGN.md PRODUCT.md TODO.md`
+   `grep -rnE '\]\((\.\./)?app\.html#L' README.md CLAUDE.md docs/*.md --exclude=TODO_ARCHIVE.md --exclude=TODO.md`
 
-   — doit rester **vide**.
+   — doit rester **vide**. (Depuis le Task 17, la prose vit dans `docs/`, donc une
+   ancre y prendrait la forme `](../app.html#L…)` : le motif ci-dessus couvre les deux
+   graphies. `TODO.md` s'exclut lui-même — il contient la commande.)
 8. Commit par changement, messages en français (comme l'historique), puis push sur `main`
    (GitHub Pages redéploie automatiquement). C'est le point de coupure propre : l'état vit
    dans git et dans « Reprendre ici », pas dans la fenêtre de contexte.
