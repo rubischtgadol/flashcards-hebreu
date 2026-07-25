@@ -162,14 +162,18 @@ Les pièces, dans cet ordre de lecture :
     **les 6 procédés prélevés**), 11 statiques, plus une scène cumulée et un
     compteur. Seule la famille E porte une **provenance mesurée** ; les 12 autres
     sont composés, et la planche le dit au lieu de laisser croire le contraire.
-    **+ famille F, la SÉQUENCE D'OUVERTURE** (ornement 19, demandée le 25/07) : un
-    hexagramme à triangles entrelacés se trace, verrouille son tissage, tourne, puis
-    **trois de ses six arêtes deviennent les trois traits d'un alef**, qui se
-    solidifie et monte en marque en découvrant l'accueil. ~6,5 s en intégrale,
-    ~2,2 s en abrégée, avec bouton rejouer. **Le morph est géométriquement fondé** :
-    les 6 arêtes font toutes 152,4 px à ±60°/180°, les 3 traits du alef sont à ≈128°
-    et ≈40°, donc 3 arêtes y sont déjà presque — 8° et 20° de rotation suffisent.
-    Spec § 5 ter bis. ⚠️ Son risque est **d'usage, pas technique** (6,5 s à chaque
+    **+ famille F, la SÉQUENCE D'OUVERTURE — v2** (ornement 19, demandée le 25/07 ;
+    la **v1 a été rejetée le soir même** par le propriétaire, photo d'un Magen David
+    tressé à l'appui — entrelacement, transformation et style — et remplacée) : un
+    Magen David **réellement tressé** en SVG — six rubans, six **brèches** taillées
+    par un liseré couleur de fond, alternance dessus/dessous stricte (la signature
+    d'un tressage est la brèche, pas « qui passe devant ») — se trace, claque ses
+    brèches en `steps()`, est balayé et visé, **dé-résout** ses trois arêtes sans
+    emploi, pivote les survivantes en **échafaudage** (+8°, −38,6°, −39°), et le
+    **vrai alef Frank Ruhl 900 s'imprime** dessus, aberration chromatique à la
+    solidification, montée en marque, accueil. ~8 s / ~2,7 s, rejouer, départ
+    automatique (garde-fou 900 ms contre la course clic/autoplay, mesurée).
+    Spec § 5 ter bis. ⚠️ Son risque est **d'usage, pas technique** (8 s à chaque
     ouverture devient pénible), et l'étoile de David est un **symbole religieux** :
     arbitrage du propriétaire.
 - **`test-crt-iphone.html`** — le protocole de test des calques sur device,

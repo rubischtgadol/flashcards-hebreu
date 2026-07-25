@@ -567,33 +567,45 @@ body{
 .on-glyphes .glyphes .g.vert{color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.55)}
 
 /* ================================================================
-   FAMILLE F ── LA SÉQUENCE D'OUVERTURE  (ornement 19)
-   Un hexagramme à triangles ENTRELACÉS se trace, se verrouille, tourne,
-   puis TROIS de ses six arêtes deviennent les trois traits d'un alef.
+   FAMILLE F ── LA SÉQUENCE D'OUVERTURE  (ornement 19) — v2
+   Reprise intégrale sur trois griefs du propriétaire (25/07, photo
+   d'un Magen David tressé à l'appui) :
+   1. L'ENTRELACEMENT. La signature d'un tressage n'est pas « qui
+      passe devant » : c'est la BRÈCHE — le ruban du dessous
+      s'interrompt de part et d'autre de celui qui passe dessus. v1
+      posait des barres fines sans brèche : illisible. v2 : chaque
+      arête est un RUBAN (chant sombre 10 + cœur ambre 5), et chaque
+      croisement porte une sur-pièce du ruban vainqueur bordée d'un
+      LISERÉ COULEUR DE FOND (16px) qui taille la brèche dans le ruban
+      du dessous. Alternance stricte : 6 croisements, vainqueurs U/D
+      alternés autour de l'hexagone.
+   2. LA TRANSFORMATION. v1 glissait des bâtonnets vers un Λ barré qui
+      n'était pas un alef. v2 : les trois arêtes survivantes pivotent
+      en ÉCHAFAUDAGE aux angles réels de la lettre, puis le VRAI
+      glyphe (Frank Ruhl 900) S'IMPRIME dessus par balayage vertical,
+      ligne d'impression visible, et l'échafaudage s'éteint dessous.
+      On n'interpole plus vers la lettre : on l'imprime sur ses cotes.
+   3. LE RÉTROFUTURISME. v2 rejoue le vocabulaire de la charte :
+      balayage local (module 17, repêché DANS un cadre), croix de
+      visée sur les segments retenus, dé-résolution steps() des
+      segments écartés, aberration chromatique à la solidification
+      (module 11), anneaux de visée gradués.
 
-   ── LA GÉOMÉTRIE, mesurée et non approchée ────────────────────────
-   Hexagramme de circonradius 88 centré sur (110,110) dans une scène de
-   220×220. Les 6 arêtes font TOUTES 152,4 px, aux angles ±60° et 180° :
-     U1 (110,22)→(186,154)  centre (148.1, 88)   60°
-     U2 (186,154)→(34,154)  centre (110, 154)   180°
-     U3 (34,154)→(110,22)   centre ( 71.9, 88)  -60°
-     D1 (110,198)→(186,66)  centre (148.1,132)  -60°
-     D2 (186,66)→(34,66)    centre (110,  66)   180°
-     D3 (34,66)→(110,198)   centre ( 71.9,132)   60°
-   Les trois traits de l'alef visé : diagonale principale à -52° (soit
-   128°), longueur 140 ; bras haut-droit à 40°, longueur 62 ; pied
-   bas-gauche à 40°, longueur 58.
-   D'où l'appariement, qui est ce qui rend le morph crédible :
-     U3 (-60°) → diagonale (-52°) : 8° de rotation seulement
-     U1 ( 60°) → bras haut  (40°) : 20°
-     D3 ( 60°) → pied bas   (40°) : 20°
-     U2, D2 (les deux horizontales) et D1 s'effacent.
-   Aucune arête ne fait un trajet arbitraire : les trois survivantes
-   étaient DÉJÀ à l'angle du alef. C'est l'hexagramme qui contient la
-   lettre, pas une interpolation qui la plaque.
+   ── GÉOMÉTRIE (viewBox 240×240, centre 120, circonradius 92) ──────
+   ▲ montant  A1(120,28)   A2(199.67,166)  A3(40.33,166)
+   ▼ tombant  B1(120,212)  B2(40.33,74)    B3(199.67,74)
+   Côté 159,34. Les croisements TRISECTENT chaque arête (t=1/3, 2/3)
+   et par symétrie le VAINQUEUR de chaque croisement est l'arête dont
+   le point t=2/3 s'y trouve — d'où UNE sur-pièce par arête, fenêtre
+   [61.7, 71.7] sur pathLength 100.
+   Échafaudage alef (glyphe Frank Ruhl ~198px centré sur la scène) :
+     diagonale (170,62)→(70,190) : 128°, L162  ← u3 (-60°≡120°) : +8°
+     bras h-d  (146,96)→(192,60) : -38.6°, L58 ← u2 (180°≡0°) : -38.6°
+     jambe b-g (96,150)→(52,186) : 141°≡-39°, L57 ← d2 (0°) : -39°
+   Rotation maximale : 39°. L'étoile CONTIENT l'armature de la lettre.
    ================================================================ */
 
-/* --v = vitesse : 1 = intégrale (~6,5 s), 0.34 = abrégée (~2,2 s) */
+/* --v = vitesse : 1 = intégrale (~8 s), 0.34 = abrégée (~2,7 s) */
 .ouv{ --v:1; position:relative;overflow:hidden;border:1px solid var(--ligne);
   min-height:470px;background:var(--bg);
 }
@@ -607,67 +619,53 @@ body{
 .ouv .vis-f.tl{top:6px;left:8px}.ouv .vis-f.tr{top:6px;right:8px}
 .ouv .vis-f.bl{bottom:6px;left:8px}.ouv .vis-f.br{bottom:6px;right:8px}
 
-/* la cage : le repère de 220×220 où vit la figure */
-.ouv .cage{
-  position:absolute;top:50%;left:50%;width:220px;height:220px;
-  margin:-110px 0 0 -110px;z-index:4;
+/* ---- la figure SVG : rubans, sur-pièces, anneaux, marqueurs ---- */
+.ouv .fig{
+  position:absolute;top:50%;left:50%;width:300px;height:300px;
+  margin:-150px 0 0 -150px;z-index:4;overflow:visible;
+}
+.ouv .fig .trait{fill:none;stroke-linecap:butt}
+/* le ruban : chant sombre + cœur ambre, tracés ensemble */
+.ouv .fig .pc{stroke:#7a5a14;stroke-width:10}
+.ouv .fig .pk{stroke:var(--ambre);stroke-width:5;filter:drop-shadow(0 0 4px rgba(240,179,42,.55))}
+.ouv .fig .pc,.ouv .fig .pk{stroke-dasharray:100;stroke-dashoffset:100}
+/* la sur-pièce d'un croisement : le liseré fond (la BRÈCHE), puis le
+   ruban vainqueur par-dessus — même chemin, fenêtre [61.7,71.7] */
+.ouv .fig .qq{stroke:var(--bg);stroke-width:16}
+.ouv .fig .qc{stroke:#7a5a14;stroke-width:10}
+.ouv .fig .qk{stroke:var(--ambre);stroke-width:5}
+.ouv .fig .patch{opacity:0}
+.ouv .fig .patch .trait{stroke-dasharray:10 90;stroke-dashoffset:-61.7}
+/* les segments : le morph transforme le <g>, jamais le tracé */
+.ouv .fig .seg{transform-box:fill-box;transform-origin:50% 50%}
+/* anneaux de visée + graduations (lignes générées en JS) */
+.ouv .fig .ann{fill:none;opacity:0}
+.ouv .fig .ann.a{stroke:rgba(122,90,20,.55);stroke-width:1}
+.ouv .fig .ann.b{stroke:rgba(84,255,138,.2);stroke-width:1;stroke-dasharray:3 6}
+.ouv .fig .grad-g{opacity:0}
+.ouv .fig .grad-g line{stroke:rgba(240,179,42,.5);stroke-width:1}
+/* les marqueurs de visée des segments retenus */
+.ouv .fig .mk{opacity:0}
+.ouv .fig .mk path{stroke:var(--vert);stroke-width:1.2;fill:none;filter:drop-shadow(0 0 3px rgba(84,255,138,.6))}
+.ouv .fig .mk text{font-family:var(--mono);font-size:9px;fill:var(--vert)}
+
+/* ---- le balayage local (module 17, repêché dans un cadre) ---- */
+.ouv .balaye{
+  position:absolute;left:8%;right:8%;top:0;height:56px;z-index:5;opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(84,255,138,.12) 45%,rgba(84,255,138,.3) 50%,rgba(84,255,138,.12) 55%,transparent);
+}
+/* ---- la ligne d'impression ---- */
+.ouv .impr-ligne{
+  position:absolute;left:50%;top:50%;width:230px;height:2px;margin-left:-115px;
+  background:linear-gradient(90deg,transparent,rgba(84,255,138,.8),transparent);
+  box-shadow:0 0 8px rgba(84,255,138,.6);z-index:6;opacity:0;
 }
 
-/* ---- les 6 arêtes. Chaque .bar porte position+angle ; le <i> intérieur
-        porte le TRACÉ (scaleX 0→1 depuis une extrémité). Deux niveaux,
-        pour que le tracé et le morph ne se disputent pas transform. ---- */
-.ouv .bar{
-  position:absolute;width:152.4px;height:4px;left:0;top:0;
-  transform-origin:50% 50%;
-}
-.ouv .bar i{
-  display:block;width:100%;height:100%;border-radius:2px;
-  transform:scaleX(0);transform-origin:0% 50%;
-}
-.ouv .bar.up i{background:var(--ambre);box-shadow:0 0 9px rgba(240,179,42,.75)}
-.ouv .bar.dn i{background:var(--vert); box-shadow:0 0 9px rgba(84,255,138,.7)}
-
-/* positions et angles de départ — les 6 valeurs calculées ci-dessus */
-.ouv .u1{left:148.1px;top:88px; transform:translate(-50%,-50%) rotate(60deg);  z-index:2}
-.ouv .u2{left:110px;  top:154px;transform:translate(-50%,-50%) rotate(180deg); z-index:2}
-.ouv .u3{left:71.9px; top:88px; transform:translate(-50%,-50%) rotate(-60deg); z-index:2}
-.ouv .d1{left:148.1px;top:132px;transform:translate(-50%,-50%) rotate(-60deg); z-index:3}
-.ouv .d2{left:110px;  top:66px; transform:translate(-50%,-50%) rotate(180deg); z-index:3}
-.ouv .d3{left:71.9px; top:132px;transform:translate(-50%,-50%) rotate(60deg);  z-index:3}
-
-/* ---- L'ENTRELACEMENT ----------------------------------------------
-   Les 6 croisements sont les sommets de l'hexagone intérieur, de rayon
-   88/√3 = 50,8. Le triangle descendant (z-index 3) passe DEVANT partout ;
-   trois « ponts » — de courts fragments du triangle montant — sont posés
-   par-dessus (z-index 5) à un croisement sur deux, aux azimuts 0°, 120°
-   et 240°. C'est ce qui produit un vrai tissage alterné, et non deux
-   triangles empilés. ------------------------------------------------- */
-.ouv .pont{
-  position:absolute;width:26px;height:4px;border-radius:2px;z-index:5;
-  background:var(--ambre);box-shadow:0 0 9px rgba(240,179,42,.75);
-  transform-origin:50% 50%;opacity:0;
-}
-.ouv .pont.p1{left:160.8px;top:110px;transform:translate(-50%,-50%) rotate(60deg)}   /* U1 sur D1 */
-.ouv .pont.p2{left:84.6px; top:154px;transform:translate(-50%,-50%) rotate(180deg)}  /* U2 sur D3 */
-.ouv .pont.p3{left:84.6px; top:66px; transform:translate(-50%,-50%) rotate(-60deg)}  /* U3 sur D2 */
-
-/* ---- le cadran : cercle circonscrit + graduations ---- */
-.ouv .cercle{
-  position:absolute;inset:-14px;border:1px solid rgba(122,90,20,.55);border-radius:50%;
-  z-index:1;opacity:0;transform:scale(.82);
-}
-.ouv .cercle.i{inset:26px;border-color:rgba(84,255,138,.2);border-style:dashed}
-.ouv .grad{position:absolute;inset:-14px;z-index:1;opacity:0}
-.ouv .grad span{
-  position:absolute;top:50%;left:50%;width:1px;height:7px;background:rgba(240,179,42,.5);
-  transform-origin:50% 0;
-}
-
-/* ---- le glyphe réel, qui prend le relais du filaire ---- */
+/* ---- le glyphe réel : il S'IMPRIME sur l'échafaudage ---- */
 .ouv .alef{
   position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;
-  font-family:var(--he);font-weight:900;font-size:9.5rem;line-height:1;
-  color:var(--ambre);opacity:0;transform:scale(.94);
+  font-family:var(--he);font-weight:900;font-size:12.4rem;line-height:1;
+  color:var(--ambre);opacity:0;text-shadow:0 0 16px rgba(240,179,42,.3);
 }
 
 /* ---- la ligne de log, et l'accueil qui se pose ---- */
@@ -689,9 +687,11 @@ body{
 .ouv .accueil .porte .s{font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;color:var(--lune);opacity:.6;margin-top:3px}
 
 /* ================================================================
-   LA SÉQUENCE. Tout est en animation-delay, pilotée par --v.
-   `forwards` partout : chaque beat TIENT son état final, sinon la
-   figure se démonterait derrière la suivante.
+   LA SÉQUENCE v2 — sept beats.
+   ⚠️ Règle payée en v1, tenue partout : dès qu'un élément porte DEUX
+   animations, son animation-delay porte DEUX valeurs explicites.
+   Redéfinir le raccourci `animation` remet les longhands à zéro, et
+   un delay à une seule valeur se recycle sur toute la liste.
    ================================================================ */
 .ouv.joue .grille-f{animation:ouvFond calc(.5s*var(--v)) var(--eS) calc(.05s*var(--v)) forwards}
 .ouv.joue .vis-f{animation:ouvVis calc(.22s*var(--v)) steps(1) forwards}
@@ -702,155 +702,167 @@ body{
 @keyframes ouvFond{to{opacity:1}}
 @keyframes ouvVis{to{opacity:1}}
 
-/* ⚠️⚠️ PIÈGE PAYÉ ICI, MÊME FAMILLE QUE `transition:all` (piège n°2).
-   Redéfinir le RACCOURCI `animation` remet TOUS les longhands à leur
-   valeur initiale, `animation-delay` compris. Et un `animation-delay`
-   plus spécifique portant UNE SEULE valeur se recycle sur TOUTES les
-   animations de la liste. Combinés, les deux font que le fondu de
-   sortie héritait du délai d'ENTRÉE et effaçait l'élément aussitôt
-   qu'il apparaissait — les trois ponts du tissage n'ont jamais tenu à
-   l'écran (relevé en WebKit : opacity 0 / 0,000012 / 0,336 à 2,6 s au
-   lieu de 1). Règle qui en découle, tenue partout ci-dessous :
-   dès qu'un élément porte DEUX animations, son `animation-delay` porte
-   DEUX valeurs explicites, séparées par une virgule. Jamais une. */
-
-/* beat 1 — le tracé des deux triangles, en sens contraires */
-.ouv.joue .bar i{animation:ouvTrace calc(.52s*var(--v)) var(--eM) forwards}
-.ouv.joue .u1 i{animation-delay:calc(.40s*var(--v))}
-.ouv.joue .u3 i{animation-delay:calc(1.44s*var(--v))}
-@keyframes ouvTrace{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-
-/* beat 2 — le verrouillage de l'entrelacement, un pont à la fois.
-   steps() est ICI pleinement justifié : un tissage se cliquette.
-   Les deux animations (verrouillage puis fondu du beat 4) sont déclarées
-   d'un coup, et chaque pont porte ses DEUX délais. */
-.ouv.joue .pont{
-  animation:ouvPont calc(.16s*var(--v)) steps(1) forwards,
-            ouvEfface2 calc(.4s*var(--v)) var(--eS) forwards;
+/* beat 0 — les anneaux de visée se posent, s'éteignent à l'impression */
+.ouv.joue .ann,.ouv.joue .grad-g{
+  animation:ouvAnn calc(.5s*var(--v)) var(--eS) forwards,
+            ouvEfface2 calc(.5s*var(--v)) var(--eS) forwards;
 }
-.ouv.joue .pont.p1{animation-delay:calc(2.00s*var(--v)), calc(3.40s*var(--v))}
-.ouv.joue .pont.p2{animation-delay:calc(2.16s*var(--v)), calc(3.44s*var(--v))}
-.ouv.joue .pont.p3{animation-delay:calc(2.32s*var(--v)), calc(3.48s*var(--v))}
+.ouv.joue .ann.a  {animation-delay:calc(.30s*var(--v)), calc(5.90s*var(--v))}
+.ouv.joue .ann.b  {animation-delay:calc(.45s*var(--v)), calc(5.90s*var(--v))}
+.ouv.joue .grad-g {animation-delay:calc(.55s*var(--v)), calc(5.90s*var(--v))}
+@keyframes ouvAnn{to{opacity:1}}
+@keyframes ouvEfface2{to{opacity:0}}
+
+/* beat 1 — le tracé des deux rubans, en sens contraires, 3 paliers */
+.ouv.joue .seg .trait{animation:ouvTraceSvg calc(.55s*var(--v)) var(--eM) forwards}
+.ouv.joue #g-u1 .trait{animation-delay:calc(.45s*var(--v))}
+.ouv.joue #g-d1 .trait{animation-delay:calc(1.45s*var(--v))}
+.ouv.joue #g-d3 .trait{animation-delay:calc(.95s*var(--v))}
+.ouv.joue #g-u3 .trait{animation-delay:calc(1.45s*var(--v))}
+@keyframes ouvTraceSvg{to{stroke-dashoffset:0}}
+/* u2 et d2 survivent et RÉTRACTENT plus tard leur ruban à la longueur
+   du trait d'alef (fenêtre de dash centrée) — deux animations, DEUX
+   délais */
+.ouv.joue #g-u2 .trait{
+  animation:ouvTraceSvg calc(.55s*var(--v)) var(--eM) forwards,
+            ouvBras calc(1.0s*var(--v)) var(--eS) forwards;
+  animation-delay:calc(.95s*var(--v)), calc(4.55s*var(--v));
+}
+.ouv.joue #g-d2 .trait{
+  animation:ouvTraceSvg calc(.55s*var(--v)) var(--eM) forwards,
+            ouvJambe calc(1.0s*var(--v)) var(--eS) forwards;
+  animation-delay:calc(.45s*var(--v)), calc(4.55s*var(--v));
+}
+@keyframes ouvBras{to{stroke-dasharray:36.7 63.3;stroke-dashoffset:-31.65}}
+@keyframes ouvJambe{to{stroke-dasharray:35.7 64.3;stroke-dashoffset:-32.15}}
+
+/* beat 2 — le VERROUILLAGE du tissage : les 6 brèches claquent une à
+   une, en steps(1) — un tressage se cliquette. Puis dé-résolution. */
+.ouv.joue .patch{
+  animation:ouvPont calc(.12s*var(--v)) steps(1) forwards,
+            ouvDerez calc(.6s*var(--v)) steps(1) forwards;
+}
+.ouv.joue #p-u1{animation-delay:calc(2.00s*var(--v)), calc(3.90s*var(--v))}
+.ouv.joue #p-d2{animation-delay:calc(2.12s*var(--v)), calc(3.90s*var(--v))}
+.ouv.joue #p-u2{animation-delay:calc(2.24s*var(--v)), calc(3.90s*var(--v))}
+.ouv.joue #p-d3{animation-delay:calc(2.36s*var(--v)), calc(3.90s*var(--v))}
+.ouv.joue #p-u3{animation-delay:calc(2.48s*var(--v)), calc(3.90s*var(--v))}
+.ouv.joue #p-d1{animation-delay:calc(2.60s*var(--v)), calc(3.90s*var(--v))}
 @keyframes ouvPont{to{opacity:1}}
 
-/* beat 3 — le cadran se pose, puis la figure tourne d'un sixième de tour */
-.ouv.joue .cercle,.ouv.joue .grad{
-  animation:ouvCercle calc(.6s*var(--v)) var(--eS) forwards,
-            ouvEfface2 calc(.7s*var(--v)) var(--eS) forwards;
+/* beat 3 — le balayage d'analyse traverse la scène (local, encadré) */
+.ouv.joue .balaye{animation:ouvBalaye calc(.95s*var(--v)) var(--eM) calc(2.75s*var(--v)) forwards}
+@keyframes ouvBalaye{
+  0%{opacity:0;transform:translateY(40px)}
+  8%{opacity:1}
+  92%{opacity:1}
+  100%{opacity:0;transform:translateY(380px)}
 }
-.ouv.joue .cercle  {animation-delay:calc(2.05s*var(--v)), calc(3.50s*var(--v))}
-.ouv.joue .cercle.i{animation-delay:calc(2.25s*var(--v)), calc(3.50s*var(--v))}
-.ouv.joue .grad{
-  animation:ouvGrad calc(.5s*var(--v)) var(--eS) forwards,
-            ouvEfface2 calc(.7s*var(--v)) var(--eS) forwards;
-  animation-delay:calc(2.35s*var(--v)), calc(3.50s*var(--v));
-}
-@keyframes ouvCercle{to{opacity:1;transform:scale(1)}}
-@keyframes ouvGrad{to{opacity:1}}
-@keyframes ouvEfface2{to{opacity:0}}
-@keyframes ouvTourne{from{transform:rotate(0)}to{transform:rotate(60deg)}}
 
-/* beat 4 — LA TRANSFORMATION. Trois arêtes s'effacent, trois deviennent
-   les traits du alef. Les transformations sont les écarts exacts
-   calculés en tête de section (translate puis rotate puis scaleX). */
-.ouv.joue .u2 i,.ouv.joue .d2 i,.ouv.joue .d1 i{
-  animation:ouvTrace calc(.52s*var(--v)) var(--eM) forwards,
-            ouvEfface calc(.5s*var(--v)) var(--eS) forwards;
+/* beat 4 — la visée marque les trois segments retenus, puis s'efface */
+.ouv.joue .mk{
+  animation:ouvMarque calc(.4s*var(--v)) steps(2) forwards,
+            ouvEfface2 calc(.4s*var(--v)) var(--eS) forwards;
 }
-/* les DEUX délais, sinon le tracé repartirait à 0 s et l'effacement
-   hériterait du délai de tracé — le piège décrit en tête de beat 1 */
-.ouv.joue .u2 i{animation-delay:calc(.92s*var(--v)),  calc(3.35s*var(--v))}
-.ouv.joue .d2 i{animation-delay:calc(.40s*var(--v)),  calc(3.35s*var(--v))}
-.ouv.joue .d1 i{animation-delay:calc(1.44s*var(--v)), calc(3.35s*var(--v))}
-@keyframes ouvEfface{to{opacity:0;transform:scaleX(.2)}}
+.ouv.joue #mk1{animation-delay:calc(3.30s*var(--v)), calc(4.40s*var(--v))}
+.ouv.joue #mk2{animation-delay:calc(3.42s*var(--v)), calc(4.40s*var(--v))}
+.ouv.joue #mk3{animation-delay:calc(3.54s*var(--v)), calc(4.40s*var(--v))}
+@keyframes ouvMarque{to{opacity:1}}
 
-.ouv.joue .u3{animation:ouvMorphM calc(1.15s*var(--v)) var(--eS) calc(3.45s*var(--v)) forwards}
-.ouv.joue .u1{animation:ouvMorphT calc(1.15s*var(--v)) var(--eS) calc(3.55s*var(--v)) forwards}
-.ouv.joue .d3{animation:ouvMorphB calc(1.15s*var(--v)) var(--eS) calc(3.55s*var(--v)) forwards}
-/* U3 : centre (71.9,88) → (110,110) = +38.1,+22 · -60° → -52° · ×0.919 */
-@keyframes ouvMorphM{
-  to{transform:translate(-50%,-50%) translate(38.1px,22px) rotate(-52deg) scaleX(.919)}
+/* beat 5 — la DÉ-RÉSOLUTION des trois segments sans emploi : un
+   scintillement machine en steps(1), pas un fondu */
+.ouv.joue #g-u1,.ouv.joue #g-d1,.ouv.joue #g-d3{
+  animation:ouvDerez calc(.6s*var(--v)) steps(1) calc(3.90s*var(--v)) forwards;
 }
-/* U1 : centre (148.1,88) → (158,64) = +9.9,-24 · 60° → 40° · ×0.407 */
-@keyframes ouvMorphT{
-  to{transform:translate(-50%,-50%) translate(9.9px,-24px) rotate(40deg) scaleX(.407)}
+@keyframes ouvDerez{
+  0%{opacity:1} 12%{opacity:.08} 24%{opacity:.9} 36%{opacity:.08}
+  55%{opacity:.7} 70%{opacity:.05} 100%{opacity:0}
 }
-/* D3 : centre (71.9,132) → (62,158) = -9.9,+26 · 60° → 40° · ×0.381 */
-@keyframes ouvMorphB{
-  to{transform:translate(-50%,-50%) translate(-9.9px,26px) rotate(40deg) scaleX(.381)}
-}
-/* le pied bas-gauche passe en ambre : la lettre parle d'une seule voix */
-.ouv.joue .d3 i{
-  animation:ouvTrace calc(.52s*var(--v)) var(--eM) calc(.92s*var(--v)) forwards,
-            ouvTeinte calc(.7s*var(--v)) var(--eS) calc(3.6s*var(--v)) forwards;
-}
-@keyframes ouvTeinte{
-  to{background:var(--ambre);box-shadow:0 0 9px rgba(240,179,42,.75)}
-}
-/* (le cadran et les ponts s'effacent pendant le morph — leurs deux
-   animations et leurs deux délais sont déclarés au beat 2 et au beat 3,
-   d'un seul bloc chacun. Ne pas les redéfinir ici : c'est précisément
-   la redéfinition du raccourci qui avait cassé le tissage.) */
 
-/* beat 5 — la solidification : le filaire cède au vrai glyphe */
-@keyframes ouvGlyphe{to{opacity:1;transform:scale(1)}}
-.ouv.joue .bar{animation-fill-mode:forwards}
-.ouv.joue .cage{
-  animation:ouvTourne calc(.85s*var(--v)) var(--eS) calc(2.55s*var(--v)) forwards,
-            ouvRange calc(.9s*var(--v)) var(--eS) calc(4.6s*var(--v)) forwards;
+/* beat 6 — L'ÉCHAFAUDAGE : les trois survivants pivotent aux cotes de
+   la lettre (+8°, -38.6°, -39° — les écarts calculés en tête), puis
+   s'éteignent sous le glyphe une fois l'impression passée */
+.ouv.joue #g-u3{
+  animation:ouvMdiag calc(1.1s*var(--v)) var(--eS) forwards,
+            ouvEfface2 calc(.45s*var(--v)) var(--eS) forwards;
+  animation-delay:calc(4.55s*var(--v)), calc(6.15s*var(--v));
 }
-/* la figure filaire s'efface sous le glyphe, puis tout monte se ranger
-   en position de marque : c'est la même lettre, elle change de rôle */
-@keyframes ouvRange{
-  from{transform:rotate(60deg) scale(1) translateY(0);opacity:1}
-  55% {transform:rotate(60deg) scale(1) translateY(0);opacity:.15}
-  to  {transform:rotate(60deg) scale(.46) translateY(-118px);opacity:0}
+.ouv.joue #g-u2{
+  animation:ouvMbras calc(1.1s*var(--v)) var(--eS) forwards,
+            ouvEfface2 calc(.45s*var(--v)) var(--eS) forwards;
+  animation-delay:calc(4.55s*var(--v)), calc(6.15s*var(--v));
+}
+.ouv.joue #g-d2{
+  animation:ouvMjambe calc(1.1s*var(--v)) var(--eS) forwards,
+            ouvEfface2 calc(.45s*var(--v)) var(--eS) forwards;
+  animation-delay:calc(4.55s*var(--v)), calc(6.15s*var(--v));
+}
+@keyframes ouvMdiag {to{transform:translate(39.8px,29px) rotate(8deg)}}
+@keyframes ouvMbras {to{transform:translate(49px,-88px) rotate(-38.6deg)}}
+@keyframes ouvMjambe{to{transform:translate(-46px,94px) rotate(-39deg)}}
+
+/* beat 7 — L'IMPRESSION : le vrai glyphe se révèle du haut vers le
+   bas, ligne d'impression au front, aberration chromatique à la
+   solidification (module 11), puis la lettre monte en marque */
+.ouv.joue .impr-ligne{animation:ouvLigne calc(.85s*var(--v)) var(--eM) calc(5.50s*var(--v)) forwards}
+@keyframes ouvLigne{
+  0%{opacity:0;transform:translateY(-104px)}
+  6%{opacity:1}
+  94%{opacity:1}
+  100%{opacity:0;transform:translateY(104px)}
 }
 .ouv.joue .alef{
-  animation:ouvGlyphe calc(.8s*var(--v)) var(--eS) calc(4.55s*var(--v)) forwards,
-            ouvMonte calc(.9s*var(--v)) var(--eS) calc(5.35s*var(--v)) forwards;
+  opacity:1;clip-path:inset(0 0 100% 0);
+  animation:ouvImprime calc(.85s*var(--v)) var(--eM) forwards,
+            ouvAberr calc(.25s*var(--v)) steps(2) forwards,
+            ouvMonte calc(.85s*var(--v)) var(--eS) forwards;
+  animation-delay:calc(5.50s*var(--v)), calc(6.40s*var(--v)), calc(6.70s*var(--v));
 }
-/* `from` EXPLICITE, sinon la relève est visible : une animation sans
-   `from` repart du style sous-jacent (.alef, scale(.94)) et non de là où
-   ouvGlyphe a laissé le glyphe (scale(1)) — soit un saut à 5,35 s. */
+@keyframes ouvImprime{to{clip-path:inset(0 0 0% 0)}}
+@keyframes ouvAberr{
+  0%{text-shadow:-4px 0 rgba(255,71,71,.85), 4px 0 rgba(84,255,138,.85)}
+  100%{text-shadow:0 0 16px rgba(240,179,42,.4)}
+}
+/* `from` EXPLICITE — leçon v1 : sans lui, la relève saute au style
+   sous-jacent au lieu de repartir d'où l'animation précédente a
+   laissé l'élément */
 @keyframes ouvMonte{
-  from{transform:scale(1) translateY(0);opacity:1}
-  to  {transform:scale(.42) translateY(-260px);opacity:.95}
+  from{transform:scale(1) translateY(0)}
+  to  {transform:scale(.34) translateY(-320px)}
 }
-.ouv.joue .log{animation:ouvLog calc(.5s*var(--v)) steps(1) calc(4.85s*var(--v)) forwards}
+.ouv.joue .log{animation:ouvLog calc(.5s*var(--v)) steps(1) calc(6.85s*var(--v)) forwards}
 @keyframes ouvLog{to{opacity:1}}
 
-/* beat 6 — l'accueil se pose */
-.ouv.joue .accueil{animation:ouvAccueil calc(.7s*var(--v)) var(--eS) calc(5.55s*var(--v)) forwards}
+/* beat 8 — l'accueil se pose */
+.ouv.joue .accueil{animation:ouvAccueil calc(.7s*var(--v)) var(--eS) calc(7.00s*var(--v)) forwards}
 @keyframes ouvAccueil{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .ouv.joue .accueil .porte{animation:ouvPorte calc(.34s*var(--v)) var(--eS) forwards}
-.ouv.joue .accueil .porte:nth-child(1){animation-delay:calc(5.95s*var(--v))}
-.ouv.joue .accueil .porte:nth-child(2){animation-delay:calc(6.13s*var(--v))}
-.ouv.joue .accueil .porte:nth-child(3){animation-delay:calc(6.31s*var(--v))}
+.ouv.joue .accueil .porte:nth-child(1){animation-delay:calc(7.25s*var(--v))}
+.ouv.joue .accueil .porte:nth-child(2){animation-delay:calc(7.40s*var(--v))}
+.ouv.joue .accueil .porte:nth-child(3){animation-delay:calc(7.55s*var(--v))}
 @keyframes ouvPorte{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 
 /* ================================================================
    ⚠️ MOUVEMENT RÉDUIT — LE PIÈGE PROPRE À CETTE FAMILLE.
-   Les 18 autres ornements partent d'un état neutre : les figer avec
-   `animation:none` ne casse rien. Celui-ci part d'un écran NOIR et
-   construit l'accueil ; le figer laisserait une page VIDE, c'est-à-dire
-   une app qui ne démarre pas. La coupure doit donc poser l'état FINAL,
-   pas l'état initial. C'est la règle générale d'une séquence : sous
-   mouvement réduit, on ne gèle pas une animation d'ouverture — on la
-   REND DÉJÀ TERMINÉE.
+   Une séquence part d'un écran NOIR et construit l'accueil : la figer
+   laisserait une page VIDE — une app qui ne démarre pas. La coupure
+   pose donc l'état FINAL, pas l'état initial : sous mouvement réduit,
+   une animation d'ouverture ne se gèle pas, elle se rend DÉJÀ
+   TERMINÉE.
    ================================================================ */
 @media (prefers-reduced-motion: reduce){
   body:not(.force-anim) .ouv.joue .grille-f,
   body:not(.force-anim) .ouv.joue .vis-f,
-  body:not(.force-anim) .ouv.joue .alef,
   body:not(.force-anim) .ouv.joue .accueil,
   body:not(.force-anim) .ouv.joue .accueil .porte,
   body:not(.force-anim) .ouv.joue .log{opacity:1 !important;transform:none !important}
-  body:not(.force-anim) .ouv.joue .alef{transform:scale(.42) translateY(-260px) !important}
-  body:not(.force-anim) .ouv.joue .cage,
-  body:not(.force-anim) .ouv.joue .cercle,
-  body:not(.force-anim) .ouv.joue .grad,
-  body:not(.force-anim) .ouv.joue .pont{opacity:0 !important}
+  body:not(.force-anim) .ouv.joue .alef{
+    opacity:1 !important;clip-path:none !important;
+    transform:scale(.34) translateY(-320px) !important;
+  }
+  body:not(.force-anim) .ouv.joue .fig,
+  body:not(.force-anim) .ouv.joue .balaye,
+  body:not(.force-anim) .ouv.joue .impr-ligne{opacity:0 !important}
 }
 
 /* ================================================================
@@ -1659,42 +1671,44 @@ la planche, et celle que je te recommande de regarder en premier.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     FAMILLE F — LA SÉQUENCE D'OUVERTURE
+     FAMILLE F — LA SÉQUENCE D'OUVERTURE (v2)
      ═══════════════════════════════════════════════════════════ -->
 <div class="section-titre"><span class="no">F</span> La séquence d'ouverture — l'étoile devient la lettre</div>
 <p class="propos">Le seul élément de la planche qui ne soit pas un ornement mais une <b>séquence</b> :
-elle a un début, une fin, et elle ne joue qu'une fois. Un <b>hexagramme à triangles entrelacés</b> se
-trace, verrouille son tissage, se pose dans un cadran, tourne d'un sixième de tour — puis <b>trois de
-ses six arêtes deviennent les trois traits d'un alef</b>, qui se solidifie en Frank Ruhl Libre et
-monte se ranger en marque, découvrant l'accueil.</p>
+elle a un début, une fin, et elle ne joue qu'une fois. Un <b>Magen David réellement tressé</b> — six
+rubans, six brèches, alternance stricte dessus/dessous — se trace et se verrouille dans des anneaux
+de visée ; un balayage l'analyse, la visée marque trois segments ; les trois autres se
+<b>dé-résolvent</b> ; les survivants pivotent en <b>échafaudage</b> aux cotes de la lettre, et le
+<b>vrai alef</b> (Frank Ruhl 900) <b>s'imprime</b> dessus, ligne d'impression au front, aberration
+chromatique à la solidification — puis il monte en marque et l'accueil se pose.</p>
 
 <div class="constat">
   <span class="coin a">+</span><span class="coin b">+</span>
-  <h2>Pourquoi ce morph n'est pas arbitraire</h2>
-  <p>J'ai calculé la figure avant de l'animer, et la géométrie tombe juste. Sur un hexagramme de
-  circonradius 88, <b>les six arêtes font toutes 152,4 px</b>, aux angles <b>±60° et 180°</b>. Les
-  trois traits d'un alef sont à <b>≈128°</b> (la diagonale) et <b>≈40°</b> (les deux bras). Or
-  −60° ≡ 120°, et 60° est à 20° de 40° : <b>trois des six arêtes sont déjà presque à l'angle du
-  alef</b>. La transformation ne demande que <b>8° de rotation pour la diagonale et 20° pour chaque
-  bras</b>.</p>
-  <p>Autrement dit : <b>c'est l'hexagramme qui contient la lettre</b>, et la séquence ne fait que la
-  révéler. Les trois arêtes qui s'effacent sont les deux horizontales et une diagonale — celles qui
-  n'ont pas d'emploi dans le alef. Aucun trait ne fait un trajet inventé pour les besoins de l'effet,
-  et c'est exactement ce qui sépare un morph qui convainc d'un morph qui bave. Les six valeurs
-  mesurées et les trois écarts sont en commentaire dans la feuille de style, au-dessus de la
-  séquence.</p>
-  <p><b>L'entrelacement est réel, pas suggéré.</b> Les six croisements sont les sommets de l'hexagone
-  intérieur, de rayon 88/√3 = 50,8. Le triangle descendant passe devant partout, puis <b>trois
-  « ponts »</b> — de courts fragments du triangle montant — sont posés par-dessus <b>à un croisement
-  sur deux</b> (azimuts 0°, 120°, 240°). C'est ce qui produit un tissage alterné plutôt que deux
-  triangles empilés, et le verrouillage de ces trois ponts est un beat à lui seul : c'est le seul
-  endroit de tout le chantier où <span style="font-family:var(--mono)">steps()</span> est
-  <b>pleinement justifié</b> — un tissage se cliquette, il ne glisse pas.</p>
+  <h2>v2 — reprise sur trois griefs, photo à l'appui</h2>
+  <p><b>1. Le tressage.</b> La signature visuelle d'un Magen David entrelacé n'est pas « qui passe
+  devant » : c'est la <b>brèche</b> — le ruban du dessous s'interrompt de part et d'autre de celui
+  qui passe dessus. La v1 posait des barres fines sans brèche : illisible, le rejet était juste. En
+  v2 chaque arête est un <b>ruban</b> (chant sombre, cœur ambre), et chaque croisement porte une
+  sur-pièce du ruban vainqueur bordée d'un <b>liseré couleur de fond</b> qui taille la brèche dans le
+  ruban du dessous. La géométrie donne l'alternance gratuitement : les croisements <b>trisectent</b>
+  chaque arête, et le vainqueur de chaque croisement est l'arête dont le point aux 2/3 s'y trouve —
+  six sur-pièces, une par arête, dessus/dessous alterné tout autour, comme sur la photo.</p>
+  <p><b>2. La transformation.</b> La v1 interpolait vers trois traits droits qui formaient un Λ
+  barré, pas un alef. La v2 ne prétend plus que des barres <i>deviennent</i> la lettre : les trois
+  arêtes survivantes pivotent en <b>échafaudage</b> aux angles réels du glyphe (+8° pour la
+  diagonale, −38,6° et −39° pour le bras et la jambe — rotation maximale 39°, l'étoile contient
+  l'armature), puis le <b>vrai glyphe s'imprime</b> sur cet échafaudage, du haut vers le bas, et
+  l'échafaudage s'éteint dessous. La lettre finale est la vraie, à sa vraie graisse.</p>
+  <p><b>3. Le rétrofuturisme.</b> La v2 parle le vocabulaire de la charte d'un bout à l'autre :
+  anneaux de visée gradués, <b>balayage local</b> (module 17, repêché à l'intérieur d'un cadre —
+  jamais sur la surface), croix de visée S1·S2·S3 sur les segments retenus, <b>dé-résolution en
+  <span style="font-family:var(--mono)">steps()</span></b> des segments écartés, et <b>aberration
+  chromatique</b> (module 11) à l'instant où la lettre se solidifie.</p>
 </div>
 
 <div class="fiche" style="width:100%;flex:1 1 100%" data-orn="ouverture">
   <div class="f-tete">
-    <span class="f-nom"><span class="n">19</span> — L'étoile qui devient la lettre</span>
+    <span class="f-nom"><span class="n">19</span> — L'étoile qui devient la lettre · v2</span>
     <button class="inter" data-cible="ouverture" aria-pressed="false"><span class="diode"></span>sans</button>
   </div>
   <div class="f-etiq">
@@ -1706,8 +1720,8 @@ monte se ranger en marque, découvrant l'accueil.</p>
     <span class="lab">séquence</span>
     <button class="btn primaire" id="ouv-rejouer">▶ rejouer</button>
     <span class="lab" style="margin-left:10px">durée</span>
-    <button class="btn primaire" id="ouv-integrale">intégrale · 6,5 s</button>
-    <button class="btn" id="ouv-abregee">abrégée · 2,2 s</button>
+    <button class="btn primaire" id="ouv-integrale">intégrale · 8 s</button>
+    <button class="btn" id="ouv-abregee">abrégée · 2,7 s</button>
   </div>
 
   <div class="ouv" id="ouv">
@@ -1715,22 +1729,36 @@ monte se ranger en marque, découvrant l'accueil.</p>
     <span class="vis-f tl">+</span><span class="vis-f tr">+</span>
     <span class="vis-f bl">+</span><span class="vis-f br">+</span>
 
-    <div class="cage" id="ouv-cage">
-      <div class="cercle"></div>
-      <div class="cercle i"></div>
-      <div class="grad" id="ouv-grad"></div>
-      <!-- les 6 arêtes : triangle montant (ambre) et descendant (phosphore) -->
-      <span class="bar up u1"><i></i></span>
-      <span class="bar up u2"><i></i></span>
-      <span class="bar up u3"><i></i></span>
-      <span class="bar dn d1"><i></i></span>
-      <span class="bar dn d2"><i></i></span>
-      <span class="bar dn d3"><i></i></span>
-      <!-- les 3 ponts du tissage, posés à un croisement sur deux -->
-      <span class="pont p1"></span>
-      <span class="pont p2"></span>
-      <span class="pont p3"></span>
-    </div>
+    <svg class="fig" viewBox="0 0 240 240" aria-hidden="true">
+      <circle class="ann a" cx="120" cy="120" r="106"/>
+      <circle class="ann b" cx="120" cy="120" r="66"/>
+      <g class="grad-g" id="ouv-grad"></g>
+
+      <!-- les 6 rubans (chant + cœur), triangle montant puis tombant -->
+      <g class="seg" id="g-u1"><path class="trait pc" d="M120 28 L199.67 166" pathLength="100"/><path class="trait pk" d="M120 28 L199.67 166" pathLength="100"/></g>
+      <g class="seg" id="g-u2"><path class="trait pc" d="M199.67 166 L40.33 166" pathLength="100"/><path class="trait pk" d="M199.67 166 L40.33 166" pathLength="100"/></g>
+      <g class="seg" id="g-u3"><path class="trait pc" d="M40.33 166 L120 28" pathLength="100"/><path class="trait pk" d="M40.33 166 L120 28" pathLength="100"/></g>
+      <g class="seg" id="g-d1"><path class="trait pc" d="M199.67 74 L120 212" pathLength="100"/><path class="trait pk" d="M199.67 74 L120 212" pathLength="100"/></g>
+      <g class="seg" id="g-d2"><path class="trait pc" d="M40.33 74 L199.67 74" pathLength="100"/><path class="trait pk" d="M40.33 74 L199.67 74" pathLength="100"/></g>
+      <g class="seg" id="g-d3"><path class="trait pc" d="M120 212 L40.33 74" pathLength="100"/><path class="trait pk" d="M120 212 L40.33 74" pathLength="100"/></g>
+
+      <!-- les 6 sur-pièces du tressage : liseré fond (la brèche) + ruban
+           vainqueur, fenêtre [61.7,71.7] du chemin du vainqueur -->
+      <g class="patch" id="p-u1"><path class="trait qq" d="M120 28 L199.67 166" pathLength="100"/><path class="trait qc" d="M120 28 L199.67 166" pathLength="100"/><path class="trait qk" d="M120 28 L199.67 166" pathLength="100"/></g>
+      <g class="patch" id="p-u2"><path class="trait qq" d="M199.67 166 L40.33 166" pathLength="100"/><path class="trait qc" d="M199.67 166 L40.33 166" pathLength="100"/><path class="trait qk" d="M199.67 166 L40.33 166" pathLength="100"/></g>
+      <g class="patch" id="p-u3"><path class="trait qq" d="M40.33 166 L120 28" pathLength="100"/><path class="trait qc" d="M40.33 166 L120 28" pathLength="100"/><path class="trait qk" d="M40.33 166 L120 28" pathLength="100"/></g>
+      <g class="patch" id="p-d1"><path class="trait qq" d="M199.67 74 L120 212" pathLength="100"/><path class="trait qc" d="M199.67 74 L120 212" pathLength="100"/><path class="trait qk" d="M199.67 74 L120 212" pathLength="100"/></g>
+      <g class="patch" id="p-d2"><path class="trait qq" d="M40.33 74 L199.67 74" pathLength="100"/><path class="trait qc" d="M40.33 74 L199.67 74" pathLength="100"/><path class="trait qk" d="M40.33 74 L199.67 74" pathLength="100"/></g>
+      <g class="patch" id="p-d3"><path class="trait qq" d="M120 212 L40.33 74" pathLength="100"/><path class="trait qc" d="M120 212 L40.33 74" pathLength="100"/><path class="trait qk" d="M120 212 L40.33 74" pathLength="100"/></g>
+
+      <!-- la visée : les trois segments retenus, marqués -->
+      <g class="mk" id="mk1" transform="translate(80,97)"><path d="M-10 0H10M0 -10V10"/><text x="13" y="4">S1</text></g>
+      <g class="mk" id="mk2" transform="translate(120,166)"><path d="M-10 0H10M0 -10V10"/><text x="13" y="4">S2</text></g>
+      <g class="mk" id="mk3" transform="translate(120,74)"><path d="M-10 0H10M0 -10V10"/><text x="13" y="4">S3</text></g>
+    </svg>
+
+    <div class="balaye"></div>
+    <div class="impr-ligne"></div>
 
     <div class="alef" lang="he">א</div>
 
@@ -1747,39 +1775,36 @@ monte se ranger en marque, découvrant l'accueil.</p>
     </div>
   </div>
 
-  <div class="f-note" style="margin-top:12px">Six beats : l'amorce (grille + croix de visée) · le
-  tracé des deux triangles en sens contraires · le <b>verrouillage du tissage</b>, un pont à la fois
-  en <span style="font-family:var(--mono)">steps()</span> · le cadran et la rotation d'un sixième de
-  tour · <b>la transformation</b> (trois arêtes s'effacent, trois deviennent les traits du alef) ·
-  la solidification en Frank Ruhl Libre, puis la montée en marque et l'accueil qui se pose.</div>
-  <div class="f-cout">9 nœuds + 6 barres, 15 keyframes, zéro image, zéro SVG</div>
+  <div class="f-note" style="margin-top:12px">Sept beats : l'amorce (grille, croix, anneaux de
+  visée) · le <b>tracé des deux rubans</b> en sens contraires, trois paliers · le <b>verrouillage du
+  tressage</b>, six brèches qui claquent une à une en <span style="font-family:var(--mono)">steps()</span> ·
+  le <b>balayage d'analyse</b> · la <b>visée</b> S1·S2·S3 puis la <b>dé-résolution</b> des trois
+  segments sans emploi · l'<b>échafaudage</b> (+8°, −38,6°, −39°) · l'<b>impression</b> du vrai
+  glyphe, aberration à la solidification, montée en marque, accueil.</div>
   <div class="f-note" style="opacity:.6"><b>Elle se lance seule</b> dès que ce cadre entre dans le
   champ, une fois — comme le ferait une vraie ouverture. Ensuite, <b>rejouer</b> autant que tu veux,
   et bascule <b>intégrale / abrégée</b> pour comparer les deux durées.</div>
+  <div class="f-cout">1 SVG (6 rubans + 6 sur-pièces + visée), 22 keyframes, zéro image</div>
 
   <div class="f-reserve"><b>le vrai risque n'est pas technique, il est d'usage</b>Une ouverture de
-  <b>6,5 s</b> est somptueuse la première fois et <b>insupportable la trentième</b> — et tu ouvres
-  cette app plusieurs fois par jour. Une animation de lancement qui retarde l'étude est le genre de
-  chose qu'on adore en la concevant et qu'on désinstalle en l'utilisant. Ma recommandation, si tu la
-  retiens : la jouer <b>au lancement à froid seulement</b> (ouverture de la PWA, pas au retour depuis
-  le carnet), la rendre <b>interruptible au premier appui n'importe où</b>, la passer en
-  <b>abrégée à 2,2 s</b> dès la deuxième ouverture du jour, et lui donner un <b>réglage pour la
-  couper</b>. La bascule « intégrale / abrégée » ci-dessus est là pour que tu juges les deux durées,
-  pas pour illustrer un choix déjà fait.</div>
+  <b>8 s</b> est somptueuse la première fois et <b>insupportable la trentième</b> — et tu ouvres
+  cette app plusieurs fois par jour. Ma recommandation si tu la retiens : la jouer <b>au lancement à
+  froid seulement</b>, la rendre <b>interruptible au premier appui</b>, la passer en <b>abrégée à
+  2,7 s</b> dès la deuxième ouverture du jour, et lui donner un <b>réglage pour la couper</b>. La
+  bascule ci-dessus est là pour juger les deux durées, pas pour illustrer un choix déjà fait.</div>
 
   <div class="f-reserve" style="border-left-color:var(--vert)"><b style="color:var(--vert)">le piège
-  de mouvement réduit, propre aux séquences</b>Les 18 autres ornements partent d'un état neutre : les
-  figer ne casse rien. Celui-ci part d'un <b>écran noir</b> et construit l'accueil — le figer
-  laisserait une <b>page vide</b>, c'est-à-dire une app qui ne démarre pas. La coupure doit donc
-  poser l'état <b>final</b> et non l'état initial : sous mouvement réduit, une animation d'ouverture
-  ne se gèle pas, elle se rend <b>déjà terminée</b>. C'est écrit comme règle dans la feuille de
-  style, parce que c'est vrai de toute séquence et pas seulement de celle-ci.</div>
+  de mouvement réduit, propre aux séquences</b>Les 18 ornements partent d'un état neutre : les figer
+  ne casse rien. Une séquence part d'un <b>écran noir</b> et construit l'accueil — la figer
+  laisserait une <b>page vide</b>, une app qui ne démarre pas. La coupure pose donc l'état
+  <b>final</b> : sous mouvement réduit, une animation d'ouverture ne se gèle pas, elle se rend
+  <b>déjà terminée</b>.</div>
 
   <div class="f-reserve"><b>sur l'étoile de David elle-même</b>C'est un <b>symbole identitaire et
-  religieux</b>, pas un ornement neutre — et c'est le seul élément de la planche à ouvrir l'app sur
-  un tel symbole, donc à en faire une déclaration. Tu l'as demandée explicitement, je la livre telle
-  quelle ; je signale seulement que la décision n'est pas de même nature que « prendre ou jeter un
-  filet double ». Même remarque que pour la guématrie (09) et la rosace (05), et c'est ton arbitrage.</div>
+  religieux</b>, pas un ornement neutre — le seul élément de la planche à ouvrir l'app sur une
+  déclaration. Tu l'as demandée explicitement, je la livre telle quelle ; la décision n'est
+  simplement pas de même nature que « prendre ou jeter un filet double ». Même régime que la
+  guématrie (09) et la rosace (05) : ton arbitrage.</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -1958,15 +1983,20 @@ est le vrai verdict</b>. Le compteur en haut dit combien d'animations tournent r
   var ouv  = document.getElementById('ouv');
   var grad = document.getElementById('ouv-grad');
 
-  /* les 12 graduations du cadran, générées : 12 nœuds à la main dans le
-     markup n'apprendraient rien à personne. */
+  /* les 12 graduations de l'anneau de visée, générées en SVG : 12 nœuds
+     à la main dans le markup n'apprendraient rien à personne.
+     Cardinales (une sur trois) plus longues. */
   if (grad){
+    var NS = 'http://www.w3.org/2000/svg';
     for (var g = 0; g < 12; g++){
-      var t = document.createElement('span');
-      /* -50% pour centrer sur l'axe, puis rotation, puis on repousse au bord */
-      t.style.transform = 'translateX(-50%) rotate(' + (g * 30) + 'deg) translateY(-124px)';
-      if (g % 3 === 0) t.style.height = '11px';
-      grad.appendChild(t);
+      var a  = g * 30 * Math.PI / 180;
+      var r1 = 106, r2 = (g % 3 === 0) ? 117 : 112;
+      var ln = document.createElementNS(NS, 'line');
+      ln.setAttribute('x1', (120 + r1 * Math.cos(a)).toFixed(2));
+      ln.setAttribute('y1', (120 + r1 * Math.sin(a)).toFixed(2));
+      ln.setAttribute('x2', (120 + r2 * Math.cos(a)).toFixed(2));
+      ln.setAttribute('y2', (120 + r2 * Math.sin(a)).toFixed(2));
+      grad.appendChild(ln);
     }
   }
 
@@ -1998,17 +2028,31 @@ est le vrai verdict</b>. Le compteur en haut dit combien d'animations tournent r
      Repli si IntersectionObserver manque : on la laisse au bouton. */
   if (ouv && window.IntersectionObserver){
     var vue = false;
+    var autoT = 0;      /* l'instant du départ automatique */
     var guet = new IntersectionObserver(function(entrees){
       entrees.forEach(function(e){
         if (!vue && e.isIntersecting && e.intersectionRatio > 0.35){
           vue = true;
           guet.disconnect();
           var b = document.querySelector('.inter[data-cible="ouverture"]');
-          if (b) bascule(b, true);
+          if (b){ autoT = Date.now(); bascule(b, true); }
         }
       });
     }, { threshold:[0, 0.35, 1] });
     guet.observe(ouv);
+
+    /* ⚠️ Course mesurée en WebKit : un clic qui fait DÉFILER jusqu'à la
+       séquence déclenche d'abord l'autoplay, puis le clic lui-même la
+       re-bascule OFF — l'utilisateur voulait l'allumer et l'éteint. Ce
+       garde avale, pendant 900 ms après l'autoplay, tout clic qui
+       l'éteindrait. Enregistré AVANT l'écouteur générique, donc il passe
+       en premier et peut couper la chaîne. */
+    var bOuv = document.querySelector('.inter[data-cible="ouverture"]');
+    if (bOuv) bOuv.addEventListener('click', function(e){
+      if (Date.now() - autoT < 900 && bOuv.getAttribute('aria-pressed') === 'true'){
+        e.stopImmediatePropagation();
+      }
+    });
   }
 
   var bInt = document.getElementById('ouv-integrale');

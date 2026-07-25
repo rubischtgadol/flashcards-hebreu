@@ -250,21 +250,32 @@ survécu au retrait des trois calques.
 calques **permanents** posés pendant l'usage, pas sur un écran d'ouverture qui est un écran à lui
 seul puis disparaît. Le distinguer explicitement évite qu'une session future croie la règle violée.
 
-**La géométrie est mesurée, et c'est ce qui fait la valeur de la proposition.** Sur un hexagramme de
-circonradius 88, les six arêtes font toutes **152,4 px**, aux angles **±60° et 180°**. Les trois
-traits de l'alef visé sont à **≈128°** (diagonale, longueur 140) et **≈40°** (les deux bras, 62 et
-58). L'appariement qui en découle ne demande que **8° de rotation pour la diagonale et 20° par
-bras** — autrement dit **l'hexagramme contient déjà la lettre**, et la séquence la révèle au lieu de
-l'interpoler. Les trois arêtes qui s'effacent (les deux horizontales et une diagonale) sont
-exactement celles qui n'ont pas d'emploi dans l'alef. Les six valeurs et les trois écarts sont en
-commentaire au-dessus de la séquence dans la feuille de style.
+> ⚠️ **v1 REJETÉE par le propriétaire le 25/07 au soir, photo d'un Magen David tressé à l'appui —
+> trois griefs : l'entrelacement, la transformation, le style. La v2 ci-dessous la remplace
+> intégralement (SVG).** Le paragraphe est gardé au passé pour que la leçon ne se reperde pas : la
+> v1 posait trois « ponts » fins par-dessus les croisements et croyait l'entrelacement réglé ; or
+> **la signature visuelle d'un tressage n'est pas « qui passe devant », c'est la brèche** — le ruban
+> du dessous s'interrompt de part et d'autre de celui qui passe dessus. Et son « alef » en trois
+> traits droits était un Λ barré, pas un alef.
 
-L'**entrelacement est réel** : les six croisements sont les sommets de l'hexagone intérieur de rayon
-88/√3 = 50,8 ; le triangle descendant passe devant partout, et **trois ponts** — fragments du
-triangle montant — sont posés par-dessus **à un croisement sur deux** (azimuts 0°, 120°, 240°). Le
-verrouillage de ces trois ponts est le **seul endroit de tout le chantier où `steps()` est pleinement
-justifié** : un tissage se cliquette, il ne glisse pas. C'est un argument pour la règle du § 5, et
-le premier qui soit fondé sur autre chose qu'un matériau retiré.
+**La v2, mesurée elle aussi (viewBox 240, circonradius 92).** Les six arêtes sont des **rubans**
+(chant sombre 10, cœur ambre 5). Les croisements **trisectent** chaque arête, et par symétrie **le
+vainqueur de chaque croisement est l'arête dont le point aux 2/3 s'y trouve** — d'où **six
+sur-pièces, une par arête**, chacune bordée d'un **liseré couleur de fond de 16 px qui taille la
+brèche** dans le ruban du dessous, en alternance dessus/dessous stricte tout autour (vérifié :
+vainqueurs U/D alternés aux azimuts 0°-300°). Le claquement des six brèches, une à une en `steps()`,
+reste le **seul endroit du chantier où `steps()` est pleinement justifié** : un tressage se
+cliquette.
+
+**La transformation ne prétend plus que des barres deviennent la lettre.** Les trois arêtes
+survivantes pivotent en **échafaudage** aux cotes du glyphe — **+8°** (diagonale), **−38,6°** (bras),
+**−39°** (jambe) ; rotation maximale 39°, l'étoile contient l'armature — puis le **vrai glyphe**
+(Frank Ruhl 900, encre mesurée 99×121 px à 198 px de corps) **s'imprime** sur cet échafaudage du
+haut vers le bas, ligne d'impression au front, **aberration chromatique** (module 11) à la
+solidification, et l'échafaudage s'éteint dessous. Les trois arêtes sans emploi ne glissent pas :
+elles se **dé-résolvent** en `steps()`, après qu'un **balayage local** (module 17, repêché à
+l'intérieur du cadre, jamais sur la surface) et trois croix de visée S1·S2·S3 ont marqué les
+retenues.
 
 > ⚠️ **Point normatif payé par le raisonnement, valable pour TOUTE séquence.** Sous
 > `prefers-reduced-motion`, une animation d'ouverture **ne se gèle pas — elle se rend déjà
