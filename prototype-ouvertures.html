@@ -2060,6 +2060,12 @@ body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 
   <span class="lab" style="margin-left:10px">toutes</span>
   <button class="btn" id="tout-jouer">▶ rejouer les 5</button>
   <button class="btn danger" id="tout-couper">■ couper</button>
+  <!-- ⚠️ La dérogation au mouvement réduit DOIT être ici, dans la barre
+       collante, et pas seulement dans l'encart en tête de page : sur une
+       page de cette longueur, un bouton qu'on ne peut atteindre qu'en
+       remontant tout en haut n'existe pas. Signalé par le propriétaire,
+       bloqué au milieu de la page devant cinq scènes figées. -->
+  <button class="btn danger" id="forcer2" hidden>⚠ animations bloquées — cliquer pour déroger</button>
 </div>
 
 <div class="diag" id="diag">
@@ -2667,16 +2673,33 @@ body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 
   var MQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var alarme  = document.getElementById('alarme');
   var bForcer = document.getElementById('forcer');
-  function majAlarme(){ if (alarme) alarme.hidden = !(MQ && MQ.matches); }
+  var bForcer2 = document.getElementById('forcer2');
+
+  function majAlarme(){
+    var reduit = !!(MQ && MQ.matches);
+    if (alarme)  alarme.hidden  = !reduit;
+    /* le bouton de la barre collante n'apparaît QUE si le réglage mord :
+       hors de ce cas il n'aurait rien à déroger et n'ajouterait que du bruit */
+    if (bForcer2) bForcer2.hidden = !reduit;
+  }
   if (MQ && MQ.addEventListener) MQ.addEventListener('change', majAlarme);
   majAlarme();
-  bForcer.addEventListener('click', function(){
+
+  function basculeForce(){
     var actif = document.body.classList.toggle('force-anim');
-    bForcer.textContent = actif
-      ? '■ Rendre la main au réglage de l’appareil'
-      : '▶ Animer quand même, sur cette page';
-    props.forEach(function(p){ if (p.classList.contains('joue')) joue(p); });
-  });
+    var t = actif ? '■ Rendre la main au réglage de l’appareil'
+                  : '▶ Animer quand même, sur cette page';
+    if (bForcer)  bForcer.textContent  = t;
+    if (bForcer2) bForcer2.textContent = actif
+      ? '■ rendre la main au réglage'
+      : '⚠ animations bloquées — cliquer pour déroger';
+    /* on relance TOUTES les séquences, pas seulement celles déjà marquées
+       « joue » : sous mouvement réduit elles ont été posées à leur état
+       final sans jamais jouer, donc il n'y a rien à « re »-jouer. */
+    props.forEach(joue);
+  }
+  bForcer.addEventListener('click', basculeForce);
+  if (bForcer2) bForcer2.addEventListener('click', basculeForce);
 
   /* ---- LE DIAGNOSTIC ---------------------------------------------
      Une page qui ne bouge pas doit dire POURQUOI elle ne bouge pas.
