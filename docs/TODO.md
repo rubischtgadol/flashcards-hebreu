@@ -93,6 +93,15 @@ lisant le diff de la branche comme une spécification, pas comme un patch à
 appliquer. Le prévoir dans l'estimation : ce n'est pas un merge, c'est une
 réécriture guidée.
 
+⚠️ **Un doublon de commit attend au croisement** : `bcf71d0` (sur
+`refonte-retrofuturiste` seulement) et `ff25eec` (sur `main` seulement) portent
+le **même changement** — l'extraction du vocabulaire vers `data/` — sous deux
+hashes, parce qu'il a été appliqué des deux côtés. Vérifiable :
+`git log --oneline -1 bcf71d0` et `git log --oneline -1 ff25eec` donnent le
+même titre, et `git branch --contains` sur chacun ne renvoie qu'une branche.
+Le traiter explicitement au report, sinon il ressort en conflit d'un travail
+déjà fait.
+
 ### Cinq leçons de méthode — le chantier est clos, elles engagent la suite
 
 Elles ne sont pas archivées avec le chantier : chacune décrit une manière de se
