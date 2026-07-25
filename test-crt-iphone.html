@@ -150,6 +150,7 @@ body[data-vign="0"]  .ecran::after{display:none}
   border:1px solid var(--ligne);
   border-radius:9999px;
   padding:10px 22px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;
   transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
 }
 .btn.primaire{
@@ -230,14 +231,15 @@ body[data-vign="0"]  .ecran::after{display:none}
 .consigne li{margin:3px 0}
 .consigne .sens{color:var(--ambre);opacity:.85;font-size:.76rem;border-top:1px solid var(--ligne);padding-top:7px}
 .lien-consigne{background:none;border:0;color:var(--vert);font-family:var(--cond);font-weight:600;
-  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 0;cursor:pointer}
+  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 0;cursor:pointer;
+  display:inline-flex;align-items:center;min-height:44px}
 
 /* recette de la passe finale : deux questions fermées, jamais un bouton à trois états */
 .recette{margin:10px 0 2px;border-top:1px solid var(--ligne);padding-top:9px}
 .recette .q{margin-bottom:8px}
 .recette .q>span{display:block;font-size:.8rem;color:var(--lune);margin-bottom:5px}
 .recette .paire{display:flex;gap:8px}
-.btn.mini{padding:6px 14px;font-size:.7rem}
+.btn.mini{padding:6px 14px;font-size:.7rem;min-height:44px}
 .btn.choisi{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor}
 .btn.choisi.negatif{border-color:var(--rouge);color:var(--rouge)}
 .aide{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--ambre);opacity:.75;margin-top:6px;min-height:1em}

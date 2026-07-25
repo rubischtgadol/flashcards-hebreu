@@ -17,6 +17,10 @@
   --mono:    'Share Tech Mono','Courier New',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
+/* Aucune accommodation n'existait sur cette page (mesure 25/07) : les 7
+   animations tournaient sans coupure possible. Les pseudo-elements sont
+   inclus explicitement — `*` seul ne les atteint pas. */
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
 html{background:#030208}
 body{
   font-family:var(--cond);color:#cfd6e6;background:#030208;
@@ -104,6 +108,7 @@ body{
   color:var(--texte);background:transparent;
   border:1px solid var(--ligne);border-radius:9999px;
   padding:9px 20px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;
 }
 .btn.primaire{
   border-color:var(--actif);color:var(--actif);

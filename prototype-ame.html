@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planche de l'âme v0.1 — Console d'étude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — identiques à prototype-nerv.html (source : SENTRY)
+   ================================================================ */
+:root{
+  --bg:      #05040A;
+  --panneau: #0A0814;
+  --grille:  #0F0C1C;
+  --ligne:   #7a5a14;
+  --ambre:   #f0b32a;
+  --vert:    #54ff8a;
+  --rouge:   #FF4747;
+  --orange:  #ff6a1f;
+  --lune:    #cfd6e6;
+
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+}
+
+/* ── LE REGISTRE, ici aussi en jugement ─────────────────────────
+   Le mouvement ambiant est le cas limite de la règle steps() : un
+   champ d'étoiles qui dérive par à-coups n'est pas la même chose
+   qu'un radar qui cliquette. Le sélecteur bascule TOUTE la planche. */
+#banc[data-reg="steps"]  { --eL: steps(90); --eM: steps(32); --eS: steps(8); --eB: steps(1); }
+#banc[data-reg="fluide"] { --eL: linear;    --eM: linear;    --eS: ease-in-out; --eB: steps(1); }
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{
+  font-family:var(--cond);color:var(--ambre);background:#030208;
+  padding:32px 20px 90px;font-size:15px;line-height:1.45;
+}
+.galerie{max-width:1180px;margin:0 auto}
+.galerie>header{margin-bottom:20px}
+.galerie h1{
+  font-family:var(--mono);font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor;
+}
+.meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+
+.section-titre{
+  font-family:var(--cond);font-weight:600;color:var(--ambre);
+  font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  margin:0 0 6px;display:flex;align-items:center;gap:14px;
+}
+.section-titre .no{font-family:var(--mono);color:var(--vert);flex-shrink:0}
+.section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
+.propos{font-size:.8rem;color:var(--lune);opacity:.75;max-width:64ch;margin-bottom:14px}
+.propos b{color:var(--ambre);font-weight:600;opacity:1}
+
+/* ---- la doctrine, en tête ---- */
+.constat{border:1px solid var(--ligne);background:rgba(10,8,20,.82);padding:16px 18px;margin-bottom:30px;position:relative}
+.constat .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.constat .coin.a{top:2px;left:4px}.constat .coin.b{bottom:2px;right:4px}
+.constat h2{
+  font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:10px;
+}
+.constat p{font-size:.82rem;color:var(--lune);opacity:.85;max-width:76ch;margin-bottom:9px}
+.constat p:last-child{margin-bottom:0}
+.constat b{color:var(--ambre);font-weight:600;opacity:1}
+.regle{
+  border-left:2px solid var(--vert);padding:8px 0 8px 14px;margin:12px 0;
+  font-size:.84rem;color:var(--lune);
+}
+.regle .nom{color:var(--vert);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;display:block;margin-bottom:4px;text-shadow:0 0 6px currentColor}
+
+/* ---- barre de commande ---- */
+.barre{
+  display:flex;gap:9px;align-items:center;flex-wrap:wrap;
+  border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne);
+  padding:12px 0;margin:0 0 30px;position:sticky;top:0;z-index:20;
+  background:#030208;
+}
+.barre .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;color:var(--lune)}
+.btn{
+  font-family:var(--cond);font-weight:600;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:8px 18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
+}
+.btn:hover{border-color:var(--ambre);text-shadow:0 0 6px currentColor}
+.btn.primaire{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor;box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06)}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+/* l'interrupteur d'un effet : allumé = vert + glow (règle de la lampe respectée,
+   c'est bien un état actif) */
+.inter{
+  font-family:var(--cond);font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:6px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
+}
+.inter .diode{width:7px;height:7px;border-radius:50%;background:var(--ligne);flex-shrink:0}
+.inter[aria-pressed="true"]{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor}
+.inter[aria-pressed="true"] .diode{background:var(--vert);box-shadow:0 0 6px var(--vert)}
+.btn:focus-visible,.inter:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+
+/* ---- vignettes ---- */
+.rangee{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start;margin-bottom:12px}
+.cellule{width:264px;max-width:100%;flex:0 1 264px}
+.cel-tete{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.cel-nom{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambre)}
+.cel-nom .n{color:var(--vert)}
+.risque{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--rouge);text-shadow:0 0 6px currentColor}
+.cel-note{font-size:.7rem;color:var(--lune);opacity:.6;margin-top:6px;min-height:2.4em}
+
+.vig{
+  background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 6px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 6px 100% no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  border:1px solid var(--ligne);padding:14px 12px;min-height:180px;
+  position:relative;overflow:hidden;display:flex;flex-direction:column;
+}
+.vig .viseur{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);z-index:6;line-height:1}
+.vig .viseur.tl{top:3px;left:5px}.vig .viseur.tr{top:3px;right:5px}
+.vig .viseur.bl{bottom:3px;left:5px}.vig .viseur.br{bottom:3px;right:5px}
+.vig>*{position:relative;z-index:2}
+
+/* ---- composants de la charte ---- */
+.statusbar{display:flex;justify-content:space-between;align-items:center;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ligne);padding-bottom:6px;margin-bottom:10px}
+.feed{font-family:var(--mono);font-size:.66rem;line-height:1.8;color:var(--ambre)}
+.feed .l{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.feed .l::before{content:'▸ ';color:var(--vert)}
+.feed .l.neuve{animation:tape .9s steps(24) backwards}
+@keyframes tape{from{width:0}to{width:100%}}
+.brand-he{font-family:var(--he);font-weight:900;font-size:2rem;direction:rtl;text-align:center;color:var(--ambre);text-shadow:0 0 12px rgba(240,179,42,.3)}
+.brand-sous{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;text-align:center}
+.pilule{font-family:var(--cond);font-weight:600;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);border-radius:9999px;padding:2px 9px}
+.pilule.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.mode-l{display:flex;align-items:baseline;gap:10px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 0}
+.mode-l .num{font-family:var(--mono);color:var(--vert);font-size:.68rem}
+
+/* ================================================================
+   MOUVEMENT RÉDUIT — la règle de la veilleuse s'éteint entièrement.
+   ⚠️ Le sélecteur DOIT couvrir les pseudo-éléments : `*` seul ne les
+   atteint pas. Défaut mesuré le 25/07 sur le portail déployé, où le
+   halo de la ménorah continue de pulser malgré la demande d'arrêt.
+   ================================================================ */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+
+/* ================================================================
+   01 ── LE CHAMP D'ÉTOILES DÉRIVE  (module 16, aujourd'hui figé)
+   ================================================================ */
+.ciel{position:absolute;inset:-40px;z-index:1;overflow:hidden}
+.etoile-a,.etoile-b{position:absolute;width:1px;height:1px;top:0;left:0}
+.etoile-a{box-shadow:30px 60px 0 1px rgba(207,214,230,.5), 90px 30px 0 0 rgba(207,214,230,.3), 150px 90px 0 1px rgba(240,179,42,.4), 210px 45px 0 0 rgba(207,214,230,.35), 60px 130px 0 1px rgba(207,214,230,.5), 190px 150px 0 0 rgba(207,214,230,.3), 50px 200px 0 0 rgba(240,179,42,.35), 120px 240px 0 1px rgba(207,214,230,.45), 220px 210px 0 0 rgba(207,214,230,.3), 100px 300px 0 1px rgba(207,214,230,.5)}
+.etoile-b{box-shadow:70px 100px 0 0 rgba(207,214,230,.22), 140px 60px 0 0 rgba(207,214,230,.2), 240px 85px 0 0 rgba(207,214,230,.25), 45px 230px 0 0 rgba(207,214,230,.2), 190px 130px 0 0 rgba(207,214,230,.25), 130px 260px 0 0 rgba(207,214,230,.2), 20px 320px 0 0 rgba(207,214,230,.22)}
+@keyframes derive{ to{ transform:translate3d(0,-90px,0) } }
+.on-etoiles .etoile-a{animation:derive 90s var(--eL) infinite}
+.on-etoiles .etoile-b{animation:derive 140s var(--eL) infinite}
+
+/* ================================================================
+   02 ── LE RADAR BALAIE À VIDE  (module 01)
+   ================================================================ */
+.radar{display:block;margin:0 auto}
+.radar .anneau{fill:none;stroke:var(--grille);stroke-width:1}
+.radar .axe{stroke:var(--grille);stroke-width:1}
+.radar .blip{fill:var(--ambre)}
+.radar .blip.due{fill:var(--vert)}
+.radar .centre{fill:var(--rouge)}
+.radar .balai{stroke:var(--vert);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:0% 100%}
+@keyframes tourne{ to{ transform:rotate(360deg) } }
+.on-radar .balai{opacity:.55;animation:tourne 6s var(--eM) infinite}
+
+/* ================================================================
+   03 ── LA CARTE ORBITALE TOURNE  (module 02)
+   ================================================================ */
+.orbites .orbite{fill:none;stroke:var(--grille);stroke-width:1}
+.orbites .theme{fill:var(--ambre)}
+.orbites .theme.gros{fill:var(--vert)}
+.orbites .soleil{fill:var(--rouge)}
+.orbites .tournant{transform-box:fill-box;transform-origin:50% 50%}
+.on-orbites .tournant{animation:tourne 120s var(--eL) infinite}
+
+/* ================================================================
+   04 ── LE FEED DE VEILLE  (la console qui parle toute seule)
+   ================================================================ */
+/* piloté en JS : une ligne tombe toutes les ~6 s, 4 lignes au plus */
+
+/* ================================================================
+   05 ── L'AIGUILLE FRÉMIT  (module 19)
+   ================================================================ */
+.jauge-svg .arc{fill:none;stroke:var(--grille);stroke-width:7}
+.jauge-svg .arc.plein{stroke:var(--vert);opacity:.55}
+.jauge-svg .tickj{stroke:var(--ligne);stroke-width:1}
+.jauge-svg .aiguille{stroke:var(--rouge);stroke-width:2}
+.jauge-svg .pivot{fill:var(--rouge)}
+.jauge-svg text{font-family:var(--mono);font-size:8px;fill:var(--ambre);letter-spacing:.15em}
+.jauge-svg .rot{transform-box:fill-box;transform-origin:100% 100%;transform:rotate(58deg)}
+@keyframes fremit{ 0%,100%{transform:rotate(57.6deg)} 50%{transform:rotate(58.4deg)} }
+.on-aiguille .jauge-svg .rot{animation:fremit 7s var(--eS) infinite}
+
+/* ================================================================
+   06 ── LE CURSEUR CLIGNOTE  (terminal en attente)
+   ================================================================ */
+.curseur{display:inline-block;width:.5em;height:1em;background:var(--vert);vertical-align:-.14em;margin-left:.18em;opacity:0}
+@keyframes bat{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+.on-curseur .curseur{animation:bat 1.06s var(--eB) infinite}
+
+/* ================================================================
+   07 ── LA SÉQUENCE D'ALLUMAGE  (une fois, jamais en boucle)
+   ================================================================ */
+@keyframes vientGrad{ from{opacity:0} }
+@keyframes vientGrille{ from{opacity:0} }
+@keyframes vientFond{ from{opacity:0;transform:translateY(6px)} }
+.boot .couche-grad{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 6px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 6px 100% no-repeat;}
+.boot .couche-grille{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px);}
+.boot.vig{background:var(--bg)}
+.allume .couche-grad  {animation:vientGrad   .3s var(--eB) backwards}
+.allume .couche-grille{animation:vientGrille .3s var(--eB) .3s backwards}
+.allume .contenu-boot {animation:vientFond   .4s steps(3) .6s backwards}
+
+/* ================================================================
+   08 ── LES CROIX DE VISÉE SE POSENT  (une fois)
+   ================================================================ */
+@keyframes pose{ from{opacity:0;transform:scale(2.4)} }
+.pose-viseurs .viseur{animation:pose .22s steps(2) backwards}
+.pose-viseurs .viseur.tl{animation-delay:0s}
+.pose-viseurs .viseur.tr{animation-delay:.09s}
+.pose-viseurs .viseur.br{animation-delay:.18s}
+.pose-viseurs .viseur.bl{animation-delay:.27s}
+
+/* ================================================================
+   09 ── LE HALO RESPIRE  ⚠️ le plus proche du scintillement rejeté
+   ================================================================ */
+@keyframes respire{
+  0%,100%{ text-shadow:0 0 12px rgba(240,179,42,.30) }
+  50%    { text-shadow:0 0 17px rgba(240,179,42,.44) }
+}
+.on-halo .brand-he{animation:respire 6s var(--eS) infinite}
+
+/* ---- l'écran cumulé ---- */
+.cumule{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-start}
+.grand{width:390px;max-width:100%}
+.grand .vig{min-height:600px;padding:18px 16px}
+.tableau-bord{flex:1 1 320px;min-width:280px}
+.tableau-bord .l{
+  display:flex;align-items:center;gap:10px;justify-content:space-between;
+  border-bottom:1px solid var(--grille);padding:9px 0;font-size:.76rem;
+}
+.tableau-bord .l .quoi{color:var(--lune);opacity:.85}
+.tableau-bord .l .quoi b{color:var(--ambre);opacity:1;font-weight:600}
+.pied-note{margin-top:52px;border-top:1px solid var(--ligne);padding-top:16px;font-size:.74rem;color:var(--lune);opacity:.7;max-width:76ch}
+.pied-note b{color:var(--ambre);opacity:1}
+</style>
+</head>
+<body>
+<div class="galerie">
+
+<header>
+  <h1>L'âme</h1>
+  <p class="meta-ligne">Planche v0.1 · 9 propositions de mouvement ambiant · chacune isolée, puis toutes ensemble · registre <b>steps()</b> ou <b>fluide</b> commutable</p>
+</header>
+
+<div class="constat">
+  <span class="coin a">+</span><span class="coin b">+</span>
+  <h2>Le conflit, et comment il se résout</h2>
+  <p>La <b>règle de la lampe</b> dit : <i>l'alarme ne sonne que quand il se passe quelque chose</i>. Un mouvement purement cosmétique est, par définition, <b>non signifiant</b> — pris au mot, tout ce qui suit est interdit par la charte.</p>
+  <p>Sauf que la règle ne parle pas de ça. Une console a <b>deux registres</b> : les <b>signaux</b> — voyants, alarmes, verdicts — qui obéissent à la lampe et ne s'allument que pour dire quelque chose ; et la <b>vie ambiante</b> — le ronflement, l'aiguille jamais tout à fait immobile, le radar qui balaie un ciel vide. La seconde ne signale rien. C'est elle qui fait la différence entre un instrument allumé et un instrument débranché.</p>
+  <p>La charte a déjà entrouvert cette porte sans le dire : le <b>module 16, le champ d'étoiles, est retenu avec la mention « écrans calmes seulement »</b>. C'est exactement une décoration ambiante. Le précédent existe — il n'a simplement jamais été nommé.</p>
+  <div class="regle">
+    <span class="nom">La règle de la veilleuse — proposée</span>
+    Un mouvement ambiant n'est admis que là où <b>rien ne vous est demandé</b> : accueil, bilan, états vides, attente. <b>Jamais</b> sur un écran où une carte attend une réponse. Il doit être <b>lent</b> (cycle ≥ 4 s, hors vision centrale), <b>sourd</b> (l'or plein reste à la lampe), <b>au fond</b> (jamais sur le contenu d'étude), et <b>il s'arrête en mouvement réduit</b>.
+  </div>
+  <p><b>Ce que cette planche teste vraiment</b>, au-delà de chaque effet : neuf micro-mouvements irréprochables un par un peuvent faire un écran qui <b>grouille</b>. D'où l'écran cumulé en bas, et le bouton « tout couper » pour le comparer à l'écran nu — c'est la seule comparaison qui tranche.</p>
+</div>
+
+<div class="barre">
+  <span class="lab">Registre</span>
+  <button class="btn primaire" id="registre">steps()</button>
+  <span class="lab" style="margin-left:14px">Ambiance</span>
+  <button class="btn" id="tout-on">Tout allumer</button>
+  <button class="btn danger" id="tout-off">Tout couper</button>
+  <span class="lab" style="margin-left:auto">Les gestes uniques (07, 08) se rejouent sur place</span>
+</div>
+
+<div id="banc" data-reg="steps">
+
+<!-- ============================================ LES NEUF, ISOLÉES -->
+<h2 class="section-titre"><span class="no">A</span> Les neuf propositions, isolées</h2>
+<p class="propos">Chacune seule, sur fond de charte. Allumez-les une par une : <b>c'est en isolation qu'on juge si un effet est juste</b>, et dans l'écran cumulé plus bas qu'on juge s'il est de trop.</p>
+
+<div class="rangee">
+
+  <!-- 01 étoiles -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">01</span> Étoiles</span>
+      <button class="inter" data-effet="on-etoiles" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="vig ciel-hote">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="ciel"><span class="etoile-a"></span><span class="etoile-b"></span></div>
+      <div class="statusbar"><span>Accueil · veille</span><span class="pilule ok">Prêt</span></div>
+      <div style="margin:auto 0">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">Console d'étude</div>
+      </div>
+    </div>
+    <p class="cel-note">Deux couches en parallaxe, 90 s et 140 s. Le module 16 existe déjà, figé.</p>
+  </div>
+
+  <!-- 02 radar -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">02</span> Radar à vide</span>
+      <button class="inter" data-effet="on-radar" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="vig">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Radar · veille</span><span style="font-family:var(--mono);color:var(--vert)">dû 00</span></div>
+      <svg class="radar" width="150" height="130" viewBox="0 0 150 130" aria-hidden="true">
+        <circle class="anneau" cx="75" cy="65" r="55"/><circle class="anneau" cx="75" cy="65" r="36"/><circle class="anneau" cx="75" cy="65" r="18"/>
+        <line class="axe" x1="20" y1="65" x2="130" y2="65"/><line class="axe" x1="75" y1="10" x2="75" y2="120"/>
+        <line class="balai" x1="75" y1="65" x2="75" y2="12"/>
+        <circle class="blip" cx="52" cy="48" r="2"/><circle class="blip" cx="98" cy="86" r="2"/><circle class="blip" cx="110" cy="44" r="2"/>
+        <circle class="centre" cx="75" cy="65" r="2.5"/>
+      </svg>
+    </div>
+    <p class="cel-note">Un tour en 6 s. L'instrument tourne même sans rien à montrer — la signature « console allumée ».</p>
+  </div>
+
+  <!-- 03 orbites -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">03</span> Orbites</span>
+      <button class="inter" data-effet="on-orbites" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="vig">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Thèmes · 15</span><span style="font-family:var(--mono);color:var(--vert)">1 220</span></div>
+      <svg class="orbites" width="150" height="130" viewBox="0 0 150 130" aria-hidden="true">
+        <circle class="orbite" cx="75" cy="65" r="26"/><circle class="orbite" cx="75" cy="65" r="42"/><circle class="orbite" cx="75" cy="65" r="56"/>
+        <g class="tournant">
+          <circle class="theme gros" cx="101" cy="65" r="4"/><circle class="theme" cx="75" cy="23" r="3"/>
+          <circle class="theme" cx="33" cy="65" r="2.5"/><circle class="theme gros" cx="115" cy="94" r="3.5"/>
+          <circle class="theme" cx="41" cy="38" r="2.5"/><circle class="theme" cx="58" cy="112" r="3"/>
+        </g>
+        <circle class="soleil" cx="75" cy="65" r="4"/>
+      </svg>
+    </div>
+    <p class="cel-note">Un tour en 120 s : les thèmes dérivent sans qu'on les voie bouger.</p>
+  </div>
+
+  <!-- 04 feed -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">04</span> Feed de veille</span>
+      <button class="inter" data-effet="on-feed" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="vig">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Journal · veille</span><span class="pilule ok">Actif</span></div>
+      <div class="feed" data-feed style="margin-top:auto">
+        <span class="l">base · 1 220 objets · 15 thèmes</span>
+        <span class="l">dernière session · il y a 14 h</span>
+      </div>
+    </div>
+    <p class="cel-note">Une ligne tombe toutes les ~6 s. Techniquement ce n'est pas décoratif : la console parle.</p>
+  </div>
+
+  <!-- 05 aiguille -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">05</span> Aiguille</span>
+      <button class="inter" data-effet="on-aiguille" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="vig">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Maîtrise</span><span style="font-family:var(--mono);color:var(--vert)">85 %</span></div>
+      <svg class="jauge-svg" width="150" height="86" viewBox="0 0 150 86" style="margin:auto" aria-hidden="true">
+        <path class="arc" d="M20 70 A55 55 0 0 1 130 70"/>
+        <path class="arc plein" d="M20 70 A55 55 0 0 1 96 26"/>
+        <line class="tickj" x1="20" y1="70" x2="27" y2="70"/><line class="tickj" x1="75" y1="15" x2="75" y2="22"/><line class="tickj" x1="130" y1="70" x2="123" y2="70"/>
+        <g class="rot"><line class="aiguille" x1="33" y1="35" x2="75" y2="70"/></g>
+        <circle class="pivot" cx="75" cy="70" r="3"/>
+        <text x="56" y="58">85 %</text>
+      </svg>
+    </div>
+    <p class="cel-note">±0,4° en 7 s. Une jauge analogique au repos n'est jamais parfaitement immobile.</p>
+  </div>
+
+  <!-- 06 curseur -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">06</span> Curseur</span>
+      <button class="inter" data-effet="on-curseur" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="vig">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Invite</span><span class="pilule ok">En attente</span></div>
+      <div class="feed" style="margin:auto 0">
+        <span class="l">session close · 27 objets vus</span>
+        <span class="l">en attente d'instruction<span class="curseur"></span></span>
+      </div>
+    </div>
+    <p class="cel-note">1,06 s en <span style="font-family:var(--mono)">steps(1)</span> — le battement d'un terminal, jamais fluide.</p>
+  </div>
+
+  <!-- 07 allumage -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">07</span> Allumage</span>
+      <button class="btn mini rejoue" data-cible="boot-1" style="font-size:.6rem;padding:4px 12px;letter-spacing:.12em">▶ rejouer</button></div>
+    <div class="vig boot" id="boot-1">
+      <div class="couche-grad"></div><div class="couche-grille"></div>
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="contenu-boot" style="margin:auto 0">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">Console d'étude</div>
+      </div>
+    </div>
+    <p class="cel-note">Geste unique : graduations, puis grille, puis contenu. L'écran s'allume par couches.</p>
+  </div>
+
+  <!-- 08 viseurs -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">08</span> Croix de visée</span>
+      <button class="btn mini rejoue" data-cible="vis-1" style="font-size:.6rem;padding:4px 12px;letter-spacing:.12em">▶ rejouer</button></div>
+    <div class="vig" id="vis-1">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Écran · cadrage</span><span class="pilule ok">Verrouillé</span></div>
+      <div style="margin:auto 0" class="feed"><span class="l">cadre acquis · 4 points</span></div>
+    </div>
+    <p class="cel-note">Geste unique : les quatre coins se posent en 90 ms d'écart. Marque l'arrivée sur un écran.</p>
+  </div>
+
+  <!-- 09 halo -->
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">09</span> Halo <span class="risque">risqué</span></span>
+      <button class="inter" data-effet="on-halo" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="vig">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Marque</span><span class="pilule ok">Veille</span></div>
+      <div style="margin:auto 0">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">Console d'étude</div>
+      </div>
+    </div>
+    <p class="cel-note">±2 % de halo en 6 s. <b style="color:var(--rouge)">À un cheveu du scintillement rejeté</b> — la différence est qu'il porte sur un seul élément, pas sur la surface. Je ne le recommande pas : jugez-le.</p>
+  </div>
+
+</div>
+
+<!-- ============================================ L'ÉCRAN CUMULÉ -->
+<h2 class="section-titre" style="margin-top:46px"><span class="no">B</span> L'effet cumulé — le seul test qui tranche</h2>
+<p class="propos">Le même écran d'accueil, avec tout ce que vous avez allumé plus haut. <b>Coupez tout, puis rallumez</b> : la question n'est pas « est-ce joli ? » mais « est-ce que l'écran est plus calme ou plus agité qu'avant ? ». À 23 h, c'est la seule qui compte.</p>
+
+<div class="cumule">
+  <div class="grand">
+    <div class="vig ciel-hote" id="cumul">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="ciel"><span class="etoile-a"></span><span class="etoile-b"></span></div>
+
+      <div class="statusbar"><span>Accueil · veille</span><span class="pilule ok">Prêt</span></div>
+
+      <div style="margin:22px 0 18px">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">Console d'étude</div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:6px">
+        <svg class="radar" width="132" height="116" viewBox="0 0 150 130" aria-hidden="true">
+          <circle class="anneau" cx="75" cy="65" r="55"/><circle class="anneau" cx="75" cy="65" r="36"/><circle class="anneau" cx="75" cy="65" r="18"/>
+          <line class="axe" x1="20" y1="65" x2="130" y2="65"/><line class="axe" x1="75" y1="10" x2="75" y2="120"/>
+          <line class="balai" x1="75" y1="65" x2="75" y2="12"/>
+          <circle class="blip" cx="52" cy="48" r="2"/><circle class="blip" cx="98" cy="86" r="2"/><circle class="blip" cx="110" cy="44" r="2"/>
+          <circle class="centre" cx="75" cy="65" r="2.5"/>
+        </svg>
+        <svg class="orbites" width="118" height="108" viewBox="0 0 150 130" aria-hidden="true">
+          <circle class="orbite" cx="75" cy="65" r="26"/><circle class="orbite" cx="75" cy="65" r="42"/><circle class="orbite" cx="75" cy="65" r="56"/>
+          <g class="tournant">
+            <circle class="theme gros" cx="101" cy="65" r="4"/><circle class="theme" cx="75" cy="23" r="3"/>
+            <circle class="theme" cx="33" cy="65" r="2.5"/><circle class="theme gros" cx="115" cy="94" r="3.5"/>
+            <circle class="theme" cx="41" cy="38" r="2.5"/><circle class="theme" cx="58" cy="112" r="3"/>
+          </g>
+          <circle class="soleil" cx="75" cy="65" r="4"/>
+        </svg>
+      </div>
+
+      <div style="margin-bottom:10px">
+        <div class="mode-l"><span class="num">01</span><span>Cartes</span></div>
+        <div class="mode-l"><span class="num">02</span><span>Saisie</span></div>
+        <div class="mode-l"><span class="num">03</span><span>QCM</span></div>
+        <div class="mode-l"><span class="num">04</span><span>Révision espacée</span></div>
+      </div>
+
+      <svg class="jauge-svg" width="150" height="86" viewBox="0 0 150 86" style="margin:0 auto 6px" aria-hidden="true">
+        <path class="arc" d="M20 70 A55 55 0 0 1 130 70"/>
+        <path class="arc plein" d="M20 70 A55 55 0 0 1 96 26"/>
+        <line class="tickj" x1="20" y1="70" x2="27" y2="70"/><line class="tickj" x1="75" y1="15" x2="75" y2="22"/><line class="tickj" x1="130" y1="70" x2="123" y2="70"/>
+        <g class="rot"><line class="aiguille" x1="33" y1="35" x2="75" y2="70"/></g>
+        <circle class="pivot" cx="75" cy="70" r="3"/>
+        <text x="56" y="58">85 %</text>
+      </svg>
+
+      <div class="feed" data-feed style="margin-top:auto">
+        <span class="l">base · 1 220 objets · 15 thèmes</span>
+        <span class="l">dernière session · il y a 14 h</span>
+        <span class="l">en attente d'instruction<span class="curseur"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tableau-bord">
+    <div class="l"><span class="quoi"><b>01</b> · Étoiles à la dérive</span><button class="inter" data-effet="on-etoiles" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="l"><span class="quoi"><b>02</b> · Radar qui balaie</span><button class="inter" data-effet="on-radar" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="l"><span class="quoi"><b>03</b> · Orbites qui tournent</span><button class="inter" data-effet="on-orbites" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="l"><span class="quoi"><b>04</b> · Feed de veille</span><button class="inter" data-effet="on-feed" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="l"><span class="quoi"><b>05</b> · Aiguille qui frémit</span><button class="inter" data-effet="on-aiguille" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="l"><span class="quoi"><b>06</b> · Curseur qui bat</span><button class="inter" data-effet="on-curseur" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="l"><span class="quoi"><b>09</b> · Halo qui respire <span class="risque">risqué</span></span><button class="inter" data-effet="on-halo" aria-pressed="false"><span class="diode"></span>off</button></div>
+    <div class="l" style="border:0;padding-top:16px">
+      <span class="quoi">Gestes d'arrivée sur cet écran</span>
+      <button class="btn" id="cumul-boot" style="font-size:.66rem;padding:6px 14px">▶ rejouer 07+08</button>
+    </div>
+    <p class="cel-note" style="margin-top:14px;min-height:0">
+      Le compte des animations qui tournent en ce moment sur l'écran cumulé :
+      <b style="font-family:var(--mono);color:var(--vert)" id="compteur">0</b>.
+      Au repos, la charte arbitrée en a <b style="font-family:var(--mono)">0</b>.
+    </p>
+  </div>
+</div>
+
+</div><!-- /#banc -->
+
+<p class="pied-note">
+  <b>Ce qu'on vous demande.</b> Pour chacune des neuf : <span style="font-family:var(--mono)">garder</span>, <span style="font-family:var(--mono)">jeter</span>, ou <span style="font-family:var(--mono)">garder mais moins</span> (dites le cran). Puis un verdict d'ensemble sur l'écran cumulé : <b>plus vivant, ou plus agité ?</b> Et enfin, sur toute la planche : <b>steps() ou fluide</b> — le mouvement ambiant est le cas où la règle du spec § 5 risque le plus de casser, parce qu'une dérive lente par à-coups n'est pas une dérive lente.
+  <br><br>
+  <b>Garde-fou tenu partout.</b> Rien ici ne teinte ni ne fait vibrer la surface entière : chaque effet porte sur un objet nommé. Tout s'arrête sous <span style="font-family:var(--mono)">prefers-reduced-motion</span>, pseudo-éléments compris — un défaut mesuré le 25/07 sur le portail déployé, où le halo de la ménorah continue de pulser malgré la demande d'arrêt, parce que le sélecteur <span style="font-family:var(--mono)">*</span> ne les atteint pas.
+</p>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var banc = document.getElementById('banc');
+  var REDUIT = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- interrupteurs : plusieurs boutons peuvent piloter le même effet
+     (la vignette isolée et le tableau de bord). On les tient synchronisés. ---- */
+  function applique(effet, actif){
+    banc.classList.toggle(effet, actif);
+    document.querySelectorAll('.inter[data-effet="' + effet + '"]').forEach(function(b){
+      b.setAttribute('aria-pressed', actif ? 'true' : 'false');
+      b.lastChild.nodeValue = actif ? 'on' : 'off';
+    });
+    if (effet === 'on-feed') actif ? demarreFeed() : arreteFeed();
+    majCompteur();
+  }
+
+  document.querySelectorAll('.inter[data-effet]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var effet = b.getAttribute('data-effet');
+      applique(effet, b.getAttribute('aria-pressed') !== 'true');
+    });
+  });
+
+  var TOUS = ['on-etoiles','on-radar','on-orbites','on-feed','on-aiguille','on-curseur','on-halo'];
+  document.getElementById('tout-on').addEventListener('click', function(){
+    TOUS.forEach(function(e){ applique(e, true); });
+  });
+  document.getElementById('tout-off').addEventListener('click', function(){
+    TOUS.forEach(function(e){ applique(e, false); });
+  });
+
+  /* ---- bascule du registre ---- */
+  var bReg = document.getElementById('registre');
+  bReg.addEventListener('click', function(){
+    var fluide = banc.getAttribute('data-reg') === 'steps';
+    banc.setAttribute('data-reg', fluide ? 'fluide' : 'steps');
+    bReg.textContent = fluide ? 'fluide' : 'steps()';
+    majCompteur();
+  });
+
+  /* ---- 04 : le feed de veille. Une ligne toutes les ~6 s, 4 au plus. ---- */
+  var LIGNES = [
+    'base · 1 220 objets · 15 thèmes',
+    'dernière session · il y a 14 h',
+    'révision · 6 objets dus demain',
+    'thème le moins doté · outils · 41 objets',
+    'voix he-IL · disponible',
+    'cache · à jour · v33',
+    'série la plus longue · 11',
+    'en veille · rien à signaler'
+  ];
+  var timerFeed = null, iLigne = 0;
+  function demarreFeed(){
+    if (timerFeed || REDUIT) return;
+    timerFeed = setInterval(function(){
+      document.querySelectorAll('[data-feed]').forEach(function(f){
+        var l = document.createElement('span');
+        l.className = 'l neuve';
+        l.textContent = LIGNES[iLigne % LIGNES.length];
+        /* le curseur d'invite, s'il existe, reste toujours en dernier */
+        var invite = f.querySelector('.curseur');
+        if (invite) f.insertBefore(l, invite.parentNode);
+        else f.appendChild(l);
+        var lignes = f.querySelectorAll('.l');
+        var max = invite ? 4 : 3;
+        if (lignes.length > max) lignes[0].remove();
+      });
+      iLigne++;
+      majCompteur();
+    }, 6000);
+  }
+  function arreteFeed(){ if (timerFeed){ clearInterval(timerFeed); timerFeed = null; } }
+
+  /* ---- 07 / 08 : les gestes uniques ---- */
+  function rejoueGeste(el, classe){
+    el.classList.remove(classe);
+    void el.offsetWidth;
+    el.classList.add(classe);
+  }
+  document.querySelectorAll('.rejoue').forEach(function(b){
+    b.addEventListener('click', function(){
+      var el = document.getElementById(b.getAttribute('data-cible'));
+      rejoueGeste(el, el.classList.contains('boot') ? 'allume' : 'pose-viseurs');
+    });
+  });
+  document.getElementById('cumul-boot').addEventListener('click', function(){
+    var el = document.getElementById('cumul');
+    rejoueGeste(el, 'pose-viseurs');
+  });
+
+  /* ---- le compteur d'animations de l'écran cumulé : le chiffre qui
+     objective « est-ce que ça grouille ? » ---- */
+  var cumul = document.getElementById('cumul');
+  var sortie = document.getElementById('compteur');
+  function majCompteur(){
+    setTimeout(function(){
+      var n = 0;
+      try {
+        n = document.getAnimations().filter(function(a){
+          var t = a.effect && a.effect.target;
+          return t && cumul.contains(t.nodeType === 1 ? t : t.parentNode);
+        }).length;
+      } catch(e){ n = 0; }
+      sortie.textContent = n;
+    }, 60);
+  }
+  majCompteur();
+})();
+</script>
+</body>
+</html>

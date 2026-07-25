@@ -11,7 +11,7 @@ prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
 unifont-nikoud-repare.html, polices/, REFERENCES_SENTRY.md et PROMPT_REPRISE.md
 (créés, branche refonte-retrofuturiste) ; 2026-07-25 : prototype-mouvement.html
-(créé, même branche).
+et prototype-ame.html (créés, même branche).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -153,10 +153,58 @@ Les pièces, dans cet ordre de lecture :
    d'écran ; un seul mouvement en boucle (la pilule voix) et il est borné par un état
    réel. **En attente du verdict du propriétaire : A (steps), B (fluide) ou rien,
    moment par moment** — « rien » étant une réponse légitime sur plusieurs lignes.
-3. **Session de conception du système de thèmes** (brainstorming →
+3. **Mouvement ambiant — « l'âme ».** Demande du propriétaire, 25/07 : des mouvements
+   « juste cosmétiques » pour donner de l'âme au projet. ⚠️ **Cela entre en conflit
+   frontal avec la charte telle qu'elle est écrite** — la règle de la lampe exige que
+   le mouvement soit *signifiant*, et un mouvement cosmétique ne l'est par définition
+   pas. Résolution proposée, **pas encore arbitrée** : la charte confond deux
+   registres, les **signaux** (voyants, verdicts — soumis à la lampe) et la **vie
+   ambiante** (le ronflement de l'instrument, qui ne signale rien mais distingue un
+   appareil allumé d'un appareil débranché). Le précédent existe déjà sans avoir été
+   nommé : le **module 16, le champ d'étoiles, est retenu avec la mention « écrans
+   calmes seulement »**. D'où la **règle de la veilleuse** proposée au spec § 5 bis.
+
+   **`prototype-ame.html`** (créé le 25/07) porte les **9 propositions** : étoiles à la
+   dérive, radar qui balaie à vide, orbites lentes, feed de veille, aiguille qui
+   frémit, curseur qui bat, séquence d'allumage, croix de visée qui se posent, halo qui
+   respire (celui-là **signalé comme risqué** — c'est le plus proche du scintillement
+   rejeté, et il n'est pas recommandé). Chacune isolée avec son interrupteur, puis un
+   **écran d'accueil cumulé** avec « tout couper » et **un compteur d'animations
+   actives** — le chiffre qui objective « est-ce que ça grouille ? » (la charte
+   arbitrée est à 0 au repos). La bascule `steps()`/fluide s'y applique aussi :
+   **le mouvement ambiant est le cas où la règle `steps()` risque le plus de casser**,
+   une dérive lente par à-coups n'étant pas une dérive lente.
+   **En attente du verdict** : garder / jeter / garder mais moins, pour chacune des 9.
+
+4. **Session de conception du système de thèmes** (brainstorming →
    writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
-4. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
+5. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
    dépôt sur `main`**, sinon on peint sur une structure qui bouge.
+
+**Audit d'animation du 25/07 — quatre défauts relevés sur `main`, non corrigés
+ici** (cette branche ne touche pas aux surfaces déployées ; à reprendre dans une
+session `main`). Mesuré en WebKit sur le site en ligne, parcours réel piloté :
+
+- ⚠️ **Portail, `.menorah::before` — vrai défaut d'accessibilité.** La règle de
+  mouvement réduit est `*{transition:none!important;animation:none!important}`, et
+  **`*` ne cible pas les pseudo-éléments** : le halo `lueur` continue de pulser à
+  l'infini alors que l'utilisateur a demandé l'arrêt des animations. Correctif :
+  `*,*::before,*::after`. **Le même bug existait deux fois de plus dans cette
+  branche** (`prototype-effets.html`, et `prototype-variantes.html` n'avait aucune
+  règle du tout) — corrigés ici. À trois occurrences, **ça mérite d'entrer dans les
+  pièges de `CLAUDE.md`** lors de la prochaine session `main`.
+- Portail : 2 animations infinies tournent en permanence à l'accueil (`lueur` 4,5 s,
+  `acc-pouls` 2,6 s) — seul coût batterie identifié du site.
+- `app.html`, **mode Saisie** : le feedback juste/faux apparaît **sans aucune
+  transition**, alors que le QCM anime son option. Incohérence entre deux modes
+  voisins, et l'un des deux moments les plus chargés de l'app.
+- `app.html` : **l'écran de bilan n'a aucune transition d'entrée**. Avec le point
+  précédent, ça confirme le constat de la planche du mouvement — **les deux moments
+  les plus chargés émotionnellement sont précisément les deux qui ne bougent pas.**
+- Ce qui est **sain** et n'a pas besoin d'être revérifié : aucune occurrence de
+  `transition:all` sur les 4 pages déployées (piège n°2 tenu), anneau de focus doré
+  confirmé sur 10 tabulations au portail comme dans l'app, aucun état figé, aucune
+  animation morte, mobile et desktop identiques.
 
 ⚠️ **PIÈGE AU MERGE — à lire avant de fusionner cette branche.** Elle est partie
 de `bcf71d0` (« Chantier 1 : extraction du vocabulaire vers `data/` »), un commit

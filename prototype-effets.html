@@ -44,7 +44,9 @@ h1{font-family:var(--mono);font-size:1.7rem;letter-spacing:.24em;text-transform:
   margin:12px;padding:16px;
 }
 @keyframes flick{0%,88%,100%{opacity:1}90%{opacity:.72}92%{opacity:1}95%{opacity:.85}}
-@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+/* le selecteur `*` seul ne cible PAS ::before/::after : sans eux, gl1, gl2
+   et descente continuaient de tourner malgre la demande d'arret (mesure 25/07) */
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important}}
 .feed{font-family:var(--mono);font-size:.72rem;line-height:1.8;color:var(--ambre)}
 .feed .l::before{content:'▸ ';color:var(--vert)}
 .feed .ok{color:var(--vert)}

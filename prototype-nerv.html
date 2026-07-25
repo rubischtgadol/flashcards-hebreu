@@ -55,6 +55,11 @@ body{
 }
 .section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
 .rangee{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+/* ⚠ Sans ceci, l'écran de 390px débordait de 8px à 402px (iPhone 16 Pro) :
+   le `max-width:100%` de .ecran se résolvait contre son parent, lui-même
+   dimensionné sur son contenu (390px) et non borné par la rangée flex.
+   Mesuré le 25/07 : scrollWidth 410 vs clientWidth 402. */
+.rangee>*{min-width:0;max-width:100%}
 
 /* ================================================================
    LE CADRE ÉCRAN — avec les trois calques CRT

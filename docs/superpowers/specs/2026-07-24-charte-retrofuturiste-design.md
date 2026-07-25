@@ -162,6 +162,40 @@ se passe quelque chose*. Depuis le retrait du scintillement, il la porte **seul*
 > paragraphe. Ce qui n'est **pas** remis en cause : l'absence de tout effet de surface
 > d'écran, jugée sur l'appareil, et la règle de la lampe.
 
+## 5 bis. La règle de la veilleuse — proposée le 2026-07-25, non arbitrée
+
+Le propriétaire demande des mouvements **purement cosmétiques**, « pour donner de l'âme
+au projet ». Pris au mot, c'est **interdit par le § 5** : la règle de la lampe exige que
+le mouvement soit *signifiant*, et un mouvement cosmétique ne l'est par définition pas.
+
+La proposition est que la règle ne parle pas de ça. Une console tient **deux registres** :
+
+- les **signaux** — voyants, alarmes, verdicts. Soumis à la lampe : ils ne s'allument que
+  pour dire quelque chose. Inchangé.
+- la **vie ambiante** — le ronflement, l'aiguille jamais tout à fait immobile, le radar
+  qui balaie un ciel vide. Elle ne signale rien ; c'est elle qui distingue un instrument
+  **allumé** d'un instrument **débranché**.
+
+La charte a déjà admis le second registre sans le nommer : le **module 16 (champ
+d'étoiles) est retenu avec la mention « écrans calmes seulement »** — une décoration
+ambiante, retenue à l'arbitrage du 24/07. Le précédent existe.
+
+> **La règle de la veilleuse.** Un mouvement ambiant n'est admis que là où **rien n'est
+> demandé à l'utilisateur** — accueil, bilan, états vides, attente. **Jamais** sur un
+> écran où une carte attend une réponse. Il doit être **lent** (cycle ≥ 4 s, hors vision
+> centrale), **sourd** (l'or plein reste réservé à la lampe), **au fond** (jamais sur le
+> contenu d'étude), et **il s'arrête sous `prefers-reduced-motion`**.
+
+Les 9 propositions sont dans `prototype-ame.html`, isolées puis cumulées, avec un
+compteur d'animations actives — parce que neuf micro-mouvements irréprochables un par un
+peuvent faire un écran qui grouille. Le halo qui respire y est **signalé comme risqué et
+non recommandé** : c'est le plus proche du scintillement rejeté sur l'appareil.
+
+⚠️ **Point technique normatif, payé trois fois le 25/07** : la coupure du mouvement
+réduit doit s'écrire `*,*::before,*::after`. Le sélecteur `*` seul **ne cible pas les
+pseudo-éléments** — le portail déployé laisse tourner le halo de sa ménorah malgré la
+demande d'arrêt, et deux planches de cette branche avaient le même trou.
+
 ## 6. Validation et suites
 
 - **Recette visuelle** : nikoud lisible à taille réelle sur `--bg` (le halo ambre ne doit

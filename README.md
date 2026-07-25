@@ -24,6 +24,15 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-mouvement.html
 >
+> **➡️ La planche de l'âme** (25/07) — 9 propositions de **mouvement ambiant** : étoiles à la
+> dérive, radar qui balaie à vide, orbites lentes, feed de veille, aiguille qui frémit, curseur
+> qui bat, séquence d'allumage, croix de visée, halo qui respire (celui-là **signalé risqué**).
+> Chacune isolée avec son interrupteur, puis un **écran cumulé** avec « tout couper » et un
+> **compteur d'animations actives** — le chiffre qui dit si ça grouille. Verdict attendu par
+> proposition : garder / jeter / garder mais moins :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-ame.html
+>
 > **➡️ La planche des polices hébraïques** — שָׁלוֹם dans les 62 familles Google Fonts qui
 > couvrent l'hébreu, avec pour chacune un **verdict nikoud mesuré dans le fichier de fonte** :
 >
