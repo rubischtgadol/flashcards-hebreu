@@ -2117,3 +2117,207 @@ commit `a5dfd3e`) : les 16 ancres `app.html` d'ARCHITECTURE.md avaient dérivé
 L1561, `#loader` L566 pour L582), et les 3 ancres `build.js` avec elles
 (`firstSpanText` L52 → L72, l'extracteur regex L156 → L209). Toutes relues une
 par une sur leur cible.
+
+---
+
+## Chantiers 2 et 3 de « le dépôt généré » — archivés le 2026-07-25
+
+> Déplacé depuis TODO.md § « Reprendre ici » à la clôture du Task 17. Récit historique :
+> l'état courant et les invariants encore vivants vivent dans TODO.md et ARCHITECTURE.md,
+> pas ici. Les flags « GRAPHE À RECALER » ont été laissés dans TODO.md, seule copie vivante.
+
+### Ce que le chantier 3 a produit (df5ccfc..d518269, poussé sur `main`)
+
+**`app.html` n'est plus une source : c'est le 4ᵉ artefact généré.** `node
+build.js` l'assemble par `assembleApp()` depuis `src/app/coquille.html` (trois
+marqueurs `<!-- @TOKENS -->`, `<!-- @CSS:app -->`, `<!-- @JS:app -->`),
+`src/tokens.css`, les **6 fragments** de `src/app/css/` et les **14 modules**
+de `src/app/js/`, l'ordre des deux concaténations étant porté par
+`src/app/ordre.json`. **N'édite plus `app.html` à la main** — comme les trois
+autres artefacts, il est écrasé au prochain build. `node tools/build.js --check`
+couvre désormais les **4** artefacts (le 5ᵉ, `index.html`, ne devient généré
+qu'au Task 18).
+
+⚠️ **Les deux concaténations n'ont pas le même séparateur, et c'est voulu** :
+les modules JS sont joints par `join('\n')` (`build.js:657`), les fragments CSS
+par `join('')` (`build.js:663`) — c'est ce `join('')` qui porte la
+byte-identité du CSS. Un fragment CSS finit donc par un saut de ligne, un
+module JS **jamais**. Corollaire payé une fois : `99-principal.js` doit
+conserver son `\n` final explicite, sinon le regex de fence de `build.js` ne
+matche plus (rien ne suit `<!-- @JS:app -->` dans la coquille).
+
+**Comment le découpage a été prouvé sans rien casser** : Tasks 13 et 14
+byte-identiques (`app.html` régénéré identique au committé, à l'en-tête
+« FICHIER GÉNÉRÉ » près). Task 15 : les 83 fonctions top-level retrouvées une à
+une, les lignes triées identiques à l'écart près des 14 en-têtes `// Expose :`,
+et surtout — vérifié **au parseur (acorn), pas au grep** — les 148 nœuds
+top-level appariés des deux côtés, dont les **39 instructions exécutées au
+chargement dans une séquence identique indice par indice**, toutes regroupées
+dans `99-principal.js`. Les 812 lignes d'`app.html` situées **hors du
+`<script>`** (head, CSS, balisage) sont **byte-identiques** à l'avant-chantier :
+aucun changement de rendu n'est structurellement possible. Comportement exercé
+en jsdom, 29/29 PASS, 0 erreur console : cartes (flip/answer/undo), saisie
+(verdict, correction, clavier hébreu), QCM, révision espacée, recherche, les
+6 segments de `SEG_KEYS`.
+
+### Ce que le Task 16 a soldé (25/07)
+
+1. **`sw.js` bumpé en `v33`** — `app.html` et `flashcards_hebreu.html` avaient
+   changé sans bump depuis la v32.
+2. **Les trois minors gelés** par la gate byte-identique du chantier : l'en-tête
+   du standalone annonce désormais sa vraie provenance (« depuis `src/app/` +
+   `data/` ») ; `mustReplace` ne peut plus renvoyer l'auteur vers `app.html`
+   (chacun des 8 appels nomme son fichier source — `src/app/coquille.html`,
+   `src/app/js/05-donnees.js`, `src/app/js/99-principal.js` — et le défaut est
+   devenu un aveu d'appel incomplet, plus un artefact) ; les messages de la
+   garde de taxonomie pointent `src/app/js/07-filtres.js` — au passage, le lot
+   tripwires les faisait pointer `00-tout.js`, le module intermédiaire du Task 13
+   qui n'existe plus depuis son éclatement en 14 modules au Task 15.
+3. **Les trois en-têtes `// Expose :`** relevés en revue. Le contrat a d'abord
+   été tranché, puisque c'est lui qui rendait le relevé ambigu : **« Expose »
+   liste les noms top-level qu'un *autre* module référence**, rien de plus —
+   vérifié fichier par fichier. Ajoutés à 07 : `SPK_SVG`, `catCounts`,
+   `nivCounts`, `themeCounts`, `catsEl`, `nivEl`, `themeEl`, `catOrder` (les 8
+   que `13-reglages.js` déclarait « utiliser (07) » — la contradiction est
+   levée) ; ajouté à 08 : `lastRecord` (lu par 09 et 99). En revanche `NIVEAUX`
+   (07), `voicesCache` (06), `SRS_INTERVALS` et `SRS_MASTER` (08) **restent
+   hors liste** : aucun autre module ne les référence, ils sont locaux par
+   convention. Convention écrite dans ARCHITECTURE.md § Anatomie de l'app.
+4. **Toutes les ancres `app.html#L` de la doc ont été supprimées**, pas
+   recalées : le chantier 3 les avait de nouveau toutes faussées (5ᵉ dérive), et
+   `app.html` est régénéré à chaque build. ARCHITECTURE.md pointe désormais les
+   modules sources — et les ancres `build.js#L` ont suivi, l'audit de sortie en
+   ayant trouvé 3 fausses sur 5. La doc vivante ne porte plus **aucune** ancre
+   de ligne vers du code ; contrôle en rituel étape 7.
+5. **La gate visuelle du plan, réduite sur décision du propriétaire.** La
+   matrice A/B (mobile + desktop 1440/1280/992/900/768, avant-chantier vs HEAD)
+   n'a **pas** été jouée : le hors-`<script>` d'`app.html` est byte-identique à
+   l'avant-chantier et le diff résiduel du Task 16 est du commentaire — elle
+   n'aurait mesuré que ce que la byte-identité prouve déjà, et le piège 13
+   (desktop) ne mord pas quand aucune ligne de CSS ni de balisage n'a bougé.
+   Elle est remplacée par ce qu'elle seule prouvait vraiment : **un smoke dans
+   un vrai WebKit** (iPhone 16 Pro émulé, servi en HTTP, sous-agent Sonnet) —
+   `#count-note` annonce « 1220 mots chargés », les 7 points passent (cartes,
+   saisie, QCM, révision, recherche, réglages), **0 erreur console et 0
+   `pageerror`**. C'est la seule chose que jsdom ne pouvait pas dire : que la
+   concaténation des 14 modules parse et démarre dans le moteur réel.
+6. **La passe documentaire de sortie de chantier** : CLAUDE.md (pièges 1, 2, 5,
+   6, 8, 11, « The five deployed pieces », « extraction coupling », rituel
+   étape 1 et 3), ARCHITECTURE.md (§ Vue d'ensemble, § Les fichiers, § chaîne de
+   génération, § Anatomie de l'app, § Check-list) et README.md disaient tous
+   encore qu'`app.html` s'édite à la main.
+
+**Deux minors hérités du chantier 2, toujours ouverts** : `app.html`
+l'étiquette de diagnostic « extraction » mesure désormais `JSON.parse` ;
+`construitIndexFichiers()` dans `cherche_mots.js` (le `readdirSync` sur
+`data/listes`) duplique l'énumération que `build.js` fait déjà.
+
+**Ce que le chantier 3 a durci au passage (quatre gardes neuves, toutes
+éprouvées par cas fabriqué en bac à sable, échec réel constaté)** : les 3
+marqueurs de coquille passent par `mustReplace` — un marqueur disparu fait
+`exit 1` en le nommant, **avant** toute écriture (sans elle, supprimer
+`<!-- @CSS:app -->` produisait un `app.html` amputé de tout son CSS avec
+`exit 0`, puis un `--check` au vert sur l'artefact cassé) ; `verifieOrphelins()`
+(dans `build.js`, partagée JS/CSS) échoue **dans les deux sens** — fichier
+présent non listé dans `ordre.json`, ou listé mais absent du disque ; la garde
+de taxonomie `THEMES` a quitté `report()` pour `verifieTaxonomieApp(appSource)`
+et s'exerce désormais sur la source **assemblée en mémoire**, fatale en mode
+normal **comme en `--check`** ; `generateStandalone(cards, appSource)` ne lit
+plus `app.html` du disque — sans quoi `--check`, qui n'écrit rien, aurait
+dérivé le standalone d'un fichier périmé.
+
+**Le ledger de reprise** (dispatches, verdicts de revue, arbitrages, preuves de
+gardes) est dans `.superpowers/sdd/2026-07-24-reorganisation-depot-genere/progress.md`
+— **gitignoré, donc local à la machine** ; il porte aussi les briefs et les
+revues des Tasks 13 à 15. Le chantier 4 (Tasks 17 à 21) n'a **pas** été entamé.
+⚠️ Le ledger s'arrête au Task 15 : le Task 16 s'est joué dans la session du
+25/07, et c'est cette section-ci qui en tient lieu.
+
+### Ce que le chantier 2 avait produit
+
+Ce que le chantier a produit : `data/*.json` est désormais l'unique source de
+vérité du contenu. `node tools/build.js` régénère à partir de `data/` les trois
+artefacts `vocabulaire_hebreu.html`, `cards.json` et `flashcards_hebreu.html`.
+`app.html` charge `cards.json` au démarrage — **plus aucun extracteur HTML
+n'existe dans le dépôt** : `extractCards` (les deux implémentations, carnet et
+`app.html`) et le mode `node tools/build.js --verrou` qui prouvait leur équivalence
+ont été retirés une fois la preuve faite ; `outils_migration/
+compare_carnets.js`, le harnais qui portait cette preuve, a été supprimé avec
+eux, sa mission remplie. `verifie_exemples.js`, `cherche_mots.js` et
+`ajoute_mots.js` lisent tous `data/`. `sw.js` passait alors en **v32** et précache
+`cards.json`. État : **1220 cartes**, `--check` en phase.
+
+À savoir sur le champ `version` de `cards.json` : le build ne réécrit le fichier
+que si son **contenu** change (sinon un build un autre jour réécrivait 890 Ko
+pour rien). Conséquence : `version` porte la date du **dernier changement de
+contenu**, pas celle du dernier build. Sans conséquence aujourd'hui — personne
+ne le lit (`app.html`, `sw.js` et le standalone l'ignorent) — mais à savoir si
+on veut un jour s'en servir pour invalider un cache.
+
+**`CLAUDE.md` et `ARCHITECTURE.md` ont été recalés** (passe d'exactitude du
+24/07, après le chantier 2) : on peut leur faire confiance sur le flux de
+données. La section « The extraction coupling » de CLAUDE.md a été remplacée en
+place par un exposé court du pipeline `data/` → `build.js` → artefacts, les
+pièges 1/6/8 et le rituel sont recalés, et ARCHITECTURE.md décrit le contrat
+gabarits/données au lieu des deux extracteurs. Ce qui **reste** au **Task 20**
+est éditorial, pas factuel : la version définitive de la section pipeline, la
+renumérotation des pièges, et le recalage des chemins d'outils vers `tools/`
+(volontairement différé — les outils déménagent au chantier 4, l'écrire
+maintenant serait à refaire).
+
+⚠️ **Le graphe (`graphify-out/`), lui, date d'avant les chantiers 1 à 3** : il ne
+connaît ni `data/`, ni `src/carnet/`, ni `src/app/`, ni `.githooks/`, ni la
+disparition des extracteurs — et il situe les fonctions de l'app aux lignes
+d'`app.html` **d'avant** leur redécoupage en 14 modules. Sur tout ce périmètre,
+`graphify explain` répond à côté : passer directement au `grep -n` sur le module
+nommé par les en-têtes `// Expose :`. Il reste fiable sur ce qui n'a pas bougé
+(structure du carnet, règles de charte, pièges).
+Les flags ci-dessous enregistrent la dette ; le recalage reste une décision
+explicite, jamais automatique.
+
+⚠️ **Sécurité des deux outils de migration survivants**
+(`outils_migration/extrait_donnees.js`, `decoupe_carnet.js`) : ils écrivent
+**sans confirmation ni dry-run par défaut** (`decoupe_carnet.js` sans
+`--verifie` écrit 8 fichiers). Un lancement accidentel a écrit dans
+`src/carnet/tete.html` pendant ce chantier (annulé, sans dégât). À garder en
+tête jusqu'à leur retrait au Task 20.
+
+
+Lot « intermédiaire » du 24/07 : **100 mots neufs** (1120 → 1220) — 57 noms,
+24 verbes, 19 adjectifs, ventilés **81 B1 / 19 A2**, ce qui porte le B1 de 254 à
+335 (désormais le deuxième niveau le plus fourni, après A2). Rédaction en
+sous-agents Opus, **deux passes** : la première a proposé 100 candidats
+« courants » dont **77 existaient déjà** (carnet mûr) — 23 neufs seulement ; la
+seconde, armée de l'**inventaire complet des 903 têtes de table en liste
+d'exclusion**, a visé du vocabulaire plus spécifique (ustensiles, matières,
+symptômes, rôles, notions abstraites) qui a survécu presque intact au
+dédoublonnage. Leçon réutilisable : **donner l'inventaire d'exclusion aux
+rédacteurs dès la première passe** — sans lui, on paie une passe entière pour
+~20 % de neuf.
+
+- **`he2tr` faute de façon reproductible** sur : shva initial devant sifflante
+  (`shekufah` pour shkufah), yud consonantique (`meiuman` pour meyuman,
+  `veiafah` pour veyafah), redoublement (`boddim` pour bodedim, `chiurim` pour
+  chivrim), et alef final (`achray` pour achra'i, `kefuot` pour kefu'ot). Ce lot
+  n'a fourni **aucun `tr` à la main** : les 307 dérivés ont été relus dans le
+  tableau du verdict, aucune de ces fautes présente — les `⚠` restants relèvent
+  du shva initial « jugement », laissé tel quel (`pegishah`, `kerovim`,
+  `tekufah`).
+
+Les deux derniers chantiers sont soldés et archivés dans
+[TODO_ARCHIVE.md](TODO_ARCHIVE.md) § « Chantiers clos — archivés le 2026-07-24 » :
+**économie de tokens** (SPEC_ECONOMIE_TOKENS.md, `cherche_mots.js`, lot des 24
+mots, appariement ktiv male/haser) et **QCM thématique** (`pickDistractors` sert
+maintenant les distracteurs par cascade — même thème + même catégorie, puis même
+thème + autre catégorie, puis les étages d'avant, puis le dernier recours ;
+prouvé en jsdom, 5/5 en logique pure et 6/6 en parcours de bout en bout).
+
+Une chose à savoir avant d'ouvrir le prochain chantier, acquise le 24/07 et
+toujours vraie (chantier 2 a supprimé `extractCards`, donc la recette
+d'exercice qui vivait ici avant le chantier ne s'applique plus — voir
+l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
+
+- **Découverte hors chantier, non corrigée** : au tout premier lancement, si
+  aucun chip de niveau n'est sélectionné, `state.niveaux` reste vide et le
+  bouton « démarrer » ne fait rien. Jugé conforme à l'intention lors du contrôle,
+  volontairement laissé tel quel — à trancher si quelqu'un le rencontre.

@@ -225,7 +225,9 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 `data/*.json` stocke le **CECRL fin** (six valeurs, `niveau: "A1"…"C2"`, rendu en `data-niveau` sur le carnet généré) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'app.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet actuel n'ayant rien au-delà de B2, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un corpus sans aucun niveau classé masque le groupe entier.
 
-**Méthode de classement** (passe initiale du 2026-07-18, 709 mots, distribution A1 327 / A2 268 / B1 107 / B2 7 ; état au 2026-07-19 après les ajouts : 713 mots, A1 328 / A2 271 / B1 107 / B2 7 ; état au 2026-07-21 après le micro-lot niveaux et le lot santé/sécurité de l'audit phase 2 : 729 mots, A1 339 / A2 275 / B1 111 / B2 4 ; état au 2026-07-21 après le lot santé/sécurité P2+P3 : 757 mots, A1 339 / A2 295 / B1 119 / B2 4 ; état au 2026-07-21 après le lot argent-achats/loisirs-culture : **789 mots**, A1 350 / A2 311 / B1 124 / B2 4) — trois critères croisés, dans cet ordre :
+⚠️ **La distribution par niveau ne se recopie plus ici** : elle change à chaque lot de vocabulaire, et toute valeur écrite dans cette page est périmée dès le lot suivant. Une seule autorité, qui la recalcule depuis `data/` : **`node tools/cherche_mots.js --stats`**. (L'historique des lots successifs est dans TODO_ARCHIVE.md.)
+
+**Méthode de classement** (posée à la passe initiale du 2026-07-18, inchangée depuis) — trois critères croisés, dans cet ordre :
 
 1. **Curricula d'hébreu L2 alignés CECRL** : le vocabulaire des niveaux d'oulpan (alef ≈ A1–A2, bet ≈ B1) et des manuels d'hébreu moderne pour débutants ; les listes de survie (salutations, nombres, jours, famille proche, nourriture de base) sont A1 par convention.
 2. **Fréquence en hébreu moderne parlé** : un mot du top courant de la conversation quotidienne descend d'un cran (ex. `lehargish`, `beseder`), un mot rare ou littéraire monte (`tachat` littéraire → B2, `be'ad` → B2).
@@ -235,27 +237,29 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 ### 4.1 Les thèmes sémantiques (`data-theme`)
 
-Depuis le 2026-07-21, chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Quinze thèmes** (douze à la taxonomie initiale ; `vetements-couleurs` ajouté le jour même en seconde passe, puis `argent-achats` et `loisirs-culture` en troisième passe le jour même encore, extraits des fourre-tout — voir les arbitrages ci-dessous), et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Distribution au 2026-07-21, après le troisième reclassement et le lot de 32 mots neufs (573 entrées) :
+Depuis le 2026-07-21, chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Quinze thèmes** (douze à la taxonomie initiale ; `vetements-couleurs` ajouté le jour même en seconde passe, puis `argent-achats` et `loisirs-culture` en troisième passe le jour même encore, extraits des fourre-tout — voir les arbitrages ci-dessous), et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Voici le **contrat** — les slugs et leurs libellés, qui eux ne bougent pas :
 
-| Slug | Libellé (app) | Cartes |
-| --- | --- | --- |
-| `abstrait` | Notions abstraites | 64 |
-| `nourriture` | Nourriture & repas | 57 |
-| `ville-transport` | Ville, lieux & transports | 55 |
-| `maison-objets` | Maison & objets | 46 |
-| `corps-sante` | Corps & santé | 45 |
-| `nature` | Nature & animaux | 37 |
-| `loisirs-culture` | Loisirs & culture | 35 |
-| `communication-pensee` | Parler & penser | 34 |
-| `famille-personnes` | Famille & personnes | 34 |
-| `argent-achats` | Argent & achats | 32 |
-| `travail-etudes` | Travail & études | 31 |
-| `emotions-caractere` | Émotions & caractère | 31 |
-| `vie-quotidienne` | Vie quotidienne | 28 |
-| `vetements-couleurs` | Vêtements & couleurs | 26 |
-| `temps-calendrier` | Temps & calendrier | 18 |
+| Slug | Libellé (app) |
+| --- | --- |
+| `abstrait` | Notions abstraites |
+| `argent-achats` | Argent & achats |
+| `communication-pensee` | Parler & penser |
+| `corps-sante` | Corps & santé |
+| `emotions-caractere` | Émotions & caractère |
+| `famille-personnes` | Famille & personnes |
+| `loisirs-culture` | Loisirs & culture |
+| `maison-objets` | Maison & objets |
+| `nature` | Nature & animaux |
+| `nourriture` | Nourriture & repas |
+| `temps-calendrier` | Temps & calendrier |
+| `travail-etudes` | Travail & études |
+| `vetements-couleurs` | Vêtements & couleurs |
+| `vie-quotidienne` | Vie quotidienne |
+| `ville-transport` | Ville, lieux & transports |
 
-**Le périmètre est délibérément les trois tables.** Les sections listes (nombres, jours, saisons, pronoms…) sont déjà mono-thème par nature : leur catégorie *est* leur thème, un tag serait redondant. `build.js` tient la frontière dans les deux sens : couverture **573/573** sur les tables (une entrée ajoutée sans `data-theme` échoue en nommant le mot — même règle de couverture que `data-niveau`), slug hors `EXPECTED_THEMES` refusé (une faute de frappe créerait un thème fantôme), et `data-theme` posé sur une liste refusé aussi.
+⚠️ **Le nombre de cartes par thème ne se recopie pas ici** — il change à chaque lot. `node tools/cherche_mots.js --stats` l'imprime, trié du moins doté au plus doté, avec la ventilation par niveau : c'est la commande à lancer pour répondre à « quel thème manque ? ».
+
+**Le périmètre est délibérément les trois tables.** Les sections listes (nombres, jours, saisons, pronoms…) sont déjà mono-thème par nature : leur catégorie *est* leur thème, un tag serait redondant. `build.js` tient la frontière dans les deux sens : **couverture intégrale** des trois tables — le build imprime le rapport `n/n` et une entrée ajoutée sans `theme` échoue en nommant le mot — même règle de couverture que `data-niveau`), slug hors `EXPECTED_THEMES` refusé (une faute de frappe créerait un thème fantôme), et `data-theme` posé sur une liste refusé aussi.
 
 Côté app, le filtre est **optionnel** — c'est sa différence voulue avec Catégories et Niveau : aucune puce cochée = « Tous », rien n'est bloqué ; dès qu'un thème est coché, le croisement devient thème × catégorie × niveau **et les cartes sans thème (les listes) sortent du jeu**. `buildThemeChips()` construit les puces depuis les données (thème vide → pas de puce ; slug inconnu de `THEMES` → puce quand même, libellé = slug, le temps qu'on lui donne son libellé) ; préférences persistées dans `prefs_v1` (champ absent = rien de coché, les profils d'avant ne voient rien changer) ; la révision du jour ignore le thème comme elle ignore le niveau.
 
@@ -263,7 +267,7 @@ Côté app, le filtre est **optionnel** — c'est sa différence voulue avec Cat
 
 **Le treizième thème, né d'un arbitrage défait (2026-07-21, seconde passe).** La taxonomie initiale rangeait les couleurs en `abstrait` et les vêtements en `vie-quotidienne` — deux pis-aller documentés comme tels, qui gonflaient précisément les deux plus gros thèmes. `vetements-couleurs` les regroupe : 13 noms (vêtement → t-shirt, lunettes comprises), 11 adjectifs de couleur (rouge → marron), 2 verbes (porter, s'habiller), soit 26 entrées. Sa frontière est « ce qui s'enfile » : sac et bague restent en `vie-quotidienne` (objet transporté / bijou, pas de l'habillement).
 
-**Les quatorzième et quinzième thèmes (2026-07-21, troisième passe) — et le premier lot de vocabulaire neuf par thème.** Même méthode : `vie-quotidienne` (63 entrées) rendait encore deux amas cohérents. `argent-achats` (la transaction et ce qui la paie : acheter, vendre, payer, prix, loyer, riche/pauvre…) et `loisirs-culture` (l'activité et l'œuvre : jouer, chanter, danser, film, musique, ballon…) en extraient 35, et `vie-quotidienne` retombe à 28 (gestes et états du quotidien : se lever, dormir, prendre, donner, attendre…). Les deux frontières, miroir du « ce qui s'enfile » : **« la transaction, pas le lieu »** (magasin, marché, supermarché restent `ville-transport` ; salaire reste `travail-etudes` ; le portefeuille suit l'argent) et **« l'activité et l'œuvre, pas le lieu »** (cinéma, théâtre, musée, bibliothèque restent `ville-transport` ; livre, lire, écrire restent `travail-etudes`). S'y ajoute un **lot de 32 mots neufs** ciblé sur les manques révélés par ces deux champs (sport, vacances, vendeur, monnaie rendue, réduction, gratuit… étaient à zéro) : 14 en `argent-achats`, 18 en `loisirs-culture`, rédigé en sous-agent puis arbitré au fil principal — c'est lui qui porte le carnet de 757 à **789 cartes** et de 605 à **637 exemples**.
+**Les quatorzième et quinzième thèmes (2026-07-21, troisième passe) — et le premier lot de vocabulaire neuf par thème.** Même méthode : `vie-quotidienne` (63 entrées) rendait encore deux amas cohérents. `argent-achats` (la transaction et ce qui la paie : acheter, vendre, payer, prix, loyer, riche/pauvre…) et `loisirs-culture` (l'activité et l'œuvre : jouer, chanter, danser, film, musique, ballon…) en extraient 35, et `vie-quotidienne` retombe à 28 (gestes et états du quotidien : se lever, dormir, prendre, donner, attendre…). Les deux frontières, miroir du « ce qui s'enfile » : **« la transaction, pas le lieu »** (magasin, marché, supermarché restent `ville-transport` ; salaire reste `travail-etudes` ; le portefeuille suit l'argent) et **« l'activité et l'œuvre, pas le lieu »** (cinéma, théâtre, musée, bibliothèque restent `ville-transport` ; livre, lire, écrire restent `travail-etudes`). S'y ajoute un **lot de 32 mots neufs** ciblé sur les manques révélés par ces deux champs (sport, vacances, vendeur, monnaie rendue, réduction, gratuit… étaient à zéro) : 14 en `argent-achats`, 18 en `loisirs-culture`, rédigé en sous-agent puis arbitré au fil principal (le compte de cartes de l'époque n'est pas recopié ici : voir `node tools/cherche_mots.js --stats`).
 
 ### 5. Les exemples en situation
 

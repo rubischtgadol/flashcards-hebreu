@@ -17,6 +17,12 @@ doit plus dépendre de la vigilance du propriétaire.
 
 ## 1. Diagnostic mesuré (23/07/2026)
 
+⚠️ **Instantané daté, conservé comme motivation de cette spec — ne pas le lire comme
+l'état courant.** Plusieurs de ces valeurs ont bougé depuis : `TODO.md` est retombé à
+~32 Ko après deux vagues d'archivage (c'est précisément l'effet recherché), et le carnet
+a grossi. Pour les tailles du jour : `wc -l` ; pour les comptes de contenu :
+`node tools/cherche_mots.js --stats`.
+
 | Source de gaspillage | Taille | Coût d'une lecture complète | Fréquence |
 | --- | --- | --- | --- |
 | `vocabulaire_hebreu.html` | 9 591 lignes | ~100k tokens | chaque lot de contenu |
@@ -26,7 +32,7 @@ doit plus dépendre de la vigilance du propriétaire.
 | `app.html` | 2 480 lignes | ~30k tokens | chantiers UI (le graphe couvre déjà) |
 | `CLAUDE.md` | 21 KB | ~5k tokens **rechargés à chaque tour** | permanent |
 
-TODO.md est devenu le plus gros document du dépôt — plus lourd
+TODO.md était alors le plus gros document du dépôt — plus lourd
 qu'ARCHITECTURE.md. Le trou d'outillage : le dry-run d'`ajoute_mots.js` détecte
 les doublons (§7.A) mais exige la fiche complète (niqqud, formes, exemples)
 avant de répondre — trop tard et trop cher pour un simple « existe-t-il ? ».
@@ -34,13 +40,16 @@ Aucune commande de consultation amont n'existait.
 
 ## 2. Chantier A — `cherche_mots.js`, la consultation par commande
 
-État : **brouillon sur disque** (écrit avant l'arrêt demandé, non commité),
-à ajuster à cette spec une fois validée.
+État : **livré et en service** — `tools/cherche_mots.js`, committé le 23/07 et
+déplacé dans `tools/` au Task 17 du chantier 4 (25/07).
 
 Frère de `verifie_exemples.js` : dev-only, zéro dépendance, non déployé,
-consultation pure (n'écrit jamais rien). Réutilise `extractCards`, `stripNikud`,
-`NOTEBOOK` et les constantes exportés par `build.js` — pas de troisième parseur
-(doctrine SPEC_AJOUTE_MOTS §1).
+consultation pure (n'écrit jamais rien). Réutilise les exports de `build.js` —
+`chargeDonnees`, `deriveCartes`, `stripNikud`, `orthographeVoisine`, `ROOT`,
+`EXPECTED_LEVELS`, `EXPECTED_THEMES` — donc pas de troisième parseur (doctrine
+SPEC_AJOUTE_MOTS §1). ⚠️ La rédaction initiale de cette spec le disait bâti sur
+`extractCards` et `NOTEBOOK` : c'est caduc depuis le chantier 2, qui a supprimé
+tout extracteur HTML — la source est `data/*.json`, plus le carnet généré.
 
 ```text
 node tools/cherche_mots.js TERME [TERME…]   # existe-t-il ? où ?
@@ -314,8 +323,10 @@ CLAUDE.md ne détaille pas l'appariement — rien à y changer, vérifier au pas
 1. Les 6 mots ressortent trouvés (rubrique « orthographe voisine »).
 2. Contre-tests **négatifs** : `לישן` ne remonte pas לשון ; `יפה` ne remonte
    pas פה.
-3. `node tools/build.js --check` vert ; `verifie_exemples.js` à **14** avertissements
-   (pas 15).
+3. `node tools/build.js --check` vert ; `verifie_exemples.js` **sans erreur**, et son
+   compte d'avertissements inchangé par le correctif (il valait 14 à l'époque de ce
+   chantier ; il a suivi la croissance du corpus depuis — ce qui comptait était la
+   stabilité, pas la valeur).
 4. `ajoute_mots.js` : rejouer le lot des 24 déjà inséré donne toujours « Rien à
    insérer » (idempotence intacte), et les 12 cas d'erreur du §8 de
    SPEC_AJOUTE_MOTS restent verts.
