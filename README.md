@@ -42,6 +42,10 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-variantes.html
 >
+> **Référence fondatrice** : l'app SENTRY. Liens, méthode d'extraction, ce qui en a déjà été
+> prélevé et **ce qui reste à explorer — ses animations** :
+> [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md).
+>
 > ⚠️ **Le miroir raw.githack met en cache.** Il suit la branche, mais un fichier
 > peut rester servi dans sa version précédente pendant un moment — sans rien qui le
 > signale. Payé une fois le 24/07 : le test CRT a été passé sur une version périmée
