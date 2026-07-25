@@ -7,10 +7,14 @@
 **Où en est le dépôt (25/07/2026, tout poussé sur `main`).** La réorganisation
 « le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
 contrôle de sortie compris (Task 21 — preuve plus bas). **Aucun chantier n'est
-ouvert** sur `main` ; la suite se choisit dans le contenu (`data/*.json`) ou
-dans « Dette ouverte » (petits défauts connus, aucun bloquant). Les deux
-branches latérales sont **garées** et ne se proposent pas d'elles-mêmes — voir
-« Deux branches latérales » plus bas. Le dépôt est rangé ainsi :
+ouvert** sur `main`, et « Dette ouverte » est vide.
+
+⚠️ **Le chantier courant n'est pas sur `main` : c'est la charte v2, sur
+`refonte-retrofuturiste`** (décision du 25/07 — voir « Deux branches latérales »
+plus bas, qui dit aussi ce que la réorganisation vient de lui faire gagner).
+`main` est au repos ; ce qui suit décrit son rangement.
+
+Le dépôt est rangé ainsi :
 
 | Où | Quoi | S'édite à la main ? |
 | --- | --- | --- |
@@ -67,36 +71,60 @@ Plan complet dans
    service worker sert d'abord le cache et rafraîchit derrière
    (stale-while-revalidate).
 
-### Deux branches latérales — garées, pas oubliées
+### Deux branches latérales — dont le chantier courant
 
 `main` n'en portait aucune trace : consigné ici pour qu'une session ne les
-redécouvre pas par hasard. **Aucune des deux n'est une piste à ouvrir de sa
-propre initiative.** L'écart se relit à tout moment —
+redécouvre pas par hasard. L'écart se relit à tout moment —
 `git rev-list --count main..<branche>` (devant) et
 `git rev-list --count <branche>..main` (derrière).
 
-- **`refonte-retrofuturiste`** — la charte v2 « La console d'étude ». **C'est
-  une refonte purement visuelle**, et elle est **garée volontairement**
-  (décision du propriétaire, 25/07) : elle sera remise à niveau *quand le
-  travail sur `main` sera fini*, pas avant. Ne pas la proposer comme prochain
-  chantier, ne pas chercher à la fusionner en passant. Elle est **sortie en
-  worktree** (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`),
-  donc on ne la `checkout` pas ici. Intention retenue pour le jour venu : les
-  deux chartes coexisteront via un sélecteur à l'accueil.
+- **`refonte-retrofuturiste`** — la charte v2 « La console d'étude », **refonte
+  purement visuelle**. ⚠️ **Elle a été DÉGARÉE le 25/07 : le propriétaire a
+  annoncé qu'il ne travaillerait plus que dessus.** C'est donc le chantier
+  courant ; ce qui suit dans « Reprendre ici » décrit un `main` au repos, pas un
+  dépôt sans travail en cours. Elle est **sortie en worktree**
+  (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`), donc on
+  ne la `checkout` pas depuis ce répertoire-ci. Intention déjà cadrée sur la
+  branche (commit `92e7aa3`, spec §7) : les deux chartes coexisteront via un
+  sélecteur à l'accueil.
 - **`pilier-oral`** — verso des verbes en grille 2×2, accueil idiomatique,
   quelques points de vocabulaire. Pas d'échéance décidée.
 
-⚠️ **Le vrai coût, le jour où l'une sera reprise** : les deux
-branches ont divergé **avant** la réorganisation, donc elles éditent encore
-`app.html`, `index.html` et `vocabulaire_hebreu.html` **à la main**. Ces trois
-fichiers sont maintenant des artefacts générés : un `git merge` produira des
-conflits sur des fichiers qui, de toute façon, seront **écrasés au prochain
-`node tools/build.js`**. Le report ne se fait donc pas par merge mais par
-**re-portage du changement dans sa source** — `src/app/` pour l'app,
-`src/portail/` pour le portail, `data/` + `src/carnet/` pour le carnet —, en
-lisant le diff de la branche comme une spécification, pas comme un patch à
-appliquer. Le prévoir dans l'estimation : ce n'est pas un merge, c'est une
-réécriture guidée.
+⚠️ **Le coût du report n'est PAS le même pour les deux — vérifié le 25/07, après
+une première rédaction qui les mettait à tort dans le même sac.** La commande qui
+tranche, branche par branche :
+
+```bash
+git diff --name-only main...<branche> -- app.html index.html vocabulaire_hebreu.html flashcards_hebreu.html cards.json
+```
+
+- **`refonte-retrofuturiste`** — la sortie est **vide** : la branche n'a jamais
+  touché un seul artefact déployé. C'est une
+  branche d'**exploration de design** : prototypes autonomes (`prototype-*.html`,
+  `specimen-*.html`, `test-crt-iphone.html`), polices dans `polices/`, la spec de
+  la charte, et de la prose. Son résultat n'est donc pas un patch à fusionner
+  mais une **spécification arbitrée à implémenter** — travail neuf, côté `src/`.
+  Ce qui entrera vraiment en conflit à un merge : les docs (la branche les édite
+  à la **racine**, `main` les a déplacées dans `docs/` au Task 17), `data/`
+  (doublon de commit ci-dessous) et `outils_migration/extrait_donnees.js`
+  (supprimé sur `main`, modifié sur la branche) — trois conflits mécaniques,
+  aucun sur du code d'application.
+- **`pilier-oral`** — la sortie **n'est pas vide** : elle édite bel et bien
+  `app.html`, `index.html`, `vocabulaire_hebreu.html` et `flashcards_hebreu.html`
+  **à la main**, alors que ce sont désormais des artefacts régénérés. Là, un
+  `git merge` produirait des conflits sur des fichiers **écrasés au prochain
+  `node tools/build.js`** : le report se fait par **re-portage dans la source**
+  (`src/app/`, `src/portail/`, `data/` + `src/carnet/`), en lisant le diff comme
+  une spécification. Ce n'est pas un merge, c'est une réécriture guidée.
+
+💡 **Et la réorganisation a rendu la charte v2 nettement moins chère qu'à
+l'époque où la branche a été ouverte.** La charte couleur tient maintenant dans
+**`src/tokens.css` — 11 jetons, 4 lignes**, injectés au marqueur
+`<!-- @TOKENS -->` dans les trois pages déployées (piège 5). Une seconde charte
+est donc d'abord un **second jeu de jetons**, plus ce que la v2 ajoute au-delà
+de la couleur (typographie, traitements) dans `src/app/css/` (6 fragments, ~536
+lignes) et `src/portail/`. L'idée déjà cadrée sur la branche — les deux chartes
+coexistant via un sélecteur à l'accueil — se pose donc en ces termes-là.
 
 ⚠️ **Un doublon de commit attend au croisement** : `bcf71d0` (sur
 `refonte-retrofuturiste` seulement) et `ff25eec` (sur `main` seulement) portent
