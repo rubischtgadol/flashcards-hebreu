@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planche des parures v0.1 — Console d'étude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — identiques à prototype-nerv.html (source : SENTRY)
+   ================================================================ */
+:root{
+  --bg:      #05040A;
+  --panneau: #0A0814;
+  --grille:  #0F0C1C;
+  --ligne:   #7a5a14;
+  --ambre:   #f0b32a;
+  --vert:    #54ff8a;
+  --rouge:   #FF4747;
+  --orange:  #ff6a1f;
+  --lune:    #cfd6e6;
+
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{
+  font-family:var(--cond);color:var(--ambre);background:#030208;
+  padding:32px 20px 90px;font-size:15px;line-height:1.45;
+}
+.galerie{max-width:1180px;margin:0 auto}
+.galerie>header{margin-bottom:20px}
+.galerie h1{
+  font-family:var(--mono);font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor;
+}
+.meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+
+.famille{
+  font-family:var(--cond);font-weight:600;color:var(--ambre);
+  font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  margin:44px 0 6px;display:flex;align-items:center;gap:14px;
+}
+.famille .no{font-family:var(--mono);color:var(--vert);flex-shrink:0}
+.famille::after{content:'';flex:1;height:1px;background:var(--ligne)}
+.propos{font-size:.8rem;color:var(--lune);opacity:.75;max-width:66ch;margin-bottom:18px}
+.propos b{color:var(--ambre);font-weight:600;opacity:1}
+
+/* ---- doctrine ---- */
+.constat{border:1px solid var(--ligne);background:rgba(10,8,20,.82);padding:16px 18px;margin-bottom:8px;position:relative}
+.constat .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.constat .coin.a{top:2px;left:4px}.constat .coin.b{bottom:2px;right:4px}
+.constat h2{
+  font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:10px;
+}
+.constat p{font-size:.82rem;color:var(--lune);opacity:.85;max-width:78ch;margin-bottom:9px}
+.constat p:last-child{margin-bottom:0}
+.constat b{color:var(--ambre);font-weight:600;opacity:1}
+
+/* ---- alarme mouvement réduit (leçon du 25/07) ---- */
+.alarme{border:1px solid var(--rouge);background:rgba(255,71,71,.06);padding:14px 16px;margin:0 0 26px;position:relative}
+.alarme[hidden]{display:none}
+.alarme .titre{color:var(--rouge);letter-spacing:.2em;text-transform:uppercase;font-size:.7rem;margin-bottom:6px;text-shadow:0 0 6px currentColor;font-weight:600}
+.alarme p{font-size:.82rem;color:var(--lune);max-width:74ch;margin-bottom:10px}
+.alarme p b{color:var(--ambre)}
+.alarme .comment{font-family:var(--mono);font-size:.74rem;color:var(--ambre);opacity:.85;margin-bottom:12px}
+
+/* ---- barre ---- */
+.barre{
+  display:flex;gap:9px;align-items:center;flex-wrap:wrap;
+  border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne);
+  padding:12px 0;margin:22px 0 8px;position:sticky;top:0;z-index:20;background:#030208;
+}
+.barre .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;color:var(--lune)}
+.btn{
+  font-family:var(--cond);font-weight:600;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:8px 18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2),transform .06s steps(1),box-shadow .12s steps(2);
+}
+.btn:hover{border-color:var(--ambre);text-shadow:0 0 6px currentColor}
+.btn.primaire{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor;box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06)}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+
+/* l'interrupteur SANS / AVEC */
+.bascule{
+  display:inline-flex;align-items:stretch;border:1px solid var(--ligne);border-radius:9999px;
+  overflow:hidden;min-height:44px;
+}
+.bascule button{
+  font-family:var(--cond);font-weight:600;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  background:transparent;color:var(--ambre);border:0;padding:0 13px;cursor:pointer;
+  /* 44px sur le BOUTON, pas sur le conteneur : ses 2px de bordure
+     grignotaient la cible tactile (mesuré 42px le 25/07). */
+  min-height:44px;
+  transition:color .12s steps(2),background .12s steps(2);
+}
+.bascule button[aria-pressed="true"]{background:var(--vert);color:var(--bg);text-shadow:none}
+.bascule button:focus-visible{outline:2px solid var(--vert);outline-offset:-2px}
+
+/* ---- vignettes ---- */
+.rangee{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;margin-bottom:12px}
+.rangee>*{min-width:0;max-width:100%}
+.cellule{width:300px;max-width:100%;flex:0 1 300px}
+.cel-tete{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.cel-nom{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambre)}
+.cel-nom .n{color:var(--vert)}
+.marque{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;padding:2px 7px;border:1px solid var(--ligne);border-radius:9999px}
+.marque.data{color:var(--orange);border-color:var(--orange)}
+.marque.fort{color:var(--vert);border-color:var(--vert);text-shadow:0 0 6px currentColor}
+.cel-note{font-size:.72rem;color:var(--lune);opacity:.62;margin-top:8px}
+.cel-note b{color:var(--ambre);opacity:1}
+
+.vig{
+  background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 6px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 6px 100% no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  border:1px solid var(--ligne);padding:16px 14px;min-height:230px;
+  position:relative;overflow:hidden;display:flex;flex-direction:column;
+}
+.vig .viseur{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);z-index:8;line-height:1}
+.vig .viseur.tl{top:3px;left:5px}.vig .viseur.br{bottom:3px;right:5px}
+.vig>*{position:relative;z-index:3}
+
+/* ---- composants de la charte ---- */
+.statusbar{display:flex;justify-content:space-between;align-items:center;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ligne);padding-bottom:6px;margin-bottom:12px}
+.pilule{font-family:var(--cond);font-weight:600;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);border-radius:9999px;padding:2px 9px}
+.pilule.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.etiquette{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ambre)}
+.etiquette .num{font-family:var(--mono)}
+.carton{font-family:var(--he);font-weight:900;font-size:2.5rem;line-height:1.25;text-align:center;color:var(--ambre);text-shadow:0 0 14px rgba(240,179,42,.35);direction:rtl}
+.tr-ligne{font-family:var(--mono);text-align:center;font-size:.86rem;letter-spacing:.18em;color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.fr-ligne{font-family:var(--mono);text-align:center;font-size:.9rem;letter-spacing:.08em;color:var(--lune)}
+.feed{font-family:var(--mono);font-size:.66rem;line-height:1.8;color:var(--ambre)}
+.feed .l::before{content:'▸ ';color:var(--vert)}
+.hexniv{width:30px;height:34px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--ligne);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.hexniv .in{width:26px;height:30px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--panneau);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hexniv .lettre{font-family:var(--he);font-weight:900;font-size:.85rem;color:var(--ambre);line-height:1.1}
+.hexniv .lab{font-family:var(--mono);font-size:.4rem;letter-spacing:.12em;color:var(--vert);line-height:1.3}
+
+/* ================================================================
+   MOUVEMENT RÉDUIT — coupure conditionnelle, pseudo-éléments inclus.
+   Les parures STATIQUES restent : ce sont des ornements, pas du
+   mouvement. Seuls les gestes (08, 13) se figent.
+   ================================================================ */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) *,
+  body:not(.force-anim) *::before,
+  body:not(.force-anim) *::after{animation:none !important;transition:none !important}
+}
+
+/* ════════════════ A — LA VEDETTE HÉBRAÏQUE ════════════════ */
+
+/* 01 ── la lettre fantôme : l'initiale du mot, en filigrane géant */
+.p01 .fantome{
+  position:absolute;inset:0;z-index:1;display:none;
+  align-items:center;justify-content:center;
+  font-family:var(--he);font-weight:900;font-size:11rem;line-height:1;
+  color:rgba(240,179,42,.055);pointer-events:none;user-select:none;
+}
+.p01.avec .fantome{display:flex}
+
+/* 02 ── le nikoud dans sa propre teinte */
+.p02.avec .niq{color:var(--vert);opacity:.92}
+
+/* 03 ── la racine en vedette, les serviles en retrait */
+.p03.avec .servile{opacity:.34}
+.p03.avec .racine{color:var(--ambre);text-shadow:0 0 16px rgba(240,179,42,.55)}
+.p03 .legende{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--vert);text-align:center;opacity:0;margin-top:2px}
+.p03.avec .legende{opacity:.8}
+
+/* 04 ── la cursive sur sa réglure de cahier */
+.cursive{font-family:var(--he);font-size:1.5rem;direction:rtl;text-align:center;color:var(--lune);opacity:.75;padding:6px 0}
+.p04 .reglure{position:relative}
+.p04.avec .reglure{
+  background:
+    linear-gradient(to bottom, transparent calc(50% - 1px), rgba(122,90,20,.55) calc(50% - 1px), rgba(122,90,20,.55) 50%, transparent 50%),
+    repeating-linear-gradient(to right, rgba(122,90,20,.28) 0 4px, transparent 4px 9px) bottom left / 100% 1px no-repeat;
+}
+
+/* ════════════════ B — LA MATIÈRE DE LA CARTE ════════════════ */
+
+/* 05 ── l'épaisseur : la pile de cartes restantes */
+.p05 .pile-fond{position:absolute;z-index:0;border:1px solid var(--ligne);opacity:0;transition:opacity .2s steps(2)}
+.p05.avec .pile-fond{opacity:.55}
+.p05 .pf1{inset:10px -5px -5px 10px;opacity:0}
+.p05 .pf2{inset:18px -10px -10px 18px;opacity:0}
+.p05.avec .pf1{opacity:.5}
+.p05.avec .pf2{opacity:.24}
+.p05 .interne{position:relative;z-index:2;background:var(--bg);border:1px solid var(--ligne);padding:14px 12px;flex:1;display:flex;flex-direction:column}
+
+/* 06 ── le cartouche : coin poinçonné + œillet */
+.p06 .fiche{border:1px solid var(--ligne);padding:14px 12px;position:relative;flex:1;display:flex;flex-direction:column;justify-content:center}
+.p06.avec .fiche{
+  clip-path:polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+  border-color:var(--ambre);
+}
+.p06 .oeillet{position:absolute;top:10px;left:10px;width:11px;height:11px;border-radius:50%;border:1px solid var(--ligne);opacity:0}
+.p06.avec .oeillet{opacity:1}
+.p06 .encoche{position:absolute;top:0;right:0;width:18px;height:18px;opacity:0;
+  background:linear-gradient(to bottom left, transparent 49%, var(--ambre) 49%, var(--ambre) 51%, transparent 51%)}
+.p06.avec .encoche{opacity:1}
+
+/* 07 ── le filigrane de niveau */
+.p07 .filigrane{
+  position:absolute;inset:0;z-index:1;display:none;align-items:center;justify-content:center;
+  pointer-events:none;user-select:none;
+  font-family:var(--cond);font-weight:600;font-size:5.4rem;letter-spacing:.12em;
+  color:transparent;-webkit-text-stroke:1px rgba(122,90,20,.55);
+  transform:rotate(-27deg);
+}
+.p07.avec .filigrane{display:flex}
+
+/* ════════════════ C — LES ORNEMENTS DE DONNÉES ════════════════ */
+
+/* 08 ── le sceau de fin de session */
+.sceau{width:118px;height:118px;margin:0 auto;position:relative;opacity:0}
+.p08.avec .sceau{opacity:1}
+.sceau svg{display:block}
+.sceau .anneau{fill:none;stroke:var(--ambre);stroke-width:1.5;opacity:.85}
+.sceau .anneau.fin{stroke-width:.7;opacity:.5}
+.sceau .dents{stroke:var(--ambre);stroke-width:1;opacity:.55}
+.sceau text{fill:var(--ambre)}
+.sceau .he{font-family:var(--he);font-weight:900;font-size:19px}
+.sceau .mono{font-family:var(--mono);font-size:7px;letter-spacing:.22em}
+@keyframes tampon{
+  0%  {transform:scale(2.1);opacity:0}
+  55% {transform:scale(.94);opacity:1}
+  100%{transform:scale(1);opacity:1}
+}
+.p08.avec.frappe .sceau{animation:tampon .34s steps(4) backwards;transform-origin:50% 50%}
+
+/* 09 ── la constellation des thèmes */
+.constel .lien{stroke:rgba(122,90,20,.5);stroke-width:1}
+.constel .etoile{fill:var(--lune);opacity:.45}
+.constel .etoile.acquise{fill:var(--ambre);opacity:1}
+.constel .halo{fill:none;stroke:var(--ambre);stroke-width:.8;opacity:0}
+.constel text{font-family:var(--mono);font-size:6.5px;fill:var(--ligne);letter-spacing:.12em}
+.p09:not(.avec) .constel .lien{opacity:0}
+.p09:not(.avec) .constel .etoile.acquise{fill:var(--lune);opacity:.45}
+.p09:not(.avec) .constel text{opacity:0}
+.p09.avec .constel .halo{opacity:.4}
+
+/* 10 ── la date hébraïque dans la barre d'état */
+.p10 .datehe{opacity:0;font-family:var(--he);font-size:.9rem;color:var(--ambre)}
+.p10.avec .datehe{opacity:.9}
+.p10 .dategreg{font-family:var(--mono);font-size:.66rem}
+.p10.avec .dategreg{opacity:.45}
+
+/* ════════════════ D — LES MICRO-GESTES ════════════════ */
+
+/* 11 ── la graduation qui suit le défilement */
+/* La vignette doit être PLUS COURTE que son contenu, sinon il n'y a rien à
+   faire défiler et la démonstration est vide (mesuré le 25/07 :
+   scrollHeight === clientHeight, le curseur ne bougeait jamais). */
+.p11.vig{height:300px}
+.p11 .zone{flex:1;min-height:0;overflow-y:auto;padding-right:14px;position:relative}
+.p11 .regle-bord{position:absolute;top:14px;right:5px;bottom:14px;width:5px;z-index:6;
+  background:repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 9px);opacity:0}
+.p11.avec .regle-bord{opacity:1}
+.p11 .curseur-bord{position:absolute;right:4px;width:7px;height:26px;z-index:7;
+  background:var(--vert);box-shadow:0 0 7px rgba(84,255,138,.6);opacity:0;
+  clip-path:polygon(0 4px,100% 0,100% 100%,0 calc(100% - 4px))}
+.p11.avec .curseur-bord{opacity:.9}
+.p11 .zone p{font-size:.74rem;color:var(--lune);opacity:.8;margin-bottom:9px}
+
+/* 12 ── le bouton qui s'enfonce */
+.p12 .btn.demo:active{transform:translateY(1px);box-shadow:inset 0 2px 6px rgba(0,0,0,.6)}
+.p12:not(.avec) .btn.demo:active{transform:none;box-shadow:none}
+.p12:not(.avec) .btn.demo.primaire:active{box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06)}
+
+/* 13 ── l'écho de saisie : l'hébreu s'allume à mesure qu'on tape */
+.p13 .echo{font-family:var(--he);font-weight:900;font-size:2.3rem;direction:rtl;text-align:center;line-height:1.3}
+.p13 .echo .u{color:rgba(240,179,42,.2);transition:color .1s steps(1),text-shadow .1s steps(1)}
+.p13.avec .echo .u.vu{color:var(--ambre);text-shadow:0 0 12px rgba(240,179,42,.5)}
+.p13:not(.avec) .echo .u{color:var(--ambre)}
+.champ{
+  font-family:var(--mono);font-size:.9rem;color:var(--vert);
+  background:rgba(10,8,20,.85);border:1px solid var(--ligne);padding:10px 12px;width:100%;
+}
+.champ::placeholder{color:var(--ambre);opacity:.4}
+.champ:focus{outline:none;border-color:var(--vert);box-shadow:0 0 8px rgba(84,255,138,.25)}
+
+.pied-note{margin-top:52px;border-top:1px solid var(--ligne);padding-top:16px;font-size:.74rem;color:var(--lune);opacity:.72;max-width:78ch}
+.pied-note b{color:var(--ambre);opacity:1}
+</style>
+</head>
+<body>
+<div class="galerie">
+
+<header>
+  <h1>Les parures</h1>
+  <p class="meta-ligne">Planche v0.1 · 13 propositions d'ornement pour l'app · chacune en <b>sans / avec</b> · la charte console, poussée vers le beau</p>
+</header>
+
+<div class="alarme" id="alarme" hidden>
+  <div class="titre">Deux propositions sur treize ne joueront pas</div>
+  <p><b>Ce n'est pas un défaut de la planche.</b> Votre système est réglé sur <b>« Réduire les animations »</b>. Ici la plupart des parures sont <b>statiques</b> et resteront visibles — seuls le <b>sceau (08)</b> et l'<b>écho de saisie (13)</b> sont des gestes et se figeront.</p>
+  <p class="comment">iPhone · Réglages ▸ Accessibilité ▸ Mouvement ▸ Réduire les animations</p>
+  <button class="btn primaire" id="forcer">▶ Animer quand même, sur cette page</button>
+</div>
+
+<div class="constat">
+  <span class="coin a">+</span><span class="coin b">+</span>
+  <h2>De quoi il s'agit — et ce qui distingue cette planche des deux autres</h2>
+  <p>Le <b>mouvement</b> (planche 1) répond à « qu'est-ce qui bouge quand il se passe quelque chose ». L'<b>âme</b> (planche 2) répond à « qu'est-ce qui vit quand rien ne se passe ». Celle-ci répond à une troisième question, qui n'est pas une question de mouvement : <b>de quoi l'app est-elle faite ?</b> Des ornements, de la matière, des détails qu'on ne remarque qu'à la dixième session et qui font qu'un objet paraît <b>fabriqué</b> plutôt que généré.</p>
+  <p>Trois d'entre elles ne sont pas seulement décoratives — elles <b>enseignent quelque chose</b> : le nikoud dans sa propre teinte (02), la racine mise en vedette (03), et l'écho de saisie (13). Ce sont mes préférées, parce que la beauté y coïncide avec l'utilité. La <b>racine</b> demande en revanche une donnée qu'on n'a pas encore : voir sa vignette.</p>
+  <p><b>Aucune ne contredit la charte</b> : rien ne teinte ni ne fait vibrer la surface, l'or plein reste réservé à ce qui est actif, et onze des treize sont entièrement statiques — donc gratuites en batterie et insensibles au mouvement réduit.</p>
+</div>
+
+<div class="barre">
+  <span class="lab">Toutes</span>
+  <button class="btn primaire" id="tout-avec">Tout avec</button>
+  <button class="btn danger" id="tout-sans">Tout sans</button>
+  <span class="lab" style="margin-left:auto">Comparez toujours en basculant, jamais de mémoire</span>
+</div>
+
+<!-- ════════════════════════════════ A ════════════════════════════════ -->
+<h2 class="famille"><span class="no">A</span> La vedette hébraïque</h2>
+<p class="propos">Le mot hébreu est ce qu'on regarde des centaines de fois par session. <b>C'est là que le soin se voit le plus</b>, et c'est là qu'un ornement peut cesser d'être décoratif pour devenir pédagogique.</p>
+
+<div class="rangee">
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">01</span> Lettre fantôme</span>
+      <span class="bascule" data-cible="p01"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p01 avec">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="fantome" lang="he" aria-hidden="true">ח</div>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+      <div style="margin:auto 0">
+        <div class="carton" lang="he">חַלּוֹן</div>
+        <div class="tr-ligne">chalon</div>
+        <div class="fr-ligne">fenêtre</div>
+      </div>
+    </div>
+    <p class="cel-note">L'initiale du mot, en filigrane géant derrière la carte, à 5,5 % d'opacité. Repêché des 9 modules écartés — <b>il n'avait pas été jugé pour lui-même</b>.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">02</span> Nikoud teinté</span>
+      <span class="marque fort">enseigne</span>
+      <span class="bascule" data-cible="p02"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p02 avec">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Vocalisation</span><span class="pilule ok">A2</span></div>
+      <div style="margin:auto 0">
+        <div class="carton" lang="he" data-niqoud>חַלּוֹן</div>
+        <div class="carton" lang="he" data-niqoud style="font-size:1.9rem;margin-top:8px">מַפְתֵּחַ</div>
+      </div>
+      <div class="feed"><span class="l">voyelles · calque distinct</span></div>
+    </div>
+    <p class="cel-note">Les points-voyelles rendus en phosphore, les consonnes en ambre. <b>La vocalisation devient un calque lisible</b> au lieu d'un bruit de points. Découpage fait à l'exécution, aucune donnée à ajouter.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">03</span> Racine en vedette</span>
+      <span class="marque data">donnée</span>
+      <span class="bascule" data-cible="p03"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p03 avec">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Verbe · présent</span><span class="pilule ok">B1</span></div>
+      <div style="margin:auto 0">
+        <div class="carton" lang="he"><span class="servile">לְ</span><span class="racine">דַ</span><span class="racine">בֵּ</span><span class="racine">ר</span></div>
+        <div class="legende">racine ד · ב · ר</div>
+        <div class="tr-ligne" style="margin-top:6px">ledaber</div>
+        <div class="fr-ligne">parler</div>
+      </div>
+    </div>
+    <p class="cel-note">Les trois lettres de la racine en pleine lumière, les serviles en retrait. <b>C'est la structure même de l'hébreu rendue visible.</b> ⚠️ Demande un champ <b>racine</b> dans <b>data/*.json</b> — c'est la seule proposition de la planche qui ait un coût en contenu.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">04</span> Réglure de cahier</span>
+      <span class="bascule" data-cible="p04"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p04 avec">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Écriture · cursive</span><span class="pilule ok">Tracé</span></div>
+      <div style="margin:auto 0">
+        <div class="carton" lang="he" style="font-size:1.9rem">חַלּוֹן</div>
+        <div class="reglure" style="margin-top:14px"><div class="cursive" lang="he">חלון</div></div>
+      </div>
+    </div>
+    <p class="cel-note">La ligne cursive posée sur une <b>réglure de cahier d'écriture</b> — ligne médiane pleine, ligne de base pointillée. Le seul endroit où « le carnet du soir » peut faire un clin d'œil à la console.</p>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════ B ════════════════════════════════ -->
+<h2 class="famille"><span class="no">B</span> La matière de la carte</h2>
+<p class="propos">Aujourd'hui une carte est un rectangle. Ces quatre propositions lui donnent une <b>épaisseur, une découpe, une provenance</b> — elle cesse d'être une div pour devenir un objet qu'on manipule.</p>
+
+<div class="rangee">
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">05</span> L'épaisseur du paquet</span>
+      <span class="bascule" data-cible="p05"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p05 avec" style="padding:14px 20px 24px 14px">
+      <span class="viseur tl">+</span>
+      <div class="pile-fond pf2"></div><div class="pile-fond pf1"></div>
+      <div class="interne">
+        <div class="statusbar"><span>Carte <span style="font-family:var(--mono)">012</span></span><span class="pilule ok">A2</span></div>
+        <div style="margin:auto 0">
+          <div class="carton" lang="he" style="font-size:2.1rem">חַלּוֹן</div>
+          <div class="fr-ligne">fenêtre</div>
+        </div>
+        <div class="feed"><span class="l">reste 15 en file</span></div>
+      </div>
+    </div>
+    <p class="cel-note">Deux tranches décalées derrière la carte : <b>on voit qu'il en reste</b>. Le nombre de tranches peut suivre la file — une carte seule n'en a aucune, et ça se sent.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">06</span> Cartouche poinçonné</span>
+      <span class="bascule" data-cible="p06"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p06 avec">
+      <span class="viseur br">+</span>
+      <div class="fiche">
+        <span class="oeillet"></span><span class="encoche"></span>
+        <div class="etiquette" style="text-align:center;margin-bottom:8px">Objet <span class="num">0421</span></div>
+        <div class="carton" lang="he" style="font-size:2.1rem">מַפְתֵּחַ</div>
+        <div class="fr-ligne">clé</div>
+      </div>
+    </div>
+    <p class="cel-note">Coin supérieur coupé et <b>œillet de classement</b> : la carte devient une fiche perforée d'archive. Le coin coupé existe déjà sur les onglets — ici il passe sur la carte elle-même.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">07</span> Filigrane de niveau</span>
+      <span class="bascule" data-cible="p07"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p07 avec">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="filigrane" aria-hidden="true">A2</div>
+      <div class="statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+      <div style="margin:auto 0">
+        <div class="carton" lang="he">חַלּוֹן</div>
+        <div class="fr-ligne">fenêtre</div>
+      </div>
+    </div>
+    <p class="cel-note">Le niveau CECR en <b>lettres creuses barrées en diagonale</b>, comme un tampon de dossier. Redondant avec l'insigne hexagonal — <b>à choisir, pas à cumuler</b>.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">08</span> Sceau de session</span>
+      <span class="bascule" data-cible="p08"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span>
+      <button class="btn" id="frapper" style="font-size:.6rem;padding:4px 12px;min-height:44px">▶ frapper</button></div>
+    <div class="vig p08 avec" style="justify-content:center">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Session · close</span><span class="pilule ok">27 / 27</span></div>
+      <div class="sceau" style="margin:auto">
+        <svg width="118" height="118" viewBox="0 0 118 118" aria-hidden="true">
+          <circle class="anneau" cx="59" cy="59" r="55"/>
+          <circle class="anneau fin" cx="59" cy="59" r="49"/>
+          <g class="dents">
+            <line x1="59" y1="4" x2="59" y2="11"/><line x1="59" y1="107" x2="59" y2="114"/>
+            <line x1="4" y1="59" x2="11" y2="59"/><line x1="107" y1="59" x2="114" y2="59"/>
+            <line x1="20" y1="20" x2="25" y2="25"/><line x1="93" y1="93" x2="98" y2="98"/>
+            <line x1="20" y1="98" x2="25" y2="93"/><line x1="93" y1="25" x2="98" y2="20"/>
+          </g>
+          <text class="mono" x="59" y="36" text-anchor="middle">SESSION CLOSE</text>
+          <text class="he" x="59" y="66" text-anchor="middle">כ״ה</text>
+          <text class="mono" x="59" y="84" text-anchor="middle">85 % · 27 OBJETS</text>
+        </svg>
+      </div>
+      <div class="feed" style="text-align:center"><span class="l">cachet apposé</span></div>
+    </div>
+    <p class="cel-note">Un <b>cachet frappé</b> à la fin de chaque session, avec le quantième hébraïque. Le seul endroit où l'app a le droit d'être solennelle — c'est une récompense, elle ne se voit qu'une fois par soir.</p>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════ C ════════════════════════════════ -->
+<h2 class="famille"><span class="no">C</span> Les ornements de données</h2>
+<p class="propos">L'app connaît beaucoup de choses sur vous et n'en montre presque rien. <b>Rendre la donnée belle, c'est la rendre désirable</b> — et ça donne une raison de rouvrir l'app en dehors d'une session.</p>
+
+<div class="rangee">
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">09</span> Constellation des thèmes</span>
+      <span class="bascule" data-cible="p09"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p09 avec">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Thèmes · acquis</span><span style="font-family:var(--mono);color:var(--vert)">6 / 15</span></div>
+      <svg class="constel" width="252" height="168" viewBox="0 0 252 168" style="margin:auto" aria-hidden="true">
+        <g>
+          <line class="lien" x1="40" y1="40" x2="88" y2="66"/><line class="lien" x1="88" y1="66" x2="140" y2="38"/>
+          <line class="lien" x1="140" y1="38" x2="196" y2="60"/><line class="lien" x1="88" y1="66" x2="104" y2="118"/>
+          <line class="lien" x1="104" y1="118" x2="164" y2="132"/><line class="lien" x1="164" y1="132" x2="196" y2="60"/>
+          <line class="lien" x1="40" y1="40" x2="52" y2="104"/><line class="lien" x1="52" y1="104" x2="104" y2="118"/>
+        </g>
+        <circle class="halo" cx="88" cy="66" r="9"/><circle class="halo" cx="164" cy="132" r="9"/>
+        <circle class="etoile acquise" cx="40" cy="40" r="3.4"/>
+        <circle class="etoile acquise" cx="88" cy="66" r="4.2"/>
+        <circle class="etoile" cx="140" cy="38" r="2.6"/>
+        <circle class="etoile acquise" cx="196" cy="60" r="3.4"/>
+        <circle class="etoile" cx="52" cy="104" r="2.6"/>
+        <circle class="etoile acquise" cx="104" cy="118" r="3.4"/>
+        <circle class="etoile acquise" cx="164" cy="132" r="4.2"/>
+        <text x="46" y="32">MAISON</text><text x="94" y="58">CORPS</text>
+        <text x="146" y="30">VILLE</text><text x="200" y="52">TEMPS</text>
+        <text x="58" y="98">OUTILS</text><text x="110" y="112">CUISINE</text><text x="170" y="126">VOYAGE</text>
+      </svg>
+    </div>
+    <p class="cel-note">Chaque thème une étoile, la <b>maîtrise en fait sa magnitude</b> ; les liens se tracent entre thèmes acquis. Le module orbital existe déjà — celui-ci raconte la progression au lieu du catalogue.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">10</span> Le quantième hébraïque</span>
+      <span class="bascule" data-cible="p10"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p10 avec">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar">
+        <span class="datehe" lang="he">כ״ה בְּתַמּוּז</span>
+        <span class="dategreg">21 h 47</span>
+      </div>
+      <div style="margin:auto 0">
+        <div class="carton" lang="he" style="font-size:2.1rem">עֶרֶב טוֹב</div>
+        <div class="fr-ligne">bonsoir</div>
+      </div>
+      <div class="feed"><span class="l">session du soir · 27 objets en file</span></div>
+    </div>
+    <p class="cel-note">La date hébraïque du jour dans la barre d'état, à côté de l'heure. <b>Presque rien, et ça change tout</b> : l'app cesse d'être une app de langue pour devenir une app de cette langue-là. ⚠️ Date d'exemple — le calcul se ferait à l'exécution.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">11</span> La règle qui suit</span>
+      <span class="bascule" data-cible="p11"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p11 avec">
+      <span class="viseur tl">+</span>
+      <div class="regle-bord"></div><div class="curseur-bord" id="curseurBord" style="top:14px"></div>
+      <div class="statusbar"><span>Carnet · défilement</span><span class="pilule ok">Partie 2</span></div>
+      <div class="zone" id="zoneScroll">
+        <p><b style="color:var(--ambre)">Faites défiler ce panneau.</b> La graduation de bord n'est plus un ornement fixe : elle devient l'indicateur de position.</p>
+        <p>Le carnet fait plusieurs milliers de lignes. Une barre de défilement grise y est une pièce rapportée ; une règle graduée, non.</p>
+        <p>La poignée reprend la forme pentagonale du curseur de mission, déjà dans la charte.</p>
+        <p>Rien n'est ajouté à l'écran : un élément décoratif existant se met simplement à dire quelque chose.</p>
+        <p>C'est le principe le plus économe de la planche — aucune surface neuve, aucun pixel de plus.</p>
+        <p>Fin du panneau.</p>
+      </div>
+    </div>
+    <p class="cel-note">Les graduations de bord (module 08) <b>deviennent la barre de défilement</b> du carnet. Un ornement qui se met à servir, sans rien ajouter à l'écran.</p>
+  </div>
+
+  <div class="cellule">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">12</span> Le bouton s'enfonce</span>
+      <span class="bascule" data-cible="p12"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p12 avec" style="justify-content:center;align-items:center;gap:14px">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <p style="font-size:.74rem;color:var(--lune);opacity:.75;text-align:center;max-width:26ch">Maintenez un bouton appuyé, puis basculez et recommencez.</p>
+      <button class="btn primaire demo">Révéler</button>
+      <button class="btn demo">Passer</button>
+      <button class="btn danger demo">À revoir</button>
+    </div>
+    <p class="cel-note">1 px d'enfoncement et une ombre interne au maintien, en <b>steps(1)</b>. Le seul retour tactile que l'app puisse donner sans vibreur — et il est <b>gratuit</b>.</p>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════ D ════════════════════════════════ -->
+<h2 class="famille"><span class="no">D</span> Le geste qui enseigne</h2>
+<p class="propos">La proposition qui va le plus loin : une parure qui <b>fait apprendre</b>. Si une seule idée de cette planche doit survivre, je propose que ce soit celle-ci.</p>
+
+<div class="rangee">
+  <div class="cellule" style="flex:0 1 420px;width:420px">
+    <div class="cel-tete"><span class="cel-nom"><span class="n">13</span> L'écho de saisie</span>
+      <span class="marque fort">enseigne</span>
+      <span class="bascule" data-cible="p13"><button data-v="0">sans</button><button data-v="1" aria-pressed="true">avec</button></span></div>
+    <div class="vig p13 avec" style="min-height:266px">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="statusbar"><span>Mode · Saisie</span><span class="pilule ok">Voix · OK</span></div>
+      <div style="margin:auto 0">
+        <div class="echo" lang="he" id="echo"></div>
+        <div class="fr-ligne" style="margin:10px 0 14px">fenêtre</div>
+        <label for="saisie" style="display:block;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;margin-bottom:5px">Tapez la translittération</label>
+        <input class="champ" id="saisie" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="c · h · a · l · o · n">
+      </div>
+      <div class="feed"><span class="l" id="echoEtat">en attente de saisie</span></div>
+    </div>
+    <p class="cel-note">À mesure que vous tapez <b>chalon</b>, les lettres hébraïques <b>s'allument une à une</b>, de droite à gauche. Vous n'écrivez plus dans le vide : vous voyez le mot se construire. Ça transforme le mode le plus austère de l'app — celui qui, aujourd'hui, <b>n'a aucune animation du tout</b> (mesuré sur le site déployé le 25/07) — en celui qui en a le plus. Aucune donnée nouvelle : la correspondance se déduit du nombre de lettres.</p>
+  </div>
+
+  <div class="cellule" style="flex:1 1 300px">
+    <div class="cel-tete"><span class="cel-nom">Ce que je recommande</span></div>
+    <div class="vig" style="min-height:266px;display:block">
+      <span class="viseur tl">+</span><span class="viseur br">+</span>
+      <div class="feed" style="line-height:2.1">
+        <span class="l"><b style="color:var(--vert)">Prendre sans hésiter</b> — 02 nikoud teinté, 13 écho de saisie, 12 bouton enfoncé, 10 quantième hébraïque</span>
+        <span class="l"><b style="color:var(--ambre)">Prendre si le contenu suit</b> — 03 racine en vedette (coût : un champ dans data/)</span>
+        <span class="l"><b style="color:var(--ambre)">Belles mais à doser</b> — 01 lettre fantôme, 05 épaisseur, 08 sceau, 09 constellation</span>
+        <span class="l"><b style="color:var(--lune)">À choisir, pas à cumuler</b> — 06 cartouche et 07 filigrane font double emploi avec l'insigne de niveau</span>
+        <span class="l"><b style="color:var(--lune)">La plus économe</b> — 11 la règle qui suit : aucune surface neuve</span>
+        <span class="l"><b style="color:var(--lune)">La plus discrète</b> — 04 réglure de cahier, visible seulement en mode cursive</span>
+      </div>
+    </div>
+    <p class="cel-note">Un avis, pas un verdict. <b>Le vôtre remplace le mien</b> — et « tout sans » reste une réponse défendable : la charte est belle nue.</p>
+  </div>
+</div>
+
+<p class="pied-note">
+  <b>Ce qu'on vous demande.</b> Pour chacune des treize : <span style="font-family:var(--mono)">prendre</span>, <span style="font-family:var(--mono)">jeter</span>, ou <span style="font-family:var(--mono)">prendre plus discret</span>. Basculez toujours en <b>sans / avec</b> plutôt que de juger de mémoire — un ornement paraît toujours bien tant qu'on n'a pas revu l'écran sans lui.
+  <br><br>
+  <b>Onze sur treize sont statiques</b> : elles ne coûtent rien en batterie, ne tournent pas au repos et survivent au mouvement réduit. Seuls le sceau (08) et l'écho de saisie (13) sont des gestes. Et <b>aucune n'ajoute d'effet de surface d'écran</b> — le registre rejeté sur l'appareil le 24/07 reste dehors.
+</p>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---- alarme mouvement réduit + dérogation locale (leçon du 25/07) ---- */
+  var MQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var alarme = document.getElementById('alarme');
+  var bForcer = document.getElementById('forcer');
+  function majAlarme(){ if (alarme) alarme.hidden = !(MQ && MQ.matches); }
+  majAlarme();
+  if (MQ && MQ.addEventListener) MQ.addEventListener('change', majAlarme);
+  if (bForcer) bForcer.addEventListener('click', function(){
+    var actif = document.body.classList.toggle('force-anim');
+    bForcer.textContent = actif ? '■ Rendre la page immobile' : '▶ Animer quand même, sur cette page';
+  });
+
+  /* ---- les bascules SANS / AVEC ---- */
+  function applique(cible, avec){
+    var vig = document.querySelector('.' + cible);
+    if (vig) vig.classList.toggle('avec', avec);
+    document.querySelectorAll('.bascule[data-cible="' + cible + '"]').forEach(function(b){
+      b.querySelectorAll('button').forEach(function(x){
+        var estAvec = x.getAttribute('data-v') === '1';
+        if (estAvec === avec) x.setAttribute('aria-pressed','true');
+        else x.removeAttribute('aria-pressed');
+      });
+    });
+  }
+  var CIBLES = [];
+  document.querySelectorAll('.bascule[data-cible]').forEach(function(b){
+    var cible = b.getAttribute('data-cible');
+    if (CIBLES.indexOf(cible) < 0) CIBLES.push(cible);
+    b.querySelectorAll('button').forEach(function(x){
+      x.addEventListener('click', function(){ applique(cible, x.getAttribute('data-v') === '1'); });
+    });
+  });
+  document.getElementById('tout-avec').addEventListener('click', function(){
+    CIBLES.forEach(function(c){ applique(c, true); });
+  });
+  document.getElementById('tout-sans').addEventListener('click', function(){
+    CIBLES.forEach(function(c){ applique(c, false); });
+  });
+
+  /* ---- 02 : découper le nikoud du texte hébreu.
+     Les marques hébraïques occupent U+0591–U+05C7 ; elles suivent leur
+     consonne. On les enveloppe sans changer l'ordre, donc sans casser le
+     rendu, et on garde le lang="he" porté par le parent. ---- */
+  function teinteNikoud(el){
+    var txt = el.textContent, sortie = '', dedans = false;
+    for (var i = 0; i < txt.length; i++){
+      var c = txt[i], code = txt.charCodeAt(i);
+      var marque = (code >= 0x0591 && code <= 0x05C7);
+      if (marque && !dedans){ sortie += '<span class="niq">'; dedans = true; }
+      else if (!marque && dedans){ sortie += '</span>'; dedans = false; }
+      sortie += c;
+    }
+    if (dedans) sortie += '</span>';
+    el.innerHTML = sortie;
+  }
+  document.querySelectorAll('[data-niqoud]').forEach(teinteNikoud);
+
+  /* ---- 08 : frapper le sceau ---- */
+  var bFrapper = document.getElementById('frapper');
+  bFrapper.addEventListener('click', function(){
+    var v = document.querySelector('.p08');
+    applique('p08', true);
+    v.classList.remove('frappe');
+    void v.offsetWidth;
+    v.classList.add('frappe');
+  });
+
+  /* ---- 11 : la règle de bord suit le défilement ---- */
+  var zone = document.getElementById('zoneScroll');
+  var curseur = document.getElementById('curseurBord');
+  function majRegle(){
+    var piste = zone.clientHeight - 26;
+    var max = zone.scrollHeight - zone.clientHeight;
+    var p = max > 0 ? zone.scrollTop / max : 0;
+    curseur.style.top = (14 + p * piste) + 'px';
+  }
+  zone.addEventListener('scroll', majRegle);
+  majRegle();
+
+  /* ---- 13 : l'écho de saisie.
+     חַלּוֹן se découpe en 4 unités consonne+voyelles, et « chalon » en 4
+     paliers : ch / a / lo / n. Chaque palier atteint allume son unité,
+     de droite à gauche. ---- */
+  var UNITES = ['חַ', 'לּ', 'וֹ', 'ן'];
+  var PALIERS = ['ch', 'cha', 'chalo', 'chalon'];
+  var echo = document.getElementById('echo');
+  var saisie = document.getElementById('saisie');
+  var etat = document.getElementById('echoEtat');
+  UNITES.forEach(function(u){
+    var s = document.createElement('span');
+    s.className = 'u';
+    s.textContent = u;
+    echo.appendChild(s);
+  });
+  var spans = echo.querySelectorAll('.u');
+  saisie.addEventListener('input', function(){
+    var v = saisie.value.toLowerCase().replace(/[^a-z']/g, '');
+    var n = 0;
+    for (var i = 0; i < PALIERS.length; i++) if (v.indexOf(PALIERS[i]) === 0) n = i + 1;
+    spans.forEach(function(s, i){ s.classList.toggle('vu', i < n); });
+    if (!v) etat.textContent = 'en attente de saisie';
+    else if (n === UNITES.length) etat.textContent = 'mot complet · חַלּוֹן';
+    else etat.textContent = n + ' / ' + UNITES.length + ' unités allumées';
+  });
+})();
+</script>
+</body>
+</html>

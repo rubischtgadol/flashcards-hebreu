@@ -33,6 +33,16 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-ame.html
 >
+> **➡️ La planche des parures** (25/07) — 13 propositions d'**ornement pour l'app**, chacune
+> en bascule **sans / avec** : lettre fantôme, **nikoud teinté**, **racine en vedette**, réglure
+> de cahier, épaisseur du paquet, cartouche poinçonné, filigrane de niveau, sceau de session,
+> constellation des thèmes, quantième hébraïque, règle de bord qui suit le défilement, bouton
+> qui s'enfonce, et **l'écho de saisie** (les lettres hébraïques s'allument à mesure qu'on tape).
+> **11 sur 13 sont statiques et restent visibles en mouvement réduit.** Verdict attendu par
+> proposition : prendre / jeter / prendre plus discret :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-parures.html
+>
 > **➡️ La planche des polices hébraïques** — שָׁלוֹם dans les 62 familles Google Fonts qui
 > couvrent l'hébreu, avec pour chacune un **verdict nikoud mesuré dans le fichier de fonte** :
 >

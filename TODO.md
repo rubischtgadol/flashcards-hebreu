@@ -11,7 +11,7 @@ prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
 unifont-nikoud-repare.html, polices/, REFERENCES_SENTRY.md et PROMPT_REPRISE.md
 (créés, branche refonte-retrofuturiste) ; 2026-07-25 : prototype-mouvement.html
-et prototype-ame.html (créés, même branche).
+et prototype-ame.html et prototype-parures.html (créés, même branche).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -193,9 +193,38 @@ Les pièces, dans cet ordre de lecture :
    concernera pas en usage réel** — l'app respectera le réglage. À confirmer avant
    d'investir davantage dans les animations.
 
-4. **Session de conception du système de thèmes** (brainstorming →
+4. **Les parures — l'ornement de l'app.** Demande du propriétaire, 25/07 : du
+   cosmétique **dans l'app elle-même**, des animations et d'autres éléments, « pour
+   faire une app super belle ». C'est une troisième question, distincte des deux
+   précédentes : le mouvement dit ce qui bouge quand il se passe quelque chose,
+   l'âme ce qui vit quand rien ne se passe, **les parures disent de quoi l'app est
+   faite**. **`prototype-parures.html`** (créé le 25/07) porte **13 propositions**,
+   chacune en bascule **sans / avec**, réparties en quatre familles : la vedette
+   hébraïque (lettre fantôme, nikoud teinté, racine en vedette, réglure de cahier),
+   la matière de la carte (épaisseur du paquet, cartouche poinçonné, filigrane de
+   niveau, sceau de session), les ornements de données (constellation des thèmes,
+   quantième hébraïque, règle de bord qui suit le défilement, bouton qui s'enfonce)
+   et le geste qui enseigne (écho de saisie).
+
+   **Trois d'entre elles ne sont pas décoratives, elles enseignent** — et c'est ce qui
+   les rend défendables : le **nikoud teinté** (les voyelles dans leur propre teinte,
+   la vocalisation devient un calque lisible ; découpage des marques U+0591–U+05C7 à
+   l'exécution, **vérifié à l'œil ×4 : le rendu de l'hébreu n'est pas cassé**), la
+   **racine en vedette**, et l'**écho de saisie** (les lettres hébraïques s'allument à
+   mesure qu'on tape la translittération — elle transforme le mode Saisie, qui est
+   précisément celui sans aucune animation aujourd'hui).
+
+   Deux réserves consignées : la **racine demande un champ `racine` dans
+   `data/*.json`** — seule proposition à coût de contenu, c'est un lot à part
+   entière ; et le **cartouche + le filigrane font double emploi avec l'insigne
+   hexagonal** de niveau, à choisir sans cumuler. **11 des 13 sont statiques** :
+   rien en batterie, rien au repos, et **elles survivent au mouvement réduit** — ce
+   qui n'est pas un détail vu la question ouverte plus haut. **En attente du
+   verdict** : prendre / jeter / prendre plus discret, pour chacune des 13.
+
+5. **Session de conception du système de thèmes** (brainstorming →
    writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
-5. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
+6. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
    dépôt sur `main`**, sinon on peint sur une structure qui bouge.
 
 **Audit d'animation du 25/07 — quatre défauts relevés sur `main`, non corrigés
