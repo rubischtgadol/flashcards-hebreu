@@ -572,7 +572,7 @@ function report(cards){
     const badThemes = Object.keys(themes).filter(k => !EXPECTED_THEMES.includes(k));
     if (badThemes.length){
       console.error('\n✗ Thème(s) hors taxonomie : ' + badThemes.join(', '));
-      console.error('  (faute de frappe dans un data-theme ? nouveau thème → l\'ajouter à EXPECTED_THEMES ici ET à THEMES dans src/app/js/00-tout.js.)');
+      console.error('  (faute de frappe dans un data-theme ? nouveau thème → l\'ajouter à EXPECTED_THEMES ici ET à THEMES dans src/app/js/07-filtres.js.)');
       process.exit(1);
     }
   }
@@ -672,7 +672,7 @@ function assembleApp(srcApp){
 
   let html = coquille;
   // Remplacement par fonction (jamais par chaîne) : le contenu de tokens.css / app.css /
-  // 00-tout.js peut contenir des séquences "$&", "$1"… que String.prototype.replace
+  // Les modules JS peuvent contenir des séquences "$&", "$1"… que String.prototype.replace
   // interpréterait comme des motifs de substitution si on lui passait une chaîne — la
   // fonction insère le résultat au caractère près (même remarque que genereCarnet).
   // Les trois substitutions passent par mustReplace (round de correction Task 13, finding
@@ -713,7 +713,7 @@ function verifieTaxonomieApp(appSource){
     return [...appSource.slice(i, end).matchAll(/key\s*:\s*'([^']+)'/g)].map(m => m[1]);
   })();
   if (!appThemes){
-    console.error('\n✗ Constante THEMES introuvable dans l\'app assemblée (renommée ? reformatée ? — src/app/js/00-tout.js).');
+    console.error('\n✗ Constante THEMES introuvable dans l\'app assemblée (renommée ? reformatée ? — src/app/js/07-filtres.js).');
     console.error('  Ce garde-fou compare la taxonomie des deux fichiers ; il ne peut plus le faire.');
     process.exit(1);
   }
@@ -722,7 +722,7 @@ function verifieTaxonomieApp(appSource){
   if (onlyBuild.length || onlyApp.length){
     console.error('\n✗ Taxonomie désynchronisée entre build.js et l\'app :');
     if (onlyBuild.length) console.error('    EXPECTED_THEMES (build.js) seul : ' + onlyBuild.join(', '));
-    if (onlyApp.length)   console.error('    THEMES (src/app/js/00-tout.js) seul : ' + onlyApp.join(', '));
+    if (onlyApp.length)   console.error('    THEMES (src/app/js/07-filtres.js) seul : ' + onlyApp.join(', '));
     console.error('  Un nouveau thème doit être ajouté aux DEUX listes (mêmes slugs).');
     process.exit(1);
   }

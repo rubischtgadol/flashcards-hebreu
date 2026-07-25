@@ -9,8 +9,15 @@
 Prochaine étape : **chantier 4, Task 17** (`tools/` et `docs/` — plan complet
 dans
 [docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)).
-⚠️ Le Task 17 déplace et supprime des fichiers : il **devra** poser son flag
-« GRAPHE À RECALER » (rituel étape 5).
+⚠️ **Deux choses à savoir avant d'attaquer le Task 17.** (1) Il déplace et
+supprime des fichiers : il **devra** poser son flag « GRAPHE À RECALER »
+(rituel étape 5). (2) Le plan a été écrit avant le lot tripwires et avant le
+chantier 3 — **trois pièges y ont été ajoutés au Task 16 (25/07), à lire avant
+le `git mv`** : les quatre scripts (pas seulement `build.js`) prennent
+`__dirname` pour la racine ; le bac à sable d'`ajoute_mots.js` casse **en
+silence** si la disposition `tools/` n'y est pas reproduite ; et
+`.githooks/pre-commit` appelle `node build.js --check` sans que le `grep` du
+plan, borné aux `.md`, ne le voie.
 
 **Lot transversal du 25/07, hors chantier : les tripwires** (demande du
 propriétaire : « si je change quelque chose, la casse doit être détectée
@@ -64,7 +71,9 @@ en jsdom, 29/29 PASS, 0 erreur console : cartes (flip/answer/undo), saisie
    (chacun des 8 appels nomme son fichier source — `src/app/coquille.html`,
    `src/app/js/05-donnees.js`, `src/app/js/99-principal.js` — et le défaut est
    devenu un aveu d'appel incomplet, plus un artefact) ; les messages de la
-   garde de taxonomie pointent `src/app/js/00-tout.js`.
+   garde de taxonomie pointent `src/app/js/07-filtres.js` — au passage, le lot
+   tripwires les faisait pointer `00-tout.js`, le module intermédiaire du Task 13
+   qui n'existe plus depuis son éclatement en 14 modules au Task 15.
 3. **Les trois en-têtes `// Expose :`** relevés en revue. Le contrat a d'abord
    été tranché, puisque c'est lui qui rendait le relevé ambigu : **« Expose »
    liste les noms top-level qu'un *autre* module référence**, rien de plus —
@@ -78,8 +87,9 @@ en jsdom, 29/29 PASS, 0 erreur console : cartes (flip/answer/undo), saisie
 4. **Toutes les ancres `app.html#L` de la doc ont été supprimées**, pas
    recalées : le chantier 3 les avait de nouveau toutes faussées (5ᵉ dérive), et
    `app.html` est régénéré à chaque build. ARCHITECTURE.md pointe désormais les
-   modules sources ; le contrôle `grep -rn 'app\.html#L' *.md` doit rester vide
-   (rituel étape 7).
+   modules sources — et les ancres `build.js#L` ont suivi, l'audit de sortie en
+   ayant trouvé 3 fausses sur 5. La doc vivante ne porte plus **aucune** ancre
+   de ligne vers du code ; contrôle en rituel étape 7.
 5. **La gate visuelle du plan, réduite sur décision du propriétaire.** La
    matrice A/B (mobile + desktop 1440/1280/992/900/768, avant-chantier vs HEAD)
    n'a **pas** été jouée : le hors-`<script>` d'`app.html` est byte-identique à
@@ -100,7 +110,8 @@ en jsdom, 29/29 PASS, 0 erreur console : cartes (flip/answer/undo), saisie
 
 **Deux minors hérités du chantier 2, toujours ouverts** : `app.html`
 l'étiquette de diagnostic « extraction » mesure désormais `JSON.parse` ;
-`cherche_mots.js:56-59` duplique l'énumération de `data/listes` de `build.js`.
+`construitIndexFichiers()` dans `cherche_mots.js` (le `readdirSync` sur
+`data/listes`) duplique l'énumération que `build.js` fait déjà.
 
 **Ce que le chantier 3 a durci au passage (quatre gardes neuves, toutes
 éprouvées par cas fabriqué en bac à sable, échec réel constaté)** : les 3
@@ -108,7 +119,7 @@ marqueurs de coquille passent par `mustReplace` — un marqueur disparu fait
 `exit 1` en le nommant, **avant** toute écriture (sans elle, supprimer
 `<!-- @CSS:app -->` produisait un `app.html` amputé de tout son CSS avec
 `exit 0`, puis un `--check` au vert sur l'artefact cassé) ; `verifieOrphelins()`
-(`build.js:37-52`, partagée JS/CSS) échoue **dans les deux sens** — fichier
+(dans `build.js`, partagée JS/CSS) échoue **dans les deux sens** — fichier
 présent non listé dans `ordre.json`, ou listé mais absent du disque ; la garde
 de taxonomie `THEMES` a quitté `report()` pour `verifieTaxonomieApp(appSource)`
 et s'exerce désormais sur la source **assemblée en mémoire**, fatale en mode
@@ -155,9 +166,13 @@ renumérotation des pièges, et le recalage des chemins d'outils vers `tools/`
 (volontairement différé — les outils déménagent au chantier 4, l'écrire
 maintenant serait à refaire).
 
-⚠️ **Le graphe (`graphify-out/`), lui, date d'avant les chantiers 1-2** : il ne
-connaît ni `data/`, ni `src/carnet/`, ni la disparition des extracteurs. Un
-`graphify explain` sur ce périmètre peut répondre à côté — vérifier au `grep`.
+⚠️ **Le graphe (`graphify-out/`), lui, date d'avant les chantiers 1 à 3** : il ne
+connaît ni `data/`, ni `src/carnet/`, ni `src/app/`, ni `.githooks/`, ni la
+disparition des extracteurs — et il situe les fonctions de l'app aux lignes
+d'`app.html` **d'avant** leur redécoupage en 14 modules. Sur tout ce périmètre,
+`graphify explain` répond à côté : passer directement au `grep -n` sur le module
+nommé par les en-têtes `// Expose :`. Il reste fiable sur ce qui n'a pas bougé
+(structure du carnet, règles de charte, pièges).
 Les flags ci-dessous enregistrent la dette ; le recalage reste une décision
 explicite, jamais automatique.
 
@@ -321,12 +336,16 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
 
 ## Rituel à chaque modification
 
-1. `node build.js` — régénère `flashcards_hebreu.html` ; échec si une section ou un
-   niveau attendu tombe à 0 ; vérifier les comptes affichés (sections, niveaux, exemples).
+1. `node build.js` — lit `data/*.json` + `src/` et régénère les **quatre** artefacts
+   (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`) ; échec
+   si une section ou un niveau attendu tombe à 0, si une entrée sort sans `niveau` valide,
+   ou si un `theme` sort de `EXPECTED_THEMES` ; vérifier les comptes affichés (sections,
+   niveaux, thèmes, exemples).
 2. Si des exemples ont changé : `node verifie_exemples.js` — **0 erreur exigé**.
 3. Vérifier le comportement **au niveau le moins cher qui prouve vraiment quelque chose**.
-   `node build.js --check` compare déjà les deux extracteurs au octet : un changement de
-   **contenu seul est prouvé par les étapes 1–2**, rien à ajouter. Serveur local ou jsdom
+   `node build.js --check` compare déjà les **quatre artefacts régénérés** au contenu
+   committé, octet par octet : un changement de **contenu seul est prouvé par les
+   étapes 1–2**, rien à ajouter. Serveur local ou jsdom
    quand de la **logique** a bougé. **WebKit/Playwright uniquement si tu as touché à
    l'UI** — balisage, CSS, ou un chemin de rendu. Démarrer un vrai navigateur pour
    reconfirmer ce que `--check` vient d'établir est du confort, pas une preuve : ça coûte
