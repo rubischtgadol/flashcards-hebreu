@@ -11,7 +11,7 @@ prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
 unifont-nikoud-repare.html, polices/, REFERENCES_SENTRY.md et PROMPT_REPRISE.md
 (créés, branche refonte-retrofuturiste) ; 2026-07-25 : prototype-mouvement.html
-et prototype-ame.html et prototype-parures.html (créés, même branche).
+prototype-ame.html et prototype-parures.html (créés, même branche).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
