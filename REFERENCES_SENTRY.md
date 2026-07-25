@@ -41,33 +41,61 @@ qui a produit les jetons du § 2 du spec — ambre `#f0b32a` sur quasi-noir `#05
   iPhone réel** le 24/07 (spec § 5). Ce n'est pas un jugement sur la référence, c'est un jugement
   sur le confort d'étude à 23 h.
 
-## Ce qui reste à explorer — le chantier ouvert
+## Le mouvement — passe du 2026-07-25 : **le gisement est sec**
 
 ⚠️ **Le mouvement est le grand absent de la charte actuelle.** Après le retrait des trois calques,
 il ne reste qu'**une seule animation** dans toute la page-témoin : le bandeau de boot (module 05),
 qui ne joue qu'une fois à l'ouverture. La console est donc, aujourd'hui, entièrement statique.
 
-À aller chercher dans SENTRY, en priorité :
+**La passe d'extraction du mouvement a eu lieu le 2026-07-25. Elle a rendu presque rien, et ce
+résultat négatif est acquis : ne pas la refaire.** WebKit sur l'app déployée (`getAnimations()`,
+CSS calculé sur 818 nœuds, sondage de 12 interactifs avant/hover/clic, défilement), puis
+**contre-vérifié à la source** hors navigateur (`curl` sur la page et sur `client.js`). Le
+vocabulaire de mouvement **propre à SENTRY**, en entier :
 
-- **Les animations d'état** : ce qui se passe quand une valeur change, quand un panneau devient
-  actif, quand une alerte apparaît. C'est le registre qui manque le plus à une app de révision, où
-  chaque réponse est un changement d'état.
-- **Les transitions d'écran** : comment on passe d'une vue à l'autre. La charte n'en dit rien, et
-  l'app a quatre écrans (carte, révélation, accueil, bilan) plus le sélecteur de charte à venir.
-- **Les éléments graphiques non encore relevés** : tout ce que la première passe, concentrée sur
-  les 21 modules, a laissé de côté — décorations de fond, séparateurs, indicateurs, cartouches.
-- **Le comportement au défilement**, s'il y en a un.
+| Animation | Timing | Ce que c'est | Statut |
+|---|---|---|---|
+| `noiseShift` | 0,55 s `steps(2)` ∞ | calque de bruit `.noise` | déjà rejeté sur iPhone (24/07) |
+| `flick` | 4 s `steps(2)` ∞ | scintillement `.scan` | déjà rejeté sur iPhone (24/07) |
+| `satspin` | 0,7 s `linear` ∞ | rotation | **keyframe mort** — `.sat-spin` n'est jamais monté dans le DOM |
 
-Deux garde-fous hérités, à ne pas rouvrir :
+**C'est tout.** Zéro animation d'état, zéro transition d'écran, zéro comportement au défilement,
+zéro `<svg>`, zéro `clip-path`, zéro `mask`, zéro `filter`. Le survol est assuré par les classes
+utilitaires `transition-colors` / `transition-opacity` de **Tailwind** — le défaut du framework
+(150 ms), pas une décision de charte. La référence est statique par construction.
 
-1. **Tout mouvement est en `steps()`**, jamais de transition fluide (spec § 5) — c'est la signature
-   « instrument » de la référence.
-2. **Aucun effet de surface d'écran** : bruit, vignettage et scintillement ont été jugés sur
-   l'appareil et rejetés. Une animation qui reviendrait à teinter ou faire vibrer toute la surface
-   retomberait dans ce qui a déjà été refusé. Le mouvement doit être **local et signifiant** :
-   quelque chose bouge parce qu'il se passe quelque chose (règle de la lampe, spec § 5).
+⚠️ **Piège payé, à ne pas retomber dedans.** Une première lecture avait rapporté comme trouvailles
+une transition à rebond `cubic-bezier(.2,1.1,.3,1)` et deux keyframes scintillants
+(`f-shimmer`, `f-spark`). Vérification faite : ils appartiennent au **badge « Made with Fuser »**
+et à son tiroir QR — du **mobilier d'hébergeur injecté sur toutes les apps de la plateforme**, pas
+à SENTRY. Sur une référence hébergée, toujours séparer l'app du chrome du fournisseur : ici il se
+reconnaît au préfixe de classe `f-` et à l'`id` `__fuser_made_with_badge`.
 
-Méthode suggérée pour la prochaine passe : rejouer l'extraction en WebKit, mais sur les
-**`@keyframes`, `transition` et `animation` calculés** de la référence, et rendre le tout dans une
-planche à la manière de `prototype-effets.html` — une démo par animation, jugée sur pièces avant
-d'entrer dans la charte.
+**Ce que ça fait à la règle `steps()`.** Le spec § 5 pose que « tout mouvement est en `steps()`,
+jamais de transition fluide », justifié par « la signature *instrument* de la référence ». Or
+`steps()` n'a que **deux occurrences dans toute la référence, et ce sont exactement les deux
+calques rejetés sur l'appareil**. La règle a donc été héritée d'un matériau retiré depuis, et
+n'a jamais été jugée pour elle-même. **Ce n'est pas une réouverture de la DA** — c'est une mesure
+qui montre qu'une règle n'a pas de fondement mesuré. Elle est mise au jugement dans
+`prototype-mouvement.html` (chaque moment rendu deux fois, `steps()` contre fluide, même markup,
+même durée, même distance).
+
+Un seul acquis technique est réellement transposable, et il est bon — le commentaire de
+l'hébergeur l'explicite : **animer deux valeurs avec durée et easing identiques pour que leurs
+deltas s'annulent**, afin qu'un élément reste rigoureusement immobile pendant que son conteneur
+grandit. Chez nous : la vedette hébraïque ne doit pas bouger d'un pixel quand la réponse se
+déploie sous elle (moment 01 de la planche, obtenu par `clip-path` plutôt que par la hauteur).
+
+Deux garde-fous hérités, dont un seul est encore fondé :
+
+1. **Aucun effet de surface d'écran** — solide, jugé sur l'appareil. Bruit, vignettage et
+   scintillement ont été refusés jusqu'à leur cran minimal. Une animation qui reviendrait à teinter
+   ou faire vibrer toute la surface retomberait dans ce qui a déjà été refusé. Le mouvement doit
+   être **local et signifiant** : quelque chose bouge parce qu'il se passe quelque chose (règle de
+   la lampe, spec § 5).
+2. **Tout mouvement en `steps()`** — **en cours de jugement**, pour la raison mesurée ci-dessus.
+
+**Conclusion de méthode : le mouvement de la charte ne peut plus être prélevé, il doit être
+composé.** La référence garde son autorité sur les couleurs, la structure d'écran et les ornements
+— c'est de là qu'ils viennent, et ça ne bouge pas. Elle n'a simplement rien à dire sur le
+mouvement. Inutile de la repiloter pour ça.

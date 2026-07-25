@@ -10,7 +10,8 @@
 prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
 unifont-nikoud-repare.html, polices/, REFERENCES_SENTRY.md et PROMPT_REPRISE.md
-(créés, branche refonte-retrofuturiste).
+(créés, branche refonte-retrofuturiste) ; 2026-07-25 : prototype-mouvement.html
+(créé, même branche).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -123,19 +124,35 @@ Les pièces, dans cet ordre de lecture :
    tient sous le halo ambre, la grille de fond reste discrète sous le texte.
    `test-crt-iphone.html` est conservé, marqué « protocole soldé » sur son écran de
    garde — il resservira si un effet de surface est un jour reproposé.
-2. **Continuer le prélèvement sur SENTRY : animations et éléments graphiques.**
-   Demande du propriétaire, 25/07. ⚠️ **Le mouvement est le grand absent de la
-   charte** : après le retrait des trois calques CRT, il ne reste qu'**une seule
-   animation** dans toute la page-témoin (le bandeau de boot, qui ne joue qu'une
-   fois). À aller chercher : les animations d'état — ce qui bouge quand une valeur
-   change, quand un panneau s'active, quand une alerte tombe, c'est exactement le
-   registre qui manque à une app de révision — les transitions entre les quatre
-   écrans, les éléments graphiques que la première passe (concentrée sur 21 modules)
-   a laissés, et le comportement au défilement. Deux garde-fous hérités : **tout
-   mouvement en `steps()`**, et **aucun effet de surface d'écran** — le mouvement
-   doit être local et signifiant, sinon il retombe dans ce qui a été rejeté sur
-   l'appareil. Méthode et inventaire du déjà-prélevé :
-   [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md).
+2. ~~Prélever les animations sur SENTRY~~ — **passe faite le 25/07, résultat
+   négatif et acquis : le gisement est sec, ne pas la refaire.** Le mouvement propre
+   à la référence tient en **trois `@keyframes`** : `noiseShift` et `flick` (les deux
+   calques CRT **déjà rejetés sur iPhone**) et `satspin`, **keyframe mort** jamais
+   monté dans le DOM. Zéro animation d'état, zéro transition d'écran, zéro
+   comportement au défilement, zéro SVG. Le survol y vient des classes Tailwind
+   `transition-colors` — un défaut de framework, pas une décision de charte. Mesuré
+   en WebKit (818 nœuds, 12 interactifs sondés) **puis contre-vérifié à la source**
+   hors navigateur. ⚠️ Piège payé : la transition à rebond et les keyframes
+   `f-shimmer`/`f-spark` qu'une première lecture avait pris pour des trouvailles
+   appartiennent au **badge « Made with Fuser »** — du mobilier d'hébergeur, pas à
+   SENTRY. Détail complet et leçon de méthode :
+   [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md) § « le gisement est sec ».
+
+   **Conséquence, ouverte : la règle `steps()` n'a pas de fondement mesuré.** Le
+   spec § 5 la justifie par « la signature *instrument* de la référence » ; or
+   `steps()` n'a que **deux occurrences dans toute la référence, et ce sont
+   exactement les deux calques rejetés**. La règle a été héritée d'un matériau
+   retiré depuis. Elle est **mise au jugement**, pas rouverte d'office.
+
+   **Le mouvement doit donc être composé, pas prélevé** →
+   **`prototype-mouvement.html`** (créé le 25/07) : les **9 moments** de l'app qui
+   appellent du mouvement — révélation recto/verso, verdict juste/faux, carte
+   suivante, progression, radar, transition d'écran, chiffres du bilan, pilule voix,
+   alerte — chacun rendu **deux fois côte à côte, `steps()` contre fluide**, à
+   markup, durée et distance identiques, rejouables ensemble. Aucun effet de surface
+   d'écran ; un seul mouvement en boucle (la pilule voix) et il est borné par un état
+   réel. **En attente du verdict du propriétaire : A (steps), B (fluide) ou rien,
+   moment par moment** — « rien » étant une réponse légitime sur plusieurs lignes.
 3. **Session de conception du système de thèmes** (brainstorming →
    writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
 4. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du

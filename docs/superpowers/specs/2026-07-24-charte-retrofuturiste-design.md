@@ -145,6 +145,23 @@ Règle conservée : **tout mouvement est en `steps()`, jamais de transition flui
 transposition directe de la « règle de la lampe » v1 : *l'alarme ne sonne que quand il
 se passe quelque chose*. Depuis le retrait du scintillement, il la porte **seul**.
 
+> ⚠️ **Rectificatif mesuré, 2026-07-25 — la justification ci-dessus est fausse.**
+> « Signature de la référence » ne tient pas à la mesure : `steps()` n'a que **deux
+> occurrences dans tout SENTRY**, et ce sont **exactement les deux calques rejetés sur
+> iPhone** le 24/07 (`noiseShift` 0,55 s `steps(2)` et `flick` 4 s `steps(2)`). Le seul
+> autre keyframe de la référence, `satspin`, est **mort** — jamais monté dans le DOM.
+> Tout le reste du mouvement y vient des classes Tailwind `transition-colors`, soit
+> **150 ms en `cubic-bezier`** : un défaut de framework, et fluide. Relevé en WebKit
+> puis contre-vérifié à la source hors navigateur ; détail et piège du badge
+> d'hébergeur dans [REFERENCES_SENTRY.md](../../../REFERENCES_SENTRY.md).
+>
+> **La règle n'est pas annulée : elle est mise au jugement**, faute d'avoir jamais été
+> jugée pour elle-même. `prototype-mouvement.html` rend les 9 moments de l'app deux
+> fois côte à côte, `steps()` contre fluide, à markup, durée et distance identiques.
+> Le verdict du propriétaire — A, B ou rien, moment par moment — remplacera ce
+> paragraphe. Ce qui n'est **pas** remis en cause : l'absence de tout effet de surface
+> d'écran, jugée sur l'appareil, et la règle de la lampe.
+
 ## 6. Validation et suites
 
 - **Recette visuelle** : nikoud lisible à taille réelle sur `--bg` (le halo ambre ne doit

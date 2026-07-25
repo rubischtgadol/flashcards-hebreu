@@ -14,6 +14,16 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-nerv.html
 >
+> **➡️ LA planche à juger maintenant — le mouvement** (25/07). Les **9 moments** de l'app
+> qui appellent une animation (révélation recto/verso, verdict juste/faux, carte suivante,
+> progression, radar, transition d'écran, chiffres du bilan, pilule voix, alerte), chacun
+> rendu **deux fois côte à côte : `steps()` contre fluide**, à markup, durée et distance
+> identiques. Un verdict attendu par moment — **A, B ou rien** ; « rien » est une réponse
+> légitime. Aucun effet de surface d'écran ; le seul mouvement en boucle (la pilule voix)
+> s'arrête tout seul :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-mouvement.html
+>
 > **➡️ La planche des polices hébraïques** — שָׁלוֹם dans les 62 familles Google Fonts qui
 > couvrent l'hébreu, avec pour chacune un **verdict nikoud mesuré dans le fichier de fonte** :
 >
@@ -42,9 +52,11 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-variantes.html
 >
-> **Référence fondatrice** : l'app SENTRY. Liens, méthode d'extraction, ce qui en a déjà été
-> prélevé et **ce qui reste à explorer — ses animations** :
-> [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md).
+> **Référence fondatrice** : l'app SENTRY. Liens, méthode d'extraction et ce qui en a été
+> prélevé : [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md). ⚠️ **Le prélèvement du mouvement
+> a été fait le 25/07 et le gisement est sec** — trois `@keyframes` en tout, dont les deux
+> calques déjà rejetés et un keyframe mort : inutile de repiloter la référence pour ça.
+> Elle garde son autorité sur les couleurs, la structure et les ornements.
 >
 > ⚠️ **Le miroir raw.githack met en cache.** Il suit la branche, mais un fichier
 > peut rester servi dans sa version précédente pendant un moment — sans rien qui le

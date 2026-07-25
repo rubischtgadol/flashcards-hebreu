@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planche mouvement v0.1 — Console d'étude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — identiques à prototype-nerv.html (source : SENTRY)
+   ================================================================ */
+:root{
+  --bg:      #05040A;
+  --panneau: #0A0814;
+  --grille:  #0F0C1C;
+  --ligne:   #7a5a14;
+  --ambre:   #f0b32a;
+  --vert:    #54ff8a;
+  --rouge:   #FF4747;
+  --orange:  #ff6a1f;
+  --lune:    #cfd6e6;
+
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+}
+
+/* ── LES DEUX REGISTRES EN JUGEMENT ──────────────────────────────
+   Toute animation de cette planche lit son easing dans --e et sa
+   durée dans --d. Une cellule = un registre. Rien d'autre ne change
+   entre les deux colonnes : même markup, même durée, même distance. */
+[data-reg="steps"] { --e: steps(3); --e2: steps(2); --e1: steps(1); --e5: steps(5); }
+[data-reg="fluide"]{ --e: cubic-bezier(.2,.7,.3,1);
+                     --e2: cubic-bezier(.2,.7,.3,1);
+                     --e1: cubic-bezier(.2,.7,.3,1);
+                     --e5: cubic-bezier(.2,.7,.3,1); }
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{
+  font-family:var(--cond);
+  color:var(--ambre);
+  background:#030208;
+  padding:32px 20px 90px;
+  font-size:15px;
+  line-height:1.45;
+}
+
+/* ---- chrome de la galerie ---- */
+.galerie{max-width:1080px;margin:0 auto}
+.galerie>header{margin-bottom:20px}
+.galerie h1{
+  font-family:var(--mono);
+  font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor;
+}
+.meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+
+.section-titre{
+  font-family:var(--cond);font-weight:600;
+  color:var(--ambre);font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  margin:0 0 6px;display:flex;align-items:center;gap:14px;
+}
+.section-titre .no{font-family:var(--mono);color:var(--vert);flex-shrink:0}
+.section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
+.section-titre .freq{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;
+  color:var(--ambre);opacity:.6;flex-shrink:0;text-transform:none;
+}
+.propos{font-size:.8rem;color:var(--lune);opacity:.75;max-width:62ch;margin-bottom:14px}
+.propos b{color:var(--ambre);font-weight:600;opacity:1}
+
+/* ---- le préambule mesuré ---- */
+.constat{
+  border:1px solid var(--ligne);background:rgba(10,8,20,.82);
+  padding:16px 18px;margin-bottom:38px;position:relative;
+}
+.constat .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.constat .coin.a{top:2px;left:4px}.constat .coin.b{bottom:2px;right:4px}
+.constat h2{
+  font-family:var(--cond);font-weight:600;font-size:.78rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--vert);
+  text-shadow:0 0 6px currentColor;margin-bottom:10px;
+}
+.constat p{font-size:.82rem;color:var(--lune);opacity:.85;max-width:74ch;margin-bottom:9px}
+.constat p:last-child{margin-bottom:0}
+.constat b{color:var(--ambre);font-weight:600;opacity:1}
+.constat .rouge{color:var(--rouge)}
+table.releve{border-collapse:collapse;width:100%;margin:6px 0 12px;font-size:.76rem}
+table.releve th,table.releve td{
+  text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--grille);
+}
+table.releve th{
+  font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ambre);opacity:.6;font-weight:400;
+}
+table.releve td:first-child{font-family:var(--mono);color:var(--ambre)}
+table.releve td{color:var(--lune);opacity:.85}
+table.releve .mort{color:var(--rouge)}
+
+/* ---- la rangée A/B ---- */
+.moment{margin-bottom:52px}
+.rangee{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+.cellule{width:330px;max-width:100%;flex:1 1 300px}
+.cel-tete{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-bottom:8px;
+}
+.cel-nom{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+}
+[data-reg="steps"] .cel-nom{color:var(--vert)}
+[data-reg="fluide"] .cel-nom{color:var(--orange)}
+.cel-easing{font-family:var(--mono);font-size:.6rem;opacity:.5;color:var(--lune)}
+
+/* ---- la vignette : un fragment d'écran, pas un écran entier ---- */
+.vig{
+  background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 6px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 6px 100% no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  border:1px solid var(--ligne);
+  padding:16px 14px 15px;
+  min-height:216px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.vig .viseur{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);z-index:4;line-height:1}
+.vig .viseur.tl{top:3px;left:5px}.vig .viseur.br{bottom:3px;right:5px}
+.vig>*{position:relative;z-index:2}
+
+/* ---- composants repris de la charte ---- */
+.statusbar{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  border-bottom:1px solid var(--ligne);
+  padding-bottom:7px;margin-bottom:11px;
+}
+.pilule{font-family:var(--cond);font-weight:600;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);border-radius:9999px;padding:2px 9px}
+.pilule.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.etiquette{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ambre)}
+.etiquette .num{font-family:var(--mono)}
+.carton{
+  font-family:var(--he);font-weight:900;font-size:2.3rem;line-height:1.2;
+  text-align:center;color:var(--ambre);
+  text-shadow:0 0 14px rgba(240,179,42,.35);direction:rtl;
+}
+.tr-ligne{font-family:var(--mono);text-align:center;font-size:.9rem;letter-spacing:.18em;color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.fr-ligne{font-family:var(--mono);text-align:center;font-size:.95rem;letter-spacing:.08em;color:var(--lune)}
+.exemple{border-top:1px solid var(--ligne);padding-top:10px;margin-top:10px}
+.exemple .he-ex{font-family:var(--he);font-weight:500;font-size:1.15rem;direction:rtl;text-align:center;margin-bottom:4px;color:var(--ambre)}
+.exemple .fr-ex{font-size:.74rem;color:var(--lune);opacity:.8;text-align:center}
+.mention{font-family:var(--cond);font-weight:600;text-align:center;letter-spacing:.3em;text-transform:uppercase;font-size:.74rem}
+.panneau{background:rgba(10,8,20,.82);border:1px solid var(--ligne);padding:10px 12px;position:relative}
+.panneau .coin{position:absolute;font-family:var(--mono);font-size:10px;color:var(--ligne);line-height:1}
+.panneau .coin.a{top:1px;left:3px}.panneau .coin.b{bottom:1px;right:3px}
+.piste{height:3px;background:var(--grille);position:relative;margin:16px 0 6px}
+.piste .fait{position:absolute;left:0;top:0;bottom:0;background:var(--rouge)}
+.piste .tick{position:absolute;top:-6px;width:2px;height:7px}
+.piste .tick.v{background:var(--vert)}
+.piste .tick.r{background:var(--rouge)}
+.feed{font-family:var(--mono);font-size:.68rem;line-height:1.75;color:var(--ambre)}
+.feed .l::before{content:'▸ ';color:var(--vert)}
+.attention{border:1px solid var(--rouge);background:rgba(255,71,71,.05)}
+.attention .corps{padding:9px 12px;font-size:.78rem;color:var(--lune)}
+.attention .titre{color:var(--rouge);letter-spacing:.2em;text-transform:uppercase;font-size:.66rem;margin-bottom:3px;text-shadow:0 0 6px currentColor}
+.hexniv{width:30px;height:34px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--ligne);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.hexniv .in{width:26px;height:30px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--panneau);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hexniv .lettre{font-family:var(--he);font-weight:900;font-size:.85rem;color:var(--ambre);line-height:1.1}
+.hexniv .lab{font-family:var(--mono);font-size:.4rem;letter-spacing:.12em;color:var(--vert);line-height:1.3}
+
+/* ---- boutons ---- */
+/* Cible tactile : 44px de haut minimum, mesuré sur iPhone 16 Pro le 25/07.
+   La planche se juge au doigt — un bouton de 23px se rate. */
+.btn{
+  font-family:var(--cond);font-weight:600;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;
+  border:1px solid var(--ligne);border-radius:9999px;
+  padding:8px 20px;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
+}
+.btn:hover{border-color:var(--ambre);text-shadow:0 0 6px currentColor}
+.btn.primaire{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor;box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06)}
+.btn.primaire:hover{background:rgba(84,255,138,.12)}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+.btn.mini{font-size:.6rem;padding:4px 14px;letter-spacing:.14em;min-height:44px}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+.commandes{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.barre-haute{
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne);
+  padding:12px 0;margin:0 0 34px;
+}
+.barre-haute .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;color:var(--lune)}
+
+/* ================================================================
+   MOUVEMENT RÉDUIT — règle normative du spec § 5.
+   Au repos, chaque vignette est déjà dans son état FINAL : aucune
+   animation n'est nécessaire pour que le contenu soit lisible.
+   ================================================================ */
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important}
+}
+
+/* ================================================================
+   01 ── RÉVÉLATION recto → verso
+   Le volet s'ouvre par clip-path : la vedette hébraïque ne bouge
+   PAS d'un pixel. C'est la seule technique réellement transposable
+   de la référence (deux deltas qui s'annulent, cf. le préambule).
+   ================================================================ */
+@keyframes devoile{ from{ clip-path:inset(0 0 100% 0) } to{ clip-path:inset(0 0 0 0) } }
+@keyframes filet  { from{ transform:scaleX(0) } to{ transform:scaleX(1) } }
+.jouer .m01-reponse{animation:devoile .42s var(--e) backwards}
+.jouer .m01-filet{animation:filet .42s var(--e) backwards}
+.m01-filet{height:1px;background:var(--ligne);transform-origin:right center;margin:10px 0 0}
+
+/* ================================================================
+   02 ── VERDICT juste / faux — la règle de la lampe
+   ================================================================ */
+@keyframes allumeOk{ from{ color:var(--ambre); text-shadow:0 0 0 rgba(84,255,138,0) } }
+@keyframes allumeKo{ from{ color:var(--ambre); text-shadow:0 0 0 rgba(255,71,71,0) } }
+@keyframes arrive  { from{ opacity:0; transform:translateY(6px) } }
+.m02.ok  .carton,.m02.ok  .mention{color:var(--vert)}
+.m02.ok  .carton {text-shadow:0 0 22px rgba(84,255,138,.45)}
+.m02.ok  .mention{text-shadow:0 0 6px currentColor}
+.m02.ko  .carton,.m02.ko  .mention{color:var(--rouge)}
+.m02.ko  .carton {text-shadow:0 0 22px rgba(255,71,71,.4)}
+.m02.ko  .mention{text-shadow:0 0 6px currentColor}
+.jouer .m02.ok .carton,.jouer .m02.ok .mention{animation:allumeOk .3s var(--e2) backwards}
+.jouer .m02.ko .carton,.jouer .m02.ko .mention{animation:allumeKo .3s var(--e2) backwards}
+.jouer .m02 .compare{animation:arrive .3s var(--e2) .12s backwards}
+.compare{font-family:var(--mono);display:flex;flex-direction:column;gap:5px;font-size:.76rem;margin-top:12px}
+.compare .l{display:flex;justify-content:space-between}
+.compare .attendu{color:var(--vert)}
+.compare .recu{color:var(--rouge);text-decoration:line-through}
+
+/* ================================================================
+   03 ── CARTE SUIVANTE — le matricule à volet
+   ================================================================ */
+.rouleau{display:inline-block;height:1em;overflow:hidden;vertical-align:bottom;position:relative;top:.06em}
+.rouleau .strip{display:block;transform:translateY(-1em)}
+.rouleau .strip span{display:block;height:1em;line-height:1}
+@keyframes volet{ from{ transform:translateY(0) } to{ transform:translateY(-1em) } }
+@keyframes sortMot{ from{ opacity:1; transform:translateY(0) } to{ opacity:0; transform:translateY(-10px) } }
+@keyframes entreMot{ from{ opacity:0; transform:translateY(10px) } }
+.jouer .m03 .strip{animation:volet .3s var(--e2) backwards}
+.jouer .m03 .mot-sortant{animation:sortMot .18s var(--e1) forwards}
+.jouer .m03 .mot-entrant{animation:entreMot .26s var(--e2) .18s backwards}
+.m03 .pile{position:relative}
+.m03 .mot-sortant{position:absolute;inset:0;opacity:0;z-index:3}
+
+/* ================================================================
+   04 ── PROGRESSION de session
+   ================================================================ */
+@keyframes avance{ from{ width:var(--de) } to{ width:var(--vers) } }
+@keyframes pousse{ from{ transform:scaleY(0) } to{ transform:scaleY(1) } }
+.m04 .fait{--de:52%;--vers:63%;width:63%}
+.jouer .m04 .fait{animation:avance .38s var(--e) backwards}
+.m04 .tick.neuf{transform-origin:bottom center}
+.jouer .m04 .tick.neuf{animation:pousse .22s var(--e2) .28s backwards}
+.m04 .compteur{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;display:flex;justify-content:space-between;color:var(--ambre)}
+
+/* ================================================================
+   05 ── RADAR : un blip quitte le « dû »
+   ================================================================ */
+.radar{display:block;margin:0 auto}
+.radar .anneau{fill:none;stroke:var(--grille);stroke-width:1}
+.radar .axe{stroke:var(--grille);stroke-width:1}
+.radar .blip{fill:var(--ambre)}
+.radar .blip.due{fill:var(--vert)}
+.radar .centre{fill:var(--rouge)}
+.radar text{font-family:var(--mono);font-size:7px;fill:var(--ligne);letter-spacing:.1em}
+@keyframes eteint{ from{ fill:var(--vert); r:3.4 } to{ fill:var(--ambre); r:2 } }
+@keyframes onde  { from{ r:3; opacity:.75 } to{ r:15; opacity:0 } }
+.m05 .blip.cible{r:2}
+.jouer .m05 .blip.cible{animation:eteint .34s var(--e2) backwards}
+.m05 .onde{fill:none;stroke:var(--vert);stroke-width:1;opacity:0}
+.jouer .m05 .onde{animation:onde .44s var(--e) backwards}
+
+/* ================================================================
+   06 ── TRANSITION D'ÉCRAN accueil → session
+   ================================================================ */
+@keyframes essuie{ from{ clip-path:inset(0 0 0 0) } to{ clip-path:inset(0 0 100% 0) } }
+@keyframes monte { from{ opacity:0; transform:translateY(9px) } }
+.m06 .sortant{
+  position:absolute;inset:0;z-index:5;display:none;
+  background:var(--bg);padding:16px 14px;
+  flex-direction:column;justify-content:center;gap:8px;
+  /* l'essuyage est en fill-mode:forwards, donc le calque reste monté à
+     hauteur clippée nulle après la transition : il ne doit jamais intercepter
+     un geste (contrôle WebKit du 25/07, point 5). */
+  pointer-events:none;
+}
+.jouer .m06 .sortant{display:flex;animation:essuie .3s var(--e5) forwards}
+.jouer .m06 .etage{animation:monte .26s var(--e2) backwards}
+.jouer .m06 .etage:nth-of-type(1){animation-delay:.30s}
+.jouer .m06 .etage:nth-of-type(2){animation-delay:.38s}
+.jouer .m06 .etage:nth-of-type(3){animation-delay:.46s}
+.m06 .brand-he{font-family:var(--he);font-weight:900;font-size:1.8rem;direction:rtl;text-align:center;color:var(--ambre);text-shadow:0 0 12px rgba(240,179,42,.3)}
+.m06 .brand-sous{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;text-align:center}
+
+/* ================================================================
+   07 ── CHIFFRES DU BILAN + jauge à aiguille
+   ================================================================ */
+.bilan-l{display:flex;justify-content:space-between;align-items:baseline;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 0;border-bottom:1px solid var(--grille)}
+.bilan-l .v{font-family:var(--mono);font-size:1.05rem;color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.jauge-svg{display:block;margin:6px auto 0}
+.jauge-svg .arc{fill:none;stroke:var(--grille);stroke-width:7}
+.jauge-svg .arc.plein{stroke:var(--vert);opacity:.55}
+.jauge-svg .tickj{stroke:var(--ligne);stroke-width:1}
+.jauge-svg .aiguille{stroke:var(--rouge);stroke-width:2}
+.jauge-svg .pivot{fill:var(--rouge)}
+.jauge-svg text{font-family:var(--mono);font-size:8px;fill:var(--ambre);letter-spacing:.15em}
+.m07 .rot{transform-box:fill-box;transform-origin:100% 100%;transform:rotate(58deg)}
+@keyframes balance{ from{ transform:rotate(0deg) } to{ transform:rotate(58deg) } }
+.jouer .m07 .rot{animation:balance .7s var(--e5) backwards}
+
+/* ================================================================
+   08 ── PILULE VOIX pendant la lecture (état fini, jamais au repos)
+   ================================================================ */
+.m08 .eq{display:inline-flex;align-items:flex-end;gap:2px;height:9px;margin-right:6px;vertical-align:-1px}
+.m08 .eq i{display:block;width:2px;height:3px;background:currentColor}
+@keyframes bar1{ 0%{height:3px} 25%{height:9px} 50%{height:4px} 75%{height:7px} 100%{height:3px} }
+@keyframes bar2{ 0%{height:8px} 25%{height:3px} 50%{height:9px} 75%{height:4px} 100%{height:8px} }
+@keyframes bar3{ 0%{height:5px} 25%{height:8px} 50%{height:3px} 75%{height:9px} 100%{height:5px} }
+@keyframes respire{ 0%,100%{ text-shadow:0 0 6px rgba(84,255,138,.4) } 50%{ text-shadow:0 0 12px rgba(84,255,138,.85) } }
+.lecture .m08 .eq i:nth-child(1){animation:bar1 .6s var(--e1) infinite}
+.lecture .m08 .eq i:nth-child(2){animation:bar2 .6s var(--e1) infinite}
+.lecture .m08 .eq i:nth-child(3){animation:bar3 .6s var(--e1) infinite}
+.lecture .m08 .pilule.ok{animation:respire 1.2s var(--e2) infinite}
+.m08 .ligne-he{font-family:var(--he);font-weight:500;font-size:1.3rem;direction:rtl;text-align:center;color:var(--ambre);margin:14px 0 6px}
+.m08 .mot-lu{color:var(--vert);text-shadow:0 0 10px rgba(84,255,138,.5)}
+
+/* ================================================================
+   09 ── ALERTE — clignotement LOCAL et FINI (3 battements, puis stop)
+   ================================================================ */
+@keyframes tombe{ from{ opacity:0; transform:translateY(-8px) } }
+@keyframes battement{ 0%,100%{ opacity:1 } 50%{ opacity:.28 } }
+.jouer .m09 .attention{animation:tombe .26s var(--e) backwards}
+.jouer .m09 .titre{animation:battement .34s var(--e1) .26s 3 backwards}
+
+/* ---- pied ---- */
+.pied-note{
+  margin-top:56px;border-top:1px solid var(--ligne);padding-top:16px;
+  font-size:.74rem;color:var(--lune);opacity:.7;max-width:74ch;
+}
+.pied-note b{color:var(--ambre);opacity:1}
+</style>
+</head>
+<body>
+<div class="galerie">
+
+<header>
+  <h1>Mouvement</h1>
+  <p class="meta-ligne">Planche v0.1 · 9 moments · chaque moment joué deux fois : <b>steps()</b> contre <b>fluide</b> · aucun effet de surface d'écran · repli <span style="font-family:var(--mono)">prefers-reduced-motion</span> sur toute la page</p>
+</header>
+
+<!-- ================= PRÉAMBULE MESURÉ ================= -->
+<div class="constat">
+  <span class="coin a">+</span><span class="coin b">+</span>
+  <h2>Pourquoi cette planche compose au lieu de prélever</h2>
+  <p>Relevé du 2026-07-25 sur la référence SENTRY, vérifié à la source (page + bundle, hors navigateur). Le vocabulaire de mouvement <b>propre à l'app</b>, en entier :</p>
+  <table class="releve">
+    <tr><th>Animation</th><th>Timing</th><th>Ce que c'est</th><th>Statut</th></tr>
+    <tr><td>noiseShift</td><td>0,55 s steps(2) ∞</td><td>calque de bruit</td><td class="mort">rejeté sur iPhone, 24/07</td></tr>
+    <tr><td>flick</td><td>4 s steps(2) ∞</td><td>scintillement</td><td class="mort">rejeté sur iPhone, 24/07</td></tr>
+    <tr><td>satspin</td><td>0,7 s linear ∞</td><td>rotation</td><td class="mort">keyframe mort — jamais monté dans le DOM</td></tr>
+  </table>
+  <p><b>C'est tout.</b> Zéro animation d'état, zéro transition d'écran, zéro comportement au défilement. Le survol y est assuré par les classes utilitaires <span style="font-family:var(--mono)">transition-colors</span> de Tailwind — le défaut du framework, pas une décision de charte. La transition à rebond et les deux keyframes scintillants qu'une première lecture avait pris pour des trouvailles appartiennent au <b>badge « Made with Fuser »</b> : du mobilier d'hébergeur, pas de la référence.</p>
+  <p class="rouge"><b>Conséquence pour la règle en vigueur.</b> « Tout mouvement en steps() » (spec § 5) n'a que <b>deux occurrences</b> dans toute la référence — et ce sont exactement les deux calques que vous avez écartés sur l'appareil. La signature « instrument » reposait entièrement sur du matériau retiré depuis. La règle n'a donc jamais été jugée pour elle-même : cette planche est faite pour ça.</p>
+  <p>Protocole : <b>même markup, même durée, même distance</b> dans les deux colonnes. Seuls l'easing change. Les deux cellules d'une rangée se rejouent <b>ensemble</b>, pour comparer et non pour se souvenir.</p>
+</div>
+
+<div class="barre-haute">
+  <span class="lab">Planche entière</span>
+  <button class="btn primaire" id="tout">▶ Tout rejouer</button>
+  <button class="btn" id="cascade">▶ En cascade</button>
+  <span class="lab" style="margin-left:auto">Chaque rangée se rejoue aussi seule</span>
+</div>
+
+<!-- ============================================================ 01 -->
+<section class="moment" data-m="01">
+  <h2 class="section-titre"><span class="no">01</span> Révélation recto → verso <span class="freq">des centaines de fois / session</span></h2>
+  <p class="propos">Le geste central de l'app : la réponse arrive sous la vedette hébraïque. <b>La vedette ne doit pas bouger d'un pixel</b> — le volet s'ouvre en <span style="font-family:var(--mono)">clip-path</span>, jamais en hauteur, sinon le mot saute au moment précis où l'œil le lit. C'est la seule technique réellement transposable de la référence.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(3) · 420 ms</span></div>
+      <div class="vig m01"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+        <div class="carton" lang="he">חַלּוֹן</div>
+        <div class="m01-filet"></div>
+        <div class="m01-reponse">
+          <div class="tr-ligne">chalon</div>
+          <div class="fr-ligne">fenêtre</div>
+          <div class="exemple">
+            <div class="he-ex" lang="he">הַחַלּוֹן פָּתוּחַ</div>
+            <div class="fr-ex">La fenêtre est ouverte.</div>
+          </div>
+        </div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier · 420 ms</span></div>
+      <div class="vig m01"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+        <div class="carton" lang="he">חַלּוֹן</div>
+        <div class="m01-filet"></div>
+        <div class="m01-reponse">
+          <div class="tr-ligne">chalon</div>
+          <div class="fr-ligne">fenêtre</div>
+          <div class="exemple">
+            <div class="he-ex" lang="he">הַחַלּוֹן פָּתוּחַ</div>
+            <div class="fr-ex">La fenêtre est ouverte.</div>
+          </div>
+        </div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Rejouer les deux</button></div>
+</section>
+
+<!-- ============================================================ 02 -->
+<section class="moment" data-m="02">
+  <h2 class="section-titre"><span class="no">02</span> Verdict juste / faux <span class="freq">des centaines de fois / session</span></h2>
+  <p class="propos">La <b>règle de la lampe</b>, dans sa forme la plus littérale : depuis le retrait du scintillement, le glow la porte seul. Ici il s'allume. Question à trancher : deux marches sèches, ou une montée ? Jugez aussi <b>le faux</b> — c'est lui qu'on voit quand on est fatigué.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(2) · 300 ms</span></div>
+      <div class="vig m02 ok"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Carte <span style="font-family:var(--mono)">012</span></span><span class="pilule ok">Voix · OK</span></div>
+        <div style="margin:auto 0">
+          <div class="carton" lang="he">חַלּוֹן</div>
+          <div class="mention">exact</div>
+          <div class="compare">
+            <div class="l"><span>attendu</span><span class="attendu">chalon</span></div>
+            <div class="l"><span>reçu</span><span class="attendu">chalon</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier · 300 ms</span></div>
+      <div class="vig m02 ok"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Carte <span style="font-family:var(--mono)">012</span></span><span class="pilule ok">Voix · OK</span></div>
+        <div style="margin:auto 0">
+          <div class="carton" lang="he">חַלּוֹן</div>
+          <div class="mention">exact</div>
+          <div class="compare">
+            <div class="l"><span>attendu</span><span class="attendu">chalon</span></div>
+            <div class="l"><span>reçu</span><span class="attendu">chalon</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes">
+    <button class="btn primaire duo" data-verdict="ok">▶ Rejouer — juste</button>
+    <button class="btn danger duo" data-verdict="ko">▶ Rejouer — faux</button>
+  </div>
+</section>
+
+<!-- ============================================================ 03 -->
+<section class="moment" data-m="03">
+  <h2 class="section-titre"><span class="no">03</span> Carte suivante — le matricule <span class="freq">des centaines de fois / session</span></h2>
+  <p class="propos">Le compteur passe de <span style="font-family:var(--mono)">012</span> à <span style="font-family:var(--mono)">013</span> et le mot est remplacé. C'est le moment le plus répétitif de tous : <b>ce qui est charmant à la dixième carte peut être insupportable à la centième</b>. À juger en le rejouant plusieurs fois d'affilée.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(2) · 300 ms</span></div>
+      <div class="vig m03"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="etiquette">Carte <span class="num">01<span class="rouleau"><span class="strip"><span>2</span><span>3</span></span></span></span></span>
+          <span class="hexniv"><span class="in"><span class="lettre" lang="he">ב</span><span class="lab">A2</span></span></span>
+        </div>
+        <div class="pile" style="margin:auto 0">
+          <div class="mot-sortant"><div class="carton" lang="he">חַלּוֹן</div></div>
+          <div class="mot-entrant"><div class="carton" lang="he">מַפְתֵּחַ</div></div>
+        </div>
+        <div class="feed"><span class="l">objet suivant · file 041</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier · 300 ms</span></div>
+      <div class="vig m03"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="etiquette">Carte <span class="num">01<span class="rouleau"><span class="strip"><span>2</span><span>3</span></span></span></span></span>
+          <span class="hexniv"><span class="in"><span class="lettre" lang="he">ב</span><span class="lab">A2</span></span></span>
+        </div>
+        <div class="pile" style="margin:auto 0">
+          <div class="mot-sortant"><div class="carton" lang="he">חַלּוֹן</div></div>
+          <div class="mot-entrant"><div class="carton" lang="he">מַפְתֵּחַ</div></div>
+        </div>
+        <div class="feed"><span class="l">objet suivant · file 041</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Rejouer les deux</button></div>
+</section>
+
+<!-- ============================================================ 04 -->
+<section class="moment" data-m="04">
+  <h2 class="section-titre"><span class="no">04</span> Progression de session <span class="freq">à chaque réponse</span></h2>
+  <p class="propos">Le curseur de mission avance d'un cran et la timeline (module 03) gagne un trait. Mouvement discret, en périphérie du regard : il ne doit <b>jamais</b> voler l'attention à la carte.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(3) · 380 ms</span></div>
+      <div class="vig m04"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Session · en cours</span><span style="font-family:var(--mono);color:var(--vert)">17 / 27</span></div>
+        <div style="margin:auto 0">
+          <div class="compteur"><span>Progression</span><span>63 %</span></div>
+          <div class="piste">
+            <span class="fait"></span>
+            <span class="tick v" style="left:6%"></span><span class="tick v" style="left:14%"></span>
+            <span class="tick r" style="left:22%"></span><span class="tick v" style="left:30%"></span>
+            <span class="tick v" style="left:38%"></span><span class="tick v" style="left:45%"></span>
+            <span class="tick r" style="left:52%"></span><span class="tick v neuf" style="left:60%"></span>
+          </div>
+          <div class="feed" style="margin-top:12px"><span class="l">carte 017 · juste · intervalle ↗ 4 j</span></div>
+        </div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier · 380 ms</span></div>
+      <div class="vig m04"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Session · en cours</span><span style="font-family:var(--mono);color:var(--vert)">17 / 27</span></div>
+        <div style="margin:auto 0">
+          <div class="compteur"><span>Progression</span><span>63 %</span></div>
+          <div class="piste">
+            <span class="fait"></span>
+            <span class="tick v" style="left:6%"></span><span class="tick v" style="left:14%"></span>
+            <span class="tick r" style="left:22%"></span><span class="tick v" style="left:30%"></span>
+            <span class="tick v" style="left:38%"></span><span class="tick v" style="left:45%"></span>
+            <span class="tick r" style="left:52%"></span><span class="tick v neuf" style="left:60%"></span>
+          </div>
+          <div class="feed" style="margin-top:12px"><span class="l">carte 017 · juste · intervalle ↗ 4 j</span></div>
+        </div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Rejouer les deux</button></div>
+</section>
+
+<!-- ============================================================ 05 -->
+<section class="moment" data-m="05">
+  <h2 class="section-titre"><span class="no">05</span> Radar — un blip quitte le « dû » <span class="freq">à chaque carte soldée</span></h2>
+  <p class="propos">Module 01, retenu à l'arbitrage mais <b>resté statique</b> dans la page-témoin. Un point vert (à réviser) devient ambre (soldé) et émet une onde. C'est un mouvement <b>local et signifiant</b> au sens strict : il se passe quelque chose, donc quelque chose bouge.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(2/3) · 340 ms</span></div>
+      <div class="vig m05"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Radar · révision</span><span style="font-family:var(--mono);color:var(--vert)">dû 06</span></div>
+        <svg class="radar" width="176" height="140" viewBox="0 0 176 140" aria-hidden="true">
+          <circle class="anneau" cx="88" cy="70" r="60"/><circle class="anneau" cx="88" cy="70" r="40"/><circle class="anneau" cx="88" cy="70" r="20"/>
+          <line class="axe" x1="28" y1="70" x2="148" y2="70"/><line class="axe" x1="88" y1="10" x2="88" y2="130"/>
+          <circle class="onde" cx="118" cy="46" r="3"/>
+          <circle class="blip" cx="60" cy="52" r="2"/><circle class="blip" cx="104" cy="94" r="2"/>
+          <circle class="blip due" cx="72" cy="98" r="3.4"/><circle class="blip due" cx="130" cy="84" r="3.4"/>
+          <circle class="blip cible" cx="118" cy="46" r="2"/>
+          <circle class="centre" cx="88" cy="70" r="2.5"/>
+          <text x="92" y="66">VOUS</text>
+        </svg>
+        <div class="feed" style="margin-top:6px"><span class="l">חַלּוֹן · soldé · revoir dans 4 j</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier · 340 ms</span></div>
+      <div class="vig m05"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Radar · révision</span><span style="font-family:var(--mono);color:var(--vert)">dû 06</span></div>
+        <svg class="radar" width="176" height="140" viewBox="0 0 176 140" aria-hidden="true">
+          <circle class="anneau" cx="88" cy="70" r="60"/><circle class="anneau" cx="88" cy="70" r="40"/><circle class="anneau" cx="88" cy="70" r="20"/>
+          <line class="axe" x1="28" y1="70" x2="148" y2="70"/><line class="axe" x1="88" y1="10" x2="88" y2="130"/>
+          <circle class="onde" cx="118" cy="46" r="3"/>
+          <circle class="blip" cx="60" cy="52" r="2"/><circle class="blip" cx="104" cy="94" r="2"/>
+          <circle class="blip due" cx="72" cy="98" r="3.4"/><circle class="blip due" cx="130" cy="84" r="3.4"/>
+          <circle class="blip cible" cx="118" cy="46" r="2"/>
+          <circle class="centre" cx="88" cy="70" r="2.5"/>
+          <text x="92" y="66">VOUS</text>
+        </svg>
+        <div class="feed" style="margin-top:6px"><span class="l">חַלּוֹן · soldé · revoir dans 4 j</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Rejouer les deux</button></div>
+</section>
+
+<!-- ============================================================ 06 -->
+<section class="moment" data-m="06">
+  <h2 class="section-titre"><span class="no">06</span> Transition d'écran — accueil → session <span class="freq">2 à 3 fois / session</span></h2>
+  <p class="propos">L'accueil s'efface par un essuyage vers le haut, puis les étages de la session <b>arrivent en décalé</b> (0 · 80 · 160 ms). C'est le seul moment de la planche où le mouvement occupe tout le cadre — légitime parce que c'est un <b>changement de vue</b>, pas un calque permanent posé sur l'écran.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(5) · 300 ms + décalé</span></div>
+      <div class="vig m06"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="sortant">
+          <div class="brand-he" lang="he">עִבְרִית</div>
+          <div class="brand-sous">Console d'étude</div>
+          <div class="panneau" style="margin-top:14px"><span class="coin a">+</span><span class="coin b">+</span>
+            <div style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase">01 · Cartes</div>
+          </div>
+        </div>
+        <div class="etage statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+        <div class="etage" style="margin:auto 0"><div class="carton" lang="he">חַלּוֹן</div></div>
+        <div class="etage feed"><span class="l">session ouverte · 27 objets en file</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier · 300 ms + décalé</span></div>
+      <div class="vig m06"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="sortant">
+          <div class="brand-he" lang="he">עִבְרִית</div>
+          <div class="brand-sous">Console d'étude</div>
+          <div class="panneau" style="margin-top:14px"><span class="coin a">+</span><span class="coin b">+</span>
+            <div style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase">01 · Cartes</div>
+          </div>
+        </div>
+        <div class="etage statusbar"><span>Mode · Cartes</span><span class="pilule ok">Voix · OK</span></div>
+        <div class="etage" style="margin:auto 0"><div class="carton" lang="he">חַלּוֹן</div></div>
+        <div class="etage feed"><span class="l">session ouverte · 27 objets en file</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Rejouer les deux</button></div>
+</section>
+
+<!-- ============================================================ 07 -->
+<section class="moment" data-m="07">
+  <h2 class="section-titre"><span class="no">07</span> Bilan — les chiffres montent <span class="freq">1 fois / session</span></h2>
+  <p class="propos">Le seul moment où le mouvement a le droit d'être un peu long : c'est une récompense, elle se regarde. Les chiffres comptent et l'aiguille (module 19) balaie. <b>La version steps compte par paliers</b> — 6 incréments visibles — la fluide égrène chaque unité.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">6 paliers · 700 ms</span></div>
+      <div class="vig m07"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Session · close</span><span style="font-family:var(--mono);color:var(--vert)">21 h 47</span></div>
+        <div class="bilan-l"><span>Cartes vues</span><span class="v" data-fin="27">27</span></div>
+        <div class="bilan-l"><span>Justes</span><span class="v" data-fin="23">23</span></div>
+        <div class="bilan-l" style="border:0"><span>Série la plus longue</span><span class="v" data-fin="11">11</span></div>
+        <svg class="jauge-svg" width="150" height="80" viewBox="0 0 150 80" aria-hidden="true">
+          <path class="arc" d="M20 70 A55 55 0 0 1 130 70"/>
+          <path class="arc plein" d="M20 70 A55 55 0 0 1 96 26"/>
+          <line class="tickj" x1="20" y1="70" x2="27" y2="70"/><line class="tickj" x1="75" y1="15" x2="75" y2="22"/><line class="tickj" x1="130" y1="70" x2="123" y2="70"/>
+          <g class="rot"><line class="aiguille" x1="33" y1="35" x2="75" y2="70"/></g>
+          <circle class="pivot" cx="75" cy="70" r="3"/>
+          <text x="56" y="58">85 %</text>
+        </svg>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">continu · 700 ms</span></div>
+      <div class="vig m07"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Session · close</span><span style="font-family:var(--mono);color:var(--vert)">21 h 47</span></div>
+        <div class="bilan-l"><span>Cartes vues</span><span class="v" data-fin="27">27</span></div>
+        <div class="bilan-l"><span>Justes</span><span class="v" data-fin="23">23</span></div>
+        <div class="bilan-l" style="border:0"><span>Série la plus longue</span><span class="v" data-fin="11">11</span></div>
+        <svg class="jauge-svg" width="150" height="80" viewBox="0 0 150 80" aria-hidden="true">
+          <path class="arc" d="M20 70 A55 55 0 0 1 130 70"/>
+          <path class="arc plein" d="M20 70 A55 55 0 0 1 96 26"/>
+          <line class="tickj" x1="20" y1="70" x2="27" y2="70"/><line class="tickj" x1="75" y1="15" x2="75" y2="22"/><line class="tickj" x1="130" y1="70" x2="123" y2="70"/>
+          <g class="rot"><line class="aiguille" x1="33" y1="35" x2="75" y2="70"/></g>
+          <circle class="pivot" cx="75" cy="70" r="3"/>
+          <text x="56" y="58">85 %</text>
+        </svg>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Rejouer les deux</button></div>
+</section>
+
+<!-- ============================================================ 08 -->
+<section class="moment" data-m="08">
+  <h2 class="section-titre"><span class="no">08</span> Pilule voix — pendant la lecture <span class="freq">tant que ça parle</span></h2>
+  <p class="propos">Module 09. Le <b>seul mouvement en boucle</b> de la planche — et il n'existe que pendant que la voix parle : il s'arrête tout seul. C'est la frontière exacte avec le scintillement rejeté, qui tournait <b>en permanence, sans rien signifier</b>. Ici la boucle est l'information.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(1) · 600 ms ∞ borné</span></div>
+      <div class="vig m08"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Mode · Phrases</span>
+          <span class="pilule ok"><span class="eq"><i></i><i></i><i></i></span>Voix</span>
+        </div>
+        <div style="margin:auto 0">
+          <div class="ligne-he" lang="he">הַ<span class="mot-lu">חַלּוֹן</span> פָּתוּחַ</div>
+          <div class="fr-ligne" style="font-size:.8rem">La fenêtre est ouverte.</div>
+        </div>
+        <div class="feed"><span class="l">lecture · 1,4 s · he-IL</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier · 600 ms ∞ borné</span></div>
+      <div class="vig m08"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Mode · Phrases</span>
+          <span class="pilule ok"><span class="eq"><i></i><i></i><i></i></span>Voix</span>
+        </div>
+        <div style="margin:auto 0">
+          <div class="ligne-he" lang="he">הַ<span class="mot-lu">חַלּוֹן</span> פָּתוּחַ</div>
+          <div class="fr-ligne" style="font-size:.8rem">La fenêtre est ouverte.</div>
+        </div>
+        <div class="feed"><span class="l">lecture · 1,4 s · he-IL</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Lire (3 s, puis stop)</button></div>
+</section>
+
+<!-- ============================================================ 09 -->
+<section class="moment" data-m="09">
+  <h2 class="section-titre"><span class="no">09</span> Alerte <span class="freq">rare</span></h2>
+  <p class="propos">Le spec note que l'encart d'alerte <b>clignotait avant le retrait du scintillement</b> — il a été désarmé par ricochet, alors que c'est le seul endroit où un clignotement se justifie. Rendu ici <b>fini</b> : trois battements et ça s'arrête. Une alarme qui ne s'arrête jamais cesse d'être une alarme.</p>
+  <div class="rangee">
+    <div class="cellule" data-reg="steps">
+      <div class="cel-tete"><span class="cel-nom">A · steps</span><span class="cel-easing">steps(1) × 3 battements</span></div>
+      <div class="vig m09"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Session · en cours</span><span style="font-family:var(--mono);color:var(--rouge);text-shadow:0 0 6px currentColor">alerte</span></div>
+        <div style="margin:auto 0">
+          <div class="attention">
+            <div class="corps">
+              <div class="titre">Série d'erreurs</div>
+              Quatre cartes ratées d'affilée. Une pause de deux minutes vaut mieux qu'une cinquième.
+            </div>
+          </div>
+        </div>
+        <div class="feed"><span class="l">seuil · 4 échecs consécutifs</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+    <div class="cellule" data-reg="fluide">
+      <div class="cel-tete"><span class="cel-nom">B · fluide</span><span class="cel-easing">cubic-bezier × 3 battements</span></div>
+      <div class="vig m09"><span class="viseur tl">+</span><span class="viseur br">+</span>
+        <div class="statusbar"><span>Session · en cours</span><span style="font-family:var(--mono);color:var(--rouge);text-shadow:0 0 6px currentColor">alerte</span></div>
+        <div style="margin:auto 0">
+          <div class="attention">
+            <div class="corps">
+              <div class="titre">Série d'erreurs</div>
+              Quatre cartes ratées d'affilée. Une pause de deux minutes vaut mieux qu'une cinquième.
+            </div>
+          </div>
+        </div>
+        <div class="feed"><span class="l">seuil · 4 échecs consécutifs</span></div>
+      </div>
+      <div class="commandes"><button class="btn mini solo">▸ seul</button></div>
+    </div>
+  </div>
+  <div class="commandes"><button class="btn primaire duo">▶ Rejouer les deux</button></div>
+</section>
+
+<p class="pied-note">
+  <b>Ce que cette planche ne fait pas.</b> Aucun calque de surface d'écran : rien ici ne teinte, ne bruite ni ne fait vibrer le cadre entier — les trois effets jugés sur iPhone le 24/07 restent dehors. Le seul mouvement en boucle est celui de la pilule voix (08), et il est <b>borné par un état réel</b>. Tout le reste est déclenché par un événement et se termine.
+  <br><br>
+  <b>Ce qu'elle demande.</b> Un verdict par moment — <span style="font-family:var(--mono)">A</span> (steps), <span style="font-family:var(--mono)">B</span> (fluide) ou <span style="font-family:var(--mono)">rien</span> (ce moment reste immobile). « Rien » est une réponse légitime et attendue sur plusieurs lignes : une console n'est pas une app qui frétille.
+</p>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var REDUIT = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Rejoue une cellule : on retire la classe, on force un reflow, on la remet.
+     Sans le reflow, le navigateur coalesce les deux mutations et rien ne rejoue. */
+  function rejoue(cel){
+    cel.classList.remove('jouer');
+    void cel.offsetWidth;
+    cel.classList.add('jouer');
+    if (cel.querySelector('.m07')) compte(cel);
+  }
+
+  /* ---- 07 : les compteurs. steps = paliers discrets, fluide = continu ---- */
+  var PALIERS = 6, DUREE = 700;
+  function compte(cel){
+    var steps = cel.getAttribute('data-reg') === 'steps';
+    cel.querySelectorAll('.v').forEach(function(n){
+      var fin = parseInt(n.getAttribute('data-fin'), 10);
+      if (n._t) { clearInterval(n._t); n._t = null; }
+      if (n._r) { cancelAnimationFrame(n._r); n._r = null; }
+      if (REDUIT) { n.textContent = fin; return; }
+      if (steps){
+        var i = 0;
+        n.textContent = '0';
+        n._t = setInterval(function(){
+          i++;
+          n.textContent = Math.round(fin * i / PALIERS);
+          if (i >= PALIERS){ clearInterval(n._t); n._t = null; n.textContent = fin; }
+        }, DUREE / PALIERS);
+      } else {
+        var t0 = performance.now();
+        (function trame(t){
+          var p = Math.min(1, (t - t0) / DUREE);
+          n.textContent = Math.round(fin * p);
+          if (p < 1) n._r = requestAnimationFrame(trame);
+          else { n._r = null; n.textContent = fin; }
+        })(t0);
+      }
+    });
+  }
+
+  /* ---- 08 : la lecture est un ÉTAT, borné à 3 s, jamais permanent ---- */
+  function lit(cel){
+    cel.classList.add('lecture');
+    if (cel._voix) clearTimeout(cel._voix);
+    cel._voix = setTimeout(function(){ cel.classList.remove('lecture'); }, 3000);
+  }
+
+  function cellulesDe(section){ return section.querySelectorAll('.cellule'); }
+
+  function joueSection(section, verdict){
+    var m08 = section.getAttribute('data-m') === '08';
+    cellulesDe(section).forEach(function(cel){
+      if (verdict){
+        var vig = cel.querySelector('.m02');
+        if (vig){
+          vig.classList.remove('ok','ko');
+          vig.classList.add(verdict);
+          vig.querySelector('.mention').textContent = verdict === 'ok' ? 'exact' : 'erreur';
+          var recu = vig.querySelectorAll('.compare .l')[1].lastElementChild;
+          recu.className = verdict === 'ok' ? 'attendu' : 'recu';
+          recu.textContent = verdict === 'ok' ? 'chalon' : 'khalon';
+        }
+      }
+      if (m08) lit(cel); else rejoue(cel);
+    });
+  }
+
+  document.querySelectorAll('.moment').forEach(function(section){
+    section.querySelectorAll('.duo').forEach(function(b){
+      b.addEventListener('click', function(){
+        joueSection(section, b.getAttribute('data-verdict'));
+      });
+    });
+    section.querySelectorAll('.solo').forEach(function(b){
+      b.addEventListener('click', function(){
+        var cel = b.closest('.cellule');
+        if (section.getAttribute('data-m') === '08') lit(cel); else rejoue(cel);
+      });
+    });
+  });
+
+  document.getElementById('tout').addEventListener('click', function(){
+    document.querySelectorAll('.moment').forEach(function(s){ joueSection(s); });
+  });
+
+  document.getElementById('cascade').addEventListener('click', function(){
+    var sections = document.querySelectorAll('.moment');
+    sections.forEach(function(s, i){
+      setTimeout(function(){
+        joueSection(s);
+        s.scrollIntoView({block:'center', behavior: REDUIT ? 'auto' : 'smooth'});
+      }, i * 1100);
+    });
+  });
+})();
+</script>
+</body>
+</html>
