@@ -5,7 +5,9 @@ suppose aucune mémoire de la session précédente, et il porte l'état arrêté
 
 > ⚠️ **À tenir à jour** : ce prompt vaut ce que vaut son bloc ÉTAT. À la fin de chaque session qui
 > arbitre quelque chose, le mettre à jour ici — sinon la session suivante voudra « réparer » des
-> décisions prises exprès. Les décisions elles-mêmes vivent dans `TODO.md` « Reprendre ici » et
+> décisions prises exprès. **Mis à jour au 2026-07-25 (nuit), commit `899cc98`** : quatre planches
+> en attente de verdict, la règle du mobilier au spec § 5 ter, et la distinction entre les deux
+> passes SENTRY. Les décisions elles-mêmes vivent dans `TODO.md` « Reprendre ici » et
 > dans le spec ; ce fichier n'en est que le résumé de passation.
 
 ---
@@ -16,7 +18,7 @@ Chantier : la charte graphique v2 « La console d'étude » (direction artistiqu
 BRANCHE DE TRAVAIL : refonte-retrofuturiste
 RÉPERTOIRE DE TRAVAIL : ~/dev/flashcards-hebreu-refonte  (worktree lié)
 DISTANT : origin/refonte-retrofuturiste
-DERNIER COMMIT DE LA SESSION PRÉCÉDENTE : f72c55c (2026-07-25, soir)
+DERNIER COMMIT DE LA SESSION PRÉCÉDENTE : 899cc98 (2026-07-25, nuit)
 
 Premier geste, avant toute autre chose — vérifie que tu es au bon endroit :
     git -C ~/dev/flashcards-hebreu-refonte branch --show-current
