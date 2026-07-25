@@ -1037,10 +1037,25 @@ chose. Chaque fiche porte sa réserve, et je ne les recommande pas toutes.</p>
     décomposition et sa somme — <b>vraies valeurs</b> (<span lang="he">שלום</span> = 376), un relevé exact dont personne
     n'a besoin. C'est le décor le plus proprement <i>console</i> de la planche : des chiffres qui ne
     servent à rien mais qui sont justes.</div>
-    <div class="f-cout">table de 22 valeurs en JS, 1 keyframe très sobre</div>
+    <div class="f-cout">table de 27 valeurs en JS + normalisation, 1 keyframe très sobre</div>
     <div class="f-reserve"><b>réserve</b>La guématrie est un usage <b>traditionnel et religieux</b>.
     Le dépôt a écarté sciemment la vie religieuse du périmètre du vocabulaire ; je ne sais pas si
     cette décision couvre l'ornement. C'est ton arbitrage, pas le mien.</div>
+    <div class="f-reserve" style="border-left-color:var(--vert)"><b style="color:var(--vert)">trois
+    points d'implémentation, à ne pas redécouvrir</b>
+    (1) <b>27 entrées, pas 22.</b> L'hébreu a 22 lettres de base mais <b>5 formes finales</b>
+    (<span lang="he">ך ם ן ף ץ</span>), qui valent la <b>même chose</b> que leur forme normale en
+    système standard (<span lang="he">ם</span> = <span lang="he">מ</span> = 40). Une table à 22
+    entrées renvoie <span style="font-family:var(--mono)">undefined</span> sur tout mot terminé par
+    l'une d'elles — la démo ci-contre en emploie une.
+    (2) <b>Le nikoud doit être retiré avant de compter</b> : la vedette affiche
+    <span lang="he">שָׁלוֹם</span>, la colonne compte <span lang="he">שלום</span>. Le dépôt a déjà
+    ce qu'il faut, c'est le champ <span style="font-family:var(--mono)">he_plain</span> des cartes —
+    ne pas réécrire un dénikoudeur.
+    (3) <b>Système standard assumé</b> (<i>mispar hechrachi</i>). En <i>mispar gadol</i> les finales
+    valent 500 à 900 et <span lang="he">שלום</span> ferait 936, pas 376. Les deux sont
+    légitimes ; celui-ci est le courant. C'est écrit ici pour qu'on ne « corrige » pas 376 un jour
+    en croyant à une erreur.</div>
   </div>
 
   <!-- 10 -->
