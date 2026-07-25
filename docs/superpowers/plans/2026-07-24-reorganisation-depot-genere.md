@@ -418,9 +418,9 @@ Stratégie en deux temps pour ne jamais sauter sans filet : (a) **éclatement by
 
 ### Task 16 : Contrôle A/B et sortie du chantier 3
 
-- [ ] **Step 1 :** rituel (`build`, `--check`, `verifie_exemples`) puis bump `sw.js` → `v33`.
-- [ ] **Step 2 :** deux sous-agents Sonnet en parallèle, prompts avec critères chiffrés : (1) WebKit iPhone 16 Pro — captures A/B (HEAD~n avant chantier vs HEAD) des écrans accueil/sélection/carte/QCM/révision, « identiques oui/non par écran, max 8 lignes, aucune image en réponse » ; (2) desktop 1440/1280/992/900/768 (piège 13) — même protocole. Tout écart = retour au Task 15.
-- [ ] **Step 3 :** TODO.md, commit + push : « Chantier 3 soldé : app.html artefact assemblé depuis src/app/, iso-visuel prouvé mobile+desktop, sw v33 ».
+- [x] **Step 1 :** rituel (`build`, `--check`, `verifie_exemples`) puis bump `sw.js` → `v33`. **Fait le 25/07** — avec, au passage, les trois minors gelés et les trois en-têtes `// Expose :` relevés en revue (détail dans TODO.md § Reprendre ici).
+- [x] **Step 2 :** ⚠️ **gate réduite sur décision du propriétaire (25/07)**, la matrice A/B complète n'a pas été jouée : le hors-`<script>` d'`app.html` étant byte-identique à l'avant-chantier et le diff résiduel étant du commentaire, l'A/B mobile+desktop ne pouvait rien mesurer d'autre que ce que la byte-identité prouve déjà. Remplacée par ce qu'elle seule prouvait vraiment — **un smoke dans un vrai WebKit** (iPhone 16 Pro émulé, servi en HTTP) : le JS concaténé des 14 modules parse et démarre, les 5 modes s'exercent, 0 erreur console. Le desktop (piège 13) n'est pas concerné : aucune ligne de CSS ni de balisage n'a bougé.
+- [x] **Step 3 :** TODO.md, ARCHITECTURE.md, CLAUDE.md, README.md (tous disaient encore qu'`app.html` s'édite à la main), suppression des ancres `app.html#L` de la doc, puis commit + push.
 
 ---
 

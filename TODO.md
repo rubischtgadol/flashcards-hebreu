@@ -4,21 +4,21 @@
 
 ## Reprendre ici (prochaine session)
 
-**Chantier 3 de la réorganisation « le dépôt généré » : Tasks 13, 14 et 15
-faites et relues. Reste le Task 16, session interrompue avant lui.**
-Prochaine étape : **Task 16** (contrôle A/B visuel, bump `sw.js` → **v33**,
-sortie de chantier — plan complet dans
+**Chantier 3 de la réorganisation « le dépôt généré » : SOLDÉ (Tasks 13 à 16,
+25/07).** `app.html` est le 4ᵉ artefact généré ; `sw.js` est en **v33**.
+Prochaine étape : **chantier 4, Task 17** (`tools/` et `docs/` — plan complet
+dans
 [docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md](docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md)).
+⚠️ Le Task 17 déplace et supprime des fichiers : il **devra** poser son flag
+« GRAPHE À RECALER » (rituel étape 5).
 
 **Lot transversal du 25/07, hors chantier : les tripwires** (demande du
 propriétaire : « si je change quelque chose, la casse doit être détectée
 mécaniquement »). `verifieCharte()` dans `build.js` mécanise les pièges n°2, 3
-et 5 ; les jetons interdits du standalone s'élargissent (le point 3 du Task 16
-ci-dessous est **soldé**) ; un hook `pre-commit` versionné arrive dans
-`.githooks/`. Chaque garde éprouvée par casse fabriquée (exit 1 réel, échec
-nommé). Artefacts inchangés au byte — **aucun bump `sw.js` dû par ce lot**, le
-v33 reste dû au Task 16. Détail : ARCHITECTURE.md § Garde-fous, TODO § Rituel
-étape 4.
+et 5 ; les jetons interdits du standalone s'élargissent ; un hook `pre-commit`
+versionné arrive dans `.githooks/`. Chaque garde éprouvée par casse fabriquée
+(exit 1 réel, échec nommé). Détail : ARCHITECTURE.md § Garde-fous, TODO
+§ Rituel étape 4.
 
 ### Ce que le chantier 3 a produit (df5ccfc..d518269, poussé sur `main`)
 
@@ -54,32 +54,49 @@ en jsdom, 29/29 PASS, 0 erreur console : cartes (flip/answer/undo), saisie
 (verdict, correction, clavier hébreu), QCM, révision espacée, recherche, les
 6 segments de `SEG_KEYS`.
 
-⚠️ **Ce qui reste dû au Task 16, ne pas le sauter** :
+### Ce que le Task 16 a soldé (25/07)
 
-1. **Bump `sw.js` → `v33`** (il est resté en **v32** : `app.html` et
-   `flashcards_hebreu.html` ont changé, iso-fonctionnellement, sans bump).
-2. Le **contrôle A/B WebKit** prévu par le plan (iPhone 16 Pro émulé + desktop
-   1440/1280/992/900/768, piège 13) n'a **pas** été lancé. La byte-identité du
-   hors-`<script>` le rend redondant sur le rendu ; il reste la gate formelle du
-   plan si on veut la cocher.
-3. ~~Un finding Important laissé ouvert exprès~~ — **SOLDÉ le 25/07 (lot
-   tripwires)** : `serviceWorker` et `BUILD:ONLINE-ONLY` ajoutés aux jetons
-   interdits de `generateStandalone()`, garde re-prouvée par fence coupée en
-   deux blocs (exit 1 réel constaté, jeton nommé).
-4. Trois minors gelés parce qu'ils cassaient une gate byte-identique tant que
-   le chantier tournait : `build.js:693` (l'en-tête du standalone annonce
-   encore « depuis app.html + vocabulaire_hebreu.html », provenance réelle
-   `src/app/`) ; `build.js:733` (l'étiquette par défaut de `mustReplace` reste
-   `'app.html'`, or les ancres s'éditent dans `src/app/coquille.html` et
-   `src/app/js/` — le message envoie l'auteur vers un artefact généré) ;
-   `build.js:575` (le message de `report()` renvoie encore à `THEMES` « dans
-   app.html »).
-5. Trois en-têtes `// Expose :` incomplets, relevés en revue :
-   `src/app/js/07-filtres.js:1` omet 9 de ses 27 déclarations (`NIVEAUX`,
-   `SPK_SVG`, `catCounts`, `nivCounts`, `themeCounts`, `catsEl`, `nivEl`,
-   `themeEl`, `catOrder`) que `13-reglages.js:1` déclare pourtant « utiliser
-   (07) » — contrat auto-contradictoire ; `06-voix.js:1` omet `voicesCache` ;
-   `08-srs.js:1` omet `SRS_INTERVALS`, `SRS_MASTER`, `lastRecord`.
+1. **`sw.js` bumpé en `v33`** — `app.html` et `flashcards_hebreu.html` avaient
+   changé sans bump depuis la v32.
+2. **Les trois minors gelés** par la gate byte-identique du chantier : l'en-tête
+   du standalone annonce désormais sa vraie provenance (« depuis `src/app/` +
+   `data/` ») ; `mustReplace` ne peut plus renvoyer l'auteur vers `app.html`
+   (chacun des 8 appels nomme son fichier source — `src/app/coquille.html`,
+   `src/app/js/05-donnees.js`, `src/app/js/99-principal.js` — et le défaut est
+   devenu un aveu d'appel incomplet, plus un artefact) ; les messages de la
+   garde de taxonomie pointent `src/app/js/00-tout.js`.
+3. **Les trois en-têtes `// Expose :`** relevés en revue. Le contrat a d'abord
+   été tranché, puisque c'est lui qui rendait le relevé ambigu : **« Expose »
+   liste les noms top-level qu'un *autre* module référence**, rien de plus —
+   vérifié fichier par fichier. Ajoutés à 07 : `SPK_SVG`, `catCounts`,
+   `nivCounts`, `themeCounts`, `catsEl`, `nivEl`, `themeEl`, `catOrder` (les 8
+   que `13-reglages.js` déclarait « utiliser (07) » — la contradiction est
+   levée) ; ajouté à 08 : `lastRecord` (lu par 09 et 99). En revanche `NIVEAUX`
+   (07), `voicesCache` (06), `SRS_INTERVALS` et `SRS_MASTER` (08) **restent
+   hors liste** : aucun autre module ne les référence, ils sont locaux par
+   convention. Convention écrite dans ARCHITECTURE.md § Anatomie de l'app.
+4. **Toutes les ancres `app.html#L` de la doc ont été supprimées**, pas
+   recalées : le chantier 3 les avait de nouveau toutes faussées (5ᵉ dérive), et
+   `app.html` est régénéré à chaque build. ARCHITECTURE.md pointe désormais les
+   modules sources ; le contrôle `grep -rn 'app\.html#L' *.md` doit rester vide
+   (rituel étape 7).
+5. **La gate visuelle du plan, réduite sur décision du propriétaire.** La
+   matrice A/B (mobile + desktop 1440/1280/992/900/768, avant-chantier vs HEAD)
+   n'a **pas** été jouée : le hors-`<script>` d'`app.html` est byte-identique à
+   l'avant-chantier et le diff résiduel du Task 16 est du commentaire — elle
+   n'aurait mesuré que ce que la byte-identité prouve déjà, et le piège 13
+   (desktop) ne mord pas quand aucune ligne de CSS ni de balisage n'a bougé.
+   Elle est remplacée par ce qu'elle seule prouvait vraiment : **un smoke dans
+   un vrai WebKit** (iPhone 16 Pro émulé, servi en HTTP, sous-agent Sonnet) —
+   `#count-note` annonce « 1220 mots chargés », les 7 points passent (cartes,
+   saisie, QCM, révision, recherche, réglages), **0 erreur console et 0
+   `pageerror`**. C'est la seule chose que jsdom ne pouvait pas dire : que la
+   concaténation des 14 modules parse et démarre dans le moteur réel.
+6. **La passe documentaire de sortie de chantier** : CLAUDE.md (pièges 1, 2, 5,
+   6, 8, 11, « The five deployed pieces », « extraction coupling », rituel
+   étape 1 et 3), ARCHITECTURE.md (§ Vue d'ensemble, § Les fichiers, § chaîne de
+   génération, § Anatomie de l'app, § Check-list) et README.md disaient tous
+   encore qu'`app.html` s'édite à la main.
 
 **Deux minors hérités du chantier 2, toujours ouverts** : `app.html`
 l'étiquette de diagnostic « extraction » mesure désormais `JSON.parse` ;
@@ -103,6 +120,8 @@ dérivé le standalone d'un fichier périmé.
 gardes) est dans `.superpowers/sdd/2026-07-24-reorganisation-depot-genere/progress.md`
 — **gitignoré, donc local à la machine** ; il porte aussi les briefs et les
 revues des Tasks 13 à 15. Le chantier 4 (Tasks 17 à 21) n'a **pas** été entamé.
+⚠️ Le ledger s'arrête au Task 15 : le Task 16 s'est joué dans la session du
+25/07, et c'est cette section-ci qui en tient lieu.
 
 ### Ce que le chantier 2 avait produit
 
@@ -115,7 +134,7 @@ n'existe dans le dépôt** : `extractCards` (les deux implémentations, carnet e
 ont été retirés une fois la preuve faite ; `outils_migration/
 compare_carnets.js`, le harnais qui portait cette preuve, a été supprimé avec
 eux, sa mission remplie. `verifie_exemples.js`, `cherche_mots.js` et
-`ajoute_mots.js` lisent tous `data/`. `sw.js` est en **v32** et précache
+`ajoute_mots.js` lisent tous `data/`. `sw.js` passait alors en **v32** et précache
 `cards.json`. État : **1220 cartes**, `--check` en phase.
 
 À savoir sur le champ `version` de `cards.json` : le build ne réécrit le fichier
@@ -366,20 +385,22 @@ l'avertissement CLAUDE.md/ARCHITECTURE.md en tête de section) :
    de nœuds `lang="he"` se **mesure dans le navigateur, il ne se calcule pas** : une
    entrée ajoutée crée aussi ses `span.cursive` générés, donc elle pèse plus d'un nœud
    (5003 → 5015 pour 3 mots, le 19/07, là où le calcul de tête donnait 5010).
-7. **Recaler les ancres de lignes** si `app.html` a changé de taille. Elles ont dérivé
-   **quatre fois** (19/07 au matin ; retrouvées toutes fausses le soir, +25 ; de nouveau
-   après les plis, de +22 à +82 selon l'endroit ; puis +11 uniforme, constaté le 20/07).
-   Le décalage n'est **pas** toujours uniforme — chaque ancre se vérifie. Une ancre fausse
-   est pire qu'absente : elle envoie lire le mauvais code avec assurance.
+7. **Plus aucune ancre de ligne vers `app.html` dans la doc — et ne pas en réintroduire**
+   (clos au Task 16, 25/07). Elles avaient dérivé **cinq fois** (19/07 au matin ; toutes
+   fausses le soir, +25 ; après les plis, de +22 à +82 selon l'endroit ; +11 uniforme le
+   20/07 ; puis en vrac au chantier 3, qui a réordonné le JS). Le décalage n'est **pas**
+   uniforme — et une ancre fausse est pire qu'absente : elle envoie lire le mauvais code
+   avec assurance. La cause de fond a été supprimée plutôt que réparée une sixième fois :
+   `app.html` est un artefact régénéré à chaque build, donc **la doc pointe le module
+   source** (`src/app/js/12-qcm.js`, `src/app/coquille.html`…), sans numéro de ligne pour
+   le code — `graphify explain "<symbole>"` redonne la ligne exacte sans entretien manuel.
 
-   Depuis le 20/07 la surface a beaucoup réduit : **CLAUDE.md et DESIGN.md n'en portent
-   plus aucune** (CLAUDE.md déléguant au graphe, dont `graphify explain "<symbole>"` redonne
-   la ligne exacte sans entretien manuel). Restent ARCHITECTURE.md (16) et TODO.md (3) :
+   Contrôle (chaîne littérale, pour ne pas matcher les mentions en prose ;
+   `TODO_ARCHIVE.md` est exclu — c'est un gel historique, on n'y touche pas) :
 
-   `for l in $(grep -o 'app\.html#L[0-9][0-9]*' ARCHITECTURE.md TODO.md | grep -o '[0-9]*$' | sort -un); do printf '%5s: %s\n' "$l" "$(sed -n "${l}p" app.html | cut -c1-64)"; done`
+   `grep -rnF '](app.html#L' README.md CLAUDE.md ARCHITECTURE.md DESIGN.md PRODUCT.md TODO.md`
 
-   — chaque ligne affichée doit correspondre à ce que le document annonce. En cas de doute
-   sur la vraie position d'un symbole : `graphify explain "<symbole>"`.
+   — doit rester **vide**.
 8. Commit par changement, messages en français (comme l'historique), puis push sur `main`
    (GitHub Pages redéploie automatiquement). C'est le point de coupure propre : l'état vit
    dans git et dans « Reprendre ici », pas dans la fenêtre de contexte.

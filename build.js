@@ -713,16 +713,16 @@ function verifieTaxonomieApp(appSource){
     return [...appSource.slice(i, end).matchAll(/key\s*:\s*'([^']+)'/g)].map(m => m[1]);
   })();
   if (!appThemes){
-    console.error('\n✗ Constante THEMES introuvable dans app.html assemblé (renommée ? reformatée ?).');
+    console.error('\n✗ Constante THEMES introuvable dans l\'app assemblée (renommée ? reformatée ? — src/app/js/00-tout.js).');
     console.error('  Ce garde-fou compare la taxonomie des deux fichiers ; il ne peut plus le faire.');
     process.exit(1);
   }
   const onlyBuild = EXPECTED_THEMES.filter(t => !appThemes.includes(t));
   const onlyApp   = appThemes.filter(t => !EXPECTED_THEMES.includes(t));
   if (onlyBuild.length || onlyApp.length){
-    console.error('\n✗ Taxonomie désynchronisée entre build.js et app.html :');
+    console.error('\n✗ Taxonomie désynchronisée entre build.js et l\'app :');
     if (onlyBuild.length) console.error('    EXPECTED_THEMES (build.js) seul : ' + onlyBuild.join(', '));
-    if (onlyApp.length)   console.error('    THEMES (app.html) seul        : ' + onlyApp.join(', '));
+    if (onlyApp.length)   console.error('    THEMES (src/app/js/00-tout.js) seul : ' + onlyApp.join(', '));
     console.error('  Un nouveau thème doit être ajouté aux DEUX listes (mêmes slugs).');
     process.exit(1);
   }
@@ -804,11 +804,14 @@ function verifieCharte(appAssembled, notebookGenerated){
 }
 
 // ---------- génération du fichier autonome depuis l'app assemblée ----------
-// `fichier` (optionnel, défaut 'app.html') : où l'auteur doit aller corriger — assembleApp()
-// passe 'src/app/coquille.html' pour ses trois marqueurs (round de correction Task 13,
-// finding Important : les trois substitutions n'étaient gardées par rien avant ce round).
+// `fichier` (obligatoire en pratique) : où l'auteur doit aller corriger. ⚠️ JAMAIS 'app.html'
+// — depuis la tâche 13 c'est un artefact généré, et y envoyer l'auteur lui fait éditer un
+// fichier écrasé au build suivant. Les ancres vivent dans src/app/coquille.html (balisage) ou
+// src/app/js/*.js (code) ; le défaut ne sert que de garde si un appel oublie l'étiquette
+// (round de correction Task 13, finding Important : les substitutions n'étaient gardées par
+// rien avant ce round ; étiquettes recalées au Task 16).
 function mustReplace(src, from, to, what, fichier){
-  fichier = fichier || 'app.html';
+  fichier = fichier || 'src/app/ (fichier non précisé par l\'appelant)';
   const out = typeof from === 'string' ? src.replace(from, to) : src.replace(from, to);
   if (out === src){
     console.error('✗ Point d\'ancrage introuvable dans ' + fichier + ' : ' + what);
@@ -825,29 +828,31 @@ function generateStandalone(cards, appSource){
   let out = appSource;
 
   out = mustReplace(out, '<!DOCTYPE html>',
-    '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node build.js` depuis app.html + vocabulaire_hebreu.html — ne pas éditer à la main. -->',
-    'doctype');
+    '<!DOCTYPE html>\n<!-- FICHIER GÉNÉRÉ par `node build.js` depuis src/app/ + data/ — ne pas éditer à la main. -->',
+    'doctype', 'src/app/coquille.html');
 
   // La couche PWA n'a aucun sens hors ligne : on n'installe pas une application depuis un
   // file://, et ces deux liens y étaient déjà morts avant la CSP. Celle-ci n'a fait que les
   // rendre visibles : en file:// l'origine est opaque, donc 'self' ne matche plus rien et le
   // navigateur les refuse bruyamment. On retire la cause plutôt que d'assouplir la règle.
   out = mustReplace(out, '<link rel="manifest" href="manifest.webmanifest">\n',
-    '', 'link rel=manifest');
+    '', 'link rel=manifest', 'src/app/coquille.html');
   out = mustReplace(out, '<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">\n',
-    '', 'link rel=apple-touch-icon');
+    '', 'link rel=apple-touch-icon', 'src/app/coquille.html');
 
   // Version autonome : pas de chargement réseau → pas de loader, panneau visible d\'emblée.
   out = mustReplace(out,
     '<div id="loader" class="loader"><div class="spin"></div><p id="loader-msg" role="status">Chargement du vocabulaire…</p></div>\n',
-    '', 'div #loader');
+    '', 'div #loader', 'src/app/coquille.html');
   out = mustReplace(out,
     '<section class="setup panel hidden" id="setup">',
-    '<section class="setup panel" id="setup">', 'section #setup (classe hidden)');
+    '<section class="setup panel" id="setup">', 'section #setup (classe hidden)',
+    'src/app/coquille.html');
 
   // Vocabulaire intégré à la place du tableau vide.
   out = mustReplace(out, 'let CARDS = [];',
-    'const CARDS = ' + JSON.stringify(cards) + ';', 'let CARDS = []');
+    'const CARDS = ' + JSON.stringify(cards) + ';', 'let CARDS = []',
+    'src/app/js/05-donnees.js');
 
   // Le bloc en-ligne (fetch + extraction runtime) devient un démarrage direct.
   out = mustReplace(out,
@@ -856,7 +861,7 @@ function generateStandalone(cards, appSource){
     + 'buildChips();\n'
     + 'updateStart();\n'
     + "document.getElementById('count-note').textContent = CARDS.length + ' mots intégrés (version autonome)';\n",
-    'bloc BUILD:ONLINE-ONLY');
+    'bloc BUILD:ONLINE-ONLY', 'src/app/js/99-principal.js');
 
   // Garde-fous : plus aucune trace du chemin réseau dans le fichier autonome.
   // « serviceWorker » et « BUILD:ONLINE-ONLY » ajoutés au lot tripwires (2026-07-25) :

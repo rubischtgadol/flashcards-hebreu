@@ -9,29 +9,30 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
 **Aucune dépendance, aucun test, aucun gestionnaire de paquets.** Chaque fichier déployé est un document HTML autonome (CSS et JS inline, vanilla). Le seul outillage est `build.js`, `verifie_exemples.js`, `audit_carnet_mecanique.js`, `ajoute_mots.js` et `cherche_mots.js`, cinq scripts Node zéro-dépendance, utilisés uniquement en développement et jamais déployés.
 
 ```text
-┌─────────────────────────────────────────────────────────────────┐
-│                   data/*.json  +  src/carnet/                    │
-│        SOURCE UNIQUE DE VÉRITÉ — contenu (data/) et gabarits      │
-│                      purs (src/carnet/)                           │
-└───────────────────────────────┬───────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│         data/*.json  +  src/carnet/  +  src/app/  +  src/tokens.css │
+│   SOURCE UNIQUE DE VÉRITÉ — contenu (data/), gabarits du carnet     │
+│   (src/carnet/), sources de l'app (src/app/ : coquille, 6 fragments  │
+│   CSS, 14 modules JS, ordre porté par src/app/ordre.json)             │
+└───────────────────────────────┬────────────────────────────────────┘
                                 │ node build.js
                                 ▼
-        trois artefacts committés, 100 % GÉNÉRÉS — jamais édités à la main :
+        QUATRE artefacts committés, 100 % GÉNÉRÉS — jamais édités à la main :
         • vocabulaire_hebreu.html — le carnet, lu par les humains
         • cards.json — {version, cartes}, lu par app.html
+        • app.html — flashcards EN LIGNE, assemblé par assembleApp()
         • flashcards_hebreu.html — app AUTONOME hors ligne (cartes inlinées)
                                 │
-                                │ fetch('./cards.json')
+                                │ app.html fetch('./cards.json')
                                 ▼
-                      ┌───────────────────────┐
-                      │        app.html         │
-                      │  flashcards EN LIGNE     │
-                      │ (derrière le portail      │
-                      │  index.html à la racine)  │
-                      └───────────────────────┘
+                    (derrière le portail index.html
+                     à la racine — seul HTML encore
+                     édité à la main, jusqu'au Task 18)
 ```
 
-Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un portail léger) et **qu'une seule source de contenu** (`data/*.json`). Le carnet, `cards.json` et le fichier autonome sont trois projections mécaniques de cette même source, produites par `node build.js`.
+Il n'y a donc **qu'une seule app** (les sources de `src/app/`, la racine étant un portail léger) et **qu'une seule source de contenu** (`data/*.json`). Le carnet, `cards.json`, `app.html` et le fichier autonome sont quatre projections mécaniques de ces sources, produites par `node build.js`.
+
+⚠️ **Depuis le chantier 3 (2026-07-24), `app.html` n'est plus une source** : il est assemblé, et toute édition à la main y est écrasée au prochain build. Le détail du découpage est en § Anatomie de l'app.
 
 ## Les fichiers
 
@@ -39,10 +40,10 @@ Il n'y a donc **qu'une seule app** (le code d'`app.html`, la racine étant un po
 | --- | --- | --- |
 | [vocabulaire_hebreu.html](vocabulaire_hebreu.html) | Carnet grammaire + vocabulaire, lu par les humains. Généré depuis `data/*.json` + `src/carnet/` — le contenu s'édite dans `data/`, jamais ici. | ❌ **jamais** — généré par `build.js` |
 | [index.html](index.html) | Le **portail** : la porte d'entrée à la racine, en deux temps — accueil plein écran (« Ruben vous souhaite la bienvenue ! » / « ראובן מקבל אתכם בברכה! » au hasard, le א doré de l'icône en vectoriel, deux ménorahs à sept branches qui éclairent les côtés), puis le choix entre deux portes égales (flashcards, carnet). Sans JS, l'accueil s'efface et les portes sont directement là. Sans vocabulaire ni couplage build. | ✅ oui |
-| [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle charge ses cartes via `fetch('./cards.json')` au démarrage. | ✅ oui |
+| [app.html](app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle charge ses cartes via `fetch('./cards.json')` au démarrage. Assemblée par `assembleApp()` depuis `src/app/` + `src/tokens.css` — **le code s'édite dans `src/app/`, jamais ici**. | ❌ **jamais** — généré par `build.js` (chantier 3) |
 | [flashcards_hebreu.html](flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [cards.json](cards.json) | `{version, cartes}` — snapshot JSON des cartes dérivées de `data/`, chargé par `app.html` au démarrage. | ❌ **jamais** — généré par `build.js` |
-| [build.js](build.js) | Dev only. Lit `data/*.json`, valide (`valideDonnees`), régénère les **trois** artefacts committés (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`), compte les cartes par section/niveau/thème, échoue si une section ou un niveau attendu tombe à 0. `--check` compare les trois artefacts régénérés aux committés sans écrire. | ✅ oui |
+| [build.js](build.js) | Dev only. Lit `data/*.json` et `src/`, valide (`valideDonnees`), régénère les **quatre** artefacts committés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`), compte les cartes par section/niveau/thème, échoue si une section ou un niveau attendu tombe à 0. `--check` compare les quatre artefacts régénérés aux committés sans écrire. | ✅ oui |
 | [verifie_exemples.js](verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, niveau du vocabulaire) + règle de couverture : tout nom, adjectif ou verbe sans exemple est une erreur bloquante. Son lexique lit **les cartes et les sections de grammaire** — voir § 5.1 pour les deux garde-fous qui l'empêchent de devenir circulaire. | ✅ oui |
 | [audit_carnet_mecanique.js](audit_carnet_mecanique.js) | Dev only. Étage 0 de l'audit du carnet (plan supprimé du dépôt à la clôture du 21/07 — historique git) : 14 contrôles mécaniques à 0 token (intégrité `he_plain`, doublons/homographes, cardinalité des formes, lettres finales, accords réguliers en drapeaux, cohérence malé/haser, présence du mot vedette dans ses exemples…) et découpe des cartes en tranches de travail dans `audit/` (dossier **gitignoré**, régénérable). Sorties : erreurs (certaines), drapeaux (à trancher par l'audit LLM), données. | ✅ oui |
 | [ajoute_mots.js](ajoute_mots.js) | Dev only. Générateur de fiche, étage 1 (contrat : [SPEC_AJOUTE_MOTS.md](SPEC_AJOUTE_MOTS.md)) : consomme un petit `nouveaux_mots.json` (nom, adjectif, verbe, mot de liste, exemple sur mot existant) et insère les entrées correspondantes dans `data/*.json` — `tr` dérivés via le `he2tr` d'app.html (extraction textuelle + `vm`, comme `verifie_exemples.js`), placement par frontière de section, doublons corpus entier (idempotent — comparaison **exacte** sur `he_plain`, à quoi s'ajoute un signal « orthographe voisine » ktiv male/haser purement **informatif**, qui ne bloque jamais), tout-ou-rien. Valide en **sandbox** (`chargeDonnees`/`valideDonnees`/`deriveCartes`/`assertFormeCartes` + build + verifie sur une copie temporaire des données candidates) et n'écrit `data/*.json` qu'avec `--ecrire` après vert complet ; dry-run par défaut. Réutilise les exports de build.js : aucun troisième parseur, aucune constante dupliquée. | ✅ oui |
@@ -291,31 +292,38 @@ Les deux garde-fous de l'étape 2, chacun contre un mode de panne silencieuse :
 `node build.js` (ou `--check` pour vérifier sans écrire) :
 
 1. Lit `data/*.json` (`chargeDonnees`), valide (`valideDonnees`), dérive les cartes (`deriveCartes`) et régénère le carnet (`genereCarnet`) depuis `src/carnet/`. **Affiche le compte par section, par niveau CECRL, par thème et par section d'exemples** et sort en erreur si une catégorie de `EXPECTED_CATS` ([build.js:28](build.js#L28)) ou un niveau de `EXPECTED_LEVELS` est vide, **ou si une seule entrée sort sans `niveau` valide** (garde de couverture : elle nomme les mots fautifs et affiche une ligne « couverture N/N », de sorte que le contrôle annonce ce qu'il mesure) — mêmes règles pour les thèmes : slug hors `EXPECTED_THEMES` refusé, `theme` hors des trois tables refusé (§ 4.1). Ces gardes vivent désormais dans `valideDonnees()`, au niveau des données, avant même la dérivation des cartes.
-2. Copie `app.html` et applique des remplacements ancrés (`mustReplace`, qui échoue si l'ancre a disparu) :
+2. **Assemble `app.html`** (`assembleApp()`, chantier 3) : `src/app/coquille.html` porte trois marqueurs — `<!-- @TOKENS -->` (le `:root` de `src/tokens.css`, ré-indenté à l'assemblage), `<!-- @CSS:app -->` (les 6 fragments de `src/app/css/`), `<!-- @JS:app -->` (les 14 modules de `src/app/js/`) —, l'ordre des deux concaténations étant porté par `src/app/ordre.json`. Les trois substitutions passent par `mustReplace` : un marqueur disparu est une erreur bruyante, jamais un CSS perdu en silence.
+3. Dérive **le fichier autonome de l'app fraîchement assemblée en mémoire** (jamais de l'`app.html` du disque : `--check`, qui n'écrit rien, validerait sinon un déphasage) et applique des remplacements ancrés (`mustReplace`) :
    - bannière « fichier généré » après le doctype ;
-   - suppression du loader, panneau setup visible d'emblée ;
+   - suppression du loader et de la couche PWA, panneau setup visible d'emblée ;
    - `let CARDS = []` → `const CARDS = [...]` (snapshot JSON des cartes dérivées) ;
    - bloc `BUILD:ONLINE-ONLY` → démarrage direct (`buildChips()` + `updateStart()`).
-3. Vérifie qu'aucune trace du chemin réseau (`fetch(`, `DOMParser`) ne subsiste dans le fichier autonome.
+4. Vérifie qu'aucune trace du chemin réseau (`fetch(`, `DOMParser`, `serviceWorker`, `BUILD:ONLINE-ONLY`) ne subsiste dans le fichier autonome, que la taxonomie des thèmes est en phase entre `build.js` et l'app assemblée (`verifieTaxonomieApp`), et que la charte tient (`verifieCharte`, § Garde-fous).
 
-**Règle de travail : lancer `node build.js` après toute édition de `data/*.json` ou d'`app.html`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
+⚠️ **Les deux concaténations n'ont pas le même séparateur, et c'est voulu** : les modules JS sont joints par `join('\n')`, les fragments CSS par `join('')` — c'est ce `join('')` qui porte la byte-identité du CSS avec l'avant-chantier. Un fragment CSS finit donc par un saut de ligne, un module JS **jamais** ; corollaire payé une fois, `99-principal.js` doit conserver son `\n` final explicite, sinon le regex de fence ne matche plus (rien ne suit `<!-- @JS:app -->` dans la coquille).
 
-## Anatomie d'app.html (~2370 lignes)
+**Règle de travail : lancer `node build.js` après toute édition de `data/*.json` ou de `src/`**, vérifier les comptes, puis contrôler dans le navigateur que le loader affiche le « N mots chargés » attendu.
 
-Un seul fichier : CSS inline (l. 1–485 env.), puis quatre écrans, puis le JS.
+## Anatomie de l'app (sources `src/app/`, artefact `app.html` ~2370 lignes)
+
+L'app se lit dans ses sources et se déploie en un seul fichier : `src/app/coquille.html` (le `<head>`, les quatre écrans, les trois marqueurs), 6 fragments CSS et 14 modules JS, tous concaténés dans l'ordre de `src/app/ordre.json`. **Le scope top-level reste partagé** — la concaténation ne change rien à l'exécution, il n'y a ni module ES ni IIFE : le découpage est une convention de lecture, pas une barrière technique.
+
+Chaque module s'ouvre donc sur un en-tête `// Expose : … — Utilise : …` qui tient lieu d'interface : **« Expose » liste les noms top-level qu'un *autre* module référence** (fonctions comme variables) ; ce qui n'y figure pas est local par convention (`voicesCache` en 06, `NIVEAUX` en 07, `SRS_INTERVALS`/`SRS_MASTER` en 08). ⚠️ Les `function` sont hoistées, l'ordre y est libre, mais **les `const`/`let` top-level doivent précéder leur premier usage à l'exécution** : `99-principal.js` porte tout ce qui s'exécute au chargement (les 39 instructions de démarrage, dans une séquence prouvée identique à l'avant-chantier, indice par indice).
+
+⚠️ Les renvois ci-dessous pointent désormais le **module source**, pas l'artefact : les anciennes ancres `app.html:NNN` dérivaient à chaque build (elles avaient toutes glissé au chantier 3) et envoyaient corriger un fichier régénéré. Pour la ligne exacte d'une fonction, `graphify explain <fonction>` la re-dérive mécaniquement — ne jamais recopier un numéro de ligne d'`app.html` dans la doc.
 
 ### Écrans
 
-| Écran | Ligne | Rôle |
+| Écran | Où | Rôle |
 | --- | --- | --- |
-| `#loader` | [app.html:582](app.html#L582) | Spinner pendant le fetch du carnet (absent de la version autonome) |
-| `#setup` | [app.html:583](app.html#L583) | « Révision du jour » (SRS) en tête, recherche sous la barre de maîtrise, puis **trois plis `<details class="adv">`** : Catégories (`#fold-cats`), Niveau (`#fold-niv`) et « Réglages avancés » (`#adv`, [app.html:684](app.html#L684)) qui porte Ordre/Longueur/Prononciation, le diagnostic de latence (`#perf-boot`/`#perf-note`) et « Repartir de zéro » ; entre les deux, les groupes Mode / Sens / Écriture restent dépliés |
-| `#study` | [app.html:744](app.html#L744) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
-| `#done` | [app.html:800](app.html#L800) | Bilan + liste des cartes ratées (`#missed-list`) + reprise des ratées / de la session |
+| `#loader` | [src/app/coquille.html:42](src/app/coquille.html#L42) | Spinner pendant le fetch du carnet (absent de la version autonome) |
+| `#setup` | [src/app/coquille.html:43](src/app/coquille.html#L43) | « Révision du jour » (SRS) en tête, recherche sous la barre de maîtrise, puis **trois plis `<details class="adv">`** : Catégories (`#fold-cats`), Niveau (`#fold-niv`) et « Réglages avancés » (`#adv`, [src/app/coquille.html:144](src/app/coquille.html#L144)) qui porte Ordre/Longueur/Prononciation, le diagnostic de latence (`#perf-boot`/`#perf-note`) et « Repartir de zéro » ; entre les deux, les groupes Mode / Sens / Écriture restent dépliés |
+| `#study` | [src/app/coquille.html:204](src/app/coquille.html#L204) | La session (carte / saisie / QCM), bouton « ‹ Quitter » |
+| `#done` | [src/app/coquille.html:260](src/app/coquille.html#L260) | Bilan + liste des cartes ratées (`#missed-list`) + reprise des ratées / de la session |
 
 ### Réglages
 
-L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([app.html:1237](app.html#L1237)) dans l'objet `state` ([app.html:814](app.html#L814)). Chaque groupe est un `role="group"` relié à son `<h2>` (`aria-labelledby`, notes en `aria-describedby`). Les trois groupes « qu'on règle une fois » (Ordre, Longueur, Prononciation) vivent repliés dans le `<details class="adv">` « Réglages avancés », fermé par défaut.
+L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([src/app/js/07-filtres.js](src/app/js/07-filtres.js)) dans l'objet `state` ([src/app/js/99-principal.js](src/app/js/99-principal.js)). Chaque groupe est un `role="group"` relié à son `<h2>` (`aria-labelledby`, notes en `aria-describedby`). Les trois groupes « qu'on règle une fois » (Ordre, Longueur, Prononciation) vivent repliés dans le `<details class="adv">` « Réglages avancés », fermé par défaut.
 
 **Catégories et Niveau se replient de même** (2026-07-19), dans deux `<details class="adv">` de forme identique — c'étaient les deux plus gros points de décision de l'écran, 17 chips à eux deux : 1278 → 874 px de panneau, 43 → 35 arrêts de tabulation. Trois propriétés à ne pas casser :
 
@@ -325,7 +333,7 @@ L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`dat
 
 Sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce) **tant qu'il est actif et seul allumé** (`body:not(.has-due) .start:enabled`), l'indice de sélection vide (`role="status"`) étant placé **au-dessus** de lui pour rester visible. Désactivé, il quitte le sticky *et* l'or pour une peau pleine et opaque : collant et translucide, il recouvrait quatre chips de catégories au premier écran en interceptant leurs taps (mesuré en WebKit le 2026-07-19, cf. DESIGN.md § CTA sous le pouce). Depuis le 2026-07-20, il quitte aussi l'or et le sticky **quand des cartes sont dues** — la carte « Révision du jour » est alors la lampe, et deux lumières simultanées ne feraient aucune hiérarchie (DESIGN.md § CTA sous le pouce, les trois registres). Détail des clés :
 
-- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([app.html:1561](app.html#L1561)) sert les mauvaises réponses par **cascade**, du plus exigeant au filet : même `theme` + même `cat`, puis même `theme` + autre `cat`, puis même `cat`, puis autre `cat`, puis un dernier recours relâché qui garantit 4 options quel que soit le vivier. Le **thème d'abord** est ce qui empêche de résoudre le QCM par élimination sans reconnaître le mot ; ⚠️ seules les cartes des 3 tables portent `theme` (1003/1220), donc les deux premiers étages sont gardés par `if(card.theme)` — sur une carte de liste ils se sautent en entier, sans quoi tous les `theme` absents s'apparieraient entre eux. À tous les étages sauf le dernier recours, on **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » — garde-fou d'autant plus sollicité que des distracteurs du même thème sont sémantiquement plus proches ; les options de la catégorie « Phrases » portent la classe `.qc.ph` — corps réduit et boutons resserrés, pour que quatre phrases complètes empilées restent lisibles sur petit écran) ;
+- **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([src/app/js/12-qcm.js](src/app/js/12-qcm.js)) sert les mauvaises réponses par **cascade**, du plus exigeant au filet : même `theme` + même `cat`, puis même `theme` + autre `cat`, puis même `cat`, puis autre `cat`, puis un dernier recours relâché qui garantit 4 options quel que soit le vivier. Le **thème d'abord** est ce qui empêche de résoudre le QCM par élimination sans reconnaître le mot ; ⚠️ seules les cartes des 3 tables portent `theme` (1003/1220), donc les deux premiers étages sont gardés par `if(card.theme)` — sur une carte de liste ils se sautent en entier, sans quoi tous les `theme` absents s'apparieraient entre eux. À tous les étages sauf le dernier recours, on **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » — garde-fou d'autant plus sollicité que des distracteurs du même thème sont sémantiquement plus proches ; les options de la catégorie « Phrases » portent la classe `.qc.ph` — corps réduit et boutons resserrés, pour que quatre phrases complètes empilées restent lisibles sur petit écran) ;
 - **direction** : `he2fr` / `fr2he` ;
 - **niveau** (hors `SEG_KEYS` — multi-sélection comme les catégories) : le groupe « Niveau » (`#niv`, chips construites par `buildNivChips`) filtre le pool de `start()` en **croisement** avec les catégories (`nivOk(card)`). La « Révision du jour » l'ignore volontairement : une carte apprise reste due quel que soit le filtre. `updateStart()` distingue trois vides — aucune catégorie, aucun niveau, croisement sans carte — avec un indice dédié pour chacun ;
 - **script** : nikud, sans nikud, ou cursive ;
@@ -351,7 +359,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 - **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, niveaux, mode, dir, script, order, audio, len}` — `niveaux` est **rétro-compatible** : absent des anciennes préférences (profil d'avant le filtre), il redevient « tout sélectionné », rien ne disparaît — mais un tableau présent et vide reste vide. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), **aucune catégorie ni aucun niveau n'est présélectionné** — le choix appartient à l'utilisateur (décision du 19/07/2026, qui remplace l'ancien défaut « tout sauf Phrases » de `defaultCats()`) ; les six autres réglages gardent leurs valeurs initiales. `updateStart()` guide alors : indice « Choisis au moins une catégorie » (ou niveau) dans `#start-hint` et CTA désactivé tant que la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he`, vocalisé) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
-- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([app.html:1651](app.html#L1651)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([app.html:1883](app.html#L1883)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
+- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([src/app/js/12-qcm.js](src/app/js/12-qcm.js)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([src/app/js/11-cartes.js](src/app/js/11-cartes.js)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
 - **Sortie explicite** : « Quitter » affiche sur l'accueil la ligne `#exit-note` (`role="status"`) « Session interrompue — X réponse(s) sur Y déjà comptée(s) dans ta révision » quand au moins une réponse a été donnée (les réponses sont déjà en SRS — le dire) ; masquée au démarrage suivant. Sur l'écran de fin, « Recommencer » est libellé « Rejouer ces N cartes » (même tirage `origQueue`), et une fin de **révision** avec ratées explique qu'elles sont aussitôt redevenues dues (effet Sisyphe du compteur, pas un bug).
 - **Remise à zéro du profil** : la zone « Repartir de zéro » ferme le pli « Réglages avancés » (action rare et destructrice — jamais en concurrence avec « Commencer » ni la révision du jour ; le sous-titre du pli continue de n'annoncer que les valeurs mémorisées). Deux temps obligatoires : le bouton `#reset-btn` ouvre un bloc de confirmation qui **nomme la perte** (nombre de cartes suivies, via `masteryStats().seen`), « Annuler » est le défaut sûr et reçoit le focus. Confirmer efface `srs_v1`, `prefs_v1` (localStorage) et `sess_v1` (sessionStorage), remet en mémoire `SRS={}`, `lastRecord`/`cardsUndo` à `null` **et les six clés de réglage de `state` à leurs valeurs initiales** (`applyPrefs()` sans préférences ne les touche pas), puis rafraîchit l'UI en place — `applyPrefs()` (aucune catégorie ni niveau sélectionné, l'état du premier lancement), `refreshSrsUi()`, `updateStart()`, `#exit-note` masqué — sans recharger la page. Une ligne `role="status"` (`#reset-done`) annonce « Profil effacé », et le focus revient sur le bouton d'appel.
 - **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
@@ -382,10 +390,10 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 ### Correction des réponses tapées (la logique la plus délicate)
 
-`checkAnswer` ([app.html:1992](app.html#L1992)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
+`checkAnswer` ([src/app/js/03-reponses.js](src/app/js/03-reponses.js)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies à [app.html:2137](app.html#L2137) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`, décision du 2026-07-19) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([app.html:1984](app.html#L1984)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([app.html:1922](app.html#L1922)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies dans [src/app/js/99-principal.js](src/app/js/99-principal.js) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`, décision du 2026-07-19) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([src/app/js/02-translitteration.js](src/app/js/02-translitteration.js)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([src/app/js/11-cartes.js](src/app/js/11-cartes.js)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
@@ -398,7 +406,7 @@ Les `.tr` du carnet et la sortie de `he2tr` suivent la même convention (validé
 
 Les quatre premiers filets détectent les cartes perdues ; les trois suivants (lot tripwires du 2026-07-25, chaque garde éprouvée par un cas de casse fabriqué avant d'être crue) attrapent la casse de charte et le commit incomplet :
 
-1. **`init()` dans app.html** ([app.html:2435](app.html#L2435)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
+1. **`init()` dans app.html** ([src/app/js/99-principal.js](src/app/js/99-principal.js)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node build.js --check`** : compare les **quatre** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html` depuis le chantier 3, `flashcards_hebreu.html`) au contenu committé — un artefact obsolète, une dérive des gabarits ou une dérive de `data/*.json` non répercutée se voient tous, puisque tous sortent de la même donnée.
 4. **Garde de taxonomie de `build.js`** (21/07) : `EXPECTED_THEMES` est comparé aux slugs de la constante `THEMES` de l'app assemblée en mémoire. Un thème ajouté d'un seul côté échoue le build en nommant la liste fautive ; la disparition de la constante échoue aussi, plutôt que de passer au vert en ne comparant rien.
@@ -461,10 +469,11 @@ graphify path "deriveCartes" "recordResult"      # comment deux choses se relien
 
 `graphify explain` remplace les ancres `near line NNN` que CLAUDE.md portait : celles-ci
 avaient **dérivé trois fois** et étaient toutes fausses (+11) au moment de leur retrait, tandis
-que le graphe redérive les numéros de ligne mécaniquement. Les ancres `app.html#L`
-d'ARCHITECTURE.md, elles, dérivent à chaque insertion dans `app.html` — recalées en dernier
-le 20/07 au soir (16 ancres, après le chantier du diagnostic de latence), et à recaler à
-chaque édition structurelle du fichier.
+que le graphe redérive les numéros de ligne mécaniquement. Les ancres `app.html#L` de ce
+fichier ont suivi le même sort au **Task 16 (25/07)** : recalées quatre fois, de nouveau
+toutes fausses après le chantier 3 (qui a réordonné le JS), elles ont été **remplacées par
+des liens vers le module source** (`src/app/js/*.js`, `src/app/coquille.html`) — plus aucun
+numéro de ligne d'artefact dans la doc (contrôle en TODO.md § Rituel étape 7 ; `TODO_ARCHIVE.md`, gel historique, est le seul fichier qui en porte encore).
 
 ⚠️ **Le graphe est un instantané, pas une vérité vivante.** Il se périme exactement comme les
 ancres — la différence est qu'il se régénère en une commande au lieu de se vérifier à la main.
@@ -514,5 +523,5 @@ pas les identifiants forgés par les autres.
 2. `node build.js` — vérifier les comptes par section.
 3. Si du vocabulaire ou des exemples ont changé : `node verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
 4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
-5. `/graphify . --update` — recaler le graphe, sinon CLAUDE.md envoie interroger un instantané périmé.
-6. Committer `data/*.json` et les trois artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`) **et** `graphify-out/graph.json`, pousser sur `main`.
+5. **Ne pas recaler le graphe** : un lot de contenu ne crée ni ne supprime de fichier, donc pas même de flag (règle durcie du 21/07 — `--update` coûte ~235k jetons et ne se lance que sur décision explicite ; `graphify explain` re-dérive les lignes mécaniquement, et un désaccord graphe/fichier tranche pour le fichier). Voir TODO.md § Rituel étape 5.
+6. Committer `data/*.json` et les **quatre** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`), pousser sur `main`.

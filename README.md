@@ -81,12 +81,13 @@ Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html`
 ## Fichiers
 
 - `index.html` — le portail : la porte d'entrée à la racine — un accueil plein écran (message de bienvenue en français ou en hébreu au hasard, le א doré de l'icône, deux ménorahs qui éclairent l'écran), puis le choix entre l'application et le carnet
-- `app.html` — l'application de flashcards en ligne (charge le vocabulaire depuis `cards.json` au démarrage)
+- `app.html` — l'application de flashcards en ligne (charge le vocabulaire depuis `cards.json` au démarrage), **générée par `build.js` depuis `src/app/`, à ne pas éditer à la main**
 - `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire, **généré par `build.js` depuis `data/*.json`, à ne pas éditer à la main** (hors connexion, l'hébreu retombe sur David Libre plutôt que sur une police système générique, qui rend mal le nikoud)
-- `data/` — le vocabulaire et la grammaire, **source unique de vérité** (`noms.json`, `adjectifs.json`, `verbes.json`, `listes/*.json`) ; `node build.js` en dérive le carnet, `cards.json` et la version autonome
+- `data/` — le vocabulaire et la grammaire, **source unique de vérité** (`noms.json`, `adjectifs.json`, `verbes.json`, `listes/*.json`) ; `node build.js` en dérive le carnet, `cards.json`, l'application et la version autonome
+- `src/` — les sources des fichiers générés : `src/carnet/` (gabarits du carnet), `src/app/` (la coquille HTML de l'application, ses fragments de style et ses 14 modules de code) et `src/tokens.css` (les couleurs de la charte). **C'est ici qu'on modifie l'application**, jamais dans `app.html`
 - `cards.json` — le vocabulaire au format que l'application charge, **généré par `build.js`, à ne pas éditer à la main**
 - `flashcards_hebreu.html` — version autonome des flashcards, **générée par `build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
-- `build.js` — outil de développement (non déployé) : régénère `vocabulaire_hebreu.html`, `cards.json` et `flashcards_hebreu.html` depuis `data/` et `app.html`
+- `build.js` — outil de développement (non déployé) : régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` depuis `data/` et `src/`
 - `verifie_exemples.js` — outil de développement (non déployé) : contrôle les exemples en situation du carnet (longueur, nikoud, translittération, niveau du vocabulaire) et exige qu'aucun nom, adjectif ou verbe ne reste sans exemple
 - `ajoute_mots.js` — outil de développement (non déployé) : générateur de fiche — insère de nouveaux mots dans le carnet depuis un petit fichier JSON (balisage, translittération dérivée, placement et validation automatiques ; simulation par défaut, n'écrit qu'avec `--ecrire` après validation complète)
 - `audit_carnet_mecanique.js` — outil de développement (non déployé) : pré-passe mécanique de l'audit du carnet (14 contrôles d'intégrité et de cohérence) et découpe du vocabulaire en tranches de travail dans `audit/` (dossier non versionné, régénérable)
@@ -96,9 +97,9 @@ Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html`
 
 ## Modifier le contenu
 
-Pour ajouter ou corriger du vocabulaire, éditer les fichiers `data/*.json` (à la main, ou via `node ajoute_mots.js` pour l'ajout de mots), puis lancer `node build.js` : il régénère `vocabulaire_hebreu.html`, `cards.json` et `flashcards_hebreu.html` depuis `data/`. C'est ce résultat régénéré qu'on commite et qu'on remplace sur le dépôt (**Add file → Upload files → glisser les fichiers → Commit changes**). GitHub Pages redéploie automatiquement en une à deux minutes, à la même adresse ; l'application en ligne se met à jour toute seule.
+Pour ajouter ou corriger du vocabulaire, éditer les fichiers `data/*.json` (à la main, ou via `node ajoute_mots.js` pour l'ajout de mots), puis lancer `node build.js` : il régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` depuis `data/` et `src/`. C'est ce résultat régénéré qu'on commite et qu'on remplace sur le dépôt (**Add file → Upload files → glisser les fichiers → Commit changes**). GitHub Pages redéploie automatiquement en une à deux minutes, à la même adresse ; l'application en ligne se met à jour toute seule.
 
-La version autonome, elle, ne se met pas à jour toute seule : après toute modification de `data/` ou d'`app.html`, lancer
+La version autonome, elle, ne se met pas à jour toute seule : après toute modification de `data/` ou de `src/`, lancer
 
     node build.js
 

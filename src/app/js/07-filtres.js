@@ -1,4 +1,4 @@
-// Expose : nivOfCard, nivOk, themeOk, searchNorm, runSearch, buildChips, buildNivChips, buildThemeChips, toggle, segPick, refreshAdvSub, foldSub, refreshFoldSubs, applyFoldState, refreshSelAll, updateStart, limitPool, THEMES — Utilise : state (99), CARDS (05), escapeHtml (01), he2tr (02), speak/bindTap (06/11), savePrefs/sessRestore/srsMigrateIds (04), applyPrefs/perfReport (13), refreshSrsUi (08)
+// Expose : nivOfCard, nivOk, themeOk, searchNorm, runSearch, buildChips, buildNivChips, buildThemeChips, toggle, segPick, refreshAdvSub, foldSub, refreshFoldSubs, applyFoldState, refreshSelAll, updateStart, limitPool, THEMES, SPK_SVG, catCounts, nivCounts, themeCounts, catsEl, nivEl, themeEl, catOrder — Utilise : state (99), CARDS (05), escapeHtml (01), he2tr (02), speak/bindTap (06/11), savePrefs/sessRestore/srsMigrateIds (04), applyPrefs/perfReport (13), refreshSrsUi (08)
 
 // ================= Niveaux de difficulté (CECRL) =================
 // Le carnet stocke le CECRL fin (data-niveau="A1"…"C2") ; l'app l'affiche en

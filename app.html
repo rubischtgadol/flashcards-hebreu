@@ -1135,7 +1135,7 @@ function updateSpeaker(){
   }
   btn.classList.toggle('hide', !(TTS_OK && hebrewVisible));
 }
-// Expose : nivOfCard, nivOk, themeOk, searchNorm, runSearch, buildChips, buildNivChips, buildThemeChips, toggle, segPick, refreshAdvSub, foldSub, refreshFoldSubs, applyFoldState, refreshSelAll, updateStart, limitPool, THEMES — Utilise : state (99), CARDS (05), escapeHtml (01), he2tr (02), speak/bindTap (06/11), savePrefs/sessRestore/srsMigrateIds (04), applyPrefs/perfReport (13), refreshSrsUi (08)
+// Expose : nivOfCard, nivOk, themeOk, searchNorm, runSearch, buildChips, buildNivChips, buildThemeChips, toggle, segPick, refreshAdvSub, foldSub, refreshFoldSubs, applyFoldState, refreshSelAll, updateStart, limitPool, THEMES, SPK_SVG, catCounts, nivCounts, themeCounts, catsEl, nivEl, themeEl, catOrder — Utilise : state (99), CARDS (05), escapeHtml (01), he2tr (02), speak/bindTap (06/11), savePrefs/sessRestore/srsMigrateIds (04), applyPrefs/perfReport (13), refreshSrsUi (08)
 
 // ================= Niveaux de difficulté (CECRL) =================
 // Le carnet stocke le CECRL fin (data-niveau="A1"…"C2") ; l'app l'affiche en
@@ -1439,7 +1439,7 @@ function updateStart(){
 function limitPool(pool){
   return state.len==='all' ? pool : pool.slice(0, +state.len);
 }
-// Expose : recordResult, undoLastRecord, dueCards, masteryStats, refreshSrsUi, startReview — Utilise : CARDS (05), cardId/SRS/srsSave (04), state (99), limitPool (07), shuffle (01), beginSession (09), perfReport (13)
+// Expose : recordResult, undoLastRecord, dueCards, masteryStats, refreshSrsUi, startReview, lastRecord — Utilise : CARDS (05), cardId/SRS/srsSave (04), state (99), limitPool (07), shuffle (01), beginSession (09), perfReport (13)
 const SRS_INTERVALS=[0,1,2,4,8,16,32];      // jours avant réapparition, par boîte
 const SRS_MASTER=4;                          // boîte à partir de laquelle « maîtrisée »
 // Mémorise l'état SRS d'avant la dernière écriture → le verdict reste annulable

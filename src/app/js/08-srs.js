@@ -1,4 +1,4 @@
-// Expose : recordResult, undoLastRecord, dueCards, masteryStats, refreshSrsUi, startReview — Utilise : CARDS (05), cardId/SRS/srsSave (04), state (99), limitPool (07), shuffle (01), beginSession (09), perfReport (13)
+// Expose : recordResult, undoLastRecord, dueCards, masteryStats, refreshSrsUi, startReview, lastRecord — Utilise : CARDS (05), cardId/SRS/srsSave (04), state (99), limitPool (07), shuffle (01), beginSession (09), perfReport (13)
 const SRS_INTERVALS=[0,1,2,4,8,16,32];      // jours avant réapparition, par boîte
 const SRS_MASTER=4;                          // boîte à partir de laquelle « maîtrisée »
 // Mémorise l'état SRS d'avant la dernière écriture → le verdict reste annulable
