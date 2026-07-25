@@ -5,8 +5,9 @@
 ## Reprendre ici (prochaine session)
 
 **Où en est le dépôt (25/07/2026, tout poussé sur `main`).** La réorganisation
-« le dépôt généré » a soldé ses chantiers 1 à 3 et les **Tasks 17, 18 et 19** du
-chantier 4. Le dépôt est désormais rangé ainsi :
+« le dépôt généré » a soldé ses chantiers 1 à 3 et les **Tasks 17 à 20** du
+chantier 4 : **il ne reste que le Task 21** (contrôle global + livraison). Le
+dépôt est désormais rangé ainsi :
 
 | Où | Quoi | S'édite à la main ? |
 | --- | --- | --- |
@@ -26,29 +27,22 @@ chantier 4. Le dépôt est désormais rangé ainsi :
 `ROOT = path.join(__dirname, '..')`, exporté par `build.js` et consommé par les
 trois autres — jamais recalculé ailleurs.
 
-**Prochaine étape : Task 20** (suppression d'`outils_migration/`, passe de
-documentation finale). Plan complet dans
-[le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md)
-— il reste **deux tasks sur 21**, dans l'ordre :
+**Prochaine (et dernière) étape : Task 21** — contrôle global et livraison. Plan
+complet dans
+[le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md) :
 
-- **Task 20** — suppression d'`outils_migration/`, puis passe de documentation
-  finale (l'historique git garde ces scripts jetables). ⚠️ **Trois choses que le
-  plan ne sait pas**, relevées le 25/07 (`ls outils_migration/` et `grep -rln`
-  par nom de helper pour les revérifier) : (a) le dossier contient **trois**
-  fichiers, pas les deux qu'annonce le plan — `decoupe_app.js` s'est ajouté au
-  chantier 3 ; (b) `build.js` **exporte des helpers HTML** (`parseSections`,
-  `closeOf`, `exemplesOf`, `firstSpanText`, `attrOf`, `tdsOf`, `decodeEntities`)
-  dont les seuls consommateurs externes sont `extrait_donnees.js` et
-  `decoupe_carnet.js` : supprimer le dossier rend ces **exports** morts (les
-  fonctions elles-mêmes restent utilisées par `build.js` en interne), à retirer
-  du `module.exports` dans le même commit ; (c) trois prose à recaler citent le
-  dossier — l'en-tête de `build.js`, le commentaire de son `module.exports`, et
-  `src/carnet/gabarits.js` (une ligne de commentaire qui explique un champ `.fr`
-  par la façon dont `extrait_donnees.js` le lisait).
-- **Task 21** — contrôle global (rituel + parcours WebKit en sous-agent) et
-  livraison.
+- **Task 21** — (1) rituel complet : `node tools/build.js && node tools/build.js --check
+  && node tools/verifie_exemples.js`, `node tools/cherche_mots.js שלום` répond,
+  dry-run d'`ajoute_mots.js` sur un mot **absent** du carnet (un mot déjà présent
+  court-circuite sur l'idempotence et ne prouve PAS le bac à sable — vérifier que
+  la sortie contient bien les deux lignes « ✓ … bac à sable ») ; (2) sous-agent
+  Sonnet WebKit : parcours PWA complet en local (portail → app → une session de
+  chaque mode → carnet), « PASS/FAIL par étape + erreurs console, max 10 lignes » ;
+  (3) push, puis vérifier que `https://rubischtgadol.github.io/flashcards-hebreu/cards.json`
+  répond 200 après redéploiement. Rappeler à Ruben : sur l'iPhone, deux lancements
+  pour voir la nouvelle version (stale-while-revalidate).
 
-⚠️ **Quatre choses apprises aux Tasks 17-19, à ne pas réapprendre.**
+⚠️ **Cinq choses apprises aux Tasks 17-20, à ne pas réapprendre.**
 
 1. **Le plan du chantier a été écrit avant le lot tripwires du 25/07 : il ne
    connaît pas `verifieCharte()` ni `.githooks/`.** Ses `grep` de contrôle sont
@@ -57,7 +51,8 @@ documentation finale). Plan complet dans
    sortent dans l'en-tête « FICHIER GÉNÉRÉ » des artefacts — les toucher force
    un rebuild, qui réestampille `sw.js` au passage), l'allowlist
    `.claude/settings.local.json`, et les **liens markdown à fragment**
-   (`](…#L42)`). À élargir au Task 20 aussi. Le Task 19 y a ajouté une quatrième
+   (`](…#L42)`). Élargi comme tel au Task 20 — les quatre familles y étaient
+   vierges, mais c'est le balayage qui le prouve. Le Task 19 y a ajouté une quatrième
    famille : le **bac à sable d'`ajoute_mots.js`**, qui recopie un dépôt
    miniature — toute garde neuve qui lit un fichier de la racine casse le
    dry-run tant que le fichier n'est pas dans `FICHIERS_RACINE_BAC_A_SABLE`
@@ -90,6 +85,19 @@ documentation finale). Plan complet dans
    d'une garde explicite sur le motif introuvable, sinon la couture se défait en
    silence (ici : `VERSION` figée pour toujours, c'est-à-dire le piège n°10 remis
    en place sans que personne le sache).
+5. ⚠️ **Un export mort n'est presque jamais seul : c'est la fermeture transitive
+   qu'il faut calculer, pas le nom** (Task 20). Le plan annonçait sept helpers HTML
+   dont « les fonctions restent utilisées en interne par `build.js` ». Le contrôle
+   nom par nom (`grep -n "\bnom\b" tools/build.js`, définition **et** appels) a
+   montré l'inverse : `parseSections`, `exemplesOf`, `attrOf`, `tdsOf` n'avaient
+   plus **aucun** appelant interne, et les trois autres (`closeOf`, `firstSpanText`,
+   `decodeEntities`) n'étaient appelés que par les quatre premiers, plus leurs
+   propres satellites (`textContent`, `blocksOf`, `NAMED_ENTITIES`). Tout le
+   sous-graphe ne tenait que par les exports : en retirant les exports on retirait
+   le mini-parseur entier — 90 lignes, et l'affirmation « le dépôt ne lit plus de
+   HTML » devenue vraie au sens littéral. **Ne pas s'arrêter au nom cité par un
+   plan : suivre les appelants jusqu'à l'appelant vivant, ou constater qu'il n'y
+   en a pas.**
 
 ### Dette de graphe — flags en attente, aucun ne déclenche rien
 
@@ -120,16 +128,17 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   morte de 39 nœuds** sur un fichier qui n'existe plus.
 - **2026-07-25 (Task 18)** — `src/portail/index.html` créé ; `index.html` devenu
   artefact généré. Le graphe le situe encore côté « source éditée à la main ».
+- **2026-07-25 (Task 20)** — `outils_migration/` **supprimé** (ses trois scripts :
+  `extrait_donnees.js`, `decoupe_carnet.js`, `decoupe_app.js`). Le graphe ne les a
+  jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
+  son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
+  chercher.
 
 ### Dette ouverte — petits défauts connus, non corrigés
 
 Aucun n'est bloquant ; aucun n'a de task assignée. À trancher si quelqu'un les
 rencontre.
 
-- **`outils_migration/` écrit sans confirmation ni dry-run** (`extrait_donnees.js`,
-  `decoupe_carnet.js` — `decoupe_carnet.js` sans `--verifie` écrit 8 fichiers).
-  Un lancement accidentel a écrit dans `src/carnet/tete.html` (annulé, sans
-  dégât). Disparaît au **Task 20**, qui supprime le dossier.
 - **Premier lancement sans chip de niveau** : `state.niveaux` reste vide et
   « démarrer » ne fait rien. Jugé conforme à l'intention lors du contrôle, laissé
   tel quel.

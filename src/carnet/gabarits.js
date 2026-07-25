@@ -9,10 +9,11 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 // Convention du carnet (DESIGN.md §3, exception nommée de la rampe typo) : un
 // fragment hébreu inséré dans une phrase française est entouré de
-// <span lang="he">…</span> (taille 1.15em, un cran au-dessus du corps). Task 2
-// (extrait_donnees.js) lit ces champs `.fr` avec `firstSpanText`, qui aplatit
-// tout le HTML interne en texte — l'habillage est donc absent des données et
-// doit être reconstitué ici, à partir des seuls caractères hébreux.
+// <span lang="he">…</span> (taille 1.15em, un cran au-dessus du corps). L'extraction
+// du chantier 1 a lu ces champs `.fr` en aplatissant tout le HTML interne en texte :
+// l'habillage est donc absent de data/*.json et doit être reconstitué ici, à partir
+// des seuls caractères hébreux. (Le script qui l'a fait a été supprimé au Task 20 ;
+// c'est la FORME des données qu'il a laissée, elle, qui rend ce code nécessaire.)
 //
 // Vérifié contre les 10 occurrences réelles du carnet (git show HEAD, 2026-07-24) :
 // verbes « utiliser (avec בְּ) » ; listes existence-et-possession ×2 (yesh/ein),

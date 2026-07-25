@@ -77,9 +77,9 @@ try {
 }
 
 // ---------- slug (titre de sous-thème humain → groupe de data/), même algorithme que
-// celui qui a produit les valeurs "groupe" actuelles de data/ (outils_migration/
-// extrait_donnees.js et decoupe_carnet.js, chantier 1) — une seule source, jamais
-// redéfinie deux fois. Idempotent sur un slug déjà propre : sous_theme peut donc
+// celui qui a produit les valeurs "groupe" actuelles de data/ (scripts d'extraction du
+// chantier 1, supprimés au Task 20) — une seule source vivante, ici, jamais redéfinie
+// deux fois. Idempotent sur un slug déjà propre : sous_theme peut donc
 // être écrit en titre humain ("Nourriture & repas") ou déjà en slug ("nourriture-repas").
 function slug(s){
   return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '')

@@ -27,14 +27,13 @@
  * Affiche le compte de cartes par section et échoue bruyamment si une section
  * attendue tombe à zéro, ou si data/ est invalide (valideDonnees).
  *
- * L'ancien parseur regex du carnet HTML (fonction de scrape retirée + les helpers
- * rowsOf/lisOf) a servi d'oracle de non-régression pour deriveCartes le temps de la
- * migration (chantier 2, tâche 7 : mode --verrou, VERROU OK avant suppression) puis
- * de pont pour les derniers lecteurs de HTML (verifie_exemples.js, cherche_mots.js,
- * ajoute_mots.js) — supprimé à la tâche 11, une fois ce dernier basculé sur data/
- * (voir task-11-report.md). Une partie des helpers reste : ils servent encore aux
- * scripts ponctuels de outils_migration/ (decoupe_carnet.js, extrait_donnees.js),
- * qui eux lisent toujours le carnet HTML — cf. leur propre en-tête pour pourquoi.
+ * Le build n'a plus AUCUN lecteur de HTML. L'ancien parseur regex du carnet a servi
+ * d'oracle de non-régression pour deriveCartes le temps de la migration (chantier 2,
+ * tâche 7 : mode --verrou, VERROU OK avant suppression) puis de pont pour les derniers
+ * lecteurs de HTML (verifie_exemples.js, cherche_mots.js, ajoute_mots.js) — supprimé à
+ * la tâche 11, une fois ce dernier basculé sur data/. Ses derniers helpers ne servaient
+ * plus qu'aux scripts jetables d'outils_migration/, dossier supprimé au Task 20 : ils
+ * sont partis avec lui (git en garde l'état). Le HTML ne fait plus que SORTIR d'ici.
  *
  * Usage :
  *   node tools/build.js           # régénère les cinq artefacts + estampille VERSION dans sw.js
@@ -82,8 +81,7 @@ const EXPECTED_THEMES = ['famille-personnes','corps-sante','nourriture','maison-
 const THEMED_CATS = ['Noms','Adjectifs','Verbes'];
 // Sections du carnet en <ul class="word-list"> → catégorie de carte. Au niveau
 // module : ajoute_mots.js et deriveCartes() valident/lisent les labels de section
-// contre cette table — une seule source côté Node (outils_migration/decoupe_carnet.js
-// et extrait_donnees.js s'y réfèrent aussi, pour leur propre lecture du carnet HTML).
+// contre cette table — une seule source côté Node, ici et nulle part ailleurs.
 const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'Démonstratifs',
   'Verbes modaux':'Verbes modaux',
   'Prépositions':'Prépositions', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
@@ -92,44 +90,12 @@ const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'
   'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
   'Existence et possession':'Existence', 'Phrases':'Phrases' };
 
-// ---------- mini-parsing HTML (zéro dépendance) ----------
-const NAMED_ENTITIES = { amp:'&', lt:'<', gt:'>', quot:'"', apos:"'", nbsp:' ',
-  hellip:'…', rsquo:'’', lsquo:'‘', laquo:'«', raquo:'»', middot:'·',
-  rarr:'→', larr:'←', ndash:'–', mdash:'—', times:'×', deg:'°', eacute:'é', egrave:'è', agrave:'à', ccedil:'ç' };
-function decodeEntities(s){
-  return s.replace(/&(#[xX]?[0-9a-fA-F]+|[a-zA-Z]+);/g, (m, g) => {
-    if (g[0] === '#'){
-      const code = (g[1] === 'x' || g[1] === 'X') ? parseInt(g.slice(2), 16) : parseInt(g.slice(1), 10);
-      return Number.isFinite(code) ? String.fromCodePoint(code) : m;
-    }
-    return NAMED_ENTITIES[g] !== undefined ? NAMED_ENTITIES[g] : m;
-  });
-}
-function textContent(html){ return decodeEntities(html.replace(/<[^>]*>/g, '')); }
-
-// Premier <span class="cls">…</span> d'un fragment → texte (équivalent firstText(el,'.cls')).
-function firstSpanText(fragment, cls){
-  const open = new RegExp('<span\\b[^>]*\\bclass="' + cls + '"[^>]*>');
-  const m = open.exec(fragment);
-  if (!m) return '';
-  // trouve le </span> correspondant en tenant compte des <span> imbriqués
-  let depth = 1, i = m.index + m[0].length;
-  const tag = /<\/?span\b[^>]*>/g;
-  tag.lastIndex = i;
-  let t;
-  while ((t = tag.exec(fragment))){
-    depth += t[0][1] === '/' ? -1 : 1;
-    if (depth === 0) return textContent(fragment.slice(i, t.index)).trim();
-  }
-  return textContent(fragment.slice(i)).trim();
-}
-function blocksOf(html, re){
-  const out = []; let m;
-  while ((m = re.exec(html))) out.push(m[1]);
-  return out;
-}
-
-// ---------- helpers hébreu + lecture du carnet HTML (encore utiles à outils_migration/) ----------
+// ---------- helpers hébreu ----------
+// Plus aucun lecteur de HTML ici : le mini-parseur du carnet (decodeEntities, textContent,
+// firstSpanText, blocksOf, parseSections, closeOf, exemplesOf, attrOf, tdsOf) ne servait
+// plus qu’aux scripts jetables d’outils_migration/ ; il est parti avec ce dossier au
+// Task 20. Le build ÉCRIT du HTML, il n’en relit jamais — si le besoin revenait, le
+// reprendre dans git (dernier état : commit du Task 19) plutôt qu’en improviser un autre.
 function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
 
 // ---------- appariement ktiv male / ktiv haser ----------
@@ -164,57 +130,7 @@ function orthographeVoisine(a, b){
   return aligne(0, 0);
 }
 
-function parseSections(html){
-  // name du <span class="count"> → HTML du corps de section (jusqu'au <h2> suivant)
-  const sections = {};
-  const h2 = /<h2\b[^>]*>([\s\S]*?)<\/h2>/g;
-  const marks = [];
-  let m;
-  while ((m = h2.exec(html))) marks.push({ inner: m[1], end: m.index + m[0].length, start: m.index });
-  marks.forEach((mk, i) => {
-    const c = /<span\b[^>]*\bclass="count"[^>]*>([\s\S]*?)<\/span>/.exec(mk.inner);
-    if (!c) return;
-    const name = textContent(c[1]).trim();
-    sections[name] = html.slice(mk.end, i + 1 < marks.length ? marks[i + 1].start : html.length);
-  });
-  return sections;
-}
-// Fin du bloc ouvert à openTag.index : suit la profondeur des <tag>/<\/tag> imbriqués
-// (une regex non-gourmande s'arrêterait au premier fermant — celui d'un enfant).
-function closeOf(html, openEnd, tag){
-  const re = new RegExp('</?' + tag + '\\b[^>]*>', 'g');
-  re.lastIndex = openEnd;
-  let depth = 1, t;
-  while ((t = re.exec(html))){
-    depth += t[0][1] === '/' ? -1 : 1;
-    if (depth === 0) return t.index;
-  }
-  return html.length;
-}
-// Exemples en situation : <ul class="exemples"><li> .he/.tr/.fr </li></ul> dans un
-// <li> de word-list ou dans la première cellule d'une table. Champ optionnel.
-function exemplesOf(fragment){
-  const out = [];
-  const ulRe = /<ul\b[^>]*\bclass="exemples"[^>]*>/g;
-  let ul;
-  while ((ul = ulRe.exec(fragment))){
-    const end = closeOf(fragment, ul.index + ul[0].length, 'ul');
-    blocksOf(fragment.slice(ul.index + ul[0].length, end), /<li\b[^>]*>([\s\S]*?)<\/li>/g).forEach(li => {
-      const he = firstSpanText(li, 'he'); if (!he) return;
-      out.push({ he, tr: firstSpanText(li, 'tr'), fr: firstSpanText(li, 'fr'), he_plain: stripNikud(he) });
-    });
-    ulRe.lastIndex = end;
-  }
-  return out;
-}
-function attrOf(fragment, name){
-  // attribut de la balise ouvrante d'un fragment <li>/<tr> complet
-  const m = new RegExp('^<(?:li|tr)\\b[^>]*\\s' + name + '="([^"]*)"').exec(fragment);
-  return m ? decodeEntities(m[1]).trim() : '';
-}
-function tdsOf(tr){ return blocksOf(tr, /<td\b[^>]*>([\s\S]*?)<\/td>/g); }
-
-// ---------- data/ : chargement + validation (absorbé d'outils_migration/valide_donnees.js) ----------
+// ---------- data/ : chargement + validation (absorbé de valide_donnees.js, chantier 2) ----------
 
 function chargeDonnees(racine){
   const d = (f) => JSON.parse(fs.readFileSync(path.join(racine, 'data', f), 'utf8'));
@@ -281,7 +197,7 @@ function valideDonnees(donnees){
   return true;
 }
 
-// ---------- carnet : assemblage depuis src/carnet/ (absorbé d'outils_migration/genere_carnet.js) ----------
+// ---------- carnet : assemblage depuis src/carnet/ (absorbé de genere_carnet.js, chantier 2) ----------
 
 const ENTETE_GENERE =
   '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : data/ + src/carnet/. Regénération : node tools/build.js. -->';
@@ -1195,19 +1111,17 @@ function main(){
 
 // Réutilisable en module : chargeDonnees/valideDonnees/genereCarnet/deriveCartes sont
 // l'API v2 du build — verifie_exemples.js, cherche_mots.js et ajoute_mots.js s'appuient
-// dessus (tâches 10-11, chantier 2). Le parseur regex de vocabulaire_hebreu.html
-// (fonction de scrape + rowsOf/lisOf) a servi d'oracle de non-régression puis de pont
-// pour ces trois scripts ; supprimé à la tâche 11, une fois le dernier (ajoute_mots.js) basculé.
-// Les helpers HTML restants (parseSections, closeOf, exemplesOf, firstSpanText, attrOf,
-// tdsOf, decodeEntities, listCats) restent exportés : outils_migration/decoupe_carnet.js
-// et extrait_donnees.js, scripts ponctuels du chantier 1, lisent toujours le carnet HTML.
-// Jamais de troisième parseur, jamais de constante dupliquée.
+// dessus (tâches 10-11, chantier 2). Le parseur regex de vocabulaire_hebreu.html a servi
+// d'oracle de non-régression puis de pont pour ces trois scripts ; supprimé à la tâche 11,
+// une fois le dernier (ajoute_mots.js) basculé sur data/. Ses derniers helpers ne survivaient
+// que pour outils_migration/ : supprimés avec ce dossier au Task 20, exports compris — plus
+// une seule ligne de lecture de HTML dans le dépôt. Jamais de nouveau parseur, jamais de
+// constante dupliquée.
 // `ROOT` est exporté depuis le Task 17 : les trois autres outils vivent dans le même
 // dossier et doivent viser la MÊME racine — le recalculer chez eux, c'est trois
 // occasions de le recalculer faux (piège n°1 du Task 17).
 module.exports = { ROOT, NOTEBOOK, APP, CARDS_JSON, INDEX,
-  parseSections, closeOf, exemplesOf, firstSpanText, attrOf, tdsOf,
-  stripNikud, decodeEntities, orthographeVoisine,
+  stripNikud, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,
   chargeDonnees, valideDonnees, genereCarnet, deriveCartes, assertFormeCartes };
 if (require.main === module) main();

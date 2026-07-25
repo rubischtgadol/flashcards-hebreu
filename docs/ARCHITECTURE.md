@@ -195,7 +195,9 @@ Les sections purement grammaticales (phrase sans verbe, racine, présent, passé
 
 ### 2. Le contrat gabarits/données (l'extraction HTML a disparu)
 
-Il n'y a plus d'`extractCards()`, ni côté `app.html` ni côté `build.js` : les deux implémentations regex/DOM qui devaient rester synchrones ont été supprimées au chantier 2, avec le mode `node tools/build.js --verrou` qui avait servi à prouver leur équivalence avant la coupure, et le harnais `outils_migration/compare_carnets.js`.
+Il n'y a plus d'`extractCards()`, ni côté `app.html` ni côté `build.js` : les deux implémentations regex/DOM qui devaient rester synchrones ont été supprimées au chantier 2, avec le mode `node tools/build.js --verrou` qui avait servi à prouver leur équivalence avant la coupure, et le harnais de comparaison des carnets.
+
+**Depuis le chantier 4 (Task 20), le dépôt ne contient plus une seule ligne de lecture de HTML.** Le mini-parseur qui restait dans `build.js` (`decodeEntities`, `firstSpanText`, `parseSections`, `closeOf`, `exemplesOf`, `attrOf`, `tdsOf`) n'avait plus que les scripts jetables de migration pour consommateurs : il a été supprimé avec eux, exports compris (`grep -c "function .*Of\b" tools/build.js` pour le vérifier). Le HTML ne fait plus que **sortir** du build. Si un besoin de relecture réapparaissait, le reprendre dans l'historique git plutôt que d'en réécrire un — un lecteur de HTML dans ce dépôt est le retour du couplage que trois chantiers ont servi à défaire.
 
 À la place, un seul chemin : `chargeDonnees(racine)` (build.js) lit `data/*.json` en mémoire, `valideDonnees(donnees)` la valide (champs, niveaux, thèmes, thème interdit sur une entrée de liste), puis deux fonctions consomment cette même structure sans jamais repasser par du HTML :
 

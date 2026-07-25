@@ -50,8 +50,8 @@ un verdict.**
    Le champ `groupe` de `data/*.json` est un slug (`"nourriture-repas"`), pas le
    titre humain qui vivait dans `<h3 class="subtheme">` (`"Nourriture & repas"`).
    `ajoute_mots.js` réutilise **l'algorithme `slug()` qui a produit ces valeurs au
-   chantier 1** (`outils_migration/extrait_donnees.js`/`decoupe_carnet.js` :
-   NFD + retrait diacritiques + minuscule + `[^a-z0-9]+` → `-`) plutôt que d'en
+   chantier 1** (NFD + retrait diacritiques + minuscule + `[^a-z0-9]+` → `-` ;
+   les scripts qui l'ont appliqué ont été supprimés au Task 20) plutôt que d'en
    redéfinir un second. Il est idempotent sur un slug déjà propre
    (`slug("nourriture-repas") === "nourriture-repas"`), donc `sous_theme` accepte
    indifféremment l'ancien titre humain ou directement le slug de `data/`.
@@ -447,14 +447,14 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
    à y ajouter pour ce script. L'ancien parseur regex du carnet HTML
    (`extractCards` + `rowsOf`/`lisOf`) et le mode `node tools/build.js --verrou` ont été
    supprimés à cette même tâche (11), `ajoute_mots.js` en étant le dernier
-   consommateur ; les helpers encore utiles à `outils_migration/decoupe_carnet.js`
-   et `extrait_donnees.js` (scripts ponctuels du chantier 1, qui eux lisent
-   toujours le carnet HTML) restent exportés.
+   consommateur ; les helpers HTML qui survivaient pour les scripts jetables du
+   chantier 1 sont partis avec eux au Task 20, exports compris — `build.js`
+   n'exporte plus rien qui lise du HTML.
 2. `he2tr` : extraction textuelle depuis `app.html` + éval `vm`, en reprenant le
    procédé déjà en place dans `verifie_exemples.js` ; échec bruyant si la fonction
    bouge. `stripNikud` : export de `build.js`, pas d'extraction.
 3. `slug()` : même algorithme que celui qui a produit les valeurs `groupe`
-   actuelles de `data/` (chantier 1, `outils_migration/`) — voir §1.4. Redéfini
+   actuelles de `data/` (chantier 1) — voir §1.4. Redéfini
    localement dans `ajoute_mots.js` (fonction à 2 lignes, pas assez pour justifier
    un export de `build.js`, mais **jamais réinventé autrement**.)
 4. Rituel post-lot inchangé : le script exécute les étapes 1–2 (build + verifie,
