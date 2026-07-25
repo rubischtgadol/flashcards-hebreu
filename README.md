@@ -102,7 +102,7 @@ Pour ajouter ou corriger du vocabulaire, éditer les fichiers `data/*.json` (à 
 
     node tools/build.js
 
-Il régénère les cinq artefacts — `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html` et `index.html` — depuis `data/` et `src/`, et affiche le compte de cartes par section (toute section tombée à zéro fait échouer le build : signe qu'une section a disparu de `data/` ou qu'une entrée est mal formée). `node tools/build.js --check` vérifie sans rien écrire.
+Il régénère les cinq artefacts — `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html` et `index.html` — depuis `data/` et `src/`, et affiche le compte de cartes par section (toute section tombée à zéro fait échouer le build : signe qu'une section a disparu de `data/` ou qu'une entrée est mal formée). Il **estampille** ensuite la ligne `const VERSION` de `sw.js` avec un hash du contenu servi : le cache de la PWA se renomme tout seul dès qu'un fichier servi change, il n'y a plus de bump manuel à ne pas oublier. `node tools/build.js --check` vérifie sans rien écrire — artefacts en phase **et** estampille à jour.
 
 Ce sont les fichiers régénérés qu'on commite, avec les sources qui les ont produits — `git add`, `git commit`, `git push` sur `main`. GitHub Pages redéploie automatiquement en une à deux minutes, à la même adresse ; l'application en ligne se met à jour toute seule. La version autonome, elle, ne se met à jour qu'en la retéléchargeant.
 
@@ -110,7 +110,7 @@ Ce sont les fichiers régénérés qu'on commite, avec les sources qui les ont p
 
     git config core.hooksPath .githooks
 
-Sans cette commande, le hook `pre-commit` versionné ne s'exécute pas — et rien ne le signale : on peut alors commiter un artefact périmé, une erreur d'exemple bloquante, ou un fichier servi sans bump de `VERSION` dans `sw.js`.
+Sans cette commande, le hook `pre-commit` versionné ne s'exécute pas — et rien ne le signale : on peut alors commiter un artefact périmé (y compris un artefact sans son estampille `VERSION`, que `--check` recalcule) ou une erreur d'exemple bloquante.
 
 ## Mise en ligne (GitHub Pages)
 

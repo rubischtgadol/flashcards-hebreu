@@ -313,9 +313,11 @@ dérivent) n'a plus d'existence possible dans ce modèle.
 
 Le bac à sable recrée un **dépôt miniature** dans un répertoire temporaire : les deux
 validateurs dans un sous-dossier **`tools/`**, `app.html`, tout `src/` (gabarits +
-squelette + `sections/*.html` + `sections.json` + `tokens.css` + `src/app/`), les
-fichiers de la racine que lit `verifieCharte()` — `index.html` et
-`manifest.webmanifest` — et **la donnée candidate sérialisée en `data/*.json`** ; il y
+squelette + `sections/*.html` + `sections.json` + `tokens.css` + `src/app/` + `src/portail/`,
+donc le bac à sable régénère son propre `index.html`), les fichiers de la racine que
+`build.js` lit du disque — `manifest.webmanifest` (lu par `verifieCharte()`, et haché par
+l'estampille) et `sw.js` (la ligne estampillée ; le bac à sable estampille sa copie, jamais
+le `sw.js` réel) — et **la donnée candidate sérialisée en `data/*.json`** ; il y
 lance ensuite `node tools/build.js` puis `node tools/verifie_exemples.js`. Zéro
 modification des validateurs, preuve complète sur le candidat avant de toucher le
 dépôt réel.
@@ -331,10 +333,14 @@ un témoin muet.**
    comme le plan du chantier 4 le craignait. Ce bruit vient du `require` relatif de
    `build.js` : c'est un accident heureux, pas une garantie, et l'invariant ne s'appuie
    pas dessus.
-2. **Tout fichier de la racine lu par une garde doit figurer dans
-   `FICHIERS_RACINE_BAC_A_SABLE`.** Le 25/07, `verifieCharte()` a introduit la lecture
-   d'`index.html` sans que le bac à sable la suive : le dry-run est resté cassé
-   (ENOENT) jusqu'au Task 17. Ajouter une garde qui lit un fichier racine, c'est
+2. **Tout fichier de la racine que `build.js` lit du disque doit figurer dans
+   `FICHIERS_RACINE_BAC_A_SABLE`** — et rien d'autre : un fichier copié « au cas où »
+   ferait croire que le bac à sable en dépend et masquerait la règle. Payé deux fois,
+   toujours par un ENOENT au dry-run : le 25/07 `verifieCharte()` a introduit la lecture
+   d'`index.html` sans que le bac à sable la suive (cassé jusqu'au Task 17 — et depuis le
+   Task 18 `index.html` est SORTI de la liste, le portail étant généré et contrôlé sur la
+   chaîne assemblée) ; au Task 19 l'estampille a introduit la lecture — et la réécriture —
+   de `sw.js`, absent du temporaire. Ajouter une garde qui lit un fichier racine, c'est
    ajouter ce fichier ici.
 
 ### Le contrôle du contrôle (`assertBacASableCoherent`, Task 17)
@@ -398,8 +404,11 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
   réel n'est modifié qu'après **vert complet**. Sinon rien n'est écrit, verdict
   d'échec nommé. Prouvé mécaniquement (`git status --porcelain` vide après un
   dry-run, y compris un dry-run avec des insertions en attente — task-11-report.md).
-- Le script ne commit pas git, ne met pas à jour la doc, ne bump pas `sw.js` —
-  fil principal (rung 4 de la doctrine).
+- Le script ne commit pas git et ne met pas à jour la doc — fil principal (rung 4
+  de la doctrine). En revanche il n'a plus rien à décider sur `sw.js` : le
+  `node tools/build.js` qu'il lance en mode `--ecrire` **estampille `VERSION`**
+  lui-même (Task 19), donc les mots neufs atteignent le téléphone au 1ᵉʳ
+  lancement. Il reste à committer `sw.js` avec `data/` et les artefacts.
 
 ## 10. Hors périmètre — et procédures documentées pour ne pas les re-chercher
 
@@ -449,5 +458,5 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
    localement dans `ajoute_mots.js` (fonction à 2 lignes, pas assez pour justifier
    un export de `build.js`, mais **jamais réinventé autrement**.)
 4. Rituel post-lot inchangé : le script exécute les étapes 1–2 (build + verifie,
-   en bac à sable puis réel) ; commit, doc et éventuel bump `VERSION` restent au
-   fil principal.
+   en bac à sable puis réel) — l'estampille de `VERSION` vient avec le build,
+   plus rien à bumper ; commit et doc restent au fil principal.

@@ -16,17 +16,15 @@ node tools/build.js --check >/dev/null
 echo "[pre-commit] node tools/verifie_exemples.js"
 node tools/verifie_exemples.js >/dev/null
 
-# 3. Piège n°10 : un fichier servi qui change doit s'accompagner d'un bump de VERSION dans
-#    sw.js, dans le même commit (stale-while-revalidate : sans bump, l'ancien fichier est
-#    servi une fois de plus au prochain lancement). Tripwire de transition — le Task 19
-#    (chantier 4) fera estampiller VERSION par le build et rendra ce contrôle inutile.
-staged=$(git diff --cached --name-only)
-if printf '%s\n' "$staged" | grep -qE '^(app\.html|flashcards_hebreu\.html|vocabulaire_hebreu\.html|index\.html|cards\.json|manifest\.webmanifest|sw\.js|icons/)'; then
-  if ! git diff --cached -U0 -- sw.js | grep -q '^+const VERSION'; then
-    echo "✗ [pre-commit] un fichier servi change sans bump de VERSION dans sw.js (piège n°10)."
-    echo "  Bump VERSION dans sw.js et re-stage — ou bypass assumé : git commit --no-verify"
-    exit 1
-  fi
-fi
+# 3. RETIRÉ au Task 19 (chantier 4), et c'est le contrôle n°1 qui en hérite. Ce tripwire de
+#    transition exigeait un bump manuel de VERSION dans sw.js dès qu'un fichier servi
+#    changeait (piège n°10). VERSION est désormais ESTAMPILLÉE par `node tools/build.js` —
+#    un hash des cinq artefacts + manifest.webmanifest — et `--check` recalcule ce hash :
+#    un artefact committé sans son estampille échoue donc déjà au contrôle n°1, sans qu'on
+#    ait à deviner la liste des fichiers servis dans une regex de shell.
+#    ⚠️ Ce que plus rien ne contrôle, assumé : icons/ n'entre pas dans le hash. Une icône
+#    changée n'incrémente donc pas VERSION — conséquence bornée, le fetch handler étant en
+#    stale-while-revalidate (l'icône arrive avec un lancement de retard). Pour forcer une
+#    vraie purge de cache, changer à la main le préfixe de `CACHE` dans sw.js.
 
 echo "[pre-commit] OK"

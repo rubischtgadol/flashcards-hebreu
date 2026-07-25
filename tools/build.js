@@ -19,6 +19,11 @@
  *     (index.html + src/tokens.css injecté au marqueur @TOKENS). Les trois pages déployées
  *     tirent donc leur bloc :root de la MÊME source — le piège n°5 (charte recopiée à la
  *     main) est clos par construction depuis la tâche 18.
+ * Puis il ESTAMPILLE la ligne `const VERSION` de sw.js avec un hash des cinq artefacts +
+ * manifest.webmanifest (chantier 4, tâche 19 : le bump manuel du piège n°10 est aboli ;
+ * sw.js reste écrit à la main, cette seule ligne excepté). Détail et pièges de la liste
+ * de hachage au § « estampille » plus bas.
+ *
  * Affiche le compte de cartes par section et échoue bruyamment si une section
  * attendue tombe à zéro, ou si data/ est invalide (valideDonnees).
  *
@@ -32,12 +37,14 @@
  * qui eux lisent toujours le carnet HTML — cf. leur propre en-tête pour pourquoi.
  *
  * Usage :
- *   node tools/build.js           # régénère les cinq artefacts
- *   node tools/build.js --check   # vérifie sans écrire (artefacts en phase avec data/ + src/ ?)
+ *   node tools/build.js           # régénère les cinq artefacts + estampille VERSION dans sw.js
+ *   node tools/build.js --check   # vérifie sans écrire (artefacts en phase avec data/ + src/ ?
+ *                                 #   et VERSION de sw.js égale au hash du contenu servi ?)
  */
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const gabarits = require('../src/carnet/gabarits.js');
 
 // ⚠️ Les scripts vivent dans tools/, la racine du dépôt est donc le dossier parent
@@ -54,6 +61,7 @@ const SRC_APP = path.join(ROOT, 'src', 'app');
 const INDEX = path.join(ROOT, 'index.html');
 const SRC_PORTAIL = path.join(ROOT, 'src', 'portail');
 const TOKENS = path.join(ROOT, 'src', 'tokens.css');
+const SW = path.join(ROOT, 'sw.js');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
@@ -976,6 +984,75 @@ function generateStandalone(cards, appSource){
   return out;
 }
 
+// ---------- estampille : la VERSION du service worker dérivée du contenu servi ----------
+
+/*
+ * Les fichiers SERVIS dont le hash estampille `const VERSION` dans sw.js (chantier 4,
+ * Task 19) : les cinq artefacts + le manifeste. Tout build qui change l'un d'eux change la
+ * version ; un build qui ne change rien la laisse stable (hash identique). Le piège n°10
+ * — « bump oublié », donc ancien app.html resservi une fois de plus — n'a plus de prise.
+ *
+ * ⚠️ sw.js N'EST PAS DANS LA LISTE et ne doit jamais y entrer. C'est le fichier où la
+ * version s'écrit : l'y inclure ferait courir le hash après sa propre queue — estampiller
+ * changerait sw.js, ce qui changerait le hash, ce qui redemanderait une estampille.
+ * `--check` ne repasserait plus jamais vert et le cache serait purgé à chaque build.
+ *
+ * ⚠️ Corollaire assumé : ce qui n'est pas dans la liste ne bouge pas la version — sw.js
+ * lui-même et icons/ au premier chef. La conséquence est bornée, pas nulle : le handler
+ * `fetch` est en stale-while-revalidate sur tout le même-origine, donc une icône changée
+ * arrive avec un lancement de retard, pas jamais. Ce qui n'arriverait PAS tout seul, c'est
+ * une vraie purge de cache (changement de stratégie qui rendrait les entrées gardées
+ * nuisibles) : elle se force à la main en changeant le préfixe de `CACHE` dans sw.js.
+ *
+ * Le hash porte sur les OCTETS DU DISQUE, pas sur les chaînes générées en mémoire : c'est
+ * ce que le navigateur reçoit qui doit décider de la version. En mode normal le build vient
+ * de les écrire, et en `--check` l'égalité généré/committé est déjà prouvée avant qu'on
+ * arrive ici — les deux coïncident donc, mais en cas de doute c'est le fichier servi qui
+ * tranche.
+ *
+ * ⚠️ Un effet de bord mesuré le 25/07, à connaître avant de s'étonner : le champ `version`
+ * de cards.json (la date du build) entre dans le hash. Il ne rend PAS la version instable au
+ * quotidien — cards.json n'est réécrit que si les CARTES changent, donc sa date est figée à
+ * contenu constant. Mais elle est COLLANTE : après un changement de contenu suivi d'un
+ * `git checkout -- data/` seul, cards.json garde la date du build intermédiaire et la
+ * version ne revient pas à sa valeur d'origine (elle en prend une troisième). Le remède est
+ * de restaurer les artefacts avec les sources (`git checkout -- .`) — vérifié : la version
+ * d'origine revient alors au bit près. Rien de committé n'en souffre, c'est un transitoire
+ * de poste de travail ; on ne canonicalise pas cards.json pour autant, le hash doit porter
+ * sur les octets réellement servis.
+ */
+const FICHIERS_ESTAMPILLES = ['index.html', 'app.html', 'vocabulaire_hebreu.html',
+  'flashcards_hebreu.html', 'cards.json', 'manifest.webmanifest'];
+const VERSION_RE = /^const VERSION = '([^']*)';$/m;
+
+// Pas de garde d'existence ici, à dessein : elle serait MUETTE par construction. Un fichier
+// haché qui manque fait déjà échouer le build plus tôt et bruyamment — verifieCharte lit le
+// manifeste et les artefacts avant qu'on arrive ici (vérifié le 25/07 par casse fabriquée :
+// manifest.webmanifest retiré → ENOENT fatal dans verifieCharte, jamais jusqu'ici). Un
+// contrôle qui ne peut pas échouer passe au vert sans rien prouver.
+function calculeEstampille(){
+  const h = crypto.createHash('sha256');
+  for (const f of FICHIERS_ESTAMPILLES) h.update(fs.readFileSync(path.join(ROOT, f)));
+  return 'v-' + h.digest('hex').slice(0, 8);
+}
+
+/*
+ * Lit la ligne estampillée de sw.js. Fatale si le motif a bougé : `String.replace` d'une
+ * regex qui ne matche pas ne lève RIEN — il rend la chaîne inchangée. Sans cette garde, un
+ * renommage de la ligne laisserait le build vert et la version gelée pour toujours, c'est-à-dire
+ * exactement le piège n°10 remis en place, en silence et sans que personne le sache.
+ */
+function litVersionSw(){
+  const sw = fs.readFileSync(SW, 'utf8');
+  const m = sw.match(VERSION_RE);
+  if (!m){
+    console.error('\n✗ sw.js : ligne `const VERSION = \'…\';` introuvable — l\'estampille du Task 19 ne peut pas être posée.');
+    console.error('  Restaure-la (une seule, en colonne 0, guillemets simples) ou recale VERSION_RE dans tools/build.js.');
+    process.exit(1);
+  }
+  return { sw, actuelle: m[1] };
+}
+
 function main(){
   const argv = process.argv.slice(2);
   const check = argv.includes('--check');
@@ -1045,7 +1122,23 @@ function main(){
       console.error('\n✗ index.html obsolète — lance `node tools/build.js` pour le régénérer.');
       ok = false;
     }
-    if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json, app.html, flashcards_hebreu.html et index.html en phase avec data/ + src/.');
+    // L'estampille ne se contrôle qu'une fois les cinq artefacts prouvés en phase, pour deux
+    // raisons : si l'un est périmé, le correctif est le rebuild — qui repose la version au
+    // passage —, et le hash porte sur le disque, qu'on vient justement de déclarer douteux.
+    // Ce contrôle est ce qui rend le Task 19 complet : sans lui, un artefact peut être
+    // committé sans son estampille et personne ne le voit (cf. contrôle n°3 du pre-commit,
+    // retiré au même commit).
+    let estampille = null;
+    if (ok){
+      estampille = calculeEstampille();
+      const { actuelle } = litVersionSw();
+      if (actuelle !== estampille){
+        console.error('\n✗ sw.js : VERSION vaut ' + actuelle + ', le contenu servi vaut ' + estampille +
+          ' — lance `node tools/build.js` pour réestampiller.');
+        ok = false;
+      }
+    }
+    if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json, app.html, flashcards_hebreu.html et index.html en phase avec data/ + src/ ; VERSION de sw.js estampillée (' + estampille + ').');
     else process.exit(1);
     return;
   }
@@ -1086,6 +1179,17 @@ function main(){
   } else {
     fs.writeFileSync(INDEX, portailGenerated);
     console.log('✓ index.html régénéré (' + Buffer.byteLength(portailGenerated, 'utf8') + ' octets).');
+  }
+
+  // EN DERNIER, une fois les cinq artefacts sur le disque : la version est le hash de ce
+  // qui est servi, elle ne peut donc se calculer qu'après la dernière écriture.
+  const attendue = calculeEstampille();
+  const { sw, actuelle } = litVersionSw();
+  if (actuelle === attendue){
+    console.log('✓ sw.js : VERSION déjà estampillée (' + attendue + ').');
+  } else {
+    fs.writeFileSync(SW, sw.replace(VERSION_RE, () => "const VERSION = '" + attendue + "';"));
+    console.log('✓ sw.js : VERSION ' + actuelle + ' → ' + attendue + ' (hash du contenu servi).');
   }
 }
 

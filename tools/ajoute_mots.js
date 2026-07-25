@@ -315,22 +315,28 @@ function appliqueInsertions(candidat, insertions){
 //     plan le craignait. Mais ce bruit est un accident heureux du `require` relatif de
 //     build.js — on ne s'appuie pas dessus : c'est `assertBacASableCoherent` ci-dessous qui
 //     tient la garantie.
-//  2. Tout fichier de la racine lu par `verifieCharte()` doit être copié. Ajouter une garde
-//     qui lit un fichier racine sans l'ajouter ici casse le bac à sable (payé le 25/07 :
+//  2. Tout fichier de la racine que `build.js` lit du disque doit être copié. Ajouter une
+//     garde qui lit un fichier racine sans l'ajouter ici casse le bac à sable (payé le 25/07 :
 //     `verifieCharte` a introduit la lecture d'index.html, et le dry-run est resté cassé
-//     jusqu'au Task 17). ⚠️ La liste ne se remplit pas « au cas où » : depuis le Task 18,
-//     `verifieCharte` ne lit plus index.html — le portail est généré, il se contrôle sur la
-//     chaîne assemblée — donc index.html en est SORTI. Un fichier copié sans raison ferait
-//     croire que le bac à sable en dépend, et masquerait la vraie règle : ce qu'on copie,
-//     c'est exactement ce qu'une garde lit du disque. `src/` est copié en entier ci-dessous,
-//     src/portail/ y compris — le bac à sable régénère donc son propre index.html.
+//     jusqu'au Task 17 ; re-payé au Task 19 : l'estampille de `VERSION` lit — et RÉÉCRIT —
+//     sw.js, absent du temporaire, donc dry-run mort d'un ENOENT avant même de conclure).
+//     ⚠️ La liste ne se remplit pas « au cas où » : depuis le Task 18, `verifieCharte` ne lit
+//     plus index.html — le portail est généré, il se contrôle sur la chaîne assemblée — donc
+//     index.html en est SORTI. Un fichier copié sans raison ferait croire que le bac à sable
+//     en dépend, et masquerait la vraie règle : ce qu'on copie, c'est exactement ce que le
+//     build lit du disque. `src/` est copié en entier ci-dessous, src/portail/ y compris —
+//     le bac à sable régénère donc son propre index.html.
+//     Pourquoi les deux fichiers de la liste y sont : `manifest.webmanifest` est lu par
+//     `verifieCharte` (thème/bg) ET entre dans le hash de l'estampille ; `sw.js` porte la
+//     ligne estampillée. Le bac à sable estampille donc SA copie, dans le temporaire — le
+//     sw.js du dépôt réel n'est jamais touché par un dry-run.
 //
 // ⚠️ ET LE CONTRÔLE DU CONTRÔLE. Le verdict imprimait un compte de cartes calculé
 // **en process** (`comptes(deriveCartes(candidat))`) : il aurait affiché le bon chiffre
 // même si le bac à sable avait validé un tout autre arbre. On lit donc le TOTAL que le
 // bac à sable a lui-même imprimé et on exige qu'il concorde — sans quoi le bac à sable
 // est un témoin muet, qui passe au vert sans rien prouver. ----------
-const FICHIERS_RACINE_BAC_A_SABLE = ['manifest.webmanifest'];
+const FICHIERS_RACINE_BAC_A_SABLE = ['manifest.webmanifest', 'sw.js'];
 function indenteTexte(t){ return String(t).trim().split('\n').map(l => '  ' + l).join('\n'); }
 function sandboxValidation(candidat){
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ajoute-mots-'));
@@ -711,14 +717,13 @@ function main(){
       console.error((rb.stderr || rb.stdout || '').trim());
       process.exit(1);
     }
-    console.log('\n✓ data/ écrit (' + changes.map(c => 'data/' + c + '.json').join(', ') + ') — carnet, cards.json et standalone régénérés (node tools/build.js).');
+    console.log('\n✓ data/ écrit (' + changes.map(c => 'data/' + c + '.json').join(', ') + ') — les cinq artefacts régénérés (node tools/build.js).');
+    console.log('\n↪ PWA : ce build a réestampillé VERSION dans sw.js (hash du contenu servi, Task 19) —');
+    console.log('  les mots neufs atteignent donc l\'iPhone dès le 1ᵉʳ lancement, sans bump manuel.');
+    console.log('  Il reste à committer sw.js AVEC data/ et les artefacts : séparés, le cache se décale.');
   } else {
     console.log('\nDry-run : rien n\'est écrit. Relire le tableau des tr dérivés puis relancer avec --ecrire.');
   }
-
-  console.log('\n↪ PWA : cards.json est servi en stale-while-revalidate (sw.js) — les mots neufs atteignent');
-  console.log('  l\'iPhone au 2ᵉ lancement sans bump ; bump VERSION dans sw.js si tu les veux au 1ᵉʳ.');
-  console.log('  (Le script ne bump jamais lui-même — décision de fil principal.)');
 }
 
 main();

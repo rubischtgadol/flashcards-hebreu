@@ -5,7 +5,7 @@
 ## Reprendre ici (prochaine session)
 
 **Où en est le dépôt (25/07/2026, tout poussé sur `main`).** La réorganisation
-« le dépôt généré » a soldé ses chantiers 1 à 3 et les **Tasks 17 et 18** du
+« le dépôt généré » a soldé ses chantiers 1 à 3 et les **Tasks 17, 18 et 19** du
 chantier 4. Le dépôt est désormais rangé ainsi :
 
 | Où | Quoi | S'édite à la main ? |
@@ -18,7 +18,7 @@ chantier 4. Le dépôt est désormais rangé ainsi :
 | `tools/` | les 4 outils (build, verifie_exemples, ajoute_mots, cherche_mots) | ✅ oui |
 | `docs/` | toute la prose du projet | ✅ oui |
 | `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html` | les **5 artefacts générés** | ❌ **jamais** — écrasés au build |
-| `sw.js` | le service worker, **v35** | ✅ oui — `VERSION` bumpée à la main (automatisée au Task 19) |
+| `sw.js` | le service worker | ✅ oui — **sauf** la ligne `const VERSION`, estampillée par le build depuis le Task 19 (`grep -n "const VERSION" sw.js` pour la valeur du jour) |
 
 ⚠️ **Les outils se lancent DEPUIS LA RACINE**, jamais depuis `tools/` :
 `node tools/build.js`, `node tools/verifie_exemples.js`,
@@ -26,32 +26,42 @@ chantier 4. Le dépôt est désormais rangé ainsi :
 `ROOT = path.join(__dirname, '..')`, exporté par `build.js` et consommé par les
 trois autres — jamais recalculé ailleurs.
 
-**Prochaine étape : Task 19** (`VERSION` de `sw.js` estampillée par le build).
-Plan complet dans
+**Prochaine étape : Task 20** (suppression d'`outils_migration/`, passe de
+documentation finale). Plan complet dans
 [le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md)
-— il reste les Tasks 19 à 21, dans l'ordre :
+— il reste **deux tasks sur 21**, dans l'ordre :
 
-- **Task 19** — `VERSION` de `sw.js` estampillée par un hash du contenu servi.
-  **Clôt le piège n°10** (bump oublié) et rend inutile le contrôle n°3 du hook
-  `pre-commit`. ⚠️ Le hash porte sur les **cinq artefacts + `manifest.webmanifest`**,
-  jamais sur `sw.js` lui-même : il s'y écrit, donc l'y inclure ferait courir la
-  version après sa propre queue. La liste du plan est déjà juste — ne pas
-  « compléter ». Et `--check` doit recalculer le hash, sinon un artefact peut
-  être committé sans son estampille.
-- **Task 20** — suppression d'`outils_migration/`, passe de documentation finale.
+- **Task 20** — suppression d'`outils_migration/`, puis passe de documentation
+  finale (l'historique git garde ces scripts jetables). ⚠️ **Trois choses que le
+  plan ne sait pas**, relevées le 25/07 (`ls outils_migration/` et `grep -rln`
+  par nom de helper pour les revérifier) : (a) le dossier contient **trois**
+  fichiers, pas les deux qu'annonce le plan — `decoupe_app.js` s'est ajouté au
+  chantier 3 ; (b) `build.js` **exporte des helpers HTML** (`parseSections`,
+  `closeOf`, `exemplesOf`, `firstSpanText`, `attrOf`, `tdsOf`, `decodeEntities`)
+  dont les seuls consommateurs externes sont `extrait_donnees.js` et
+  `decoupe_carnet.js` : supprimer le dossier rend ces **exports** morts (les
+  fonctions elles-mêmes restent utilisées par `build.js` en interne), à retirer
+  du `module.exports` dans le même commit ; (c) trois prose à recaler citent le
+  dossier — l'en-tête de `build.js`, le commentaire de son `module.exports`, et
+  `src/carnet/gabarits.js` (une ligne de commentaire qui explique un champ `.fr`
+  par la façon dont `extrait_donnees.js` le lisait).
 - **Task 21** — contrôle global (rituel + parcours WebKit en sous-agent) et
   livraison.
 
-⚠️ **Trois choses apprises aux Tasks 17-18, à ne pas réapprendre.**
+⚠️ **Quatre choses apprises aux Tasks 17-19, à ne pas réapprendre.**
 
 1. **Le plan du chantier a été écrit avant le lot tripwires du 25/07 : il ne
    connaît pas `verifieCharte()` ni `.githooks/`.** Ses `grep` de contrôle sont
    bornés aux `.md` et ratent donc trois familles de références : les **chaînes
    d'usage et messages d'erreur dans les scripts eux-mêmes** (dont trois
    sortent dans l'en-tête « FICHIER GÉNÉRÉ » des artefacts — les toucher force
-   un rebuild **et** un bump de `sw.js`), l'allowlist `.claude/settings.local.json`,
-   et les **liens markdown à fragment** (`](…#L42)`). À élargir dans chaque task
-   restante.
+   un rebuild, qui réestampille `sw.js` au passage), l'allowlist
+   `.claude/settings.local.json`, et les **liens markdown à fragment**
+   (`](…#L42)`). À élargir au Task 20 aussi. Le Task 19 y a ajouté une quatrième
+   famille : le **bac à sable d'`ajoute_mots.js`**, qui recopie un dépôt
+   miniature — toute garde neuve qui lit un fichier de la racine casse le
+   dry-run tant que le fichier n'est pas dans `FICHIERS_RACINE_BAC_A_SABLE`
+   (payé au Task 17 avec `index.html`, re-payé au Task 19 avec `sw.js`).
 2. ⚠️ **Un chiffre juste n'est pas une preuve — ce qui prouve, c'est d'où il
    vient.** Le bac à sable d'`ajoute_mots.js` affichait un compte de cartes
    calculé *en process* : il aurait montré le bon nombre en validant un tout
@@ -69,6 +79,17 @@ Plan complet dans
    raisonnement pour la suite : quand une tâche « clôt un piège par
    construction », demander *par quel chemin il pourrait revenir* et mécaniser
    ce chemin-là.
+4. ⚠️ **Une garde qui ne peut pas échouer ne prouve rien — et il faut le
+   vérifier, pas le supposer** (Task 19). L'estampille avait d'abord reçu un
+   contrôle d'existence sur chacun des six fichiers hachés ; la casse fabriquée
+   (retirer `manifest.webmanifest`) a montré qu'il était **muet par
+   construction** : `verifieCharte()` lit le manifeste bien avant, et le build
+   meurt là. Le contrôle a été supprimé plutôt que gardé pour la forme. Corollaire
+   inverse, du même task : `String.replace` d'un motif qui ne matche pas **ne lève
+   rien** — il rend la chaîne inchangée. Toute réécriture par regex a donc besoin
+   d'une garde explicite sur le motif introuvable, sinon la couture se défait en
+   silence (ici : `VERSION` figée pour toujours, c'est-à-dire le piège n°10 remis
+   en place sans que personne le sache).
 
 ### Dette de graphe — flags en attente, aucun ne déclenche rien
 
@@ -229,18 +250,23 @@ rencontre.
    de X et nomme chaque défaut »), jamais « vérifie que c'est bon » : un contrôle muet
    passe toujours au vert, c'est la leçon de la garde de couverture de `build.js`.
    Doctrine complète dans CLAUDE.md § *The token-economy doctrine — STANDING DIRECTIVE*.
-4. Si `sw.js`, la liste d'assets ou les icônes changent : incrémenter `VERSION` dans `sw.js`.
+4. **Rien à faire sur `sw.js` : l'étape 1 a déjà estampillé `VERSION`** (Task 19 — un hash
+   des cinq artefacts + `manifest.webmanifest`). Le seul devoir qui reste est de
+   **committer `sw.js` avec les artefacts** : séparés en deux commits, le nom du cache
+   retarde d'un commit sur le contenu qu'il nomme. Un `VERSION` édité à la main est
+   rejeté par `--check` — et pour forcer une vraie purge de cache, c'est le préfixe de
+   `CACHE` qu'on change, pas la version.
 
    ⚠️ **Depuis le 25/07, un hook `pre-commit` versionné tient le filet** (`.githooks/
    pre-commit` ; installation, une fois par machine : `git config core.hooksPath
-   .githooks`). Il exécute `node tools/build.js --check` + `node tools/verifie_exemples.js` avant
-   chaque commit et **refuse** un commit qui change un fichier servi (artefacts,
-   `index.html`, `manifest.webmanifest`, `sw.js`, `icons/`) sans bump de `VERSION`
-   dans `sw.js` (bypass assumé, à justifier dans le message : `git commit
-   --no-verify`). Le hook est le filet, pas le rituel : continuer à lancer les étapes
-   à la main. Il devient partiellement inutile au Task 19 (VERSION estampillée par le
-   build). Les tripwires de charte (pièges n°2, 3, 5), eux, vivent dans
-   `verifieCharte()` de `build.js` — détail dans ARCHITECTURE.md § Garde-fous.
+   .githooks`). Il exécute `node tools/build.js --check` + `node tools/verifie_exemples.js`
+   avant chaque commit (bypass assumé, à justifier dans le message : `git commit
+   --no-verify`). Il portait un troisième contrôle — bump manuel de `VERSION` exigé dès
+   qu'un fichier servi changeait — **retiré au Task 19** : `--check` recalculant
+   l'estampille, le premier contrôle en hérite. Le hook est le filet, pas le rituel :
+   continuer à lancer les étapes à la main. Les tripwires de charte (pièges n°2, 3, 5),
+   eux, vivent dans `verifieCharte()` de `build.js` — détail dans ARCHITECTURE.md
+   § Garde-fous.
 5. **Le graphe ne se recale JAMAIS dans le rituel — au plus il se FLAGGE (règle de
    Ruben, 21/07).** `/graphify . --update` coûte **~235 000 tokens** (mesuré le 20/07) :
    le lancer est toujours une décision séparée et explicite. **Le flag ne déclenche pas

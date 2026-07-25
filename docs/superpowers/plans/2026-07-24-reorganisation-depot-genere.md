@@ -454,9 +454,9 @@ Stratégie en deux temps pour ne jamais sauter sans filet : (a) **éclatement by
 ### Task 19 : `VERSION` de `sw.js` estampillée par le build
 
 **Files:**
-- Modify: `tools/build.js`, `sw.js:59`
+- Modify: `tools/build.js`, `sw.js` (la ligne `const VERSION` — son numéro bouge, `grep -n` le donne), `.githooks/pre-commit` (contrôle n°3 retiré), `tools/ajoute_mots.js` (bac à sable)
 
-- [ ] **Step 1 :** dans `build.js`, après écriture des artefacts :
+- [x] **Step 1 :** dans `build.js`, après écriture des artefacts :
 
 ```js
 const crypto = require('crypto');
@@ -471,13 +471,21 @@ fs.writeFileSync(path.join(ROOT, 'sw.js'),
 
 `sw.js` reste écrit à la main ; **cette seule ligne** est estampillée (couture déclarée en commentaire au-dessus de la ligne : `/* ligne estampillée par tools/build.js — ne pas éditer la valeur */`). Le piège 10 (bump oublié) meurt : tout `node tools/build.js` qui change un artefact change la version, et un build sans changement la laisse stable (hash identique).
 
-- [ ] **Step 2 :** `--check` vérifie aussi la version : la `VERSION` committée dans `sw.js` doit égaler le hash recalculé (sinon FAIL nommé) — un artefact committé sans son estampille ne peut plus passer.
-- [ ] **Step 3 :** `node tools/build.js` deux fois → la version ne bouge qu'à la première (stabilité) ; modifier un JSON de `data/`, rebuild → elle bouge ; restaurer (`git checkout -- data/`), rebuild → elle revient. Commit : « Chantier 4 : VERSION du SW dérivée du contenu — bump manuel aboli ».
+- [x] **Step 2 :** `--check` vérifie aussi la version : la `VERSION` committée dans `sw.js` doit égaler le hash recalculé (sinon FAIL nommé) — un artefact committé sans son estampille ne peut plus passer. **Fait le 25/07**, avec un choix d'ordonnancement : le contrôle d'estampille est **gardé** par le contrôle d'artefacts (il ne s'exerce que si les cinq sont déjà prouvés en phase). Sinon un artefact périmé sortirait deux erreurs dont une seule est actionnable — le rebuild repose l'estampille au passage.
+- [x] **Step 3 :** **Fait le 25/07.** Les trois preuves demandées, plus deux que le plan n'avait pas prévues :
+  - stabilité : deux builds d'affilée → « VERSION déjà estampillée » au second ; modification d'un JSON de `data/` → la version bouge. ✔
+  - ⚠️ **l'aller-retour du plan est faux tel qu'écrit** : `git checkout -- data/` **seul** ne ramène pas la version d'origine mais une *troisième* valeur. Cause mesurée : le champ `version` de `cards.json` (la date du build) entre dans le hash et y est **collant** — l'artefact n'est réécrit que si les *cartes* changent, donc la date du build intermédiaire y reste. `git checkout -- .` (sources **et** artefacts) ramène bien la valeur d'origine au bit près — vérifié. On ne canonicalise pas `cards.json` pour autant : le hash doit porter sur les octets réellement servis.
+  - deux gardes prouvées par **casse fabriquée** (exit 1 réel + message nommé) : `VERSION` éditée à la main → `--check` échoue en nommant la valeur attendue ; ligne `const VERSION` renommée → build fatal (`String.replace` d'un motif non trouvé ne lève rien, il aurait figé la version en silence).
+  - une garde **retirée** parce que muette : le contrôle d'existence des six fichiers hachés ne peut pas s'exercer — `verifieCharte()` lit le manifeste bien avant (casse fabriquée : ENOENT fatal en amont, jamais jusqu'au contrôle).
+  - deux effets de bord hors plan, corrigés : le **bac à sable** d'`ajoute_mots.js` ne copiait pas `sw.js` (dry-run mort d'un ENOENT — prouvé par casse fabriquée, puis `FICHIERS_RACINE_BAC_A_SABLE` complété), et ses **chaînes d'usage** promettaient encore un bump manuel.
+  - le **contrôle n°3 du hook `pre-commit` a été retiré dans le même commit**, comme prévu. Ce que plus rien ne couvre, assumé et écrit dans le hook : `icons/` n'entre pas dans le hash (conséquence bornée — tout le même-origine est en *stale-while-revalidate*, l'icône arrive avec un lancement de retard).
+  - le journal des bumps manuels de `sw.js` (entrées `v9`→`v35`, ~47 lignes dans un fichier **servi**) a été remplacé par une note de clôture : il affichait des numéros de version qui n'existent plus. L'historique le garde (`git log -p -- sw.js`).
 
 ### Task 20 : Nettoyage, documentation, flag graphe
 
 **Files:**
-- Delete: `outils_migration/` — ce qu'il en reste après le Task 7 Step 4 et le retrait anticipé de `compare_carnets.js` à la tâche 11 : `extrait_donnees.js`, `decoupe_carnet.js` (le contrôle d'équivalence vit désormais dans `--check` de `build.js` ; l'historique git garde les scripts jetables)
+- Delete: `outils_migration/` — ce qu'il en reste après le Task 7 Step 4 et le retrait anticipé de `compare_carnets.js` à la tâche 11 (le contrôle d'équivalence vit désormais dans `--check` de `build.js` ; l'historique git garde les scripts jetables). ⚠️ **Relevé le 25/07 : le dossier contient TROIS fichiers, pas deux** — `extrait_donnees.js`, `decoupe_carnet.js` et `decoupe_app.js`, ce dernier ajouté au chantier 3 et donc inconnu du plan. `ls outils_migration/` avant de supprimer.
+- Modify aussi : le `module.exports` de `tools/build.js` — les helpers HTML (`parseSections`, `closeOf`, `exemplesOf`, `firstSpanText`, `attrOf`, `tdsOf`, `decodeEntities`) n'y sont exportés que pour ces scripts ; leurs **exports** deviennent morts avec le dossier (les fonctions restent utilisées en interne). Trois prose citent le dossier : en-tête de `build.js`, commentaire du `module.exports`, et un commentaire de `src/carnet/gabarits.js`.
 - Modify: `CLAUDE.md`, `docs/ARCHITECTURE.md`, `docs/TODO.md`, `README.md`
 
 - [ ] **Step 1 :** `rm -r outils_migration && node tools/build.js --check` → vert.

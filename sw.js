@@ -8,58 +8,32 @@
  * vocabulaire apparaît au lancement suivant). Les polices Google sont servies
  * cache-first (immuables).
  *
- * Incrémenter VERSION pour forcer un nouveau cache après un changement de
- * stratégie ou de liste d'assets (pas nécessaire pour le contenu, qui se
- * rafraîchit tout seul).
+ * ⚠️ VERSION NE S'INCRÉMENTE PLUS À LA MAIN (chantier 4, Task 19). La ligne est
+ * ESTAMPILLÉE par `node tools/build.js` : un hash des cinq artefacts +
+ * manifest.webmanifest. Tout build qui change un fichier servi change la version ;
+ * un build qui ne change rien la laisse stable. `node tools/build.js --check`
+ * recalcule le hash et échoue si la ligne ne correspond pas — c'est ce qui a permis
+ * de retirer le contrôle n°3 du hook pre-commit. Éditer la valeur à la main ne sert
+ * donc à rien : le build la réécrit, et --check refuse la version éditée.
+ *
+ * Deux corollaires, assumés :
+ *  - sw.js n'entre PAS dans son propre hash (la version y est écrite : l'y inclure
+ *    ferait courir le hash après sa propre queue) ; icons/ non plus. Une icône
+ *    changée n'incrémente pas la version — sans grande conséquence, tout le
+ *    même-origine étant en stale-while-revalidate : elle arrive avec un lancement
+ *    de retard.
+ *  - pour forcer une VRAIE purge de cache (changement de stratégie qui rendrait les
+ *    entrées gardées nuisibles), changer le préfixe de `CACHE` ci-dessous à la main —
+ *    c'est désormais le seul geste manuel qui reste sur ce fichier.
  */
-// v19 : le filtre « Thèmes » (12 champs sémantiques, data-theme sur les tables
-// Noms/Adjectifs/Verbes du carnet). Le bump porte le nouvel app.html au premier
-// lancement : c'est une fonctionnalité visible de l'écran de départ, pas un
-// contenu qui se rafraîchit seul.
-//
-// v10 : le dernier lot d'exemples (Prépositions, Adverbes, Mots interrogatifs — 54 mots,
-// 510 → 564). Le contenu se rafraîchit seul en stale-while-revalidate, donc ce bump n'est
-// pas indispensable ; il est délibéré. Ces trois catégories sont celles où l'exemple *est*
-// l'enseignement — une préposition ne s'apprend qu'en contexte —, et faire attendre un
-// lancement de plus pour les voir apparaître serait payer une latence pour rien.
-//
-// v9 : l'écran de départ se replie (Catégories/Niveau) + la note Prononciation affiche
-// le voiceURI. Le bump n'est pas cosmétique : la stratégie est du stale-while-revalidate,
-// donc sans lui l'ancien app.html serait servi au premier lancement et le nouveau
-// seulement au second — or c'est précisément sur ce nouvel écran que l'identifiant de
-// la voix doit être relevé. Un diagnostic qu'on demande à quelqu'un doit être visible
-// du premier coup.
-// v12 : le diagnostic de latence (dossier « lag iPhone ») s'affiche dans
-// « Réglages avancés ». Le bump est la condition de l'enquête : la mesure doit
-// être sur le téléphone au premier lancement, pas au second — c'est exactement
-// le cas « un diagnostic qu'on demande à quelqu'un doit être visible du
-// premier coup » de v9.
-// v14 : les liens Google Fonts des trois pages passent en non-bloquant (chantier
-// « premier affichage » — en <link> classique, WebKit ne peint rien tant que la
-// feuille n'est pas arrivée). Le bump est nécessaire : les coquilles HTML sont en
-// stale-while-revalidate, donc sans lui l'ancien index.html/app.html — celui qui
-// bloque — serait resservi une fois de plus, et le correctif du premier
-// affichage ne serait justement pas là au premier affichage.
-// v13 : le lot de correction de l'audit (nikoud de מָלוֹן et סִפְרִיָּה, genre
-// de סַכָּנָה ; le pluriel de גַּב est resté — גַּבּוֹת attesté par l'Académie).
-// Le contenu se rafraîchirait seul, mais deux vocalisations apprises étaient
-// fausses : elles doivent disparaître du téléphone au premier lancement, pas
-// au second.
-// v22 : lot grammaire n°2 — 4 sections neuves dans le carnet (Le présent,
-// L'impératif promu depuis le bonus du futur, Le conditionnel הָיִיתִי,
-// Suffixes possessifs) + bloc « Reconnaître le binyan » ; le sommaire passe
-// à 35 pilules. Nouveau cours = visible au premier lancement.
-// v25 : sens de lecture réparé sur mobile — au verso des cartes verbes les
-// formes se lisent droite→gauche (.forms en direction:rtl), et dans le carnet
-// les rangs de vocabulaire remettent les inflexions sur une ligne avec
-// l'exemple EN DESSOUS. Correctif visuel = visible au premier lancement.
-// v26 : verso des verbes en grille 2×2 (.forms.forms-grid) — singulier au-dessus,
-// pluriel dessous, masculin à droite en RTL, comme une table de conjugaison ;
-// noms et adjectifs gardent la ligne souple. Visible au premier lancement.
-// v35 : le portail devient le 5ᵉ artefact généré (Task 18) — index.html, app.html, le carnet
-// et le standalone changent tous d'un commentaire de charte, et index.html gagne son en-tête
-// « FICHIER GÉNÉRÉ ». Rien de visible à l'écran, mais quatre fichiers servis bougent.
-const VERSION = 'v35';
+// Le journal des bumps manuels s'arrête à v35 : il justifiait, entrée par entrée, pourquoi
+// tel changement méritait d'atteindre le téléphone au 1ᵉʳ lancement plutôt qu'au 2ᵈ. Ce
+// raisonnement est devenu structurel au Task 19 — tout changement d'un fichier servi
+// déplace le hash, donc la question ne se pose plus une fois par lot. Les entrées v9 à v35
+// restent dans l'historique git de ce fichier (`git log -p -- sw.js`) ; les garder ici
+// afficherait des numéros de version qui n'existent plus, dans un fichier servi.
+/* ligne estampillée par tools/build.js — ne pas éditer la valeur (cf. en-tête) */
+const VERSION = 'v-1cddfa6a';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [
