@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La métamorphose — quatre matières</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — charte v2 « la console d'étude » (source : SENTRY).
+   Ne pas « corriger » vers DESIGN.md, qui documente la v1.
+   ================================================================ */
+:root{
+  --bg:#05040A; --panneau:#0A0814; --grille:#0F0C1C; --ligne:#7a5a14;
+  --ambre:#f0b32a; --vert:#54ff8a; --rouge:#FF4747; --orange:#ff6a1f; --lune:#cfd6e6;
+  --he:'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --cond:'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:'Share Tech Mono','Courier New',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 20px 90px;font-size:15px;line-height:1.45}
+.galerie{max-width:1180px;margin:0 auto}
+h1{font-family:var(--mono);font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor}
+.meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+
+.constat{border:1px solid var(--ligne);background:rgba(10,8,20,.82);padding:16px 18px;margin:20px 0 22px;position:relative}
+.constat .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.constat .coin.a{top:2px;left:4px}.constat .coin.b{bottom:2px;right:4px}
+.constat h2{font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:10px}
+.constat p{font-size:.82rem;color:var(--lune);opacity:.85;max-width:78ch;margin-bottom:9px}
+.constat p:last-child{margin-bottom:0}
+.constat b{color:var(--ambre);font-weight:600;opacity:1}
+.alarme{border:1px solid var(--rouge);background:rgba(255,71,71,.07);padding:15px 17px;margin-bottom:20px}
+.alarme[hidden]{display:none}
+.alarme .titre{font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);text-shadow:0 0 6px currentColor;margin-bottom:9px}
+.alarme p{font-size:.82rem;color:var(--lune);max-width:76ch;margin-bottom:10px}
+
+/* ---- barre de commande, collante ---- */
+.barre{display:flex;gap:9px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne);padding:12px 0;margin:0 0 10px;position:sticky;top:0;z-index:40;background:#030208}
+.barre .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;color:var(--lune)}
+.btn{font-family:var(--cond);font-weight:600;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;padding:8px 18px;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2)}
+.btn:hover{border-color:var(--ambre);text-shadow:0 0 6px currentColor}
+.btn.primaire{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+
+/* ---- LE CURSEUR : l'outil qui compte pour juger une métamorphose ----
+   Un morph ne se juge pas en le regardant passer : il se juge ARRÊTÉ,
+   à l'instant précis où l'on doute. D'où un curseur qui pilote les
+   quatre matières en même temps, à la même valeur de t. */
+.scrub{display:flex;align-items:center;gap:12px;flex:1 1 320px;min-width:240px}
+.scrub input[type=range]{flex:1;accent-color:var(--vert);height:28px;cursor:pointer}
+.scrub .t{font-family:var(--mono);font-size:.72rem;color:var(--vert);text-shadow:0 0 6px currentColor;min-width:4.5em;text-align:right}
+
+.diag{display:flex;gap:18px;flex-wrap:wrap;align-items:center;border:1px solid var(--ligne);background:rgba(10,8,20,.55);padding:9px 13px;margin:0 0 24px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--lune)}
+.diag .k{opacity:.55;text-transform:uppercase}
+.diag .val{color:var(--vert);text-shadow:0 0 6px currentColor}
+.diag .val.mauvais{color:var(--rouge)}
+
+/* ================================================================
+   LE BANC — quatre matières, la MÊME métamorphose
+   ================================================================ */
+.banc{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px}
+.mat{border:1px solid var(--ligne);background:var(--bg);position:relative;overflow:hidden}
+.mat .tete{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--ligne);position:relative;z-index:5}
+.mat .nom{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambre)}
+.mat .nom .n{color:var(--vert)}
+.mat .scene{position:relative;aspect-ratio:1/1;display:block}
+.mat .trame{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(0deg,transparent 0 31px,var(--grille) 31px 32px),
+             repeating-linear-gradient(90deg,transparent 0 31px,var(--grille) 31px 32px)}
+.mat .morphe{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.mat .pied{padding:11px 14px;border-top:1px solid var(--ligne);font-size:.74rem;color:var(--lune);opacity:.75;position:relative;z-index:5}
+.mat .pied b{color:var(--ambre);opacity:1}
+
+/* le socle commun à toutes les matières : chaque fragment ne fait que
+   styler ses propres couches, il ne repositionne jamais le SVG */
+.mat .morphe path{transform-box:view-box;transform-origin:50% 50%}
+
+/* ═══════ MATIÈRE 01 — L'or massif ═══════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   MATIÈRE N°1 — « L'OR MASSIF »
+   Une pièce de métal doré, épaisse, vue de trois quarts. Cinq couches du même
+   contour : deux pour la tranche, deux pour la face, une pour l'éclat.
+   Zéro filtre SVG, zéro ombre CSS : tout est <path> décalé + dégradés.
+
+   ─── POURQUOI CES CHIFFRES ────────────────────────────────────────────────
+
+   DÉCALAGES DU CHANT  (viewBox 1000, forme ≈ 660 u de large)
+     chant clair  : +5, +6      chant profond : +9, +11
+     • 5–11 u = 0,5 à 1,1 % de la boîte. Rendue dans une scène de ~360 px,
+       la tranche cumulée fait ~4 px : c'est le minimum où l'œil lit une
+       ÉPAISSEUR et non un aliasing. Sous 4 u elle disparaît au rendu ;
+       au-delà de ~14 u la pièce se dédouble et devient un logo à ombre portée.
+     • y > x (6/5 puis 11/9, ratio 1,2) : un objet posé montre sa tranche
+       davantage par le bas que par le côté. Un décalage strictement à 45°
+       est la signature du « drop shadow » de logiciel — on l'évite.
+     • Ces décalages sont des attributs `transform` STATIQUES : ils ne bougent
+       pas d'une image à l'autre du morph, donc la pièce ne respire pas.
+
+   LUMIÈRE / BISEAU  (lumière haut-gauche, comme dans toute la charte)
+     axe A : (200,150) → (820,880)  = 139,7° CSS
+     axe B : (150,260) → (880,760)  = 124,4° CSS   → 15,3° d'écart
+     • 15° est sous le seuil où l'œil lit « le dégradé a tourné », et au-dessus
+       du seuil où il lit « la lumière glisse sur un volume ». C'est le point
+       exact du trompe-l'œil. Les deux axes sont deux <path> de tête
+       cross-fadés par --t : la lumière tourne pendant la métamorphose sans
+       qu'aucune géométrie ne soit recalculée.
+
+   FACETTE (chanfrein)
+     scale 0,972 autour de (500,500) → liseré de 0,014 × 660 ≈ 9 u.
+     • Assez pour qu'un bord de la face capte une valeur différente du
+       plateau (c'est ça, un chanfrein), trop peu pour que le décalage se
+       lise comme un dédoublement sur les hastes fines de l'alef.
+       0,95 avait été essayé mentalement : sur une lettre, un scale trop
+       franc translate les hastes au lieu de les rentrer.
+
+   REFLET SPÉCULAIRE
+     bande de 0,27 à 0,40 de l'axe = 13 % ≈ 85 u, pic à 0,315.
+     • Étroite par construction : un reflet large fait du plastique moulé.
+     • Teinte #fbe4ab, pas #ffffff. Le blanc pur est hors charte et c'est
+       lui qui fait basculer « or ancien » vers « or de bijouterie ».
+       L'arrêt le plus clair de toute la matière est #f7cf6a (crête du biseau).
+
+   PALETTE (tout entre --ligne #7a5a14 et --ambre #f0b32a, plus deux sorties
+   contrôlées : #1c1305 pour l'occlusion de contact, #f7cf6a pour la crête)
+     #1c1305  chant profond — presque le --panneau, le point de contact
+     #8a661a → #33240a  tranche (dégradée : la tranche est cylindrique)
+     #f7cf6a → #6d4f12  biseau de face
+     #fbe4ab  éclat
+
+   ACCESSIBILITÉ : la seule animation CSS est une respiration de ±0,08
+   d'opacité sur le reflet. Coupée, la matière est complète — le chant, le
+   biseau, la facette et l'éclat sont tous des états statiques.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Couche 1 : chant profond — l'occlusion, ce qui pose la pièce ─── */
+#m1 .m1-chant-profond {
+  fill: #1c1305;
+}
+
+/* ─── Couche 2 : chant clair — la tranche vue de trois quarts ─── */
+#m1 .m1-chant-clair {
+  fill: url(#m1-tranche);
+}
+
+/* ─── Couche 3 : tête — le biseau, axe A (139,7°) ─── */
+#m1 .m1-tete {
+  fill: url(#m1-biseau-a);
+}
+
+/* ─── Couche 4 : facette — biseau axe B (124,4°), rentré de 9 u.
+       Son opacité monte avec --t : la lumière glisse et le chanfrein se
+       creuse à mesure que l'étoile devient lettre.
+       Fallback 0 → à l'arrêt du moteur la facette vaut encore 0,62. ─── */
+#m1 .m1-facette {
+  fill: url(#m1-biseau-b);
+  opacity: calc(0.62 + 0.32 * var(--t, 0));
+}
+
+/* ─── Couche 5 : reflet — la bande spéculaire, sur le contour plein ─── */
+#m1 .m1-reflet {
+  fill: url(#m1-eclat);
+  opacity: 0.5;
+  animation: m1-respire 7.5s ease-in-out infinite;
+}
+
+/* Supplément, jamais nécessaire : ±0,08 autour de la valeur statique 0,5. */
+@keyframes m1-respire {
+  0%, 100% { opacity: 0.44; }
+  50%      { opacity: 0.60; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #m1 .m1-reflet { animation: none; }
+}
+
+/* ═══════ MATIÈRE 02 — Le creusé ═══════ */
+/* ══════════════════════════════════════════════════════════════════════════════
+   MATIÈRE 02 — « LE CREUSÉ »   (préfixe m2, isolation stricte)
+
+   PRINCIPE. La forme n'est pas posée sur la plaque : elle est TAILLÉE DEDANS.
+   On ne voit donc jamais la « forme » elle-même — on voit le fond du sillon
+   (sombre), la paroi qui prend le jour (claire) et la paroi en contre-jour
+   (noire). La lecture est en négatif ; c'est le contrepied du relief.
+
+   AXE DE LUMIÈRE — 135°, source en haut-gauche, donc vecteur (+1,+1) normalisé.
+   Les CINQ couches sont décalées sur cette seule diagonale. C'est cette unicité
+   d'axe qui fait lire « un objet éclairé » et non « une image dédoublée » : dès
+   qu'une couche sort de l'axe, l'œil voit un flou de bougé, pas une matière.
+
+   INVERSION, la seule chose qui fait « creusé » plutôt que « posé » :
+     bord HAUT-GAUCHE (côté source)  → OMBRE   : la lèvre supérieure du sillon
+                                                 tourne le dos à la lumière.
+     bord BAS-DROITE (côté opposé)   → LUMIÈRE : cette paroi regarde la source.
+   Un relief fait exactement l'inverse. Inverser les deux, c'est retourner
+   l'objet ; il n'y a rien d'autre à faire, et rien de moins ne suffit.
+
+   PROFONDEURS. Unités du viewBox (1000). La forme occupe ~660 u ; un panneau de
+   ~260 px rend donc à ~0,26 px/u — chaque chiffre est donné en px effectifs.
+     l1  ombre diffuse   −14 u  (≈3,6 px)  floutée σ=5 : une lèvre de gravure
+                                           n'a pas d'arête franche, elle est
+                                           mordue par l'outil.
+     l2  ombre nette      −7 u  (≈1,8 px)  le contre-jour au ras du sillon.
+     l3  paroi éclairée  +13 u  (≈3,4 px)  la plus large des quatre : c'est elle
+                                           qui PORTE la lecture (voir « risque »).
+     l4  pied de paroi    +6 u  (≈1,6 px)  la part de la paroi que le sillon
+                                           occlut : bronze sourd, pas or.
+     l5  fond du creux     0 u             le sillon lui-même.
+   Asymétrie assumée +13 / −7 : un burin attaqué à 45° ne laisse pas deux parois
+   égales, et surtout l'œil suit le bord CLAIR. Élargir l'ombre à parité aurait
+   payé en lisibilité ce qu'elle n'aurait rien rapporté en volume.
+   Plafond : +13 u fait grossir la silhouette de 2 % (imperceptible) mais referme
+   un ajour de 26 u. Au-delà de ~15 u les contre-formes de l'alef se bouchent —
+   c'est la borne dure, pas un réglage de goût.
+
+   ÉTAGEMENT DE LA MATIÈRE, du centre vers l'extérieur sur un bord éclairé :
+     fond (#040308…braise) → pied de paroi (#191106→#63460f) → paroi (#6f5013→
+     ambre) → liseré (or → éclat lunaire). Quatre marches de clair croissant sur
+     ~4,5 px : c'est CE dégradé étagé qui donne l'épaisseur. Une paroi d'un seul
+     ton donnerait un trait, pas une masse — le reproche « trop maigre » ne se
+     répare pas en épaississant un contour, il se répare en le stratifiant.
+
+   LE RISQUE, nommé et traité. Sur un panneau à #0A0814, le côté ombre ne peut
+   pas être plus sombre que le noir : son contraste est structurellement faible.
+   Toute la lisibilité repose donc sur le liseré. Or tout contour fermé possède,
+   en tout point, soit une face tournée vers le bas-droite, soit une face tournée
+   vers le haut-gauche : le bord clair et le bord noir se relaient sans trou le
+   long de la silhouette. À mi-morphose, quand la forme n'est ni étoile ni
+   lettre, la silhouette reste donc entièrement bordée — c'est une propriété
+   géométrique du contour, pas une chance de dessin. La paroi part à #6f5013
+   (luminance ≈82) contre un panneau à ≈9 : rapport 9:1 au point le plus faible.
+
+   FILTRE. Un seul, σ=5 (≈1,3 px), sur la seule couche l1. Aucun autre effet :
+   tout le reste est du <path> décalé et du dégradé, c'est-à-dire gratuit.
+
+   --t. Deux signaux coordonnés, tous deux facultatifs (valeur par défaut = 0,
+   la matière est juste et complète si le moteur ne pose jamais rien) :
+   le sillon se CREUSE de 25 % et la braise du fond MONTE, pendant que le liseré
+   passe de l'or chaud à l'éclat lunaire teinté phosphore. La gravure chauffe au
+   moment où elle devient lettre.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+#m2 {
+  /* Facteur de profondeur. 1 au repos → 1,25 sur la lettre : le sillon
+     s'approfondit pendant la métamorphose. 25 % est le maximum qui laisse
+     l3 sous la borne dure des 15 u (13 × 1,25 = 16,25 u… porté à 12 u de base
+     ci-dessous pour finir exactement à 15 u, au ras de la borne). */
+  --m2-k: calc(1 + .25 * var(--t, 0));
+
+  /* Braise au fond du creux : rgb(11,8,6) au repos — luminance 8,4, donc
+     strictement SOUS le panneau (9,2), le creux reste un creux. À t=1 :
+     rgb(26,18,9), une flaque tiède au pied de la paroi éclairée. Exception
+     assumée et locale : ce point chaud n'occupe que le cœur du fond, jamais
+     ses bords, donc la silhouette ne s'éclaircit à aucun moment. */
+  --m2-braise: rgb(calc(11 + 15 * var(--t, 0))
+                   calc( 8 + 10 * var(--t, 0))
+                   calc( 6 +  3 * var(--t, 0)));
+
+  /* Éclat de l'arête : or blanchi rgb(245,214,150) → rgb(214,246,206), un blanc
+     phosphore. L'ambre est la voix dominante, le vert marque le vivant : la
+     lettre formée est l'état actif, l'arête le dit sans changer de palette. */
+  --m2-glint: rgb(calc(245 - 31 * var(--t, 0))
+                  calc(214 + 32 * var(--t, 0))
+                  calc(150 + 56 * var(--t, 0)));
+}
+
+/* px = unité du viewBox : c'est ce que garantit transform-box:view-box.
+   Sans lui, un moteur pourrait rapporter les px à la boîte de remplissage,
+   et les cinq décalages ne seraient plus sur la même échelle. */
+#m2 .morphe path {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  stroke: none;
+}
+
+/* ── l1 · ombre diffuse — la lèvre mordue ─────────────────────────────────── */
+#m2 .m2-l1 {
+  fill: #000;
+  opacity: .5;                       /* noir à 50 % sur #0A0814 : le panneau
+                                        perd la moitié de sa luminance dans la
+                                        bande. Discret, mais c'est ce qui
+                                        « assied » l'objet dans la plaque. */
+  filter: url(#m2-lisiere);
+  transform: translate(calc(-14px * var(--m2-k)), calc(-14px * var(--m2-k)));
+}
+
+/* ── l2 · ombre nette — le contre-jour au ras du sillon ───────────────────── */
+#m2 .m2-l2 {
+  fill: #000;
+  opacity: .92;                      /* pas 1 : les 8 % qui restent laissent
+                                        passer un souffle de panneau et évitent
+                                        le trou de découpe. */
+  transform: translate(calc(-7px * var(--m2-k)), calc(-7px * var(--m2-k)));
+}
+
+/* ── l3 · paroi éclairée + liseré — la couche qui porte la lecture ────────── */
+#m2 .m2-l3 {
+  fill: url(#m2-paroi);
+  stroke: url(#m2-arete);
+  stroke-width: 4.5;                 /* ≈1,2 px rendu : fin, mais jamais sous le
+                                        pixel — un liseré qui disparaît par
+                                        endroits détruit le tranchant. */
+  stroke-linejoin: round;            /* obligatoire : les pointes de l'étoile
+                                        sont à ~60°, un raccord en pointe y
+                                        crache des dards de 4 × la largeur. */
+  stroke-opacity: 1;                 /* valeur au repos = valeur pleine, voir
+                                        l'animation plus bas. */
+  transform: translate(calc(12px * var(--m2-k)), calc(12px * var(--m2-k)));
+  animation: m2-souffle 7.4s ease-in-out infinite;
+}
+
+/* ── l4 · pied de paroi — la part que le sillon occlut ────────────────────── */
+#m2 .m2-l4 {
+  fill: url(#m2-pied);
+  transform: translate(calc(6px * var(--m2-k)), calc(6px * var(--m2-k)));
+}
+
+/* ── l5 · fond du creux ───────────────────────────────────────────────────── */
+#m2 .m2-l5 {
+  fill: url(#m2-fond);               /* opaque : le creux interrompt la trame de
+                                        la plaque, sinon il redevient un calque
+                                        translucide posé par-dessus. */
+}
+
+/* SUPPLÉMENT, jamais nécessaire. Le liseré respire de 16 % en 7,4 s : plus lent
+   qu'une respiration, donc senti et non vu ; durée volontairement non ronde
+   pour ne se synchroniser avec aucune voisine. À l'arrêt, stroke-opacity vaut 1,
+   c'est-à-dire l'état PLEIN — la matière ne perd rien sous mouvement réduit. */
+@keyframes m2-souffle {
+  0%, 100% { stroke-opacity: 1; }
+  50%      { stroke-opacity: .84; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #m2 .m2-l3 { animation: none; stroke-opacity: 1; }
+}
+
+/* ═══════ MATIÈRE 03 — Le phosphore en fusion ═══════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   MATIÈRE 03 — « LE PHOSPHORE EN FUSION »
+   Une coulée incandescente, pas un néon. La lumière SORT de la masse.
+
+   ─ LE PRINCIPE OPTIQUE, qui commande tous les chiffres ci-dessous ─
+   Un objet ÉCLAIRÉ est clair là où la lumière frappe et sombre ailleurs.
+   Un objet INCANDESCENT fait l'inverse : le cœur, plus épais, rayonne le
+   plus ; le bord, refroidi par l'air, s'assombrit EN SE SATURANT. Toute la
+   matière tient dans cette inversion. Elle est portée par un seul dégradé
+   radial en objectBoundingBox — donc recentré tout seul sur la forme à
+   chaque image du morphe, étoile comme alef, sans une ligne de JS.
+   Corollaire assumé : AUCUN reflet spéculaire, nulle part. Un reflet est la
+   trace d'une source extérieure ; ici la source est l'objet. Un highlight
+   aurait fait joli et aurait détruit la lecture.
+
+   ─ LES 4 COUCHES, de la plus lointaine à la plus proche ─
+   1. .m3-halo   contour dilaté de 13 px + UN feGaussianBlur σ=10   → le bloom
+   2. .m3-croute contour en stroke 28 posé SOUS le corps            → la croûte
+   3. .m3-corps  la masse : fill dégradé radial + stroke 18         → le poids
+   4. .m3-coeur  le même contour érodé à 0.90, alpha éteinte à 62 % → la braise
+
+   ─ LES CHIFFRES, ET POURQUOI ─
+   • σ = 10 : milieu de la fenêtre autorisée (8–12). Portée utile ≈ 3σ = 30 px
+     sur un viewBox de 1000, soit 3 % de la scène — assez pour lire une
+     ÉMISSION, trop peu pour atteindre le bord du viewBox (la forme n'occupe
+     que les deux tiers centraux). Donc : aucun rognage, aucune région de
+     filtre démesurée à recalculer 60 fois par seconde sur quatre panneaux.
+   • Région du filtre −25 % / 150 % : il faut au moins 3σ au-delà de la bbox ;
+     sur la bbox la plus étroite du morphe (~600 px) ces 30 px valent 5 %.
+     25 % est une marge ×5, et elle est gratuite : la région reste petite.
+   • color-interpolation-filters="sRGB" : le défaut SVG est linearRGB, qui
+     éclaircit franchement le flou d'une couleur vive. Sur fond #05040A à
+     23 h, c'est exactement la différence entre une braise et un phare.
+     Choix explicite, pas un oubli.
+   • Opacité du halo 0.20 → 0.40 (montée par --t) : c'est la SEULE grande
+     surface floue de la matière, donc le seul vrai risque pour les yeux. Sur
+     un fond quasi noir un calque coloré est déjà additif de fait ; 0.40 au
+     plus chaud plafonne le pic de bloom à 40 % d'un ambre, jamais au blanc.
+     Trois effets d'écran lumineux ont déjà été refusés sur ce dépôt : je
+     prends le cran bas d'emblée.
+   • La croûte fait exactement (28 − 18) / 2 = 5 px, par construction et non
+     par tâtonnement : le corps est dilaté de 18/2 = 9 px, la croûte de
+     28/2 = 14 px, et la croûte est peinte DESSOUS. Seuls ces 5 px extérieurs
+     restent visibles, et ils le restent quelle que soit la forme.
+   • stroke-linejoin:round partout : à 9 px de dilatation, les six pointes de
+     l'étoile prennent un congé de 9 px. C'est ce congé qui fait « coulée » et
+     non « tracé » — un angle vif lit comme du vectoriel, un angle fondu lit
+     comme de la matière. C'est la réponse directe au « TROP MAIGRE ».
+   • Dégradé de fonte : cx .50 / cy .47, foyer fx .47 / fy .43, r .55.
+     cy et le foyer montent de 3 à 7 % : la chaleur monte, et un foyer
+     parfaitement centré fabrique une cible, pas une braise. r = .55 parce que
+     les pointes de la forme sont à ~.50 du centre en unités de bbox : elles
+     tombent donc à ~91 % du dégradé, dans la zone sombre et saturée. Voulu.
+   • Cœur érodé par scale(.90) : une échelle n'est PAS une érosion
+     géométrique, elle peut sortir de la masse aux extrémités de l'alef. D'où
+     l'alpha de la braise éteinte à 62 % du rayon : le débord éventuel est
+     alors littéralement invisible. Ceinture et bretelles, assumées.
+   • La chaleur monte avec --t : --m3-chaleur passe de 0 % à 100 % et mixe
+     chaque arrêt du pôle froid vers le pôle chaud en `oklch shorter hue`.
+     Le chemin de teinte le plus court va du vert phosphore à l'orange EN
+     PASSANT PAR LE JAUNE (145° → 95° → 80° → 50°) : c'est la courbe d'un
+     métal qu'on chauffe. En oklab le milieu de course serait un gris olive
+     désaturé — techniquement correct, physiquement faux.
+   • Le blanc n'est jamais une couleur ici, seulement un agent
+     d'éclaircissement, plafonné à 50 %. Le point le plus clair de la matière
+     est un mélange à 50 % d'ambre (≈ #f7d894 à l'arrivée) ou à 45 % de
+     phosphore (≈ #a1ffbf au départ). Rien ne monte au blanc pur : c'est la
+     garde anti-enseigne.
+   • m3-braise, 6.4 s : un SUPPLÉMENT. En dessous de ~4 s on suit le battement
+     consciemment et ça devient une enseigne clignotante ; à 6.4 s c'est une
+     respiration qu'on ne surprend qu'en s'arrêtant dessus. En mouvement
+     réduit l'hôte coupe l'animation et la braise reste à son opacité de repos
+     .80 : la matière est complète, et belle, à l'arrêt.
+
+   ─ ISOLATION ─
+   Tout sélecteur commence par #m3 ; le seul @keyframes s'appelle m3-braise ;
+   les trois dégradés et l'unique filtre sont m3-fonte / m3-braise / m3-nimbe /
+   m3-lueur. Les @property sont des at-rules globales, mais tous les noms
+   déclarés sont préfixés --m3-. Sur #m3 lui-même je ne pose QUE des variables,
+   aucune propriété visuelle : l'hôte garde la main sur .mat.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Enregistrer les propriétés finales n'est pas de la coquetterie : si
+   color-mix() manque, une valeur substituée invalide rendrait `stop-color`
+   IACVT — donc NOIR, et la matière disparaîtrait. Avec @property, le repli est
+   l'initial-value ci-dessous (un état à mi-chauffe, lisible tel quel). */
+@property --m3-chaleur { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
+@property --m3-c-coeur  { syntax: "<color>"; inherits: true; initial-value: #dcefa8; }
+@property --m3-c-milieu { syntax: "<color>"; inherits: true; initial-value: #c2e04a; }
+@property --m3-c-flanc  { syntax: "<color>"; inherits: true; initial-value: #9c8f22; }
+@property --m3-c-bord   { syntax: "<color>"; inherits: true; initial-value: #4a3f1c; }
+@property --m3-c-croute { syntax: "<color>"; inherits: true; initial-value: #2a1c0c; }
+@property --m3-c-halo   { syntax: "<color>"; inherits: true; initial-value: #cfa63a; }
+
+#m3 {
+  /* --t est posé en style inline sur #m3 par le moteur : on ne le déclare
+     jamais, on l'alias avec un repli à 0 pour que la matière reste juste même
+     si le moteur est absent (page ouverte seule, capture statique…). */
+  --m3-chaleur: calc(var(--t, 0) * 100%);
+
+  /* PÔLE FROID (t=0, l'étoile) — le phosphore.
+     PÔLE CHAUD (t=1, l'alef)  — l'or en fusion, qui vire à l'orange au bord.
+     Tout est dérivé des jetons de la charte ; le fond --bg sert de noircissant
+     (il garde la teinte en tuant la clarté : c'est ça, « sombre ET saturé »). */
+  --m3-coeur-froid:  color-mix(in srgb,  var(--vert)   45%, #fff);
+  --m3-coeur-chaud:  color-mix(in srgb,  var(--ambre)  50%, #fff);
+  --m3-milieu-froid: var(--vert);
+  --m3-milieu-chaud: var(--ambre);
+  --m3-flanc-froid:  color-mix(in oklab, var(--vert)   62%, var(--bg));
+  --m3-flanc-chaud:  color-mix(in oklab, var(--orange) 82%, var(--bg));
+  --m3-bord-froid:   color-mix(in oklab, var(--vert)   30%, var(--bg));
+  --m3-bord-chaud:   color-mix(in oklab, var(--orange) 40%, var(--bg));
+  --m3-croute-froid: color-mix(in oklab, var(--vert)   20%, var(--bg));
+  --m3-croute-chaud: color-mix(in oklab, var(--orange) 26%, var(--bg));
+  --m3-halo-froid:   var(--vert);
+  --m3-halo-chaud:   color-mix(in oklab, var(--orange) 62%, var(--ambre));
+
+  /* La chauffe : un seul geste, répété arrêt par arrêt. */
+  --m3-c-coeur:  color-mix(in oklch shorter hue, var(--m3-coeur-chaud)  var(--m3-chaleur), var(--m3-coeur-froid));
+  --m3-c-milieu: color-mix(in oklch shorter hue, var(--m3-milieu-chaud) var(--m3-chaleur), var(--m3-milieu-froid));
+  --m3-c-flanc:  color-mix(in oklch shorter hue, var(--m3-flanc-chaud)  var(--m3-chaleur), var(--m3-flanc-froid));
+  --m3-c-bord:   color-mix(in oklch shorter hue, var(--m3-bord-chaud)   var(--m3-chaleur), var(--m3-bord-froid));
+  --m3-c-croute: color-mix(in oklch shorter hue, var(--m3-croute-chaud) var(--m3-chaleur), var(--m3-croute-froid));
+  --m3-c-halo:   color-mix(in oklch shorter hue, var(--m3-halo-chaud)   var(--m3-chaleur), var(--m3-halo-froid));
+
+  /* Le halo s'ouvre avec la chauffe, du cran bas au cran tenable. */
+  --m3-halo-op: calc(0.20 + 0.20 * var(--t, 0));
+}
+
+/* ── 1. LE BLOOM ────────────────────────────────────────────────────────────
+   Dilaté de 13 px avant flou, pour que l'émission naisse au bord de la masse
+   et non sous elle (sous elle, elle serait cachée : du calcul jeté).
+   Le dégradé creuse le centre à 55 % d'alpha : moins de lumière totale émise,
+   même intensité au bord — c'est le seul endroit où le halo se voit. */
+#m3 .m3-halo {
+  fill: url(#m3-nimbe);
+  stroke: url(#m3-nimbe);
+  stroke-width: 26;
+  stroke-linejoin: round;
+  filter: url(#m3-lueur);
+  opacity: var(--m3-halo-op);
+}
+
+/* ── 2. LA CROÛTE ───────────────────────────────────────────────────────────
+   Peau refroidie. C'est elle qui fait « métal en fusion » plutôt que
+   « lumière pure » : sans elle, la masse flotte et redevient une enseigne. */
+#m3 .m3-croute {
+  fill: none;
+  stroke: var(--m3-c-croute);
+  stroke-width: 28;
+  stroke-linejoin: round;
+}
+
+/* ── 3. LA MASSE ────────────────────────────────────────────────────────────
+   paint-order: stroke fill → le contour est posé d'abord, la surface le
+   recouvre à l'intérieur. Résultat : une dilatation propre de 9 px, sans
+   couture, et des angles fondus. C'est le poids de la matière. */
+#m3 .m3-corps {
+  fill: url(#m3-fonte);
+  stroke: url(#m3-fonte);
+  stroke-width: 18;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+
+/* ── 4. LA BRAISE ───────────────────────────────────────────────────────────
+   Le même contour, érodé, posé au centre de la masse : c'est ce qui donne
+   l'épaisseur (on voit une couche DANS une autre, pas un aplat).
+   transform-box: fill-box → l'érosion suit la forme qui se transforme. */
+#m3 .m3-coeur {
+  fill: url(#m3-braise);
+  opacity: .8;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(.90);
+  animation: m3-braise 6.4s ease-in-out infinite;
+}
+
+/* Les arrêts. Tous chauffent ensemble, aucun ne part en solo. */
+#m3 .m3-s-coeur    { stop-color: var(--m3-c-coeur); }
+#m3 .m3-s-milieu   { stop-color: var(--m3-c-milieu); }
+#m3 .m3-s-flanc    { stop-color: var(--m3-c-flanc); }
+#m3 .m3-s-bord     { stop-color: var(--m3-c-bord); }
+
+#m3 .m3-s-braise-0 { stop-color: var(--m3-c-coeur); stop-opacity: .85; }
+#m3 .m3-s-braise-1 { stop-color: var(--m3-c-coeur); stop-opacity: .40; }
+#m3 .m3-s-braise-2 { stop-color: var(--m3-c-coeur); stop-opacity: 0; }
+
+#m3 .m3-s-halo-0   { stop-color: var(--m3-c-halo); stop-opacity: .55; }
+#m3 .m3-s-halo-1   { stop-color: var(--m3-c-halo); stop-opacity: 1; }
+
+/* Supplément, jamais un prérequis : ±0.10 d'opacité sur la seule braise.
+   Coupée par le mouvement réduit, la matière reste entière. */
+@keyframes m3-braise {
+  0%, 100% { opacity: .72; }
+  50%      { opacity: .92; }
+}
+
+/* ═══════ MATIÈRE 04 — L'encre ═══════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   MATIÈRE N°4 — « L'ENCRE »
+   Masse sans effet. Aucun dégradé, aucun filtre, aucun masque, aucun
+   @keyframes : <defs> est vide EXPRÈS (bonus : zéro id SVG, donc collision
+   d'ids avec les voisins structurellement impossible).
+   Trois <path> seulement. Tout le budget est mis dans la FORME et son BORD.
+
+   ── LES CHIFFRES ET LEUR RAISON ─────────────────────────────────────────
+   1. REPORT (ombre portée dure) — transform="translate(7 9)" posé dans le
+      HTML, pas en CSS, pour qu'aucune ambiguïté px/unité-utilisateur ne
+      s'invite. Norme du vecteur = √(7²+9²) = 11,4 u, dans la bande demandée
+      8–12 u ; angle 52° sous l'horizontale, vers le bas-droite, direction
+      naturelle de l'appui d'une main droite sur un tampon. AUCUN flou :
+      c'est un défaut de repérage de sérigraphie, pas une lumière.
+   2. REPORT — fill-opacity .28 sur --ligne (#7a5a14). Composé sur --bg
+      (#05040A) cela donne ≈ #241B0C : assez pour lester la silhouette,
+      trop sombre pour jamais se lire comme une lueur. Valeur CONSTANTE,
+      indépendante de --t : une erreur de repérage mécanique ne respire pas.
+      C'est ce qui interdit à cette couche de devenir un halo.
+   3. DÉBORD — le bord est le seul des deux partis retenus (débord OU
+      tremblé, jamais les deux) : le tremblé aurait exigé feTurbulence +
+      feDisplacementMap, soit le budget filtre entier pour un accident.
+      Le débord coûte zéro. Path plein --ligne, sous l'encre, épaissi par un
+      stroke centré : la moitié du stroke sort du contour, donc
+      stroke-width 3,2 → 4,4 = débord réel 1,6 → 2,2 u, dans la bande 1–2 u.
+   4. DÉBORD — stroke-linejoin:round. Le contour est échantillonné en 128
+      points ; un joint miter produirait des ergots aux pointes à 60° de
+      l'étoile. L'encre, physiquement, arrondit un angle : le rond est ici
+      la solution exacte ET la solution juste.
+   5. ENCRE — aplat --ambre opaque, fill-opacity .94 → 1.00 pilotée par --t :
+      la frappe appuie davantage à mesure que l'étoile devient alef. Écart
+      de 6 % : perceptible en A/B, invisible en absolu. Aucune trigonométrie
+      dans le calc — rampe monotone, donc rien à casser si --t est fourni
+      brut. Chaque propriété pilotée par --t est précédée de sa valeur
+      littérale de repli : un calc() refusé dégrade sur une matière complète.
+   6. ENCRE — stroke .6 u de sa PROPRE couleur (0,3 u vers l'extérieur).
+      Ce n'est pas un contour : c'est un anti-couture. Sans lui, le pixel
+      antialiasé de l'aplat laisse remonter le débord vers l'intérieur et la
+      silhouette paraît rongée. Le débord net retombe à 1,3 → 1,9 u.
+   7. --t ne touche QUE la densité (opacité de l'encre, épaisseur du débord).
+      Ni couleur, ni position, ni lumière. La frappe appuie ; elle ne brille
+      pas.
+
+   ── ACCESSIBILITÉ ───────────────────────────────────────────────────────
+   Aucune animation CSS n'existe ici. Sous « mouvement réduit » cette
+   matière est donc rigoureusement identique à elle-même : la seule variable
+   vivante est --t, posée par le moteur, qui continue de tourner.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Réglages nommés — tout est ici, rien de magique plus bas. */
+#m4 {
+  --m4-appui: var(--t, 0);          /* 0 = frappe légère, 1 = frappe pleine */
+  --m4-debord-min: 3.2;             /* stroke total ; la moitié sort du bord */
+  --m4-debord-gain: 1.2;
+  --m4-encre-min: .94;
+  --m4-encre-gain: .06;
+  --m4-report-alpha: .28;
+}
+
+/* Couche 1 — le report, la même forme décalée de 11,4 u, sans flou. */
+#m4 .m4-report {
+  fill: var(--ligne);
+  fill-opacity: .28;
+  fill-opacity: var(--m4-report-alpha);
+  stroke: none;
+}
+
+/* Couche 2 — le débord : l'encre qui a fui d'une paire d'unités sous la
+   pression. Même teinte que le report, mais opaque : une seule encre, deux
+   densités. */
+#m4 .m4-debord {
+  fill: var(--ligne);
+  stroke: var(--ligne);
+  stroke-width: 3.2;
+  stroke-width: calc(var(--m4-debord-min) + var(--m4-debord-gain) * var(--m4-appui));
+  stroke-linejoin: round;
+}
+
+/* Couche 3 — l'encre. Un aplat franc, opaque, sans dégradé de volume.
+   C'est la couche qui doit tout porter ; si elle échoue, aucune des deux
+   autres ne la sauvera, et c'est le pari de cette matière. */
+#m4 .m4-encre {
+  fill: var(--ambre);
+  fill-opacity: .94;
+  fill-opacity: calc(var(--m4-encre-min) + var(--m4-encre-gain) * var(--m4-appui));
+  stroke: var(--ambre);             /* anti-couture, cf. note 6 */
+  stroke-width: .6;
+  stroke-linejoin: round;
+}
+
+.pied-page{margin-top:40px;border-top:1px solid var(--ligne);padding-top:16px;font-size:.78rem;color:var(--lune);opacity:.85;max-width:82ch}
+.pied-page b{color:var(--ambre)}
+.pied-page .titre{font-family:var(--cond);font-weight:600;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:9px}
+
+/* ================================================================
+   MOUVEMENT RÉDUIT — la forme se pose à son ÉTAT FINAL (le alef),
+   jamais à son état initial : une page figée au départ ne montrerait
+   qu'une étoile, et la métamorphose serait invisible.
+   ⚠️ Le sélecteur couvre les pseudo-éléments : « * » seul ne les atteint pas.
+   ================================================================ */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) *,
+  body:not(.force-anim) *::before,
+  body:not(.force-anim) *::after{animation:none !important;transition:none !important}
+}
+@media (max-width:560px){body{padding:22px 13px 80px}h1{font-size:1.2rem;letter-spacing:.14em}}
+</style>
+</head>
+<body>
+<div class="galerie">
+
+<header>
+  <h1>La métamorphose</h1>
+  <div class="meta-ligne">v0.1 — une seule transformation, quatre matières · étoile → alef, sans coupure</div>
+</header>
+
+<noscript>
+  <div class="alarme" style="display:block">
+    <div class="titre">⚠ javascript est désactivé — la forme ne peut pas se déformer</div>
+    <p>La métamorphose est calculée point par point par un script : sans lui, les quatre cadres
+    restent vides. Ce n'est pas un défaut des matières, c'est la page qui ne peut pas les animer.</p>
+  </div>
+</noscript>
+
+<div class="alarme" id="alarme" hidden>
+  <div class="titre">⚠ ton appareil demande de réduire les animations</div>
+  <p>Les quatre matières s'affichent <b>à leur état final</b> — la lettre, pas l'étoile. Pour voir la
+  transformation, utilise le <b>curseur</b> de la barre ci-dessous : il fonctionne même sous mouvement
+  réduit, puisqu'il ne dépend d'aucune animation. Ou clique le bouton rouge pour déroger.</p>
+</div>
+
+<div class="constat">
+  <span class="coin a">+</span><span class="coin b">+</span>
+  <h2>Ce qui change par rapport à la version que tu as rejetée</h2>
+  <p><b>La précédente trichait, et tu l'as vu.</b> Trois arêtes pivotaient, puis le vrai glyphe
+  s'imprimait par-dessus pendant que le filaire s'éteignait dessous : c'était un <b>fondu enchaîné
+  entre deux objets différents</b>, donc une coupure. Ici il n'y a qu'<b>une seule forme</b>, du
+  premier au dernier instant.</p>
+  <p><b>Comment.</b> On interpole les <b>contours eux-mêmes</b>. La silhouette de l'étoile est un
+  polygone à 12 sommets ; le contour du <span lang="he">א</span> est extrait de <b>Frank Ruhl Libre
+  900</b>, la vraie fonte de la charte. Les deux sont rééchantillonnés à <b>128 points répartis à
+  intervalles égaux</b> le long du tracé — sans quoi les points s'accumulent où la fonte a mis ses
+  nœuds et la forme se tord au lieu de couler — puis alignés en point de départ et en sens de
+  parcours. Chaque point de l'étoile a alors une destination sur la lettre.</p>
+  <p><b>Le passage de 1 forme à 4.</b> L'étoile est un contour, le <span lang="he">א</span> en a
+  quatre. On donne donc à l'étoile quatre contours elle aussi, dont trois <b>dégénérés</b> — réduits
+  à un point, posés sur trois de ses pointes. Un contour d'aire nulle qui grandit n'est pas une
+  apparition mais une <b>émergence</b> : à l'écran, trois pointes de l'étoile se détachent et
+  deviennent les petits traits de la lettre pendant que le corps coule vers le trait principal.</p>
+  <p><b>Vérifié avant d'être dessiné</b> : sur toute la transformation, l'aire ne varie que de 6 % et
+  ne s'effondre jamais, et l'écart maximal entre deux points voisins <b>décroît</b> de 17,9 à 13,3 —
+  aucun contour ne se vrille. C'est le contrôle qui distingue un morph qui coule d'un morph qui bave.</p>
+  <p><b>Et la matière.</b> Ton autre reproche était « trop maigre, pas assez de matière ». Les quatre
+  propositions ci-dessous sont donc <b>toutes massives</b> : aucune n'est un trait fin. Elles ne
+  diffèrent que par la <b>nature</b> de cette masse. Choisis sur pièce.</p>
+</div>
+
+<div class="barre">
+  <button class="btn primaire" id="rejouer">▶ rejouer les 4</button>
+  <div class="scrub">
+    <span class="lab">arrêt sur image</span>
+    <input type="range" id="curseur" min="0" max="1000" value="0" step="1" aria-label="position dans la métamorphose">
+    <span class="t" id="curseur-t">0 %</span>
+  </div>
+  <button class="btn danger" id="forcer" hidden>⚠ animations bloquées — cliquer pour déroger</button>
+</div>
+
+<div class="diag" id="diag">
+  <span><span class="k">script</span> <span class="val" id="d-js">—</span></span>
+  <span><span class="k">mouvement réduit</span> <span class="val" id="d-mr">—</span></span>
+  <span><span class="k">fonte hébraïque</span> <span class="val" id="d-fonte">—</span></span>
+  <span><span class="k">images calculées</span> <span class="val" id="d-frames">—</span></span>
+  <span id="d-verdict" style="flex:1 1 100%;opacity:.8;letter-spacing:.04em"></span>
+</div>
+
+<div class="banc" id="banc">
+<div class="mat" id="m1">
+  <div class="tete">
+    <span class="nom"><span class="n">01</span> — L'OR MASSIF</span>
+  </div>
+  <div class="scene">
+    <div class="trame"></div>
+    <svg class="morphe" viewBox="0 0 1000 1000" aria-hidden="true">
+      <defs>
+        <!-- Tranche : dégradée du haut-gauche éclairé au bas-droite éteint,
+             pour que le chant se lise cylindrique et non comme un aplat. -->
+        <linearGradient id="m1-tranche" gradientUnits="userSpaceOnUse"
+                        x1="200" y1="150" x2="820" y2="880">
+          <stop offset="0"    stop-color="#8a661a"/>
+          <stop offset="0.55" stop-color="#5c420f"/>
+          <stop offset="1"    stop-color="#33240a"/>
+        </linearGradient>
+
+        <!-- Biseau A — axe 139,7° CSS. Le cœur reste sur --ambre (#f0b32a). -->
+        <linearGradient id="m1-biseau-a" gradientUnits="userSpaceOnUse"
+                        x1="200" y1="150" x2="820" y2="880">
+          <stop offset="0"    stop-color="#f7cf6a"/>
+          <stop offset="0.20" stop-color="#f0b32a"/>
+          <stop offset="0.50" stop-color="#c68f21"/>
+          <stop offset="0.75" stop-color="#8f6716"/>
+          <stop offset="1"    stop-color="#6d4f12"/>
+        </linearGradient>
+
+        <!-- Biseau B — même matière, axe 124,4°. Cross-fadé par --t : c'est
+             la lumière qui tourne de 15° pendant la métamorphose. -->
+        <linearGradient id="m1-biseau-b" gradientUnits="userSpaceOnUse"
+                        x1="150" y1="260" x2="880" y2="760">
+          <stop offset="0"    stop-color="#f4c957"/>
+          <stop offset="0.24" stop-color="#f0b32a"/>
+          <stop offset="0.54" stop-color="#bd8a20"/>
+          <stop offset="0.78" stop-color="#8a6315"/>
+          <stop offset="1"    stop-color="#6d4f12"/>
+        </linearGradient>
+
+        <!-- Éclat : arrêts très serrés (0,27 → 0,40), pic à 0,315.
+             13 % de l'axe ≈ 85 u. Transparent partout ailleurs. -->
+        <linearGradient id="m1-eclat" gradientUnits="userSpaceOnUse"
+                        x1="200" y1="150" x2="820" y2="880">
+          <stop offset="0"     stop-color="#fbe4ab" stop-opacity="0"/>
+          <stop offset="0.270" stop-color="#fbe4ab" stop-opacity="0"/>
+          <stop offset="0.305" stop-color="#fbe4ab" stop-opacity="0.72"/>
+          <stop offset="0.315" stop-color="#fbe4ab" stop-opacity="0.88"/>
+          <stop offset="0.340" stop-color="#fbe4ab" stop-opacity="0.60"/>
+          <stop offset="0.400" stop-color="#fbe4ab" stop-opacity="0"/>
+          <stop offset="1"     stop-color="#fbe4ab" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Aucun attribut d : le moteur les remplit tous à l'identique.
+           Les transform sont statiques — le chant ne respire jamais. -->
+      <path class="m1-chant-profond" transform="translate(9 11)"/>
+      <path class="m1-chant-clair"   transform="translate(5 6)"/>
+      <path class="m1-tete"/>
+      <path class="m1-facette" transform="translate(500 500) scale(0.972) translate(-500 -500)"/>
+      <path class="m1-reflet"/>
+    </svg>
+  </div>
+  <div class="pied">Une pièce d'or frappée : la tranche porte le poids, le biseau fait le métal, et la lumière glisse de quinze degrés pendant que la forme change.</div>
+</div>
+
+<div class="mat" id="m2">
+  <div class="tete">
+    <span class="nom"><span class="n">02</span> — LE CREUSÉ</span>
+  </div>
+  <div class="scene">
+    <div class="trame"></div>
+    <svg class="morphe" viewBox="0 0 1000 1000" aria-hidden="true">
+      <defs>
+        <!-- Unique filtre de la matière. Région bornée à ±6 % de la boîte
+             (≈40 u) alors que 3σ vaut 15 u : large marge, coût minimal. -->
+        <filter id="m2-lisiere" x="-6%" y="-6%" width="112%" height="112%"
+                color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="5"/>
+        </filter>
+
+        <!-- FOND DU CREUX. Radial, centré à 62/62 : la flaque de lumière
+             rebondie se forme au pied de la paroi éclairée, et le fond
+             s'assombrit vers le haut-gauche, là où le sillon est le plus
+             profond. Un creux n'est pas un trou plat. -->
+        <radialGradient id="m2-fond" cx=".62" cy=".62" r=".8">
+          <stop offset="0"   stop-color="var(--m2-braise)"/>
+          <stop offset=".3"  stop-color="#0B0810"/>
+          <stop offset=".64" stop-color="#06050C"/>
+          <stop offset="1"   stop-color="#030208"/>
+        </radialGradient>
+
+        <!-- PAROI ÉCLAIRÉE. Linéaire sur la diagonale (0,0)→(1,1) : même axe
+             que la lumière, donc la paroi s'allume à mesure qu'elle descend
+             vers la source secondaire. Le point le plus faible (#6f5013)
+             reste à 9× la luminance du panneau. -->
+        <linearGradient id="m2-paroi" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0"   stop-color="#6f5013"/>
+          <stop offset=".5"  stop-color="#ac7c1c"/>
+          <stop offset="1"   stop-color="var(--ambre)"/>
+        </linearGradient>
+
+        <!-- PIED DE PAROI. Même axe, deux crans plus bas : c'est de l'occlusion,
+             pas de l'ombre — la lumière entre dans le sillon mais n'atteint
+             pas son fond. -->
+        <linearGradient id="m2-pied" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0"   stop-color="#191106"/>
+          <stop offset=".5"  stop-color="#382709"/>
+          <stop offset="1"   stop-color="#63460f"/>
+        </linearGradient>
+
+        <!-- ARÊTE. L'or vire à l'éclat au point le plus exposé ; --m2-glint
+             se refroidit vers le phosphore quand la lettre se referme. -->
+        <linearGradient id="m2-arete" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0"   stop-color="#b3821c"/>
+          <stop offset=".55" stop-color="var(--ambre)"/>
+          <stop offset="1"   stop-color="var(--m2-glint)"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Ordre du plus lointain au plus proche. Les deux ombres passent avant
+           les deux parois : partout où les décalages se contredisent (fond des
+           concavités de l'étoile), c'est la LUMIÈRE qui gagne — le seul arbitrage
+           qui protège la lisibilité. Le fond ferme la pile et recouvre tout le
+           cœur : ne restent visibles que les quatre croissants de bordure. -->
+      <path class="m2-l1"/>
+      <path class="m2-l2"/>
+      <path class="m2-l3"/>
+      <path class="m2-l4"/>
+      <path class="m2-l5"/>
+    </svg>
+  </div>
+  <div class="pied">Elle n'est pas posée sur la plaque, elle y est taillée : l'ombre en haut, le jour en bas, et la forme se lit en creux.</div>
+</div>
+
+<div class="mat" id="m3">
+  <div class="tete">
+    <span class="nom"><span class="n">03</span> — LE PHOSPHORE EN FUSION</span>
+  </div>
+  <div class="scene">
+    <div class="trame"></div>
+    <svg class="morphe" viewBox="0 0 1000 1000" aria-hidden="true">
+      <defs>
+        <!-- La fonte : cœur presque blanc-doré, bord sombre et saturé.
+             objectBoundingBox → le dégradé se recentre seul sur la forme
+             à chaque image du morphe. Foyer décalé vers le haut : la
+             chaleur monte, et un foyer centré ferait une cible. -->
+        <radialGradient id="m3-fonte" cx="0.5" cy="0.47" fx="0.47" fy="0.43" r="0.55">
+          <stop class="m3-s-coeur"  offset="0" />
+          <stop class="m3-s-milieu" offset="0.42" />
+          <stop class="m3-s-flanc"  offset="0.78" />
+          <stop class="m3-s-bord"   offset="1" />
+        </radialGradient>
+
+        <!-- La braise : alpha éteinte à 62 % du rayon, pour que la couche
+             érodée ne puisse jamais déborder de la masse. -->
+        <radialGradient id="m3-braise" cx="0.5" cy="0.45" fx="0.47" fy="0.41" r="0.62">
+          <stop class="m3-s-braise-0" offset="0" />
+          <stop class="m3-s-braise-1" offset="0.38" />
+          <stop class="m3-s-braise-2" offset="1" />
+        </radialGradient>
+
+        <!-- Le nimbe : centre creusé, bord plein. Moins de lumière émise
+             au total, même intensité là où le halo se voit. -->
+        <radialGradient id="m3-nimbe" cx="0.5" cy="0.47" r="0.62">
+          <stop class="m3-s-halo-0" offset="0" />
+          <stop class="m3-s-halo-1" offset="1" />
+        </radialGradient>
+
+        <!-- L'unique filtre. sRGB et non linearRGB : le défaut ferait
+             bloomer ce flou bien plus clair — un phare, pas une braise. -->
+        <filter id="m3-lueur" x="-25%" y="-25%" width="150%" height="150%"
+                color-interpolation-filters="sRGB">
+          <feGaussianBlur stdDeviation="10" />
+        </filter>
+      </defs>
+
+      <path class="m3-halo" />
+      <path class="m3-croute" />
+      <path class="m3-corps" />
+      <path class="m3-coeur" />
+    </svg>
+  </div>
+  <div class="pied">Elle chauffe en se transformant : phosphore vert à l'étoile, or en fusion à l'alef, croûte refroidie tout autour.</div>
+</div>
+
+<div class="mat" id="m4">
+  <div class="tete">
+    <span class="nom"><span class="n">04</span> — L'ENCRE</span>
+  </div>
+  <div class="scene">
+    <div class="trame"></div>
+    <svg class="morphe" viewBox="0 0 1000 1000" aria-hidden="true">
+      <!-- Vide, et c'est le sujet : ni dégradé, ni filtre, ni masque.
+           Aucun id déclaré ici, donc aucune collision possible avec les
+           autres matières. La forme doit tenir sans traitement. -->
+      <defs></defs>
+
+      <!-- 1. Le report : même contour, décalé de 7,9 u (11,4 u à 52°),
+              sans flou. Transform en attribut : le moteur ne pose que « d ». -->
+      <path class="m4-report" transform="translate(7 9)"></path>
+
+      <!-- 2. Le débord : l'encre qui a fui de ~2 u sous la pression. -->
+      <path class="m4-debord"></path>
+
+      <!-- 3. L'encre : l'aplat franc, opaque, mat. -->
+      <path class="m4-encre"></path>
+    </svg>
+  </div>
+  <div class="pied">Elle ne fait rien : elle pèse — un aplat opaque, un bord d'encre, un report sec.</div>
+</div>
+</div>
+
+<div class="pied-page">
+  <div class="titre">Ce que j'attends de toi</div>
+  <p><b>Une matière</b>, et une seule. Ensuite je la monte en ouverture complète : l'étoile se
+  construit, se métamorphose, la lettre se pose et l'accueil apparaît.</p>
+  <p style="margin-top:10px"><b>Sers-toi du curseur, pas seulement du bouton.</b> Une métamorphose ne
+  se juge pas en la regardant passer : elle se juge <b>arrêtée</b>, à l'instant où l'on doute. Traîne
+  le curseur lentement entre 35 % et 65 % — c'est là que tout se joue, et c'est exactement là que la
+  version précédente trichait.</p>
+  <p style="margin-top:10px">Dis-moi aussi si le <b>rythme</b> te convient : pour l'instant la
+  transformation est régulière du début à la fin. On peut la faire <b>hésiter</b> (l'étoile tient,
+  puis tout coule d'un coup), ou au contraire <b>partir vite et se poser</b> lentement sur la lettre.
+  Le curseur te laisse juger la forme indépendamment du rythme, ce qui est précisément son intérêt.</p>
+</div>
+
+</div><!-- /galerie -->
+
+<script id="donnees-morph" type="application/json">{"n":128,"boite":1000.0,"paires":[{"de":[[580.38,690.78],[571.45,706.25],[562.52,721.72],[553.59,737.19],[544.65,752.66],[535.72,768.13],[526.79,783.59],[517.86,799.06],[508.93,814.53],[500.0,830.0],[491.07,814.53],[482.14,799.06],[473.21,783.59],[464.28,768.13],[455.35,752.66],[446.41,737.19],[437.48,721.72],[428.55,706.25],[419.62,690.78],[410.69,675.31],[398.78,665.0],[380.92,665.0],[363.06,665.0],[345.2,665.0],[327.34,665.0],[309.47,665.0],[291.61,665.0],[273.75,665.0],[255.89,665.0],[238.03,665.0],[220.17,665.0],[220.17,654.69],[229.1,639.22],[238.03,623.75],[246.96,608.28],[255.89,592.81],[264.82,577.34],[273.75,561.88],[282.68,546.41],[291.61,530.94],[300.54,515.47],[309.47,500.0],[300.54,484.53],[291.61,469.06],[282.68,453.59],[273.75,438.12],[264.82,422.66],[255.89,407.19],[246.96,391.72],[238.03,376.25],[229.1,360.78],[220.17,345.31],[220.17,335.0],[238.03,335.0],[255.89,335.0],[273.75,335.0],[291.61,335.0],[309.47,335.0],[327.34,335.0],[345.2,335.0],[363.06,335.0],[380.92,335.0],[398.78,335.0],[410.69,324.69],[419.62,309.22],[428.55,293.75],[437.48,278.28],[446.41,262.81],[455.35,247.34],[464.28,231.87],[473.21,216.41],[482.14,200.94],[491.07,185.47],[500.0,170.0],[508.93,185.47],[517.86,200.94],[526.79,216.41],[535.72,231.87],[544.65,247.34],[553.59,262.81],[562.52,278.28],[571.45,293.75],[580.38,309.22],[589.31,324.69],[601.22,335.0],[619.08,335.0],[636.94,335.0],[654.8,335.0],[672.66,335.0],[690.53,335.0],[708.39,335.0],[726.25,335.0],[744.11,335.0],[761.97,335.0],[779.83,335.0],[779.83,345.31],[770.9,360.78],[761.97,376.25],[753.04,391.72],[744.11,407.19],[735.18,422.66],[726.25,438.12],[717.32,453.59],[708.39,469.06],[699.46,484.53],[690.53,500.0],[699.46,515.47],[708.39,530.94],[717.32,546.41],[726.25,561.88],[735.18,577.34],[744.11,592.81],[753.04,608.28],[761.97,623.75],[770.9,639.22],[779.83,654.69],[779.83,665.0],[761.97,665.0],[744.11,665.0],[726.25,665.0],[708.39,665.0],[690.53,665.0],[672.66,665.0],[654.8,665.0],[636.94,665.0],[619.08,665.0],[601.22,665.0],[589.31,675.31]],"vers":[[684.78,830.0],[681.67,817.15],[675.57,805.4],[667.6,794.81],[658.88,784.81],[649.92,775.04],[640.94,765.28],[631.96,755.51],[622.98,745.75],[614.01,735.99],[605.03,726.22],[596.05,716.46],[587.08,706.69],[578.1,696.93],[569.12,687.16],[560.15,677.4],[551.17,667.64],[542.19,657.87],[533.22,648.11],[524.24,638.34],[515.26,628.58],[506.29,618.82],[497.31,609.05],[488.33,599.29],[479.36,589.52],[470.38,579.76],[461.4,569.99],[452.43,560.23],[443.45,550.47],[434.47,540.7],[425.49,530.94],[416.52,521.17],[407.54,511.41],[398.56,501.64],[389.59,491.88],[380.61,482.12],[371.63,472.35],[362.66,462.59],[353.68,452.82],[344.7,443.06],[335.73,433.29],[326.75,423.53],[317.77,413.77],[308.8,404.0],[299.82,394.24],[290.84,384.47],[282.02,374.57],[273.86,364.13],[266.97,352.81],[261.84,340.6],[259.24,327.61],[257.63,314.45],[256.75,301.22],[257.41,287.98],[259.19,274.84],[262.01,261.88],[265.8,249.18],[270.53,236.8],[275.91,224.68],[281.45,212.62],[286.99,200.57],[292.55,188.53],[298.12,176.49],[307.24,170.0],[320.5,170.0],[322.24,182.01],[327.19,194.2],[335.73,204.33],[344.45,214.33],[353.18,224.31],[362.17,234.06],[371.17,243.81],[380.16,253.56],[389.15,263.31],[398.15,273.06],[407.14,282.81],[416.13,292.55],[425.12,302.3],[434.12,312.05],[443.11,321.8],[452.1,331.55],[461.1,341.3],[470.09,351.05],[479.08,360.8],[488.08,370.55],[497.07,380.3],[506.06,390.05],[515.05,399.8],[524.05,409.55],[533.04,419.3],[542.03,429.05],[551.03,438.8],[560.02,448.54],[569.01,458.29],[578.0,468.04],[587.0,477.79],[595.99,487.54],[604.98,497.29],[613.98,507.04],[622.97,516.79],[631.96,526.54],[640.96,536.29],[649.95,546.04],[658.94,555.79],[667.93,565.54],[676.93,575.29],[685.92,585.04],[694.91,594.79],[703.85,604.59],[712.32,614.78],[720.01,625.59],[726.69,637.04],[732.48,648.97],[737.34,661.3],[741.26,673.97],[744.03,686.93],[745.78,700.08],[746.49,713.31],[746.06,726.56],[744.34,739.71],[741.45,752.64],[737.31,765.24],[732.1,777.43],[726.45,789.43],[720.58,801.33],[714.49,813.11],[708.22,824.79],[698.04,830.0]]},{"de":[[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0],[214.21,665.0]],"vers":[[241.4,817.0],[249.94,817.0],[258.48,817.0],[267.02,817.0],[275.56,817.0],[284.1,817.0],[292.64,817.0],[301.18,817.0],[309.72,817.0],[318.26,817.0],[326.8,817.0],[335.33,817.0],[343.87,817.0],[352.41,817.0],[360.95,817.0],[369.49,817.0],[378.03,817.0],[386.57,817.0],[395.11,817.0],[403.65,817.0],[412.19,817.0],[416.91,810.83],[420.14,802.93],[422.64,794.78],[424.43,786.44],[425.54,777.98],[426.03,769.45],[425.81,760.91],[424.97,752.42],[423.58,744.01],[421.7,735.68],[419.13,727.53],[416.24,719.51],[413.05,711.58],[409.4,703.87],[405.62,696.21],[401.47,688.74],[397.26,681.32],[392.9,673.97],[388.54,666.63],[384.19,659.28],[379.83,651.94],[375.47,644.6],[371.11,637.25],[366.75,629.91],[362.39,622.56],[358.04,615.22],[353.68,607.88],[349.32,600.53],[344.96,593.19],[340.6,585.84],[336.74,578.24],[334.09,570.14],[332.68,561.73],[332.73,553.19],[333.84,544.74],[335.81,536.43],[338.46,528.32],[341.64,520.4],[345.23,512.65],[349.15,505.07],[353.31,497.61],[357.58,490.21],[361.85,482.82],[366.12,475.42],[370.4,468.03],[374.67,460.64],[378.94,453.24],[374.08,446.55],[368.73,439.9],[363.37,433.25],[358.01,426.6],[352.65,419.95],[347.37,414.43],[342.85,421.68],[338.33,428.93],[333.82,436.18],[329.3,443.42],[324.78,450.67],[320.27,457.92],[315.75,465.17],[311.23,472.41],[306.72,479.66],[302.2,486.91],[297.76,494.2],[293.35,501.51],[289.05,508.9],[284.8,516.3],[280.68,523.78],[276.66,531.32],[272.75,538.91],[269.05,546.6],[265.55,554.39],[262.3,562.29],[259.37,570.31],[256.83,578.46],[254.74,586.74],[253.16,595.13],[252.18,603.6],[251.82,612.13],[251.93,620.67],[252.39,629.2],[253.15,637.7],[254.17,646.18],[255.43,654.62],[256.89,663.04],[258.46,671.43],[260.04,679.83],[261.61,688.22],[263.19,696.61],[264.76,705.01],[266.33,713.4],[267.92,721.79],[269.41,730.2],[270.74,738.63],[271.82,747.1],[272.52,755.61],[272.54,764.15],[270.7,772.4],[264.95,778.45],[256.86,780.91],[248.33,781.23],[239.79,781.23],[232.86,782.84],[232.86,791.38],[232.86,799.92],[232.86,808.46],[232.86,817.0]]},{"de":[[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0],[785.79,335.0]],"vers":[[739.86,446.35],[744.27,443.64],[746.39,437.69],[748.45,431.73],[750.41,425.72],[752.3,419.7],[754.08,413.63],[755.77,407.55],[757.34,401.43],[758.79,395.29],[760.15,389.12],[761.3,382.91],[762.39,376.69],[763.31,370.44],[764.16,364.18],[764.94,357.91],[765.57,351.63],[766.13,345.34],[766.6,339.04],[766.89,332.73],[767.07,326.42],[767.1,320.1],[766.94,313.79],[766.71,307.48],[766.18,301.19],[765.56,294.9],[764.61,288.66],[763.46,282.45],[762.02,276.3],[760.19,270.26],[758.11,264.3],[755.51,258.55],[752.39,253.07],[748.76,247.93],[744.52,243.25],[739.56,239.34],[734.22,236.01],[728.57,233.21],[722.6,231.15],[716.48,229.66],[710.28,228.46],[704.01,227.69],[697.74,226.92],[691.47,226.16],[685.2,225.39],[678.93,224.62],[672.66,223.85],[666.39,223.09],[660.12,222.32],[653.88,221.39],[647.69,220.17],[641.63,218.42],[635.88,215.85],[630.85,212.08],[627.74,206.65],[625.89,200.61],[624.76,194.4],[624.19,188.12],[624.09,181.8],[624.09,175.49],[623.26,170.0],[616.94,170.0],[610.63,170.0],[604.31,170.0],[601.37,175.07],[598.93,180.9],[596.49,186.73],[594.06,192.56],[591.64,198.39],[589.22,204.22],[586.8,210.06],[584.38,215.89],[581.96,221.73],[579.55,227.56],[577.22,233.43],[575.03,239.36],[572.85,245.28],[571.1,251.35],[569.36,257.42],[567.87,263.56],[566.55,269.74],[565.29,275.92],[564.38,282.17],[563.47,288.42],[562.78,294.7],[562.25,300.99],[561.73,307.29],[561.54,313.6],[561.37,319.91],[561.28,326.23],[561.51,332.54],[561.97,338.83],[562.69,345.11],[563.8,351.32],[565.09,357.5],[566.84,363.57],[568.86,369.55],[571.14,375.44],[573.89,381.12],[576.92,386.65],[580.53,391.83],[584.8,396.44],[589.41,400.75],[594.7,404.2],[600.13,407.4],[605.9,409.97],[611.77,412.27],[617.82,414.07],[623.91,415.73],[630.12,416.88],[636.33,418.04],[642.58,418.91],[648.84,419.76],[655.1,420.6],[661.36,421.44],[667.62,422.28],[673.88,423.12],[680.14,423.96],[686.4,424.8],[692.66,425.64],[698.92,426.48],[705.18,427.32],[711.43,428.21],[717.64,429.38],[723.68,431.18],[728.77,434.74],[731.67,440.33],[733.55,446.35]]},{"de":[[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0],[785.79,665.0]],"vers":[[644.87,556.32],[645.05,553.58],[645.26,550.84],[645.47,548.1],[645.71,545.36],[645.94,542.62],[646.2,539.88],[646.47,537.14],[646.74,534.41],[647.04,531.67],[647.34,528.94],[647.66,526.21],[647.98,523.48],[648.37,520.76],[648.77,518.04],[649.26,515.33],[649.77,512.63],[650.33,509.94],[650.94,507.26],[651.57,504.58],[652.27,501.93],[652.98,499.27],[653.74,496.63],[654.53,494.0],[655.32,491.36],[656.19,488.75],[657.06,486.15],[657.96,483.55],[658.93,480.98],[659.89,478.4],[660.91,475.85],[661.98,473.31],[663.05,470.78],[664.16,468.27],[665.32,465.78],[666.49,463.29],[667.67,460.8],[668.92,458.35],[670.16,455.9],[671.41,453.45],[672.72,451.03],[674.04,448.62],[675.36,446.21],[676.69,443.81],[678.08,441.43],[679.46,439.06],[680.85,436.68],[682.25,434.32],[683.66,431.96],[685.08,429.6],[686.49,427.24],[687.91,424.89],[685.55,424.29],[682.84,423.87],[680.12,423.44],[677.4,423.02],[674.69,422.6],[671.97,422.17],[669.25,421.75],[666.54,421.32],[663.82,420.9],[661.11,420.47],[658.39,420.05],[655.67,419.62],[653.1,419.57],[651.38,421.72],[649.67,423.87],[647.95,426.01],[646.23,428.16],[644.51,430.31],[642.8,432.45],[641.08,434.6],[639.36,436.75],[637.64,438.89],[635.93,441.04],[634.21,443.19],[632.49,445.33],[630.77,447.48],[629.04,449.61],[627.33,451.77],[625.66,453.95],[624.0,456.14],[622.38,458.37],[620.77,460.6],[619.21,462.86],[617.65,465.12],[616.13,467.41],[614.62,469.71],[613.14,472.02],[611.68,474.35],[610.24,476.7],[608.9,479.1],[607.56,481.5],[606.41,483.99],[605.29,486.5],[604.3,489.06],[603.4,491.66],[602.6,494.29],[601.95,496.96],[601.34,499.64],[600.95,502.36],[600.56,505.08],[600.41,507.83],[600.28,510.58],[601.57,512.8],[603.45,514.81],[605.32,516.82],[607.19,518.84],[609.07,520.85],[610.94,522.86],[612.82,524.87],[614.69,526.88],[616.57,528.89],[618.44,530.9],[620.31,532.92],[622.19,534.93],[624.06,536.94],[625.94,538.95],[627.81,540.96],[629.69,542.97],[631.56,544.98],[633.43,547.0],[635.31,549.01],[637.18,551.02],[639.06,553.03],[640.93,555.04],[642.81,557.05],[644.68,559.06]]}]}</script>
+<script>
+(function(){
+  'use strict';
+
+  var D = JSON.parse(document.getElementById('donnees-morph').textContent);
+  var PAIRES = D.paires, N = D.n, BOITE = D.boite;
+
+  /* ── LE MOTEUR ────────────────────────────────────────────────────
+     On PRÉCALCULE les images. Construire les chaînes de chemin à
+     chaque frame coûterait ~20 Ko de concaténation par image et par
+     scène ; précalculé, le rendu n'est plus qu'une affectation de
+     chaîne. Le curseur devient instantané, ce qui est tout l'intérêt.
+     ────────────────────────────────────────────────────────────── */
+  var K = 121;                       /* images de 0 à 1, pas de 1/120 */
+  var FRAMES = new Array(K);
+
+  function chemin(t){
+    var out = '';
+    for (var p = 0; p < PAIRES.length; p++){
+      var a = PAIRES[p].de, b = PAIRES[p].vers;
+      for (var i = 0; i < N; i++){
+        var x = a[i][0] + (b[i][0] - a[i][0]) * t;
+        var y = a[i][1] + (b[i][1] - a[i][1]) * t;
+        out += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
+      }
+      out += 'Z';
+    }
+    return out;
+  }
+  for (var f = 0; f < K; f++) FRAMES[f] = chemin(f / (K - 1));
+
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.mat'));
+
+  /* pose l'image correspondant à t sur TOUTES les couches d'une scène :
+     une matière peut empiler plusieurs <path> (chant, cœur, ombre) et
+     ils doivent tous porter exactement la même forme. */
+  function pose(scene, t){
+    var d = FRAMES[Math.max(0, Math.min(K - 1, Math.round(t * (K - 1))))];
+    var ps = scene.querySelectorAll('.morphe path');
+    for (var i = 0; i < ps.length; i++) ps[i].setAttribute('d', d);
+    scene.style.setProperty('--t', t.toFixed(4));
+  }
+  function poseTout(t){ scenes.forEach(function(s){ pose(s, t); }); }
+
+  /* ── lecture ─────────────────────────────────────────────────────
+     Une seule boucle pour les quatre scènes : elles montrent la même
+     transformation, les désynchroniser rendrait la comparaison fausse. */
+  var DUREE = 2600, t0 = 0, joue = false;
+  function douceur(x){ return x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3)/2; }
+
+  function boucle(ts){
+    if (!joue) return;
+    if (!t0) t0 = ts;
+    var t = Math.min(1, (ts - t0) / DUREE);
+    var v = douceur(t);
+    poseTout(v);
+    curseur.value = Math.round(v * 1000);
+    majT(v);
+    if (t < 1) requestAnimationFrame(boucle); else joue = false;
+  }
+  function rejoue(){
+    if (reduitActif()) return;       /* rien à animer : le curseur reste maître */
+    joue = true; t0 = 0;
+    requestAnimationFrame(boucle);
+  }
+
+  /* ── le curseur ── */
+  var curseur = document.getElementById('curseur');
+  var curseurT = document.getElementById('curseur-t');
+  function majT(v){ curseurT.textContent = Math.round(v * 100) + ' %'; }
+  curseur.addEventListener('input', function(){
+    joue = false;                    /* toucher le curseur reprend la main */
+    var v = curseur.value / 1000;
+    poseTout(v); majT(v);
+  });
+  document.getElementById('rejouer').addEventListener('click', rejoue);
+
+  /* ── mouvement réduit ── */
+  var MQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var alarme = document.getElementById('alarme');
+  var bForcer = document.getElementById('forcer');
+  function reduitActif(){
+    return !!(MQ && MQ.matches) && !document.body.classList.contains('force-anim');
+  }
+  function majAlarme(){
+    var r = !!(MQ && MQ.matches);
+    if (alarme)  alarme.hidden  = !r;
+    if (bForcer) bForcer.hidden = !r;
+  }
+  if (MQ && MQ.addEventListener) MQ.addEventListener('change', function(){ majAlarme(); majDiag(); });
+  majAlarme();
+  bForcer.addEventListener('click', function(){
+    var actif = document.body.classList.toggle('force-anim');
+    bForcer.textContent = actif ? '■ rendre la main au réglage' : '⚠ animations bloquées — cliquer pour déroger';
+    majDiag();
+    if (actif) rejoue();
+  });
+
+  /* ── diagnostic : la page dit pourquoi elle ne bouge pas ── */
+  var dJs = document.getElementById('d-js'), dMr = document.getElementById('d-mr'),
+      dFo = document.getElementById('d-fonte'), dFr = document.getElementById('d-frames'),
+      dVd = document.getElementById('d-verdict');
+  function val(el, txt, mauvais){ if (el){ el.textContent = txt; el.className = 'val' + (mauvais ? ' mauvais' : ''); } }
+  function majDiag(){
+    val(dJs, 'actif');
+    var r = !!(MQ && MQ.matches), derog = document.body.classList.contains('force-anim');
+    val(dMr, r ? (derog ? 'oui, mais dérogé' : 'OUI — le curseur reste utilisable') : 'non', r && !derog);
+    var ok = null;
+    try { ok = document.fonts && document.fonts.check('900 1em "Frank Ruhl Libre"'); } catch(e){}
+    val(dFo, ok === null ? 'non mesurable' : (ok ? 'chargée' : 'ABSENTE — repli'), ok === false);
+    val(dFr, K + ' images · ' + N + ' points × ' + PAIRES.length + ' contours');
+    dVd.textContent = (r && !derog)
+      ? '▸ Les animations sont coupées par ton système, mais LE CURSEUR FONCTIONNE : traîne-le pour voir la métamorphose image par image. C\'est même la meilleure façon de la juger.'
+      : '▸ Traîne le curseur lentement entre 35 % et 65 % : c\'est là que la transformation se joue, et là que la version précédente trichait.';
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(majDiag);
+  majDiag();
+
+  /* ── état de départ : l'étoile, puis on joue une fois à l'arrivée ── */
+  poseTout(0); majT(0);
+  if (window.IntersectionObserver){
+    var vu = false;
+    var guet = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!vu && e.isIntersecting && e.intersectionRatio > 0.25){
+          vu = true; guet.disconnect();
+          if (reduitActif()) poseTout(1); else rejoue();
+        }
+      });
+    }, { threshold:[0, 0.25, 1] });
+    guet.observe(document.getElementById('banc'));
+  } else {
+    if (reduitActif()) poseTout(1); else rejoue();
+  }
+})();
+</script>
+</body>
+</html>

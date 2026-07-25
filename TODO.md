@@ -156,6 +156,19 @@ Les pièces, dans cet ordre de lecture :
     mouvements ambiants, isolés puis cumulés, avec compteur d'animations actives.
   - **`prototype-parures.html`** — « de quoi l'app est-elle faite » : 13 ornements
     en bascule sans / avec, dont 11 statiques.
+  - **`prototype-metamorphose.html`** — « l'étoile devient la lettre, sans coupure ».
+    ⚠️ Née d'un REJET du propriétaire : la séquence d'ouverture v2 faisait un
+    **fondu enchaîné entre deux objets** (filaire qui pivote + glyphe imprimé
+    par-dessus) au lieu d'une métamorphose. Ici les **contours sont interpolés** :
+    tracé réel du א extrait de Frank Ruhl Libre 900 (4 sous-chemins), 128 points
+    par contour répartis par longueur d'arc, alignés en départ et en sens. Le
+    passage de 1 forme à 4 se fait par **contours dégénérés** posés sur trois
+    pointes — un contour d'aire nulle qui grandit est une émergence, pas une
+    apparition. Second reproche traité : « trop maigre, pas assez de matière »,
+    d'où **4 matières toutes massives** (or massif, creusé, phosphore, encre).
+    Un **curseur** pilote les quatre ensemble : un morph se juge ARRÊTÉ.
+    Mesuré : aire stable à 6 %, déplacement max 7,16 pour une médiane de 4,75 sur
+    50 pas — aucun saut. Contrôle WebKit 8/8. **Verdict attendu : UNE matière.**
   - **`prototype-ouvertures.html`** — « comment l'app s'ouvre-t-elle » : **cinq
     ouvertures, cinq MÉCANISMES** (pas cinq variantes), de **1,8 s à 7 s** —
     01 tressage (7,01 s, seule à porter un symbole) · 02 auto-test (1,80 s) ·

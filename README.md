@@ -81,6 +81,24 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 > un **symbole identitaire et religieux**, donc ouvrir l'app dessus est une déclaration — même
 > régime d'arbitrage que la guématrie et la rosace.
 >
+> **➡️ La métamorphose** (25/07, la plus récente) — **une seule transformation, quatre matières** :
+> l'étoile de David devient le <span lang="he">א</span> **sans aucune coupure**. La version
+> précédente a été rejetée à juste titre : elle faisait pivoter un filaire puis imprimait le glyphe
+> par-dessus, soit un **fondu enchaîné entre deux objets** déguisé en transformation. Ici on
+> interpole les **contours eux-mêmes** — le tracé réel du <span lang="he">א</span> extrait de
+> **Frank Ruhl Libre 900**, rééchantillonné à 128 points par contour, aligné en départ et en sens.
+> Le passage de 1 forme à 4 se fait par **contours dégénérés** : trois pointes de l'étoile
+> bourgeonnent et deviennent les petits traits de la lettre :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-metamorphose.html
+>
+> Quatre matières, **toutes massives** (le reproche était « trop maigre ») : **l'or massif** (chant,
+> biseau, reflet) · **le creusé** (gravé dans la plaque, ombres inversées) · **le phosphore en
+> fusion** (la seule qui émet la lumière) · **l'encre** (aplat mat, aucun effet). Un **curseur**
+> pilote les quatre en même temps : une métamorphose ne se juge pas en la regardant passer, elle se
+> juge **arrêtée**. Mesuré : aire stable à 6 % près, et sur 50 pas le déplacement maximal d'un point
+> est de 7,16 pour une médiane de 4,75 — **aucun saut**.
+>
 > **➡️ Les cinq ouvertures** (25/07) — **cinq propositions d'écran d'ouverture sur une seule page**,
 > et surtout **cinq mécanismes différents**, pas cinq variantes : **01 le tressage** (le Magen David
 > devient la lettre, 7 s) · **02 l'auto-test** (la console s'allume, POST, **1,8 s**) ·
