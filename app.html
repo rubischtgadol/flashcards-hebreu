@@ -2370,9 +2370,12 @@ async function init(){
     const tB3=performance.now();
     // Décomposition du démarrage pour le diagnostic de latence : c'est ici que
     // vivrait un boot lent (H3 du dossier — le carnet, pas l'app).
+    // ⚠️ tB1→tB2 s'appelait « extraction » du temps où l'app lisait le HTML du
+    // carnet ; elle ne mesure plus qu'un JSON.parse depuis la bascule sur
+    // cards.json. L'étiquette dit désormais ce qu'elle chronomètre.
     const pb=document.getElementById('perf-boot');
-    if(pb) pb.textContent='Chargement : carnet (réseau) '+fmtMs(tB1-tB0)
-      +' · extraction '+fmtMs(tB2-tB1)+' · construction '+fmtMs(tB3-tB2)
+    if(pb) pb.textContent='Chargement : cartes (réseau) '+fmtMs(tB1-tB0)
+      +' · lecture JSON '+fmtMs(tB2-tB1)+' · construction '+fmtMs(tB3-tB2)
       +' · total '+fmtMs(tB3-tB0);
     loader.style.display='none';
     if(!bootResumed) document.getElementById('setup').classList.remove('hidden');

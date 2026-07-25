@@ -19,7 +19,7 @@
 const fs = require('fs');
 const path = require('path');
 const { chargeDonnees, deriveCartes, stripNikud, orthographeVoisine,
-        ROOT, EXPECTED_LEVELS, EXPECTED_THEMES } = require('./build.js');
+        fichiersDonnees, ROOT, EXPECTED_LEVELS, EXPECTED_THEMES } = require('./build.js');
 
 const MAX_HITS = 8; // par terme — au-delà on compte, on ne liste pas (sortie bornée)
 
@@ -32,11 +32,11 @@ function normFr(s){
 // occurrence dans data/*.json (noms/adjectifs/verbes + chaque data/listes/*).
 // Remplace l'ancienne ancre « carnet L<n> » : la source d'un mot est désormais
 // data/, le carnet (vocabulaire_hebreu.html) n'en est qu'un dérivé généré.
+// L'énumération elle-même vient de build.js (fichiersDonnees) — cet outil ne
+// redécouvre pas l'arborescence de data/ de son côté.
 function construitIndexFichiers(racine){
-  const rels = ['data/noms.json', 'data/adjectifs.json', 'data/verbes.json'];
-  for (const f of fs.readdirSync(path.join(racine, 'data', 'listes')).sort())
-    rels.push('data/listes/' + f);
-  return rels.map(rel => ({ rel, texte: fs.readFileSync(path.join(racine, rel), 'utf8') }));
+  return fichiersDonnees(racine)
+    .map(rel => ({ rel, texte: fs.readFileSync(path.join(racine, rel), 'utf8') }));
 }
 function ligneDe(index, he){
   for (const { rel, texte } of index){

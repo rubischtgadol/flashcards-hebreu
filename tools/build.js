@@ -132,10 +132,26 @@ function orthographeVoisine(a, b){
 
 // ---------- data/ : chargement + validation (absorbé de valide_donnees.js, chantier 2) ----------
 
+// Énumération de data/ — UNE seule place. chargeDonnees() (ici) et
+// construitIndexFichiers() (cherche_mots.js) portaient chacun leur propre
+// readdirSync de data/listes/ : deux endroits à corriger le jour où
+// l'arborescence bouge, et rien pour signaler l'oubli du second. Les deux
+// helpers sont exportés ; aucun autre outil n'énumère data/ de son côté.
+function fichiersListes(racine){
+  return fs.readdirSync(path.join(racine, 'data', 'listes')).sort();
+}
+// Les fichiers de contenu, en chemins relatifs à la racine et dans l'ordre de
+// lecture (tables d'abord, puis les listes triées) — ce que consomme un outil
+// qui veut parcourir la source, pas la charger.
+function fichiersDonnees(racine){
+  return ['data/noms.json', 'data/adjectifs.json', 'data/verbes.json']
+    .concat(fichiersListes(racine).map(f => 'data/listes/' + f));
+}
+
 function chargeDonnees(racine){
   const d = (f) => JSON.parse(fs.readFileSync(path.join(racine, 'data', f), 'utf8'));
   const listes = {};
-  for (const f of fs.readdirSync(path.join(racine, 'data', 'listes')).sort())
+  for (const f of fichiersListes(racine))
     listes[f.replace(/\.json$/, '')] = d(path.join('listes', f));
   return { noms: d('noms.json'), adjectifs: d('adjectifs.json'), verbes: d('verbes.json'), listes };
 }
@@ -1123,5 +1139,6 @@ function main(){
 module.exports = { ROOT, NOTEBOOK, APP, CARDS_JSON, INDEX,
   stripNikud, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,
+  fichiersListes, fichiersDonnees,
   chargeDonnees, valideDonnees, genereCarnet, deriveCartes, assertFormeCartes };
 if (require.main === module) main();

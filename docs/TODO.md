@@ -204,13 +204,28 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 Aucun n'est bloquant ; aucun n'a de task assignée. À trancher si quelqu'un les
 rencontre.
 
+**Soldés le 25/07** : l'étiquette de diagnostic « extraction » (elle mesurait un
+`JSON.parse` sous un nom hérité de l'extracteur HTML — devenue « lecture JSON »,
+et « carnet (réseau) » devenue « cartes (réseau) », puisque l'app va chercher
+`cards.json` et non le carnet) ; et la double énumération de `data/listes/`
+(`cherche_mots.js` avait son propre `readdirSync` à côté de celui de
+`build.js` — les deux passent maintenant par `fichiersListes()` /
+`fichiersDonnees()`, exportés par `build.js`).
+
 - **Premier lancement sans chip de niveau** : `state.niveaux` reste vide et
-  « démarrer » ne fait rien. Jugé conforme à l'intention lors du contrôle, laissé
-  tel quel.
-- **Étiquette de diagnostic « extraction »** dans l'app : elle mesure désormais
-  un `JSON.parse`, son nom est un reliquat de l'époque de l'extracteur HTML.
-- **`construitIndexFichiers()` dans `cherche_mots.js`** duplique l'énumération de
-  `data/listes/` que `build.js` fait déjà.
+  « démarrer » ne fait rien. **Ce n'est pas un défaut mais une décision**
+  (19/07) : le choix appartient à l'utilisateur, `#start-hint` le guide, et le
+  commentaire au-dessus d'`applyPrefs()` dans `src/app/js/13-reglages.js` le
+  dit. À ne rouvrir que si l'intention change.
+- **`he2tr` est extraite d'`app.html`, un artefact généré** — par
+  `verifie_exemples.js` **et** `ajoute_mots.js`, tous deux via un `grabFunction`
+  textuel + `vm` (`fs.readFileSync(APP)`). C'est le seul endroit du dépôt où un
+  artefact sert d'**entrée** : les outils ne tournent donc pas sur un dépôt dont
+  `app.html` aurait été supprimé, et la source réelle de la fonction est
+  `src/app/js/02-translitteration.js`. Sans conséquence tant que le build tourne
+  avant les outils (ce que le rituel impose de toute façon), mais c'est la
+  dernière entorse au principe « aucun artefact n'est jamais une entrée ».
+  Correctif propre : lire le module source plutôt que l'artefact.
 - **`he2tr` faute de façon reproductible** sur : shva initial devant sifflante
   (`shekufah` pour shkufah), yud consonantique (`meiuman` pour meyuman),
   redoublement (`boddim` pour bodedim), alef final (`achray` pour achra'i). Les
