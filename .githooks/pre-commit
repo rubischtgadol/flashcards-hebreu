@@ -6,7 +6,7 @@
 set -e
 cd "$(git rev-parse --show-toplevel)"
 
-# 1. Les quatre artefacts générés doivent être en phase avec data/ + src/ — attrape à la
+# 1. Les cinq artefacts générés doivent être en phase avec data/ + src/ — attrape à la
 #    fois « j'ai édité data/ ou src/ sans relancer node tools/build.js » et « j'ai édité un
 #    artefact généré à la main » (piège n°1).
 echo "[pre-commit] node tools/build.js --check"

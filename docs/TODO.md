@@ -5,20 +5,20 @@
 ## Reprendre ici (prochaine session)
 
 **Où en est le dépôt (25/07/2026, tout poussé sur `main`).** La réorganisation
-« le dépôt généré » a soldé ses chantiers 1 à 3 et le **Task 17** du chantier 4.
-Le dépôt est désormais rangé ainsi :
+« le dépôt généré » a soldé ses chantiers 1 à 3 et les **Tasks 17 et 18** du
+chantier 4. Le dépôt est désormais rangé ainsi :
 
 | Où | Quoi | S'édite à la main ? |
 | --- | --- | --- |
 | `data/*.json` | **le contenu** : noms, adjectifs, verbes, `listes/*.json` | ✅ oui — source unique |
 | `src/carnet/` | gabarits et prose du carnet | ✅ oui |
 | `src/app/` | **le code de l'app** : `coquille.html`, `ordre.json`, 6 fragments `css/`, 14 modules `js/` | ✅ oui |
-| `src/tokens.css` | le bloc `:root` de la charte, source unique | ✅ oui |
+| `src/portail/` | **la source du portail** : `index.html` (les jetons y sont injectés au marqueur `<!-- @TOKENS -->`) | ✅ oui |
+| `src/tokens.css` | le bloc `:root` de la charte, source unique des **trois** pages déployées | ✅ oui |
 | `tools/` | les 4 outils (build, verifie_exemples, ajoute_mots, cherche_mots) | ✅ oui |
 | `docs/` | toute la prose du projet | ✅ oui |
-| `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html` | les **4 artefacts générés** | ❌ **jamais** — écrasés au build |
-| `index.html` | le portail | ✅ oui — **encore** (généré au Task 18) |
-| `sw.js` | le service worker, **v34** | ✅ oui — `VERSION` bumpée à la main (automatisée au Task 19) |
+| `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html` | les **5 artefacts générés** | ❌ **jamais** — écrasés au build |
+| `sw.js` | le service worker, **v35** | ✅ oui — `VERSION` bumpée à la main (automatisée au Task 19) |
 
 ⚠️ **Les outils se lancent DEPUIS LA RACINE**, jamais depuis `tools/` :
 `node tools/build.js`, `node tools/verifie_exemples.js`,
@@ -26,14 +26,11 @@ Le dépôt est désormais rangé ainsi :
 `ROOT = path.join(__dirname, '..')`, exporté par `build.js` et consommé par les
 trois autres — jamais recalculé ailleurs.
 
-**Prochaine étape : Task 18** (portail et tokens générés). Plan complet dans
+**Prochaine étape : Task 19** (`VERSION` de `sw.js` estampillée par le build).
+Plan complet dans
 [le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md)
-— il reste les Tasks 18 à 21, dans l'ordre :
+— il reste les Tasks 19 à 21, dans l'ordre :
 
-- **Task 18** — `index.html` devient le 5ᵉ artefact généré depuis
-  `src/portail/index.html` + `src/tokens.css`. **Clôt le piège n°5** (le bloc
-  `:root` maintenu à la main dans trois fichiers) par construction. Gate :
-  `index.html` régénéré byte-identique à l'actuel, en-tête excepté.
 - **Task 19** — `VERSION` de `sw.js` estampillée par un hash du contenu servi.
   **Clôt le piège n°10** (bump oublié) et rend inutile le contrôle n°3 du hook
   `pre-commit`.
@@ -41,7 +38,7 @@ trois autres — jamais recalculé ailleurs.
 - **Task 21** — contrôle global (rituel + parcours WebKit en sous-agent) et
   livraison.
 
-⚠️ **Deux choses apprises au Task 17, à ne pas réapprendre.**
+⚠️ **Trois choses apprises aux Tasks 17-18, à ne pas réapprendre.**
 
 1. **Le plan du chantier a été écrit avant le lot tripwires du 25/07 : il ne
    connaît pas `verifieCharte()` ni `.githooks/`.** Ses `grep` de contrôle sont
@@ -58,6 +55,16 @@ trois autres — jamais recalculé ailleurs.
    imprimé par le build de la sandbox. Toute garde ajoutée ici se prouve par
    **casse fabriquée** (exit 1 réel, message nommé), jamais par « je l'ai
    ajoutée ».
+3. ⚠️ **Générer un fichier prouve que le contenu arrive, jamais qu'il soit
+   seul** (Task 18). L'injection des jetons au marqueur `<!-- @TOKENS -->`
+   garantit que `src/tokens.css` est bien dans les trois pages ; elle ne dit
+   rien d'un **second `:root` écrit en dur** à côté, qui gagnerait par cascade
+   et rouvrirait précisément la divergence que le Task 18 vient de fermer —
+   sans rien casser de visible. D'où le compte de blocs `:root` attendu par
+   page dans `verifieCharte()` (carnet 3, app 1, portail 1). Même forme de
+   raisonnement pour la suite : quand une tâche « clôt un piège par
+   construction », demander *par quel chemin il pourrait revenir* et mécaniser
+   ce chemin-là.
 
 ### Dette de graphe — flags en attente, aucun ne déclenche rien
 
@@ -67,7 +74,7 @@ dette**, ils ne la soldent pas. Quand un recalage est décidé, les effacer dans
 le même commit que `graphify-out/graph.json`.
 
 ⚠️ **État du graphe au 25/07 : il ne connaît ni `data/`, ni `src/carnet/`, ni
-`src/app/`, ni `tools/`, ni `docs/`, ni `.githooks/`.** Il reste fiable sur ce
+`src/app/`, ni `src/portail/`, ni `tools/`, ni `docs/`, ni `.githooks/`.** Il reste fiable sur ce
 qui n'a pas bougé — la structure du carnet, les règles de design, les pièges.
 Pour tout le reste, va directement au `grep -n` sur le module nommé par les
 en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
@@ -86,6 +93,8 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 - **2026-07-25 (Task 17)** — `tools/` et `docs/` créés (11 fichiers déplacés),
   `audit_carnet_mecanique.js` **supprimé** : le graphe porte une **communauté
   morte de 39 nœuds** sur un fichier qui n'existe plus.
+- **2026-07-25 (Task 18)** — `src/portail/index.html` créé ; `index.html` devenu
+  artefact généré. Le graphe le situe encore côté « source éditée à la main ».
 
 ### Dette ouverte — petits défauts connus, non corrigés
 
@@ -200,14 +209,15 @@ rencontre.
 
 ## Rituel à chaque modification
 
-1. `node tools/build.js` — lit `data/*.json` + `src/` et régénère les **quatre** artefacts
-   (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`) ; échec
+1. `node tools/build.js` — lit `data/*.json` + `src/` et régénère les **cinq** artefacts
+   (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`,
+   `index.html`) ; échec
    si une section ou un niveau attendu tombe à 0, si une entrée sort sans `niveau` valide,
    ou si un `theme` sort de `EXPECTED_THEMES` ; vérifier les comptes affichés (sections,
    niveaux, thèmes, exemples).
 2. Si des exemples ont changé : `node tools/verifie_exemples.js` — **0 erreur exigé**.
 3. Vérifier le comportement **au niveau le moins cher qui prouve vraiment quelque chose**.
-   `node tools/build.js --check` compare déjà les **quatre artefacts régénérés** au contenu
+   `node tools/build.js --check` compare déjà les **cinq artefacts régénérés** au contenu
    committé, octet par octet : un changement de **contenu seul est prouvé par les
    étapes 1–2**, rien à ajouter. Serveur local ou jsdom
    quand de la **logique** a bougé. **WebKit/Playwright uniquement si tu as touché à

@@ -318,14 +318,19 @@ function appliqueInsertions(candidat, insertions){
 //  2. Tout fichier de la racine lu par `verifieCharte()` doit être copié. Ajouter une garde
 //     qui lit un fichier racine sans l'ajouter ici casse le bac à sable (payé le 25/07 :
 //     `verifieCharte` a introduit la lecture d'index.html, et le dry-run est resté cassé
-//     jusqu'au Task 17).
+//     jusqu'au Task 17). ⚠️ La liste ne se remplit pas « au cas où » : depuis le Task 18,
+//     `verifieCharte` ne lit plus index.html — le portail est généré, il se contrôle sur la
+//     chaîne assemblée — donc index.html en est SORTI. Un fichier copié sans raison ferait
+//     croire que le bac à sable en dépend, et masquerait la vraie règle : ce qu'on copie,
+//     c'est exactement ce qu'une garde lit du disque. `src/` est copié en entier ci-dessous,
+//     src/portail/ y compris — le bac à sable régénère donc son propre index.html.
 //
 // ⚠️ ET LE CONTRÔLE DU CONTRÔLE. Le verdict imprimait un compte de cartes calculé
 // **en process** (`comptes(deriveCartes(candidat))`) : il aurait affiché le bon chiffre
 // même si le bac à sable avait validé un tout autre arbre. On lit donc le TOTAL que le
 // bac à sable a lui-même imprimé et on exige qu'il concorde — sans quoi le bac à sable
 // est un témoin muet, qui passe au vert sans rien prouver. ----------
-const FICHIERS_RACINE_BAC_A_SABLE = ['index.html', 'manifest.webmanifest'];
+const FICHIERS_RACINE_BAC_A_SABLE = ['manifest.webmanifest'];
 function indenteTexte(t){ return String(t).trim().split('\n').map(l => '  ' + l).join('\n'); }
 function sandboxValidation(candidat){
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ajoute-mots-'));

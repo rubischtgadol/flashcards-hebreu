@@ -3,8 +3,9 @@
  * build.js — outil de développement (non déployé). v2 (chantier 2) : data/*.json
  * (source de vérité) devient l'ENTRÉE du build, plus jamais vocabulaire_hebreu.html.
  *
- * Régénère QUATRE artefacts depuis data/ + src/carnet/ + src/app/ (chantier 3, tâche 13 :
- * app.html a rejoint le carnet côté « généré », plus jamais une source qu'on édite à la main) :
+ * Régénère CINQ artefacts depuis data/ + src/carnet/ + src/app/ + src/portail/ (chantier 3,
+ * tâche 13 : app.html a rejoint le carnet côté « généré » ; chantier 4, tâche 18 : index.html
+ * à son tour — plus AUCUN fichier HTML déployé ne s'édite à la main) :
  *   - vocabulaire_hebreu.html (le carnet)      via genereCarnet()   (gabarits.js)
  *   - cards.json ({version, cartes})           via deriveCartes()
  *   - app.html (les flashcards en ligne)       via assembleApp() depuis src/app/
@@ -14,6 +15,10 @@
  *     app.html du disque — sinon --check, qui n'écrit rien, validerait un déphasage), dont
  *     le bloc marqué BUILD:ONLINE-ONLY (fetch + extraction runtime) est remplacé par le
  *     snapshot `const CARDS = [...]` et un démarrage direct.
+ *   - index.html (le portail)                  via assemblePortail() depuis src/portail/
+ *     (index.html + src/tokens.css injecté au marqueur @TOKENS). Les trois pages déployées
+ *     tirent donc leur bloc :root de la MÊME source — le piège n°5 (charte recopiée à la
+ *     main) est clos par construction depuis la tâche 18.
  * Affiche le compte de cartes par section et échoue bruyamment si une section
  * attendue tombe à zéro, ou si data/ est invalide (valideDonnees).
  *
@@ -27,7 +32,7 @@
  * qui eux lisent toujours le carnet HTML — cf. leur propre en-tête pour pourquoi.
  *
  * Usage :
- *   node tools/build.js           # régénère les quatre artefacts
+ *   node tools/build.js           # régénère les cinq artefacts
  *   node tools/build.js --check   # vérifie sans écrire (artefacts en phase avec data/ + src/ ?)
  */
 'use strict';
@@ -46,6 +51,9 @@ const STANDALONE = path.join(ROOT, 'flashcards_hebreu.html');
 const CARDS_JSON = path.join(ROOT, 'cards.json');
 const SRC_CARNET = path.join(ROOT, 'src', 'carnet');
 const SRC_APP = path.join(ROOT, 'src', 'app');
+const INDEX = path.join(ROOT, 'index.html');
+const SRC_PORTAIL = path.join(ROOT, 'src', 'portail');
+const TOKENS = path.join(ROOT, 'src', 'tokens.css');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
@@ -271,6 +279,23 @@ const ENTETE_GENERE =
   '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : data/ + src/carnet/. Regénération : node tools/build.js. -->';
 const ENTETE_GENERE_APP =
   '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : src/app/. Regénération : node tools/build.js. -->';
+const ENTETE_GENERE_PORTAIL =
+  '<!-- FICHIER GÉNÉRÉ — ne pas éditer. Source : src/portail/. Regénération : node tools/build.js. -->';
+
+/*
+ * lisTokens() → { brut, indente } — le bloc :root de la charte, lu à sa source unique
+ * (src/tokens.css) sous les DEUX formes que le dépôt connaît : `brut` (le fichier tel quel,
+ * qui pose ":root{" en colonne 0) et `indente` (réindenté de 2 espaces).
+ * La forme dépend de l'endroit où le marqueur <!-- @TOKENS --> est posé : le carnet ouvre son
+ * :root à la racine du <style> et prend `brut` ; l'app et le portail l'imbriquent d'un cran et
+ * prennent `indente` (piège d'indentation, cf. assembleApp). Les trois lisaient le fichier
+ * chacun de son côté avant le Task 18 — une lecture, trois consommateurs, et verifieCharte
+ * n'a plus à recalculer la réindentation pour la comparer.
+ */
+function lisTokens(){
+  const brut = fs.readFileSync(TOKENS, 'utf8');
+  return { brut, indente: brut.split('\n').map(l => l ? '  ' + l : l).join('\n') };
+}
 
 // Insère l'en-tête juste après la première ligne du HTML (la ligne <!DOCTYPE html>).
 // `entete` par défaut = ENTETE_GENERE (carnet) ; assembleApp() passe ENTETE_GENERE_APP.
@@ -302,7 +327,7 @@ function genereCarnet(donnees, srcCarnet){
   const tete = lire('tete.html');
   const pied = lire('pied.html');
   const sectionsListees = JSON.parse(lire('sections.json'));
-  const tokens = fs.readFileSync(path.join(srcCarnet, '..', 'tokens.css'), 'utf8');
+  const tokens = lisTokens().brut;
   const cssCarnet = lire('carnet.css');
   const jsCarnet = lire('carnet.js');
 
@@ -315,9 +340,20 @@ function genereCarnet(donnees, srcCarnet){
   // carnet.css / carnet.js peut contenir des séquences "$&", "$1"… que
   // String.prototype.replace interpréterait comme des motifs de substitution
   // si on lui passait une chaîne — la fonction insère le résultat au mot près.
-  html = html.replace('<!-- @TOKENS -->', () => tokens);
-  html = html.replace('<!-- @CSS:carnet -->', () => cssCarnet);
-  html = html.replace('<!-- @JS:carnet -->', () => jsCarnet);
+  // Les trois substitutions passent par mustReplace depuis le Task 18 : elles étaient les
+  // seules à ne pas l'être (le côté app l'avait acquis au Task 13). Sans garde, un marqueur
+  // retiré de tete.html fait tomber la charte, tout le CSS ou tout le JS du carnet EN
+  // SILENCE — le carnet « se régénère » quand même et --check repasse vert sur l'artefact
+  // amputé, exactement le scénario que le Task 13 avait fermé côté coquille.html.
+  html = mustReplace(html, '<!-- @TOKENS -->', () => tokens,
+    'marqueur <!-- @TOKENS --> absent (le bloc :root/charte serait perdu, en silence)',
+    'src/carnet/tete.html');
+  html = mustReplace(html, '<!-- @CSS:carnet -->', () => cssCarnet,
+    'marqueur <!-- @CSS:carnet --> absent (tout le CSS du carnet serait perdu, en silence)',
+    'src/carnet/tete.html');
+  html = mustReplace(html, '<!-- @JS:carnet -->', () => jsCarnet,
+    'marqueur <!-- @JS:carnet --> absent (tout le JS du carnet serait perdu, en silence)',
+    'src/carnet/pied.html');
 
   // ---------- substitution des placeholders @ENTREES + garde anti-perte ----------
 
@@ -665,14 +701,14 @@ function assembleApp(srcApp){
   // reproduit l'original au caractère près — un join('\n') ajouterait une ligne vide à chacune
   // des 5 frontières et romprait l'identité byte-à-byte avec l'app.html committé.
   const cssApp = ordre.css.map(f => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('');
-  const tokens = fs.readFileSync(path.join(srcApp, '..', 'tokens.css'), 'utf8');
+  const tokens = lisTokens();
 
   // Piège d'indentation (résolu à l'assemblage, jamais en éditant app.html — task-13-brief.md
   // § Arbitrages) : le :root d'app.html est imbriqué dans <style> avec 2 espaces de plus que
   // src/tokens.css (qui pose ":root{" à la racine — cf. vocabulaire_hebreu.html, où ça matche
   // tel quel car le carnet pose son :root à la racine aussi). On réindente donc tokens.css de
   // 2 espaces ici, spécifiquement pour l'app.
-  const tokensIndentes = tokens.split('\n').map(l => l ? '  ' + l : l).join('\n');
+  const tokensIndentes = tokens.indente;
 
   let html = coquille;
   // Remplacement par fonction (jamais par chaîne) : le contenu de tokens.css / app.css /
@@ -693,6 +729,23 @@ function assembleApp(srcApp){
     'marqueur <!-- @JS:app --> absent (tout le JS d\'app.html serait perdu, en silence)',
     'src/app/coquille.html');
   return html;
+}
+
+/**
+ * assemblePortail(srcPortail) → chaîne HTML complète d'index.html, SANS l'en-tête
+ * « FICHIER GÉNÉRÉ » (posé par insereEntete() dans main(), comme pour le carnet et l'app).
+ * `srcPortail` : chemin absolu vers src/portail (ne contient qu'index.html — le portail est
+ * une page courte, entièrement inline : rien à découper en fragments, contrairement à l'app).
+ * Une seule substitution : <!-- @TOKENS -->, réindenté de 2 espaces (le :root du portail est
+ * imbriqué dans <style>, même piège d'indentation que l'app — cf. assembleApp).
+ * C'est ce qui CLÔT LE PIÈGE N°5 par construction : le bloc :root des trois pages déployées
+ * n'est plus recopié à la main nulle part, il sort de src/tokens.css à chaque build.
+ */
+function assemblePortail(srcPortail){
+  const source = fs.readFileSync(path.join(srcPortail, 'index.html'), 'utf8');
+  return mustReplace(source, '<!-- @TOKENS -->', () => lisTokens().indente,
+    'marqueur <!-- @TOKENS --> absent (le bloc :root/charte serait perdu, en silence)',
+    'src/portail/index.html');
 }
 
 /**
@@ -742,9 +795,12 @@ function verifieTaxonomieApp(appSource){
  *  - piège n°3 : un `font-size` posé sur le sélecteur `html`. Les 22px vivent sur body ;
  *    1rem doit rester 16px, dans le carnet comme dans l'app (les tailles y sont calibrées
  *    sur ce qu'elles rendent réellement).
- *  - piège n°5 (première moitié) : index.html est encore copié à la main (jusqu'au
- *    Task 18) — son bloc :root doit contenir src/tokens.css tel quel (brut ou réindenté
- *    de 2 espaces, les deux formes que le dépôt connaît).
+ *  - piège n°5 (première moitié) : CLOS PAR CONSTRUCTION au Task 18. Le contrôle « le bloc
+ *    :root d'index.html a-t-il dérivé de src/tokens.css ? » n'a plus d'objet : le portail est
+ *    généré, ses tokens sont injectés depuis la source unique, et un marqueur @TOKENS disparu
+ *    est déjà fatal chez mustReplace (assemblePortail). Ce qui reste vérifiable ici — et ne
+ *    l'était pas —, c'est que les trois pages déployées portent bien les MÊMES tokens, donc
+ *    qu'aucune n'a rouvert un :root en dur à côté de l'injection.
  *  - piège n°5 (seconde moitié) : si `--bg` change dans src/tokens.css, la couleur doit
  *    suivre dans manifest.webmanifest (theme_color, background_color) et dans chaque
  *    <meta name="theme-color"> déployé — et les icônes sont à régénérer (ça, aucune
@@ -752,19 +808,32 @@ function verifieTaxonomieApp(appSource){
  * Fatale (process.exit(1)), tous les échecs nommés d'un coup — exercée en mode normal
  * comme en --check, cf. main() (même régime que verifieTaxonomieApp : une garde qui ne
  * s'exerce qu'au moment d'écrire laisse --check valider un dépôt cassé).
+ * ⚠️ Les trois arguments sont les chaînes FRAÎCHEMENT ASSEMBLÉES, jamais relues du disque —
+ * y compris le portail depuis le Task 18 (il lisait index.html du disque tant qu'il était
+ * écrit à la main). Une garde qui interroge l'artefact committé valide le passé, pas ce que
+ * le build s'apprête à écrire.
  */
-function verifieCharte(appAssembled, notebookGenerated){
+function verifieCharte(appAssembled, notebookGenerated, portailGenerated){
   const echecs = [];
 
-  if (/transition\s*:[^;{}]*\ball\b/.test(appAssembled)){
-    echecs.push('`transition: all` détecté dans l\'app assemblée (piège n°2 : WebKit fige les longhands outline-*, l\'anneau de focus or disparaît sans symptôme). Cherche dans src/app/css/*.css et src/app/coquille.html ; liste les propriétés animées explicitement.');
+  // Les TROIS pages déployées, chacune sous sa forme fraîchement générée. Élargi au portail
+  // au Task 18 : tant qu'index.html s'éditait à la main il échappait aux contrôles de forme
+  // (seul son bloc :root était comparé) — or il pose lui aussi un anneau de focus or et des
+  // transitions sur ses portes, donc il court exactement le piège n°2.
+  const deployees = [['l\'app assemblée', appAssembled], ['le carnet généré', notebookGenerated],
+                     ['le portail généré', portailGenerated]];
+
+  for (const [nom, source] of [['l\'app assemblée', appAssembled], ['le portail généré', portailGenerated]]){
+    if (/transition\s*:[^;{}]*\ball\b/.test(source)){
+      echecs.push('`transition: all` détecté dans ' + nom + ' (piège n°2 : WebKit fige les longhands outline-*, l\'anneau de focus or disparaît sans symptôme). Cherche dans src/app/css/*.css, src/app/coquille.html ou src/portail/index.html ; liste les propriétés animées explicitement.');
+    }
   }
 
   // Le parcours de blocs `sélecteur{…}` ne s'applique qu'aux contenus <style> : denses en
   // accolades, il y reste linéaire. Sur le document entier, `[^{}]+\{` repartait de chaque
   // position d'un long run HTML sans accolade — quadratique, build gelé (payé à
   // l'installation du lot : ~1 Mo de carnet, --check ne rendait plus la main).
-  for (const [nom, source] of [['l\'app assemblée', appAssembled], ['le carnet généré', notebookGenerated]]){
+  for (const [nom, source] of deployees){
     const css = [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map(m => m[1]).join('\n');
     for (const m of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)){
       const selecteurs = m[1].split(',').map(s => s.trim().split(/\s+/).pop());
@@ -774,11 +843,28 @@ function verifieCharte(appAssembled, notebookGenerated){
     }
   }
 
-  const tokens = fs.readFileSync(path.join(ROOT, 'src', 'tokens.css'), 'utf8');
-  const tokensIndentes = tokens.split('\n').map(l => l ? '  ' + l : l).join('\n');
-  const indexHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  if (!indexHtml.includes(tokens) && !indexHtml.includes(tokensIndentes)){
-    echecs.push('le bloc :root d\'index.html a dérivé de src/tokens.css (piège n°5 : la charte doit rester byte-identique dans les cinq fichiers déployés). Recopie src/tokens.css dans index.html — copie manuelle jusqu\'au Task 18, qui rendra le portail généré.');
+  // Piège n°5, première moitié. L'injection depuis src/tokens.css garantit que les tokens
+  // sont PRÉSENTS ; elle ne garantit pas qu'ils soient SEULS. Un second `:root{…}` écrit à la
+  // main dans une source (ou survivant d'une reprise) gagnerait par ordre de cascade et
+  // rétablirait en silence la divergence que le Task 18 vient de fermer. On exige donc
+  // exactement une ouverture de :root par page déployée, et que ce soit celle qui a été
+  // injectée (l'une des deux formes que le dépôt connaît : brute pour le carnet, réindentée
+  // de 2 espaces pour l'app et le portail).
+  // Le carnet en ouvre trois, et ils NE FUSIONNENT JAMAIS (piège n°4) : les jetons de charte,
+  // la gamme typographique en 8 pas, la colonne de lecture. L'app et le portail n'ont que
+  // celui de la charte. Le compte attendu est donc une constante par page, pas « exactement
+  // un » — mesuré sur les artefacts committés du 25/07.
+  const ROOTS_ATTENDUS = { 'l\'app assemblée': 1, 'le carnet généré': 3, 'le portail généré': 1 };
+  const { brut: tokens, indente: tokensIndentes } = lisTokens();
+  for (const [nom, source] of deployees){
+    if (!source.includes(tokens) && !source.includes(tokensIndentes)){
+      echecs.push('les tokens de src/tokens.css sont introuvables tels quels dans ' + nom + ' (piège n°5 : la charte est la même dans les trois pages déployées) — injection @TOKENS détournée ou réindentée autrement ?');
+      continue;
+    }
+    const ouvertures = (source.match(/(^|[\s;}])\:root\s*[,{]/g) || []).length;
+    if (ouvertures !== ROOTS_ATTENDUS[nom]){
+      echecs.push(nom + ' ouvre ' + ouvertures + ' bloc(s) `:root`, on en attend ' + ROOTS_ATTENDUS[nom] + ' (pièges n°4 et n°5). Un :root de plus, c\'est la charte réécrite en dur à côté de l\'injection <!-- @TOKENS --> : elle gagne par cascade et fait diverger les pages sans rien casser de visible. Un de moins, c\'est un bloc perdu.');
+    }
   }
 
   const bg = (tokens.match(/--bg\s*:\s*(#[0-9a-fA-F]{3,8})/) || [])[1];
@@ -791,7 +877,7 @@ function verifieCharte(appAssembled, notebookGenerated){
         echecs.push('manifest.webmanifest.' + champ + ' vaut « ' + manifest[champ] + ' » mais --bg vaut « ' + bg + ' » (piège n°5). Aligne le manifest — et si --bg a changé : régénère les icônes (icons/), aucune commande ne le vérifie.');
       }
     }
-    for (const [nom, source] of [['l\'app assemblée', appAssembled], ['le carnet généré', notebookGenerated], ['index.html', indexHtml]]){
+    for (const [nom, source] of deployees){
       const meta = (source.match(/<meta name="theme-color" content="([^"]+)"/) || [])[1];
       if (meta !== bg){
         echecs.push('<meta name="theme-color"> de ' + nom + ' vaut « ' + meta + ' » mais --bg vaut « ' + bg + ' » (piège n°5).');
@@ -804,7 +890,7 @@ function verifieCharte(appAssembled, notebookGenerated){
     for (const e of echecs) console.error('  - ' + e);
     process.exit(1);
   }
-  console.log('Charte : transition:all absent, font-size hors de html, tokens et theme-color (' + bg + ') en phase.');
+  console.log('Charte : transition:all absent, font-size hors de html, :root au compte attendu, tokens et theme-color (' + bg + ') en phase sur les 3 pages déployées.');
 }
 
 // ---------- génération du fichier autonome depuis l'app assemblée ----------
@@ -912,9 +998,11 @@ function main(){
   // assembleApp() s'exécute AVANT generateStandalone() : celui-ci se dérive de l'app
   // fraîchement assemblée, jamais de l'ancien app.html du disque (task-13-brief.md § Step 2).
   const appAssembled = assembleApp(SRC_APP);
+  const portailAssembled = assemblePortail(SRC_PORTAIL);
   verifieTaxonomieApp(appAssembled); // fatale — exercée en mode normal comme en --check
-  verifieCharte(appAssembled, notebookGenerated); // fatale — même régime (tripwires de charte)
+  verifieCharte(appAssembled, notebookGenerated, portailAssembled); // fatale — même régime (tripwires de charte)
   const appGenerated = insereEntete(appAssembled, ENTETE_GENERE_APP);
+  const portailGenerated = insereEntete(portailAssembled, ENTETE_GENERE_PORTAIL);
 
   const standaloneGenerated = generateStandalone(cards, appAssembled);
   const cardsJson = JSON.stringify({ version: new Date().toISOString().slice(0, 10), cartes: cards }, null, 2) + '\n';
@@ -922,6 +1010,7 @@ function main(){
   const notebookOnDisk = fs.existsSync(NOTEBOOK) ? fs.readFileSync(NOTEBOOK, 'utf8') : '';
   const appOnDisk = fs.existsSync(APP) ? fs.readFileSync(APP, 'utf8') : '';
   const standaloneOnDisk = fs.existsSync(STANDALONE) ? fs.readFileSync(STANDALONE, 'utf8') : '';
+  const portailOnDisk = fs.existsSync(INDEX) ? fs.readFileSync(INDEX, 'utf8') : '';
   const cardsOnDiskRaw = fs.existsSync(CARDS_JSON) ? fs.readFileSync(CARDS_JSON, 'utf8') : '';
   let cardsOnDiskCartes = null;
   if (cardsOnDiskRaw){
@@ -932,8 +1021,9 @@ function main(){
   const cardsContentUpToDate = JSON.stringify(cardsOnDiskCartes) === JSON.stringify(cards);
 
   if (check){
-    // --check compare désormais les QUATRE artefacts régénérés aux committés (chantier 3,
-    // tâche 13 : app.html rejoint vocabulaire_hebreu.html/cards.json/flashcards_hebreu.html).
+    // --check compare désormais les CINQ artefacts régénérés aux committés (chantier 4,
+    // tâche 18 : index.html rejoint vocabulaire_hebreu.html/cards.json/app.html/
+    // flashcards_hebreu.html — le portail n'est plus écrit à la main).
     let ok = true;
     if (notebookGenerated !== notebookOnDisk){
       console.error('\n✗ vocabulaire_hebreu.html obsolète — lance `node tools/build.js` pour le régénérer.');
@@ -951,7 +1041,11 @@ function main(){
       console.error('\n✗ flashcards_hebreu.html obsolète — lance `node tools/build.js` pour le régénérer.');
       ok = false;
     }
-    if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json, app.html et flashcards_hebreu.html en phase avec data/ + src/.');
+    if (portailGenerated !== portailOnDisk){
+      console.error('\n✗ index.html obsolète — lance `node tools/build.js` pour le régénérer.');
+      ok = false;
+    }
+    if (ok) console.log('\n✓ vocabulaire_hebreu.html, cards.json, app.html, flashcards_hebreu.html et index.html en phase avec data/ + src/.');
     else process.exit(1);
     return;
   }
@@ -986,6 +1080,13 @@ function main(){
     fs.writeFileSync(STANDALONE, standaloneGenerated);
     console.log('✓ flashcards_hebreu.html régénéré (' + cards.length + ' cartes).');
   }
+
+  if (portailGenerated === portailOnDisk){
+    console.log('✓ index.html déjà à jour.');
+  } else {
+    fs.writeFileSync(INDEX, portailGenerated);
+    console.log('✓ index.html régénéré (' + Buffer.byteLength(portailGenerated, 'utf8') + ' octets).');
+  }
 }
 
 // Réutilisable en module : chargeDonnees/valideDonnees/genereCarnet/deriveCartes sont
@@ -1000,7 +1101,7 @@ function main(){
 // `ROOT` est exporté depuis le Task 17 : les trois autres outils vivent dans le même
 // dossier et doivent viser la MÊME racine — le recalculer chez eux, c'est trois
 // occasions de le recalculer faux (piège n°1 du Task 17).
-module.exports = { ROOT, NOTEBOOK, APP, CARDS_JSON,
+module.exports = { ROOT, NOTEBOOK, APP, CARDS_JSON, INDEX,
   parseSections, closeOf, exemplesOf, firstSpanText, attrOf, tdsOf,
   stripNikud, decodeEntities, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,

@@ -56,7 +56,10 @@
 // v26 : verso des verbes en grille 2×2 (.forms.forms-grid) — singulier au-dessus,
 // pluriel dessous, masculin à droite en RTL, comme une table de conjugaison ;
 // noms et adjectifs gardent la ligne souple. Visible au premier lancement.
-const VERSION = 'v34';
+// v35 : le portail devient le 5ᵉ artefact généré (Task 18) — index.html, app.html, le carnet
+// et le standalone changent tous d'un commentaire de charte, et index.html gagne son en-tête
+// « FICHIER GÉNÉRÉ ». Rien de visible à l'écran, mais quatre fichiers servis bougent.
+const VERSION = 'v35';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

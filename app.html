@@ -28,8 +28,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playpen+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet" media="print" onload="this.onload=null;this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playpen+Sans+Hebrew:wght@300;400&display=swap" rel="stylesheet"></noscript>
 <style>
-  /* Charte unifiée carnet + app — ce bloc :root doit rester identique dans
-     vocabulaire_hebreu.html et index.html (référence : le carnet). */
+  /* Charte unifiée carnet + app + portail — bloc injecté au build depuis src/tokens.css,
+     sa source unique. Rien à recopier à la main : node tools/build.js le repose ici. */
   :root{
     --bg:#12181f; --bg2:#161e28; --card:#1a222b; --card-edge:#2c3844;
     --ink:#ece7dd; --ink-dim:#9aa3ac; --gold:#d4a24c; --gold-soft:#e6c68a;

@@ -80,15 +80,15 @@ Les cartes ne sont **pas** figées dans l'application. Au chargement, `app.html`
 
 ## Fichiers
 
-- `index.html` — le portail : la porte d'entrée à la racine — un accueil plein écran (message de bienvenue en français ou en hébreu au hasard, le א doré de l'icône, deux ménorahs qui éclairent l'écran), puis le choix entre l'application et le carnet
+- `index.html` — le portail : la porte d'entrée à la racine — un accueil plein écran (message de bienvenue en français ou en hébreu au hasard, le א doré de l'icône, deux ménorahs qui éclairent l'écran), puis le choix entre l'application et le carnet. **Généré par `tools/build.js` depuis `src/portail/`, à ne pas éditer à la main**
 - `app.html` — l'application de flashcards en ligne (charge le vocabulaire depuis `cards.json` au démarrage), **générée par `tools/build.js` depuis `src/app/`, à ne pas éditer à la main**
 - `vocabulaire_hebreu.html` — le carnet de grammaire et vocabulaire, **généré par `tools/build.js` depuis `data/*.json`, à ne pas éditer à la main** (hors connexion, l'hébreu retombe sur David Libre plutôt que sur une police système générique, qui rend mal le nikoud)
-- `data/` — le vocabulaire et la grammaire, **source unique de vérité** (`noms.json`, `adjectifs.json`, `verbes.json`, `listes/*.json`) ; `node tools/build.js` en dérive le carnet, `cards.json`, l'application et la version autonome
-- `src/` — les sources des fichiers générés : `src/carnet/` (gabarits du carnet), `src/app/` (la coquille HTML de l'application, ses fragments de style et ses 14 modules de code) et `src/tokens.css` (les couleurs de la charte). **C'est ici qu'on modifie l'application**, jamais dans `app.html`
+- `data/` — le vocabulaire et la grammaire, **source unique de vérité** (`noms.json`, `adjectifs.json`, `verbes.json`, `listes/*.json`) ; `node tools/build.js` en dérive le carnet, `cards.json`, l'application et la version autonome (le portail, lui, ne dépend que de `src/`)
+- `src/` — les sources des fichiers générés : `src/carnet/` (gabarits du carnet), `src/app/` (la coquille HTML de l'application, ses fragments de style et ses 14 modules de code), `src/portail/` (la page d'accueil) et `src/tokens.css` (les couleurs de la charte, injectées dans les trois pages au build). **C'est ici qu'on modifie l'application et le portail**, jamais dans `app.html` ni `index.html`
 - `cards.json` — le vocabulaire au format que l'application charge, **généré par `tools/build.js`, à ne pas éditer à la main**
 - `flashcards_hebreu.html` — version autonome des flashcards, **générée par `tools/build.js`, à ne pas éditer à la main** (vocabulaire intégré au fichier : s'ouvre en double-cliquant, sans serveur ni connexion — seules les polices décoratives viennent du web ; sans connexion l'hébreu s'affiche en police système)
 - `tools/` — les quatre outils de développement (non déployés, zéro dépendance ; se lancent **depuis la racine du dépôt**, jamais depuis `tools/`) :
-  - `tools/build.js` — régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` depuis `data/` et `src/`
+  - `tools/build.js` — régénère `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html` et `index.html` depuis `data/` et `src/`
   - `tools/verifie_exemples.js` — contrôle les exemples en situation du carnet (longueur, nikoud, translittération, niveau du vocabulaire) et exige qu'aucun nom, adjectif ou verbe ne reste sans exemple
   - `tools/ajoute_mots.js` — générateur de fiche : insère de nouveaux mots dans le carnet depuis un petit fichier JSON (balisage, translittération dérivée, placement et validation automatiques ; simulation par défaut, n'écrit qu'avec `--ecrire` après validation complète)
   - `tools/cherche_mots.js` — consultation en lecture seule du carnet : `node tools/cherche_mots.js MOT…` répond « ce mot existe-t-il, et où ? » (hébreu ou français), `--stats` montre la répartition par thème et par niveau ; pour vérifier un candidat à moindre coût, sans relire le carnet
@@ -102,7 +102,7 @@ Pour ajouter ou corriger du vocabulaire, éditer les fichiers `data/*.json` (à 
 
     node tools/build.js
 
-Il régénère les quatre artefacts — `vocabulaire_hebreu.html`, `cards.json`, `app.html` et `flashcards_hebreu.html` — depuis `data/` et `src/`, et affiche le compte de cartes par section (toute section tombée à zéro fait échouer le build : signe qu'une section a disparu de `data/` ou qu'une entrée est mal formée). `node tools/build.js --check` vérifie sans rien écrire.
+Il régénère les cinq artefacts — `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html` et `index.html` — depuis `data/` et `src/`, et affiche le compte de cartes par section (toute section tombée à zéro fait échouer le build : signe qu'une section a disparu de `data/` ou qu'une entrée est mal formée). `node tools/build.js --check` vérifie sans rien écrire.
 
 Ce sont les fichiers régénérés qu'on commite, avec les sources qui les ont produits — `git add`, `git commit`, `git push` sur `main`. GitHub Pages redéploie automatiquement en une à deux minutes, à la même adresse ; l'application en ligne se met à jour toute seule. La version autonome, elle, ne se met à jour qu'en la retéléchargeant.
 
