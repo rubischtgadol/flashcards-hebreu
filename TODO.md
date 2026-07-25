@@ -9,8 +9,8 @@
 (créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html,
 prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
-unifont-nikoud-repare.html, polices/ et REFERENCES_SENTRY.md (créés, branche
-refonte-retrofuturiste).
+unifont-nikoud-repare.html, polices/, REFERENCES_SENTRY.md et PROMPT_REPRISE.md
+(créés, branche refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -33,6 +33,11 @@ Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 > **Premier geste à la reprise** : vérifier où en est la réorganisation de `main`,
 > puis relire le PIÈGE AU MERGE en bas de cette section — la divergence a doublé
 > depuis l'ouverture de la branche.
+>
+> **Le prompt à copier dans une session neuve est versionné :
+> [PROMPT_REPRISE.md](PROMPT_REPRISE.md).** Il est autoportant et porte un bloc
+> ÉTAT qui empêche de « réparer » les décisions prises exprès. **À mettre à jour à
+> la fin de chaque session qui arbitre quelque chose**, sinon il vieillit mal.
 
 **Chantier de cette branche : la charte v2 « La console d'étude ». Direction
 artistique SOLDÉE**, arbitrée de bout en bout par le propriétaire, sur pièces.
