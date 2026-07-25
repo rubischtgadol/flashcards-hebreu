@@ -43,6 +43,25 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 >
 >     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-parures.html
 >
+> **➡️ La planche du décor** (25/07) — **18 ornements entièrement gratuits** pour décorer tout
+> le site, chacun en bascule **sans / avec**, étiqueté **discret / affirmé / spectaculaire**, avec
+> sa surface visée et son coût. Cinq familles : **le châssis** (plaque constructeur, filet double,
+> ruban perforé) · **l'alphabet comme ornement** (métier à tisser, rosace hébraïque, plotter qui
+> dessine la lettre, pluie de caractères) · **les instruments qui ne mesurent rien** (onde
+> porteuse, guématrie en marge, diodes de façade) · **la profondeur encadrée** (terrain filaire,
+> globe filaire) · et **les 6 procédés prélevés** — passe-partout, halo par `backdrop-filter`,
+> grille de points, bord gravé, fondu de panneau, jeu de glyphes. **11 sur 18 sont statiques.**
+> La page finit sur une **scène cumulée** pilotée par les mêmes interrupteurs, avec un compteur
+> d'animations actives : **le nombre d'ornements que tu retires de cette scène est le vrai
+> verdict**. Verdict attendu par proposition : prendre / jeter / prendre plus discret / **statique
+> seulement** :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-decor.html
+>
+> ⚠️ Seule la **famille E** porte une provenance mesurée sur la référence ; les douze autres sont
+> **composés**, et la planche le dit au lieu de laisser croire le contraire. Elle a demandé une
+> troisième règle de charte, la **règle du mobilier** (spec § 5 ter, **non arbitrée**).
+>
 > **➡️ La planche des polices hébraïques** — שָׁלוֹם dans les 62 familles Google Fonts qui
 > couvrent l'hébreu, avec pour chacune un **verdict nikoud mesuré dans le fichier de fonte** :
 >
@@ -76,6 +95,13 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 > a été fait le 25/07 et le gisement est sec** — trois `@keyframes` en tout, dont les deux
 > calques déjà rejetés et un keyframe mort : inutile de repiloter la référence pour ça.
 > Elle garde son autorité sur les couleurs, la structure et les ornements.
+>
+> ⚠️ **Ne pas confondre avec la seconde passe.** Le même jour, une passe d'objet différent — le
+> **mobilier décoratif statique**, pas le mouvement — a été menée sur les **deux** liens, dont la
+> vue `app.fuser.studio` **jamais explorée** jusque-là. Celle-là **n'était pas sèche** :
+> **17 trouvailles mesurées** au CSS calculé sur **2 833 nœuds**, dont **6 procédés** que la charte
+> n'avait pas (famille E de la planche du décor). Deux angles restent d'ailleurs ouverts : le mode
+> **bureau** du Studio, capturé en cours de chargement, et l'ombre portée des cartes de son board.
 >
 > ⚠️ **Le miroir raw.githack met en cache.** Il suit la branche, mais un fichier
 > peut rester servi dans sa version précédente pendant un moment — sans rien qui le

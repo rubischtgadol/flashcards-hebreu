@@ -99,3 +99,59 @@ Deux garde-fous hérités, dont un seul est encore fondé :
 composé.** La référence garde son autorité sur les couleurs, la structure d'écran et les ornements
 — c'est de là qu'ils viennent, et ça ne bouge pas. Elle n'a simplement rien à dire sur le
 mouvement. Inutile de la repiloter pour ça.
+
+## Le mobilier décoratif — seconde passe du 2026-07-25 : **le gisement n'était PAS sec**
+
+⚠️ **À ne pas confondre avec la passe ci-dessus.** « Le gisement est sec » vaut pour le **mouvement**,
+et seulement pour lui : ce verdict tient, ne le rejouez pas. Une **seconde passe, d'objet différent**,
+a été demandée par le propriétaire le 2026-07-25 et a porté sur le **mobilier décoratif statique** —
+calques et matières de fond, traitements de bord et d'angle, SVG et glyphes ornementaux, ornements
+typographiques. Elle a **rendu**, et c'est le résultat qui corrige l'impression laissée par la
+conclusion précédente : *la référence n'avait plus rien à dire sur le mouvement, elle avait encore
+des choses à dire sur le décor.*
+
+Méthode : WebKit sur **les deux liens**, CSS calculé, **2 833 nœuds inspectés** (app 818 en mobile +
+818 en bureau ; studio 1 039 en mobile + 158 en bureau). **17 trouvailles mesurées** — 7 sur l'app
+déployée, 10 sur la vue Studio dont 3 exclusives à son mode mobile. Le chrome de l'hébergeur a été
+exclu (2 nœuds hôtes ; ses enfants sont invisibles à `querySelectorAll('*')`, vraisemblablement en
+Shadow DOM).
+
+**La vue `app.fuser.studio` n'avait jamais été explorée, et c'est elle qui a payé.** Découverte
+structurelle : elle a **deux modes distincts** — en mobile un canvas React Flow (un board de nœuds),
+en bureau une UI tout autre et beaucoup plus pauvre (158 nœuds contre 1 039).
+
+**Les six procédés neufs**, transposés dans `prototype-decor.html` (familles E), chacun avec sa
+valeur mesurée en commentaire à côté de sa transposition :
+
+| Procédé | Valeur mesurée | Où |
+|---|---|---|
+| **Passe-partout** | `outline: solid 24px oklch(0.145 0 0); outline-offset:-8px` | studio, grand panneau + badges 64×64 |
+| **Halo par arrière-plan** | `backdrop-filter: blur(40px) contrast(1.5) saturate(3)` | studio, `div.border-glow` |
+| **Grille de points** | `circle r≈0.0706` u. SVG, pas `2.824`, `fill rgb(145,145,154)`, calque `opacity:.4` | studio, fond du board |
+| **Bord gravé** | `box-shadow: oklch(0 0 0/.3) 0 0 2px inset, oklch(0 0 0/.1) 0 1px 0 inset` | studio, pilule d'action |
+| **Fondu de panneau** | `linear-gradient(<fond> 0%, transparent 100%)` en haut, inverse en bas | studio mobile, panneaux défilants |
+| **Jeu de glyphes** | `▸` ×10, `☾` 12px, `⌕` 13px ambre, `→` — **zéro `<svg>` sur toute l'app** | app déployée |
+
+Deux acquis de méthode, en plus :
+
+- **La référence n'utilise aucun `<svg>`** sur l'app déployée : ses icônes sont des **caractères**.
+  Cela explique après coup pourquoi la passe « mouvement » n'avait trouvé aucun SVG à animer.
+- **`font-variant-numeric: tabular-nums` est posé globalement** (mesuré sur 463 nœuds). Nos données
+  sont déjà en Share Tech Mono, donc chiffres à largeur fixe par construction — mais la règle vaut
+  d'être connue si un chiffre passe un jour en Saira Condensed.
+
+**Reconfirmé au passage, et sans conséquence** : le vignettage (`div.vignette`, dégradé radial noir
+aux bords) et le grain filmique (`div.noise`, `feTurbulence` en `mix-blend-mode:overlay`) sont bien
+là. Ce sont **exactement les deux calques refusés sur iPhone le 24/07**. Ils ne sont pas reproposés.
+
+⚠️ **Ce gisement n'est pas épuisé non plus** — deux limites de la passe, à savoir avant de la
+rejouer : le **mode bureau du Studio** a été capturé **en cours de chargement**, donc non stabilisé
+et non exploré à fond ; et **l'ombre portée des cartes du board** est visible à l'écran mais tous les
+`box-shadow`/`border`/`background` calculés du nœud racine sortent transparents — elle vient d'un
+élément interne qui n'a pas été isolé.
+
+**Huit absences nommées**, cherchées explicitement et non trouvées (un absent nommé vaut un
+présent) : `conic-gradient` (les deux pages), `mix-blend-mode` côté studio (0 ; 3 côté app, dont un
+seul neuf), `clip-path` visuellement actif (les 2 occurrences studio sont l'astuce `sr-only`),
+`border-image`, `writing-mode` vertical, petites capitales, `-webkit-text-stroke`, et `<svg>` sur
+l'app déployée.

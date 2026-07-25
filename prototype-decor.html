@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planche du décor v0.1 — Console d'étude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — identiques à prototype-nerv.html (source : SENTRY)
+   Ne pas « corriger » vers DESIGN.md : ce document est la charte v2,
+   DESIGN.md documente la v1. Les écarts sont voulus.
+   ================================================================ */
+:root{
+  --bg:      #05040A;
+  --panneau: #0A0814;
+  --grille:  #0F0C1C;
+  --ligne:   #7a5a14;
+  --ambre:   #f0b32a;
+  --vert:    #54ff8a;
+  --rouge:   #FF4747;
+  --orange:  #ff6a1f;
+  --lune:    #cfd6e6;
+
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+}
+
+/* ── LE REGISTRE, en jugement ici aussi ─────────────────────────
+   La règle « tout mouvement en steps() » (spec § 5) porte un
+   rectificatif : ses deux seules occurrences dans SENTRY sont les
+   deux calques rejetés sur iPhone. Le décor est le pire cas pour
+   elle — une rosace qui tourne par à-coups n'est pas une rosace qui
+   tourne. Le sélecteur bascule TOUTE la planche. */
+#banc[data-reg="steps"]  { --eL: steps(90); --eM: steps(32); --eS: steps(8);      --eB: steps(1); }
+#banc[data-reg="fluide"] { --eL: linear;    --eM: linear;    --eS: ease-in-out;   --eB: steps(1); }
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{
+  font-family:var(--cond);color:var(--ambre);background:#030208;
+  padding:32px 20px 90px;font-size:15px;line-height:1.45;
+}
+.galerie{max-width:1180px;margin:0 auto}
+.galerie>header{margin-bottom:20px}
+.galerie h1{
+  font-family:var(--mono);font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--vert);text-shadow:0 0 6px currentColor;
+}
+.meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+
+.section-titre{
+  font-family:var(--cond);font-weight:600;color:var(--ambre);
+  font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  margin:34px 0 6px;display:flex;align-items:center;gap:14px;
+}
+.section-titre .no{font-family:var(--mono);color:var(--vert);flex-shrink:0}
+.section-titre::after{content:'';flex:1;height:1px;background:var(--ligne)}
+.propos{font-size:.8rem;color:var(--lune);opacity:.75;max-width:66ch;margin-bottom:16px}
+.propos b{color:var(--ambre);font-weight:600;opacity:1}
+
+/* ---- la doctrine, en tête ---- */
+.constat{border:1px solid var(--ligne);background:rgba(10,8,20,.82);padding:16px 18px;margin-bottom:22px;position:relative}
+.constat .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.constat .coin.a{top:2px;left:4px}.constat .coin.b{bottom:2px;right:4px}
+.constat h2{
+  font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:10px;
+}
+.constat p{font-size:.82rem;color:var(--lune);opacity:.85;max-width:78ch;margin-bottom:9px}
+.constat p:last-child{margin-bottom:0}
+.constat b{color:var(--ambre);font-weight:600;opacity:1}
+.constat i{color:var(--lune)}
+.regle{
+  border-left:2px solid var(--vert);padding:8px 0 8px 14px;margin:12px 0;
+  font-size:.84rem;color:var(--lune);
+}
+.regle .nom{color:var(--vert);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;display:block;margin-bottom:4px;text-shadow:0 0 6px currentColor}
+.constat.avert{border-color:var(--rouge)}
+.constat.avert h2{color:var(--rouge)}
+
+/* ---- l'alarme de mouvement réduit ---- */
+.alarme{
+  border:1px solid var(--rouge);background:rgba(255,71,71,.07);
+  padding:15px 17px;margin-bottom:22px;
+}
+.alarme[hidden]{display:none}
+.alarme .titre{
+  font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--rouge);text-shadow:0 0 6px currentColor;margin-bottom:9px;
+}
+.alarme p{font-size:.82rem;color:var(--lune);max-width:76ch;margin-bottom:10px}
+.alarme p b{color:var(--ambre)}
+.alarme .comment{font-family:var(--mono);font-size:.74rem;color:var(--ambre);opacity:.85;margin-bottom:12px}
+
+/* ---- barre de commande ---- */
+.barre{
+  display:flex;gap:9px;align-items:center;flex-wrap:wrap;
+  border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne);
+  padding:12px 0;margin:0 0 8px;position:sticky;top:0;z-index:40;
+  background:#030208;
+}
+.barre .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;color:var(--lune)}
+.btn{
+  font-family:var(--cond);font-weight:600;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:8px 18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
+}
+.btn:hover{border-color:var(--ambre);text-shadow:0 0 6px currentColor}
+.btn.primaire{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor;box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06)}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+.compteur{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--lune);
+  margin-left:auto;white-space:nowrap;
+}
+.compteur b{color:var(--vert);text-shadow:0 0 6px currentColor}
+.compteur.charge b{color:var(--rouge)}
+
+/* l'interrupteur d'un ornement : allumé = vert + glow (état actif réel,
+   la règle de la lampe est respectée) */
+.inter{
+  font-family:var(--cond);font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;
+  padding:6px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2);
+}
+.inter .diode{width:7px;height:7px;border-radius:50%;background:var(--ligne);flex-shrink:0}
+.inter[aria-pressed="true"]{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor}
+.inter[aria-pressed="true"] .diode{background:var(--vert);box-shadow:0 0 6px var(--vert)}
+.btn:focus-visible,.inter:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+
+/* ---- fiche d'ornement ---- */
+.rangee{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;margin-bottom:12px}
+.fiche{width:340px;max-width:100%;flex:0 1 340px}
+.f-tete{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:3px}
+.f-nom{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ambre)}
+.f-nom .n{color:var(--vert)}
+.f-etiq{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0 8px}
+.et{
+  font-family:var(--cond);font-weight:600;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--ligne);border-radius:9999px;padding:2px 9px;color:var(--lune);
+}
+.et.i1{border-color:var(--ligne);color:var(--lune)}          /* discret */
+.et.i2{border-color:var(--ambre);color:var(--ambre)}         /* affirmé */
+.et.i3{border-color:var(--orange);color:var(--orange)}       /* spectaculaire */
+.et.surf{border-style:dashed;border-color:#3b4256;color:#8b93a6}
+.et.stat{border-color:var(--vert);color:var(--vert)}         /* survit au mouvement réduit */
+.f-note{font-size:.74rem;color:var(--lune);opacity:.72;margin-top:8px}
+.f-cout{font-family:var(--mono);font-size:.66rem;color:var(--ambre);opacity:.8;margin-top:6px}
+.f-cout::before{content:'coût ▸ ';color:var(--vert);opacity:.9}
+.f-reserve{
+  font-size:.72rem;color:var(--lune);margin-top:8px;
+  border-left:2px solid var(--rouge);padding:5px 0 5px 10px;
+}
+.f-reserve b{color:var(--rouge);text-transform:uppercase;letter-spacing:.1em;font-size:.62rem;display:block}
+
+/* ---- la vitrine : fond de charte commun à tous les ornements ---- */
+.vit{
+  background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 6px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 6px 100% no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+  border:1px solid var(--ligne);padding:16px 14px;min-height:212px;
+  position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;
+}
+.vit .viseur{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);z-index:6;line-height:1}
+.vit .viseur.tl{top:3px;left:5px}.vit .viseur.tr{top:3px;right:5px}
+.vit .viseur.bl{bottom:3px;left:5px}.vit .viseur.br{bottom:3px;right:5px}
+.vit>.plan{position:relative;z-index:3}
+
+/* composants de charte réutilisés dans les vitrines */
+.brand-he{font-family:var(--he);font-weight:900;font-size:2.1rem;direction:rtl;text-align:center;color:var(--ambre);text-shadow:0 0 12px rgba(240,179,42,.3)}
+.brand-sous{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;text-align:center;margin-top:4px}
+.mot-he{font-family:var(--he);font-weight:900;font-size:2.4rem;direction:rtl;text-align:center;color:var(--ambre);text-shadow:0 0 14px rgba(240,179,42,.28);line-height:1.25}
+.mot-fr{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lune);text-align:center;margin-top:6px;opacity:.8}
+.pilule{font-family:var(--cond);font-weight:600;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);border-radius:9999px;padding:2px 9px}
+.pilule.ok{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.4)}
+.statusbar{display:flex;justify-content:space-between;align-items:center;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ligne);padding-bottom:6px;margin-bottom:10px;position:relative;z-index:4}
+
+/* ================================================================
+   MOUVEMENT RÉDUIT — tout le décor s'éteint.
+   ⚠️ Le sélecteur DOIT couvrir les pseudo-éléments : `*` seul ne les
+   atteint pas. Défaut mesuré trois fois le 25/07 dans ce dépôt.
+   ================================================================ */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) *,
+  body:not(.force-anim) *::before,
+  body:not(.force-anim) *::after{animation:none !important;transition:none !important}
+}
+
+/* ================================================================
+   FAMILLE A ── LE CHÂSSIS
+   De quoi l'instrument est bâti. Tout est STATIQUE : survit au
+   mouvement réduit, ne coûte pas une image par seconde.
+   ================================================================ */
+
+/* 01 ── LA PLAQUE CONSTRUCTEUR ------------------------------------ */
+.plaque-zone{display:flex;flex-direction:column;gap:12px;align-items:center}
+.on-plaque .vit-plaque::before{           /* les rivets aux quatre angles */
+  content:'';position:absolute;inset:9px;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(circle at 0 0,      rgba(207,214,230,.30) 0 1.5px, rgba(5,4,10,.9) 1.6px 3px, transparent 3.2px),
+    radial-gradient(circle at 100% 0,   rgba(207,214,230,.30) 0 1.5px, rgba(5,4,10,.9) 1.6px 3px, transparent 3.2px),
+    radial-gradient(circle at 0 100%,   rgba(207,214,230,.30) 0 1.5px, rgba(5,4,10,.9) 1.6px 3px, transparent 3.2px),
+    radial-gradient(circle at 100% 100%,rgba(207,214,230,.30) 0 1.5px, rgba(5,4,10,.9) 1.6px 3px, transparent 3.2px);
+}
+.plaque{
+  border:1px solid var(--ligne);padding:7px 13px;background:rgba(207,214,230,.03);
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#8b93a6;text-align:center;line-height:1.7;
+  text-shadow:0 1px 0 rgba(0,0,0,.9);opacity:0;
+}
+.plaque .gr{color:var(--lune);letter-spacing:.22em}
+.on-plaque .plaque{opacity:1}
+.aeration{width:74px;height:22px;opacity:0;
+  background:repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.85) 2px 3px, rgba(207,214,230,.10) 3px 4px, transparent 4px 6px);
+  border:1px solid rgba(122,90,20,.55);
+}
+.on-plaque .aeration{opacity:1}
+
+/* 02 ── LE FILET DOUBLE, ANGLES BISEAUTÉS ------------------------- */
+.cadre-d{position:relative;padding:22px 20px}
+.cadre-d::before,.cadre-d::after{content:'';position:absolute;pointer-events:none;opacity:0}
+.cadre-d::before{inset:0;border:1px solid var(--ligne);
+  clip-path:polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px);}
+.cadre-d::after{inset:4px;border:1px solid rgba(122,90,20,.42);
+  clip-path:polygon(6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px),0 6px);}
+.on-cadre .cadre-d::before,.on-cadre .cadre-d::after{opacity:1}
+
+/* 03 ── LE RUBAN PERFORÉ ------------------------------------------ */
+.ruban{
+  position:absolute;left:-30%;right:-30%;top:50%;transform:translateY(-50%);
+  height:52px;z-index:2;opacity:0;
+  background:
+    /* les grandes perforations de données, sur cinq pistes */
+    radial-gradient(circle at 10px 12px, rgba(5,4,10,.96) 0 3px, transparent 3.4px),
+    radial-gradient(circle at 10px 22px, rgba(5,4,10,.96) 0 3px, transparent 3.4px),
+    radial-gradient(circle at 10px 40px, rgba(5,4,10,.96) 0 3px, transparent 3.4px),
+    /* la piste d'entraînement, petits trous réguliers */
+    radial-gradient(circle at 10px 31px, rgba(5,4,10,.96) 0 1.4px, transparent 1.7px),
+    linear-gradient(180deg, rgba(240,179,42,.13), rgba(240,179,42,.06));
+  background-size:20px 100%,20px 100%,20px 100%,20px 100%,100% 100%;
+  background-repeat:repeat-x,repeat-x,repeat-x,repeat-x,no-repeat;
+  border-top:1px solid rgba(122,90,20,.6);border-bottom:1px solid rgba(122,90,20,.6);
+}
+.on-ruban .ruban{opacity:1;animation:rubanAvance 9s var(--eL) infinite}
+@keyframes rubanAvance{ to{ background-position:-160px 0,-160px 0,-160px 0,-160px 0,0 0 } }
+
+/* ================================================================
+   FAMILLE B ── L'ALPHABET COMME ORNEMENT
+   L'hébreu employé comme matière décorative, pas comme texte à lire.
+   ⚠️ Tout nœud hébreu porte lang="he" (piège n°6 du dépôt).
+   ================================================================ */
+
+/* 04 ── LE MÉTIER À TISSER --------------------------------------- */
+.tissu{position:absolute;inset:0;z-index:1;overflow:hidden;opacity:0}
+.on-tissu .tissu{opacity:1}
+.tissu .trame{
+  position:absolute;top:0;bottom:0;left:0;width:200%;
+  display:flex;align-items:center;gap:0;
+  font-family:var(--he);font-weight:500;font-size:2.6rem;line-height:1;
+  color:rgba(240,179,42,.085);white-space:nowrap;letter-spacing:.14em;
+  direction:rtl;
+}
+.tissu .trame.b{
+  font-size:1.5rem;color:rgba(84,255,138,.06);top:auto;bottom:-4px;height:auto;
+  letter-spacing:.5em;
+}
+.on-tissu .trame.a{animation:tisse 64s var(--eL) infinite}
+.on-tissu .trame.b{animation:tisse 96s var(--eL) infinite reverse}
+@keyframes tisse{ to{ transform:translate3d(-50%,0,0) } }
+
+/* 05 ── LA ROSACE HÉBRAÏQUE -------------------------------------- */
+.rosace{
+  position:absolute;top:50%;left:50%;width:230px;height:230px;
+  transform:translate(-50%,-50%);z-index:1;opacity:0;
+}
+.on-rosace .rosace{opacity:1}
+.rosace .p{
+  position:absolute;top:50%;left:50%;width:0;height:0;
+  font-family:var(--he);font-weight:900;font-size:1.5rem;line-height:1;
+  color:rgba(240,179,42,.13);
+}
+.rosace .p>span{position:absolute;transform:translate(-50%,-104px)}
+.rosace .anneau{
+  position:absolute;inset:26px;border:1px solid rgba(122,90,20,.34);border-radius:50%;
+}
+.rosace .anneau.i{inset:66px;border-color:rgba(84,255,138,.14)}
+.rosace .anneau.e{inset:0;border-style:dashed;border-color:rgba(122,90,20,.22)}
+.on-rosace .rosace{animation:rosaceTourne 220s var(--eL) infinite}
+@keyframes rosaceTourne{ to{ transform:translate(-50%,-50%) rotate(360deg) } }
+
+/* 06 ── LE PLOTTER : LA LETTRE QUI SE DESSINE -------------------- */
+.plotter{position:relative;z-index:3;display:flex;justify-content:center;align-items:center;min-height:150px}
+.plotter svg{width:132px;height:132px;overflow:visible}
+.plotter path{
+  fill:none;stroke:var(--ambre);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 5px rgba(240,179,42,.5));
+  stroke-dasharray:var(--len,320);stroke-dashoffset:var(--len,320);opacity:.25;
+}
+.on-plotter .plotter path{opacity:1;animation:plume 7s var(--eM) infinite}
+@keyframes plume{
+  0%   { stroke-dashoffset:var(--len,320) }
+  46%  { stroke-dashoffset:0 }
+  86%  { stroke-dashoffset:0 }
+  100% { stroke-dashoffset:calc(var(--len,320) * -1) }
+}
+.plotter .tete{                            /* la tête du traceur */
+  position:absolute;width:5px;height:5px;border-radius:50%;
+  background:var(--vert);box-shadow:0 0 8px var(--vert);opacity:0;
+}
+.on-plotter .plotter .tete{opacity:.9;offset-path:path('M 26 106 L 66 22 L 106 106');offset-distance:0;animation:tetePlume 7s var(--eM) infinite}
+@keyframes tetePlume{ 0%{offset-distance:0%} 46%{offset-distance:100%} 100%{offset-distance:100%} }
+
+/* 07 ── LA PLUIE DE CARACTÈRES (en gouttière) -------------------- */
+.gouttiere{
+  position:absolute;top:0;bottom:0;right:0;width:44px;z-index:1;overflow:hidden;opacity:0;
+  border-left:1px solid rgba(122,90,20,.3);
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 22%,#000 74%,transparent);
+          mask-image:linear-gradient(180deg,transparent,#000 22%,#000 74%,transparent);
+}
+.on-pluie .gouttiere{opacity:1}
+.gouttiere .col{
+  position:absolute;top:-100%;width:100%;text-align:center;
+  font-family:var(--he);font-weight:500;font-size:1.05rem;line-height:1.75;
+  color:rgba(84,255,138,.30);
+}
+.gouttiere .col.d{right:0;color:rgba(240,179,42,.17);font-size:.85rem}
+.on-pluie .col.c{animation:chute 22s var(--eL) infinite}
+.on-pluie .col.d{animation:chute 34s var(--eL) infinite}
+@keyframes chute{ to{ transform:translate3d(0,200%,0) } }
+
+/* ================================================================
+   FAMILLE C ── LES INSTRUMENTS QUI NE MESURENT RIEN
+   De la fausse instrumentation : elle a l'air de lire quelque chose,
+   elle ne lit rien. C'est là que le décor frôle le signal — chaque
+   fiche porte sa réserve.
+   ================================================================ */
+
+/* 08 ── L'OSCILLOSCOPE : L'ONDE PORTEUSE ------------------------- */
+.oscillo{
+  position:relative;z-index:3;height:96px;border:1px solid rgba(122,90,20,.55);
+  background:rgba(5,4,10,.55);overflow:hidden;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 15px, rgba(122,90,20,.16) 15px 16px),
+    repeating-linear-gradient(90deg, transparent 0 15px, rgba(122,90,20,.16) 15px 16px);
+}
+.oscillo svg{position:absolute;top:0;left:0;height:100%;width:300%;opacity:0}
+.on-oscillo .oscillo svg{opacity:1;animation:porteuse 11s var(--eL) infinite}
+.oscillo path{fill:none;stroke:var(--vert);stroke-width:1.6;filter:drop-shadow(0 0 4px rgba(84,255,138,.75))}
+@keyframes porteuse{ to{ transform:translate3d(-33.3333%,0,0) } }
+.oscillo .axe{position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(84,255,138,.13);z-index:2}
+.oscillo .lab{
+  position:absolute;bottom:3px;right:5px;z-index:3;
+  font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;color:rgba(84,255,138,.5);
+}
+
+/* 09 ── LA GUÉMATRIE EN MARGE ------------------------------------ */
+.gem{
+  position:absolute;top:12px;bottom:12px;left:10px;width:52px;z-index:3;opacity:0;
+  border-left:1px solid rgba(122,90,20,.5);padding-left:7px;
+  font-family:var(--mono);font-size:.6rem;line-height:1.85;color:rgba(240,179,42,.55);
+  display:flex;flex-direction:column;justify-content:center;gap:1px;
+}
+.on-gem .gem{opacity:1}
+.gem .l{display:flex;justify-content:space-between;gap:4px;white-space:nowrap}
+.gem .l .g{font-family:var(--he);font-weight:500;color:rgba(207,214,230,.5);font-size:.78rem;line-height:1}
+.gem .tot{
+  margin-top:5px;padding-top:4px;border-top:1px solid rgba(122,90,20,.5);
+  color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.5);letter-spacing:.06em;
+}
+.on-gem .gem .tot{animation:gematrieDefile 6.5s var(--eB) infinite}
+@keyframes gematrieDefile{ 0%,88%{opacity:1} 92%{opacity:.32} 96%{opacity:1} }
+
+/* 10 ── LES DIODES DE FAÇADE ------------------------------------- */
+.facade{
+  position:absolute;left:14px;right:14px;bottom:9px;z-index:4;
+  display:flex;gap:6px;align-items:center;opacity:0;
+}
+.on-diodes .facade{opacity:1}
+.facade .d{
+  width:5px;height:5px;border-radius:50%;background:rgba(207,214,230,.14);
+  box-shadow:inset 0 0 2px rgba(0,0,0,.8);flex-shrink:0;
+}
+.facade .cart{
+  margin-left:auto;font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;
+  color:rgba(207,214,230,.3);text-transform:uppercase;
+}
+/* Volontairement PAS d'or : l'or plein reste réservé à la lampe. Ces
+   diodes vivent en gris-lune — elles disent « allumé », pas « regarde ». */
+.on-diodes .facade .d{animation:diodeVeille 7s var(--eS) infinite}
+.on-diodes .facade .d:nth-child(2){animation-duration:9s;animation-delay:-1.4s}
+.on-diodes .facade .d:nth-child(3){animation-duration:11s;animation-delay:-3.1s}
+.on-diodes .facade .d:nth-child(4){animation-duration:8s;animation-delay:-5.2s}
+.on-diodes .facade .d:nth-child(5){animation-duration:13s;animation-delay:-2.3s}
+.on-diodes .facade .d:nth-child(6){animation-duration:10s;animation-delay:-6.6s}
+@keyframes diodeVeille{
+  0%,100%{ background:rgba(207,214,230,.14); box-shadow:inset 0 0 2px rgba(0,0,0,.8) }
+  50%    { background:rgba(207,214,230,.52); box-shadow:0 0 5px rgba(207,214,230,.4) }
+}
+
+/* ================================================================
+   FAMILLE D ── LA PROFONDEUR
+   Le grand geste. ⚠️ Chacun est ENCADRÉ dans un objet nommé : aucun
+   ne teinte ni ne fait vibrer la surface entière. C'est la condition
+   qui les distingue des trois calques CRT rejetés sur l'appareil.
+   ================================================================ */
+
+/* 11 ── LE TERRAIN FILAIRE -------------------------------------- */
+.terrain{
+  position:absolute;inset:0;z-index:1;overflow:hidden;opacity:0;
+  -webkit-mask-image:linear-gradient(180deg,transparent 34%,#000 72%);
+          mask-image:linear-gradient(180deg,transparent 34%,#000 72%);
+  perspective:150px;perspective-origin:50% 0%;
+}
+.on-terrain .terrain{opacity:1}
+.terrain .sol{
+  position:absolute;left:-60%;right:-60%;bottom:-30%;height:320%;
+  transform:rotateX(76deg);transform-origin:50% 100%;
+  background:
+    repeating-linear-gradient(90deg, rgba(240,179,42,.34) 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(0deg,  rgba(240,179,42,.30) 0 1px, transparent 1px 44px);
+}
+.on-terrain .terrain .sol{animation:terrainFuit 5.5s var(--eL) infinite}
+@keyframes terrainFuit{ to{ background-position:0 44px, 0 44px } }
+.terrain .horizon{
+  position:absolute;left:0;right:0;top:34%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(84,255,138,.55),transparent);
+  box-shadow:0 0 8px rgba(84,255,138,.35);
+}
+
+/* 12 ── LE GLOBE FILAIRE (l'astrolabe) -------------------------- */
+.globe-cage{
+  position:absolute;top:50%;left:50%;width:158px;height:158px;
+  transform:translate(-50%,-50%);z-index:1;opacity:0;
+  transform-style:preserve-3d;
+}
+.on-globe .globe-cage{opacity:1;animation:globeTourne 46s var(--eL) infinite}
+@keyframes globeTourne{ to{ transform:translate(-50%,-50%) rotateY(360deg) } }
+.globe-cage .mer{                          /* les méridiens */
+  position:absolute;inset:0;border:1px solid rgba(240,179,42,.24);border-radius:50%;
+  transform-style:preserve-3d;
+}
+.globe-cage .mer:nth-child(1){transform:rotateY(0deg)}
+.globe-cage .mer:nth-child(2){transform:rotateY(30deg)}
+.globe-cage .mer:nth-child(3){transform:rotateY(60deg)}
+.globe-cage .mer:nth-child(4){transform:rotateY(90deg);border-color:rgba(84,255,138,.26)}
+.globe-cage .mer:nth-child(5){transform:rotateY(120deg)}
+.globe-cage .mer:nth-child(6){transform:rotateY(150deg)}
+.globe-cage .par{                          /* deux parallèles */
+  position:absolute;left:0;right:0;height:0;border-top:1px solid rgba(122,90,20,.5);
+  border-radius:50%;
+}
+.globe-cage .par.h{top:30%;transform:scaleX(.86)}
+.globe-cage .par.b{top:70%;transform:scaleX(.86)}
+.globe-cage .par.eq{top:50%;border-top-color:rgba(84,255,138,.3)}
+
+/* ================================================================
+   FAMILLE E ── LES SIX PROCÉDÉS PRÉLEVÉS  (passe du 2026-07-25)
+   Les seuls ornements de cette planche qui ne sont PAS composés.
+   Chaque valeur commentée est la valeur MESURÉE au CSS calculé sur
+   la référence ; la valeur appliquée est sa transposition dans nos
+   jetons. Tous les six sont STATIQUES.
+   ================================================================ */
+
+/* 13 ── LE PASSE-PARTOUT ----------------------------------------
+   mesuré (studio) : outline: solid 24px oklch(0.145 0 0);
+                     outline-offset: -8px
+   Le liseré épais est un OUTLINE à décalage négatif, pas une bordure :
+   il mord vers l'intérieur sans changer la boîte. ⚠️ ne jamais animer
+   via `transition:all` — le raccourci capture les longhands d'outline
+   et WebKit rend alors son propre anneau (piège n°2 du dépôt). */
+.passe-cible{position:relative;border-radius:18px;outline:solid 0 var(--bg);outline-offset:-8px}
+.on-passe .passe-cible{outline-width:20px}
+
+/* 14 ── LE HALO PAR ARRIÈRE-PLAN --------------------------------
+   mesuré (studio) : backdrop-filter: blur(40px) contrast(1.5) saturate(3)
+   Le halo ne vient PAS d'une ombre ni d'un dégradé : c'est le fond
+   lui-même, flouté et saturé. Procédé absent de la charte, et
+   différent du module 06 (halo lunaire, dégradé radial). */
+.halo-scene{position:absolute;inset:0;z-index:1;overflow:hidden}
+.halo-scene .tache{position:absolute;width:130px;height:130px;border-radius:50%;filter:blur(2px);opacity:0}
+.halo-scene .tache.a{background:rgba(240,179,42,.5);top:-26px;left:14px}
+.halo-scene .tache.b{background:rgba(84,255,138,.38);bottom:-30px;right:8px}
+.halo-scene .tache.c{background:rgba(255,106,31,.3);top:44%;left:46%}
+.on-halob .halo-scene .tache{opacity:1}
+.halo-verre{
+  position:relative;z-index:3;padding:18px 16px;border:1px solid var(--ligne);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+.on-halob .halo-verre{
+  -webkit-backdrop-filter:blur(40px) contrast(1.5) saturate(3);
+          backdrop-filter:blur(40px) contrast(1.5) saturate(3);
+}
+
+/* 15 ── LA GRILLE DE POINTS -------------------------------------
+   mesuré (studio, les deux modes) :
+     svg.react-flow__background > pattern > circle
+     r ≈ 0.0706 unités SVG · pas 2.824 · fill rgb(145,145,154)
+     svg { opacity: 0.4 }
+   Soit un rapport rayon/pas de ~1/40, à 40 % d'opacité. Notre charte
+   emploie une grille de LIGNES à 32 px ; celle-ci est une alternative,
+   pas un cumul — les deux ensemble font un quadrillage sale. */
+.vit-points{position:relative}
+/* ⚠️ PAS d'espace : le JS pose `on-points` sur le .vit lui-même, donc sur le
+   MÊME nœud que .vit-points. Écrit en descendant, ce sélecteur ne matche
+   jamais — l'interrupteur commutait sans rien changer (relevé en WebKit). */
+.vit-points.on-points::before{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(circle, rgba(145,145,154,.85) 0 0.8px, transparent 0.9px);
+  background-size:32px 32px;opacity:.4;
+}
+
+/* 16 ── LE BORD GRAVÉ -------------------------------------------
+   mesuré (studio, pilule « Remix ») :
+     box-shadow: oklch(0 0 0/.3) 0 0 2px 0 inset,
+                 oklch(0 0 0/.1) 0 1px 0 inset
+   Deux ombres INTERNES : un liseré sombre tout autour, puis un filet
+   d'un pixel en haut. C'est ce qui donne le bord « gravé » d'une
+   touche moulée. À poser sur nos pilules et nos portes. */
+.on-grave .grave-cible{
+  box-shadow:inset 0 0 2px rgba(0,0,0,.30), inset 0 1px 0 rgba(0,0,0,.10);
+}
+
+/* 17 ── LE FONDU DE PANNEAU -------------------------------------
+   mesuré (studio mobile) : div.absolute.-top-px  →
+     background-image: linear-gradient(<fond> 0%, transparent 100%)
+   et l'inverse en bas. Le contenu s'estompe aux deux bords du panneau
+   au lieu d'être coupé net. Transposé sur notre --bg. */
+.panneau-defile{
+  position:relative;z-index:3;height:104px;overflow:hidden;
+  border:1px solid var(--ligne);background:rgba(10,8,20,.5);padding:8px 12px;
+  font-family:var(--mono);font-size:.64rem;line-height:1.9;color:var(--ambre);
+}
+.panneau-defile .l::before{content:'▸ ';color:var(--vert)}
+.panneau-defile::before,.panneau-defile::after{
+  content:'';position:absolute;left:0;right:0;height:26px;z-index:4;pointer-events:none;opacity:0;
+}
+.panneau-defile::before{top:0;background-image:linear-gradient(var(--bg) 0%,transparent 100%)}
+.panneau-defile::after{bottom:0;background-image:linear-gradient(0deg,var(--bg) 0%,transparent 100%)}
+.on-fondu .panneau-defile::before,.on-fondu .panneau-defile::after{opacity:1}
+
+/* 18 ── LE JEU DE GLYPHES ---------------------------------------
+   mesuré (app déployée) : ▸ ×10 (séparateur) · ☾ 12px · ⌕ 13px ambre
+   avec .glow-text · → . Zéro <svg> sur toute l'app déployée : les
+   icônes y sont des CARACTÈRES. Nous employions déjà ▸ ; les trois
+   autres sont neufs et gratuits (aucun fichier, aucun poids). */
+.glyphes{display:flex;gap:0;flex-wrap:wrap;justify-content:center;position:relative;z-index:3}
+.glyphes .g{
+  flex:1 1 64px;text-align:center;padding:9px 4px;border:1px solid transparent;
+  font-family:var(--mono);color:var(--lune);opacity:.3;
+}
+.glyphes .g .s{display:block;font-size:1.25rem;line-height:1.4}
+.glyphes .g .n{display:block;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.on-glyphes .glyphes .g{
+  opacity:1;border-color:rgba(122,90,20,.35);color:var(--ambre);
+  text-shadow:0 0 6px rgba(240,179,42,.55);
+}
+.on-glyphes .glyphes .g.vert{color:var(--vert);text-shadow:0 0 6px rgba(84,255,138,.55)}
+
+/* ================================================================
+   LA SCÈNE CUMULÉE
+   Dix-huit ornements irréprochables un par un peuvent faire un écran
+   qui grouille. C'est ici que ça se voit, et nulle part ailleurs.
+   ================================================================ */
+.scene{
+  position:relative;overflow:hidden;border:1px solid var(--ligne);
+  min-height:520px;padding:0;
+  background:
+    repeating-linear-gradient(90deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 100% 7px no-repeat,
+    repeating-linear-gradient(0deg, rgba(122,90,20,.5) 0 1px, transparent 1px 12px) left top / 7px 100% no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px),
+    var(--bg);
+}
+.scene .dedans{position:relative;z-index:5;padding:26px 30px 46px;display:flex;flex-direction:column;min-height:520px}
+.scene .viseur{position:absolute;font-family:var(--mono);font-size:12px;color:var(--ligne);z-index:6;line-height:1}
+.scene .viseur.tl{top:4px;left:6px}.scene .viseur.tr{top:4px;right:6px}
+.scene .viseur.bl{bottom:4px;left:6px}.scene .viseur.br{bottom:4px;right:6px}
+.scene .marque{margin:auto 0;text-align:center}
+.scene .brand-he{font-size:3.2rem}
+.scene .portes{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.scene .porte{
+  border:1px solid var(--ligne);padding:13px 20px;min-width:132px;text-align:center;
+  background:rgba(10,8,20,.55);
+}
+.scene .porte .t{font-family:var(--cond);font-weight:600;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre)}
+.scene .porte .s{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;color:var(--lune);opacity:.6;margin-top:3px}
+/* la grille de points, sur la scène, remplace la trame de lignes du fond */
+.scene.on-points::before{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(circle, rgba(145,145,154,.85) 0 0.8px, transparent 0.9px);
+  background-size:32px 32px;opacity:.4;
+}
+/* les taches du halo par arrière-plan, à l'échelle de la scène */
+.scene .halo-scene .tache{width:260px;height:260px}
+.scene .halo-scene .tache.a{top:-70px;left:8%}
+.scene .halo-scene .tache.b{bottom:-90px;right:6%}
+.scene .halo-scene .tache.c{top:38%;left:44%}
+.scene .halo-verre{border-color:transparent;padding:14px 18px}
+.scene .panneau-defile{position:absolute;left:24px;bottom:60px;width:min(230px,42%);z-index:5;height:88px}
+.scene .glyphes{flex:0 0 auto;gap:2px}
+.scene .glyphes .g{flex:0 0 auto;padding:2px 7px}
+.scene .glyphes .g .s{font-size:.95rem;line-height:1.2}
+.scene .glyphes .g .n{display:none}
+
+/* dans la scène, les ornements de marge se placent autrement */
+.scene .gem{left:16px;width:56px}
+.scene .facade{left:20px;right:20px;bottom:14px}
+.scene .rosace{width:300px;height:300px}
+.scene .globe-cage{width:210px;height:210px}
+.scene .oscillo{
+  position:absolute;left:50%;bottom:52px;transform:translateX(-50%);
+  width:min(340px,72%);height:70px;z-index:5;
+}
+.scene .plotter{position:absolute;right:64px;top:26px;min-height:0;z-index:5}
+.scene .plotter svg{width:86px;height:86px}
+.scene .ruban{top:auto;bottom:0;transform:none;height:44px}
+
+.legende{
+  display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.64rem;
+  letter-spacing:.1em;color:var(--lune);opacity:.7;margin:12px 0 0;
+}
+.legende span::before{content:'■ ';}
+.legende .i1::before{color:#8b93a6}
+.legende .i2::before{color:var(--ambre)}
+.legende .i3::before{color:var(--orange)}
+.legende .st::before{color:var(--vert)}
+
+.pied{
+  margin-top:40px;border-top:1px solid var(--ligne);padding-top:16px;
+  font-size:.78rem;color:var(--lune);opacity:.8;max-width:80ch;
+}
+.pied b{color:var(--ambre)}
+.pied .titre{font-family:var(--cond);font-weight:600;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:9px}
+.pied ol{margin:8px 0 0 20px}
+.pied li{margin-bottom:5px}
+
+@media (max-width:560px){
+  body{padding:22px 13px 80px}
+  .fiche{flex:1 1 100%;width:100%}
+  .galerie h1{font-size:1.25rem;letter-spacing:.16em}
+  .scene .plotter{display:none}
+}
+</style>
+</head>
+<body>
+<div class="galerie" id="banc" data-reg="fluide">
+
+<header>
+  <h1>Planche du décor</h1>
+  <div class="meta-ligne">v0.1 — 18 ornements gratuits · 5 familles · charte v2 « la console d'étude »</div>
+</header>
+
+<!-- ═══════════ L'ALARME DE MOUVEMENT RÉDUIT ═══════════ -->
+<div class="alarme" id="alarme" hidden>
+  <div class="titre">⚠ ton appareil demande de réduire les animations</div>
+  <p>Cette page est <b>neutralisée</b> : tout ce qui bouge ci-dessous est à l'arrêt, et les
+  ornements animés te paraîtront vides ou immobiles. Ce n'est pas un bug de la planche, c'est elle
+  qui obéit. Le 25/07, une planche d'animations n'a rien joué chez toi pour cette raison exacte —
+  le fichier était pourtant byte-identique.</p>
+  <div class="comment">réglages ▸ accessibilité ▸ mouvement ▸ réduire les animations</div>
+  <button class="btn primaire" id="forcer">▶ Animer quand même, sur cette page</button>
+</div>
+
+<!-- ═══════════ LA DOCTRINE ═══════════ -->
+<div class="constat">
+  <span class="coin a">+</span><span class="coin b">+</span>
+  <h2>Ce que cette planche demande à la charte</h2>
+  <p>Les trois planches précédentes traitaient du mouvement <b>qui veut dire quelque chose</b>
+  (<i>prototype-mouvement</i>, les 9 moments), du mouvement <b>qui dit qu'on est allumé</b>
+  (<i>prototype-ame</i>, l'ambiant) et des <b>ornements de contenu</b> (<i>prototype-parures</i>,
+  les 13 parures). Celle-ci demande autre chose, et c'est la demande la plus difficile à justifier
+  par la charte : du décor <b>entièrement gratuit</b>, qui n'a aucun rapport avec l'étude, et dont
+  la seule fonction est que le site soit beau.</p>
+  <p>La <b>règle de la lampe</b> l'interdit, prise au mot — elle exige que ce qui s'allume signale
+  quelque chose. La <b>règle de la veilleuse</b> (spec § 5 bis, non arbitrée) ouvrait déjà une
+  brèche : la vie ambiante ne signale rien, elle distingue un instrument allumé d'un instrument
+  débranché. Le décor va plus loin encore, et mérite d'être nommé pour ce qu'il est.</p>
+  <div class="regle">
+    <span class="nom">Ce qui est proposé — la règle du mobilier</span>
+    Une console n'est pas faite que de voyants : elle a un <b>châssis</b>, des rivets, une plaque
+    gravée, une grille d'aération. Rien de tout cela ne mesure quoi que ce soit, et personne n'a
+    jamais reproché à un instrument d'avoir un beau boîtier. Le mobilier est admis parce qu'il dit
+    <b>de quoi l'objet est fait</b> — pas ce qu'il est en train de faire.
+  </div>
+  <p><b>Le garde-fou, tenu sur les douze.</b> Aucun ornement de cette planche ne teinte, ne voile ni
+  ne fait vibrer la surface entière : chacun porte sur un <b>objet nommé et encadré</b>. C'est la
+  condition qui les sépare des trois calques CRT — bruit, vignettage, scintillement — refusés sur
+  ton iPhone le 24/07 <b>jusqu'à leur cran minimal</b>. Ce verdict n'est pas rouvert ici, il est
+  respecté : c'est précisément pourquoi le terrain filaire et le globe, qui sont les deux gestes les
+  plus voyants, vivent dans une fenêtre et pas sur le fond de l'écran.</p>
+  <p>Tout s'arrête sous <span style="font-family:var(--mono)">prefers-reduced-motion</span>,
+  <b>pseudo-éléments compris</b> — le sélecteur est <span style="font-family:var(--mono)">*,*::before,*::after</span>,
+  parce que <span style="font-family:var(--mono)">*</span> seul ne les atteint pas. Ce défaut a été
+  mesuré trois fois dans ce dépôt le même jour.</p>
+</div>
+
+<div class="constat avert">
+  <span class="coin a">+</span><span class="coin b">+</span>
+  <h2>⚠ Ce que SENTRY n'a pas fourni, et ce que ça change</h2>
+  <p>Le prélèvement du mouvement sur la référence a eu lieu le 25/07 et son résultat est
+  <b>négatif et acquis</b> : trois <span style="font-family:var(--mono)">@keyframes</span> en tout,
+  dont deux sont les calques déjà rejetés sur ton appareil et le troisième est du code mort jamais
+  monté dans le DOM. <b>Le mouvement de la charte ne peut donc pas être prélevé — il est composé.</b>
+  Les ornements des <b>familles A à D</b> sont de la composition, tenue dans le vocabulaire visuel de
+  la référence (ses jetons, sa grille 32 px, ses graduations, ses croix de visée, ses coins coupés),
+  mais <b>aucun n'existe chez elle</b>. Dire le contraire serait une fausse provenance, et cette
+  planche ne le dira pas.</p>
+  <p><b>La famille E est d'un autre statut, et c'est la nouveauté du jour.</b> Une passe a été
+  relancée le 2026-07-25 sur les <b>deux</b> liens du dépôt — dont la vue
+  <i>app.fuser.studio</i>, <b>jamais explorée jusqu'ici</b>. Elle a rendu <b>17 trouvailles mesurées
+  au CSS calculé</b> sur 2 833 nœuds, et six d'entre elles sont des <b>procédés</b> que la charte
+  n'avait pas. Ces six-là ne sont pas composées : elles sont <b>prélevées</b>, et leur fiche porte la
+  valeur exacte mesurée. La passe a aussi reconfirmé le vignettage et le grain filmique — c'est-à-dire
+  exactement les deux calques que tu as refusés sur l'appareil ; ils ne sont pas reproposés.</p>
+  <p>Ce qui est <b>repêché</b> du fonds propre du dépôt : quelques ornements prolongent des modules
+  écartés « pour l'instant » de <i>prototype-effets.html</i> — la fiche le dit quand c'est le cas.
+  ⚠️ Deux limites honnêtes de la passe : la vue Studio en <b>mode bureau</b> a été capturée en cours
+  de chargement, donc non stabilisée, et l'ombre portée des cartes du board n'a pas pu être isolée.
+  Ce n'est pas un gisement épuisé.</p>
+</div>
+
+<!-- ═══════════ BARRE DE COMMANDE ═══════════ -->
+<div class="barre">
+  <span class="lab">registre</span>
+  <button class="btn" id="reg-steps">steps()</button>
+  <button class="btn primaire" id="reg-fluide">fluide</button>
+  <span class="lab" style="margin-left:12px">tout</span>
+  <button class="btn" id="tout-on">allumer</button>
+  <button class="btn danger" id="tout-off">couper</button>
+  <span class="compteur" id="compteur">animations actives ▸ <b>0</b></span>
+</div>
+<div class="legende">
+  <span class="i1">discret</span>
+  <span class="i2">affirmé</span>
+  <span class="i3">spectaculaire</span>
+  <span class="st">statique — survit au mouvement réduit</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FAMILLE A — LE CHÂSSIS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="section-titre"><span class="no">A</span> Le châssis — de quoi l'instrument est bâti</div>
+<p class="propos">Les trois ornements de cette famille sont <b>statiques</b>. Ils survivent au
+mouvement réduit, ne coûtent pas une image par seconde, et sont les seuls qui pourraient partir sur
+les surfaces déployées <b>sans attendre</b> le portage de la charte v2. C'est la famille la moins
+spectaculaire et la plus sûre.</p>
+
+<div class="rangee">
+
+  <!-- 01 -->
+  <div class="fiche" data-orn="plaque">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">01</span> — La plaque constructeur</span>
+      <button class="inter" data-cible="plaque" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span><span class="et stat">statique</span>
+      <span class="et surf">portail</span><span class="et surf">app · réglages</span>
+    </div>
+    <div class="vit vit-plaque">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan plaque-zone">
+        <div class="plaque">
+          <span class="gr">console d'étude</span><br>
+          mod. HE·2 — série 001<br>
+          ○ ○ ○ ○ ○ ○ ○ ○
+        </div>
+        <div class="aeration"></div>
+      </div>
+    </div>
+    <div class="f-note">Des rivets aux quatre angles du panneau, une plaque gravée en creux, une
+    grille d'aération. Le boîtier de l'instrument, rendu visible.</div>
+    <div class="f-cout">3 pseudo-éléments, zéro JS, zéro contenu</div>
+  </div>
+
+  <!-- 02 -->
+  <div class="fiche" data-orn="cadre">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">02</span> — Le filet double</span>
+      <button class="inter" data-cible="cadre" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span><span class="et stat">statique</span>
+      <span class="et surf">carnet</span><span class="et surf">portail</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan cadre-d">
+        <div class="mot-he" lang="he">שָׁלוֹם</div>
+        <div class="mot-fr">paix · salut</div>
+      </div>
+    </div>
+    <div class="f-note">Deux filets concentriques, angles biseautés au <span style="font-family:var(--mono)">clip-path</span>.
+    L'ornement typographique de l'imprimeur, transposé à la console. C'est celui qui irait
+    <b>tout de suite</b> sur les sections du carnet.</div>
+    <div class="f-cout">2 pseudo-éléments par bloc, zéro JS</div>
+  </div>
+
+  <!-- 03 -->
+  <div class="fiche" data-orn="ruban">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">03</span> — Le ruban perforé</span>
+      <button class="inter" data-cible="ruban" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i2">affirmé</span>
+      <span class="et surf">portail · pied</span><span class="et surf">carnet · séparateurs</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="ruban"></div>
+      <div class="plan" style="text-align:center;position:relative;z-index:4">
+        <span class="pilule ok">bande d'entraînement</span>
+      </div>
+    </div>
+    <div class="f-note">Une bande de papier perforé qui avance très lentement — cinq pistes de
+    données, une piste d'entraînement. Le média de l'ordinateur d'avant l'écran.</div>
+    <div class="f-cout">1 élément, 5 dégradés, 1 keyframe (9 s)</div>
+    <div class="f-reserve"><b>à surveiller</b>Statique, c'est un ornement franc ; animé, c'est du
+    mouvement périphérique permanent. Le cran « statique seulement » est un verdict légitime.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FAMILLE B — L'ALPHABET COMME ORNEMENT
+     ═══════════════════════════════════════════════════════════ -->
+<div class="section-titre"><span class="no">B</span> L'alphabet comme ornement</div>
+<p class="propos">L'hébreu employé comme <b>matière décorative</b> et non comme texte à lire — la
+seule famille dont le décor est propre à ce projet et intransposable à n'importe quelle autre app.
+⚠️ Elle porte aussi le risque le plus net : de l'hébreu illisible en fond, sur un outil
+d'apprentissage de l'hébreu, peut se lire comme du bruit là où on vient chercher de la clarté.</p>
+
+<div class="rangee">
+
+  <!-- 04 -->
+  <div class="fiche" data-orn="tissu">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">04</span> — Le métier à tisser</span>
+      <button class="inter" data-cible="tissu" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i2">affirmé</span>
+      <span class="et surf">portail</span><span class="et surf">carnet · en-têtes</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="tissu">
+        <div class="trame a" lang="he">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</div>
+        <div class="trame b" lang="he">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</div>
+      </div>
+      <div class="plan" style="text-align:center">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">console d'étude</div>
+      </div>
+    </div>
+    <div class="f-note">Deux trames d'alphabet à contresens, très sourdes (8,5 % et 6 %), dérive de
+    64 s et 96 s. Un tissu, pas un texte : à cette opacité on lit une matière.</div>
+    <div class="f-cout">2 éléments, 1 keyframe, zéro contenu</div>
+  </div>
+
+  <!-- 05 -->
+  <div class="fiche" data-orn="rosace">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">05</span> — La rosace hébraïque</span>
+      <button class="inter" data-cible="rosace" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i2">affirmé</span>
+      <span class="et surf">portail</span><span class="et surf">app · bilan</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="rosace" id="rosace-1">
+        <div class="anneau e"></div><div class="anneau"></div><div class="anneau i"></div>
+      </div>
+      <div class="plan" style="text-align:center">
+        <div class="brand-he" lang="he">אוֹר</div>
+        <div class="brand-sous">lumière</div>
+      </div>
+    </div>
+    <div class="f-note">Vingt-deux lettres en symétrie radiale, sur trois anneaux — dont un en
+    pointillé. Rotation de 220 s : à l'œil, c'est immobile ; sur une minute, ça a bougé.</div>
+    <div class="f-cout">22 nœuds générés en JS, 1 keyframe (220 s)</div>
+    <div class="f-reserve"><b>réserve</b>Une rosace est une forme de vitrail. Si l'association
+    religieuse n'est pas voulue, elle se corrige en gardant les anneaux et en remplaçant les lettres
+    par des graduations — dis-le et je le fais.</div>
+  </div>
+
+  <!-- 06 -->
+  <div class="fiche" data-orn="plotter">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">06</span> — Le plotter</span>
+      <button class="inter" data-cible="plotter" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i3">spectaculaire</span>
+      <span class="et surf">portail · vitrine</span><span class="et surf">app · écran vide</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan plotter">
+        <svg viewBox="0 0 132 132" aria-hidden="true">
+          <path style="--len:250" d="M 26 106 L 66 22 L 106 106"></path>
+          <path style="--len:84"  d="M 44 70 L 88 70"></path>
+        </svg>
+        <span class="tete"></span>
+      </div>
+    </div>
+    <div class="f-note">Une lettre qui <b>se dessine</b>, trait par trait, une tête de traceur qui
+    suit la plume, puis l'effacement et ça reprend. C'est le geste le plus séduisant de la planche —
+    et il enseigne le tracé sans rien demander.</div>
+    <div class="f-cout">SVG + 2 keyframes — <b>et un vrai coût de contenu</b></div>
+    <div class="f-reserve"><b>coût réel, à trancher</b>La démo ci-contre est un
+    <b><span lang="he">א</span> schématique en deux traits</b>, pas la lettre de Frank Ruhl Libre. Du vrai tracé calligraphique demande un
+    chemin SVG par lettre — 22 chemins à dessiner à la main. C'est un lot à part entière, du même
+    ordre que la « racine en vedette » (parure 03). À ne lancer que si l'ornement est retenu.</div>
+  </div>
+
+  <!-- 07 -->
+  <div class="fiche" data-orn="pluie">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">07</span> — La pluie de caractères</span>
+      <button class="inter" data-cible="pluie" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i3">spectaculaire</span>
+      <span class="et surf">portail · gouttière</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="gouttiere">
+        <div class="col c" lang="he">א<br>ל<br>ף<br>ב<br>י<br>ת<br>ש<br>מ<br>ר<br>ו<br>ן<br>ח<br>כ<br>ס<br>ע<br>פ<br>צ<br>ק<br>ג<br>ד<br>ה<br>ו<br>ז<br>ט<br>י<br>נ<br>ת</div>
+        <div class="col d" lang="he">ב<br>ד<br>ו<br>ח<br>י<br>ל<br>נ<br>ע<br>צ<br>ר<br>ת<br>א<br>ג<br>ה<br>ז<br>ט<br>כ<br>מ<br>ס<br>פ<br>ק<br>ש</div>
+      </div>
+      <div class="plan" style="padding-right:44px;text-align:center">
+        <div class="mot-he" lang="he">לַיְלָה</div>
+        <div class="mot-fr">nuit</div>
+      </div>
+    </div>
+    <div class="f-note">Une chute de lettres, confinée à une <b>gouttière de 44 px</b> le long du
+    bord, fondue haut et bas. Pas un rideau plein écran — une marge qui ruisselle.</div>
+    <div class="f-cout">2 colonnes, 1 keyframe (22 s / 34 s)</div>
+    <div class="f-reserve"><b>risque de cliché</b>C'est <i>Matrix</i>, et tout le monde le reconnaîtra
+    comme tel. Confinée à la gouttière elle s'en sort ; élargie, elle date immédiatement la page. Je
+    ne la recommande pas au-delà de cette largeur.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FAMILLE C — LES INSTRUMENTS QUI NE MESURENT RIEN
+     ═══════════════════════════════════════════════════════════ -->
+<div class="section-titre"><span class="no">C</span> Les instruments qui ne mesurent rien</div>
+<p class="propos">De la <b>fausse instrumentation</b> : ça a l'air de lire quelque chose, ça ne lit
+rien. C'est la famille la plus riche visuellement et la plus contestable en charte, parce qu'elle
+frôle le signal — un cadran qui bouge pour rien peut se lire comme un cadran qui annonce quelque
+chose. Chaque fiche porte sa réserve, et je ne les recommande pas toutes.</p>
+
+<div class="rangee">
+
+  <!-- 08 -->
+  <div class="fiche" data-orn="oscillo">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">08</span> — L'onde porteuse</span>
+      <button class="inter" data-cible="oscillo" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i2">affirmé</span>
+      <span class="et surf">portail</span><span class="et surf">app · accueil</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan">
+        <div class="oscillo">
+          <div class="axe"></div>
+          <svg viewBox="0 0 900 96" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M 0 48 Q 37.5 6 75 48 T 150 48 T 225 48 T 300 48 T 375 48 T 450 48 T 525 48 T 600 48 T 675 48 T 750 48 T 825 48 T 900 48"></path>
+          </svg>
+          <span class="lab">porteuse · 11 s</span>
+        </div>
+      </div>
+    </div>
+    <div class="f-note">Un oscilloscope au repos : la trace d'une porteuse qui défile sur une
+    réticule. Aucune donnée derrière — c'est le ronflement de l'appareil, rendu visible.</div>
+    <div class="f-cout">1 SVG, 1 keyframe (11 s)</div>
+    <div class="f-reserve"><b>réserve</b>Une trace en <span style="font-family:var(--mono)">steps()</span>
+    n'est pas une onde, c'est un escalier. Si le registre <span style="font-family:var(--mono)">steps()</span>
+    est retenu au § 5, cet ornement est <b>à écarter</b> plutôt qu'à convertir. Bascule le registre
+    en haut de page pour voir.</div>
+  </div>
+
+  <!-- 09 -->
+  <div class="fiche" data-orn="gem">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">09</span> — La guématrie en marge</span>
+      <button class="inter" data-cible="gem" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i2">affirmé</span>
+      <span class="et surf">app · carte</span><span class="et surf">carnet · marge</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="gem">
+        <div class="l"><span class="g" lang="he">ש</span><span>300</span></div>
+        <div class="l"><span class="g" lang="he">ל</span><span>030</span></div>
+        <div class="l"><span class="g" lang="he">ו</span><span>006</span></div>
+        <div class="l"><span class="g" lang="he">ם</span><span>040</span></div>
+        <div class="l tot"><span>Σ</span><span>376</span></div>
+      </div>
+      <div class="plan" style="padding-left:56px;text-align:center">
+        <div class="mot-he" lang="he">שָׁלוֹם</div>
+        <div class="mot-fr">paix · salut</div>
+      </div>
+    </div>
+    <div class="f-note">Chaque lettre hébraïque a une valeur numérique. La marge affiche la
+    décomposition et sa somme — <b>vraies valeurs</b> (<span lang="he">שלום</span> = 376), un relevé exact dont personne
+    n'a besoin. C'est le décor le plus proprement <i>console</i> de la planche : des chiffres qui ne
+    servent à rien mais qui sont justes.</div>
+    <div class="f-cout">table de 22 valeurs en JS, 1 keyframe très sobre</div>
+    <div class="f-reserve"><b>réserve</b>La guématrie est un usage <b>traditionnel et religieux</b>.
+    Le dépôt a écarté sciemment la vie religieuse du périmètre du vocabulaire ; je ne sais pas si
+    cette décision couvre l'ornement. C'est ton arbitrage, pas le mien.</div>
+  </div>
+
+  <!-- 10 -->
+  <div class="fiche" data-orn="diodes">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">10</span> — Les diodes de façade</span>
+      <button class="inter" data-cible="diodes" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span>
+      <span class="et surf">app · barre d'état</span><span class="et surf">portail · pied</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan" style="text-align:center">
+        <div class="brand-he" lang="he">כּוֹכָב</div>
+        <div class="brand-sous">étoile</div>
+      </div>
+      <div class="facade">
+        <span class="d"></span><span class="d"></span><span class="d"></span>
+        <span class="d"></span><span class="d"></span><span class="d"></span>
+        <span class="cart">châssis</span>
+      </div>
+    </div>
+    <div class="f-note">Six diodes qui respirent chacune à son rythme (7 à 13 s, déphasées), en
+    <b>gris-lune et jamais en or</b> : l'or plein reste réservé à la lampe. Le clignotement d'activité
+    d'une baie de serveurs, qui n'a jamais informé personne.</div>
+    <div class="f-cout">6 nœuds, 1 keyframe, 6 déphasages</div>
+    <div class="f-reserve"><b>réserve — la plus sérieuse de la planche</b>C'est l'ornement qui
+    <b>ment</b> : il imite exactement la forme d'un signal. Un voyant qui s'allume sans rien dire
+    entraîne à ignorer les voyants — et l'app en a de vrais. Si tu ne devais en écarter qu'un par
+    principe, c'est celui-là.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FAMILLE D — LA PROFONDEUR
+     ═══════════════════════════════════════════════════════════ -->
+<div class="section-titre"><span class="no">D</span> La profondeur — le grand geste, encadré</div>
+<p class="propos">Les deux ornements les plus voyants, et les deux qui doivent le plus à la
+retenue : <b>chacun vit dans une fenêtre</b>. C'est ce qui les sépare des trois calques CRT refusés
+sur ton appareil — un objet encadré qu'on peut regarder ou ignorer n'est pas un film posé sur tout
+l'écran. Réservés au <b>portail</b> et aux écrans où rien ne t'est demandé (règle de la veilleuse).</p>
+
+<div class="rangee">
+
+  <!-- 11 -->
+  <div class="fiche" data-orn="terrain">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">11</span> — Le terrain filaire</span>
+      <button class="inter" data-cible="terrain" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i3">spectaculaire</span>
+      <span class="et surf">portail · vitrine</span>
+    </div>
+    <div class="vit" style="min-height:236px">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="terrain">
+        <div class="sol"></div>
+        <div class="horizon"></div>
+      </div>
+      <div class="plan" style="text-align:center">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">console d'étude</div>
+      </div>
+    </div>
+    <div class="f-note">Une grille en perspective qui fuit vers un horizon, fondue au tiers
+    supérieur. La signature du cassette futurism, dans la famille dont la charte a été tirée —
+    et le seul ornement de la planche qui produise de la <b>profondeur</b>.</div>
+    <div class="f-cout">2 éléments, 1 keyframe (5,5 s), 1 masque</div>
+    <div class="f-reserve"><b>à surveiller</b>C'est le plus proche du <b>bord</b> du garde-fou : la
+    grille occupe la moitié basse de son cadre. Elle reste dans un objet encadré et fondu, mais si
+    tu la portes en fond de page entière elle redevient un calque de surface — et retombe dans ce
+    que tu as déjà refusé. À ne monter qu'<b>en fenêtre</b>.</div>
+  </div>
+
+  <!-- 12 -->
+  <div class="fiche" data-orn="globe">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">12</span> — Le globe filaire</span>
+      <button class="inter" data-cible="globe" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i3">spectaculaire</span>
+      <span class="et surf">portail</span><span class="et surf">app · bilan</span>
+    </div>
+    <div class="vit" style="min-height:236px">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="globe-cage">
+        <div class="mer"></div><div class="mer"></div><div class="mer"></div>
+        <div class="mer"></div><div class="mer"></div><div class="mer"></div>
+        <div class="par h"></div><div class="par eq"></div><div class="par b"></div>
+      </div>
+      <div class="plan" style="text-align:center">
+        <div class="brand-he" lang="he">אוֹר</div>
+        <div class="brand-sous">lumière</div>
+      </div>
+    </div>
+    <div class="f-note">Six méridiens et trois parallèles en 3D CSS, une révolution en 46 s.
+    L'astrolabe de l'écran vectoriel. Distinct de la carte orbitale (module 02), qui fait tourner des
+    points dans un plan : ici c'est un <b>volume</b>.</div>
+    <div class="f-cout">9 nœuds, 1 keyframe (46 s), 3D CSS</div>
+    <div class="f-reserve"><b>à vérifier sur l'appareil</b><span style="font-family:var(--mono)">transform-style:preserve-3d</span>
+    plus une rotation continue est le seul ornement de la planche qui puisse réellement coûter en
+    composition sur mobile. Une mesure d'émulation ne vaudrait rien ici — piège n°14 : elle est
+    <b>A/B seulement</b>, jamais absolue. À juger sur ton iPhone si tu le retiens.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FAMILLE E — LES SIX PROCÉDÉS PRÉLEVÉS
+     ═══════════════════════════════════════════════════════════ -->
+<div class="section-titre"><span class="no">E</span> Les procédés prélevés — provenance mesurée</div>
+<p class="propos">Les six seuls ornements de cette planche qui <b>ne sont pas de moi</b>. Ils viennent
+de la passe du 2026-07-25 sur les deux liens SENTRY, dont la vue <i>Fuser Studio</i> jamais explorée
+jusqu'ici, et chaque fiche porte la <b>valeur exacte mesurée au CSS calculé</b> à côté de sa
+transposition dans nos jetons. Ce ne sont pas des effets mais des <b>procédés</b> : des manières de
+faire un liseré, un halo, un fond, un bord. <b>Tous les six sont statiques</b> — ils survivent au
+mouvement réduit et ne coûtent pas une image par seconde. C'est, de loin, la famille la plus sûre de
+la planche, et celle que je te recommande de regarder en premier.</p>
+
+<div class="rangee">
+
+  <!-- 13 -->
+  <div class="fiche" data-orn="passe">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">13</span> — Le passe-partout</span>
+      <button class="inter" data-cible="passe" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span><span class="et stat">statique</span>
+      <span class="et surf">app · carte</span><span class="et surf">portail</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan passe-cible" style="background:rgba(240,179,42,.10);padding:26px 18px">
+        <div class="mot-he" lang="he">שָׁלוֹם</div>
+        <div class="mot-fr">paix · salut</div>
+      </div>
+    </div>
+    <div class="f-note">Un liseré épais qui <b>mord vers l'intérieur</b> et transforme n'importe quel
+    bloc en tirage sous passe-partout. Le procédé est un <span style="font-family:var(--mono)">outline</span>
+    à décalage négatif, pas une bordure : la boîte ne change pas de taille.</div>
+    <div class="f-cout">1 propriété, zéro nœud, zéro JS</div>
+    <div class="f-reserve"><b>mesuré chez la référence</b><span style="font-family:var(--mono)">outline: solid 24px oklch(0.145 0 0); outline-offset:-8px</span>
+    — sur un grand panneau et sur deux badges 64×64. ⚠️ Ne jamais l'animer par
+    <span style="font-family:var(--mono)">transition:all</span> : le raccourci capture les longhands
+    d'<span style="font-family:var(--mono)">outline</span> et WebKit rend alors son propre anneau à
+    la place du nôtre. C'est le piège n°2 du dépôt, et la charte le fait échouer au build.</div>
+  </div>
+
+  <!-- 14 -->
+  <div class="fiche" data-orn="halob">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">14</span> — Le halo par arrière-plan</span>
+      <button class="inter" data-cible="halob" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i2">affirmé</span><span class="et stat">statique</span>
+      <span class="et surf">portail</span><span class="et surf">app · bilan</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="halo-scene">
+        <span class="tache a"></span><span class="tache b"></span><span class="tache c"></span>
+      </div>
+      <div class="plan halo-verre" style="text-align:center">
+        <div class="brand-he" lang="he">אוֹר</div>
+        <div class="brand-sous">lumière</div>
+      </div>
+    </div>
+    <div class="f-note">Le halo ne vient ni d'une ombre ni d'un dégradé : c'est <b>le fond lui-même</b>,
+    flouté à 40 px puis saturé ×3 derrière un panneau translucide. Des taches de couleur invisibles
+    à l'état brut deviennent une lueur diffuse. Procédé absent de la charte, et franchement beau.</div>
+    <div class="f-cout">1 propriété + 3 taches de fond · ⚠️ coût GPU réel</div>
+    <div class="f-reserve"><b>mesuré chez la référence</b><span style="font-family:var(--mono)">backdrop-filter: blur(40px) contrast(1.5) saturate(3)</span>
+    sur <span style="font-family:var(--mono)">div.border-glow</span>. ⚠️ Un
+    <span style="font-family:var(--mono)">backdrop-filter</span> à 40 px est l'ornement le plus
+    coûteux de toute la planche en composition — plus que le globe. À juger sur ton iPhone, pas en
+    émulation (piège n°14 : l'émulation ne vaut qu'en A/B).</div>
+  </div>
+
+  <!-- 15 -->
+  <div class="fiche" data-orn="points">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">15</span> — La grille de points</span>
+      <button class="inter" data-cible="points" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span><span class="et stat">statique</span>
+      <span class="et surf">les trois surfaces</span>
+    </div>
+    <div class="vit vit-points">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan" style="text-align:center">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">console d'étude</div>
+      </div>
+    </div>
+    <div class="f-note">Un fond en <b>points</b> et non en lignes : la texture « papier millimétré »
+    du board de la référence. Notre grille 32 px devient une trame de points au même pas — c'est un
+    changement de matière du fond, pas un ajout.</div>
+    <div class="f-cout">1 pseudo-élément, 1 dégradé radial</div>
+    <div class="f-reserve"><b>alternative, pas cumul</b>Mesuré : rayon ≈ 1/40 du pas, teinte
+    <span style="font-family:var(--mono)">rgb(145,145,154)</span>, calque à
+    <span style="font-family:var(--mono)">opacity:.4</span>. ⚠️ Les points <b>et</b> les lignes
+    ensemble font un quadrillage sale : c'est l'un <b>ou</b> l'autre. Le retenir veut dire changer le
+    fond des trois surfaces, ce qui touche la charte au § 4 — c'est la seule fiche de la planche qui
+    modifie un acquis au lieu d'ajouter.</div>
+  </div>
+
+  <!-- 16 -->
+  <div class="fiche" data-orn="grave">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">16</span> — Le bord gravé</span>
+      <button class="inter" data-cible="grave" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span><span class="et stat">statique</span>
+      <span class="et surf">app · boutons</span><span class="et surf">portail · portes</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <span class="pilule grave-cible" style="padding:7px 15px">niveau A1</span>
+        <span class="pilule ok grave-cible" style="padding:7px 15px">révisé</span>
+        <span class="pilule grave-cible" style="padding:7px 15px">nom · féminin</span>
+        <span class="pilule grave-cible" style="padding:7px 15px">1046 cartes</span>
+      </div>
+    </div>
+    <div class="f-note">Deux ombres <b>internes</b> : un liseré sombre tout autour, puis un filet
+    d'un pixel en haut. C'est ce qui donne à une pilule le bord d'une <b>touche moulée</b> au lieu
+    d'un rectangle dessiné. L'effet est minuscule et change tout.</div>
+    <div class="f-cout">1 propriété sur nos pilules existantes</div>
+    <div class="f-reserve"><b>mesuré chez la référence</b><span style="font-family:var(--mono)">box-shadow: oklch(0 0 0/.3) 0 0 2px inset, oklch(0 0 0/.1) 0 1px 0 inset</span>
+    sur sa pilule d'action. Aucune réserve de charte : c'est du relief, pas de la lumière — l'or
+    n'est pas convoqué, donc la règle de la lampe n'est pas en cause.</div>
+  </div>
+
+  <!-- 17 -->
+  <div class="fiche" data-orn="fondu">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">17</span> — Le fondu de panneau</span>
+      <button class="inter" data-cible="fondu" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span><span class="et stat">statique</span>
+      <span class="et surf">carnet · listes</span><span class="et surf">app · feed</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan panneau-defile">
+        <div class="l">carte 0412 — <span lang="he">שֻׁלְחָן</span> — table</div>
+        <div class="l">carte 0413 — <span lang="he">כִּסֵּא</span> — chaise</div>
+        <div class="l">carte 0414 — <span lang="he">חַלּוֹן</span> — fenêtre</div>
+        <div class="l">carte 0415 — <span lang="he">דֶּלֶת</span> — porte</div>
+        <div class="l">carte 0416 — <span lang="he">מִטָּה</span> — lit</div>
+      </div>
+    </div>
+    <div class="f-note">Le contenu d'un panneau qui défile <b>s'estompe aux deux bords</b> au lieu
+    d'être coupé net. Rien de plus qu'un dégradé vers la couleur de fond en haut et en bas — et la
+    liste cesse d'avoir l'air tronquée.</div>
+    <div class="f-cout">2 pseudo-éléments par panneau</div>
+    <div class="f-reserve"><b>mesuré chez la référence</b><span style="font-family:var(--mono)">linear-gradient(&lt;fond&gt; 0%, transparent 100%)</span>
+    en haut, l'inverse en bas, sur ses panneaux défilants. C'est le plus utile des six : il a un vrai
+    bénéfice de lisibilité, ce qui en fait le seul ornement de la planche à ne pas être
+    <b>entièrement</b> gratuit.</div>
+  </div>
+
+  <!-- 18 -->
+  <div class="fiche" data-orn="glyphes">
+    <div class="f-tete">
+      <span class="f-nom"><span class="n">18</span> — Le jeu de glyphes</span>
+      <button class="inter" data-cible="glyphes" aria-pressed="false"><span class="diode"></span>sans</button>
+    </div>
+    <div class="f-etiq">
+      <span class="et i1">discret</span><span class="et stat">statique</span>
+      <span class="et surf">les trois surfaces</span>
+    </div>
+    <div class="vit">
+      <span class="viseur tl">+</span><span class="viseur tr">+</span>
+      <span class="viseur bl">+</span><span class="viseur br">+</span>
+      <div class="plan glyphes">
+        <span class="g vert"><span class="s">▸</span><span class="n">séparateur</span></span>
+        <span class="g"><span class="s">☾</span><span class="n">le soir</span></span>
+        <span class="g"><span class="s">⌕</span><span class="n">chercher</span></span>
+        <span class="g"><span class="s">→</span><span class="n">suivant</span></span>
+        <span class="g vert"><span class="s">＋</span><span class="n">panneau</span></span>
+        <span class="g"><span class="s">Σ</span><span class="n">total</span></span>
+      </div>
+    </div>
+    <div class="f-note">Toute l'app de référence est <b>sans un seul <span style="font-family:var(--mono)">&lt;svg&gt;</span></b> :
+    ses icônes sont des <b>caractères</b>. Nous employions déjà ▸ ; ☾ ⌕ → sont mesurés chez elle et
+    gratuits — aucun fichier, aucun poids, et ils héritent de la couleur et du glow du texte.</div>
+    <div class="f-cout">zéro octet — ce sont des caractères</div>
+    <div class="f-reserve"><b>à vérifier avant de retenir</b>Un glyphe n'est garanti que si la fonte
+    le porte. ☾ ⌕ Σ ＋ ne sont pas dans Share Tech Mono à coup sûr : le navigateur ira les chercher
+    dans une fonte de repli, et le dessin changera d'un appareil à l'autre. À contrôler sur ton
+    iPhone avant de les inscrire à la charte — c'est exactement le genre de détail qu'une capture
+    d'émulation ne montre pas.</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LA SCÈNE CUMULÉE
+     ═══════════════════════════════════════════════════════════ -->
+<div class="section-titre"><span class="no">F</span> Tout en même temps — le test qui compte</div>
+<p class="propos">Dix-huit ornements irréprochables un par un peuvent faire un écran qui
+<b>grouille</b>. C'est ici que ça se voit, et nulle part ailleurs : la même barre de commande pilote
+cette scène. Allume tout, puis retire jusqu'à ce que ce soit beau — <b>le nombre que tu retireras
+est le vrai verdict</b>. Le compteur en haut dit combien d'animations tournent réellement.</p>
+
+<div class="scene" id="scene">
+  <span class="viseur tl">+</span><span class="viseur tr">+</span>
+  <span class="viseur bl">+</span><span class="viseur br">+</span>
+
+  <!-- les calques de fond, du plus loin au plus près -->
+  <div class="terrain"><div class="sol"></div><div class="horizon"></div></div>
+  <div class="tissu">
+    <div class="trame a" lang="he">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</div>
+    <div class="trame b" lang="he">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</div>
+  </div>
+  <div class="rosace" id="rosace-2">
+    <div class="anneau e"></div><div class="anneau"></div><div class="anneau i"></div>
+  </div>
+  <div class="globe-cage">
+    <div class="mer"></div><div class="mer"></div><div class="mer"></div>
+    <div class="mer"></div><div class="mer"></div><div class="mer"></div>
+    <div class="par h"></div><div class="par eq"></div><div class="par b"></div>
+  </div>
+  <div class="gouttiere">
+    <div class="col c" lang="he">א<br>ל<br>ף<br>ב<br>י<br>ת<br>ש<br>מ<br>ר<br>ו<br>ן<br>ח<br>כ<br>ס<br>ע<br>פ<br>צ<br>ק<br>ג<br>ד<br>ה<br>ו<br>ז<br>ט<br>י<br>נ<br>ת</div>
+    <div class="col d" lang="he">ב<br>ד<br>ו<br>ח<br>י<br>ל<br>נ<br>ע<br>צ<br>ר<br>ת<br>א<br>ג<br>ה<br>ז<br>ט<br>כ<br>מ<br>ס<br>פ<br>ק<br>ש</div>
+  </div>
+  <div class="ruban"></div>
+
+  <!-- la marge de guématrie et la façade -->
+  <div class="gem">
+    <div class="l"><span class="g" lang="he">ע</span><span>070</span></div>
+    <div class="l"><span class="g" lang="he">ב</span><span>002</span></div>
+    <div class="l"><span class="g" lang="he">ר</span><span>200</span></div>
+    <div class="l"><span class="g" lang="he">י</span><span>010</span></div>
+    <div class="l"><span class="g" lang="he">ת</span><span>400</span></div>
+    <div class="l tot"><span>Σ</span><span>682</span></div>
+  </div>
+
+  <!-- le plotter, en écusson -->
+  <div class="plotter">
+    <svg viewBox="0 0 132 132" aria-hidden="true">
+      <path style="--len:250" d="M 26 106 L 66 22 L 106 106"></path>
+      <path style="--len:84"  d="M 44 70 L 88 70"></path>
+    </svg>
+    <span class="tete"></span>
+  </div>
+
+  <!-- l'oscilloscope, en pied -->
+  <div class="oscillo">
+    <div class="axe"></div>
+    <svg viewBox="0 0 900 96" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M 0 48 Q 37.5 6 75 48 T 150 48 T 225 48 T 300 48 T 375 48 T 450 48 T 525 48 T 600 48 T 675 48 T 750 48 T 825 48 T 900 48"></path>
+    </svg>
+    <span class="lab">porteuse</span>
+  </div>
+
+  <div class="facade">
+    <span class="d"></span><span class="d"></span><span class="d"></span>
+    <span class="d"></span><span class="d"></span><span class="d"></span>
+    <span class="cart">châssis</span>
+  </div>
+
+  <!-- 14 : les taches que le halo par arrière-plan va flouter -->
+  <div class="halo-scene">
+    <span class="tache a"></span><span class="tache b"></span><span class="tache c"></span>
+  </div>
+
+  <!-- 17 : un panneau défilant, pour le fondu de bord -->
+  <div class="panneau-defile">
+    <div class="l">carte 0412 — <span lang="he">שֻׁלְחָן</span></div>
+    <div class="l">carte 0413 — <span lang="he">כִּסֵּא</span></div>
+    <div class="l">carte 0414 — <span lang="he">חַלּוֹן</span></div>
+    <div class="l">carte 0415 — <span lang="he">דֶּלֶת</span></div>
+  </div>
+
+  <!-- le contenu réel du portail -->
+  <div class="dedans">
+    <div class="statusbar">
+      <span>console d'étude</span>
+      <span class="glyphes">
+        <span class="g"><span class="s">☾</span></span>
+        <span class="g"><span class="s">⌕</span></span>
+        <span class="g vert"><span class="s">＋</span></span>
+      </span>
+      <span class="pilule ok grave-cible">prêt</span>
+    </div>
+    <div class="marque cadre-d passe-cible">
+      <div class="halo-verre">
+        <div class="brand-he" lang="he">עִבְרִית</div>
+        <div class="brand-sous">le carnet et la console</div>
+      </div>
+      <div class="portes">
+        <div class="porte grave-cible"><div class="t">Les cartes</div><div class="s">app · 1046</div></div>
+        <div class="porte grave-cible"><div class="t">Le carnet</div><div class="s">vocabulaire</div></div>
+        <div class="porte grave-cible"><div class="t">Hors ligne</div><div class="s">standalone</div></div>
+      </div>
+    </div>
+    <div class="plaque-zone" style="margin-top:auto;align-items:flex-start">
+      <div class="plaque"><span class="gr">console d'étude</span><br>mod. HE·2 — série 001</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LE PIED ═══════════ -->
+<div class="pied">
+  <div class="titre">Ce que j'attends de toi, et ce que j'en ferai</div>
+  <p>Un verdict par ornement : <b>prendre</b> / <b>jeter</b> / <b>prendre plus discret</b> — et pour
+  les animés, la possibilité de répondre <b>« statique seulement »</b>, qui est un verdict à part
+  entière et souvent le bon. Plus deux réponses transversales :</p>
+  <ol>
+    <li><b>Le registre.</b> Bascule <span style="font-family:var(--mono)">steps()</span> / fluide en
+    haut de page et dis lequel tient sur du décor. C'est la réponse qui manque au rectificatif du
+    spec § 5 — le décor est le pire cas de la règle, et l'onde porteuse (08) ne survit pas à
+    <span style="font-family:var(--mono)">steps()</span>.</li>
+    <li><b>La règle du mobilier.</b> Est-ce qu'un ornement gratuit a droit de cité dans la charte, à
+    côté des signaux (la lampe) et de la vie ambiante (la veilleuse) ? Si oui, je l'écris au spec en
+    § 5 ter et les trois registres sont nommés. Si non, toute cette planche se classe — et ce sera
+    une réponse propre, pas un échec.</li>
+    <li><b>La grille de points (15).</b> C'est la seule fiche qui <b>remplace</b> un acquis au lieu
+    d'ajouter : elle change le fond des trois surfaces, donc le § 4 de la charte. Réponse oui / non,
+    séparément du reste.</li>
+  </ol>
+  <p style="margin-top:12px"><b>Par où je te conseille de commencer :</b> la <b>famille E</b>. Ses six
+  procédés sont mesurés chez la référence, tous statiques, tous peu coûteux, et deux d'entre eux (16
+  le bord gravé, 17 le fondu de panneau) sont à mon avis des « oui » évidents qui ne coûtent presque
+  rien. À l'inverse, les trois que je te recommande de <b>jeter</b> sans les regarder longtemps : 10
+  les diodes de façade (elles imitent un signal et entraînent à ignorer les vrais), 07 la pluie de
+  caractères (cliché daté) et 09 la guématrie si l'ornement religieux est hors périmètre.</p>
+  <p style="margin-top:12px"><b>Ce que je n'ai pas fait, et qu'il faut savoir :</b> aucun de ces
+  dix-huit ornements n'a encore été vu sur ton iPhone. Ils sont contrôlés en WebKit émulé, ce qui
+  prouve qu'ils s'affichent et pas qu'ils sont agréables — la leçon des trois calques CRT, validés
+  en émulation puis rejetés sur l'appareil, s'applique mot pour mot ici. Ne retiens rien
+  définitivement sans l'avoir vu en vrai, à 23 h, sur l'écran où tu étudies. Les deux à surveiller
+  en particulier sont <b>14 le halo par arrière-plan</b> et <b>12 le globe</b> : ce sont les deux qui
+  peuvent réellement coûter en composition, et une mesure d'émulation ne vaudrait rien pour le dire
+  (piège n°14 : elle n'est valable qu'en A/B contre elle-même).</p>
+</div>
+
+</div><!-- /galerie -->
+
+<script>
+(function(){
+  'use strict';
+
+  var banc  = document.getElementById('banc');
+  var scene = document.getElementById('scene');
+
+  /* ---- 05 : les 22 lettres de la rosace, générées ---------------- */
+  var ALPHABET = ['א','ב','ג','ד','ה','ו','ז','ח','ט','י','כ',
+                  'ל','מ','נ','ס','ע','פ','צ','ק','ר','ש','ת'];
+  function peupleRosace(el){
+    if (!el) return;
+    var n = ALPHABET.length;
+    for (var i = 0; i < n; i++){
+      var p = document.createElement('div');
+      p.className = 'p';
+      p.style.transform = 'rotate(' + (i * 360 / n) + 'deg)';
+      var s = document.createElement('span');
+      s.setAttribute('lang','he');           /* piège n°6 : tout nœud hébreu */
+      s.textContent = ALPHABET[i];
+      p.appendChild(s);
+      el.appendChild(p);
+    }
+  }
+  peupleRosace(document.getElementById('rosace-1'));
+  peupleRosace(document.getElementById('rosace-2'));
+
+  /* ---- les interrupteurs ---------------------------------------- */
+  /* chaque ornement pose la classe `on-<nom>` sur SA vitrine et sur la
+     scène cumulée : un seul bouton pilote les deux. */
+  var inters = Array.prototype.slice.call(document.querySelectorAll('.inter[data-cible]'));
+
+  function applique(nom, actif){
+    var cls = 'on-' + nom;
+    var fiche = document.querySelector('.fiche[data-orn="' + nom + '"]');
+    var vit   = fiche ? fiche.querySelector('.vit') : null;
+    if (vit)   vit.classList.toggle(cls, actif);
+    if (scene) scene.classList.toggle(cls, actif);
+  }
+
+  function bascule(btn, force){
+    var nom   = btn.getAttribute('data-cible');
+    var actif = (typeof force === 'boolean')
+      ? force
+      : btn.getAttribute('aria-pressed') !== 'true';
+    btn.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    /* le libellé dit l'état COURANT, pas l'action — cohérent avec les
+       autres planches de la branche */
+    var lab = btn.lastChild;
+    if (lab && lab.nodeType === 3) lab.nodeValue = actif ? 'avec' : 'sans';
+    applique(nom, actif);
+    majCompteur();
+  }
+
+  inters.forEach(function(btn){
+    btn.addEventListener('click', function(){ bascule(btn); });
+  });
+
+  document.getElementById('tout-on').addEventListener('click', function(){
+    inters.forEach(function(b){ bascule(b, true); });
+  });
+  document.getElementById('tout-off').addEventListener('click', function(){
+    inters.forEach(function(b){ bascule(b, false); });
+  });
+
+  /* ---- le registre steps() / fluide ------------------------------ */
+  var bSteps  = document.getElementById('reg-steps');
+  var bFluide = document.getElementById('reg-fluide');
+  function registre(quoi){
+    banc.setAttribute('data-reg', quoi);
+    bSteps.classList.toggle('primaire',  quoi === 'steps');
+    bFluide.classList.toggle('primaire', quoi === 'fluide');
+  }
+  bSteps.addEventListener('click',  function(){ registre('steps'); });
+  bFluide.addEventListener('click', function(){ registre('fluide'); });
+
+  /* ---- le compteur d'animations réellement en cours -------------- */
+  /* getAnimations() dit ce qui TOURNE, pas ce qui est déclaré : c'est
+     la seule mesure qui attrape un ornement resté allumé par erreur. */
+  var compteur = document.getElementById('compteur');
+  var sortie   = compteur.querySelector('b');
+  /* ⚠️ Deux défauts relevés en WebKit sur la première version, corrigés ici.
+     (1) getAnimations() renvoie AUSSI les CSSTransition. « Tout couper » fait
+         commuter 18 boutons qui portent chacun 3 transitions : le compteur
+         affichait 94 au lieu de 0, en comptant 54 transitions de boutons.
+         On ne garde donc que les animations par keyframes.
+     (2) 18 appels enchaînés empilaient 18 doubles rAF qui se couraient l'un
+         l'autre, et le dernier à écrire n'était pas le dernier à lire. Un seul
+         relevé différé, annulé et reprogrammé à chaque appel, règle les deux. */
+  var attente = null;
+  function estTransition(a){
+    if (window.CSSTransition && a instanceof window.CSSTransition) return true;
+    return typeof a.transitionProperty === 'string';   /* repli si la classe manque */
+  }
+  function majCompteur(){
+    if (!document.getAnimations){ compteur.style.display = 'none'; return; }
+    if (attente) clearTimeout(attente);
+    attente = setTimeout(function(){
+      attente = null;
+      var n = document.getAnimations().filter(function(a){
+        return a.playState === 'running' && !estTransition(a);
+      }).length;
+      sortie.textContent = n;
+      compteur.classList.toggle('charge', n > 24);
+    }, 200);   /* > la plus longue transition de bouton (120 ms) */
+  }
+
+  /* ---- l'alarme de mouvement réduit + la dérogation locale ------- */
+  var MQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var alarme  = document.getElementById('alarme');
+  var bForcer = document.getElementById('forcer');
+  function majAlarme(){ if (alarme) alarme.hidden = !(MQ && MQ.matches); }
+  if (MQ && MQ.addEventListener) MQ.addEventListener('change', function(){ majAlarme(); majCompteur(); });
+  majAlarme();
+
+  bForcer.addEventListener('click', function(){
+    var actif = document.body.classList.toggle('force-anim');
+    bForcer.textContent = actif
+      ? '■ Rendre la main au réglage de l’appareil'
+      : '▶ Animer quand même, sur cette page';
+    majCompteur();
+  });
+
+  /* ---- état de départ : tout éteint, on juge en allumant --------- */
+  inters.forEach(function(b){ bascule(b, false); });
+  registre('fluide');
+})();
+</script>
+</body>
+</html>

@@ -49,7 +49,7 @@ La direction artistique est SOLDÉE en v0.6 :
   - la page-témoin prototype-nerv.html FAIT FOI en cas d'écart avec le spec
     (docs/superpowers/specs/2026-07-24-charte-retrofuturiste-design.md).
 
-Le prélèvement du mouvement sur SENTRY est FAIT, et son résultat est NÉGATIF :
+Le prélèvement du MOUVEMENT sur SENTRY est FAIT, et son résultat est NÉGATIF :
 NE REFAIS PAS CETTE PASSE. Mesuré en WebKit puis contre-vérifié à la source hors
 navigateur, le mouvement propre à la référence tient en trois @keyframes :
 noiseShift et flick (les deux calques déjà rejetés) et satspin, keyframe MORT
@@ -58,6 +58,19 @@ comportement au défilement, zéro SVG. Le survol y vient des classes Tailwind
 transition-colors, un défaut de framework. Détail : REFERENCES_SENTRY.md
 § « le gisement est sec ». Conséquence : le mouvement ne peut plus être prélevé,
 il doit être COMPOSÉ.
+
+⚠️ MAIS le gisement DÉCORATIF, lui, n'était pas sec — ne confonds pas les deux.
+Une seconde passe, d'objet différent (mobilier décoratif STATIQUE, pas le
+mouvement), a eu lieu le 25/07 sur les DEUX liens, dont app.fuser.studio JAMAIS
+exploré jusque-là. Elle a rendu 17 trouvailles mesurées sur 2 833 nœuds, dont
+6 PROCÉDÉS neufs que la charte n'avait pas : passe-partout (outline à décalage
+négatif), halo par backdrop-filter, grille de POINTS au lieu de lignes, bord
+gravé (double inset), fondu de panneau, jeu de glyphes (la référence n'a AUCUN
+<svg>, ses icônes sont des caractères). C'est la famille E de
+prototype-decor.html, la seule à porter une provenance mesurée. Deux limites
+connues, donc gisement non épuisé : le mode BUREAU du Studio a été capturé en
+cours de chargement, et l'ombre des cartes du board n'a pas pu être isolée.
+Détail et valeurs exactes : REFERENCES_SENTRY.md § « le mobilier décoratif ».
 
 ⚠️ Piège de méthode, payé : la transition à rebond et les keyframes
 f-shimmer/f-spark qu'une première lecture avait pris pour des trouvailles
@@ -71,18 +84,18 @@ ses deux seules occurrences dans toute la référence sont les deux calques
 rejetés. Elle n'est pas annulée, elle est MISE AU JUGEMENT — un rectificatif daté
 est au spec § 5, il sera remplacé par le verdict du propriétaire.
 
-⚠️ RÉGLAGE DE L'APPAREIL DU PROPRIÉTAIRE — À DEMANDER EN PREMIER SI LE SUJET EST
-LE MOUVEMENT. Son appareil est réglé sur « Réduire les animations » : une planche
-d'animations ouverte chez lui n'a RIEN joué (fichier pourtant byte-identique,
-53 390 octets, vérifié au cmp). Si ce réglage est PERMANENT, alors tout le
-chantier du mouvement et de l'ambiant ne le concerne pas en usage réel, l'app
-respectant prefers-reduced-motion. La question lui a été posée le 25/07, sans
-réponse à ce jour. Règle qui en découle et qui est désormais appliquée aux trois
-planches : une page de jugement DOIT annoncer quand un réglage d'accessibilité la
-neutralise, et offrir une dérogation locale (encart #alarme + bouton #forcer qui
-pose body.force-anim).
+RÉGLAGE DE L'APPAREIL DU PROPRIÉTAIRE — QUESTION SOLDÉE le 25/07, ne la repose
+pas. « Réduire les animations » n'est PAS permanent chez lui : il peut le couper
+pour juger. Le chantier du mouvement et du décor le concerne donc bien en usage
+réel. Historique, pour que le symptôme soit reconnu s'il revient : une planche
+d'animations ouverte chez lui n'avait RIEN joué (fichier pourtant byte-identique,
+53 390 octets, vérifié au cmp) — c'était le réglage, pas un bug. Règle qui en
+découle et qui est désormais appliquée aux QUATRE planches, et qu'il faut garder :
+une page de jugement DOIT annoncer quand un réglage d'accessibilité la neutralise,
+et offrir une dérogation locale (encart #alarme + bouton #forcer qui pose
+body.force-anim).
 
-════════ LES TROIS PLANCHES EN ATTENTE DE VERDICT ════════
+════════ LES QUATRE PLANCHES EN ATTENTE DE VERDICT ════════
 
 Elles ne se recouvrent pas et se tranchent séparément. Aucune n'a encore reçu de
 verdict du propriétaire — c'est le premier sujet à reprendre.
@@ -119,11 +132,41 @@ verdict du propriétaire — c'est le premier sujet à reprendre.
      (07) font double emploi avec l'insigne hexagonal de niveau, à choisir sans
      cumuler.
 
+  D. prototype-decor.html — « de quoi le site est-il décoré ». Le décor
+     ENTIÈREMENT GRATUIT, demandé le 25/07 : 18 ornements en 5 familles, chacun en
+     bascule sans / avec, étiqueté discret / affirmé / spectaculaire, avec sa
+     surface visée et son coût. 11 sur 18 sont statiques. Plus une SCÈNE CUMULÉE
+     pilotée par les mêmes interrupteurs et un compteur d'animations actives — le
+     nombre d'ornements que le propriétaire RETIRE de la scène est le vrai verdict.
+     Verdict attendu : prendre / jeter / prendre plus discret / « statique
+     seulement », ce dernier étant un verdict à part entière.
+     Les 5 familles : A le châssis (statique) · B l'alphabet comme ornement ·
+     C les instruments qui ne mesurent rien · D la profondeur (encadrée) ·
+     E les 6 PROCÉDÉS PRÉLEVÉS, seuls à porter une provenance mesurée.
+     ⚠️ Cette planche a demandé une troisième règle, la RÈGLE DU MOBILIER
+     (spec § 5 ter), NON ARBITRÉE : la lampe régit ce qui signale, la veilleuse ce
+     qui dit que l'instrument est allumé, le mobilier dit DE QUOI L'OBJET EST FAIT.
+     Elle tient par trois contraintes — objet nommé et ENCADRÉ (jamais la surface
+     entière, ce qui respecte par construction le verdict du 24/07 sur les calques
+     CRT), interdiction de MIMER UN SIGNAL, et préférence pour le STATIQUE.
+     ⚠️ Réserves déjà consignées, ne les redécouvre pas : les DIODES DE FAÇADE (10)
+     miment un signal et sont signalées comme le plus contestable des 18 ; la
+     PLUIE DE CARACTÈRES (07) est un cliché daté au-delà de sa gouttière ; la
+     GUÉMATRIE (09) est un usage religieux, arbitrage du propriétaire et pas d'un
+     agent ; le PLOTTER (06) demanderait 22 tracés SVG à la main, lot à part
+     entière ; la GRILLE DE POINTS (15) REMPLACE la grille de lignes au lieu de
+     s'y ajouter, donc touche le § 4 ; le HALO PAR BACKDROP-FILTER (14) et le
+     GLOBE (12) sont les deux seuls à coûter réellement en composition, à juger
+     sur l'appareil et jamais en émulation (piège n°14).
+
 ════════ CE QUI RESTE, DANS L'ORDRE DU TODO ════════
 
-  1. recueillir les VERDICTS sur les trois planches ci-dessus, puis inscrire les
-     décisions dans le spec (le § 5 bis et le rectificatif steps() attendent d'être
-     remplacés par des arbitrages) ;
+  1. recueillir les VERDICTS sur les quatre planches ci-dessus, puis inscrire les
+     décisions dans le spec (le § 5 bis, le § 5 ter et le rectificatif steps()
+     attendent tous les trois d'être remplacés par des arbitrages). Deux réponses
+     TRANSVERSALES sont attendues en plus des verdicts par ornement : le REGISTRE
+     (steps() ou fluide sur du décor — les quatre planches portent le sélecteur), et
+     la GRILLE DE POINTS, seule proposition qui remplace un acquis de charte ;
   2. concevoir le système de thèmes (deux chartes coexistantes + sélecteur à
      l'accueil, spec § 7) — idée cadrée, rien de planifié ;
   3. le portage sur les vraies surfaces, qui attend la fin de la réorganisation du
@@ -178,11 +221,27 @@ Cinq décisions de cette branche ressemblent à du travail inachevé quand on ar
    d'extraction inachevé et le referait pour rien.
 5. **La règle `steps()` porte un rectificatif qui la contredit** — c'est voulu. La règle tient
    jusqu'au verdict ; le rectificatif dit seulement que sa justification écrite est fausse.
+6. **Deux passes SENTRY existent, avec des résultats opposés, et ce n'est pas une contradiction.**
+   Celle du **mouvement** est sèche et interdite à rejouer ; celle du **mobilier décoratif** a
+   rendu six procédés. Une session neuve risque l'erreur dans les deux sens : repiloter la
+   référence pour ses animations (déjà payé, rien à trouver), ou croire qu'il est inutile d'y
+   retourner pour du décor (faux — il reste le mode bureau du Studio et l'ombre des cartes).
+7. **La charte porte trois règles de mouvement, dont deux ne sont pas arbitrées** — la lampe (§ 5,
+   acquise), la veilleuse (§ 5 bis, proposée) et le mobilier (§ 5 ter, proposée). Les deux
+   dernières sont écrites pour être **remplacées par un arbitrage**, pas pour être appliquées
+   telles quelles. Ne les traite pas comme du définitif, et ne les supprime pas non plus.
 
-## La péremption qui n'en est plus une
+## La péremption qui n'en est plus une — mais qui n'est pas nulle non plus
 
 Le chantier des animations dépendait de deux adresses de service tiers (`REFERENCES_SENTRY.md`)
-qui pouvaient tomber. **Ce risque est éteint** : la passe d'extraction a eu lieu le 25/07 et a
-tout rendu. Si les adresses disparaissent aujourd'hui, on ne perd plus rien — la référence garde
-son autorité sur les couleurs, la structure et les ornements, tous déjà prélevés, et elle n'avait
-rien de plus à dire sur le mouvement.
+qui pouvaient tomber. **Ce risque est très largement éteint** : deux passes ont eu lieu le 25/07,
+l'une sur le mouvement (qui n'a rien rendu, et c'est acquis) et l'autre sur le mobilier décoratif
+(qui a rendu 17 trouvailles mesurées, dont 6 procédés neufs). Tout est transposé et versionné dans
+`prototype-decor.html`, avec les valeurs mesurées en commentaire à côté de leur transposition : si
+les adresses disparaissent, ces six procédés restent utilisables sans elles.
+
+⚠️ **Ce qui serait tout de même perdu**, et c'est la seule raison de ne pas classer la référence :
+deux angles restent inexplorés, tous deux nommés à `REFERENCES_SENTRY.md` § « le mobilier
+décoratif » — le **mode bureau de `app.fuser.studio`**, capturé en cours de chargement donc non
+stabilisé, et **l'ombre portée des cartes du board**, visible à l'écran mais dont le nœud porteur
+n'a pas été isolé. Petit gisement, mais gisement.

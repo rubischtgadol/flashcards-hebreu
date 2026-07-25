@@ -196,6 +196,52 @@ réduit doit s'écrire `*,*::before,*::after`. Le sélecteur `*` seul **ne cible
 pseudo-éléments** — le portail déployé laisse tourner le halo de sa ménorah malgré la
 demande d'arrêt, et deux planches de cette branche avaient le même trou.
 
+## 5 ter. La règle du mobilier — proposée le 2026-07-25, non arbitrée
+
+Le propriétaire demande, le 2026-07-25, du décor **entièrement gratuit** : « des animations vraiment
+cosmétiques et esthétiques, qui ne sont PAS forcément en rapport direct avec l'utilisation de l'app
+ou du carnet », pour **décorer tout le site**. C'est un troisième registre, et il faut le nommer pour
+la même raison que le second : sans nom, il est interdit par le § 5.
+
+Les deux règles déjà écrites ne le couvrent pas. La **lampe** (§ 5) régit ce qui **signale**. La
+**veilleuse** (§ 5 bis) régit ce qui dit que **l'instrument est allumé**. Le décor ne fait ni l'un ni
+l'autre : il dit **de quoi l'objet est fait**.
+
+> **La règle du mobilier.** Une console n'est pas faite que de voyants : elle a un châssis, des
+> rivets, une plaque gravée, une grille d'aération. Rien de cela ne mesure quoi que ce soit, et
+> personne n'a jamais reproché à un instrument d'avoir un beau boîtier. Un ornement gratuit est admis
+> s'il porte sur un **objet nommé et encadré** — jamais sur la surface entière —, s'il ne **mime pas
+> un signal**, et s'il s'arrête sous `prefers-reduced-motion`. Sa forme préférée est **statique** :
+> le mobilier n'a pas besoin de bouger pour être du mobilier.
+
+Trois conséquences, qui sont ce que la règle apporte réellement :
+
+1. **La contrainte de l'objet encadré** est ce qui rend le décor compatible avec le verdict du 24/07.
+   Bruit, vignettage et scintillement ont été refusés **jusqu'à leur cran minimal** parce qu'ils
+   couvraient tout l'écran. Un terrain filaire dans une fenêtre qu'on peut regarder ou ignorer n'est
+   pas un film posé sur la surface. Le verdict n'est pas rouvert : il est respecté par construction.
+2. **L'interdiction de mimer un signal** est le vrai garde-fou vis-à-vis de la lampe. Un ornement qui
+   prend la forme d'un voyant entraîne à ignorer les voyants, et l'app en a de vrais. C'est à ce
+   titre que les **diodes de façade** (ornement 10 de la planche) sont signalées comme le plus
+   contestable des dix-huit.
+3. **La préférence pour le statique** n'est pas de la prudence, c'est une conséquence du réglage de
+   l'appareil du propriétaire (« Réduire les animations », permanence non tranchée à ce jour) : un
+   ornement statique est le seul qui lui parvienne à coup sûr. Onze des dix-huit sont statiques.
+
+Les 18 propositions sont dans **`prototype-decor.html`**, en cinq familles : le châssis (statique),
+l'alphabet comme ornement, les instruments qui ne mesurent rien, la profondeur (encadrée), et **les
+six procédés prélevés** — ces derniers avec leur **valeur mesurée** au CSS calculé, issus de la
+seconde passe SENTRY du 25/07 (voir [REFERENCES_SENTRY.md](../../../REFERENCES_SENTRY.md) §
+« le mobilier décoratif »). Comme pour `prototype-ame.html`, la planche porte une **scène cumulée**
+et un **compteur d'animations actives** : dix-huit ornements irréprochables un par un peuvent faire
+un écran qui grouille, et c'est le nombre que le propriétaire **retire** qui est le verdict.
+
+⚠️ **Deux questions restent ouvertes et attendent son arbitrage, pas une décision d'agent** : la
+**guématrie** (ornement 09) est un usage traditionnel et religieux, alors que le dépôt a écarté
+sciemment la vie religieuse du périmètre du *vocabulaire* — on ne sait pas si cette décision couvre
+l'*ornement* ; et la **grille de points** (ornement 15) est la seule proposition qui **remplace** un
+acquis au lieu d'ajouter, puisqu'elle change le fond des trois surfaces et donc le § 4.
+
 ## 6. Validation et suites
 
 - **Recette visuelle** : nikoud lisible à taille réelle sur `--bg` (le halo ambre ne doit

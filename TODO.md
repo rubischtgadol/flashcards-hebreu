@@ -10,8 +10,9 @@
 prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
 unifont-nikoud-repare.html, polices/, REFERENCES_SENTRY.md et PROMPT_REPRISE.md
-(créés, branche refonte-retrofuturiste) ; 2026-07-25 : prototype-mouvement.html
-prototype-ame.html et prototype-parures.html (créés, même branche).
+(créés, branche refonte-retrofuturiste) ; 2026-07-25 : prototype-mouvement.html,
+prototype-ame.html, prototype-parures.html et prototype-decor.html (créés, même
+branche).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -22,8 +23,42 @@ Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 > autorité** — tous les paragraphes sous celui-ci sont un instantané figé au
 > point de départ de la branche (24/07) et sont **périmés**.
 
-> **Fin de session du 2026-07-25 (soir) — dernier commit `f72c55c`. Rien n'est en
-> cours, rien n'attend d'être fini. Trois planches attendent un verdict.**
+> **Fin de session du 2026-07-25 (nuit). Rien n'est en cours, rien n'attend d'être
+> fini. QUATRE planches attendent un verdict.**
+>
+> Ajouté cette session, à la demande du propriétaire (« je veux que mon app soit
+> vraiment ultra belle, avec des animations vraiment cosmétiques et esthétiques,
+> qui ne sont PAS forcément en rapport direct avec l'utilisation ») :
+> **`prototype-decor.html`** — **18 ornements gratuits en 5 familles**, chacun en
+> bascule sans / avec, étiqueté discret / affirmé / spectaculaire, avec sa surface
+> visée et son coût. Plus une **scène cumulée** pilotée par les mêmes
+> interrupteurs et un **compteur d'animations actives**. 11 des 18 sont statiques.
+> La planche a demandé une troisième règle, la **RÈGLE DU MOBILIER** (spec § 5 ter,
+> **non arbitrée**) : la lampe régit ce qui signale, la veilleuse ce qui dit que
+> l'instrument est allumé, le mobilier dit **de quoi l'objet est fait**. Elle tient
+> par trois contraintes : objet **nommé et encadré** (jamais la surface entière, ce
+> qui respecte par construction le verdict du 24/07 sur les calques CRT),
+> **interdiction de mimer un signal**, et **préférence pour le statique**.
+>
+> ⚠️ **ACQUIS MAJEUR DE LA SESSION — le gisement SENTRY n'était PAS sec.** Le
+> propriétaire a demandé de repiloter la référence, y compris la vue
+> **`app.fuser.studio` jamais explorée**. Résultat : **17 trouvailles mesurées** au
+> CSS calculé sur **2 833 nœuds**, dont **6 procédés neufs** que la charte n'avait
+> pas — passe-partout (`outline` à décalage négatif), halo par `backdrop-filter`,
+> grille de **points** au lieu de lignes, bord gravé (double `inset`), fondu de
+> panneau, jeu de glyphes (`☾ ⌕ →` — la référence n'a **aucun `<svg>`**, ses icônes
+> sont des caractères). Ils forment la **famille E** de la planche, seule à porter
+> une provenance mesurée. ⚠️ **À ne pas confondre avec « le gisement est sec »**,
+> qui vaut pour le **mouvement** et **tient toujours** : ne rejouez pas cette
+> passe-là. Détail, valeurs exactes, 8 absences nommées et **2 limites de la passe**
+> (mode bureau du Studio non stabilisé, ombre des cartes non isolée) :
+> [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md) § « le mobilier décoratif ».
+>
+> **Réponse obtenue du propriétaire cette session** : « Réduire les animations »
+> **n'est pas permanent** chez lui, il peut le couper pour juger. Le chantier du
+> mouvement le concerne donc en usage réel. La question du 25/07 est soldée — mais
+> les planches gardent leur encart `#alarme` + bouton `#forcer`, qui reste la bonne
+> pratique.
 >
 > Soldé le 25/07 au matin : le **test des calques CRT sur iPhone réel** (les trois
 > effets rejetés, charte en v0.6), l'**exploration typographique hébraïque**
@@ -36,16 +71,27 @@ Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 > et laissés) ; et la construction des **trois planches de jugement**.
 >
 > **Ce qui attend le propriétaire, et rien d'autre : donner son verdict sur les
-> trois planches** — `prototype-mouvement.html` (A/B/rien par moment),
-> `prototype-ame.html` (garder / jeter / garder mais moins) et
-> `prototype-parures.html` (prendre / jeter / prendre plus discret). Deux textes du
-> spec sont écrits pour être **remplacés par ces verdicts** : le rectificatif de la
-> règle `steps()` au § 5, et la règle de la veilleuse au § 5 bis.
+> QUATRE planches** — `prototype-mouvement.html` (A/B/rien par moment),
+> `prototype-ame.html` (garder / jeter / garder mais moins),
+> `prototype-parures.html` et `prototype-decor.html` (prendre / jeter / prendre plus
+> discret, plus « statique seulement » qui est un verdict à part entière). **Trois**
+> textes du spec sont écrits pour être **remplacés par ces verdicts** : le
+> rectificatif de la règle `steps()` au § 5, la règle de la veilleuse au § 5 bis et
+> la règle du mobilier au § 5 ter.
 >
-> ⚠️ **Question posée au propriétaire le 25/07, restée sans réponse** : « Réduire
-> les animations » est-il **permanent** sur son appareil ? Si oui, le chantier du
-> mouvement et celui de l'ambiant ne le concernent pas en usage réel. À poser
-> **avant** d'investir davantage dans les animations.
+> Deux réponses transversales sont attendues en plus des verdicts par ornement :
+> **(1) le registre** — `steps()` ou fluide sur du décor ; les quatre planches
+> portent le sélecteur, et l'onde porteuse (décor 08) ne survit pas à `steps()` ;
+> **(2) la grille de points** (décor 15), seule proposition qui **remplace** un
+> acquis au lieu d'ajouter, puisqu'elle change le fond des trois surfaces et donc le
+> § 4 de la charte.
+>
+> ⚠️ Deux arbitrages de contenu, à lui et pas à un agent : la **guématrie**
+> (décor 09) est un usage traditionnel et religieux, alors que le dépôt a écarté
+> sciemment la vie religieuse du périmètre du *vocabulaire* — on ne sait pas si cette
+> décision couvre l'*ornement* ; et **le plotter** (décor 06) demanderait 22 tracés
+> SVG dessinés à la main, un lot à part entière du même ordre que la « racine en
+> vedette » (parure 03). Ne rien lancer là-dessus sans son accord.
 >
 > **Premier geste à la reprise** : vérifier où en est la réorganisation de `main`,
 > puis relire le PIÈGE AU MERGE en bas de cette section.
@@ -100,7 +146,7 @@ Les pièces, dans cet ordre de lecture :
 - **`prototype-nerv.html`** — la page-témoin v0.6 ; **elle fait foi en cas de
   désaccord avec le spec**. Quatre écrans (carte recto/verso, accueil,
   révélation, bilan) plus l'inventaire (nuancier, gamme typo, états).
-- **Les trois planches en attente de verdict** (créées le 25/07, contrôlées en
+- **Les quatre planches en attente de verdict** (créées le 25/07, contrôlées en
   WebKit, aucune arbitrée) — elles ne se recouvrent pas et se tranchent séparément :
   - **`prototype-mouvement.html`** — « qu'est-ce qui bouge quand il se passe quelque
     chose » : les 9 moments, chacun rendu deux fois, `steps()` contre fluide.
@@ -108,6 +154,12 @@ Les pièces, dans cet ordre de lecture :
     mouvements ambiants, isolés puis cumulés, avec compteur d'animations actives.
   - **`prototype-parures.html`** — « de quoi l'app est-elle faite » : 13 ornements
     en bascule sans / avec, dont 11 statiques.
+  - **`prototype-decor.html`** — « de quoi le site est-il décoré », le décor
+    entièrement **gratuit** : 18 ornements en 5 familles (le châssis · l'alphabet
+    comme ornement · les instruments qui ne mesurent rien · la profondeur encadrée ·
+    **les 6 procédés prélevés**), 11 statiques, plus une scène cumulée et un
+    compteur. Seule la famille E porte une **provenance mesurée** ; les 12 autres
+    sont composés, et la planche le dit au lieu de laisser croire le contraire.
 - **`test-crt-iphone.html`** — le protocole de test des calques sur device,
   **soldé** (les trois effets ont été rejetés) et conservé pour un futur effet à
   juger. Son écran de garde le dit, pour qu'une repasse ne soit pas prise pour un
