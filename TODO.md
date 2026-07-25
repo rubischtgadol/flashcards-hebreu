@@ -9,7 +9,8 @@
 (créé) ; 2026-07-24 : prototype-nerv.html, prototype-variantes.html,
 prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
-unifont-nikoud-repare.html et polices/ (créés, branche refonte-retrofuturiste).
+unifont-nikoud-repare.html, polices/ et REFERENCES_SENTRY.md (créés, branche
+refonte-retrofuturiste).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -25,8 +26,9 @@ Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 > réel** (les trois effets rejetés, charte en v0.6), l'**exploration typographique
 > hébraïque** (classée, on garde Frank Ruhl Libre) et la **recette du spec § 6**
 > (nikoud et grille jugés lisibles sur l'appareil). Le propriétaire reprendra
-> **après la refonte complète du code sur `main`**. Deux chantiers restent, tous
-> deux listés plus bas : le système de thèmes et le portage.
+> **après la refonte complète du code sur `main`**. Trois chantiers restent, tous
+> listés plus bas : le prélèvement des animations sur SENTRY, le système de thèmes,
+> et le portage.
 >
 > **Premier geste à la reprise** : vérifier où en est la réorganisation de `main`,
 > puis relire le PIÈGE AU MERGE en bas de cette section — la divergence a doublé
@@ -38,7 +40,11 @@ artistique SOLDÉE**, arbitrée de bout en bout par le propriétaire, sur pièce
 Décisions actées :
 
 - **Référence fondatrice** : l'app SENTRY (`sentry-by-artificial-isa.fuser.app`),
-  charte extraite mécaniquement (Playwright WebKit, CSS calculé).
+  charte extraite mécaniquement (Playwright WebKit, CSS calculé). **Liens, méthode
+  d'extraction, ce qui a été prélevé et ce qui reste à prélever :
+  [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md).** ⚠️ Le propriétaire a mentionné un
+  **second lien** le 25/07 — il n'était consigné nulle part, il reste à ajouter dans
+  ce fichier.
 - **Variante A « Observatoire »**, contre B Phosphore (monochrome vert), C NERV
   (orange dominant) et D Or ancien (pont avec la charte actuelle).
 - **Typographie à trois voix, zéro italique** : Frank Ruhl Libre 900 (hébreu
@@ -114,9 +120,22 @@ Les pièces, dans cet ordre de lecture :
    tient sous le halo ambre, la grille de fond reste discrète sous le texte.
    `test-crt-iphone.html` est conservé, marqué « protocole soldé » sur son écran de
    garde — il resservira si un effet de surface est un jour reproposé.
-2. **Session de conception du système de thèmes** (brainstorming →
+2. **Continuer le prélèvement sur SENTRY : animations et éléments graphiques.**
+   Demande du propriétaire, 25/07. ⚠️ **Le mouvement est le grand absent de la
+   charte** : après le retrait des trois calques CRT, il ne reste qu'**une seule
+   animation** dans toute la page-témoin (le bandeau de boot, qui ne joue qu'une
+   fois). À aller chercher : les animations d'état — ce qui bouge quand une valeur
+   change, quand un panneau s'active, quand une alerte tombe, c'est exactement le
+   registre qui manque à une app de révision — les transitions entre les quatre
+   écrans, les éléments graphiques que la première passe (concentrée sur 21 modules)
+   a laissés, et le comportement au défilement. Deux garde-fous hérités : **tout
+   mouvement en `steps()`**, et **aucun effet de surface d'écran** — le mouvement
+   doit être local et signifiant, sinon il retombe dans ce qui a été rejeté sur
+   l'appareil. Méthode et inventaire du déjà-prélevé :
+   [REFERENCES_SENTRY.md](REFERENCES_SENTRY.md).
+3. **Session de conception du système de thèmes** (brainstorming →
    writing-plans) : le sélecteur du § 7 est une idée cadrée, rien n'est planifié.
-3. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
+4. **Portage** sur les vraies surfaces — **attend la fin de la réorganisation du
    dépôt sur `main`**, sinon on peint sur une structure qui bouge.
 
 ⚠️ **PIÈGE AU MERGE — à lire avant de fusionner cette branche.** Elle est partie

@@ -14,6 +14,9 @@ par ce chantier ; `main` reste intact.
 **Référence fondatrice** : l'app SENTRY (`sentry-by-artificial-isa.fuser.app`), choisie
 par le propriétaire parmi les familles cassette futurism / synthwave / Evangelion.
 Charte extraite mécaniquement (Playwright WebKit, CSS calculé) le 2026-07-24.
+**Liens, méthode et gisement restant : [REFERENCES_SENTRY.md](../../../REFERENCES_SENTRY.md)** —
+la référence n'a été prélevée que sur ses couleurs, sa structure et ses 21 modules ; **ses
+animations restent à explorer** (chantier ouvert le 25/07).
 
 **Décisions actées sur planches comparatives** :
 - Variante **A « Observatoire »** (la référence SENTRY telle quelle) — retenue contre
