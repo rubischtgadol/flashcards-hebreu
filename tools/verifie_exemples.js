@@ -11,8 +11,9 @@
  *      3 mots suffisent aux phrases nominales, l'hébreu n'a pas de « être ») ;
  *   3. nikoud : chaque mot hébreu de la phrase est vocalisé ;
  *   4. translittération : .tr concorde avec he2tr(.he) — les deux fonctions
- *      sont EXTRAITES d'app.html (concordance par construction avec l'appli),
- *      comparées après pliage trKey, petite tolérance d'édition ;
+ *      sont chargées depuis leur MODULE SOURCE src/app/js/02-translitteration.js
+ *      via fonctionsApp() (build.js), donc d'accord avec l'appli par
+ *      construction ; comparées après pliage trKey, petite tolérance d'édition ;
  *   5. niveau : chaque mot de la phrase appartient au lexique du carnet
  *      (formes conjuguées/pluriels inclus, préfixes ו/ה/ב/ל/מ/ש/כ décollés)
  *      avec un niveau ≤ celui du mot illustré — token inconnu ou d'un niveau
@@ -28,27 +29,14 @@
  */
 'use strict';
 const fs = require('fs');
-const vm = require('vm');
-const { chargeDonnees, deriveCartes, ROOT, NOTEBOOK, APP } = require('./build.js');
+const { chargeDonnees, deriveCartes, fonctionsApp, ROOT, NOTEBOOK } = require('./build.js');
 
-// ---------- fonctions de l'appli, extraites telles quelles d'app.html ----------
-function grabFunction(src, name){
-  const open = src.indexOf('function ' + name + '(');
-  if (open < 0) throw new Error('function ' + name + ' introuvable dans app.html');
-  let i = src.indexOf('{', open), depth = 0;
-  for (let j = i; j < src.length; j++){
-    if (src[j] === '{') depth++;
-    else if (src[j] === '}' && --depth === 0) return src.slice(open, j + 1);
-  }
-  throw new Error('accolades non équilibrées pour ' + name);
-}
-const appSrc = fs.readFileSync(APP, 'utf8');
-const sandbox = {};
-vm.createContext(sandbox);
-['he2tr', 'trKey', 'editDist'].forEach(fn => vm.runInContext(grabFunction(appSrc, fn), sandbox));
-const he2tr = (s) => vm.runInContext('he2tr(' + JSON.stringify(s) + ')', sandbox);
-const trKey = (s) => vm.runInContext('trKey(' + JSON.stringify(s) + ')', sandbox);
-const editDist = (a, b) => vm.runInContext('editDist(' + JSON.stringify(a) + ',' + JSON.stringify(b) + ')', sandbox);
+// ---------- fonctions de l'appli, chargées depuis leur module source ----------
+// Elles venaient d'app.html jusqu'au 25/07 — un artefact généré servait donc
+// d'entrée. Elles viennent maintenant de src/app/js/02-translitteration.js via
+// fonctionsApp() (build.js), qui évalue le module entier : concordance avec
+// l'appli par construction, et plus aucun découpage textuel à l'accolade.
+const { he2tr, trKey, editDist } = fonctionsApp(['he2tr', 'trKey', 'editDist']);
 
 // ---------- lexique : tout l'hébreu du carnet, avec son niveau ----------
 const LEVELS = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };

@@ -11,7 +11,8 @@
  * Consomme un petit nouveaux_mots.json (1..N opérations : nom, adjectif, verbe,
  * liste, exemple) et fait tout le mécanique : validation complète en amont,
  * placement dans le bon tableau/liste de data/ (par sous-thème/groupe, jamais par
- * numéro de ligne), translittération dérivée (he2tr d'app.html, surchargeable),
+ * numéro de ligne), translittération dérivée (he2tr, chargée depuis son module
+ * source src/app/js/02-translitteration.js, surchargeable),
  * preuve par bac à sable (node tools/build.js + node tools/verifie_exemples.js sur la donnée
  * candidate, copiée dans un dossier temporaire), verdict avec diff ciblé (les
  * entrées JSON insérées) et tableau des tr dérivés.
@@ -26,10 +27,11 @@
  *   node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force      # passe outre les doublons même-section
  *
  * Aucun troisième parseur : la donnée vient de chargeDonnees()/valideDonnees()/
- * deriveCartes() (build.js). Aucune troisième translittération : he2tr est
- * extraite textuellement d'app.html et évaluée via vm (même procédé que
- * verifie_exemples.js) — échec bruyant si la fonction bouge, jamais de fallback
- * silencieux.
+ * deriveCartes() (build.js). Aucune troisième translittération : he2tr vient de
+ * fonctionsApp() (build.js), qui évalue src/app/js/02-translitteration.js — le
+ * MODULE SOURCE, plus l'artefact app.html (bascule du 25/07 : plus aucune sortie
+ * du build n'est une entrée) — même procédé que verifie_exemples.js. Échec
+ * bruyant et nommé si la fonction bouge, jamais de fallback silencieux.
  *
  * Retiré au passage à v2 (raisons dans SPEC_AJOUTE_MOTS.md §10) :
  *   --nouveau-sous-theme : créer un sous-thème exige désormais un <h3>/placeholder
@@ -43,36 +45,24 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const vm = require('vm');
 const { spawnSync, execFileSync } = require('child_process');
 
 const {
-  chargeDonnees, valideDonnees, deriveCartes, ROOT, APP,
+  chargeDonnees, valideDonnees, deriveCartes, fonctionsApp, ROOT,
   stripNikud, orthographeVoisine,
   EXPECTED_LEVELS, EXPECTED_THEMES, listCats,
 } = require('./build.js');
 
-// ---------- he2tr : extraite telle quelle d'app.html (procédé de verifie_exemples.js) ----------
-function grabFunction(src, name){
-  const open = src.indexOf('function ' + name + '(');
-  if (open < 0) throw new Error('function ' + name + ' introuvable dans app.html');
-  let i = src.indexOf('{', open), depth = 0;
-  for (let j = i; j < src.length; j++){
-    if (src[j] === '{') depth++;
-    else if (src[j] === '}' && --depth === 0) return src.slice(open, j + 1);
-  }
-  throw new Error('accolades non équilibrées pour ' + name);
-}
-const appSrc = fs.readFileSync(APP, 'utf8');
+// ---------- he2tr : chargée depuis son module source (procédé de verifie_exemples.js) ----------
+// Elle venait d'app.html jusqu'au 25/07 — un artefact généré servait donc
+// d'entrée au générateur. Elle vient maintenant de
+// src/app/js/02-translitteration.js via fonctionsApp() (build.js).
 let he2tr;
 try {
-  const sb = {};
-  vm.createContext(sb);
-  vm.runInContext(grabFunction(appSrc, 'he2tr'), sb);
-  he2tr = (s) => vm.runInContext('he2tr(' + JSON.stringify(s) + ')', sb);
+  ({ he2tr } = fonctionsApp(['he2tr']));
 } catch (e){
-  console.error('✗ Extraction de he2tr depuis app.html en échec : ' + e.message);
-  console.error('  (fonction renommée/déplacée ? le générateur refuse de continuer sans elle.)');
+  console.error('✗ Chargement de he2tr depuis son module source en échec : ' + e.message);
+  console.error('  (le générateur refuse de continuer sans elle : sans he2tr, aucune translittération dérivée.)');
   process.exit(1);
 }
 
@@ -160,7 +150,7 @@ function verifieExemplesChamp(qui, exs, obligatoire){
 }
 function messageThemeInconnu(qui, theme){
   err(qui + ' : thème « ' + theme + ' » hors taxonomie. Les 15 slugs : ' + EXPECTED_THEMES.join(', ') + '.\n' +
-    '    Nouveau thème (16ᵉ slug) : hors périmètre du script — l\'ajouter à EXPECTED_THEMES (build.js) ET à THEMES (app.html), slugs identiques, avant tout theme neuf dans data/.');
+    '    Nouveau thème (16ᵉ slug) : hors périmètre du script — l\'ajouter à EXPECTED_THEMES (build.js) ET à THEMES (src/app/js/07-filtres.js), slugs identiques, avant tout theme neuf dans data/.');
 }
 function messageSectionInconnue(qui, section, valides){
   const sugg = quasi(section, valides);
@@ -326,6 +316,11 @@ function appliqueInsertions(candidat, insertions){
 //     en dépend, et masquerait la vraie règle : ce qu'on copie, c'est exactement ce que le
 //     build lit du disque. `src/` est copié en entier ci-dessous, src/portail/ y compris —
 //     le bac à sable régénère donc son propre index.html.
+//     ⚠️ Même sortie le 25/07 pour **app.html**, qui était copié ici (hors liste, sur sa
+//     propre ligne) pour la seule raison que `verifie_exemples.js` y prenait he2tr/trKey/
+//     editDist. Ces fonctions viennent désormais de src/app/js/02-translitteration.js
+//     (`fonctionsApp`, build.js) : plus personne ne LIT app.html, le bac à sable le
+//     régénère comme les quatre autres artefacts, et la copie est partie avec la raison.
 //     Pourquoi les deux fichiers de la liste y sont : `manifest.webmanifest` est lu par
 //     `verifieCharte` (thème/bg) ET entre dans le hash de l'estampille ; `sw.js` porte la
 //     ligne estampillée. Le bac à sable estampille donc SA copie, dans le temporaire — le
@@ -344,7 +339,6 @@ function sandboxValidation(candidat){
     fs.mkdirSync(path.join(dir, 'tools'));
     ['build.js', 'verifie_exemples.js'].forEach(f =>
       fs.copyFileSync(path.join(ROOT, 'tools', f), path.join(dir, 'tools', f)));
-    fs.copyFileSync(APP, path.join(dir, 'app.html'));
     FICHIERS_RACINE_BAC_A_SABLE.forEach(f =>
       fs.copyFileSync(path.join(ROOT, f), path.join(dir, f)));
     fs.cpSync(path.join(ROOT, 'src'), path.join(dir, 'src'), { recursive: true });

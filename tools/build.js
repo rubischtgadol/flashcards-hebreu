@@ -44,6 +44,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const vm = require('vm');
 const gabarits = require('../src/carnet/gabarits.js');
 
 // ⚠️ Les scripts vivent dans tools/, la racine du dépôt est donc le dossier parent
@@ -146,6 +147,39 @@ function fichiersListes(racine){
 function fichiersDonnees(racine){
   return ['data/noms.json', 'data/adjectifs.json', 'data/verbes.json']
     .concat(fichiersListes(racine).map(f => 'data/listes/' + f));
+}
+
+// ---------- fonctions de l'app, chargées depuis leur MODULE SOURCE ----------
+// verifie_exemples.js et ajoute_mots.js ont besoin de he2tr / trKey / editDist
+// pour rester d'accord avec l'appli au caractère près. Ils les prenaient dans
+// app.html — un ARTEFACT : c'était le dernier endroit du dépôt où une SORTIE du
+// build servait d'ENTRÉE, donc les outils ne tournaient pas sur un clone frais
+// tant qu'un premier build n'avait pas eu lieu. La source est
+// src/app/js/02-translitteration.js, que assembleApp() concatène tel quel.
+//
+// Le module est déclaré « logique pure » par son en-tête `// Expose :` et ne
+// contient que des déclarations de fonctions (aucune instruction de haut
+// niveau, aucun accès au DOM) : on l'évalue donc EN ENTIER dans un bac vm.
+// C'est ce qui permet de supprimer l'extracteur textuel `grabFunction` que les
+// deux outils portaient chacun de son côté, mot pour mot — un découpage à
+// l'accolade est fragile là où un `runInContext` est exact.
+// ⚠️ Si ce module cessait d'être pur (un `document.` y suffirait), l'appel
+// ci-dessous échouerait bruyamment ici plutôt que silencieusement plus loin.
+const MODULE_TRANSLIT = path.join('src', 'app', 'js', '02-translitteration.js');
+
+function fonctionsApp(noms, racine){
+  const fichier = path.join(racine || ROOT, MODULE_TRANSLIT);
+  const bac = {};
+  vm.createContext(bac);
+  vm.runInContext(fs.readFileSync(fichier, 'utf8'), bac);
+  const sortie = {};
+  for (const nom of noms){
+    if (typeof bac[nom] !== 'function')
+      throw new Error('fonction « ' + nom + ' » introuvable dans ' + MODULE_TRANSLIT
+        + ' (renommée, déplacée dans un autre module, ou module devenu impur ?)');
+    sortie[nom] = bac[nom];
+  }
+  return sortie;
 }
 
 function chargeDonnees(racine){
@@ -1139,6 +1173,6 @@ function main(){
 module.exports = { ROOT, NOTEBOOK, APP, CARDS_JSON, INDEX,
   stripNikud, orthographeVoisine,
   EXPECTED_CATS, EXPECTED_LEVELS, EXPECTED_THEMES, THEMED_CATS, listCats,
-  fichiersListes, fichiersDonnees,
+  fichiersListes, fichiersDonnees, fonctionsApp,
   chargeDonnees, valideDonnees, genereCarnet, deriveCartes, assertFormeCartes };
 if (require.main === module) main();
