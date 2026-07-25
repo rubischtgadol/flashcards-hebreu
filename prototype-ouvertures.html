@@ -150,6 +150,23 @@ body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 
   body:not(.force-anim) *::after{animation:none !important;transition:none !important}
 }
 
+/* ---- le bandeau de diagnostic ------------------------------------
+   Payé le 25/07 : une page-témoin ouverte chez le propriétaire n'a RIEN
+   joué, fichier pourtant byte-identique — et rien, sur la page, ne
+   disait pourquoi. Une page qui ne bouge pas doit annoncer la RAISON
+   pour laquelle elle ne bouge pas, sinon elle est indiscernable de cinq
+   animations ratées. Ce bandeau lit l'état réel du navigateur. */
+.diag{
+  display:flex;gap:18px;flex-wrap:wrap;align-items:center;
+  border:1px solid var(--ligne);background:rgba(10,8,20,.55);
+  padding:9px 13px;margin:0 0 26px;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--lune);
+}
+.diag .k{opacity:.55;text-transform:uppercase}
+.diag .val{color:var(--vert);text-shadow:0 0 6px currentColor}
+.diag .val.mauvais{color:var(--rouge)}
+.diag .val.tiede{color:var(--orange)}
+
 /* ---- le tableau de synthèse ---- */
 .synth{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:.76rem}
 .synth th,.synth td{border:1px solid var(--ligne);padding:8px 10px;text-align:left;vertical-align:top}
@@ -1987,6 +2004,18 @@ body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 
   <div class="meta-ligne">v0.1 — 5 séquences · 5 mécanismes · de 1,8 s à 7 s · charte v2 « la console d'étude »</div>
 </header>
 
+<noscript>
+  <div class="alarme" style="display:block">
+    <div class="titre">⚠ javascript est désactivé — rien ne peut jouer</div>
+    <p>Les cinq séquences sont déclenchées par un script : sans lui, les cadres restent
+    <b>noirs</b> et aucun bouton ne répond. Ce n'est pas un défaut des ouvertures, c'est la page qui
+    ne peut pas les lancer. Autorise le script pour cette adresse, ou ouvre la page sur un autre
+    navigateur.</p>
+    <p><b>Pourquoi cet encart existe :</b> sans lui, une page noire et muette ressemble exactement à
+    cinq animations ratées. Une page doit dire pourquoi elle ne fait rien.</p>
+  </div>
+</noscript>
+
 <div class="alarme" id="alarme" hidden>
   <div class="titre">⚠ ton appareil demande de réduire les animations</div>
   <p>Les cinq séquences sont <b>neutralisées</b> : chacune s'affiche <b>déjà terminée</b>, à son écran
@@ -2031,6 +2060,15 @@ body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 
   <span class="lab" style="margin-left:10px">toutes</span>
   <button class="btn" id="tout-jouer">▶ rejouer les 5</button>
   <button class="btn danger" id="tout-couper">■ couper</button>
+</div>
+
+<div class="diag" id="diag">
+  <span><span class="k">script</span> <span class="val" id="d-js">—</span></span>
+  <span><span class="k">mouvement réduit</span> <span class="val" id="d-mr">—</span></span>
+  <span><span class="k">animations en cours</span> <span class="val" id="d-anim">—</span></span>
+  <span><span class="k">vitesse --v</span> <span class="val" id="d-v">—</span></span>
+  <span><span class="k">fonte hébraïque</span> <span class="val" id="d-fonte">—</span></span>
+  <span id="d-verdict" style="flex:1 1 100%;color:var(--lune);opacity:.8;letter-spacing:.04em"></span>
 </div>
 
 <div class="ouvr">
@@ -2640,8 +2678,80 @@ body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 
     props.forEach(function(p){ if (p.classList.contains('joue')) joue(p); });
   });
 
+  /* ---- LE DIAGNOSTIC ---------------------------------------------
+     Une page qui ne bouge pas doit dire POURQUOI elle ne bouge pas.
+     Sinon elle est indiscernable de cinq animations ratées — c'est
+     exactement ce qui s'est produit le 25/07 sur une autre planche,
+     ouverte chez le propriétaire et restée muette, fichier pourtant
+     byte-identique. Ce bandeau lit l'état réel du navigateur. */
+  var dJs = document.getElementById('d-js'),
+      dMr = document.getElementById('d-mr'),
+      dAn = document.getElementById('d-anim'),
+      dV  = document.getElementById('d-v'),
+      dF  = document.getElementById('d-fonte'),
+      dVd = document.getElementById('d-verdict');
+
+  function pose(el, txt, etat){
+    if (!el) return;
+    el.textContent = txt;
+    el.className = 'val' + (etat ? ' ' + etat : '');
+  }
+
+  function majDiag(){
+    if (!dJs) return;
+    pose(dJs, 'actif');
+
+    var reduit = !!(MQ && MQ.matches);
+    var derog  = document.body.classList.contains('force-anim');
+    pose(dMr, reduit ? (derog ? 'oui, mais dérogé ici' : 'OUI — tout est figé')
+                     : 'non', reduit ? (derog ? 'tiede' : 'mauvais') : null);
+
+    var n = 0;
+    if (document.getAnimations){
+      n = document.getAnimations().filter(function(a){
+        return a.playState === 'running' && typeof a.transitionProperty !== 'string';
+      }).length;
+    }
+    pose(dAn, document.getAnimations ? String(n) : 'non mesurable',
+         (document.getAnimations && n === 0) ? 'mauvais' : null);
+
+    var v = getComputedStyle(props[0]).getPropertyValue('--v').trim();
+    pose(dV, v || 'NON DÉFINIE', v ? null : 'mauvais');
+
+    /* la fonte hébraïque : si Frank Ruhl Libre n'a pas été chargée, la
+       page s'affiche quand même mais dans une fonte de repli — l'hébreu
+       en Times. Ce n'est plus la charte, et ça fausserait le jugement. */
+    var fonteOk = null;
+    try { fonteOk = document.fonts && document.fonts.check('900 1em "Frank Ruhl Libre"'); }
+    catch(e){ fonteOk = null; }
+    pose(dF, fonteOk === null ? 'non mesurable' : (fonteOk ? 'chargée' : 'ABSENTE — repli'),
+         fonteOk === false ? 'mauvais' : null);
+
+    var msg = '';
+    if (reduit && !derog){
+      msg = '▸ Ton système demande de réduire les animations : les cinq séquences s\'affichent ' +
+            'DÉJÀ TERMINÉES, à leur écran d\'accueil. Clique « Animer quand même » dans l\'encart ' +
+            'rouge ci-dessus pour les voir jouer. Sur Windows : Paramètres › Accessibilité › ' +
+            'Effets visuels › Effets d\'animation.';
+    } else if (fonteOk === false){
+      msg = '▸ La fonte hébraïque n\'a pas pu être chargée (Google Fonts bloqué ?) : le rendu ' +
+            'n\'est pas celui de la charte. Dis-le-moi, j\'intègre les fontes dans la page.';
+    } else if (n === 0){
+      msg = '▸ Aucune animation en cours : fais défiler jusqu\'à une séquence, elle démarre seule ' +
+            'à l\'entrée dans le champ — ou clique « rejouer ».';
+    } else {
+      msg = '▸ Tout est nominal : ' + n + ' animations en cours. Les cinq séquences peuvent être jugées.';
+    }
+    if (dVd) dVd.textContent = msg;
+  }
+
+  if (MQ && MQ.addEventListener) MQ.addEventListener('change', majDiag);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(majDiag);
+  setInterval(majDiag, 1000);
+
   vitesse('integrale');
   registre('fluide');
+  majDiag();
 })();
 </script>
 </body>
