@@ -7,10 +7,10 @@
 **Où en est le dépôt (25/07/2026, tout poussé sur `main`).** La réorganisation
 « le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
 contrôle de sortie compris (Task 21 — preuve plus bas). **Aucun chantier n'est
-ouvert** sur `main` ; la suite se choisit dans « Dette ouverte » (petits défauts
-connus), dans le contenu (`data/*.json`), ou dans l'une des deux branches
-latérales — voir « Deux branches latérales » plus bas. Le dépôt est rangé
-ainsi :
+ouvert** sur `main` ; la suite se choisit dans le contenu (`data/*.json`) ou
+dans « Dette ouverte » (petits défauts connus, aucun bloquant). Les deux
+branches latérales sont **garées** et ne se proposent pas d'elles-mêmes — voir
+« Deux branches latérales » plus bas. Le dépôt est rangé ainsi :
 
 | Où | Quoi | S'édite à la main ? |
 | --- | --- | --- |
@@ -66,22 +66,26 @@ Plan complet dans
    service worker sert d'abord le cache et rafraîchit derrière
    (stale-while-revalidate).
 
-### Deux branches latérales vivantes — et ce que la réorganisation leur coûte
+### Deux branches latérales — garées, pas oubliées
 
 `main` n'en portait aucune trace : consigné ici pour qu'une session ne les
-redécouvre pas par hasard. L'écart se relit à tout moment —
+redécouvre pas par hasard. **Aucune des deux n'est une piste à ouvrir de sa
+propre initiative.** L'écart se relit à tout moment —
 `git rev-list --count main..<branche>` (devant) et
 `git rev-list --count <branche>..main` (derrière).
 
-- **`refonte-retrofuturiste`** — la charte v2 « La console d'étude », arbitrée
-  de bout en bout mais invisible depuis `main`. Elle est **sortie en worktree**
-  (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`), donc on
-  ne la `checkout` pas ici. Intention retenue : les deux chartes coexisteront
-  via un sélecteur à l'accueil.
+- **`refonte-retrofuturiste`** — la charte v2 « La console d'étude ». **C'est
+  une refonte purement visuelle**, et elle est **garée volontairement**
+  (décision du propriétaire, 25/07) : elle sera remise à niveau *quand le
+  travail sur `main` sera fini*, pas avant. Ne pas la proposer comme prochain
+  chantier, ne pas chercher à la fusionner en passant. Elle est **sortie en
+  worktree** (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`),
+  donc on ne la `checkout` pas ici. Intention retenue pour le jour venu : les
+  deux chartes coexisteront via un sélecteur à l'accueil.
 - **`pilier-oral`** — verso des verbes en grille 2×2, accueil idiomatique,
-  quelques points de vocabulaire.
+  quelques points de vocabulaire. Pas d'échéance décidée.
 
-⚠️ **Le vrai coût, à savoir avant d'ouvrir l'une ou l'autre** : les deux
+⚠️ **Le vrai coût, le jour où l'une sera reprise** : les deux
 branches ont divergé **avant** la réorganisation, donc elles éditent encore
 `app.html`, `index.html` et `vocabulaire_hebreu.html` **à la main**. Ces trois
 fichiers sont maintenant des artefacts générés : un `git merge` produira des
