@@ -81,6 +81,26 @@ Deux outils complémentaires pour apprendre l'hébreu moderne en débutant, en f
 > un **symbole identitaire et religieux**, donc ouvrir l'app dessus est une déclaration — même
 > régime d'arbitrage que la guématrie et la rosace.
 >
+> **➡️ Les cinq ouvertures** (25/07) — **cinq propositions d'écran d'ouverture sur une seule page**,
+> et surtout **cinq mécanismes différents**, pas cinq variantes : **01 le tressage** (le Magen David
+> devient la lettre, 7 s) · **02 l'auto-test** (la console s'allume, POST, **1,8 s**) ·
+> **03 l'obturateur** (iris hexagonal et mise au point, 3 s) · **04 le télétype** (le א frappé en
+> passes, chariot de droite à gauche, 4 s) · **05 la carte** (l'app fait son propre geste : une
+> carte se retourne, se dédouble, et les trois cartes se rangent sur les trois portes, 2,5 s) :
+>
+>     https://raw.githack.com/rubischtgadol/flashcards-hebreu/refonte-retrofuturiste/prototype-ouvertures.html
+>
+> **Les cinq finissent sur un état final rigoureusement identique** — vérifié en WebKit, écart
+> maximal **0 px** sur les cinq. C'est ce qui rend la page utile : à état final identique, ce qui
+> reste à juger est le **chemin**. Chaque séquence **mesure et affiche sa propre durée** (les durées
+> annoncées sont vraies à 0,5 % près), et la page porte les bascules **intégrale / abrégée ×3** et
+> **`steps()` / fluide**, auxquelles les cinq répondent.
+>
+> ⚠️ **Le critère n'est pas la beauté** : tu ouvriras cette app plusieurs fois par jour pendant des
+> années, donc la question est **« laquelle supportes-tu la trentième fois »**. C'est pourquoi les
+> durées vont de 1,8 s à 7 s — l'écart est une proposition à part entière. Et **une seule des cinq
+> ouvre sur un symbole religieux** (la n°01) : les quatre autres n'engagent rien de tel.
+>
 > **➡️ La planche des polices hébraïques** — שָׁלוֹם dans les 62 familles Google Fonts qui
 > couvrent l'hébreu, avec pour chacune un **verdict nikoud mesuré dans le fichier de fonte** :
 >

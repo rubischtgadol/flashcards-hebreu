@@ -202,6 +202,39 @@ verdict du propriétaire — c'est le premier sujet à reprendre.
      l'app dessus est une déclaration — même régime d'arbitrage que la guématrie
      (09) et la rosace (05), au propriétaire et pas à un agent.
 
+  E. prototype-ouvertures.html — « comment l'app s'ouvre-t-elle ». CINQ
+     ouvertures sur une page, et surtout CINQ MÉCANISMES, pas cinq variantes :
+     01 tressage (7,01 s, la seule à porter un symbole — le Magen David) ·
+     02 auto-test / POST (1,80 s) · 03 obturateur, iris hexagonal et mise au
+     point (3,00 s) · 04 télétype, le א frappé en passes (3,98 s) · 05 la carte,
+     l'app fait son propre geste (2,50 s).
+     LE PRINCIPE À NE PAS CASSER : les cinq finissent sur un état final
+     RIGOUREUSEMENT IDENTIQUE — écart max 0 px mesuré en WebKit. C'est ce qui
+     rend la page utile : à état final identique, seul le CHEMIN reste à juger.
+     Chaque séquence mesure et affiche sa durée réelle (annonces vraies à 0,5 %).
+     Verdict attendu : un classement, pas une note — laquelle on garde, et s'il
+     y en a une deuxième qui mérite de vivre en variante abrégée. Plus la
+     réponse sur LA DURÉE (le critère n'est pas la beauté mais « laquelle
+     supportes-tu la trentième ouverture »), sur LE REGISTRE steps()/fluide (les
+     5 y répondent), et sur LE SYMBOLE.
+     ⚠️ PIÈGE DE CE HARNAIS, PAYÉ SIX FOIS — à lire avant d'ajouter une sixième
+     ouverture : .prop .fin est centrée PAR SA TRANSFORMÉE (top:50% +
+     translateY(-46%)). Toute animation qui la touche doit composer
+     translateY(-46%) AUX DEUX BORNES. Une animation `forwards` finissant sur
+     `transform:none` écrase le centrage et fait TOMBER l'accueil au moment où
+     il se pose : 72,8 px sur la n°01, 97,8 px sur les n°03 et 05, et
+     DÉBORDEMENT hors cadre sur la n°02 (412,6 px dans une scène de 400, portes
+     rognées). Le défaut a frappé 3 propositions sur 5, plus 2 fois dans leur
+     bloc de mouvement réduit.
+     ⚠️ DEUX RÈGLES ACQUISES ICI : (1) une variable de durée doit avoir un REPLI
+     EN CSS — --v n'était posée que par le JS, donc sans lui les ~60
+     calc(Xs*var(--v)) devenaient invalides et PLUS RIEN ne s'animait, sans que
+     rien ne le signale ; (2) le régime « fluide » ne définit RIEN, chaque
+     ouverture écrit var(--eS, son_easing_conçu) — le repli restitue l'easing
+     dessiné et seul steps() impose quelque chose. Neuf steps() DÉLIBÉRÉS
+     restent durs dans les deux régimes : un mécanisme qui cliquette ne doit pas
+     devenir fluide parce qu'on a choisi « fluide ».
+
 ════════ CE QUI RESTE, DANS L'ORDRE DU TODO ════════
 
   1. recueillir les VERDICTS sur les quatre planches ci-dessus, puis inscrire les

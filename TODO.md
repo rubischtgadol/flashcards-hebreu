@@ -11,8 +11,8 @@ prototype-effets.html, test-crt-iphone.html, specimen-hebreu.html,
 specimen-monospace-hebreu.html, duel-miriam-unifont.html,
 unifont-nikoud-repare.html, polices/, REFERENCES_SENTRY.md et PROMPT_REPRISE.md
 (créés, branche refonte-retrofuturiste) ; 2026-07-25 : prototype-mouvement.html,
-prototype-ame.html, prototype-parures.html et prototype-decor.html (créés, même
-branche).
+prototype-ame.html, prototype-parures.html, prototype-decor.html et
+prototype-ouvertures.html (créés, même branche).
 Le flag enregistre la dette, il ne déclenche rien (règle du 21/07).
 
 > ⚠️ **Vous êtes sur la branche `refonte-retrofuturiste`** (worktree
@@ -156,6 +156,19 @@ Les pièces, dans cet ordre de lecture :
     mouvements ambiants, isolés puis cumulés, avec compteur d'animations actives.
   - **`prototype-parures.html`** — « de quoi l'app est-elle faite » : 13 ornements
     en bascule sans / avec, dont 11 statiques.
+  - **`prototype-ouvertures.html`** — « comment l'app s'ouvre-t-elle » : **cinq
+    ouvertures, cinq MÉCANISMES** (pas cinq variantes), de **1,8 s à 7 s** —
+    01 tressage (7,01 s, seule à porter un symbole) · 02 auto-test (1,80 s) ·
+    03 obturateur (3,00 s) · 04 télétype (3,98 s) · 05 la carte (2,50 s).
+    **Les cinq finissent sur un état final rigoureusement identique** (écart max
+    **0 px** mesuré en WebKit) : à état final identique, seul le CHEMIN reste à
+    juger. Chaque séquence mesure et affiche sa durée réelle. Bascules
+    intégrale/abrégée et `steps()`/fluide, auxquelles les 5 répondent.
+    ⚠️ Le critère n'est pas la beauté mais **« laquelle supporte la trentième
+    ouverture »** : l'écart de durée est une proposition à part entière. Et une
+    seule ouvre sur un **symbole religieux** — arbitrage du propriétaire.
+    Spec § 5 ter ter. Méthode : 10 agents (5 concepteurs + 5 auditeurs
+    adversariaux), 5× CONFORME_APRES_CORRECTION, 4 à 8 défauts chacune.
   - **`prototype-decor.html`** — « de quoi le site est-il décoré », le décor
     entièrement **gratuit** : 18 ornements en 5 familles (le châssis · l'alphabet
     comme ornement · les instruments qui ne mesurent rien · la profondeur encadrée ·

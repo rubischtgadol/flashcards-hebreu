@@ -298,6 +298,62 @@ déclaration**. Le propriétaire l'a demandée explicitement et elle est livrée
 décision n'est simplement pas de même nature que « prendre ou jeter un filet double ». Même régime
 que la guématrie (09) et la rosace (05) : arbitrage du propriétaire, pas d'un agent.
 
+### 5 ter ter. Les cinq ouvertures — `prototype-ouvertures.html` (2026-07-25, carte blanche)
+
+Le propriétaire demande **cinq propositions d'ouverture sur une seule page**. Elles ne sont pas cinq
+variantes d'une idée mais **cinq mécanismes** et **cinq registres**, avec des durées échelonnées de
+**1,8 s à 7 s** — l'écart de durée est une proposition à part entière, parce que la question réelle
+n'est pas « laquelle est la plus belle la première fois » mais **« laquelle supporte la trentième »**
+sur une app ouverte plusieurs fois par jour.
+
+| | Mécanisme | Registre | Durée mesurée | Symbole |
+|---|---|---|---|---|
+| 01 | Le tressage — la géométrie devient la lettre | symbolique | 7,01 s | **Magen David** |
+| 02 | L'auto-test — la console s'allume (POST) | instrument | 1,80 s | aucun |
+| 03 | L'obturateur — iris hexagonal et mise au point | optique | 3,00 s | aucun |
+| 04 | Le télétype — la lettre frappée en passes | mécanique | 3,98 s | aucun |
+| 05 | La carte — l'app fait son propre geste | produit | 2,50 s | aucun |
+
+**Le principe qui rend la page utile : les cinq finissent sur un état final rigoureusement
+identique** — même marque, mêmes trois portes, même position au pixel. Vérifié en WebKit : top
+relatif de `.fin` identique sur les cinq, **écart maximal 0 px** (102,17 px sur iPhone, 147,32 px au
+bureau). À état final identique, ce qui reste à juger est le **chemin**, et rien d'autre. Chaque
+séquence **mesure et affiche sa propre durée** ; les durées annoncées sont vraies à 0,5 % près.
+
+**Une seule des cinq ouvre sur un symbole religieux.** C'est délibéré : la n°01 est le portage de ce
+qui avait été demandé, les quatre autres n'engagent rien de tel. L'arbitrage revient au propriétaire
+et n'est pas pris à sa place.
+
+> ⚠️ **Le piège de ce harnais, payé SIX fois — à lire avant d'ajouter une sixième ouverture.**
+> `.prop .fin` est centrée **par sa transformée** (`top:50%; transform:translateY(-46%)`). Toute
+> animation qui la touche doit donc composer `translateY(-46%)` **aux deux bornes** de son keyframe.
+> Une animation `forwards` finissant sur `transform:none` écrase le centrage et fait **tomber
+> l'accueil à l'instant même où il se pose** : mesuré à 72,8 px de chute sur la n°01, 97,8 px sur la
+> n°03 et la n°05, et jusqu'au **débordement hors du cadre** en `overflow:hidden` sur la n°02
+> (412,6 px dans une scène de 400, troisième rangée de portes rognée). Le défaut a frappé **trois
+> propositions sur cinq**, et deux fois de plus dans leur bloc de mouvement réduit.
+
+> ⚠️ **Deux règles de méthode acquises sur cette page.**
+> **(1) Une variable de durée doit avoir un repli en CSS.** `--v` n'était posée que par le JS : sans
+> lui, les ~60 `calc(Xs*var(--v))` devenaient invalides et **plus rien ne s'animait, sans que rien ne
+> le signale**. Un `--v:1` sur `.prop` ferme le trou.
+> **(2) Le régime « fluide » ne doit RIEN définir.** Chaque ouverture écrit
+> `var(--eS, son_easing_conçu)` : le repli s'applique par défaut, donc chacune garde exactement le
+> mouvement qu'on lui a dessiné, et **seul `steps()` impose quelque chose**. Définir des valeurs
+> génériques en « fluide » ferait marcher la bascule au prix d'écraser cinq intentions par une seule.
+> Neuf `steps()` **délibérés** (claquements, frappe caractère par caractère, défilement perforé,
+> commutation de diodes) restent durs **dans les deux régimes** : un mécanisme qui cliquette ne doit
+> pas devenir fluide parce qu'on a choisi « fluide ».
+
+**Méthode.** Campagne de 10 agents — cinq concepteurs en parallèle, chacun suivi d'un **auditeur
+adversarial** confrontant son fragment à la charte et aux pièges du dépôt. Les cinq sont sorties
+`CONFORME_APRES_CORRECTION`, avec **4 à 8 défauts chacune**, dont plusieurs invisibles à la lecture
+et prouvés seulement à la mesure : un markup sans grille ni croix de visée (tout un beat animait du
+vide), quatre croix de visée **vides de tout glyphe** donc à 0 × 0 px, une croix éteinte **sur 18
+rejeux sur 18** à cause d'un `steps(1)` en `jump-end`, et trois constantes de géométrie fausses qui
+faisaient atterrir les cartes à 25 px de leur porte. **L'audit adversarial est ce qui a payé ici** :
+un contrôle qui se contente de « ça s'affiche » aurait tout laissé passer.
+
 ⚠️ **Deux questions restent ouvertes et attendent son arbitrage, pas une décision d'agent** : la
 **guématrie** (ornement 09) est un usage traditionnel et religieux, alors que le dépôt a écarté
 sciemment la vie religieuse du périmètre du *vocabulaire* — on ne sait pas si cette décision couvre

@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cinq ouvertures — Console d'étude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;900&family=Saira+Condensed:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   TOKENS v0.2 — identiques à prototype-nerv.html (source : SENTRY).
+   Ne pas « corriger » vers DESIGN.md : ce document est la charte v2,
+   DESIGN.md documente la v1. Les écarts sont voulus.
+   ================================================================ */
+:root{
+  --bg:      #05040A;
+  --panneau: #0A0814;
+  --grille:  #0F0C1C;
+  --ligne:   #7a5a14;
+  --ambre:   #f0b32a;
+  --vert:    #54ff8a;
+  --rouge:   #FF4747;
+  --orange:  #ff6a1f;
+  --lune:    #cfd6e6;
+
+  --he:      'Frank Ruhl Libre','David Libre','Times New Roman',serif;
+  --cond:    'Saira Condensed','Arial Narrow',sans-serif;
+  --mono:    'Share Tech Mono','Courier New',monospace;
+}
+/* le registre, en jugement (spec § 5, rectificatif) */
+#banc[data-reg="steps"]  { --eL: steps(90); --eM: steps(32); --eS: steps(8);    --eB: steps(1); }
+/* ⚠️ « fluide » ne définit RIEN, et c'est délibéré. Chaque ouverture écrit ses
+   easings en var(--eX, SON_EASING_CONÇU) : sans définition, le repli s'applique
+   et chacune garde exactement le mouvement qu'on lui a dessiné. Définir --eX ici
+   ferait marcher la bascule, mais en écrasant cinq intentions par une valeur
+   générique. Seul le régime steps() impose donc quelque chose. */
+#banc[data-reg="fluide"] { /* aucun override : chaque ouverture garde son easing */ }
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#030208}
+body{font-family:var(--cond);color:var(--ambre);background:#030208;padding:32px 20px 90px;font-size:15px;line-height:1.45}
+.galerie{max-width:1180px;margin:0 auto}
+.galerie>header{margin-bottom:20px}
+.galerie h1{font-family:var(--mono);font-size:1.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor}
+.meta-ligne{color:var(--ambre);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-top:8px}
+.meta-ligne::before{content:'▸ ';color:var(--vert)}
+
+/* ---- doctrine / alarme ---- */
+.constat{border:1px solid var(--ligne);background:rgba(10,8,20,.82);padding:16px 18px;margin-bottom:22px;position:relative}
+.constat .coin{position:absolute;font-family:var(--mono);font-size:11px;color:var(--ligne);line-height:1}
+.constat .coin.a{top:2px;left:4px}.constat .coin.b{bottom:2px;right:4px}
+.constat h2{font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:10px}
+.constat p{font-size:.82rem;color:var(--lune);opacity:.85;max-width:78ch;margin-bottom:9px}
+.constat p:last-child{margin-bottom:0}
+.constat b{color:var(--ambre);font-weight:600;opacity:1}
+.regle{border-left:2px solid var(--vert);padding:8px 0 8px 14px;margin:12px 0;font-size:.84rem;color:var(--lune)}
+.regle .nom{color:var(--vert);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;display:block;margin-bottom:4px;text-shadow:0 0 6px currentColor}
+.alarme{border:1px solid var(--rouge);background:rgba(255,71,71,.07);padding:15px 17px;margin-bottom:22px}
+.alarme[hidden]{display:none}
+.alarme .titre{font-family:var(--cond);font-weight:600;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);text-shadow:0 0 6px currentColor;margin-bottom:9px}
+.alarme p{font-size:.82rem;color:var(--lune);max-width:76ch;margin-bottom:10px}
+.alarme p b{color:var(--ambre)}
+.alarme .comment{font-family:var(--mono);font-size:.74rem;color:var(--ambre);opacity:.85;margin-bottom:12px}
+
+/* ---- barre de commande ---- */
+.barre{display:flex;gap:9px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne);padding:12px 0;margin:0 0 26px;position:sticky;top:0;z-index:40;background:#030208}
+.barre .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;color:var(--lune)}
+.btn{font-family:var(--cond);font-weight:600;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre);background:transparent;border:1px solid var(--ligne);border-radius:9999px;padding:8px 18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:44px;transition:color .12s steps(2),border-color .12s steps(2),background .12s steps(2)}
+.btn:hover{border-color:var(--ambre);text-shadow:0 0 6px currentColor}
+.btn.primaire{border-color:var(--vert);color:var(--vert);text-shadow:0 0 6px currentColor;box-shadow:0 0 10px rgba(84,255,138,.2), inset 0 0 10px rgba(84,255,138,.06)}
+.btn.danger{border-color:var(--rouge);color:var(--rouge)}
+.btn:focus-visible{outline:2px solid var(--vert);outline-offset:3px}
+
+/* ================================================================
+   LA FICHE D'UNE OUVERTURE
+   ================================================================ */
+.ouvr{margin:0 0 46px;border-top:1px solid var(--ligne);padding-top:16px}
+.o-tete{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.o-nom{font-family:var(--mono);font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ambre)}
+.o-nom .n{color:var(--vert);text-shadow:0 0 6px currentColor}
+.o-etiq{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0 10px}
+.et{font-family:var(--cond);font-weight:600;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ligne);border-radius:9999px;padding:2px 9px;color:var(--lune)}
+.et.dur{border-color:var(--vert);color:var(--vert)}
+.et.reg{border-color:var(--ambre);color:var(--ambre)}
+.et.sym{border-color:var(--rouge);color:var(--rouge)}
+.o-dit{font-size:.8rem;color:var(--lune);opacity:.78;max-width:74ch;margin-bottom:12px}
+.o-dit b{color:var(--ambre);opacity:1;font-weight:600}
+.o-cmd{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.o-mes{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--lune);opacity:.75;margin-left:auto}
+.o-mes b{color:var(--vert);text-shadow:0 0 6px currentColor}
+.o-res{font-size:.74rem;color:var(--lune);margin-top:10px;border-left:2px solid var(--rouge);padding:5px 0 5px 10px;max-width:80ch}
+.o-res b{color:var(--rouge);text-transform:uppercase;letter-spacing:.1em;font-size:.62rem;display:block}
+
+/* ================================================================
+   LA SCÈNE — commune aux cinq, c'est ce qui les rend comparables.
+   Chaque proposition n'anime que ces éléments plus son décor propre,
+   et TOUTES doivent finir sur le même écran d'accueil.
+   ================================================================ */
+.prop{
+  /* ⚠️ --v DOIT avoir une valeur de repli ici. Le JS la pose au chargement,
+     mais les ~60 calc(Xs*var(--v)) des cinq ouvertures deviennent INVALIDES
+     si le script ne tourne pas (erreur en amont, JS coupé) — et plus rien ne
+     s'anime, sans que rien ne le signale. Relevé par l'audit adversarial de
+     l'ouverture n°1 comme « hors périmètre du fragment, à traiter côté hôte ». */
+  --v:1;
+  position:relative;overflow:hidden;border:1px solid var(--ligne);
+  min-height:440px;background:var(--bg);
+  contain:layout paint;                 /* borne le travail de composition */
+}
+.prop .trame{
+  position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, var(--grille) 31px 32px),
+    repeating-linear-gradient(90deg, transparent 0 31px, var(--grille) 31px 32px);
+}
+.prop .vise{position:absolute;font-family:var(--mono);font-size:13px;color:var(--ligne);z-index:9;line-height:1;opacity:0}
+.prop .vise.tl{top:6px;left:8px}.prop .vise.tr{top:6px;right:8px}
+.prop .vise.bl{bottom:6px;left:8px}.prop .vise.br{bottom:6px;right:8px}
+
+/* ⚠️ CONTRAT — .fin est centrée PAR SA TRANSFORMÉE, pas par flexbox. Toute
+   ouverture qui anime .fin doit donc composer translateY(-46%) AUX DEUX
+   BORNES de son keyframe. Une animation `forwards` qui finit sur
+   `transform:none` écrase le centrage et fait TOMBER l'accueil au moment
+   même où il se pose : mesuré à 72,8 px de chute sur l'ouverture n°1 et
+   97,8 px sur la n°3, et jusqu'au débordement hors du cadre en
+   overflow:hidden sur la n°2 (412,6 px dans une scène de 400). Le défaut a
+   frappé TROIS propositions sur cinq, y compris dans leur bloc de mouvement
+   réduit — c'est le piège de ce harnais, il est ici pour être lu. */
+.prop .fin{position:absolute;left:0;right:0;top:50%;transform:translateY(-46%);z-index:8;text-align:center;opacity:0;padding:0 18px}
+.prop .marque{font-family:var(--he);font-weight:900;font-size:2.9rem;direction:rtl;color:var(--ambre);text-shadow:0 0 16px rgba(240,179,42,.3);line-height:1.2}
+.prop .sous{font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-top:7px}
+.prop .portes{display:flex;gap:11px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.prop .porte{border:1px solid var(--ligne);padding:12px 18px;min-width:124px;background:rgba(10,8,20,.6);opacity:0}
+.prop .porte b{display:block;font-family:var(--cond);font-weight:600;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ambre)}
+.prop .porte i{display:block;font-style:normal;font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;color:var(--lune);opacity:.6;margin-top:3px}
+.prop .log{position:absolute;left:0;right:0;bottom:16px;text-align:center;z-index:9;font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;opacity:0}
+
+/* ================================================================
+   MOUVEMENT RÉDUIT — coupure générale de la page.
+   ⚠️ Le sélecteur DOIT couvrir les pseudo-éléments : « * » seul ne
+   les atteint pas (défaut mesuré trois fois dans ce dépôt le 25/07).
+   ⚠️ Chaque ouverture RÉTABLIT ensuite son état FINAL dans son propre
+   bloc : une séquence gelée à son état initial laisserait une page
+   VIDE, c'est-à-dire une app qui ne démarre pas.
+   ================================================================ */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) *,
+  body:not(.force-anim) *::before,
+  body:not(.force-anim) *::after{animation:none !important;transition:none !important}
+}
+
+/* ---- le tableau de synthèse ---- */
+.synth{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:.76rem}
+.synth th,.synth td{border:1px solid var(--ligne);padding:8px 10px;text-align:left;vertical-align:top}
+.synth th{font-family:var(--cond);font-weight:600;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--vert);background:rgba(10,8,20,.6)}
+.synth td{color:var(--lune)}
+.synth td b{color:var(--ambre)}
+.synth .num{font-family:var(--mono);color:var(--vert)}
+.tbl-wrap{overflow-x:auto}
+
+.pied{margin-top:40px;border-top:1px solid var(--ligne);padding-top:16px;font-size:.78rem;color:var(--lune);opacity:.85;max-width:82ch}
+.pied b{color:var(--ambre)}
+.pied .titre{font-family:var(--cond);font-weight:600;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--vert);text-shadow:0 0 6px currentColor;margin-bottom:9px}
+.pied ol{margin:8px 0 0 20px}
+.pied li{margin-bottom:6px}
+
+@media (max-width:560px){
+  body{padding:22px 13px 80px}
+  .galerie h1{font-size:1.2rem;letter-spacing:.14em}
+  .prop{min-height:400px}
+  .prop .marque{font-size:2.2rem}
+  .o-mes{margin-left:0;width:100%}
+}
+
+/* ═══════ OUVERTURE 01 — Le tressage — le Magen David devient la lettre ═══════ */
+/* ═══════════════════════════════════════════════════════════════════
+   OUVERTURE N°1 — « LE TRESSAGE »
+   Portage de la FAMILLE F (prototype-decor.html, v2, validée WebKit)
+   au contrat des cinq ouvertures. Géométrie NON retouchée : seul le
+   minutage est resserré (7,89 s → 7,01 s) et la fin est reroutée vers
+   le markup .fin imposé.
+
+   ── GÉOMÉTRIE (viewBox 240×240, centre 120, circonradius 92) ───────
+   ▲ montant  A1(120,28)   A2(199.67,166)  A3(40.33,166)
+   ▼ tombant  B1(120,212)  B2(40.33,74)    B3(199.67,74)
+   Côté 159,34.  92·cos30° = 79,67 → 120±79,67 = 40,33 / 199,67.
+                 92·sin30° = 46    → 120±46    = 74 / 166.
+
+   ── L'ENTRELACEMENT PAR LA BRÈCHE ─────────────────────────────────
+   La signature d'un tressage n'est pas « qui passe devant » : c'est
+   la BRÈCHE — le ruban du dessous S'INTERROMPT de part et d'autre de
+   celui qui passe dessus. Les croisements TRISECTENT chaque arête
+   (t=1/3 et t=2/3) ; par symétrie le VAINQUEUR d'un croisement est
+   l'arête dont le point t=2/3 s'y trouve. D'où SIX sur-pièces, une
+   par arête, alternance dessus/dessous gratuite tout autour.
+   Chaque sur-pièce = liseré couleur de fond 16px (la brèche, elle
+   ronge le ruban du dessous de 3px de chaque côté d'un ruban de 10)
+   + le ruban vainqueur redessiné par-dessus, dans la fenêtre
+   [61.7, 71.7] sur pathLength 100 → dash 10/90, offset −61.7.
+   Ruban : chant sombre #7a5a14 en 10px + cœur ambre en 5px.
+
+   ── ÉCHAFAUDAGE (cotes réelles du glyphe Frank Ruhl 900, ~198px) ───
+     diagonale (170,62)→(70,190) : 128°, L162 ← u3 (−60°≡120°) : +8°
+     bras h-d  (146,96)→(192,60) : −38.6°,L58 ← u2 (180°≡0°) : −38.6°
+     jambe b-g (96,150)→(52,186) : 141°≡−39°,L57 ← d2 (0°)   : −39°
+   Rotation maximale 39° : L'ÉTOILE CONTIENT L'ARMATURE DE LA LETTRE.
+   Rétraction du ruban à la longueur du trait d'alef :
+     bras  L58/159.34 = 36.4 % → dash 36.7/63.3, offset −31.65
+     jambe L57/159.34 = 35.8 % → dash 35.7/64.3, offset −32.15
+     (fenêtre centrée : offset = −(50 − dash/2), à ±0.3 près)
+
+   ── LES 12 GRADUATIONS (calculées, pas devinées) ───────────────────
+   g·30°, r1=106, r2=117 si g≡0 [3] (cardinale) sinon 112.
+   106·cos30°=91.80  106·sin30°=53   112·cos30°=96.99  112·sin30°=56
+
+   ── MINUTAGE — 7,01 s (source 7,89 s, facteur ≈ 0,885) ─────────────
+   0.05 trame · 0.10→0.31 croix · 0.26→0.48 anneaux
+   0.40 / 0.84 / 1.28 tracé des rubans, 3 paliers (fin 1.78)
+   1.78→2.28 les six brèches claquent en steps(1)  (fin 2.38)
+   2.44 balayage d'analyse (fin 3.29)
+   2.92→3.12 visée S1·S2·S3, effacée à 3.90
+   3.44 dé-résolution des 3 arêtes sans emploi + des 6 brèches
+   4.02 échafaudage (+8°, −38.6°, −39°) + rétraction des rubans
+   4.90 impression du vrai alef, ligne au front
+   5.68 aberration chromatique · 5.95 le א se range (fin 6.70)
+   6.10 log · 6.25 accueil · 6.45→6.71 les trois portes (fin 7.01)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Cadences locales. La règle « tout en steps() » n'a pas de fondement
+   mesuré (ses deux seules occurrences SENTRY sont les calques rejetés
+   sur iPhone) : registre fluide par défaut, sauf là où le steps() EST
+   le propos — le claquement des brèches et la dé-résolution, qui
+   restent en steps() dur et ne basculent pas.
+   ⚠️ Les deux cadences SUIVENT LE SÉLECTEUR DE REGISTRE de l'hôte
+   (`#banc[data-reg]` → --eS / --eM). Elles étaient figées sur les
+   valeurs « fluide » : le bouton steps()/fluide de la barre était
+   alors sans effet sur cette séquence — la n°1 était la seule des
+   cinq à ne pas répondre, et c'est justement la question que la page
+   pose. Le repli garde le rendu par défaut à l'identique. */
+#p1{--p1-eS:var(--eS,ease-in-out);--p1-eM:var(--eM,linear)}
+
+/* ── LA FIGURE : rubans, sur-pièces, anneaux, visée ───────────────── */
+#p1 .p1-fig{
+  position:absolute;top:50%;left:50%;width:300px;height:300px;
+  margin:-150px 0 0 -150px;z-index:3;overflow:visible;
+}
+#p1 .p1-fig .p1-trait{fill:none;stroke-linecap:butt}
+/* le ruban : chant sombre + cœur ambre, même chemin, tracés ensemble */
+#p1 .p1-fig .p1-pc{stroke:#7a5a14;stroke-width:10}
+#p1 .p1-fig .p1-pk{stroke:var(--ambre);stroke-width:5;filter:drop-shadow(0 0 4px rgba(240,179,42,.55))}
+#p1 .p1-fig .p1-pc,#p1 .p1-fig .p1-pk{stroke-dasharray:100;stroke-dashoffset:100}
+/* la sur-pièce : le liseré fond (LA BRÈCHE) puis le ruban vainqueur */
+#p1 .p1-fig .p1-qq{stroke:var(--bg);stroke-width:16}
+#p1 .p1-fig .p1-qc{stroke:#7a5a14;stroke-width:10}
+#p1 .p1-fig .p1-qk{stroke:var(--ambre);stroke-width:5}
+#p1 .p1-fig .p1-patch{opacity:0}
+#p1 .p1-fig .p1-patch .p1-trait{stroke-dasharray:10 90;stroke-dashoffset:-61.7}
+/* l'échafaudage transforme le <g>, jamais le tracé */
+#p1 .p1-fig .p1-seg{transform-box:fill-box;transform-origin:50% 50%}
+#p1 .p1-fig .p1-ann{fill:none;opacity:0}
+#p1 .p1-fig .p1-ann.p1-a{stroke:rgba(122,90,20,.55);stroke-width:1}
+#p1 .p1-fig .p1-ann.p1-b{stroke:rgba(84,255,138,.2);stroke-width:1;stroke-dasharray:3 6}
+#p1 .p1-fig .p1-grad{opacity:0}
+#p1 .p1-fig .p1-grad line{stroke:rgba(240,179,42,.5);stroke-width:1}
+#p1 .p1-fig .p1-mk{opacity:0}
+#p1 .p1-fig .p1-mk path{stroke:var(--vert);stroke-width:1.2;fill:none;filter:drop-shadow(0 0 3px rgba(84,255,138,.6))}
+#p1 .p1-fig .p1-mk text{font-family:var(--mono);font-size:9px;fill:var(--vert)}
+
+/* ── le balayage d'analyse : LOCAL, jamais un calque de surface ──── */
+#p1 .p1-balaye{
+  position:absolute;left:8%;right:8%;top:0;height:56px;z-index:4;opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(84,255,138,.12) 45%,rgba(84,255,138,.3) 50%,rgba(84,255,138,.12) 55%,transparent);
+}
+/* ── la ligne d'impression, au front du glyphe ───────────────────── */
+#p1 .p1-impr{
+  position:absolute;left:50%;top:50%;width:230px;height:2px;margin-left:-115px;
+  background:linear-gradient(90deg,transparent,rgba(84,255,138,.8),transparent);
+  box-shadow:0 0 8px rgba(84,255,138,.6);z-index:4;opacity:0;
+}
+/* ── le vrai glyphe : il S'IMPRIME sur l'échafaudage ─────────────── */
+#p1 .p1-alef{
+  position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;
+  font-family:var(--he);font-weight:900;font-size:12.4rem;line-height:1;
+  color:var(--ambre);opacity:0;text-shadow:0 0 16px rgba(240,179,42,.3);
+  pointer-events:none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LA SÉQUENCE — neuf beats, 7,01 s.
+   ⚠️ RÈGLE PAYÉE : dès qu'un élément porte DEUX animations, son
+   animation-delay porte DEUX valeurs. Redéfinir le raccourci
+   `animation` remet les longhands à zéro, et un delay à une seule
+   valeur se recycle sur toute la liste — le fondu de sortie hérite
+   alors du délai d'entrée et efface l'élément à l'instant où il naît.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* beat 0 — l'amorce : la trame, les quatre croix, les anneaux gradués */
+#p1.joue .trame{animation:p1-fond calc(.45s*var(--v)) var(--p1-eS) calc(.05s*var(--v)) forwards}
+/* ⚠️ `jump-start`, ET PAS `steps(1)` TOUT COURT — défaut MESURÉ, pas
+   théorique : avec `steps(1)` (= jump-end) la valeur 1 n'existe que
+   dans la phase de REMPLISSAGE, jamais pendant la phase active. WebKit
+   ne recommet pas de façon fiable ce dernier échantillon sur une
+   opacité composée : sur 18 rejeux iPhone 16 Pro, 18 ont laissé au
+   moins UNE des quatre croix éteinte à 0 (la croix touchée changeait
+   d'un rejeu à l'autre — c'est une course, pas un bug de sélecteur).
+   `jump-start` met la croix à 1 dès le début de sa phase active : plus
+   aucune frontière à manquer, 0 KO sur 10 rejeux. Le claquement reste
+   le même — et le minutage annoncé en tête (« 0.10→0.31 croix »)
+   devient enfin vrai, alors que jump-end les posait à 0.30→0.51. */
+#p1.joue .vise,#p1.joue .vise>*{animation:p1-vise calc(.2s*var(--v)) steps(1,jump-start) forwards}
+#p1.joue .vise.tl,#p1.joue .vise>.tl{animation-delay:calc(.10s*var(--v))}
+#p1.joue .vise.tr,#p1.joue .vise>.tr{animation-delay:calc(.17s*var(--v))}
+#p1.joue .vise.br,#p1.joue .vise>.br{animation-delay:calc(.24s*var(--v))}
+#p1.joue .vise.bl,#p1.joue .vise>.bl{animation-delay:calc(.31s*var(--v))}
+@keyframes p1-fond{to{opacity:1}}
+@keyframes p1-vise{to{opacity:1}}
+
+#p1.joue .p1-ann,#p1.joue .p1-grad{
+  animation:p1-parait calc(.45s*var(--v)) var(--p1-eS) forwards,
+            p1-efface calc(.45s*var(--v)) var(--p1-eS) forwards;
+}
+#p1.joue .p1-ann.p1-a{animation-delay:calc(.26s*var(--v)), calc(5.20s*var(--v))}
+#p1.joue .p1-ann.p1-b{animation-delay:calc(.38s*var(--v)), calc(5.20s*var(--v))}
+#p1.joue .p1-grad    {animation-delay:calc(.48s*var(--v)), calc(5.20s*var(--v))}
+@keyframes p1-parait{to{opacity:1}}
+@keyframes p1-efface{to{opacity:0}}
+
+/* beat 1 — le tracé des deux triangles, en sens contraires, 3 paliers */
+#p1.joue .p1-seg .p1-trait{animation:p1-trace calc(.50s*var(--v)) var(--p1-eM) forwards}
+#p1.joue .p1-u1 .p1-trait{animation-delay:calc(.40s*var(--v))}
+#p1.joue .p1-d3 .p1-trait{animation-delay:calc(.84s*var(--v))}
+#p1.joue .p1-d1 .p1-trait{animation-delay:calc(1.28s*var(--v))}
+#p1.joue .p1-u3 .p1-trait{animation-delay:calc(1.28s*var(--v))}
+@keyframes p1-trace{to{stroke-dashoffset:0}}
+/* u2 et d2 survivent : ils RÉTRACTENT leur ruban à la longueur du
+   trait d'alef. Deux animations ⇒ DEUX délais. */
+#p1.joue .p1-u2 .p1-trait{
+  animation:p1-trace calc(.50s*var(--v)) var(--p1-eM) forwards,
+            p1-bras calc(.90s*var(--v)) var(--p1-eS) forwards;
+  animation-delay:calc(.84s*var(--v)), calc(4.02s*var(--v));
+}
+#p1.joue .p1-d2 .p1-trait{
+  animation:p1-trace calc(.50s*var(--v)) var(--p1-eM) forwards,
+            p1-jambe calc(.90s*var(--v)) var(--p1-eS) forwards;
+  animation-delay:calc(.40s*var(--v)), calc(4.02s*var(--v));
+}
+@keyframes p1-bras {to{stroke-dasharray:36.7 63.3;stroke-dashoffset:-31.65}}
+@keyframes p1-jambe{to{stroke-dasharray:35.7 64.3;stroke-dashoffset:-32.15}}
+
+/* beat 2 — LE VERROUILLAGE DU TISSAGE : les six brèches claquent une
+   à une en steps(1). Un tressage se cliquette, il ne se fond pas. */
+#p1.joue .p1-patch{
+  animation:p1-pont calc(.10s*var(--v)) steps(1) forwards,
+            p1-derez calc(.55s*var(--v)) steps(1) forwards;
+}
+#p1.joue .p1-pu1{animation-delay:calc(1.78s*var(--v)), calc(3.44s*var(--v))}
+#p1.joue .p1-pd2{animation-delay:calc(1.88s*var(--v)), calc(3.44s*var(--v))}
+#p1.joue .p1-pu2{animation-delay:calc(1.98s*var(--v)), calc(3.44s*var(--v))}
+#p1.joue .p1-pd3{animation-delay:calc(2.08s*var(--v)), calc(3.44s*var(--v))}
+#p1.joue .p1-pu3{animation-delay:calc(2.18s*var(--v)), calc(3.44s*var(--v))}
+#p1.joue .p1-pd1{animation-delay:calc(2.28s*var(--v)), calc(3.44s*var(--v))}
+@keyframes p1-pont{to{opacity:1}}
+
+/* beat 3 — le balayage d'analyse traverse la figure */
+#p1.joue .p1-balaye{animation:p1-balaye calc(.85s*var(--v)) var(--p1-eM) calc(2.44s*var(--v)) forwards}
+@keyframes p1-balaye{
+  0%{opacity:0;transform:translateY(40px)}
+  8%{opacity:1}
+  92%{opacity:1}
+  100%{opacity:0;transform:translateY(380px)}
+}
+
+/* beat 4 — la visée marque les trois segments retenus, puis s'efface */
+#p1.joue .p1-mk{
+  animation:p1-marque calc(.35s*var(--v)) steps(2) forwards,
+            p1-efface calc(.35s*var(--v)) var(--p1-eS) forwards;
+}
+#p1.joue .p1-m1{animation-delay:calc(2.92s*var(--v)), calc(3.90s*var(--v))}
+#p1.joue .p1-m2{animation-delay:calc(3.02s*var(--v)), calc(3.90s*var(--v))}
+#p1.joue .p1-m3{animation-delay:calc(3.12s*var(--v)), calc(3.90s*var(--v))}
+@keyframes p1-marque{to{opacity:1}}
+
+/* beat 5 — la DÉ-RÉSOLUTION des trois arêtes sans emploi : un
+   scintillement machine en steps(1), surtout pas un fondu */
+#p1.joue .p1-u1,#p1.joue .p1-d1,#p1.joue .p1-d3{
+  animation:p1-derez calc(.55s*var(--v)) steps(1) calc(3.44s*var(--v)) forwards;
+}
+@keyframes p1-derez{
+  0%{opacity:1} 12%{opacity:.08} 24%{opacity:.9} 36%{opacity:.08}
+  55%{opacity:.7} 70%{opacity:.05} 100%{opacity:0}
+}
+
+/* beat 6 — L'ÉCHAFAUDAGE : les trois survivants pivotent aux cotes de
+   la lettre, puis s'éteignent sous le glyphe une fois l'impression
+   passée. Deux animations ⇒ DEUX délais. */
+#p1.joue .p1-u3{
+  animation:p1-mdiag calc(1.0s*var(--v)) var(--p1-eS) forwards,
+            p1-efface calc(.40s*var(--v)) var(--p1-eS) forwards;
+  animation-delay:calc(4.02s*var(--v)), calc(5.45s*var(--v));
+}
+#p1.joue .p1-u2{
+  animation:p1-mbras calc(1.0s*var(--v)) var(--p1-eS) forwards,
+            p1-efface calc(.40s*var(--v)) var(--p1-eS) forwards;
+  animation-delay:calc(4.02s*var(--v)), calc(5.45s*var(--v));
+}
+#p1.joue .p1-d2{
+  animation:p1-mjambe calc(1.0s*var(--v)) var(--p1-eS) forwards,
+            p1-efface calc(.40s*var(--v)) var(--p1-eS) forwards;
+  animation-delay:calc(4.02s*var(--v)), calc(5.45s*var(--v));
+}
+@keyframes p1-mdiag {to{transform:translate(39.8px,29px) rotate(8deg)}}
+@keyframes p1-mbras {to{transform:translate(49px,-88px) rotate(-38.6deg)}}
+@keyframes p1-mjambe{to{transform:translate(-46px,94px) rotate(-39deg)}}
+
+/* beat 7 — L'IMPRESSION : le vrai glyphe se révèle du haut vers le
+   bas par clip-path, ligne d'impression au front, aberration
+   chromatique à l'instant où il se solidifie, puis IL SE RANGE. */
+#p1.joue .p1-impr{animation:p1-ligne calc(.78s*var(--v)) var(--p1-eM) calc(4.90s*var(--v)) forwards}
+@keyframes p1-ligne{
+  0%{opacity:0;transform:translateY(-104px)}
+  6%{opacity:1}
+  94%{opacity:1}
+  100%{opacity:0;transform:translateY(104px)}
+}
+#p1.joue .p1-alef{
+  opacity:1;clip-path:inset(0 0 100% 0);
+  animation:p1-imprime calc(.78s*var(--v)) var(--p1-eM) forwards,
+            p1-aberr calc(.22s*var(--v)) steps(2) forwards,
+            p1-range calc(.75s*var(--v)) var(--p1-eS) forwards;
+  animation-delay:calc(4.90s*var(--v)), calc(5.68s*var(--v)), calc(5.95s*var(--v));
+}
+@keyframes p1-imprime{to{clip-path:inset(0 0 0% 0)}}
+@keyframes p1-aberr{
+  0%{text-shadow:-4px 0 rgba(255,71,71,.85), 4px 0 rgba(84,255,138,.85)}
+  100%{text-shadow:0 0 16px rgba(240,179,42,.4)}
+}
+/* `from` EXPLICITE — leçon payée : sans lui, la relève saute au style
+   sous-jacent au lieu de repartir d'où la précédente a laissé
+   l'élément. Le א monte vers la place de la marque et s'efface : il
+   LAISSE LA PLACE à l'accueil au lieu de camper dessus.
+   −15 % de la hauteur de scène : le translateY d'un bloc en inset:0
+   se mesure sur sa propre hauteur, donc sur la scène. */
+@keyframes p1-range{
+  from{transform:scale(1) translateY(0);opacity:1}
+  to  {transform:scale(.26) translateY(-15%);opacity:0}
+}
+
+/* beat 8 — le log, puis l'accueil se pose : les cinq finissent ici */
+#p1.joue .log{animation:p1-log calc(.45s*var(--v)) steps(1) calc(6.10s*var(--v)) forwards}
+@keyframes p1-log{to{opacity:1}}
+#p1.joue .fin{animation:p1-accueil calc(.60s*var(--v)) var(--p1-eS) calc(6.25s*var(--v)) forwards}
+/* ⚠️ LEÇON DU PORTAGE — `transform:none` était juste dans la famille F
+   (`.ouv .accueil` s'y calait par `top:56%`, SANS transformée), il est
+   FAUX ici : le contrat hôte centre `.prop .fin` par
+   `top:50%;transform:translateY(-46%)`. Une animation `forwards` qui
+   finit sur `none` écrase cette transformée — mesuré en WebKit
+   iPhone 16 Pro : l'accueil tombait de 72,8 px à l'instant même où il
+   se posait, et l'écran final restait décentré pour toujours.
+   La séquence rejoue donc SA translation par-dessus le centrage : deux
+   `translateY` dans le même ordre aux deux bornes, elles s'interpolent
+   proprement et `-46 %` se résout sur la hauteur de `.fin`, comme dans
+   la règle de base. */
+@keyframes p1-accueil{
+  from{opacity:0;transform:translateY(-46%) translateY(12px)}
+  to  {opacity:1;transform:translateY(-46%) translateY(0)}
+}
+#p1.joue .porte{animation:p1-porte calc(.30s*var(--v)) var(--p1-eS) forwards}
+#p1.joue .porte:nth-child(1){animation-delay:calc(6.45s*var(--v))}
+#p1.joue .porte:nth-child(2){animation-delay:calc(6.58s*var(--v))}
+#p1.joue .porte:nth-child(3){animation-delay:calc(6.71s*var(--v))}
+@keyframes p1-porte{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ⚠️ MOUVEMENT RÉDUIT — LE PIÈGE PROPRE AUX SÉQUENCES.
+   Une séquence part d'un écran NOIR et construit l'accueil : la figer
+   laisserait une PAGE VIDE, c'est-à-dire une app qui ne démarre pas.
+   La coupure pose donc l'état FINAL, pas l'initial : sous mouvement
+   réduit, une ouverture ne se gèle pas, elle se rend DÉJÀ TERMINÉE.
+   (Aucun pseudo-élément n'est animé ici — rien à couvrir en ::before
+   / ::after, que le sélecteur « * » seul n'atteindrait pas.)
+   ═══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) #p1.joue .trame,
+  body:not(.force-anim) #p1.joue .vise,
+  body:not(.force-anim) #p1.joue .vise>*,
+  body:not(.force-anim) #p1.joue .porte,
+  body:not(.force-anim) #p1.joue .log{opacity:1 !important;transform:none !important}
+  /* `.fin` À PART, MÊME RAISON QU'AU BEAT 8 : elle porte le centrage du
+     contrat hôte. La remettre à `none` avec les autres la décalait de
+     72,8 px vers le bas — l'accueil « déjà terminé » du mouvement
+     réduit n'était pas au même endroit que celui de la séquence jouée.
+     Elle reprend SA transformée de repos, pas l'absence de transformée. */
+  body:not(.force-anim) #p1.joue .fin{opacity:1 !important;transform:translateY(-46%) !important}
+  body:not(.force-anim) #p1.joue .p1-fig,
+  body:not(.force-anim) #p1.joue .p1-balaye,
+  body:not(.force-anim) #p1.joue .p1-impr,
+  body:not(.force-anim) #p1.joue .p1-alef{opacity:0 !important;transform:none !important}
+  body:not(.force-anim) #p1.joue .p1-alef{clip-path:none !important}
+}
+
+/* ═══════ OUVERTURE 02 — L'auto-test — la console s'allume ═══════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   p2 — « L'AUTO-TEST » (POST : power-on self-test)
+   Charte v2 « la console d'étude ». Registre : instrument honnête, zéro symbole.
+   BUDGET : 1,80 s exactement à --v:1. Aucune durée en dur : tout en calc(Xs*var(--v)).
+
+   ── PARTITION (secondes, --v = 1) ─────────────────────────────────────────
+     0,00–0,22   .trame : montée + un clignement (steps(1) par palier → coupure
+                 franche, pas un fondu : c'est une alimentation, pas une aurore)
+     0,06–0,32   4 croix de visée, 60 ms d'écart : 0,06 / 0,12 / 0,18 / 0,24
+                 (ordre horaire tl→tr→br→bl), snap en steps(2,start) : mi-feu
+                 puis plein feu, 40 ms par palier
+     0,10        le bloc de test paraît d'un coup (steps(1,end) sur 0,06 s à 0,04)
+     0,15–0,73   jauge A « TENSION » : 0 → max → calage à 82 %
+     0,21–0,79   jauge B « CACHE »   : idem, calage à 64 %  (60 ms de décalage :
+                 la même cadence que les croix, c'est le même châssis)
+     0,20–0,68   5 lignes de log : une toutes les 90 ms (0,20 / 0,29 / 0,38 /
+                 0,47 / 0,56), frappe de 20 colonnes en 0,12 s = 6 ms/colonne
+     0,70–1,20   rampe de 8 diodes, 45 ms d'écart (0,70 + i × 0,045), impulsion
+                 de 0,18 s qui retombe à 0,34 d'opacité (la lampe reste « testée »)
+     1,14–1,30   flash de fin : les 8 diodes ensemble, 160 ms pleins, coupure sèche
+     1,31–1,40   extinction du bloc de test en steps(2,end) : deux paliers, un
+                 appareil qui se coupe ne se fond pas
+     1,40–1,70   .fin paraît (opacité seule) ; .marque remonte de 9 px (1,40–1,72)
+                 et .sous de 6 px (1,48–1,76)
+     1,46/1,53/1,60 → 1,80   les 3 portes, 70 ms d'écart, 0,20 s chacune
+     1,62–1,80   .log « ▸ prêt »
+     TOTAL = 1,80 s. Zéro temps mort : chaque beat recouvre le suivant d'au
+     moins 40 ms, et la coupure du bloc (1,40) touche le début de l'accueil (1,40).
+
+   ── GÉOMÉTRIE DU LOG (pourquoi ces largeurs) ──────────────────────────────
+     Les 5 lignes tiennent sur une grille de 20 colonnes monospace :
+       [2ch marqueur ▸][13ch libellé+conduite][≤5ch valeur] = 20ch
+     Le libellé + sa conduite de points fait EXACTEMENT 12 caractères sur les
+     cinq lignes (MEM+8pts=12, FONTES 3/3 .=12, CARTES+5pts=12, RÉVISION+3pts=12,
+     VOIX+7pts=12) ; boîté à 13ch, la colonne des valeurs tombe donc au même x
+     partout. La frappe est un clip-path animé en steps(20) sur une boîte de
+     20ch : un pas = exactement une colonne, quelle que soit la fonte.
+     Corollaire utile : libellé et valeur étant dans des inline-block de largeur
+     fixe, un glyphe pris dans une fonte de repli (le É de RÉVISION, absent de
+     certaines mono) décale au pire les points À L'INTÉRIEUR de sa boîte —
+     la colonne des valeurs, elle, ne bouge pas.
+
+   ── GÉOMÉTRIE DES CADRANS (SVG 64×40, pivot (32,36), rayon 28) ────────────
+     Arc de 100° : de θ=−50° à θ=+50° comptés depuis la verticale.
+       P(θ) = (32 + 28·sinθ , 36 − 28·cosθ)
+       θ=−50 → (10,55 ; 18,00)   θ=−25 → (20,17 ; 10,62)   θ=0 → (32 ; 8)
+       θ=+25 → (43,83 ; 10,62)   θ=+50 → (53,45 ; 18,00)
+     Graduations : mêmes angles, de r=28 à r=23 (5 px de trait).
+     Zone rouge : de θ=+35° (48,06 ; 13,06) à θ=+50° — l'aiguille y passe
+     pendant le balayage et en ressort pour se caler : c'est ça, tester un cadran.
+     Échelle : valeur % = (angle + 50) / 100 → calage A 32° = 82 %, B 14° = 64 %.
+     Aiguille : div de 2×27 px, pivot bottom center posé à bottom:4px, soit
+     y = 40 − 4 = 36 dans le repère SVG. Rotation pure (aucun width/top animé).
+
+   ── CONFORMITÉ AUX RÈGLES DE FER ──────────────────────────────────────────
+     1. Bloc prefers-reduced-motion en fin de fichier : l'accueil est rendu
+        DÉJÀ POSÉ (opacity 1) et tout le décor éteint, pseudo-éléments compris
+        (*, *::before, *::after — le « * » seul ne les atteint pas).
+        ⚠️ « État final » ≠ « transform:none » : .fin doit y RETROUVER le
+        translateY(-46%) de la scène hôte, sinon l'accueil déborde par le bas.
+     2. Le seul élément à deux animations (.p2-post : mise sous tension +
+        coupure) porte DEUX animation-delay. Toutes les autres n'en ont qu'une.
+     3. Aucune transition dans ce fichier — donc aucun « transition:all ».
+     4. Le seul hébreu est .marque, qui porte lang="he" dans le markup imposé.
+     5. Le décor est un bloc de 150 px au centre, effacé à 1,40 s : rien ne
+        teinte ni ne fait vibrer la surface, ni pendant, ni après.
+     Perf : on n'anime que opacity, transform (rotate/translate) et clip-path.
+     Aucun backdrop-filter, aucune ombre animée (les lueurs sont statiques,
+     portées par des pseudo-éléments dont seule l'opacité bouge).
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── le bloc d'auto-test ─────────────────────────────────────────────── */
+#p2 .p2-post{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  display:flex; flex-direction:column; align-items:stretch;
+  width:max-content; min-width:150px;
+  /* ⚠️ z-index OBLIGATOIRE : .trame de l'hôte est en z-index:1 et couvre toute
+     la scène. Sans cote, ce bloc reste en z-index:auto et la grille se peint
+     PAR-DESSUS l'appareil (vérifié : trame z=1 > post z=auto, recouvrement
+     total). 6 = au-dessus de la trame, au-dessous de .fin (8) et .log (9). */
+  z-index:6;
+  opacity:0; pointer-events:none;
+}
+#p2 .p2-tete{
+  font-family:var(--cond); font-size:10px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--ligne);
+  padding-bottom:9px; border-bottom:1px solid rgba(122,90,20,.28);
+  margin-bottom:11px;
+}
+
+/* ─── les deux cadrans ────────────────────────────────────────────────── */
+#p2 .p2-cadrans{display:flex; justify-content:space-between; align-items:flex-end}
+#p2 .p2-jauge{display:flex; flex-direction:column; align-items:center; gap:5px}
+#p2 .p2-cadran{position:relative; width:64px; height:40px; color:var(--ligne)}
+#p2 .p2-dial{display:block; width:64px; height:40px}
+#p2 .p2-aig{
+  position:absolute; left:calc(50% - 1px); bottom:4px;
+  width:2px; height:27px; border-radius:1px;
+  background:var(--ambre); opacity:.92;
+  transform-origin:50% 100%; transform:rotate(-50deg);
+}
+#p2 .p2-axe{
+  position:absolute; left:calc(50% - 2.5px); bottom:1.5px;
+  width:5px; height:5px; border-radius:50%;
+  background:var(--panneau); box-shadow:0 0 0 1px var(--ligne);
+}
+#p2 .p2-cl{
+  font-family:var(--cond); font-size:9px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ligne);
+}
+
+/* ─── la colonne de log ───────────────────────────────────────────────── */
+#p2 .p2-log{margin:12px 0 0; text-align:left}
+#p2 .p2-l{
+  display:block; width:20ch;
+  font-family:var(--mono); font-size:14px; line-height:1.35;
+  white-space:pre;
+  clip-path:inset(0 100% 0 0);
+}
+#p2 .p2-c{display:inline-block; width:2ch; color:var(--ligne)}
+#p2 .p2-k{display:inline-block; width:13ch; color:var(--ambre)}
+#p2 .p2-pt{color:var(--ligne)}
+#p2 .p2-v{color:var(--vert); text-shadow:0 0 7px rgba(84,255,138,.32)}
+
+/* ─── la rampe de 8 diodes ────────────────────────────────────────────── */
+#p2 .p2-rampe{display:flex; justify-content:space-between; margin-top:13px}
+#p2 .p2-d{
+  position:relative; width:10px; height:6px; border-radius:1px;
+  background:#120d1a; box-shadow:inset 0 0 0 1px rgba(122,90,20,.30);
+}
+#p2 .p2-d::before,
+#p2 .p2-d::after{content:''; position:absolute; inset:0; border-radius:inherit; opacity:0}
+#p2 .p2-d::before{background:var(--ambre); box-shadow:0 0 5px rgba(240,179,42,.55)}
+#p2 .p2-d::after{background:var(--vert);  box-shadow:0 0 8px rgba(84,255,138,.60)}
+
+/* index de séquence — un seul jeu de délais à lire, en un seul endroit */
+#p2 .p2-d:nth-child(1){--i:0} #p2 .p2-d:nth-child(2){--i:1}
+#p2 .p2-d:nth-child(3){--i:2} #p2 .p2-d:nth-child(4){--i:3}
+#p2 .p2-d:nth-child(5){--i:4} #p2 .p2-d:nth-child(6){--i:5}
+#p2 .p2-d:nth-child(7){--i:6} #p2 .p2-d:nth-child(8){--i:7}
+#p2 .p2-l:nth-child(1){--i:0} #p2 .p2-l:nth-child(2){--i:1}
+#p2 .p2-l:nth-child(3){--i:2} #p2 .p2-l:nth-child(4){--i:3}
+#p2 .p2-l:nth-child(5){--i:4}
+
+/* ─── état de départ de l'accueil (le reste vient de l'hôte) ──────────── */
+#p2 .marque{transform:translateY(9px)}
+#p2 .sous{transform:translateY(6px)}
+#p2 .porte{transform:translateY(5px)}
+
+/* ══════════════════════════ ANIMATIONS ══════════════════════════════════ */
+
+@keyframes p2-trame{          /* steps(1) par palier : deux coupures franches */
+  0%{opacity:0} 22%{opacity:1} 38%{opacity:.32} 54%{opacity:1} 100%{opacity:1}
+}
+@keyframes p2-croix{ from{opacity:0} to{opacity:1} }
+@keyframes p2-tension{ from{opacity:0} to{opacity:1} }
+@keyframes p2-coupure{ from{opacity:1} to{opacity:0} }
+@keyframes p2-frappe{ from{clip-path:inset(0 100% 0 0)} to{clip-path:inset(0 0 0 0)} }
+
+@keyframes p2-aig-a{          /* balayage → butée → retour amorti → 32° (82 %) */
+  0%  {transform:rotate(-50deg); animation-timing-function:var(--eM, cubic-bezier(.22,.90,.30,1))}
+  46% {transform:rotate(50deg)}
+  54% {transform:rotate(50deg); animation-timing-function:var(--eM, cubic-bezier(.45,0,.20,1))}
+  76% {transform:rotate(24deg)}
+  88% {transform:rotate(35deg)}
+  100%{transform:rotate(32deg)}
+}
+@keyframes p2-aig-b{          /* idem → 14° (64 %) */
+  0%  {transform:rotate(-50deg); animation-timing-function:var(--eM, cubic-bezier(.22,.90,.30,1))}
+  46% {transform:rotate(50deg)}
+  54% {transform:rotate(50deg); animation-timing-function:var(--eM, cubic-bezier(.45,0,.20,1))}
+  76% {transform:rotate(5deg)}
+  88% {transform:rotate(18deg)}
+  100%{transform:rotate(14deg)}
+}
+@keyframes p2-diode{ 0%{opacity:0} 22%{opacity:1} 100%{opacity:.34} }
+/* ⚠️ Le DERNIER intervalle doit être CONSTANT. Écrit « 0%,92%{opacity:1}
+   100%{opacity:0} », WebKit termine l'animation à progress
+   0,9999999999999994 (relevé sur getComputedTiming) ; steps(1,end) plancher
+   ce 0,999… à 0 et rend donc la valeur de DÉBUT du dernier intervalle —
+   opacity 1. La diode restait allumée à l'arrêt au lieu de se couper, et
+   seule l'opacité 0 du bloc parent le masquait. En posant l'extinction à 92 %
+   et en la tenant jusqu'à 100 %, début et fin du dernier intervalle valent 0 :
+   la coupure est vraie quelle que soit la résolution du palier.
+   Coût : la coupure tombe à 147 ms au lieu de 160 ms. */
+@keyframes p2-flash{ 0%{opacity:1} 92%{opacity:0} 100%{opacity:0} }
+@keyframes p2-parait{ from{opacity:0} to{opacity:1} }
+@keyframes p2-monte{ to{transform:translateY(0)} }
+@keyframes p2-porte{ from{opacity:0; transform:translateY(5px)} to{opacity:1; transform:translateY(0)} }
+
+/* ─── la trame et le châssis ──────────────────────────────────────────── */
+#p2.joue .trame{
+  animation:p2-trame calc(.22s*var(--v)) steps(1,end) calc(0s*var(--v)) forwards;
+}
+#p2.joue .vise{
+  animation:p2-croix calc(.08s*var(--v)) steps(2,start) forwards;
+}
+#p2.joue .vise.tl{animation-delay:calc(.06s*var(--v))}
+#p2.joue .vise.tr{animation-delay:calc(.12s*var(--v))}
+#p2.joue .vise.br{animation-delay:calc(.18s*var(--v))}
+#p2.joue .vise.bl{animation-delay:calc(.24s*var(--v))}
+
+/* ─── le bloc de test : DEUX animations ⇒ DEUX délais (règle de fer n°2) ── */
+#p2.joue .p2-post{
+  animation:p2-tension calc(.06s*var(--v)) steps(1,end) forwards,
+            p2-coupure calc(.09s*var(--v)) steps(2,end) forwards;
+  animation-delay:calc(.04s*var(--v)), calc(1.31s*var(--v));
+}
+
+/* ─── les aiguilles ───────────────────────────────────────────────────── */
+#p2.joue .p2-a{animation:p2-aig-a calc(.58s*var(--v)) var(--eM, linear) calc(.15s*var(--v)) forwards}
+#p2.joue .p2-b{animation:p2-aig-b calc(.58s*var(--v)) var(--eM, linear) calc(.21s*var(--v)) forwards}
+
+/* ─── la frappe du log : 0,20 s + i × 0,09 s ──────────────────────────── */
+#p2.joue .p2-l{
+  animation:p2-frappe calc(.12s*var(--v)) steps(20,start) forwards;
+  animation-delay:calc((.20s + var(--i) * .09s) * var(--v));
+}
+
+/* ─── la rampe : course à 45 ms d'écart, puis flash commun à 1,14 s ────── */
+#p2.joue .p2-d::before{
+  animation:p2-diode calc(.18s*var(--v)) var(--eS, linear) forwards;
+  animation-delay:calc((.70s + var(--i) * .045s) * var(--v));
+}
+#p2.joue .p2-d::after{
+  animation:p2-flash calc(.16s*var(--v)) steps(1,end) calc(1.14s*var(--v)) forwards;
+}
+
+/* ─── l'accueil se pose ───────────────────────────────────────────────── */
+#p2.joue .fin{animation:p2-parait calc(.30s*var(--v)) var(--eS, linear) calc(1.40s*var(--v)) forwards}
+#p2.joue .marque{animation:p2-monte calc(.32s*var(--v)) var(--eS, cubic-bezier(.16,.84,.30,1)) calc(1.40s*var(--v)) forwards}
+#p2.joue .sous{animation:p2-monte calc(.28s*var(--v)) var(--eS, cubic-bezier(.16,.84,.30,1)) calc(1.48s*var(--v)) forwards}
+#p2.joue .porte{animation:p2-porte calc(.20s*var(--v)) var(--eS, cubic-bezier(.16,.84,.30,1)) forwards}
+#p2.joue .porte:nth-child(1){animation-delay:calc(1.46s*var(--v))}
+#p2.joue .porte:nth-child(2){animation-delay:calc(1.53s*var(--v))}
+#p2.joue .porte:nth-child(3){animation-delay:calc(1.60s*var(--v))}
+#p2.joue .log{animation:p2-parait calc(.18s*var(--v)) var(--eS, linear) calc(1.62s*var(--v)) forwards}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MOUVEMENT RÉDUIT — la séquence ne se GÈLE pas, elle se rend DÉJÀ TERMINÉE.
+   Notre scène part du noir : la figer laisserait une app qui ne démarre pas.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) #p2.joue .trame,
+  body:not(.force-anim) #p2.joue .vise,
+  body:not(.force-anim) #p2.joue .marque,
+  body:not(.force-anim) #p2.joue .sous,
+  body:not(.force-anim) #p2.joue .porte,
+  body:not(.force-anim) #p2.joue .log{
+    opacity:1 !important; transform:none !important; animation:none !important;
+  }
+  /* ⚠️ .fin est À PART, et c'est tout l'objet de cette règle : le
+     « transform:none » du groupe ci-dessus écrasait le centrage de la scène
+     hôte (.prop .fin{transform:translateY(-46%)}), qu'AUCUNE animation de p2
+     ne touche. Mesuré en WebKit avant correction : l'accueil tombait à
+     top 200 px / bottom 412,6 px dans une scène de 400 px en overflow:hidden
+     — troisième rangée de portes rognée et collision avec .log (367,7 px).
+     L'état final à rétablir, c'est translateY(-46%), pas « none ». */
+  body:not(.force-anim) #p2.joue .fin{
+    opacity:1 !important; transform:translateY(-46%) !important; animation:none !important;
+  }
+  body:not(.force-anim) #p2 .p2-post,
+  body:not(.force-anim) #p2 .p2-post *,
+  body:not(.force-anim) #p2 .p2-post *::before,
+  body:not(.force-anim) #p2 .p2-post *::after{
+    opacity:0 !important; animation:none !important;
+  }
+}
+
+/* ═══════ OUVERTURE 03 — L'obturateur — la mise au point ═══════ */
+/* ==================================================================
+   OUVERTURE N°3 — « L'OBTURATEUR »        charte v2 « la console d'étude »
+   Registre : instrument optique. Aucun symbole religieux.
+   Durée totale : 3.00 s à --v:1 — c'est le relevé du banc, max(délai+durée)
+   sur 27 animations. Le dernier mouvement VISIBLE finit à 2.92 s (.log) ;
+   ce sont les 80 ms de queue muette de p3-decor, déjà à 0 depuis 2.55 s,
+   qui closent la ligne du temps. (Toutes les durées en calc(Xs*var(--v)).)
+
+   ------------------------------------------------------------------
+   1. GÉOMÉTRIE DE L'IRIS — 6 lames, pivots hors champ, ouverture hexagonale
+   ------------------------------------------------------------------
+   Repère : centre du fût = origine, y vers le BAS (repère CSS). Unité : vmin.
+
+     F  = 46vmin   rayon du fût optique (Ø 92vmin — 359 px sur iPhone 16 Pro,
+                   414 px sur un 1440×900 : l'objectif tient dans les deux)
+     Rp = 78vmin   rayon du cercle des pivots (hors du fût)
+     D  = Rp − F = 32vmin   distance pivot → arête interne de la lame
+
+   Une lame est un demi-plan borné dont l'arête interne est une droite à
+   distance D de son pivot P=(0,Rp). En tournant de θ (sens horaire) autour
+   de P, le pied de la perpendiculaire devient F(θ) = P + R(θ)·(0,−D), la
+   normale n = (sin θ, −cos θ), d'où le rayon inscrit de l'ouverture :
+
+         r(θ) = (O − F(θ))·n = Rp·cos θ − D
+
+     · θ = 0°   →  r = 78 − 32          = +46.0vmin = F  → OUVERT (lames hors du fût)
+     · θ = 71°  →  r = 78(0.3256) − 32  = −6.6vmin       → FERMÉ (6.6vmin de
+                    recouvrement au-delà du centre : les lames se croisent)
+
+   Les 6 normales tournent de θ AVEC les lames : l'hexagone d'ouverture
+   tourne de 71° pendant qu'il grandit. La spirale est géométrique, pas
+   ajoutée par-dessus. La marque devient lisible dès r > ~8vmin, soit
+   θ ≈ 59° : elle se découvre tôt, encore floue — c'est voulu.
+
+   ------------------------------------------------------------------
+   2. TAILLE D'UNE LAME — 140 × 66 vmin, et pourquoi pas « un grand rectangle »
+   ------------------------------------------------------------------
+   Décalage tangentiel du centre dans le repère de la lame :
+         (O − F(θ))·t = −Rp·sin θ     → à θ=71° : −78·sin71 = −73.8vmin
+   (négatif : le centre file vers la GAUCHE du pivot ; la lame s'étend donc
+   à gauche, le pivot est près de son bord droit.)
+
+   Couverture exigée : hors de l'hexagone, max_k Q·n_k est atteint par la
+   normale la PLUS PROCHE, donc à ≤ 360/12 = 30° de la direction du point.
+   Chaque lame n'a donc à couvrir qu'un secteur de ±30° : demi-largeur
+   utile = F·sin30° = 23vmin, profondeur utile = F + |r_fermé| = 52.6vmin.
+
+     largeur    ≥ 73.8 + 2×23 = 119.8  →  140vmin  (marge 20)
+     profondeur ≥ 52.6                 →   66vmin  (marge 13)
+     pivot dans la lame : x = 108vmin (contrainte : 96.7 ≤ x ≤ 140−23=117),
+                          y = D = 32vmin        → transform-origin:108vmin 32vmin
+     coin haut-gauche de la lame, depuis le centre : (−108vmin ; +46vmin)
+
+   Vérification à θ=71° : F(θ)=(30.3, 67.6) ; le centre tombe à x=34.2,
+   y=+6.6 dans le repère de la lame → [11.2 ; 57.2] ⊂ [0 ; 140] et
+   6.6+46 = 52.6 ≤ 66. Couvert, avec marge.
+
+   Coût : 6 calques de 140×66vmin ≈ 546×257 px sur iPhone — contre
+   ≈1700×760 px chacun si l'obturateur devait couvrir tout le cadre
+   (rayon de cadre = demi-diagonale ≤ 71vmax) : ~1/6 de la surface
+   composée. C'est la raison du parti « objectif dans le cadre » plutôt
+   que « obturateur plein écran » : même image, six fois moins de pixels.
+   Un cache plein cadre percé d'un trou (radial-gradient statique, peint
+   une fois) garantit qu'aucun pixel ne fuit hors du fût.
+
+   ------------------------------------------------------------------
+   3. BAGUES DE MISE AU POINT — elles se REJOIGNENT
+   ------------------------------------------------------------------
+   Même diamètre de base : 60vmin (rayon 30vmin, à l'intérieur du fût).
+     bague externe : scale 1.47 → 1  (44vmin → 30vmin), rotation +158°
+     bague interne : scale 0.53 → 1  (16vmin → 30vmin), rotation −134°
+   Elles coïncident à 78 % de leur animation = t 1.893 s : c'est l'instant
+   d'accroche. Dépassement croisé (externe .982 / interne 1.022) : elles se
+   traversent au lieu de s'arrêter — la netteté CLAQUE.
+
+   ------------------------------------------------------------------
+   4. CHRONOLOGIE (à --v:1)
+   ------------------------------------------------------------------
+     0.00–0.28  le décor s'allume (noir total à t=0)
+     0.10–0.70  relevés viseur : f/1.4, ∞, ISO 400, ⌕ AF-S (décalés 60 ms)
+     0.30–1.33  ouverture des 6 lames (0.95 s, décalage 15 ms par lame)
+     0.34–0.64  .fin passe à 1 SOUS l'obturateur (seule .marque est peinte)
+     0.45–2.30  les deux bagues convergent en tournant à l'envers l'une de l'autre
+     1.10–1.98  .marque : blur 14px→0 + aberration chromatique → 0
+     1.87–2.29  accroche : anneau d'impulsion + ⌕ AF-S au phosphore
+     1.90–2.20  le cache s'efface
+     2.10–2.55  .trame ; 2.16→2.68 les 4 croix de visée
+     2.16–2.55  l'obturateur s'efface entièrement
+     2.26–2.60  .sous ; 2.36/2.46/2.56 les 3 portes ; 2.62–2.92 .log
+   Fin : .trame .vise .fin .porte .log à 1, tout mon décor à 0.
+
+   Note couleurs : les rgba() littéraux sont les jetons de la charte —
+   #FF4747 = 255,71,71 (--rouge) ; #54ff8a = 84,255,138 (--vert) ;
+   #f0b32a = 240,179,42 (--ambre) ; #cfd6e6 = 207,214,230 (--lune).
+   (rgba littéral et non color-mix : pas de dépendance à un support récent.)
+   ================================================================== */
+
+/* ---------------- décor : conteneur (opacity 0 au repos) --------------- */
+#p3 .p3-iris{
+  position:absolute;inset:0;z-index:20;opacity:0;pointer-events:none;
+}
+
+/* ---------------- le cache : plein cadre, percé du fût ---------------- */
+#p3 .p3-cache{
+  position:absolute;inset:0;opacity:1;
+  background:
+    radial-gradient(circle at 50% 50%,
+      rgba(5,4,10,0) 0 45.3vmin,
+      rgba(240,179,42,.26) 45.7vmin 46.1vmin,
+      rgba(5,4,10,0) 46.5vmin 100%),
+    radial-gradient(circle at 50% 50%,
+      rgba(5,4,10,0) 0 45.8vmin,
+      var(--bg) 46.4vmin 100%);
+}
+
+/* ---------------- les six lames ---------------- */
+#p3 .p3-optique{
+  position:absolute;left:50%;top:50%;
+  width:92vmin;height:92vmin;margin:-46vmin 0 0 -46vmin;
+  clip-path:circle(50% at 50% 50%);
+}
+#p3 .p3-sect{position:absolute;inset:0}          /* secteur : rotation k×60° */
+#p3 .p3-s1{transform:rotate(0deg)}
+#p3 .p3-s2{transform:rotate(60deg)}
+#p3 .p3-s3{transform:rotate(120deg)}
+#p3 .p3-s4{transform:rotate(180deg)}
+#p3 .p3-s5{transform:rotate(240deg)}
+#p3 .p3-s6{transform:rotate(300deg)}
+#p3 .p3-lame{
+  position:absolute;left:50%;top:50%;
+  margin-left:-108vmin;margin-top:46vmin;   /* coin haut-gauche calculé §2 */
+  width:140vmin;height:66vmin;
+  transform-origin:108vmin 32vmin;          /* le pivot, §2 */
+  transform:rotate(71deg);                  /* état FERMÉ au repos */
+  background:linear-gradient(to top,var(--bg) 0 62%,var(--panneau) 100%);
+  border-top:1px solid rgba(240,179,42,.26);/* l'arête : dessine l'hexagone */
+  box-shadow:inset 0 .4vmin 1.2vmin rgba(240,179,42,.05);
+}
+
+/* ---------------- bagues de mise au point ---------------- */
+#p3 .p3-bagues{position:absolute;inset:0}
+#p3 .p3-bague,#p3 .p3-pulse{
+  position:absolute;left:50%;top:50%;
+  width:60vmin;height:60vmin;margin:-30vmin 0 0 -30vmin;
+  border-radius:50%;opacity:0;
+}
+#p3 .p3-bA{border:2px dashed rgba(240,179,42,.50)}
+#p3 .p3-bB{border:3px dashed rgba(207,214,230,.22)}
+#p3 .p3-pulse{
+  border:1.5px solid rgba(240,179,42,.85);
+  box-shadow:0 0 2.4vmin rgba(240,179,42,.20);
+}
+
+/* ---------------- relevés viseur ---------------- */
+#p3 .p3-hud{
+  position:absolute;left:50%;top:50%;
+  width:58vmin;height:58vmin;margin:-29vmin 0 0 -29vmin;   /* coins à r=41vmin */
+  font-family:var(--mono);
+  font-size:clamp(.55rem,1.85vmin,.82rem);
+  letter-spacing:.10em;
+  color:rgba(207,214,230,.50);
+}
+#p3 .p3-r{position:absolute;opacity:0;white-space:nowrap}
+#p3 .p3-r1{left:0;top:0}
+#p3 .p3-r2{right:0;top:0}
+#p3 .p3-r3{left:0;bottom:0}
+#p3 .p3-r4{right:0;bottom:0}
+#p3 .p3-oeil{font-style:normal;font-weight:400}
+
+/* ==================================================================
+   ANIMATIONS — uniquement sous #p3.joue
+   ================================================================== */
+
+/* le décor s'allume puis s'efface : UNE seule animation, aucun délai à recycler */
+#p3.joue .p3-iris{
+  animation:p3-decor calc(3s*var(--v)) var(--eL, linear) both;
+}
+#p3.joue .p3-cache{
+  animation:p3-cacheoff calc(.30s*var(--v)) var(--eS, ease) both;
+  animation-delay:calc(1.90s*var(--v));
+}
+
+/* ouverture : 71° → 0° + écartement final de 5vmin, décalage 15 ms par lame */
+#p3.joue .p3-lame{
+  animation:p3-lame calc(.95s*var(--v)) var(--eM, cubic-bezier(.55,.04,.2,1)) both;
+}
+#p3.joue .p3-s1 .p3-lame{animation-delay:calc(.300s*var(--v))}
+#p3.joue .p3-s2 .p3-lame{animation-delay:calc(.315s*var(--v))}
+#p3.joue .p3-s3 .p3-lame{animation-delay:calc(.330s*var(--v))}
+#p3.joue .p3-s4 .p3-lame{animation-delay:calc(.345s*var(--v))}
+#p3.joue .p3-s5 .p3-lame{animation-delay:calc(.360s*var(--v))}
+#p3.joue .p3-s6 .p3-lame{animation-delay:calc(.375s*var(--v))}
+
+/* bagues */
+#p3.joue .p3-bA{
+  animation:p3-bagueA calc(1.85s*var(--v)) var(--eM, cubic-bezier(.33,0,.25,1)) both;
+  animation-delay:calc(.45s*var(--v));
+}
+#p3.joue .p3-bB{
+  animation:p3-bagueB calc(1.85s*var(--v)) var(--eM, cubic-bezier(.33,0,.25,1)) both;
+  animation-delay:calc(.45s*var(--v));
+}
+#p3.joue .p3-pulse{
+  animation:p3-pulse calc(.42s*var(--v)) var(--eS, cubic-bezier(.2,.7,.3,1)) both;
+  animation-delay:calc(1.87s*var(--v));
+}
+
+/* relevés : apparition décalée ; le 4e porte EN PLUS l'accroche phosphore
+   → DEUX animations, donc DEUX délais (longhands explicites, pas de raccourci) */
+#p3.joue .p3-r{
+  animation:p3-parait calc(.42s*var(--v)) var(--eS, ease-out) both;
+}
+#p3.joue .p3-r1{animation-delay:calc(.10s*var(--v))}
+#p3.joue .p3-r2{animation-delay:calc(.16s*var(--v))}
+#p3.joue .p3-r3{animation-delay:calc(.22s*var(--v))}
+#p3.joue .p3-r4{
+  animation-name:p3-parait,p3-af;
+  animation-duration:calc(.42s*var(--v)),calc(.90s*var(--v));
+  animation-delay:calc(.28s*var(--v)),calc(1.87s*var(--v));
+  animation-timing-function:var(--eS, ease-out),var(--eM, linear);
+  animation-fill-mode:both,forwards;
+}
+
+/* ---- éléments de l'hôte : on les ANIME, on ne les restyle pas ---- */
+
+/* la marque est révélée SOUS l'obturateur, puis mise au point.
+   Un seul élément porte un filter, et rien d'autre n'anime de filter. */
+#p3.joue .fin{
+  animation:p3-parait calc(.30s*var(--v)) var(--eS, ease-out) both;
+  animation-delay:calc(.34s*var(--v));
+}
+#p3.joue .marque{
+  animation:p3-net calc(.88s*var(--v)) var(--eM, cubic-bezier(.40,.03,.20,1)) both;
+  animation-delay:calc(1.10s*var(--v));
+}
+#p3.joue .sous{
+  animation:p3-parait calc(.34s*var(--v)) var(--eS, ease-out) both;
+  animation-delay:calc(2.26s*var(--v));
+}
+#p3.joue .trame{
+  animation:p3-parait calc(.45s*var(--v)) var(--eS, ease-out) both;
+  animation-delay:calc(2.10s*var(--v));
+}
+#p3.joue .vise{
+  animation:p3-parait calc(.34s*var(--v)) var(--eS, ease-out) both;
+}
+#p3.joue .vise.tl{animation-delay:calc(2.16s*var(--v))}
+#p3.joue .vise.tr{animation-delay:calc(2.22s*var(--v))}
+#p3.joue .vise.bl{animation-delay:calc(2.28s*var(--v))}
+#p3.joue .vise.br{animation-delay:calc(2.34s*var(--v))}
+#p3.joue .porte{
+  animation:p3-porte calc(.34s*var(--v)) var(--eS, cubic-bezier(.2,.7,.3,1)) both;
+}
+#p3.joue .porte:nth-child(1){animation-delay:calc(2.36s*var(--v))}
+#p3.joue .porte:nth-child(2){animation-delay:calc(2.46s*var(--v))}
+#p3.joue .porte:nth-child(3){animation-delay:calc(2.56s*var(--v))}
+#p3.joue .log{
+  animation:p3-parait calc(.30s*var(--v)) var(--eS, ease-out) both;
+  animation-delay:calc(2.62s*var(--v));
+}
+
+/* ==================================================================
+   KEYFRAMES — toutes préfixées p3-. Un bloc de keyframes est GLOBAL : sans
+   préfixe il écraserait celui d'une proposition voisine.
+   ⚠️ Ne PAS réécrire ce titre avec le mot-clé arobase suivi d'un mot :
+   la garde d'isolation d'assemble.py cherche ce motif dans TOUT le fichier,
+   commentaires compris, et sortait en « ISOLATION ROMPUE ... "sont" ».
+   ================================================================== */
+@keyframes p3-parait{from{opacity:0}to{opacity:1}}
+
+@keyframes p3-decor{           /* 3s : 0→0.27 allumage, 2.16→2.55 effacement */
+  0%{opacity:0}
+  9%{opacity:1}
+  72%{opacity:1}
+  85%{opacity:0}
+  100%{opacity:0}
+}
+
+@keyframes p3-cacheoff{from{opacity:1}to{opacity:0}}
+
+@keyframes p3-lame{            /* 71° fermé → 0° ouvert + 5vmin d'écartement */
+  0%{transform:rotate(71deg) translateY(0)}
+  62%{transform:rotate(19deg) translateY(0)}
+  100%{transform:rotate(0deg) translateY(5vmin)}
+}
+
+@keyframes p3-bagueA{          /* externe : 44vmin → 30vmin, sens horaire */
+  0%{opacity:0;transform:rotate(0deg) scale(1.47)}
+  10%{opacity:.9;transform:rotate(22deg) scale(1.36)}
+  70%{opacity:.9;transform:rotate(132deg) scale(1.05)}
+  78%{opacity:1;transform:rotate(147deg) scale(.982)}   /* accroche : 1.893 s */
+  84%{opacity:.6;transform:rotate(152deg) scale(1)}
+  100%{opacity:0;transform:rotate(158deg) scale(1)}
+}
+@keyframes p3-bagueB{          /* interne : 16vmin → 30vmin, sens antihoraire */
+  0%{opacity:0;transform:rotate(0deg) scale(.53)}
+  10%{opacity:.8;transform:rotate(-19deg) scale(.60)}
+  70%{opacity:.85;transform:rotate(-112deg) scale(.965)}
+  78%{opacity:1;transform:rotate(-125deg) scale(1.022)} /* elles se traversent */
+  84%{opacity:.55;transform:rotate(-129deg) scale(1)}
+  100%{opacity:0;transform:rotate(-134deg) scale(1)}
+}
+@keyframes p3-pulse{
+  0%{opacity:.9;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.16)}
+}
+
+@keyframes p3-af{              /* ⌕ AF-S passe au phosphore, avec un raté */
+  0%{color:rgba(207,214,230,.50);text-shadow:none}
+  7%{color:#54ff8a;text-shadow:0 0 1.2vmin rgba(84,255,138,.55)}
+  14%{color:rgba(84,255,138,.55);text-shadow:none}
+  24%{color:#54ff8a;text-shadow:0 0 1.4vmin rgba(84,255,138,.60)}
+  100%{color:#54ff8a;text-shadow:0 0 1.4vmin rgba(84,255,138,.45)}
+}
+
+@keyframes p3-net{             /* flou + aberration chromatique → netteté qui claque */
+  0%{
+    filter:blur(14px);
+    text-shadow:-9px 0 rgba(255,71,71,.55),9px 0 rgba(84,255,138,.45);
+    transform:scale(1.05);
+  }
+  40%{
+    filter:blur(7px);
+    text-shadow:-5px 0 rgba(255,71,71,.50),5px 0 rgba(84,255,138,.42);
+    transform:scale(1.028);
+  }
+  72%{
+    filter:blur(2.4px);
+    text-shadow:-1.8px 0 rgba(255,71,71,.40),1.8px 0 rgba(84,255,138,.34);
+    transform:scale(1.008);
+  }
+  88%{                         /* la netteté arrive AVANT l'arrêt : dépassement */
+    filter:blur(0px);
+    text-shadow:-.5px 0 rgba(255,71,71,.22),.5px 0 rgba(84,255,138,.18);
+    transform:scale(.9925);
+  }
+  100%{
+    filter:blur(0px);
+    text-shadow:0 0 rgba(255,71,71,0),0 0 rgba(84,255,138,0);
+    transform:scale(1);
+  }
+}
+
+@keyframes p3-porte{
+  from{opacity:0;transform:translateY(.9vmin)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ==================================================================
+   MOUVEMENT RÉDUIT — la séquence ne se GÈLE pas : elle est DÉJÀ FINIE.
+   La scène part du noir ; la figer laisserait une page vide.
+   `animation:none` est indispensable : sans lui, le flou et l'aberration
+   de .marque continueraient de jouer malgré opacity:1 !important.
+   ================================================================== */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) #p3.joue .trame,
+  body:not(.force-anim) #p3.joue .vise,
+  body:not(.force-anim) #p3.joue .marque,
+  body:not(.force-anim) #p3.joue .sous,
+  body:not(.force-anim) #p3.joue .porte,
+  body:not(.force-anim) #p3.joue .log{
+    opacity:1 !important;transform:none !important;filter:none !important;
+    animation:none !important;
+  }
+  /* `.fin` À PART. « État final » ≠ « transform:none » : le contrat hôte
+     centre `.prop .fin` par transform:translateY(-46%), et aucune de mes
+     animations n'y touche (p3-parait ne bouge que l'opacité). La rabattre
+     à `none` avec le groupe la descendait de 97,8 px (mesuré WebKit
+     393×852 : .fin à +101 px du cadre en séquence jouée, +199 px en
+     mouvement réduit, bas à 411,6 px pour un cadre de 398 px — l'accueil
+     débordait). Elle reprend donc SA transformée de repos. */
+  body:not(.force-anim) #p3.joue .fin{
+    opacity:1 !important;transform:translateY(-46%) !important;
+    filter:none !important;animation:none !important;
+  }
+  body:not(.force-anim) #p3.joue .p3-iris,
+  body:not(.force-anim) #p3.joue .p3-iris *,
+  body:not(.force-anim) #p3.joue .p3-iris *::before,
+  body:not(.force-anim) #p3.joue .p3-iris *::after{
+    opacity:0 !important;transform:none !important;animation:none !important;
+  }
+}
+
+/* ═══════ OUVERTURE 04 — Le télétype — la lettre est frappée ═══════ */
+/* ==========================================================================
+   OUVERTURE N°4 — « LE TÉLÉTYPE »            préfixe p4-, tout sous #p4
+   Registre mécanique et tactile. Aucun symbole religieux.
+   Une machine imprime le א en passes matricielles, fait un retour chariot,
+   avance le papier d'un cran, imprime la ligne du nom, puis le papier
+   remonte hors champ et découvre l'accueil.
+   --------------------------------------------------------------------------
+   GÉOMÉTRIE ET CADENCES — chiffres calculés, pas devinés
+   --------------------------------------------------------------------------
+   1. CADENCE MÈRE = le cycle du chariot.
+        course d'impression  0.32 s  (droite→gauche, timing LINEAR :
+                                      un chariot entraîné va à vitesse
+                                      constante, il n'a pas d'ease-out)
+        retour à vide        0.10 s  (ease-in-out, non imprimant)
+        cycle                0.42 s  →  4 passes = 1.68 s
+      Tout le reste est un multiple ou une fraction de ce 0.42 s.
+
+   2. RUBAN PERFORÉ.
+        pas de colonne          28 px
+        motif                   12 colonnes = 336 px  (le SVG en data-URI)
+        boucle                  0.84 s = EXACTEMENT 2 cycles chariot
+                                (4 tours, PAS « infinite » : 4 × 0.84 = 3.36 s,
+                                 arrêt à 13 % d'opacité pendant l'extinction
+                                 du ruban — voir la note du keyframe)
+                                → 6 colonnes par cycle, 14.3 colonnes/s,
+                                  même ordre de grandeur que les ~11 car/s
+                                  d'un télétype à 110 bauds.
+        steps(12) sur translateX(-336 px) = 1 colonne par cran ; le motif se
+        répète tous les 336 px donc le bouclage est sans couture.
+      Pistes : 6 rangées, pas 4.5 px dans 30 px de haut →
+        y = 3.5 / 8 / 12.5 (données) · 17 (ENTRAÎNEMENT, r 0.9) · 21.5 / 26.
+        Trous de données r 1.7 → 3.4 px de diamètre, 1.1 px de cloison :
+        c'est la valeur maximale qui laisse les rangées se lire séparément.
+        31 trous sur 60 positions possibles (52 %), motif ÉCRIT À LA MAIN,
+        aucun Math.random() — le déterminisme est une exigence du dépôt.
+
+   3. LA LETTRE EN 4 PASSES.
+      Le VRAI glyphe (Frank Ruhl Libre 900) est révélé par un clip-path
+      inset() droite→gauche, en steps(12) — le pas du ruban, pour que
+      l'encre tombe au même rythme que la machine avance.
+      Densité cumulée des 4 calques d'opacités 0.30 / 0.40 / 0.55 / 0.78 :
+        1-(1-.30)(1-.40)(1-.55)(1-.78) = 1-0.0416 = 0.958
+      → la lettre NOIRCIT par accumulation. Ce n'est pas un fondu : chaque
+        passe balaye, elle n'apparaît pas d'un bloc.
+      Fenêtre de révélation 30 %→70 % de la course : à 390 px de large le
+      glyphe occupe ~34 %→66 % du cadre, l'encre tombe donc bien SOUS la
+      tête. (Sur un cadre très large le glyphe est relativement plus étroit
+      et l'encre part ~4 % trop tôt — écart assumé, invisible à l'œil.)
+
+   4. TREMBLÉ DE LA MÉCANIQUE — décalages horizontaux ÉCRITS, passe par passe :
+        passe 1 : +1 px   passe 2 : -1 px   passe 3 : +0.5 px   passe 4 : 0
+      Un seul pixel : c'est un défaut de registre, pas un effet.
+
+   5. PAPIER.
+        réglure                 48 px
+        cran d'avance           96 px = 2 réglures
+      La lettre est centrée à 36 % de la scène, la ligne du nom à
+      calc(36 % + 96 px). Après l'avance d'un cran, la ligne arrive
+      EXACTEMENT sur la rangée du chariot (36 %) : c'est cette contrainte
+      mécanique qui fixe les deux chiffres, pas le goût.
+      Le fond du papier déborde de 110 px sous la scène (> 96) pour qu'aucun
+      vide n'apparaisse en bas pendant l'avance.
+      Sortie : translateY(calc(-100% - 150px)) — il faut franchir la hauteur
+      de la scène PLUS les 110 px de débord, quelle que soit cette hauteur.
+      Perforations d'entraînement du papier : pas 24 px = une demi-réglure.
+
+   6. LIGNE DU NOM. « ▸ עִבְרִית — le carnet et la console » = 33 glyphes
+      visibles (les 3 signes de niqqud sont combinants, sans chasse) →
+      steps(33) sur 0.60 s = 18 ms/car ≈ 55 car/s. La machine va plus vite
+      qu'un vrai TTY : on ne fait pas attendre 3 s pour une ligne.
+
+   7. AUCUNE COULEUR LITTÉRALE dans les règles : toutes les teintes du décor
+      sont dérivées des jetons de la charte v2 par color-mix(), pour qu'un
+      changement de --ambre / --ligne / --lune traverse la figure entière.
+      Seule exception, inévitable : le SVG du ruban est un data-URI, qui ne
+      peut pas lire une custom property — ses deux tons sont donc les valeurs
+      littérales des jetons (%230F0C1C = --grille, %2305040A = --bg,
+      %237a5a14 = --ligne). Les ombres portées restent en noir pur : ce sont
+      des ombres, pas des couleurs de la charte.
+
+   8. POURQUOI DROITE→GAUCHE. L'hébreu s'écrit de droite à gauche : les
+      4 passes du glyphe sont donc RTL et le retour chariot claque à DROITE
+      (le début de la ligne suivante). Seule la ligne du nom, dont la
+      direction de base est latine, s'imprime gauche→droite — la machine
+      change de sens selon l'écriture de la ligne, comme une imprimante
+      bidirectionnelle. C'est le détail qui compte.
+   --------------------------------------------------------------------------
+   MINUTAGE (v = 1 ; total 3.98 s, budget 4 s)
+     0.00        le ruban se met en marche, plaque « TTY·1 — 110 BD »
+     0.00-0.26   le papier se pose ; le rail entre (0.08-0.34), le chariot
+                 paraît à 0.30 et attaque sa première course à 0.34
+     0.30-1.88   4 passes : 0.30 / 0.72 / 1.14 / 1.56 (course 0.32, retour 0.10)
+     1.88-1.98   RETOUR CHARIOT : le chariot claque sur la butée droite
+                 (ease-in dur + recul de 4 px + flash de la butée)
+     1.98-2.20   le papier avance d'un cran (96 px), easing sec
+     2.20-2.36   retour à vide vers la gauche, non imprimant
+     2.36-3.04   balayage gauche→droite du chariot ; la ligne s'imprime
+                 dans son sillage, 2.40-3.00, steps(33)
+     3.10-3.40   la mécanique s'efface (chariot, rail, ruban, plaque)
+     3.16-3.84   le papier remonte hors champ
+     3.24-3.98   l'accueil se pose : trame, visées, marque, 3 portes, log
+   ========================================================================== */
+
+#p4{
+  --p4-row:36%;                     /* rangée d'impression du chariot        */
+  --p4-cran:96px;                   /* avance papier = 2 réglures de 48 px   */
+  --p4-x1:calc(-100% + 28px);       /* butée gauche : 7 px de marge de chaque
+                                       côté (tête large de 14 px posée à
+                                       right:7px → 7+14+7 = 28)              */
+}
+
+/* ---- socle commun du décor : invisible au repos, jamais cliquable ------- */
+#p4 .p4-papier,
+#p4 .p4-rail,
+#p4 .p4-butee,
+#p4 .p4-chariot,
+#p4 .p4-ruban,
+#p4 .p4-plaque{position:absolute;opacity:0;pointer-events:none}
+
+/* ======================= 1. LE PAPIER ==================================== */
+#p4 .p4-papier{left:0;right:0;top:0;bottom:0;z-index:30;will-change:transform,opacity}
+
+#p4 .p4-fond{
+  position:absolute;left:0;right:0;top:0;height:calc(100% + 110px);
+  background:
+    repeating-linear-gradient(180deg,
+      color-mix(in srgb,var(--lune) 5%,transparent) 0 1px,transparent 1px 48px),
+    linear-gradient(180deg,var(--panneau) 0%,var(--bg) 100%);
+  box-shadow:0 14px 34px rgba(0,0,0,.7);
+}
+/* perforations d'entraînement du papier, pas 24 px = demi-réglure */
+#p4 .p4-fond::before,
+#p4 .p4-fond::after{
+  content:'';position:absolute;top:0;bottom:0;width:14px;
+  background:radial-gradient(circle at 7px 12px,
+    var(--bg) 0 3px,
+    color-mix(in srgb,var(--ligne) 30%,transparent) 3.1px 3.7px,
+    transparent 4.4px);
+  background-size:14px 24px;
+}
+#p4 .p4-fond::before{left:7px;border-right:1px solid color-mix(in srgb,var(--ligne) 16%,transparent)}
+#p4 .p4-fond::after {right:7px;border-left:1px solid color-mix(in srgb,var(--ligne) 16%,transparent)}
+
+/* ---- la lettre, 4 calques exactement superposés ------------------------- */
+#p4 .p4-lettre{position:absolute;left:0;right:0;top:var(--p4-row);height:0}
+#p4 .p4-passe{
+  position:absolute;left:50%;top:0;
+  font:900 clamp(72px,20vw,128px)/1 var(--he);
+  color:var(--ambre);opacity:0;
+  -webkit-clip-path:inset(0 0 0 100%);clip-path:inset(0 0 0 100%);
+}
+/* tremblé écrit à la main, 1 px, passe par passe */
+#p4 .p4-p1{--p4-o:.30;transform:translate(calc(-50% + 1px),-50%)}
+#p4 .p4-p2{--p4-o:.40;transform:translate(calc(-50% - 1px),-50%)}
+#p4 .p4-p3{--p4-o:.55;transform:translate(calc(-50% + .5px),-50%)}
+#p4 .p4-p4{--p4-o:.78;transform:translate(-50%,-50%);
+           text-shadow:0 0 22px color-mix(in srgb,var(--ambre) 26%,transparent)}
+
+/* ---- la ligne du nom, imprimée caractère par caractère ------------------ */
+#p4 .p4-ligne{
+  position:absolute;left:0;right:0;
+  top:calc(var(--p4-row) + var(--p4-cran));
+  transform:translateY(-50%);text-align:center;
+}
+#p4 .p4-txt{
+  display:inline-block;white-space:nowrap;
+  font:400 clamp(11px,3.2vw,15px)/1.2 var(--mono);
+  letter-spacing:.08em;color:var(--ambre);opacity:0;
+  -webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0);
+}
+#p4 .p4-txt .p4-he{font-family:var(--he);font-weight:900;font-size:1.35em;letter-spacing:0}
+
+/* ======================= 2. LA MÉCANIQUE ================================= */
+#p4 .p4-rail{
+  left:0;right:0;top:calc(var(--p4-row) - 46px);height:1px;z-index:39;
+  --p4-acier:color-mix(in srgb,var(--ligne) 50%,transparent);
+  background:linear-gradient(90deg,transparent,
+                             var(--p4-acier) 8%,var(--p4-acier) 92%,transparent);
+}
+
+#p4 .p4-chariot{
+  left:0;right:0;top:calc(var(--p4-row) - 39px);height:78px;z-index:40;
+  will-change:transform,opacity;
+}
+#p4 .p4-tete{
+  position:absolute;right:7px;top:0;width:14px;height:100%;border-radius:2px;
+  background:linear-gradient(180deg,var(--grille),var(--panneau));
+  border:1px solid color-mix(in srgb,var(--ligne) 55%,transparent);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--bg) 90%,transparent),
+             0 8px 20px rgba(0,0,0,.6);
+}
+/* la rampe d'aiguilles est sur le bord GAUCHE : c'est le bord qui attaque
+   pendant la course d'impression droite→gauche */
+#p4 .p4-aiguilles{
+  position:absolute;left:-1px;top:9px;bottom:9px;width:2px;border-radius:1px;
+  background:linear-gradient(180deg,transparent,var(--ambre) 14%,
+                                    var(--ambre) 86%,transparent);
+  opacity:.8;
+}
+#p4 .p4-diode{
+  position:absolute;left:50%;top:5px;width:4px;height:4px;margin-left:-2px;
+  border-radius:50%;background:var(--vert);box-shadow:0 0 7px var(--vert);
+}
+/* butée droite : ce qui rend le retour chariot AUDIBLE À L'ŒIL */
+#p4 .p4-butee{
+  right:0;top:calc(var(--p4-row) - 46px);width:3px;height:92px;
+  border-radius:2px;background:var(--ambre);z-index:41;
+  box-shadow:0 0 16px color-mix(in srgb,var(--ambre) 75%,transparent);
+}
+
+/* ======================= 3. LE RUBAN PERFORÉ ============================= */
+#p4 .p4-ruban{
+  left:0;right:0;bottom:0;height:30px;z-index:45;overflow:hidden;
+  box-shadow:0 -12px 26px rgba(0,0,0,.6);
+}
+#p4 .p4-bande{
+  position:absolute;top:0;bottom:0;left:0;width:calc(100% + 336px);
+  background-repeat:repeat-x;background-size:336px 30px;will-change:transform;
+  background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 336 30' width='336' height='30'><rect width='336' height='30' fill='%230F0C1C'/><rect width='336' height='1' fill='%237a5a14' fill-opacity='.5'/><rect y='29' width='336' height='1' fill='%237a5a14' fill-opacity='.5'/><g fill='%2305040A'><circle cx='14' cy='3.5' r='1.7'/><circle cx='70' cy='3.5' r='1.7'/><circle cx='126' cy='3.5' r='1.7'/><circle cx='182' cy='3.5' r='1.7'/><circle cx='238' cy='3.5' r='1.7'/><circle cx='294' cy='3.5' r='1.7'/><circle cx='42' cy='8' r='1.7'/><circle cx='70' cy='8' r='1.7'/><circle cx='154' cy='8' r='1.7'/><circle cx='210' cy='8' r='1.7'/><circle cx='238' cy='8' r='1.7'/><circle cx='294' cy='8' r='1.7'/><circle cx='14' cy='12.5' r='1.7'/><circle cx='98' cy='12.5' r='1.7'/><circle cx='154' cy='12.5' r='1.7'/><circle cx='210' cy='12.5' r='1.7'/><circle cx='266' cy='12.5' r='1.7'/><circle cx='294' cy='12.5' r='1.7'/><circle cx='14' cy='21.5' r='1.7'/><circle cx='70' cy='21.5' r='1.7'/><circle cx='126' cy='21.5' r='1.7'/><circle cx='210' cy='21.5' r='1.7'/><circle cx='266' cy='21.5' r='1.7'/><circle cx='322' cy='21.5' r='1.7'/><circle cx='42' cy='26' r='1.7'/><circle cx='98' cy='26' r='1.7'/><circle cx='126' cy='26' r='1.7'/><circle cx='182' cy='26' r='1.7'/><circle cx='238' cy='26' r='1.7'/><circle cx='294' cy='26' r='1.7'/><circle cx='322' cy='26' r='1.7'/></g><g fill='%2305040A'><circle cx='14' cy='17' r='.9'/><circle cx='42' cy='17' r='.9'/><circle cx='70' cy='17' r='.9'/><circle cx='98' cy='17' r='.9'/><circle cx='126' cy='17' r='.9'/><circle cx='154' cy='17' r='.9'/><circle cx='182' cy='17' r='.9'/><circle cx='210' cy='17' r='.9'/><circle cx='238' cy='17' r='.9'/><circle cx='266' cy='17' r='.9'/><circle cx='294' cy='17' r='.9'/><circle cx='322' cy='17' r='.9'/></g></svg>");
+}
+
+/* ======================= 4. LA PLAQUE ==================================== */
+#p4 .p4-plaque{
+  left:16px;top:14px;z-index:44;
+  font:400 10px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--ambre) 50%,transparent);
+}
+
+/* ==========================================================================
+   ANIMATIONS — jouées seulement sous .joue. Toute durée en calc(Xs*var(--v)).
+   ⚠️ Règle des DEUX DÉLAIS : chaque élément qui porte deux animations reçoit
+   un animation-delay à DEUX valeurs, écrit APRÈS le raccourci. Le fondu de
+   sortie est en fill-mode « forwards » (jamais « both ») : en « both » il
+   appliquerait sa keyframe 0 % dès t=0 et, dernier de la liste, il écraserait
+   le fondu d'entrée.
+   ========================================================================== */
+
+/* ---- le papier : entrée, cran d'avance, sortie — UNE seule animation,
+        parce que trois animations se disputeraient le même transform ------ */
+#p4.joue .p4-papier{animation:p4-papier calc(3.84s*var(--v)) var(--eL, linear) calc(0s*var(--v)) both}
+@keyframes p4-papier{
+  0%    {opacity:0;transform:translateY(14px);
+         animation-timing-function:var(--eL, cubic-bezier(.2,.8,.3,1))}
+  6.8%  {opacity:1;transform:translateY(0)}                    /* t = 0.26 s */
+  51.6% {opacity:1;transform:translateY(0);
+         animation-timing-function:var(--eL, cubic-bezier(.25,.9,.25,1))} /* t = 1.98 s */
+  57.3% {transform:translateY(calc(-1 * var(--p4-cran)))}      /* t = 2.20 s */
+  82.3% {opacity:1;transform:translateY(calc(-1 * var(--p4-cran)));
+         animation-timing-function:var(--eL, cubic-bezier(.5,0,.35,1))}   /* t = 3.16 s */
+  96%   {opacity:1;transform:translateY(calc(-100% - 120px))}  /* t = 3.69 s */
+  100%  {opacity:0;transform:translateY(calc(-100% - 150px))}  /* t = 3.84 s */
+}
+
+/* ---- les 4 passes : même keyframe, 4 délais espacés d'un cycle (0.42 s) -- */
+#p4.joue .p4-passe{
+  opacity:var(--p4-o);
+  animation:p4-passe calc(.32s*var(--v)) var(--eS, linear) both;
+}
+#p4.joue .p4-p1{animation-delay:calc(.30s*var(--v))}
+#p4.joue .p4-p2{animation-delay:calc(.72s*var(--v))}
+#p4.joue .p4-p3{animation-delay:calc(1.14s*var(--v))}
+#p4.joue .p4-p4{animation-delay:calc(1.56s*var(--v))}
+@keyframes p4-passe{
+  0%       {-webkit-clip-path:inset(0 0 0 100%);clip-path:inset(0 0 0 100%)}
+  30%      {-webkit-clip-path:inset(0 0 0 100%);clip-path:inset(0 0 0 100%);
+            animation-timing-function:steps(12)}
+  70%,100% {-webkit-clip-path:inset(0 0 0 0);clip-path:inset(0 0 0 0)}
+}
+
+/* ---- la ligne du nom, 33 caractères ------------------------------------ */
+#p4.joue .p4-txt{
+  opacity:1;
+  animation:p4-frappe calc(.60s*var(--v)) steps(33) calc(2.40s*var(--v)) both;
+}
+@keyframes p4-frappe{
+  from{-webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0)}
+  to  {-webkit-clip-path:inset(0 0 0 0);clip-path:inset(0 0 0 0)}
+}
+
+/* ---- le chariot : 4 courses, le claque, le retour à vide, le balayage ---- */
+#p4.joue .p4-chariot{
+  animation:p4-chariot calc(3.10s*var(--v)) var(--eL, linear) calc(.30s*var(--v)) both;
+}
+@keyframes p4-chariot{
+  0%    {opacity:0;transform:translateX(0)}
+  1.3%  {opacity:1;transform:translateX(0);animation-timing-function:var(--eL, linear)}
+  /* course 1 */
+  10.3% {transform:translateX(var(--p4-x1));animation-timing-function:var(--eL, cubic-bezier(.4,0,.2,1))}
+  13.5% {transform:translateX(0);animation-timing-function:var(--eL, linear)}
+  /* course 2 */
+  23.9% {transform:translateX(var(--p4-x1));animation-timing-function:var(--eL, cubic-bezier(.4,0,.2,1))}
+  27.1% {transform:translateX(0);animation-timing-function:var(--eL, linear)}
+  /* course 3 */
+  37.4% {transform:translateX(var(--p4-x1));animation-timing-function:var(--eL, cubic-bezier(.4,0,.2,1))}
+  40.6% {transform:translateX(0);animation-timing-function:var(--eL, linear)}
+  /* course 4, puis RETOUR CHARIOT : accélération dure jusqu'à la butée */
+  51.0% {transform:translateX(var(--p4-x1));animation-timing-function:var(--eL, cubic-bezier(.75,0,.95,1))}
+  /* le recul du choc est une KEYFRAME explicite (-4 px), pas un easing qui
+     dépasse : un ressort cubic-bezier ferait rebondir toute la course, alors
+     qu'une machine ne recule que sur les 4 px du choc, en décélérant. */
+  54.2% {transform:translateX(0);animation-timing-function:var(--eL, cubic-bezier(.16,1,.3,1))}
+  55.8% {transform:translateX(-4px);animation-timing-function:var(--eL, cubic-bezier(.16,1,.3,1))}
+  58.0% {transform:translateX(0)}
+  /* attente pendant l'avance du papier, puis retour à vide vers la gauche */
+  61.3% {transform:translateX(0);animation-timing-function:var(--eL, cubic-bezier(.35,0,.25,1))}
+  65.2% {transform:translateX(var(--p4-x1))}
+  66.5% {transform:translateX(var(--p4-x1));animation-timing-function:var(--eL, linear)}
+  /* balayage gauche→droite : la ligne latine s'imprime dans son sillage */
+  88.4% {transform:translateX(0);opacity:1}
+  90.3% {transform:translateX(0);opacity:1}
+  100%  {transform:translateX(0);opacity:0}
+}
+
+/* la diode clignote au rythme du cycle : 7 cycles de 0.42 s = 2.94 s */
+#p4.joue .p4-diode{
+  animation:p4-diode calc(.42s*var(--v)) var(--eS, linear) calc(.30s*var(--v)) 7 both;
+}
+@keyframes p4-diode{0%,46%{opacity:1}47%,100%{opacity:.22}}
+
+/* le flash de la butée, calé sur l'impact (1.98 s) */
+#p4.joue .p4-butee{
+  animation:p4-butee calc(.30s*var(--v)) var(--eS, linear) calc(1.96s*var(--v)) both;
+}
+@keyframes p4-butee{
+  0%  {opacity:0;transform:scaleY(.7)}
+  18% {opacity:.95;transform:scaleY(1)}
+  100%{opacity:0;transform:scaleY(1)}
+}
+
+/* ---- le ruban : défilement par crans de 28 px --------------------------
+   ⚠️ PAS « infinite », et le compte est calculé, pas arrondi :
+   1. infinie, la boucle tourne APRÈS la fin de la séquence, indéfiniment,
+      sur un élément invisible (mesuré : à t = 5,6 s, p4-ruban était la
+      SEULE animation encore `running` de la scène — du travail de
+      composition payé pour rien, à chaque lecture, pour toujours).
+   2. 4 tours = 3.36 s. Le ruban s'éteint entre 3.10 et 3.40 s : à 3.36 s
+      il est à 13 % d'opacité, l'arrêt du défilement y est invisible.
+      Un tour de plus (4.20 s) dépasserait les 3.98 s de la séquence et
+      GONFLERAIT la durée relevée par le banc (mesuré : 4,20 s affichées) —
+      un relevé qui doit rester honnête.
+   3. `forwards` : la boucle s'achève sur -336 px, soit EXACTEMENT une
+      période du motif — mesuré en WebKit. L'image est donc la même avec
+      ou sans fill (0 ≡ -336) ; le fill est gardé pour que le transform
+      cesse de muter du tout une fois la séquence finie, pas pour corriger
+      un saut. C'est la répétition du motif tous les 336 px qui protège,
+      pas le fill — un compte de tours qui ne tomberait pas juste, LUI,
+      ferait sauter le ruban d'une colonne. */
+#p4.joue .p4-bande{
+  animation:p4-ruban calc(.84s*var(--v)) steps(12) calc(0s*var(--v)) 4 forwards;
+}
+@keyframes p4-ruban{
+  from{transform:translateX(0)}
+  to  {transform:translateX(-336px)}
+}
+
+/* ---- décor à deux animations : entrée + sortie, DEUX délais ------------- */
+#p4.joue .p4-rail{
+  animation:p4-app calc(.26s*var(--v)) var(--eS, linear) both,
+            p4-dispa calc(.30s*var(--v)) var(--eS, linear) forwards;
+  animation-delay:calc(.08s*var(--v)),calc(3.10s*var(--v));
+}
+#p4.joue .p4-ruban{
+  animation:p4-app calc(.30s*var(--v)) var(--eS, linear) both,
+            p4-dispa calc(.30s*var(--v)) var(--eS, linear) forwards;
+  animation-delay:calc(0s*var(--v)),calc(3.10s*var(--v));
+}
+#p4.joue .p4-plaque{
+  animation:p4-app calc(.30s*var(--v)) var(--eS, linear) both,
+            p4-dispa calc(.30s*var(--v)) var(--eS, linear) forwards;
+  animation-delay:calc(.10s*var(--v)),calc(3.10s*var(--v));
+}
+
+@keyframes p4-app  {from{opacity:0}to{opacity:1}}
+@keyframes p4-dispa{from{opacity:1}to{opacity:0}}
+
+/* ======================= 5. L'ACCUEIL SE POSE ============================ */
+#p4.joue .trame{animation:p4-app calc(.46s*var(--v)) var(--eS, linear) calc(3.24s*var(--v)) both}
+#p4.joue .vise {animation:p4-app calc(.36s*var(--v)) var(--eS, linear) calc(3.40s*var(--v)) both}
+#p4.joue .fin  {animation:p4-monte calc(.52s*var(--v)) var(--eM, cubic-bezier(.2,.8,.25,1)) calc(3.34s*var(--v)) both}
+#p4.joue .porte{animation:p4-porte calc(.30s*var(--v)) var(--eS, cubic-bezier(.2,.8,.25,1)) both}
+#p4.joue .porte:nth-child(1){animation-delay:calc(3.52s*var(--v))}
+#p4.joue .porte:nth-child(2){animation-delay:calc(3.60s*var(--v))}
+#p4.joue .porte:nth-child(3){animation-delay:calc(3.68s*var(--v))}
+#p4.joue .log  {animation:p4-app calc(.30s*var(--v)) var(--eS, linear) calc(3.62s*var(--v)) both}
+
+/* ⚠️ `.fin` PORTE LE CENTRAGE DU CONTRAT HÔTE : `.prop .fin{top:50%;
+   transform:translateY(-46%)}`. Une animation `forwards` qui finit sur
+   `translateY(0)` — ou pire, sur `none` — ÉCRASE ce centrage. Mesuré en
+   WebKit sur ce fragment avant correction : l'accueil se posait à
+   top 220 px au lieu de 147,2 px, soit 72,8 px trop bas (46 % de ses
+   158,3 px de haut), et y restait pour toujours. La séquence rejoue donc
+   SA translation PAR-DESSUS le centrage : deux translateY dans le même
+   ordre aux deux bornes, elles s'interpolent proprement. */
+@keyframes p4-monte{
+  from{opacity:0;transform:translateY(-46%) translateY(10px)}
+  to  {opacity:1;transform:translateY(-46%) translateY(0)}
+}
+@keyframes p4-porte{
+  from{opacity:0;transform:translateY(8px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+
+/* ==========================================================================
+   MOUVEMENT RÉDUIT — la séquence se rend DÉJÀ TERMINÉE, elle ne se gèle pas.
+   La scène part du noir : la figer laisserait une page vide, c'est-à-dire une
+   app qui ne démarre pas. Le sélecteur couvre *::before et *::after, que « * »
+   seul n'atteint pas (le papier a deux pseudo-éléments), et coupe aussi
+   l'animation INFINIE du ruban, qu'une simple opacité ne suffirait pas à
+   arrêter.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) #p4.joue *,
+  body:not(.force-anim) #p4.joue *::before,
+  body:not(.force-anim) #p4.joue *::after{animation:none !important}
+
+  body:not(.force-anim) #p4.joue .trame,
+  body:not(.force-anim) #p4.joue .vise,
+  body:not(.force-anim) #p4.joue .porte,
+  body:not(.force-anim) #p4.joue .log{opacity:1 !important;transform:none !important}
+
+  /* ⚠️ `.fin` À PART, MÊME RAISON QU'AU KEYFRAME p4-monte : l'état final
+     de `.fin`, ce n'est PAS « pas de transformée », c'est translateY(-46%)
+     — le centrage que lui donne la scène hôte. La mettre à `none` avec le
+     groupe ci-dessus la faisait tomber de 72,8 px : l'accueil « déjà
+     terminé » du mouvement réduit n'était alors pas au même endroit que
+     celui de la séquence jouée, ni que celui des quatre autres. */
+  body:not(.force-anim) #p4.joue .fin{
+    opacity:1 !important;transform:translateY(-46%) !important;
+  }
+
+  body:not(.force-anim) #p4.joue .p4-papier,
+  body:not(.force-anim) #p4.joue .p4-fond,
+  body:not(.force-anim) #p4.joue .p4-passe,
+  body:not(.force-anim) #p4.joue .p4-txt,
+  body:not(.force-anim) #p4.joue .p4-rail,
+  body:not(.force-anim) #p4.joue .p4-chariot,
+  body:not(.force-anim) #p4.joue .p4-butee,
+  body:not(.force-anim) #p4.joue .p4-ruban,
+  body:not(.force-anim) #p4.joue .p4-bande,
+  body:not(.force-anim) #p4.joue .p4-plaque{opacity:0 !important;transform:none !important}
+}
+
+/* ═══════ OUVERTURE 05 — La carte — l'app se présente par son propre geste ═══════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   OUVERTURE N°5 — « LA CARTE »
+   L'app ne se fait pas précéder d'un décor : elle exécute son geste. Une carte
+   monte, se pose, marque un temps, se retourne, revient, se dédouble et se
+   range sur les trois portes. Registre produit, zéro symbole.
+
+   ── LE BUDGET : T = 2,5 s ────────────────────────────────────────────────
+   Toutes les animations « scène » sont écrites en POURCENTAGES d'une seule
+   durée calc(2.5s*var(--v)). Conséquence voulue : un seul keyframe par
+   élément, donc un seul animation-delay par élément — la règle n°2 (deux
+   animations ⇒ deux délais) ne peut structurellement pas être enfreinte.
+   Conversion : 1 % = 0,025 s.
+
+   ── LA TABLE DES TEMPS (s → %) ───────────────────────────────────────────
+     0,06–0,32  trame                                 (delay/durée directs)
+     0,10–0,40  croix de visée                        (delay/durée directs)
+     0,10–0,60  montée + pose de la carte              4 %  → 24 %
+                 apex du dépassement à 0,48 s          19,2 %
+     0,60–0,86  TEMPS MORT + éclat du mot             24 %  → 34,4 %
+     0,86–1,22  retournement 1  (0 → 180°)            34,4 %→ 48,8 %
+     1,22–1,46  lecture du verso                      48,8 %→ 58,4 %
+     1,46–1,80  retournement 2  (180 → 360°)          58,4 %→ 72 %
+     1,80–1,98  recul + dédoublement (paquet de 3)    72 %  → 79,2 %
+     1,98–2,20  éventail vers les trois portes        79,2 %→ 88 %
+     2,20–2,40  fondu cartes → portes                 88 %  → 96 %
+     2,06–2,50  marque, sous-titre, portes, log       (delay/durée directs)
+   Dernière image à 2,50 s exactement.
+
+   ── LES CHIFFRES DE LA FIGURE ────────────────────────────────────────────
+   • Carte : height:56% de la scène, plafonnée à 17rem (272 px), ratio 5/7
+     (0,714 — proportion d'une fiche bristol, et celle des cartes de l'app).
+     Largeur dérivée : 12,14rem = 194 px au plafond. Le centrage vertical est
+     obtenu par top:0/bottom:0 + margin-block:auto : la hauteur reste
+     définie même quand max-height mord, donc aucune dérive du centre.
+   • Perspective : 1100 px ≈ 4 × la hauteur de la carte (272 px). En deçà de
+     ~3× le raccourci devient fisheye et la carte « colle » à l'écran ; au delà
+     de ~6× le retournement s'aplatit et ne se lit plus comme un objet.
+   • Coins coupés : chanfrein 18 px = 6,6 % de la hauteur. Le filet fait 1 px,
+     soit 18× moins : la plaque à deux couches (fond = --ligne, ::before en
+     inset:1px = --panneau) donne un contour d'épaisseur constante y compris
+     sur les diagonales, ce qu'un `border` + clip-path ne sait pas faire.
+     Chanfrein intérieur : 16,6 px = 18 − 1,414 (décalage de 1 px mesuré
+     perpendiculairement à une arête à 45°).
+   • Rangée d'atterrissage — pas de colonne : 8,44rem = 135 px. ⚠️ MESURÉ, et
+     surtout PAS déduit d'un pourcentage de la scène : le pas des portes ne
+     dépend pas de la scène. .prop .porte porte min-width:124px et .prop
+     .portes gap:11px, et les libellés (« Les cartes », « vocabulaire »…)
+     restent sous 88 px — la porte reste donc à 124 px et le pas vaut
+     124 + 11 = 135 px, CONSTANT quelle que soit la largeur de la scène.
+     La valeur précédente, min(30%,10rem), donnait 160 px sur une scène de
+     1180 px : les deux cartes extérieures se posaient 25 px à côté de leur
+     porte (relevé WebKit 1440×900 : dx −25,0 et +25,0). Le min(30%,·) est
+     conservé comme garde-fou en dessous de 450 px de scène, où 30 % passe
+     sous 135 px — mais là les portes passent à la ligne (flex-wrap) et la
+     rangée d'atterrissage ne décrit plus leur géométrie de toute façon.
+     Le % reste licite parce qu'il est porté par .p5-piste, boîte inset:0 :
+     dans translateX un % se résout sur la largeur de l'élément lui-même.
+   • Ordonnée de la rangée : +3,56rem = 57 px sous le centre de la scène.
+     MESURÉ à l'état final (centre des portes cy 507 contre cy 450 pour la
+     scène), et non estimé : la pile de .fin, plus .fin{top:50%} rabattu de
+     translateY(-46%), donne 57 px et non les 2,6rem (41,6 px) estimés au
+     jugé — les cartes se posaient 15,4 px trop haut. En rem, jamais en % :
+     l'écart dépend de la hauteur du CONTENU de .fin, pas de celle de la scène.
+   • Échelle finale --p5-fs = 0,232. ⚠️ La boîte carte ne fait PAS 272 px : le
+     plafond de 17rem ne mord qu'au-delà d'une scène de 486 px de haut, et la
+     scène en fait 440 (438 en boîte de contenu, bordure comprise) → carte
+     438 × 56 % = 245,3 px. 245,3 × 0,232 = 56,9 px = la hauteur d'une porte
+     relevée (55,9–57 px selon qu'elle a fini son animation). À 0,21 la carte
+     posée mesurait 51,5 px, soit 9,6 % de moins que sa porte.
+     Sa largeur (40,7 px) reste volontairement plus étroite que la porte
+     (119,7 px) — la porte s'ouvre autour du jeton, elle ne le décalque pas.
+     --p5-gx / --p5-gy / --p5-fs sont les trois seules valeurs à retoucher si
+     la géométrie réelle de .portes diffère : tout le reste en découle.
+   • La carte principale atterrit à GAUCHE, sur « Les cartes » : la carte
+     devient sa propre porte, et le paquet s'éventaille vers la droite.
+
+   ── LA COMPOSITION 3D (le seul poste coûteux, tenu court) ────────────────
+   perspective sur .p5-porteur (parent direct), transform-style:preserve-3d
+   sur .p5-carte, backface-visibility:hidden sur les deux faces.
+   ⚠️ clip-path, filter et opacity<1 forcent transform-style:flat. Donc :
+   AUCUN des trois sur .p5-carte. Le chanfrein est porté par .p5-plaque, un
+   enfant de la face, jamais par la face elle-même (qui, elle, porte le
+   backface-visibility). Le flou du halo est enfermé dans la face recto et
+   s'éteint à 34 % — avant le premier retournement : aucune frame ne cumule
+   blur et rotation 3D.
+   Animé : transform et opacity uniquement. Aucun width/height/top/left animé,
+   aucun backdrop-filter, aucune ombre animée.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── variables de la figure ─────────────────────────────────────────────── */
+#p5{
+  --p5-gx:min(30%,8.44rem);    /* pas de colonne des portes : 135 px MESURÉS  */
+  --p5-gy:3.56rem;             /* centre de la rangée sous le centre scène    */
+  --p5-fs:.232;                /* échelle finale : hauteur carte = hauteur porte */
+
+  /* Rampe d'alpha de --ambre (#f0b32a = 240,179,42). AUCUNE teinte nouvelle :
+     ce sont les neuf opacités de l'or de la charte v2, regroupées ici pour
+     qu'il n'existe qu'un seul endroit à relire. Un color-mix() serait plus
+     élégant mais rendrait toute la déclaration invalide sur un moteur qui ne
+     le connaît pas — et une `background` invalide, c'est le fond de la carte
+     qui disparaît. Littéral assumé. */
+  --p5-or-00:rgba(240,179,42,0);
+  --p5-or-06:rgba(240,179,42,.06);
+  --p5-or-07:rgba(240,179,42,.07);
+  --p5-or-14:rgba(240,179,42,.14);
+  --p5-or-15:rgba(240,179,42,.15);
+  --p5-or-30:rgba(240,179,42,.30);
+  --p5-or-42:rgba(240,179,42,.42);
+  --p5-or-52:rgba(240,179,42,.52);
+  --p5-or-55:rgba(240,179,42,.55);
+}
+
+/* ── le plateau : transparent, non cliquable, au-dessus de .fin pour que la
+      carte se DISSOLVE sur la porte et non dessous.
+      ⚠️ La cote est imposée par l'hôte, pas choisie : .prop .fin est en
+      z-index:8 et .prop .trame en z-index:1. À 1, le plateau passait
+      SOUS les portes — exactement l'inverse de ce que cette ligne dit.
+      9 = au-dessus de .fin (8) ; .log et .vise, à 9 aussi mais plus loin
+      dans le document, restent au-dessus, et ils ne recouvrent rien. ── */
+#p5 .p5-plateau{
+  position:absolute;inset:0;z-index:9;pointer-events:none;
+}
+
+/* ── une piste par carte : boîte de la taille de la scène, c'est elle qui
+      voyage (les % de translateX se résolvent donc sur la scène) ───────── */
+#p5 .p5-piste{position:absolute;inset:0;opacity:0;will-change:transform,opacity}
+#p5 .p5-pb{z-index:3}
+#p5 .p5-pa{z-index:2}
+#p5 .p5-pc{z-index:1}
+
+/* ── la boîte carte : 56 % de la hauteur, plafond 17rem, ratio 5/7 ──────── */
+#p5 .p5-boite{
+  position:absolute;left:50%;top:0;bottom:0;margin-block:auto;
+  height:56%;max-height:17rem;aspect-ratio:5/7;
+  transform:translateX(-50%);
+}
+#p5 .p5-porteur{perspective:1100px}
+
+/* ── la plaque : contour chanfreiné d'épaisseur constante ───────────────── */
+#p5 .p5-plaque{
+  position:absolute;inset:0;background:var(--ligne);
+  clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);
+}
+#p5 .p5-plaque::before{
+  content:'';position:absolute;inset:1px;
+  clip-path:polygon(16.6px 0,100% 0,100% calc(100% - 16.6px),calc(100% - 16.6px) 100%,0 100%,0 16.6px);
+  background:
+    radial-gradient(120% 88% at 50% 0,var(--p5-or-06),var(--p5-or-00) 62%),
+    var(--panneau);
+}
+
+/* ── la flaque de lumière sous l'objet (pas d'animation propre : elle suit
+      l'opacité de sa piste) ───────────────────────────────────────────── */
+#p5 .p5-lueur{
+  position:absolute;inset:-16%;
+  background:radial-gradient(closest-side,var(--p5-or-15),var(--p5-or-00) 72%);
+}
+
+/* ── le porteur du retournement ─────────────────────────────────────────── */
+#p5 .p5-carte{
+  position:absolute;inset:0;transform-style:preserve-3d;
+  transform:rotateY(0deg);will-change:transform;
+}
+#p5 .p5-face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:grid;place-items:center;
+}
+#p5 .p5-verso{transform:rotateY(180deg)}
+
+/* ── recto ─────────────────────────────────────────────────────────────── */
+#p5 .p5-mot,#p5 .p5-halo{
+  grid-area:1/1;font-family:var(--he);font-weight:900;line-height:1;
+  font-size:clamp(2.3rem,1.2rem + 3.4vw,3.3rem);color:var(--ambre);
+  opacity:0;
+}
+#p5 .p5-mot{text-shadow:0 0 18px var(--p5-or-30),0 0 44px var(--p5-or-14)}
+#p5 .p5-halo{filter:blur(9px);pointer-events:none}
+
+#p5 .p5-matricule{
+  position:absolute;top:.75rem;left:.85rem;opacity:0;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;
+  color:var(--p5-or-52);
+}
+#p5 .p5-insigne{
+  position:absolute;top:.6rem;right:.75rem;opacity:0;
+  width:2.1rem;height:2.29rem;display:grid;place-items:center;
+}
+#p5 .p5-insigne svg{position:absolute;inset:0;width:100%;height:100%}
+#p5 .p5-insigne polygon{fill:var(--p5-or-07);stroke:var(--ambre);stroke-width:1.2;opacity:.7}
+#p5 .p5-insigne b{
+  position:relative;font-family:var(--mono);font-weight:400;font-size:.66rem;
+  letter-spacing:.04em;color:var(--ambre);
+}
+
+/* ── verso ─────────────────────────────────────────────────────────────── */
+#p5 .p5-dos{display:grid;justify-items:center;gap:.18rem;opacity:0;padding:0 .8rem;text-align:center}
+#p5 .p5-lab{font-family:var(--mono);font-size:.56rem;letter-spacing:.24em;color:var(--p5-or-42)}
+#p5 .p5-fr{font-family:var(--mono);font-size:.92rem;color:var(--lune);letter-spacing:.02em}
+#p5 .p5-tr{font-family:var(--mono);font-size:1.14rem;color:var(--ambre);letter-spacing:.04em}
+#p5 .p5-rule{width:2.6rem;height:1px;background:var(--ligne);margin:.5rem 0 .45rem}
+
+/* ── le socle : le filet qui prouve que la carte s'est POSÉE ────────────── */
+#p5 .p5-socle{
+  position:absolute;left:6%;right:6%;bottom:-.9rem;height:1px;opacity:0;
+  transform:scaleX(0);transform-origin:50% 50%;
+  background:linear-gradient(90deg,var(--p5-or-00),var(--p5-or-55),var(--p5-or-00));
+}
+
+/* ── les deux cartes du paquet ─────────────────────────────────────────── */
+#p5 .p5-fant{}
+#p5 .p5-pa .p5-fant{opacity:.82}
+#p5 .p5-pc .p5-fant{opacity:.62}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LES ANIMATIONS — un seul animation par élément, un seul délai par élément.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+#p5.joue .p5-pb{animation:p5-vol-b calc(2.5s*var(--v)) both}
+#p5.joue .p5-pa{animation:p5-vol-a calc(2.5s*var(--v)) both}
+#p5.joue .p5-pc{animation:p5-vol-c calc(2.5s*var(--v)) both}
+#p5.joue .p5-carte{animation:p5-retourne calc(2.5s*var(--v)) both}
+#p5.joue .p5-mot{animation:p5-mot calc(2.5s*var(--v)) both}
+#p5.joue .p5-halo{animation:p5-halo calc(2.5s*var(--v)) both}
+#p5.joue .p5-matricule,
+#p5.joue .p5-insigne{animation:p5-tampon calc(2.5s*var(--v)) both}
+#p5.joue .p5-dos{animation:p5-dos calc(2.5s*var(--v)) both}
+#p5.joue .p5-socle{animation:p5-socle calc(2.5s*var(--v)) both}
+
+/* ── le vol de la carte principale : montée, pose, temps, recul, rangement
+      sur la porte GAUCHE (« Les cartes ») ─────────────────────────────── */
+@keyframes p5-vol-b{
+  0%,4%{opacity:0;transform:translate(0,7rem) scale(.9);
+        animation-timing-function:var(--eL, cubic-bezier(.16,.86,.3,1))}
+  19.2%{opacity:1;transform:translate(0,-.4rem) scale(1.02);
+        animation-timing-function:var(--eL, cubic-bezier(.4,0,.25,1))}
+  24%,72%{opacity:1;transform:translate(0,0) scale(1);
+        animation-timing-function:var(--eL, cubic-bezier(.5,0,.24,1))}
+  79.2%{opacity:1;transform:translate(0,.25rem) scale(.62);
+        animation-timing-function:var(--eL, cubic-bezier(.22,.72,.2,1))}
+  88%{opacity:1;transform:translate(calc(var(--p5-gx)*-1),var(--p5-gy)) scale(var(--p5-fs));
+        animation-timing-function:var(--eL, linear)}
+  96%,100%{opacity:0;transform:translate(calc(var(--p5-gx)*-1),var(--p5-gy)) scale(calc(var(--p5-fs)*.94))}
+}
+
+/* ── carte 2 du paquet → porte du MILIEU ────────────────────────────────── */
+@keyframes p5-vol-a{
+  0%,72%{opacity:0;transform:translate(0,0) scale(1);
+        animation-timing-function:var(--eL, cubic-bezier(.4,0,.25,1))}
+  75.5%{opacity:1;transform:translate(0,-.3rem) scale(.78)}
+  79.2%{opacity:1;transform:translate(0,-.55rem) scale(.575);
+        animation-timing-function:var(--eL, cubic-bezier(.22,.72,.2,1))}
+  88%{opacity:1;transform:translate(0,var(--p5-gy)) scale(var(--p5-fs));
+        animation-timing-function:var(--eL, linear)}
+  96%,100%{opacity:0;transform:translate(0,var(--p5-gy)) scale(calc(var(--p5-fs)*.94))}
+}
+
+/* ── carte 3 du paquet → porte de DROITE ────────────────────────────────── */
+@keyframes p5-vol-c{
+  0%,72%{opacity:0;transform:translate(0,0) scale(1);
+        animation-timing-function:var(--eL, cubic-bezier(.4,0,.25,1))}
+  76.5%{opacity:1;transform:translate(0,-.55rem) scale(.72)}
+  79.2%{opacity:1;transform:translate(0,-1.05rem) scale(.53);
+        animation-timing-function:var(--eL, cubic-bezier(.22,.72,.2,1))}
+  88%{opacity:1;transform:translate(var(--p5-gx),var(--p5-gy)) scale(var(--p5-fs));
+        animation-timing-function:var(--eL, linear)}
+  96%,100%{opacity:0;transform:translate(var(--p5-gx),var(--p5-gy)) scale(calc(var(--p5-fs)*.94))}
+}
+
+/* ── les deux retournements : 0 → 180 → 360. Au retour c'est la coque nue
+      qui nous fait face, le mot s'étant évaporé pendant la rotation ─────── */
+@keyframes p5-retourne{
+  0%,34.4%{transform:rotateY(0deg);animation-timing-function:var(--eL, cubic-bezier(.62,0,.22,1))}
+  48.8%,58.4%{transform:rotateY(180deg);animation-timing-function:var(--eL, cubic-bezier(.62,0,.22,1))}
+  72%,100%{transform:rotateY(360deg)}
+}
+
+/* ── שָׁלוֹם : paraît avec la pose, s'éteint pendant le 2e retournement.
+      ⚠️ Le recto redevient visible à 270°, et 270° ne tombe PAS au milieu
+      du palier : le cubic-bezier(.62,0,.22,1) atteint y=0,5 à x=0,44, donc
+      à 58,4 + 0,44 × 13,6 = 64,4 % — pas à 65,2 %. Le fondu doit donc être
+      ENTIÈREMENT terminé à 64,4 %. À 64 %→70 % il ne l'était pas : le mot
+      revenait à ~0,99 d'opacité sur la face qui se retourne vers nous, soit
+      l'inverse exact de la « coque nue » annoncée. Il s'éteint maintenant
+      de 58,4 % à 64,4 %, intégralement derrière le dos masqué. ────────── */
+@keyframes p5-mot{
+  0%,12%{opacity:0;transform:translateY(.5rem) scale(.96);
+        animation-timing-function:var(--eL, cubic-bezier(.2,.8,.3,1))}
+  24%,58.4%{opacity:1;transform:none;animation-timing-function:var(--eL, ease-in)}
+  64.4%,100%{opacity:0;transform:scale(1.06)}
+}
+
+/* ── le glow : il respire pendant le temps mort, puis s'éteint AVANT la
+      première rotation — aucune frame ne cumule blur et 3D ─────────────── */
+@keyframes p5-halo{
+  0%,17%{opacity:0;transform:scale(.92);animation-timing-function:var(--eL, cubic-bezier(.3,.7,.3,1))}
+  28%{opacity:.6;transform:scale(1)}
+  30%{opacity:.5;transform:scale(1.02);animation-timing-function:var(--eL, ease-in)}
+  34%,100%{opacity:0;transform:scale(1.05)}
+}
+
+/* ── matricule et insigne : la carte s'identifie, puis se dépouille avant de
+      devenir une carte du paquet ───────────────────────────────────────── */
+@keyframes p5-tampon{
+  0%,14%{opacity:0}
+  22%,72%{opacity:1}
+  78%,100%{opacity:0}
+}
+
+/* ── le verso : paraît une fois passé les 90° (41,6 %), s'efface au départ
+      du 2e retournement ────────────────────────────────────────────────── */
+@keyframes p5-dos{
+  0%,43%{opacity:0;transform:translateY(.45rem);
+        animation-timing-function:var(--eL, cubic-bezier(.2,.8,.3,1))}
+  51%,58.4%{opacity:1;transform:none}
+  62.5%,100%{opacity:0;transform:translateY(-.2rem)}
+}
+
+/* ── le socle ──────────────────────────────────────────────────────────── */
+@keyframes p5-socle{
+  0%,13%{opacity:0;transform:scaleX(0);animation-timing-function:var(--eL, cubic-bezier(.16,.86,.3,1))}
+  22%,72%{opacity:1;transform:scaleX(1)}
+  77%,100%{opacity:0;transform:scaleX(.3)}
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LE HARNAIS DE L'HÔTE — animé, jamais restylé. Une animation, un délai.
+   ══════════════════════════════════════════════════════════════════════════ */
+@keyframes p5-parait{from{opacity:0}to{opacity:1}}
+@keyframes p5-croix{from{opacity:0;transform:scale(.62)}to{opacity:1;transform:none}}
+@keyframes p5-monte{from{opacity:0;transform:translateY(.5rem)}to{opacity:1;transform:none}}
+@keyframes p5-porte{from{opacity:0;transform:translateY(.35rem) scale(.965)}to{opacity:1;transform:none}}
+
+#p5.joue .trame{animation:p5-parait calc(.26s*var(--v)) var(--eS, linear) calc(.06s*var(--v)) both}
+/* ⚠️ La croix se pose sur .vise ELLE-MÊME : dans le contrat hôte une croix
+   est un `<span class="vise tl">+</span>`, son seul contenu est un nœud
+   texte — « .vise > * » ne matche donc AUCUN élément. Une seule animation
+   ici (p5-croix porte déjà l'opacité ET l'échelle), donc un seul délai. */
+#p5.joue .vise{animation:p5-croix calc(.30s*var(--v)) var(--eS, cubic-bezier(.2,.8,.3,1)) calc(.10s*var(--v)) both}
+
+#p5.joue .fin{animation:p5-parait calc(.28s*var(--v)) var(--eS, linear) calc(2.06s*var(--v)) both}
+#p5.joue .marque{animation:p5-monte calc(.34s*var(--v)) var(--eS, cubic-bezier(.2,.8,.28,1)) calc(2.08s*var(--v)) both}
+#p5.joue .sous{animation:p5-monte calc(.30s*var(--v)) var(--eS, cubic-bezier(.2,.8,.28,1)) calc(2.16s*var(--v)) both}
+#p5.joue .porte{animation:p5-porte calc(.26s*var(--v)) var(--eS, cubic-bezier(.2,.8,.28,1)) calc(2.16s*var(--v)) both}
+#p5.joue .porte:nth-child(2){animation-delay:calc(2.20s*var(--v))}
+#p5.joue .porte:nth-child(3){animation-delay:calc(2.24s*var(--v))}
+#p5.joue .log{animation:p5-parait calc(.24s*var(--v)) var(--eS, linear) calc(2.26s*var(--v)) both}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MOUVEMENT RÉDUIT — la scène part du noir : la GELER laisserait une page
+   vide, c'est-à-dire une app qui ne démarre pas. Elle se rend donc DÉJÀ
+   TERMINÉE : accueil posé, décor éteint. Le sélecteur descend jusqu'aux
+   pseudo-éléments (« * » seul ne les atteint pas) parce que .p5-plaque::before
+   peint le fond de chaque carte.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce){
+  body:not(.force-anim) #p5.joue .trame,
+  body:not(.force-anim) #p5.joue .vise,
+  body:not(.force-anim) #p5.joue .marque,
+  body:not(.force-anim) #p5.joue .sous,
+  body:not(.force-anim) #p5.joue .porte,
+  body:not(.force-anim) #p5.joue .log{
+    opacity:1 !important;transform:none !important;animation:none !important;
+  }
+  /* ⚠️ .fin est CENTRÉE PAR SA TRANSFORMÉE dans le harnais hôte
+     (.prop .fin{top:50%;transform:translateY(-46%)}). La rabattre à
+     `transform:none` avec les autres écrase ce centrage : mesuré en WebKit
+     à 97,83 px de décalage sur iPhone, et l'accueil DÉBORDAIT de 12,61 px
+     hors d'une scène en overflow:hidden — la troisième rangée de portes
+     était rognée. Elle sort donc du groupe et garde son centrage. */
+  body:not(.force-anim) #p5.joue .fin{
+    opacity:1 !important;transform:translateY(-46%) !important;animation:none !important;
+  }
+  body:not(.force-anim) #p5.joue .p5-plateau,
+  body:not(.force-anim) #p5.joue .p5-plateau *,
+  body:not(.force-anim) #p5.joue .p5-plateau *::before,
+  body:not(.force-anim) #p5.joue .p5-plateau *::after{
+    opacity:0 !important;transform:none !important;animation:none !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="galerie" id="banc" data-reg="fluide">
+
+<header>
+  <h1>Cinq ouvertures</h1>
+  <div class="meta-ligne">v0.1 — 5 séquences · 5 mécanismes · de 1,8 s à 7 s · charte v2 « la console d'étude »</div>
+</header>
+
+<div class="alarme" id="alarme" hidden>
+  <div class="titre">⚠ ton appareil demande de réduire les animations</div>
+  <p>Les cinq séquences sont <b>neutralisées</b> : chacune s'affiche <b>déjà terminée</b>, à son écran
+  d'accueil. Ce n'est pas un bug — c'est la règle qu'une ouverture doit suivre. Une séquence qu'on
+  <i>gèle</i> à son état initial laisserait une page vide, c'est-à-dire une app qui ne démarre pas.
+  Pour juger le mouvement, il faut déroger ici.</p>
+  <div class="comment">réglages ▸ accessibilité ▸ mouvement ▸ réduire les animations</div>
+  <button class="btn primaire" id="forcer">▶ Animer quand même, sur cette page</button>
+</div>
+
+<div class="constat">
+  <span class="coin a">+</span><span class="coin b">+</span>
+  <h2>Ce qu'une ouverture doit être, et ce qui les départage</h2>
+  <p>Les cinq finissent sur <b>exactement le même écran d'accueil</b> — même marque, mêmes trois
+  portes, même position. C'est voulu : à état final identique, ce qui reste à juger est le
+  <b>chemin</b>, et rien d'autre. Elles ne sont pas cinq variantes d'une même idée mais cinq
+  <b>mécanismes différents</b> : un tressage géométrique, un auto-test d'appareil, un obturateur
+  optique, une impression mécanique, et le geste propre du produit.</p>
+  <div class="regle">
+    <span class="nom">Le critère qui compte, et ce n'est pas la beauté</span>
+    Tu ouvriras cette app <b>plusieurs fois par jour, pendant des années</b>. La question n'est donc
+    pas « laquelle est la plus belle la première fois » mais <b>« laquelle supporteras-tu la
+    trentième »</b>. C'est pour ça que les durées vont de <b>1,8 s à 7 s</b> : l'écart de durée est
+    une proposition à part entière, autant que le style.
+  </div>
+  <p><b>Ce qui n'est pas en cause.</b> L'interdiction des effets de surface (spec § 5) porte sur des
+  calques <b>permanents</b> posés pendant l'usage — bruit, vignettage, scintillement, tous refusés
+  sur l'appareil jusqu'à leur cran minimal. Une ouverture est licite parce qu'elle est
+  <b>transitoire</b> : c'est un écran à elle seule, puis elle disparaît. Le précédent est acquis, le
+  bandeau de boot (module 05) est retenu depuis le 24/07.</p>
+  <p><b>Chaque séquence mesure sa propre durée</b> et l'affiche à droite de ses commandes, relevée
+  sur les animations réellement en cours — pas sur ce que j'annonce.</p>
+</div>
+
+<div class="barre">
+  <span class="lab">registre</span>
+  <button class="btn" id="reg-steps">steps()</button>
+  <button class="btn primaire" id="reg-fluide">fluide</button>
+  <span class="lab" style="margin-left:10px">durée</span>
+  <button class="btn primaire" id="v-integrale">intégrale</button>
+  <button class="btn" id="v-abregee">abrégée ×3</button>
+  <span class="lab" style="margin-left:10px">toutes</span>
+  <button class="btn" id="tout-jouer">▶ rejouer les 5</button>
+  <button class="btn danger" id="tout-couper">■ couper</button>
+</div>
+
+<div class="ouvr">
+  <div class="o-tete">
+    <span class="o-nom"><span class="n">01</span> — Le tressage — le Magen David devient la lettre</span>
+  </div>
+  <div class="o-etiq">
+    <span class="et reg">Symbolique</span>
+    <span class="et dur">~7 s</span>
+    <span class="et sym">symbole : Magen David</span>
+  </div>
+  <div class="o-dit">Un <b>Magen David réellement tressé</b> — six rubans, six brèches, alternance stricte dessus/dessous — se trace, claque son tissage, se fait viser, puis <b>trois de ses six arêtes pivotent en échafaudage aux cotes du glyphe</b> et le vrai alef s'imprime dessus. Le morph est géométriquement fondé : les trois arêtes retenues étaient déjà à l'angle de la lettre, à 8° et 39° près. C'est l'étoile qui contient l'alef.</div>
+  <div class="o-cmd">
+    <button class="btn primaire" data-joue="p1">▶ rejouer</button>
+    <span class="o-mes">durée mesurée ▸ <b>—</b></span>
+  </div>
+<section class="prop" id="p1">
+
+  <!-- ═══ L'AMORCE ════════════════════════════════════════════════════
+       Les deux éléments de scène du contrat hôte : la trame et les
+       quatre croix de visée. Le CSS les anime au beat 0 (p1-fond,
+       p1-vise) et le bloc « mouvement réduit » les rétablit — sans ce
+       markup, ces règles ne visaient rien et la séquence démarrait sur
+       un fond nu, sans grille ni viseurs.
+       ════════════════════════════════════════════════════════════ -->
+  <div class="trame"></div>
+  <span class="vise tl">+</span><span class="vise tr">+</span>
+  <span class="vise bl">+</span><span class="vise br">+</span>
+
+  <!-- ═══ LA FIGURE ═══════════════════════════════════════════════════
+       viewBox 240×240, centre 120, circonradius 92.
+       ▲ montant A1(120,28) A2(199.67,166) A3(40.33,166)
+       ▼ tombant B1(120,212) B2(40.33,74)  B3(199.67,74)
+       Les 12 graduations sont écrites à la main (pas de JS) :
+       g·30°, r1=106, r2=117 sur les cardinales (g≡0 [3]) sinon 112.
+       ════════════════════════════════════════════════════════════ -->
+  <svg class="p1-fig" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+
+    <!-- les anneaux de visée -->
+    <circle class="p1-ann p1-a" cx="120" cy="120" r="106"/>
+    <circle class="p1-ann p1-b" cx="120" cy="120" r="66"/>
+    <g class="p1-grad">
+      <line x1="226.00" y1="120.00" x2="237.00" y2="120.00"/>
+      <line x1="211.80" y1="173.00" x2="216.99" y2="176.00"/>
+      <line x1="173.00" y1="211.80" x2="176.00" y2="216.99"/>
+      <line x1="120.00" y1="226.00" x2="120.00" y2="237.00"/>
+      <line x1="67.00"  y1="211.80" x2="64.00"  y2="216.99"/>
+      <line x1="28.20"  y1="173.00" x2="23.01"  y2="176.00"/>
+      <line x1="14.00"  y1="120.00" x2="3.00"   y2="120.00"/>
+      <line x1="28.20"  y1="67.00"  x2="23.01"  y2="64.00"/>
+      <line x1="67.00"  y1="28.20"  x2="64.00"  y2="23.01"/>
+      <line x1="120.00" y1="14.00"  x2="120.00" y2="3.00"/>
+      <line x1="173.00" y1="28.20"  x2="176.00" y2="23.01"/>
+      <line x1="211.80" y1="67.00"  x2="216.99" y2="64.00"/>
+    </g>
+
+    <!-- LES SIX RUBANS : chant sombre 10 + cœur ambre 5, même chemin.
+         Triangle montant (u1 u2 u3) puis triangle tombant (d1 d2 d3). -->
+    <g class="p1-seg p1-u1"><path class="p1-trait p1-pc" d="M120 28 L199.67 166" pathLength="100"/><path class="p1-trait p1-pk" d="M120 28 L199.67 166" pathLength="100"/></g>
+    <g class="p1-seg p1-u2"><path class="p1-trait p1-pc" d="M199.67 166 L40.33 166" pathLength="100"/><path class="p1-trait p1-pk" d="M199.67 166 L40.33 166" pathLength="100"/></g>
+    <g class="p1-seg p1-u3"><path class="p1-trait p1-pc" d="M40.33 166 L120 28" pathLength="100"/><path class="p1-trait p1-pk" d="M40.33 166 L120 28" pathLength="100"/></g>
+    <g class="p1-seg p1-d1"><path class="p1-trait p1-pc" d="M199.67 74 L120 212" pathLength="100"/><path class="p1-trait p1-pk" d="M199.67 74 L120 212" pathLength="100"/></g>
+    <g class="p1-seg p1-d2"><path class="p1-trait p1-pc" d="M40.33 74 L199.67 74" pathLength="100"/><path class="p1-trait p1-pk" d="M40.33 74 L199.67 74" pathLength="100"/></g>
+    <g class="p1-seg p1-d3"><path class="p1-trait p1-pc" d="M120 212 L40.33 74" pathLength="100"/><path class="p1-trait p1-pk" d="M120 212 L40.33 74" pathLength="100"/></g>
+
+    <!-- LES SIX SUR-PIÈCES DU TRESSAGE. Les croisements trisectent
+         chaque arête ; le vainqueur est l'arête dont le point aux 2/3
+         s'y trouve — d'où une sur-pièce par arête, alternance
+         dessus/dessous gratuite tout autour de l'hexagone.
+         Chacune = liseré couleur de fond 16 (LA BRÈCHE : elle
+         interrompt le ruban du dessous) + le ruban vainqueur redessiné
+         par-dessus, fenêtre [61.7, 71.7] sur pathLength 100. -->
+    <g class="p1-patch p1-pu1"><path class="p1-trait p1-qq" d="M120 28 L199.67 166" pathLength="100"/><path class="p1-trait p1-qc" d="M120 28 L199.67 166" pathLength="100"/><path class="p1-trait p1-qk" d="M120 28 L199.67 166" pathLength="100"/></g>
+    <g class="p1-patch p1-pu2"><path class="p1-trait p1-qq" d="M199.67 166 L40.33 166" pathLength="100"/><path class="p1-trait p1-qc" d="M199.67 166 L40.33 166" pathLength="100"/><path class="p1-trait p1-qk" d="M199.67 166 L40.33 166" pathLength="100"/></g>
+    <g class="p1-patch p1-pu3"><path class="p1-trait p1-qq" d="M40.33 166 L120 28" pathLength="100"/><path class="p1-trait p1-qc" d="M40.33 166 L120 28" pathLength="100"/><path class="p1-trait p1-qk" d="M40.33 166 L120 28" pathLength="100"/></g>
+    <g class="p1-patch p1-pd1"><path class="p1-trait p1-qq" d="M199.67 74 L120 212" pathLength="100"/><path class="p1-trait p1-qc" d="M199.67 74 L120 212" pathLength="100"/><path class="p1-trait p1-qk" d="M199.67 74 L120 212" pathLength="100"/></g>
+    <g class="p1-patch p1-pd2"><path class="p1-trait p1-qq" d="M40.33 74 L199.67 74" pathLength="100"/><path class="p1-trait p1-qc" d="M40.33 74 L199.67 74" pathLength="100"/><path class="p1-trait p1-qk" d="M40.33 74 L199.67 74" pathLength="100"/></g>
+    <g class="p1-patch p1-pd3"><path class="p1-trait p1-qq" d="M120 212 L40.33 74" pathLength="100"/><path class="p1-trait p1-qc" d="M120 212 L40.33 74" pathLength="100"/><path class="p1-trait p1-qk" d="M120 212 L40.33 74" pathLength="100"/></g>
+
+    <!-- LA VISÉE : les trois arêtes retenues, celles qui portent
+         l'armature de la lettre (u3 diagonale, u2 bras, d2 jambe).
+         Marqueurs posés au milieu de chacune. -->
+    <g class="p1-mk p1-m1" transform="translate(80,97)"><path d="M-10 0H10M0 -10V10"/><text x="13" y="4">S1</text></g>
+    <g class="p1-mk p1-m2" transform="translate(120,166)"><path d="M-10 0H10M0 -10V10"/><text x="13" y="4">S2</text></g>
+    <g class="p1-mk p1-m3" transform="translate(120,74)"><path d="M-10 0H10M0 -10V10"/><text x="13" y="4">S3</text></g>
+  </svg>
+
+  <!-- le balayage d'analyse : local, encadré, transitoire -->
+  <div class="p1-balaye"></div>
+  <!-- la ligne d'impression, au front du glyphe -->
+  <div class="p1-impr"></div>
+  <!-- le vrai alef, Frank Ruhl 900 : il s'imprime, puis il se range -->
+  <div class="p1-alef" lang="he">א</div>
+
+  <div class="fin">
+    <div class="marque" lang="he">עִבְרִית</div>
+    <div class="sous">le carnet et la console</div>
+    <div class="portes">
+      <div class="porte"><b>Les cartes</b><i>app · 1046</i></div>
+      <div class="porte"><b>Le carnet</b><i>vocabulaire</i></div>
+      <div class="porte"><b>Hors ligne</b><i>standalone</i></div>
+    </div>
+  </div>
+  <div class="log">▸ prêt</div>
+</section>
+  <div class="o-res"><b>la plus longue, et la seule à porter un symbole</b>Sept secondes à chaque ouverture, c'est beaucoup pour une app qu'on ouvre plusieurs fois par jour. Et l'étoile de David est un symbole identitaire et religieux : ouvrir dessus est une déclaration, pas un choix d'ornement. Les quatre autres propositions n'engagent rien de tel.</div>
+</div>
+
+<div class="ouvr">
+  <div class="o-tete">
+    <span class="o-nom"><span class="n">02</span> — L'auto-test — la console s'allume</span>
+  </div>
+  <div class="o-etiq">
+    <span class="et reg">Instrument</span>
+    <span class="et dur">~1,8 s</span>
+    <span class="et ">symbole : aucun</span>
+  </div>
+  <div class="o-dit">L'appareil se met sous tension et fait son <b>POST</b> : la trame se lève, les croix se posent, cinq lignes de log tombent en machine à écrire, deux jauges balaient et se calent, une rampe de diodes court puis flashe. Et c'est fini. <b>La brièveté est le concept</b> — c'est la seule des cinq conçue pour ne jamais lasser.</div>
+  <div class="o-cmd">
+    <button class="btn primaire" data-joue="p2">▶ rejouer</button>
+    <span class="o-mes">durée mesurée ▸ <b>—</b></span>
+  </div>
+<section class="prop" id="p2">
+  <div class="trame"></div>
+  <i class="vise tl">+</i><i class="vise tr">+</i><i class="vise br">+</i><i class="vise bl">+</i>
+
+  <div class="p2-post" aria-hidden="true">
+    <div class="p2-tete">auto-test</div>
+
+    <div class="p2-cadrans">
+      <div class="p2-jauge">
+        <div class="p2-cadran">
+          <svg class="p2-dial" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true" focusable="false">
+            <path d="M10.55 18 A28 28 0 0 1 53.45 18" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M48.06 13.06 A28 28 0 0 1 53.45 18" fill="none" stroke="#FF4747" stroke-width="1.6" opacity=".55"/>
+            <g stroke="currentColor" stroke-width="1" fill="none">
+              <path d="M10.55 18 L14.38 21.21"/>
+              <path d="M20.17 10.62 L22.28 15.16"/>
+              <path d="M32 8 L32 13"/>
+              <path d="M43.83 10.62 L41.72 15.16"/>
+              <path d="M53.45 18 L49.62 21.21"/>
+            </g>
+          </svg>
+          <span class="p2-aig p2-a"></span>
+          <span class="p2-axe"></span>
+        </div>
+        <span class="p2-cl">tension</span>
+      </div>
+
+      <div class="p2-jauge">
+        <div class="p2-cadran">
+          <svg class="p2-dial" viewBox="0 0 64 40" width="64" height="40" aria-hidden="true" focusable="false">
+            <path d="M10.55 18 A28 28 0 0 1 53.45 18" fill="none" stroke="currentColor" stroke-width="1"/>
+            <path d="M48.06 13.06 A28 28 0 0 1 53.45 18" fill="none" stroke="#FF4747" stroke-width="1.6" opacity=".55"/>
+            <g stroke="currentColor" stroke-width="1" fill="none">
+              <path d="M10.55 18 L14.38 21.21"/>
+              <path d="M20.17 10.62 L22.28 15.16"/>
+              <path d="M32 8 L32 13"/>
+              <path d="M43.83 10.62 L41.72 15.16"/>
+              <path d="M53.45 18 L49.62 21.21"/>
+            </g>
+          </svg>
+          <span class="p2-aig p2-b"></span>
+          <span class="p2-axe"></span>
+        </div>
+        <span class="p2-cl">cache</span>
+      </div>
+    </div>
+
+    <div class="p2-log"><div class="p2-l"><span class="p2-c">▸</span><span class="p2-k">MEM<span class="p2-pt"> ........</span></span><span class="p2-v">OK</span></div><div class="p2-l"><span class="p2-c">▸</span><span class="p2-k">FONTES 3/3<span class="p2-pt"> .</span></span><span class="p2-v">OK</span></div><div class="p2-l"><span class="p2-c">▸</span><span class="p2-k">CARTES<span class="p2-pt"> .....</span></span><span class="p2-v">1046</span></div><div class="p2-l"><span class="p2-c">▸</span><span class="p2-k">RÉVISION<span class="p2-pt"> ...</span></span><span class="p2-v">OK</span></div><div class="p2-l"><span class="p2-c">▸</span><span class="p2-k">VOIX<span class="p2-pt"> .......</span></span><span class="p2-v">he-IL</span></div></div>
+
+    <div class="p2-rampe"><i class="p2-d"></i><i class="p2-d"></i><i class="p2-d"></i><i class="p2-d"></i><i class="p2-d"></i><i class="p2-d"></i><i class="p2-d"></i><i class="p2-d"></i></div>
+  </div>
+
+  <div class="fin">
+    <div class="marque" lang="he">עִבְרִית</div>
+    <div class="sous">le carnet et la console</div>
+    <div class="portes">
+      <div class="porte"><b>Les cartes</b><i>app · 1046</i></div>
+      <div class="porte"><b>Le carnet</b><i>vocabulaire</i></div>
+      <div class="porte"><b>Hors ligne</b><i>standalone</i></div>
+    </div>
+  </div>
+  <div class="log">▸ prêt</div>
+</section>
+  <div class="o-res"><b>elle ne dit rien de l'hébreu</b>Cette ouverture pourrait être celle de n'importe quel logiciel technique. C'est le prix de sa neutralité et de sa vitesse — à toi de dire si une ouverture doit parler du contenu ou seulement de l'appareil.</div>
+</div>
+
+<div class="ouvr">
+  <div class="o-tete">
+    <span class="o-nom"><span class="n">03</span> — L'obturateur — la mise au point</span>
+  </div>
+  <div class="o-etiq">
+    <span class="et reg">Optique</span>
+    <span class="et dur">~3 s</span>
+    <span class="et ">symbole : aucun</span>
+  </div>
+  <div class="o-dit">Six lames <b>hexagonales</b> — la forme est déjà dans la charte, c'est celle de l'insigne de niveau — s'ouvrent en spirale sur la marque, d'abord <b>floue et en aberration chromatique</b>. Deux anneaux de mise au point convergent, et la netteté <b>claque</b> avec un léger dépassement, comme un autofocus qui accroche. Relevés f/1.4, ∞, ISO aux coins.</div>
+  <div class="o-cmd">
+    <button class="btn primaire" data-joue="p3">▶ rejouer</button>
+    <span class="o-mes">durée mesurée ▸ <b>—</b></span>
+  </div>
+<section class="prop" id="p3">
+
+  <!-- calques de l'hôte (stylés par l'hôte, seulement animés ici) -->
+  <div class="trame" aria-hidden="true"></div>
+  <!-- le contrat hôte ne donne AUCUN contenu à `.vise` (ni texte, ni ::before) :
+       une croix vide mesure 0×0 et ne peint rien, quelle que soit son opacité.
+       Le glyphe est donc dans le markup, comme dans les autres propositions. -->
+  <i class="vise tl" aria-hidden="true">+</i>
+  <i class="vise tr" aria-hidden="true">+</i>
+  <i class="vise bl" aria-hidden="true">+</i>
+  <i class="vise br" aria-hidden="true">+</i>
+
+  <!-- L'OBTURATEUR — décor propre : cache percé, 6 lames, 2 bagues, viseur.
+       z-index:20 : il doit peindre AU-DESSUS de .fin, qu'il masque jusqu'à
+       l'ouverture. Tout retombe à opacity 0 avant la fin. -->
+  <div class="p3-iris" aria-hidden="true">
+
+    <div class="p3-cache"></div>
+
+    <div class="p3-optique">
+      <div class="p3-sect p3-s1"><i class="p3-lame"></i></div>
+      <div class="p3-sect p3-s2"><i class="p3-lame"></i></div>
+      <div class="p3-sect p3-s3"><i class="p3-lame"></i></div>
+      <div class="p3-sect p3-s4"><i class="p3-lame"></i></div>
+      <div class="p3-sect p3-s5"><i class="p3-lame"></i></div>
+      <div class="p3-sect p3-s6"><i class="p3-lame"></i></div>
+    </div>
+
+    <div class="p3-bagues">
+      <i class="p3-bague p3-bA"></i>
+      <i class="p3-bague p3-bB"></i>
+      <i class="p3-pulse"></i>
+    </div>
+
+    <div class="p3-hud">
+      <span class="p3-r p3-r1">f/1.4</span>
+      <span class="p3-r p3-r2">∞</span>
+      <span class="p3-r p3-r3">ISO 400</span>
+      <span class="p3-r p3-r4"><i class="p3-oeil">⌕</i> AF-S</span>
+    </div>
+
+  </div>
+
+  <!-- markup de fin imposé, identique aux cinq -->
+<div class="fin">
+  <div class="marque" lang="he">עִבְרִית</div>
+  <div class="sous">le carnet et la console</div>
+  <div class="portes">
+    <div class="porte"><b>Les cartes</b><i>app · 1046</i></div>
+    <div class="porte"><b>Le carnet</b><i>vocabulaire</i></div>
+    <div class="porte"><b>Hors ligne</b><i>standalone</i></div>
+  </div>
+</div>
+<div class="log">▸ prêt</div>
+
+</section>
+  <div class="o-res"><b>le flou est le poste de coût</b><span style="font-family:var(--mono)">filter:blur()</span> sur un grand élément est ce qui coûte le plus cher à composer sur mobile, et une mesure d'émulation ne vaut rien pour le dire. Si tu la retiens, c'est celle qu'il faut voir sur ton iPhone en priorité.</div>
+</div>
+
+<div class="ouvr">
+  <div class="o-tete">
+    <span class="o-nom"><span class="n">04</span> — Le télétype — la lettre est frappée</span>
+  </div>
+  <div class="o-etiq">
+    <span class="et reg">Mécanique</span>
+    <span class="et dur">~4 s</span>
+    <span class="et ">symbole : aucun</span>
+  </div>
+  <div class="o-dit">Un <b>ruban perforé</b> avance par à-coups et donne le tempo. Une tête d'impression traverse <b>de droite à gauche</b> — en hébreu on écrit dans ce sens, et la machine le sait. Le <span lang="he">א</span> se construit en <b>passes successives</b> qui le noircissent, avec le tremblé de la mécanique. Retour chariot, le papier avance d'un cran, la ligne du nom s'imprime.</div>
+  <div class="o-cmd">
+    <button class="btn primaire" data-joue="p4">▶ rejouer</button>
+    <span class="o-mes">durée mesurée ▸ <b>—</b></span>
+  </div>
+<section class="prop" id="p4">
+
+  <!-- LA SCÈNE COMMUNE — trame et croix de visée. Sans ces nœuds, les règles
+       #p4.joue .trame / .vise et leurs deux lignes de mouvement réduit ne
+       s'appliquent à RIEN, et l'accueil de p4 n'est pas celui des autres
+       propositions (le contrat de l'hôte est un état final identique). -->
+  <div class="trame"></div>
+  <i class="vise tl">+</i><i class="vise tr">+</i><i class="vise br">+</i><i class="vise bl">+</i>
+
+  <!-- LE PAPIER — support d'impression : il porte TOUT ce qui est imprimé,
+       donc la lettre et la ligne montent avec lui quand il quitte le cadre. -->
+  <div class="p4-papier" aria-hidden="true">
+    <div class="p4-fond"></div>
+
+    <!-- 4 calques exactement superposés : chaque passe balaye le glyphe de
+         droite à gauche et ajoute sa densité. Tremblé écrit à la main. -->
+    <div class="p4-lettre">
+      <span class="p4-passe p4-p1" lang="he">א</span>
+      <span class="p4-passe p4-p2" lang="he">א</span>
+      <span class="p4-passe p4-p3" lang="he">א</span>
+      <span class="p4-passe p4-p4" lang="he">א</span>
+    </div>
+
+    <!-- la ligne du nom, imprimée caractère par caractère après le cran -->
+    <div class="p4-ligne">
+      <span class="p4-txt">▸ <span class="p4-he" lang="he" dir="rtl">עִבְרִית</span> — le carnet et la console</span>
+    </div>
+  </div>
+
+  <!-- LA MÉCANIQUE — rail, butée droite, chariot avec sa rampe d'aiguilles -->
+  <div class="p4-rail" aria-hidden="true"></div>
+  <div class="p4-butee" aria-hidden="true"></div>
+  <div class="p4-chariot" aria-hidden="true">
+    <div class="p4-tete">
+      <span class="p4-aiguilles"></span>
+      <span class="p4-diode"></span>
+    </div>
+  </div>
+
+  <!-- LE RUBAN PERFORÉ — 5 pistes de données + 1 piste d'entraînement,
+       motif de 12 colonnes écrit à la main dans le SVG (aucun aléatoire) -->
+  <div class="p4-ruban" aria-hidden="true"><div class="p4-bande"></div></div>
+
+  <div class="p4-plaque" aria-hidden="true">TTY·1 — 110 bd</div>
+
+  <div class="fin">
+    <div class="marque" lang="he">עִבְרִית</div>
+    <div class="sous">le carnet et la console</div>
+    <div class="portes">
+      <div class="porte"><b>Les cartes</b><i>app · 1046</i></div>
+      <div class="porte"><b>Le carnet</b><i>vocabulaire</i></div>
+      <div class="porte"><b>Hors ligne</b><i>standalone</i></div>
+    </div>
+  </div>
+  <div class="log">▸ prêt</div>
+
+</section>
+  <div class="o-res"><b>le charme mécanique s'use plus vite qu'un geste bref</b>Quatre secondes de machine, c'est délicieux les premières fois et long ensuite. C'est la proposition qui gagnerait le plus à n'exister qu'en version abrégée.</div>
+</div>
+
+<div class="ouvr">
+  <div class="o-tete">
+    <span class="o-nom"><span class="n">05</span> — La carte — l'app se présente par son propre geste</span>
+  </div>
+  <div class="o-etiq">
+    <span class="et reg">Produit</span>
+    <span class="et dur">~2,5 s</span>
+    <span class="et ">symbole : aucun</span>
+  </div>
+  <div class="o-dit">Une seule carte se pose, marque un temps, montre <span lang="he">שָׁלוֹם</span>, puis <b>se retourne</b> — le geste exact de l'app. Elle se retourne encore, recule, se dédouble en paquet, et le paquet s'éventaille : <b>les trois cartes se rangent à la place des trois portes</b>. L'ouverture n'est pas un décor plaqué devant l'app, c'est l'app qui se présente en faisant ce qu'elle fait.</div>
+  <div class="o-cmd">
+    <button class="btn primaire" data-joue="p5">▶ rejouer</button>
+    <span class="o-mes">durée mesurée ▸ <b>—</b></span>
+  </div>
+<section class="prop" id="p5">
+
+  <!-- ── LES DEUX ÉLÉMENTS DE SCÈNE DU CONTRAT HÔTE ──────────────────
+       La trame et les quatre croix de visée. Le CSS les anime
+       (#p5.joue .trame, #p5.joue .vise) et le bloc « mouvement réduit »
+       les rétablit : sans ce markup, les deux règles tombent dans le
+       vide et la scène est un fond nu, sans grille ni viseurs. ───── -->
+  <div class="trame"></div>
+  <span class="vise tl">+</span><span class="vise tr">+</span>
+  <span class="vise bl">+</span><span class="vise br">+</span>
+
+  <!-- ── LE PLATEAU : décor propre, transparent et non cliquable.
+       Trois pistes de la taille de la scène ; c'est la piste qui voyage,
+       la carte n'est que centrée dedans. ────────────────────────────── -->
+  <div class="p5-plateau" aria-hidden="true">
+
+    <!-- carte 2 du paquet → porte du milieu -->
+    <div class="p5-piste p5-pa">
+      <div class="p5-fant p5-boite"><span class="p5-plaque"></span></div>
+    </div>
+
+    <!-- carte 3 du paquet → porte de droite -->
+    <div class="p5-piste p5-pc">
+      <div class="p5-fant p5-boite"><span class="p5-plaque"></span></div>
+    </div>
+
+    <!-- LA carte : celle qui monte, se pose, se retourne deux fois,
+         puis se range sur la porte de gauche (« Les cartes ») -->
+    <div class="p5-piste p5-pb">
+      <div class="p5-porteur p5-boite">
+        <span class="p5-lueur"></span>
+
+        <div class="p5-carte">
+
+          <div class="p5-face p5-recto">
+            <span class="p5-plaque"></span>
+            <span class="p5-matricule">0001</span>
+            <span class="p5-insigne">
+              <svg viewBox="0 0 44 48" focusable="false" aria-hidden="true">
+                <polygon points="22,1.5 42.5,13 42.5,35 22,46.5 1.5,35 1.5,13"/>
+              </svg>
+              <b>A1</b>
+            </span>
+            <span class="p5-halo" lang="he">שָׁלוֹם</span>
+            <span class="p5-mot" lang="he">שָׁלוֹם</span>
+          </div>
+
+          <div class="p5-face p5-verso">
+            <span class="p5-plaque"></span>
+            <span class="p5-matricule">0001</span>
+            <div class="p5-dos">
+              <span class="p5-lab">fr</span>
+              <span class="p5-fr">paix · salut</span>
+              <span class="p5-rule"></span>
+              <span class="p5-lab">tr</span>
+              <span class="p5-tr">shalom</span>
+            </div>
+          </div>
+
+        </div>
+
+        <i class="p5-socle"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── markup de fin imposé, identique aux cinq propositions ───────── -->
+  <div class="fin">
+    <div class="marque" lang="he">עִבְרִית</div>
+    <div class="sous">le carnet et la console</div>
+    <div class="portes">
+      <div class="porte"><b>Les cartes</b><i>app · 1046</i></div>
+      <div class="porte"><b>Le carnet</b><i>vocabulaire</i></div>
+      <div class="porte"><b>Hors ligne</b><i>standalone</i></div>
+    </div>
+  </div>
+  <div class="log">▸ prêt</div>
+
+</section>
+  <div class="o-res"><b>le retournement 3D est le seul vrai coût</b><span style="font-family:var(--mono)">preserve-3d</span> plus une rotation est le poste le plus lourd des cinq en composition. À juger sur l'appareil, pas en émulation (une mesure émulée ne vaut qu'en A/B contre elle-même).</div>
+</div>
+
+<div class="ouvr" style="border-top-width:2px">
+  <div class="o-tete"><span class="o-nom"><span class="n">▸</span> Synthèse</span></div>
+  <div class="tbl-wrap">
+  <table class="synth">
+    <thead>
+      <tr><th></th><th>Mécanisme</th><th>Registre</th><th>Durée</th><th>Symbole</th><th>Le pour</th><th>Le contre</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="num">01</td><td><b>Tressage</b> — la géométrie devient la lettre</td>
+        <td>Symbolique</td><td>~7 s</td><td class="num">Magen David</td>
+        <td>La plus chargée de sens ; le morph est géométriquement fondé, pas plaqué.</td>
+        <td>De loin la plus longue, et la seule qui ouvre sur un symbole religieux.</td>
+      </tr>
+      <tr>
+        <td class="num">02</td><td><b>Auto-test</b> — la console s'allume</td>
+        <td>Instrument</td><td>~1,8 s</td><td class="num">aucun</td>
+        <td>Assez brève pour ne jamais lasser. La candidate évidente au « tous les jours ».</td>
+        <td>Ne dit rien de l'hébreu ; pourrait ouvrir n'importe quel logiciel.</td>
+      </tr>
+      <tr>
+        <td class="num">03</td><td><b>Obturateur</b> — la mise au point</td>
+        <td>Optique</td><td>~3 s</td><td class="num">aucun</td>
+        <td>La plus somptueuse à coût raisonnable ; l'hexagone est déjà dans la charte.</td>
+        <td>Le flou est ce qui coûte le plus cher à composer sur mobile.</td>
+      </tr>
+      <tr>
+        <td class="num">04</td><td><b>Télétype</b> — la lettre est frappée</td>
+        <td>Mécanique</td><td>~4 s</td><td class="num">aucun</td>
+        <td>La seule qui donne une matière et un tempo ; le chariot va de droite à gauche.</td>
+        <td>Longue, et le charme mécanique s'use plus vite qu'un geste bref.</td>
+      </tr>
+      <tr>
+        <td class="num">05</td><td><b>La carte</b> — le geste du produit</td>
+        <td>Produit</td><td>~2,5 s</td><td class="num">aucun</td>
+        <td>La plus juste conceptuellement : l'app se présente en faisant son propre geste.</td>
+        <td>Le retournement 3D est le poste de coût ; à mesurer sur l'appareil.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="pied">
+  <div class="titre">Ce que j'attends de toi</div>
+  <p>Un classement, pas une note : <b>laquelle garde-t-on</b>, et <b>y en a-t-il une deuxième</b> qui
+  mérite de vivre comme variante abrégée. Puis trois réponses :</p>
+  <ol>
+    <li><b>La durée.</b> Joue chacune en <b>abrégée</b> puis en <b>intégrale</b> et dis à quel moment
+    ça bascule de « bien » à « trop ». C'est la réponse la plus utile des trois, parce qu'elle vaut
+    pour n'importe laquelle des cinq.</li>
+    <li><b>Le registre.</b> Bascule <span style="font-family:var(--mono)">steps()</span> / fluide en
+    haut de page : c'est la réponse qui manque au rectificatif du spec § 5. ⚠️ Attention, le
+    verdict peut différer d'une séquence à l'autre — l'auto-test gagne probablement en
+    <span style="font-family:var(--mono)">steps()</span>, l'obturateur y perdrait sûrement.</li>
+    <li><b>Le symbole.</b> Seule la n°01 ouvre sur le Magen David. Les quatre autres n'ouvrent sur
+    aucun symbole religieux. C'est un arbitrage qui t'appartient et que je ne prends pas à ta place :
+    ouvrir l'app sur ce signe en fait une déclaration, ce qui n'est pas de même nature que choisir un
+    filet ou une police.</li>
+  </ol>
+  <p style="margin-top:12px"><b>Ce que je n'ai pas fait :</b> aucune des cinq n'a été vue sur ton
+  iPhone. Elles sont contrôlées en WebKit émulé, ce qui prouve qu'elles s'affichent et pas qu'elles
+  sont agréables — les trois calques CRT avaient été validés en émulation puis rejetés sur
+  l'appareil, et une mesure d'émulation ne vaut jamais en absolu, seulement en A/B contre
+  elle-même.</p>
+</div>
+
+</div><!-- /galerie -->
+
+<script>
+(function(){
+  'use strict';
+
+  var banc  = document.getElementById('banc');
+  var props = Array.prototype.slice.call(document.querySelectorAll('.prop'));
+
+  /* ---- jouer / rejouer -------------------------------------------
+     Retirer la classe, forcer un reflow, la remettre. Sans le reflow
+     le navigateur regroupe les deux mutations et rien ne rejoue. */
+  function joue(p){
+    if (!p) return;
+    p.classList.remove('joue');
+    void p.offsetWidth;
+    p.classList.add('joue');
+    mesure(p);
+  }
+  function coupe(p){ if (p) p.classList.remove('joue'); }
+
+  /* ---- la durée RÉELLE, relevée sur les animations en cours -------
+     On annonce des durées ; celle-ci est mesurée. max(délai + durée)
+     sur les animations de la scène, hors CSSTransition (les boutons
+     en portent, et elles fausseraient le relevé). */
+  function mesure(p){
+    var sortie = p.parentNode.querySelector('.o-mes b');
+    if (!sortie || !p.getAnimations) return;
+    setTimeout(function(){
+      var fin = 0;
+      p.getAnimations({subtree:true}).forEach(function(a){
+        if (typeof a.transitionProperty === 'string') return;   /* pas les transitions */
+        var e = a.effect && a.effect.getComputedTiming ? a.effect.getComputedTiming() : null;
+        if (!e) return;
+        var d = (e.delay || 0) + (e.activeDuration || 0);
+        if (isFinite(d) && d > fin) fin = d;
+      });
+      sortie.textContent = fin ? (fin / 1000).toFixed(2).replace('.', ',') + ' s' : '—';
+    }, 90);
+  }
+
+  /* ---- la vitesse : intégrale ou abrégée ---- */
+  var bInt = document.getElementById('v-integrale');
+  var bAbr = document.getElementById('v-abregee');
+  function vitesse(v){
+    var val = (v === 'abregee') ? '0.34' : '1';
+    props.forEach(function(p){ p.style.setProperty('--v', val); });
+    bInt.classList.toggle('primaire', v !== 'abregee');
+    bAbr.classList.toggle('primaire', v === 'abregee');
+    props.forEach(function(p){ if (p.classList.contains('joue')) joue(p); });
+  }
+  bInt.addEventListener('click', function(){ vitesse('integrale'); });
+  bAbr.addEventListener('click', function(){ vitesse('abregee'); });
+
+  /* ---- le registre steps() / fluide ---- */
+  var bSteps = document.getElementById('reg-steps');
+  var bFlu   = document.getElementById('reg-fluide');
+  function registre(q){
+    banc.setAttribute('data-reg', q);
+    bSteps.classList.toggle('primaire', q === 'steps');
+    bFlu.classList.toggle('primaire',   q === 'fluide');
+    props.forEach(function(p){ if (p.classList.contains('joue')) joue(p); });
+  }
+  bSteps.addEventListener('click', function(){ registre('steps'); });
+  bFlu.addEventListener('click',   function(){ registre('fluide'); });
+
+  /* ---- commandes globales ---- */
+  document.getElementById('tout-jouer').addEventListener('click', function(){
+    props.forEach(joue);
+  });
+  document.getElementById('tout-couper').addEventListener('click', function(){
+    props.forEach(coupe);
+  });
+
+  /* ---- rejouer, par proposition ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-joue]'), function(b){
+    b.addEventListener('click', function(){
+      joue(document.getElementById(b.getAttribute('data-joue')));
+    });
+  });
+
+  /* ---- départ automatique à l'entrée dans le champ, une fois -----
+     Une ouverture ne se clique pas : elle part quand on arrive. */
+  if (window.IntersectionObserver){
+    var guet = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting && e.intersectionRatio > 0.3 && !e.target.dataset.vue){
+          e.target.dataset.vue = '1';
+          joue(e.target);
+        }
+      });
+    }, { threshold:[0, 0.3, 1] });
+    props.forEach(function(p){ guet.observe(p); });
+  }
+
+  /* ---- l'alarme de mouvement réduit + la dérogation locale ---- */
+  var MQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var alarme  = document.getElementById('alarme');
+  var bForcer = document.getElementById('forcer');
+  function majAlarme(){ if (alarme) alarme.hidden = !(MQ && MQ.matches); }
+  if (MQ && MQ.addEventListener) MQ.addEventListener('change', majAlarme);
+  majAlarme();
+  bForcer.addEventListener('click', function(){
+    var actif = document.body.classList.toggle('force-anim');
+    bForcer.textContent = actif
+      ? '■ Rendre la main au réglage de l’appareil'
+      : '▶ Animer quand même, sur cette page';
+    props.forEach(function(p){ if (p.classList.contains('joue')) joue(p); });
+  });
+
+  vitesse('integrale');
+  registre('fluide');
+})();
+</script>
+</body>
+</html>
