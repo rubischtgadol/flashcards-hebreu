@@ -66,7 +66,7 @@ const SW = path.join(ROOT, 'sw.js');
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
   'Prépositions','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine','Adverbes','Saisons & mois',
-  'Mots de quantité','Expressions','Existence','Phrases'];
+  'Mots de quantité','Expressions','Existence','Phrases','Hébreu parlé'];
 // Niveaux CECRL (data-niveau du carnet) dont la disparition doit faire échouer le
 // build — le carnet actuel n'a rien au-delà de B2 ; étendre quand il grandira.
 const EXPECTED_LEVELS = ['A1','A2','B1','B2'];
@@ -89,7 +89,7 @@ const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'
   'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',
   'Jours de la semaine':'Jours de la semaine', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
   'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
-  'Existence et possession':'Existence', 'Phrases':'Phrases' };
+  'Existence et possession':'Existence', 'Phrases':'Phrases', 'Hébreu parlé':'Hébreu parlé' };
 
 // ---------- helpers hébreu ----------
 // Plus aucun lecteur de HTML ici : le mini-parseur du carnet (decodeEntities, textContent,

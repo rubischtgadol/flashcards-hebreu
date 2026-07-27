@@ -1,0 +1,111 @@
+{
+  "section": "Hébreu parlé",
+  "entries": [
+    {
+      "he": "תַּכְלֶ'ס",
+      "tr": "takhles",
+      "fr": "concrètement / au fond, en vrai",
+      "niveau": "B1",
+      "groupe": "particules",
+      "note": "de l'hébreu תַּכְלִית par le yiddish ; s'écrit souvent תכל'ס",
+      "exemples": [
+        { "he": "תַּכְלֶ'ס, אֲנִי לֹא רוֹצֶה לָלֶכֶת", "tr": "takhles, ani lo rotseh lalekhet", "fr": "Franchement, je n'ai pas envie d'y aller." }
+      ]
+    },
+    {
+      "he": "כְּאִילּוּ",
+      "tr": "ke'ilu",
+      "fr": "genre / comme si",
+      "niveau": "B1",
+      "groupe": "particules",
+      "note": "tic de langage omniprésent ; sert aussi à rapporter des paroles",
+      "exemples": [
+        { "he": "הוּא כְּאִילּוּ לֹא רוֹאֶה אוֹתִי", "tr": "hu ke'ilu lo ro'eh oti", "fr": "Il fait genre qu'il ne me voit pas." }
+      ]
+    },
+    {
+      "he": "דַּוְקָא",
+      "tr": "davka",
+      "fr": "justement / au contraire / exprès",
+      "niveau": "B1",
+      "groupe": "particules",
+      "note": "renverse l'attente de l'interlocuteur — intraduisible mot à mot",
+      "exemples": [
+        { "he": "דַּוְקָא אָהַבְתִּי אֶת הַסֶּרֶט", "tr": "davka ahavti et haseret", "fr": "En fait si, j'ai bien aimé le film." }
+      ]
+    },
+    {
+      "he": "סְתָם",
+      "tr": "stam",
+      "fr": "juste comme ça / pour rien",
+      "niveau": "A2",
+      "groupe": "particules",
+      "note": "aussi « n'importe quoi » : סְתָם דִּבּוּרִים",
+      "exemples": [
+        { "he": "סְתָם שָׁאַלְתִּי, בְּלִי סִבָּה", "tr": "stam sha'alti, beli sibah", "fr": "Je demandais juste comme ça, sans raison." }
+      ]
+    },
+    {
+      "he": "בְּעֶצֶם",
+      "tr": "be'etsem",
+      "fr": "en fait, au fond",
+      "niveau": "B1",
+      "groupe": "particules",
+      "exemples": [
+        { "he": "בְּעֶצֶם, אַתָּה צוֹדֵק", "tr": "be'etsem, atah tsodek", "fr": "Au fond, tu as raison." }
+      ]
+    },
+    {
+      "he": "פָּשׁוּט",
+      "tr": "pashut",
+      "fr": "tout simplement, carrément",
+      "niveau": "A2",
+      "groupe": "particules",
+      "note": "emploi adverbial — l'adjectif פָּשׁוּט « simple » est aux Adjectifs",
+      "exemples": [
+        { "he": "פָּשׁוּט שָׁכַחְתִּי אֶת הַמַּפְתֵּחַ", "tr": "pashut shakhachti et hamafteach", "fr": "J'ai tout simplement oublié la clé." }
+      ]
+    },
+    {
+      "he": "בְּקִיצוּר",
+      "tr": "bekitsur",
+      "fr": "bref",
+      "niveau": "B1",
+      "groupe": "particules",
+      "exemples": [
+        { "he": "בְּקִיצוּר, זֶה לֹא עָבַד", "tr": "bekitsur, zeh lo 'avad", "fr": "Bref, ça n'a pas marché." }
+      ]
+    },
+    {
+      "he": "בִּכְלָל",
+      "tr": "bikhlal",
+      "fr": "du tout / en général",
+      "niveau": "B1",
+      "groupe": "particules",
+      "note": "négatif : « pas du tout » ; positif : « d'ailleurs, en général »",
+      "exemples": [
+        { "he": "לֹא הֵבַנְתִּי בִּכְלָל", "tr": "lo hevanti bikhlal", "fr": "Je n'ai pas compris du tout." }
+      ]
+    },
+    {
+      "he": "אַגַּב",
+      "tr": "agav",
+      "fr": "au fait, à propos",
+      "niveau": "B1",
+      "groupe": "particules",
+      "exemples": [
+        { "he": "אַגַּב, רָאִיתִי אוֹתוֹ אֶתְמוֹל", "tr": "agav, ra'iti oto etmol", "fr": "Au fait, je l'ai vu hier." }
+      ]
+    },
+    {
+      "he": "יַחֲסִית",
+      "tr": "yachasit",
+      "fr": "relativement, plutôt",
+      "niveau": "B2",
+      "groupe": "particules",
+      "exemples": [
+        { "he": "זֶה יַחֲסִית זוֹל", "tr": "zeh yachasit zol", "fr": "C'est relativement bon marché." }
+      ]
+    }
+  ]
+}

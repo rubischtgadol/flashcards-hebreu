@@ -136,7 +136,7 @@ const nivEl = document.getElementById('niv');
 const themeEl = document.getElementById('theme');
 const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Noms',
   'Prépositions','Conjonctions','Mots interrogatifs','Existence','Nombres',
-  'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases'];
+  'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases','Hébreu parlé'];
 function buildChips(){
   catCounts = {};
   CARDS.forEach(c=>{ catCounts[c.cat]=(catCounts[c.cat]||0)+1; });

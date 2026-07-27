@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-24",
+  "version": "2026-07-27",
   "cartes": [
     {
       "cat": "Verbes",
@@ -33647,6 +33647,172 @@
       "fr": "je suis perdu (m.)",
       "niveau": "A2",
       "he_plain": "אני אבוד."
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "תַּכְלֶ'ס",
+      "tr": "takhles",
+      "fr": "concrètement / au fond, en vrai",
+      "note": "de l'hébreu תַּכְלִית par le yiddish ; s'écrit souvent תכל'ס",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תַּכְלֶ'ס, אֲנִי לֹא רוֹצֶה לָלֶכֶת",
+          "tr": "takhles, ani lo rotseh lalekhet",
+          "fr": "Franchement, je n'ai pas envie d'y aller.",
+          "he_plain": "תכל'ס, אני לא רוצה ללכת"
+        }
+      ],
+      "he_plain": "תכל'ס"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "כְּאִילּוּ",
+      "tr": "ke'ilu",
+      "fr": "genre / comme si",
+      "note": "tic de langage omniprésent ; sert aussi à rapporter des paroles",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא כְּאִילּוּ לֹא רוֹאֶה אוֹתִי",
+          "tr": "hu ke'ilu lo ro'eh oti",
+          "fr": "Il fait genre qu'il ne me voit pas.",
+          "he_plain": "הוא כאילו לא רואה אותי"
+        }
+      ],
+      "he_plain": "כאילו"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "דַּוְקָא",
+      "tr": "davka",
+      "fr": "justement / au contraire / exprès",
+      "note": "renverse l'attente de l'interlocuteur — intraduisible mot à mot",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "דַּוְקָא אָהַבְתִּי אֶת הַסֶּרֶט",
+          "tr": "davka ahavti et haseret",
+          "fr": "En fait si, j'ai bien aimé le film.",
+          "he_plain": "דוקא אהבתי את הסרט"
+        }
+      ],
+      "he_plain": "דוקא"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "סְתָם",
+      "tr": "stam",
+      "fr": "juste comme ça / pour rien",
+      "note": "aussi « n'importe quoi » : סְתָם דִּבּוּרִים",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "סְתָם שָׁאַלְתִּי, בְּלִי סִבָּה",
+          "tr": "stam sha'alti, beli sibah",
+          "fr": "Je demandais juste comme ça, sans raison.",
+          "he_plain": "סתם שאלתי, בלי סבה"
+        }
+      ],
+      "he_plain": "סתם"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "בְּעֶצֶם",
+      "tr": "be'etsem",
+      "fr": "en fait, au fond",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בְּעֶצֶם, אַתָּה צוֹדֵק",
+          "tr": "be'etsem, atah tsodek",
+          "fr": "Au fond, tu as raison.",
+          "he_plain": "בעצם, אתה צודק"
+        }
+      ],
+      "he_plain": "בעצם"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "פָּשׁוּט",
+      "tr": "pashut",
+      "fr": "tout simplement, carrément",
+      "note": "emploi adverbial — l'adjectif פָּשׁוּט « simple » est aux Adjectifs",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "פָּשׁוּט שָׁכַחְתִּי אֶת הַמַּפְתֵּחַ",
+          "tr": "pashut shakhachti et hamafteach",
+          "fr": "J'ai tout simplement oublié la clé.",
+          "he_plain": "פשוט שכחתי את המפתח"
+        }
+      ],
+      "he_plain": "פשוט"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "בְּקִיצוּר",
+      "tr": "bekitsur",
+      "fr": "bref",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בְּקִיצוּר, זֶה לֹא עָבַד",
+          "tr": "bekitsur, zeh lo 'avad",
+          "fr": "Bref, ça n'a pas marché.",
+          "he_plain": "בקיצור, זה לא עבד"
+        }
+      ],
+      "he_plain": "בקיצור"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "בִּכְלָל",
+      "tr": "bikhlal",
+      "fr": "du tout / en général",
+      "note": "négatif : « pas du tout » ; positif : « d'ailleurs, en général »",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "לֹא הֵבַנְתִּי בִּכְלָל",
+          "tr": "lo hevanti bikhlal",
+          "fr": "Je n'ai pas compris du tout.",
+          "he_plain": "לא הבנתי בכלל"
+        }
+      ],
+      "he_plain": "בכלל"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "אַגַּב",
+      "tr": "agav",
+      "fr": "au fait, à propos",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אַגַּב, רָאִיתִי אוֹתוֹ אֶתְמוֹל",
+          "tr": "agav, ra'iti oto etmol",
+          "fr": "Au fait, je l'ai vu hier.",
+          "he_plain": "אגב, ראיתי אותו אתמול"
+        }
+      ],
+      "he_plain": "אגב"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "יַחֲסִית",
+      "tr": "yachasit",
+      "fr": "relativement, plutôt",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "זֶה יַחֲסִית זוֹל",
+          "tr": "zeh yachasit zol",
+          "fr": "C'est relativement bon marché.",
+          "he_plain": "זה יחסית זול"
+        }
+      ],
+      "he_plain": "יחסית"
     }
   ]
 }
