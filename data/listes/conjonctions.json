@@ -42,6 +42,113 @@
       "fr": "ou",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "לָכֵן",
+      "tr": "lakhen",
+      "fr": "donc, par conséquent",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "כְּדֵי",
+      "tr": "kdei",
+      "fr": "afin de, pour",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בָּאתִי כְּדֵי לַעֲזֹר לָךְ",
+          "tr": "bati kdei la'azor lakh",
+          "fr": "je suis venu pour t'aider"
+        }
+      ],
+      "note": "devant un infinitif ; כְּדֵי שֶׁ devant une proposition"
+    },
+    {
+      "he": "כְּשֶׁ",
+      "tr": "kshe",
+      "fr": "quand, lorsque",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "כְּשֶׁאֲנִי עָיֵף אֲנִי יָשֵׁן",
+          "tr": "kshe'ani 'ayef ani yashen",
+          "fr": "quand je suis fatigué je dors"
+        }
+      ],
+      "note": "préfixe soudé au verbe : כְּשֶׁאֲנִי בָּא"
+    },
+    {
+      "he": "בִּגְלַל שֶׁ",
+      "tr": "biglal she",
+      "fr": "parce que",
+      "niveau": "A2",
+      "exemples": [],
+      "note": "devant une proposition ; בִּגְלַל seul devant un nom"
+    },
+    {
+      "he": "לַמְרוֹת שֶׁ",
+      "tr": "lamrot she",
+      "fr": "bien que, malgré le fait que",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "אַחֶרֶת",
+      "tr": "acheret",
+      "fr": "sinon, autrement",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "בְּכָל זֹאת",
+      "tr": "bekhol zot",
+      "fr": "quand même, malgré tout",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "בְּכָל מִקְרֶה",
+      "tr": "bekhol mikreh",
+      "fr": "en tout cas, de toute façon",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "אִם כָּךְ",
+      "tr": "im kakh",
+      "fr": "dans ce cas, si c'est ainsi",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "כָּל עוֹד",
+      "tr": "kol 'od",
+      "fr": "tant que, aussi longtemps que",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "אוּלָם",
+      "tr": "ulam",
+      "fr": "cependant, toutefois",
+      "niveau": "C1",
+      "exemples": [],
+      "note": "registre soutenu, surtout à l'écrit"
+    },
+    {
+      "he": "עַל כָּל פָּנִים",
+      "tr": "'al kol panim",
+      "fr": "quoi qu'il en soit",
+      "niveau": "C1",
+      "exemples": []
+    },
+    {
+      "he": "אִם בִּכְלָל",
+      "tr": "im bikhlal",
+      "fr": "si tant est que",
+      "niveau": "C1",
+      "exemples": []
     }
   ]
 }

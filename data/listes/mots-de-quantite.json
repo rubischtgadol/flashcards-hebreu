@@ -134,6 +134,230 @@
           "fr": "ce plat est tellement bon"
         }
       ]
+    },
+    {
+      "he": "מַשֶּׁהוּ",
+      "tr": "mashehu",
+      "fr": "quelque chose",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹצֶה לֶאֱכֹל מַשֶּׁהוּ",
+          "tr": "ani rotseh le'ekhol mashehu",
+          "fr": "je veux manger quelque chose"
+        }
+      ]
+    },
+    {
+      "he": "מִישֶׁהוּ",
+      "tr": "mishehu",
+      "fr": "quelqu'un",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מִישֶׁהוּ מְחַכֶּה לְךָ בַּחוּץ",
+          "tr": "mishehu mechakeh lekha bachuts",
+          "fr": "quelqu'un t'attend dehors"
+        }
+      ]
+    },
+    {
+      "he": "כֻּלָּם",
+      "tr": "kulam",
+      "fr": "tous, tout le monde",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "כֻּלָּם רוֹצִים לָבוֹא",
+          "tr": "kulam rotsim lavo",
+          "fr": "tout le monde veut venir"
+        }
+      ]
+    },
+    {
+      "he": "כֻּלָּן",
+      "tr": "kulan",
+      "fr": "toutes (féminin)",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "כֻּלָּנוּ",
+      "tr": "kulanu",
+      "fr": "nous tous",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "כָּל אֶחָד",
+      "tr": "kol echad",
+      "fr": "chacun, tout le monde",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַף אֶחָד",
+      "tr": "af echad",
+      "fr": "personne, aucun",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אַף אֶחָד לֹא יוֹדֵעַ",
+          "tr": "af echad lo yode'a",
+          "fr": "personne ne sait"
+        }
+      ],
+      "note": "toujours avec la négation : אַף אֶחָד לֹא בָּא"
+    },
+    {
+      "he": "אַף לֹא אֶחָד",
+      "tr": "af lo echad",
+      "fr": "pas un seul",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "שׁוּם דָּבָר",
+      "tr": "shum davar",
+      "fr": "rien",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "לֹא קָרָה שׁוּם דָּבָר",
+          "tr": "lo karah shum davar",
+          "fr": "il ne s'est rien passé"
+        }
+      ],
+      "note": "toujours avec la négation : לֹא אָמַרְתִּי שׁוּם דָּבָר"
+    },
+    {
+      "he": "כָּל דָּבָר",
+      "tr": "kol davar",
+      "fr": "n'importe quoi, toute chose",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "כָּל מִינֵי",
+      "tr": "kol minei",
+      "fr": "toutes sortes de",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "אַחֵר",
+      "tr": "acher",
+      "fr": "autre",
+      "niveau": "A2",
+      "exemples": [],
+      "note": "féminin אַחֶרֶת, pluriel אֲחֵרִים / אֲחֵרוֹת"
+    },
+    {
+      "he": "אֲחֵרִים",
+      "tr": "acherim",
+      "fr": "d'autres (pluriel)",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "הֲכִי",
+      "tr": "hakhi",
+      "fr": "le plus (superlatif)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "זֶה הַסֵּפֶר הֲכִי טוֹב",
+          "tr": "zeh hasefer hakhi tov",
+          "fr": "c'est le meilleur livre"
+        }
+      ],
+      "note": "précède l'adjectif : הֲכִי טוֹב « le meilleur »"
+    },
+    {
+      "he": "כִּמְעַט",
+      "tr": "kim'at",
+      "fr": "presque",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי כִּמְעַט מוּכָן לָצֵאת",
+          "tr": "ani kim'at mukhan latset",
+          "fr": "je suis presque prêt à sortir"
+        }
+      ]
+    },
+    {
+      "he": "בְּעֵרֶךְ",
+      "tr": "be'erekh",
+      "fr": "environ, à peu près",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה עוֹלֶה בְּעֵרֶךְ מֵאָה שֶׁקֶל",
+          "tr": "zeh 'oleh be'erekh me'ah shekel",
+          "fr": "ça coûte environ cent shekels"
+        }
+      ]
+    },
+    {
+      "he": "לְפָחוֹת",
+      "tr": "lefachot",
+      "fr": "au moins",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "יוֹתֵר מִדַּי",
+      "tr": "yoter midai",
+      "fr": "trop",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה יוֹתֵר מִדַּי יָקָר",
+          "tr": "zeh yoter midai yakar",
+          "fr": "c'est trop cher"
+        }
+      ]
+    },
+    {
+      "he": "בְּסַךְ הַכֹּל",
+      "tr": "besakh hakol",
+      "fr": "en tout, au total",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "לְכָל הַיּוֹתֵר",
+      "tr": "lekhol hayoter",
+      "fr": "au plus, tout au plus",
+      "niveau": "B2",
+      "exemples": []
+    },
+    {
+      "he": "עוֹד",
+      "tr": "'od",
+      "fr": "encore, plus, davantage",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹצֶה עוֹד קָפֶה",
+          "tr": "ani rotseh 'od kafeh",
+          "fr": "je veux encore du café"
+        }
+      ]
+    },
+    {
+      "he": "רַק",
+      "tr": "rak",
+      "fr": "seulement, ne... que",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי רַק שֶׁקֶל אֶחָד",
+          "tr": "yesh li rak shekel echad",
+          "fr": "je n'ai qu'un seul shekel"
+        }
+      ]
     }
   ]
 }

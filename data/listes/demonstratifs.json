@@ -21,6 +21,34 @@
       "fr": "ces, ceux-ci, celles-ci (plur.)",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "הַהוּא",
+      "tr": "hahu",
+      "fr": "celui-là, ce ...-là",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "הַהִיא",
+      "tr": "hahi",
+      "fr": "celle-là, cette ...-là",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "כָּזֶה",
+      "tr": "kazeh",
+      "fr": "comme ça, un tel",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "כָּזֹאת",
+      "tr": "kazot",
+      "fr": "comme ça, une telle",
+      "niveau": "A2",
+      "exemples": []
     }
   ]
 }

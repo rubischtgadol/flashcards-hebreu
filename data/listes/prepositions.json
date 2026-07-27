@@ -303,6 +303,150 @@
           "fr": "ce cadeau est pour papa"
         }
       ]
+    },
+    {
+      "he": "בִּגְלַל",
+      "tr": "biglal",
+      "fr": "à cause de",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הוּא לֹא בָּא בִּגְלַל הַגֶּשֶׁם",
+          "tr": "hu lo ba biglal hageshem",
+          "fr": "il ne vient pas à cause de la pluie"
+        }
+      ]
+    },
+    {
+      "he": "לַמְרוֹת",
+      "tr": "lamrot",
+      "fr": "malgré",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "בִּמְקוֹם",
+      "tr": "bimkom",
+      "fr": "au lieu de, à la place de",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "בִּזְכוּת",
+      "tr": "bizkhut",
+      "fr": "grâce à",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "לְפִי",
+      "tr": "lefi",
+      "fr": "selon, d'après",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "עַל יַד",
+      "tr": "'al yad",
+      "fr": "à côté de, auprès de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַבַּנְק עַל יַד הַשּׁוּק",
+          "tr": "habank 'al yad hashuk",
+          "fr": "la banque est à côté du marché"
+        }
+      ]
+    },
+    {
+      "he": "מִתַּחַת",
+      "tr": "mitachat",
+      "fr": "sous, en dessous de",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "מֵאֲחוֹרֵי",
+      "tr": "me'achorei",
+      "fr": "derrière",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "סָבִיב",
+      "tr": "saviv",
+      "fr": "autour de",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "חוּץ מִ",
+      "tr": "chuts mi",
+      "fr": "à part, sauf",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "מִלְּבַד",
+      "tr": "milvad",
+      "fr": "hormis, à part",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "מֵאָז",
+      "tr": "me'az",
+      "fr": "depuis",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "בְּאֶמְצַע",
+      "tr": "be'emtsa",
+      "fr": "au milieu de",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "לְעֻמַּת",
+      "tr": "le'umat",
+      "fr": "comparé à, par rapport à",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "לְגַבֵּי",
+      "tr": "legabei",
+      "fr": "à propos de, concernant",
+      "niveau": "B2",
+      "exemples": []
+    },
+    {
+      "he": "פְּרָט לְ",
+      "tr": "prat le",
+      "fr": "à l'exception de, excepté",
+      "niveau": "C1",
+      "exemples": []
+    },
+    {
+      "he": "כְּלַפֵּי",
+      "tr": "klapei",
+      "fr": "envers, à l'égard de",
+      "niveau": "C1",
+      "exemples": []
+    },
+    {
+      "he": "כּוֹלֵל",
+      "tr": "kolel",
+      "fr": "y compris, incluant",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַמְּחִיר כּוֹלֵל אֲרוּחַת בֹּקֶר",
+          "tr": "hamechir kolel aruchat boker",
+          "fr": "le prix comprend le petit-déjeuner"
+        }
+      ]
     }
   ]
 }

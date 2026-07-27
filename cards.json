@@ -1078,6 +1078,92 @@
     },
     {
       "cat": "Verbes",
+      "he": "לְהִתְקָרֵב",
+      "tr": "",
+      "fr": "(infinitif) s'approcher, se rapprocher",
+      "forms": [
+        {
+          "he": "מִתְקָרֵב",
+          "tr": "mitkarev",
+          "label": "il",
+          "he_plain": "מתקרב"
+        },
+        {
+          "he": "מִתְקָרֶבֶת",
+          "tr": "mitkarevet",
+          "label": "elle",
+          "he_plain": "מתקרבת"
+        },
+        {
+          "he": "מִתְקָרְבִים",
+          "tr": "mitkarvim",
+          "label": "ils",
+          "he_plain": "מתקרבים"
+        },
+        {
+          "he": "מִתְקָרְבוֹת",
+          "tr": "mitkarvot",
+          "label": "elles",
+          "he_plain": "מתקרבות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הָרַכֶּבֶת מִתְקָרֶבֶת אֶל הַתַּחֲנָה עַכְשָׁיו",
+          "tr": "harakevet mitkarevet el hatachanah 'akhshav",
+          "fr": "le train s'approche de la gare maintenant",
+          "he_plain": "הרכבת מתקרבת אל התחנה עכשיו"
+        }
+      ],
+      "he_plain": "להתקרב"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לַעֲבוֹר",
+      "tr": "",
+      "fr": "(infinitif) passer, traverser",
+      "forms": [
+        {
+          "he": "עוֹבֵר",
+          "tr": "'over",
+          "label": "il",
+          "he_plain": "עובר"
+        },
+        {
+          "he": "עוֹבֶרֶת",
+          "tr": "'overet",
+          "label": "elle",
+          "he_plain": "עוברת"
+        },
+        {
+          "he": "עוֹבְרִים",
+          "tr": "'ovrim",
+          "label": "ils",
+          "he_plain": "עוברים"
+        },
+        {
+          "he": "עוֹבְרוֹת",
+          "tr": "'ovrot",
+          "label": "elles",
+          "he_plain": "עוברות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "אֲנִי עוֹבֵר אֶת הָרְחוֹב עַכְשָׁיו",
+          "tr": "ani 'over et harechov 'akhshav",
+          "fr": "je traverse la rue maintenant",
+          "he_plain": "אני עובר את הרחוב עכשיו"
+        }
+      ],
+      "he_plain": "לעבור"
+    },
+    {
+      "cat": "Verbes",
       "he": "לֶאֱכֹל",
       "tr": "",
       "fr": "(infinitif) manger",
@@ -3139,6 +3225,92 @@
         }
       ],
       "he_plain": "לתפר"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְסַיֵּם",
+      "tr": "",
+      "fr": "(infinitif) finir, terminer",
+      "forms": [
+        {
+          "he": "מְסַיֵּם",
+          "tr": "mesayem",
+          "label": "il",
+          "he_plain": "מסים"
+        },
+        {
+          "he": "מְסַיֶּמֶת",
+          "tr": "mesayemet",
+          "label": "elle",
+          "he_plain": "מסימת"
+        },
+        {
+          "he": "מְסַיְּמִים",
+          "tr": "mesaymim",
+          "label": "ils",
+          "he_plain": "מסימים"
+        },
+        {
+          "he": "מְסַיְּמוֹת",
+          "tr": "mesaymot",
+          "label": "elles",
+          "he_plain": "מסימות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vie-quotidienne",
+      "exemples": [
+        {
+          "he": "אֲנִי מְסַיֵּם אֶת הָעֲבוֹדָה עַכְשָׁיו",
+          "tr": "ani mesayem et ha'avodah 'akhshav",
+          "fr": "je termine le travail maintenant",
+          "he_plain": "אני מסים את העבודה עכשיו"
+        }
+      ],
+      "he_plain": "לסים"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהַשְׁאִיר",
+      "tr": "",
+      "fr": "(infinitif) laisser (quelque chose)",
+      "forms": [
+        {
+          "he": "מַשְׁאִיר",
+          "tr": "mashir",
+          "label": "il",
+          "he_plain": "משאיר"
+        },
+        {
+          "he": "מַשְׁאִירָה",
+          "tr": "mashirah",
+          "label": "elle",
+          "he_plain": "משאירה"
+        },
+        {
+          "he": "מַשְׁאִירִים",
+          "tr": "mashirim",
+          "label": "ils",
+          "he_plain": "משאירים"
+        },
+        {
+          "he": "מַשְׁאִירוֹת",
+          "tr": "mashirot",
+          "label": "elles",
+          "he_plain": "משאירות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vie-quotidienne",
+      "exemples": [
+        {
+          "he": "הוּא מַשְׁאִיר אֶת הַמַּפְתֵּחַ בַּבַּיִת",
+          "tr": "hu mash'ir et hamafteach babayit",
+          "fr": "il laisse la clé à la maison",
+          "he_plain": "הוא משאיר את המפתח בבית"
+        }
+      ],
+      "he_plain": "להשאיר"
     },
     {
       "cat": "Verbes",
@@ -5289,6 +5461,92 @@
         }
       ],
       "he_plain": "להתגעגע"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהַעֲדִיף",
+      "tr": "",
+      "fr": "(infinitif) préférer",
+      "forms": [
+        {
+          "he": "מַעֲדִיף",
+          "tr": "ma'adif",
+          "label": "il",
+          "he_plain": "מעדיף"
+        },
+        {
+          "he": "מַעֲדִיפָה",
+          "tr": "ma'adifah",
+          "label": "elle",
+          "he_plain": "מעדיפה"
+        },
+        {
+          "he": "מַעֲדִיפִים",
+          "tr": "ma'adifim",
+          "label": "ils",
+          "he_plain": "מעדיפים"
+        },
+        {
+          "he": "מַעֲדִיפוֹת",
+          "tr": "ma'adifot",
+          "label": "elles",
+          "he_plain": "מעדיפות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "emotions-caractere",
+      "exemples": [
+        {
+          "he": "אֲנִי מַעֲדִיף קָפֶה עַל תֵּה",
+          "tr": "ani ma'adif kafeh 'al teh",
+          "fr": "je préfère le café au thé",
+          "he_plain": "אני מעדיף קפה על תה"
+        }
+      ],
+      "he_plain": "להעדיף"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהַתְאִים",
+      "tr": "",
+      "fr": "(infinitif) convenir, aller (à quelqu'un)",
+      "forms": [
+        {
+          "he": "מַתְאִים",
+          "tr": "matim",
+          "label": "il",
+          "he_plain": "מתאים"
+        },
+        {
+          "he": "מַתְאִימָה",
+          "tr": "matimah",
+          "label": "elle",
+          "he_plain": "מתאימה"
+        },
+        {
+          "he": "מַתְאִימִים",
+          "tr": "matimim",
+          "label": "ils",
+          "he_plain": "מתאימים"
+        },
+        {
+          "he": "מַתְאִימוֹת",
+          "tr": "matimot",
+          "label": "elles",
+          "he_plain": "מתאימות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַחֻלְצָה הַזֹּאת מַתְאִימָה לְךָ",
+          "tr": "hachultsah hazot mat'imah lekha",
+          "fr": "cette chemise te va bien",
+          "he_plain": "החלצה הזאת מתאימה לך"
+        }
+      ],
+      "he_plain": "להתאים"
     },
     {
       "cat": "Verbes",
@@ -7482,6 +7740,135 @@
         }
       ],
       "he_plain": "לפתר"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לִקְרוֹת",
+      "tr": "",
+      "fr": "(infinitif) se passer, arriver (événement)",
+      "forms": [
+        {
+          "he": "קוֹרֶה",
+          "tr": "koreh",
+          "label": "il",
+          "he_plain": "קורה"
+        },
+        {
+          "he": "קוֹרָה",
+          "tr": "korah",
+          "label": "elle",
+          "he_plain": "קורה"
+        },
+        {
+          "he": "קוֹרִים",
+          "tr": "korim",
+          "label": "ils",
+          "he_plain": "קורים"
+        },
+        {
+          "he": "קוֹרוֹת",
+          "tr": "korot",
+          "label": "elles",
+          "he_plain": "קורות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "מַה קוֹרֶה כָּאן עַכְשָׁיו",
+          "tr": "mah koreh kan 'akhshav",
+          "fr": "qu'est-ce qui se passe ici maintenant",
+          "he_plain": "מה קורה כאן עכשיו"
+        }
+      ],
+      "he_plain": "לקרות"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהִתְרַחֵשׁ",
+      "tr": "",
+      "fr": "(infinitif) se produire, avoir lieu",
+      "forms": [
+        {
+          "he": "מִתְרַחֵשׁ",
+          "tr": "mitrachesh",
+          "label": "il",
+          "he_plain": "מתרחש"
+        },
+        {
+          "he": "מִתְרַחֶשֶׁת",
+          "tr": "mitracheshet",
+          "label": "elle",
+          "he_plain": "מתרחשת"
+        },
+        {
+          "he": "מִתְרַחֲשִׁים",
+          "tr": "mitrachashim",
+          "label": "ils",
+          "he_plain": "מתרחשים"
+        },
+        {
+          "he": "מִתְרַחֲשׁוֹת",
+          "tr": "mitrachashot",
+          "label": "elles",
+          "he_plain": "מתרחשות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "זֶה מִתְרַחֵשׁ בְּכָל יוֹם",
+          "tr": "zeh mitrachesh bekhol yom",
+          "fr": "cela se produit chaque jour",
+          "he_plain": "זה מתרחש בכל יום"
+        }
+      ],
+      "he_plain": "להתרחש"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהִזְדַּמֵּן",
+      "tr": "",
+      "fr": "(infinitif) se présenter (occasion), arriver par hasard",
+      "forms": [
+        {
+          "he": "מִזְדַּמֵּן",
+          "tr": "mizdamen",
+          "label": "il",
+          "he_plain": "מזדמן"
+        },
+        {
+          "he": "מִזְדַּמֶּנֶת",
+          "tr": "mizdamenet",
+          "label": "elle",
+          "he_plain": "מזדמנת"
+        },
+        {
+          "he": "מִזְדַּמְּנִים",
+          "tr": "mizdamnim",
+          "label": "ils",
+          "he_plain": "מזדמנים"
+        },
+        {
+          "he": "מִזְדַּמְּנוֹת",
+          "tr": "mizdamnot",
+          "label": "elles",
+          "he_plain": "מזדמנות"
+        }
+      ],
+      "niveau": "C1",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "זֶה מִזְדַּמֵּן לִי לִפְעָמִים",
+          "tr": "zeh mizdamen li lif'amim",
+          "fr": "cela m'arrive parfois",
+          "he_plain": "זה מזדמן לי לפעמים"
+        }
+      ],
+      "he_plain": "להזדמן"
     },
     {
       "cat": "Verbes",
@@ -17438,6 +17825,43 @@
       "he_plain": "רפוי"
     },
     {
+      "cat": "Adjectifs",
+      "he": "זָמִין",
+      "tr": "",
+      "fr": "disponible",
+      "forms": [
+        {
+          "he": "זְמִינָה",
+          "tr": "zeminah",
+          "label": "f. sing.",
+          "he_plain": "זמינה"
+        },
+        {
+          "he": "זְמִינִים",
+          "tr": "zeminim",
+          "label": "m. plur.",
+          "he_plain": "זמינים"
+        },
+        {
+          "he": "זְמִינוֹת",
+          "tr": "zeminot",
+          "label": "f. plur.",
+          "he_plain": "זמינות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַסֵּפֶר זָמִין בַּסִּפְרִיָּה",
+          "tr": "hasefer zamin basifriyah",
+          "fr": "le livre est disponible à la bibliothèque",
+          "he_plain": "הספר זמין בספריה"
+        }
+      ],
+      "he_plain": "זמין"
+    },
+    {
       "cat": "Noms",
       "he": "אִישׁ",
       "tr": "",
@@ -21286,6 +21710,32 @@
         }
       ],
       "he_plain": "מנעול"
+    },
+    {
+      "cat": "Noms",
+      "he": "מִשְׁטָח",
+      "tr": "",
+      "fr": "surface (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מִשְׁטָחִים",
+          "tr": "mishtachim",
+          "label": "pluriel",
+          "he_plain": "משטחים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "maison-objets",
+      "exemples": [
+        {
+          "he": "הַמִּשְׁטָח בַּמִּטְבָּח נָקִי מְאוֹד",
+          "tr": "hamishtach bamitbach naki me'od",
+          "fr": "la surface dans la cuisine est très propre",
+          "he_plain": "המשטח במטבח נקי מאוד"
+        }
+      ],
+      "he_plain": "משטח"
     },
     {
       "cat": "Noms",
@@ -25481,6 +25931,292 @@
     },
     {
       "cat": "Noms",
+      "he": "אֵזוֹר",
+      "tr": "",
+      "fr": "zone, secteur (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "אֲזוֹרִים",
+          "tr": "azorim",
+          "label": "pluriel",
+          "he_plain": "אזורים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הָאֵזוֹר הַזֶּה שָׁקֵט וְנָעִים",
+          "tr": "ha'ezor hazeh shaket vena'im",
+          "fr": "cette zone est calme et agréable",
+          "he_plain": "האזור הזה שקט ונעים"
+        }
+      ],
+      "he_plain": "אזור"
+    },
+    {
+      "cat": "Noms",
+      "he": "מֶרְכָּז",
+      "tr": "",
+      "fr": "centre (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מֶרְכָּזִים",
+          "tr": "merkazim",
+          "label": "pluriel",
+          "he_plain": "מרכזים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַמֶּרְכָּז הַזֶּה גָּדוֹל וְעָמוּס",
+          "tr": "hamerkaz hazeh gadol ve'amus",
+          "fr": "ce centre est grand et animé",
+          "he_plain": "המרכז הזה גדול ועמוס"
+        }
+      ],
+      "he_plain": "מרכז"
+    },
+    {
+      "cat": "Noms",
+      "he": "כִּוּוּן",
+      "tr": "",
+      "fr": "direction, sens (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "כִּוּוּנִים",
+          "tr": "kiuunim",
+          "label": "pluriel",
+          "he_plain": "כוונים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַכִּוּוּן הַזֶּה לֹא נָכוֹן",
+          "tr": "hakivun hazeh lo nakhon",
+          "fr": "cette direction n'est pas correcte",
+          "he_plain": "הכוון הזה לא נכון"
+        }
+      ],
+      "he_plain": "כוון"
+    },
+    {
+      "cat": "Noms",
+      "he": "יְצִיאָה",
+      "tr": "",
+      "fr": "sortie (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "יְצִיאוֹת",
+          "tr": "yetsiyot",
+          "label": "pluriel",
+          "he_plain": "יציאות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַיְּצִיאָה מִן הַבִּנְיָן פְּתוּחָה",
+          "tr": "hayetsi'ah min habinyan petuchah",
+          "fr": "la sortie du bâtiment est ouverte",
+          "he_plain": "היציאה מן הבנין פתוחה"
+        }
+      ],
+      "he_plain": "יציאה"
+    },
+    {
+      "cat": "Noms",
+      "he": "מָחוֹז",
+      "tr": "",
+      "fr": "district, région (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מְחוֹזוֹת",
+          "tr": "mechozot",
+          "label": "pluriel",
+          "he_plain": "מחוזות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַמָּחוֹז הַזֶּה עָשִׁיר בְּתַרְבּוּת",
+          "tr": "hamachoz hazeh 'ashir betarbut",
+          "fr": "cette région est riche en culture",
+          "he_plain": "המחוז הזה עשיר בתרבות"
+        }
+      ],
+      "he_plain": "מחוז"
+    },
+    {
+      "cat": "Noms",
+      "he": "חֲזִית",
+      "tr": "",
+      "fr": "façade, front (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "חֲזִיתוֹת",
+          "tr": "chazitot",
+          "label": "pluriel",
+          "he_plain": "חזיתות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַחֲזִית שֶׁל הַבַּיִת יָפָה",
+          "tr": "hachazit shel habayit yafah",
+          "fr": "la façade de la maison est belle",
+          "he_plain": "החזית של הבית יפה"
+        }
+      ],
+      "he_plain": "חזית"
+    },
+    {
+      "cat": "Noms",
+      "he": "כְּנִיסָה",
+      "tr": "",
+      "fr": "entrée (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "כְּנִיסוֹת",
+          "tr": "knisot",
+          "label": "pluriel",
+          "he_plain": "כניסות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַכְּנִיסָה לַבִּנְיָן סְגוּרָה",
+          "tr": "haknisah labinyan sgurah",
+          "fr": "l'entrée du bâtiment est fermée",
+          "he_plain": "הכניסה לבנין סגורה"
+        }
+      ],
+      "he_plain": "כניסה"
+    },
+    {
+      "cat": "Noms",
+      "he": "גְּבוּל",
+      "tr": "",
+      "fr": "frontière, limite (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "גְּבוּלוֹת",
+          "tr": "gevulot",
+          "label": "pluriel",
+          "he_plain": "גבולות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַגְּבוּל בֵּין הַמְּדִינוֹת סָגוּר",
+          "tr": "hagvul bein hamedinot sagur",
+          "fr": "la frontière entre les pays est fermée",
+          "he_plain": "הגבול בין המדינות סגור"
+        }
+      ],
+      "he_plain": "גבול"
+    },
+    {
+      "cat": "Noms",
+      "he": "נָתִיב",
+      "tr": "",
+      "fr": "voie, itinéraire (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "נְתִיבִים",
+          "tr": "netivim",
+          "label": "pluriel",
+          "he_plain": "נתיבים"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַנָּתִיב הַזֶּה מוֹבִיל לָעִיר",
+          "tr": "hanativ hazeh movil la'ir",
+          "fr": "cette voie mène à la ville",
+          "he_plain": "הנתיב הזה מוביל לעיר"
+        }
+      ],
+      "he_plain": "נתיב"
+    },
+    {
+      "cat": "Noms",
+      "he": "מַעֲבָר",
+      "tr": "",
+      "fr": "passage (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מַעֲבָרִים",
+          "tr": "ma'avarim",
+          "label": "pluriel",
+          "he_plain": "מעברים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַמַּעֲבָר בֵּין הַכְּבִישִׁים מְסֻכָּן",
+          "tr": "hama'avar bein hakvishim mesukan",
+          "fr": "le passage entre les routes est dangereux",
+          "he_plain": "המעבר בין הכבישים מסכן"
+        }
+      ],
+      "he_plain": "מעבר"
+    },
+    {
+      "cat": "Noms",
+      "he": "מִנְהָרָה",
+      "tr": "",
+      "fr": "tunnel (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "מִנְהָרוֹת",
+          "tr": "minharot",
+          "label": "pluriel",
+          "he_plain": "מנהרות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַמִּנְהָרָה אֲרֻכָּה וַאֲפֵלָה",
+          "tr": "haminharah arukah va'afelah",
+          "fr": "le tunnel est long et sombre",
+          "he_plain": "המנהרה ארכה ואפלה"
+        }
+      ],
+      "he_plain": "מנהרה"
+    },
+    {
+      "cat": "Noms",
       "he": "שֶׁמֶשׁ",
       "tr": "",
       "fr": "soleil (f)",
@@ -26560,6 +27296,84 @@
         }
       ],
       "he_plain": "גבעה"
+    },
+    {
+      "cat": "Noms",
+      "he": "פִּסְגָּה",
+      "tr": "",
+      "fr": "sommet, cime (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "פִּסְגּוֹת",
+          "tr": "pisgot",
+          "label": "pluriel",
+          "he_plain": "פסגות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "nature",
+      "exemples": [
+        {
+          "he": "הַפִּסְגָּה גְּבוֹהָה וְקָרָה",
+          "tr": "hapisgah gvohah vekarah",
+          "fr": "le sommet est haut et froid",
+          "he_plain": "הפסגה גבוהה וקרה"
+        }
+      ],
+      "he_plain": "פסגה"
+    },
+    {
+      "cat": "Noms",
+      "he": "סְבִיבָה",
+      "tr": "",
+      "fr": "environs, alentours (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "סְבִיבוֹת",
+          "tr": "svivot",
+          "label": "pluriel",
+          "he_plain": "סביבות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "nature",
+      "exemples": [
+        {
+          "he": "הַסְּבִיבָה כָּאן יָפָה מְאֹד",
+          "tr": "hasvivah kan yafah me'od",
+          "fr": "les alentours ici sont très beaux",
+          "he_plain": "הסביבה כאן יפה מאד"
+        }
+      ],
+      "he_plain": "סביבה"
+    },
+    {
+      "cat": "Noms",
+      "he": "שְׁבִיל",
+      "tr": "",
+      "fr": "chemin, sentier (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "שְׁבִילִים",
+          "tr": "shvilim",
+          "label": "pluriel",
+          "he_plain": "שבילים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "nature",
+      "exemples": [
+        {
+          "he": "הַשְּׁבִיל בַּיַּעַר צַר וְיָפֶה",
+          "tr": "hashvil baya'ar tsar veyafeh",
+          "fr": "le sentier dans la forêt est étroit et beau",
+          "he_plain": "השביל ביער צר ויפה"
+        }
+      ],
+      "he_plain": "שביל"
     },
     {
       "cat": "Noms",
@@ -31376,6 +32190,344 @@
       "he_plain": "הזדמנות"
     },
     {
+      "cat": "Noms",
+      "he": "צַד",
+      "tr": "",
+      "fr": "côté (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "צְדָדִים",
+          "tr": "tsdadim",
+          "label": "pluriel",
+          "he_plain": "צדדים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַצַּד הַשֵּׁנִי שֶׁל הָרְחוֹב שָׁקֵט",
+          "tr": "hatsad hasheni shel harechov shaket",
+          "fr": "l'autre côté de la rue est calme",
+          "he_plain": "הצד השני של הרחוב שקט"
+        }
+      ],
+      "he_plain": "צד"
+    },
+    {
+      "cat": "Noms",
+      "he": "קָצֶה",
+      "tr": "",
+      "fr": "bord, extrémité (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "קְצָווֹת",
+          "tr": "ketsavot",
+          "label": "pluriel",
+          "he_plain": "קצוות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "קְצֵה הַשֻּׁלְחָן הַזֶּה שָׁבוּר",
+          "tr": "ketseh hashulchan hazeh shavur",
+          "fr": "le bord de cette table est cassé",
+          "he_plain": "קצה השלחן הזה שבור"
+        }
+      ],
+      "he_plain": "קצה"
+    },
+    {
+      "cat": "Noms",
+      "he": "אֶמְצַע",
+      "tr": "",
+      "fr": "milieu (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "אֶמְצָעִים",
+          "tr": "emtsa'im",
+          "label": "pluriel",
+          "he_plain": "אמצעים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "אֲנִי גָּר בְּאֶמְצַע הָעִיר",
+          "tr": "ani gar be'emtsa' ha'ir",
+          "fr": "j'habite au milieu de la ville",
+          "he_plain": "אני גר באמצע העיר"
+        }
+      ],
+      "he_plain": "אמצע"
+    },
+    {
+      "cat": "Noms",
+      "he": "חוּץ",
+      "tr": "",
+      "fr": "extérieur, dehors (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "חוּצוֹת",
+          "tr": "chutsot",
+          "label": "pluriel",
+          "he_plain": "חוצות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַיֶּלֶד מְשַׂחֵק בַּחוּץ עַכְשָׁיו",
+          "tr": "hayeled mesachek bachuts 'akhshav",
+          "fr": "l'enfant joue dehors maintenant",
+          "he_plain": "הילד משחק בחוץ עכשיו"
+        }
+      ],
+      "he_plain": "חוץ"
+    },
+    {
+      "cat": "Noms",
+      "he": "מֶרְחָק",
+      "tr": "",
+      "fr": "distance (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מֶרְחַקִּים",
+          "tr": "merchakim",
+          "label": "pluriel",
+          "he_plain": "מרחקים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַמֶּרְחָק בֵּין הֶעָרִים גָּדוֹל",
+          "tr": "hamerchak bein he'arim gadol",
+          "fr": "la distance entre les villes est grande",
+          "he_plain": "המרחק בין הערים גדול"
+        }
+      ],
+      "he_plain": "מרחק"
+    },
+    {
+      "cat": "Noms",
+      "he": "חָלָל",
+      "tr": "",
+      "fr": "espace, vide (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "חֲלָלִים",
+          "tr": "chalalim",
+          "label": "pluriel",
+          "he_plain": "חללים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַחֶדֶר הַזֶּה הוּא חָלָל רֵיק",
+          "tr": "hacheder hazeh hu chalal reik",
+          "fr": "cette pièce est un espace vide",
+          "he_plain": "החדר הזה הוא חלל ריק"
+        }
+      ],
+      "he_plain": "חלל"
+    },
+    {
+      "cat": "Noms",
+      "he": "הֶיקֵּף",
+      "tr": "",
+      "fr": "périmètre, portée (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "הֶיקֵּפִים",
+          "tr": "heikefim",
+          "label": "pluriel",
+          "he_plain": "היקפים"
+        }
+      ],
+      "niveau": "C1",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הֶיקֵּף הָעִיר גָּדוֹל מְאוֹד",
+          "tr": "heikef ha'ir gadol me'od",
+          "fr": "le périmètre de la ville est très grand",
+          "he_plain": "היקף העיר גדול מאוד"
+        }
+      ],
+      "he_plain": "היקף"
+    },
+    {
+      "cat": "Noms",
+      "he": "זָוִית",
+      "tr": "",
+      "fr": "angle (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "זָוִיּוֹת",
+          "tr": "zaviyot",
+          "label": "pluriel",
+          "he_plain": "זויות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַזָּוִית הַזֹּאת חַדָּה מְאוֹד",
+          "tr": "hazavit hazot chadah me'od",
+          "fr": "cet angle est très aigu",
+          "he_plain": "הזוית הזאת חדה מאוד"
+        }
+      ],
+      "he_plain": "זוית"
+    },
+    {
+      "cat": "Noms",
+      "he": "תַּחְתִּית",
+      "tr": "",
+      "fr": "fond, dessous (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "תַּחְתִּיּוֹת",
+          "tr": "tachtiyot",
+          "label": "pluriel",
+          "he_plain": "תחתיות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "הַתַּחְתִּית שֶׁל הַכּוֹס נְקִיָּה",
+          "tr": "hatachtit shel hakos nekiyah",
+          "fr": "le fond du verre est propre",
+          "he_plain": "התחתית של הכוס נקיה"
+        }
+      ],
+      "he_plain": "תחתית"
+    },
+    {
+      "cat": "Noms",
+      "he": "גֹּבַהּ",
+      "tr": "",
+      "fr": "hauteur (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "גְּבָהִים",
+          "tr": "gevahim",
+          "label": "pluriel",
+          "he_plain": "גבהים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "גֹּבַהּ הָהָר מַרְשִׁים",
+          "tr": "govah hahar marshim",
+          "fr": "la hauteur de la montagne est impressionnante",
+          "he_plain": "גבה ההר מרשים"
+        }
+      ],
+      "he_plain": "גבה"
+    },
+    {
+      "cat": "Noms",
+      "he": "רֹחַב",
+      "tr": "",
+      "fr": "largeur (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "רְחָבִים",
+          "tr": "rechavim",
+          "label": "pluriel",
+          "he_plain": "רחבים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "רֹחַב הַנָּהָר גָּדוֹל",
+          "tr": "rochav hanahar gadol",
+          "fr": "la largeur de la rivière est grande",
+          "he_plain": "רחב הנהר גדול"
+        }
+      ],
+      "he_plain": "רחב"
+    },
+    {
+      "cat": "Noms",
+      "he": "אֹרֶךְ",
+      "tr": "",
+      "fr": "longueur (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "אֳרָכִים",
+          "tr": "orakhim",
+          "label": "pluriel",
+          "he_plain": "ארכים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "אֹרֶךְ הַחֶבֶל רַב",
+          "tr": "orekh hachevel rav",
+          "fr": "la longueur de la corde est grande",
+          "he_plain": "ארך החבל רב"
+        }
+      ],
+      "he_plain": "ארך"
+    },
+    {
+      "cat": "Noms",
+      "he": "עֹמֶק",
+      "tr": "",
+      "fr": "profondeur (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "עֳמָקִים",
+          "tr": "'omakim",
+          "label": "pluriel",
+          "he_plain": "עמקים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "abstrait",
+      "exemples": [
+        {
+          "he": "עֹמֶק הַיָּם רַב",
+          "tr": "omek hayam rav",
+          "fr": "la profondeur de la mer est grande",
+          "he_plain": "עמק הים רב"
+        }
+      ],
+      "he_plain": "עמק"
+    },
+    {
       "cat": "Pronoms personnels",
       "he": "אֲנִי",
       "tr": "ani",
@@ -31456,6 +32608,79 @@
       "he_plain": "הן"
     },
     {
+      "cat": "Pronoms personnels",
+      "he": "עַצְמִי",
+      "tr": "'atsmi",
+      "fr": "moi-même",
+      "note": "se combine : בְּעַצְמִי « par moi-même », אֶת עַצְמִי « moi-même » (COD)",
+      "niveau": "A2",
+      "he_plain": "עצמי"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "עַצְמְךָ",
+      "tr": "'atsmekha",
+      "fr": "toi-même (masculin)",
+      "niveau": "A2",
+      "he_plain": "עצמך"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "עַצְמוֹ",
+      "tr": "'atsmo",
+      "fr": "lui-même",
+      "niveau": "A2",
+      "he_plain": "עצמו"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "עַצְמָהּ",
+      "tr": "'atsmah",
+      "fr": "elle-même",
+      "niveau": "A2",
+      "he_plain": "עצמה"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "עַצְמֵנוּ",
+      "tr": "'atsmenu",
+      "fr": "nous-mêmes",
+      "niveau": "A2",
+      "he_plain": "עצמנו"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "עַצְמָם",
+      "tr": "'atsmam",
+      "fr": "eux-mêmes",
+      "niveau": "A2",
+      "he_plain": "עצמם"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "אֶחָד אֶת הַשֵּׁנִי",
+      "tr": "echad et hasheni",
+      "fr": "l'un l'autre (personnes)",
+      "niveau": "B1",
+      "he_plain": "אחד את השני"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "זֶה אֶת זֶה",
+      "tr": "zeh et zeh",
+      "fr": "l'un l'autre (choses)",
+      "niveau": "B1",
+      "he_plain": "זה את זה"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "הֲדָדִי",
+      "tr": "hadadi",
+      "fr": "réciproque, mutuel",
+      "niveau": "B1",
+      "he_plain": "הדדי"
+    },
+    {
       "cat": "Démonstratifs",
       "he": "זֶה",
       "tr": "zeh",
@@ -31478,6 +32703,38 @@
       "fr": "ces, ceux-ci, celles-ci (plur.)",
       "niveau": "A1",
       "he_plain": "אלה"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "הַהוּא",
+      "tr": "hahu",
+      "fr": "celui-là, ce ...-là",
+      "niveau": "A2",
+      "he_plain": "ההוא"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "הַהִיא",
+      "tr": "hahi",
+      "fr": "celle-là, cette ...-là",
+      "niveau": "A2",
+      "he_plain": "ההיא"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "כָּזֶה",
+      "tr": "kazeh",
+      "fr": "comme ça, un tel",
+      "niveau": "A2",
+      "he_plain": "כזה"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "כָּזֹאת",
+      "tr": "kazot",
+      "fr": "comme ça, une telle",
+      "niveau": "A2",
+      "he_plain": "כזאת"
     },
     {
       "cat": "Verbes modaux",
@@ -31539,6 +32796,73 @@
       "note": "invariable. Ex. כְּדַאי לְךָ לָלֶכֶת = tu ferais mieux d'y aller.",
       "niveau": "B1",
       "he_plain": "כדאי"
+    },
+    {
+      "cat": "Verbes modaux",
+      "he": "אֶפְשָׁר",
+      "tr": "efshar",
+      "fr": "il est possible, on peut",
+      "note": "impersonnel, invariable : suit un infinitif",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֶפְשָׁר לְשַׁלֵּם בְּכַרְטִיס",
+          "tr": "efshar leshalem bekartis",
+          "fr": "on peut payer par carte",
+          "he_plain": "אפשר לשלם בכרטיס"
+        }
+      ],
+      "he_plain": "אפשר"
+    },
+    {
+      "cat": "Verbes modaux",
+      "he": "אִי אֶפְשָׁר",
+      "tr": "i efshar",
+      "fr": "c'est impossible, on ne peut pas",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אִי אֶפְשָׁר לִישֹׁן פֹּה",
+          "tr": "i efshar lishon poh",
+          "fr": "on ne peut pas dormir ici",
+          "he_plain": "אי אפשר לישן פה"
+        }
+      ],
+      "he_plain": "אי אפשר"
+    },
+    {
+      "cat": "Verbes modaux",
+      "he": "חַיָּב",
+      "tr": "chayav",
+      "fr": "devoir, être obligé de",
+      "note": "s'accorde : חַיָּב / חַיֶּבֶת / חַיָּבִים / חַיָּבוֹת",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי חַיָּב לָלֶכֶת עַכְשָׁיו",
+          "tr": "ani chayav lalekhet 'akhshav",
+          "fr": "je dois partir maintenant",
+          "he_plain": "אני חיב ללכת עכשיו"
+        }
+      ],
+      "he_plain": "חיב"
+    },
+    {
+      "cat": "Verbes modaux",
+      "he": "נִדְמֶה",
+      "tr": "nidmeh",
+      "fr": "il semble",
+      "note": "impersonnel : נִדְמֶה לִי שֶׁ… « il me semble que… »",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "נִדְמֶה לִי שֶׁהוּא צוֹדֵק",
+          "tr": "nidmeh li shehu tsodek",
+          "fr": "il me semble qu'il a raison",
+          "he_plain": "נדמה לי שהוא צודק"
+        }
+      ],
+      "he_plain": "נדמה"
     },
     {
       "cat": "Prépositions",
@@ -31911,6 +33235,174 @@
       "he_plain": "בשביל"
     },
     {
+      "cat": "Prépositions",
+      "he": "בִּגְלַל",
+      "tr": "biglal",
+      "fr": "à cause de",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הוּא לֹא בָּא בִּגְלַל הַגֶּשֶׁם",
+          "tr": "hu lo ba biglal hageshem",
+          "fr": "il ne vient pas à cause de la pluie",
+          "he_plain": "הוא לא בא בגלל הגשם"
+        }
+      ],
+      "he_plain": "בגלל"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "לַמְרוֹת",
+      "tr": "lamrot",
+      "fr": "malgré",
+      "niveau": "A2",
+      "he_plain": "למרות"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "בִּמְקוֹם",
+      "tr": "bimkom",
+      "fr": "au lieu de, à la place de",
+      "niveau": "A2",
+      "he_plain": "במקום"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "בִּזְכוּת",
+      "tr": "bizkhut",
+      "fr": "grâce à",
+      "niveau": "B1",
+      "he_plain": "בזכות"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "לְפִי",
+      "tr": "lefi",
+      "fr": "selon, d'après",
+      "niveau": "A2",
+      "he_plain": "לפי"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "עַל יַד",
+      "tr": "'al yad",
+      "fr": "à côté de, auprès de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַבַּנְק עַל יַד הַשּׁוּק",
+          "tr": "habank 'al yad hashuk",
+          "fr": "la banque est à côté du marché",
+          "he_plain": "הבנק על יד השוק"
+        }
+      ],
+      "he_plain": "על יד"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "מִתַּחַת",
+      "tr": "mitachat",
+      "fr": "sous, en dessous de",
+      "niveau": "A2",
+      "he_plain": "מתחת"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "מֵאֲחוֹרֵי",
+      "tr": "me'achorei",
+      "fr": "derrière",
+      "niveau": "A2",
+      "he_plain": "מאחורי"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "סָבִיב",
+      "tr": "saviv",
+      "fr": "autour de",
+      "niveau": "A2",
+      "he_plain": "סביב"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "חוּץ מִ",
+      "tr": "chuts mi",
+      "fr": "à part, sauf",
+      "niveau": "A2",
+      "he_plain": "חוץ מ"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "מִלְּבַד",
+      "tr": "milvad",
+      "fr": "hormis, à part",
+      "niveau": "B1",
+      "he_plain": "מלבד"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "מֵאָז",
+      "tr": "me'az",
+      "fr": "depuis",
+      "niveau": "A2",
+      "he_plain": "מאז"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "בְּאֶמְצַע",
+      "tr": "be'emtsa",
+      "fr": "au milieu de",
+      "niveau": "A2",
+      "he_plain": "באמצע"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "לְעֻמַּת",
+      "tr": "le'umat",
+      "fr": "comparé à, par rapport à",
+      "niveau": "B1",
+      "he_plain": "לעמת"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "לְגַבֵּי",
+      "tr": "legabei",
+      "fr": "à propos de, concernant",
+      "niveau": "B2",
+      "he_plain": "לגבי"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "פְּרָט לְ",
+      "tr": "prat le",
+      "fr": "à l'exception de, excepté",
+      "niveau": "C1",
+      "he_plain": "פרט ל"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "כְּלַפֵּי",
+      "tr": "klapei",
+      "fr": "envers, à l'égard de",
+      "niveau": "C1",
+      "he_plain": "כלפי"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "כּוֹלֵל",
+      "tr": "kolel",
+      "fr": "y compris, incluant",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַמְּחִיר כּוֹלֵל אֲרוּחַת בֹּקֶר",
+          "tr": "hamechir kolel aruchat boker",
+          "fr": "le prix comprend le petit-déjeuner",
+          "he_plain": "המחיר כולל ארוחת בקר"
+        }
+      ],
+      "he_plain": "כולל"
+    },
+    {
       "cat": "Conjonctions",
       "he": "אֲבָל",
       "tr": "aval",
@@ -31957,6 +33449,130 @@
       "fr": "ou",
       "niveau": "A1",
       "he_plain": "או"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "לָכֵן",
+      "tr": "lakhen",
+      "fr": "donc, par conséquent",
+      "niveau": "A2",
+      "he_plain": "לכן"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כְּדֵי",
+      "tr": "kdei",
+      "fr": "afin de, pour",
+      "note": "devant un infinitif ; כְּדֵי שֶׁ devant une proposition",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בָּאתִי כְּדֵי לַעֲזֹר לָךְ",
+          "tr": "bati kdei la'azor lakh",
+          "fr": "je suis venu pour t'aider",
+          "he_plain": "באתי כדי לעזר לך"
+        }
+      ],
+      "he_plain": "כדי"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כְּשֶׁ",
+      "tr": "kshe",
+      "fr": "quand, lorsque",
+      "note": "préfixe soudé au verbe : כְּשֶׁאֲנִי בָּא",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "כְּשֶׁאֲנִי עָיֵף אֲנִי יָשֵׁן",
+          "tr": "kshe'ani 'ayef ani yashen",
+          "fr": "quand je suis fatigué je dors",
+          "he_plain": "כשאני עיף אני ישן"
+        }
+      ],
+      "he_plain": "כש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "בִּגְלַל שֶׁ",
+      "tr": "biglal she",
+      "fr": "parce que",
+      "note": "devant une proposition ; בִּגְלַל seul devant un nom",
+      "niveau": "A2",
+      "he_plain": "בגלל ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "לַמְרוֹת שֶׁ",
+      "tr": "lamrot she",
+      "fr": "bien que, malgré le fait que",
+      "niveau": "A2",
+      "he_plain": "למרות ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אַחֶרֶת",
+      "tr": "acheret",
+      "fr": "sinon, autrement",
+      "niveau": "A2",
+      "he_plain": "אחרת"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "בְּכָל זֹאת",
+      "tr": "bekhol zot",
+      "fr": "quand même, malgré tout",
+      "niveau": "A2",
+      "he_plain": "בכל זאת"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "בְּכָל מִקְרֶה",
+      "tr": "bekhol mikreh",
+      "fr": "en tout cas, de toute façon",
+      "niveau": "A2",
+      "he_plain": "בכל מקרה"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אִם כָּךְ",
+      "tr": "im kakh",
+      "fr": "dans ce cas, si c'est ainsi",
+      "niveau": "B1",
+      "he_plain": "אם כך"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כָּל עוֹד",
+      "tr": "kol 'od",
+      "fr": "tant que, aussi longtemps que",
+      "niveau": "B1",
+      "he_plain": "כל עוד"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אוּלָם",
+      "tr": "ulam",
+      "fr": "cependant, toutefois",
+      "note": "registre soutenu, surtout à l'écrit",
+      "niveau": "C1",
+      "he_plain": "אולם"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "עַל כָּל פָּנִים",
+      "tr": "'al kol panim",
+      "fr": "quoi qu'il en soit",
+      "niveau": "C1",
+      "he_plain": "על כל פנים"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אִם בִּכְלָל",
+      "tr": "im bikhlal",
+      "fr": "si tant est que",
+      "niveau": "C1",
+      "he_plain": "אם בכלל"
     },
     {
       "cat": "Mots interrogatifs",
@@ -32167,6 +33783,22 @@
         }
       ],
       "he_plain": "האם"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "מֵאֵיפֹה",
+      "tr": "me'eifoh",
+      "fr": "d'où",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מֵאֵיפֹה אַתָּה בָּא",
+          "tr": "me'eifoh atah ba",
+          "fr": "d'où viens-tu",
+          "he_plain": "מאיפה אתה בא"
+        }
+      ],
+      "he_plain": "מאיפה"
     },
     {
       "cat": "Nombres",
@@ -32733,6 +34365,183 @@
     },
     {
       "cat": "Adverbes",
+      "he": "מִיָּד",
+      "tr": "miyad",
+      "fr": "tout de suite, immédiatement",
+      "niveau": "A1",
+      "he_plain": "מיד"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּקָרוֹב",
+      "tr": "bekarov",
+      "fr": "bientôt",
+      "niveau": "A1",
+      "he_plain": "בקרוב"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בֵּינְתַיִם",
+      "tr": "beintayim",
+      "fr": "entre-temps, en attendant",
+      "niveau": "A2",
+      "he_plain": "בינתים"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "עֲדַיִן",
+      "tr": "'adayin",
+      "fr": "encore, toujours",
+      "note": "avec la négation : עֲדַיִן לֹא « pas encore »",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הִיא עֲדַיִן עוֹבֶדֶת שָׁם",
+          "tr": "hi 'adayin 'ovedet sham",
+          "fr": "elle travaille encore là-bas",
+          "he_plain": "היא עדין עובדת שם"
+        }
+      ],
+      "he_plain": "עדין"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "קֹדֶם",
+      "tr": "kodem",
+      "fr": "avant, d'abord",
+      "niveau": "A2",
+      "he_plain": "קדם"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "אַחַר כָּךְ",
+      "tr": "achar kakh",
+      "fr": "ensuite, après",
+      "niveau": "A1",
+      "he_plain": "אחר כך"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "כָּרֶגַע",
+      "tr": "karega",
+      "fr": "en ce moment, actuellement",
+      "niveau": "A2",
+      "he_plain": "כרגע"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "הָרֶגַע",
+      "tr": "harega",
+      "fr": "à l'instant, juste maintenant",
+      "niveau": "A2",
+      "he_plain": "הרגע"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "כָּל הַזְּמַן",
+      "tr": "kol hazman",
+      "fr": "tout le temps",
+      "niveau": "A1",
+      "he_plain": "כל הזמן"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "מִדֵּי פַּעַם",
+      "tr": "midei pa'am",
+      "fr": "de temps en temps",
+      "niveau": "A2",
+      "he_plain": "מדי פעם"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּדֶרֶךְ כְּלָל",
+      "tr": "bederekh klal",
+      "fr": "d'habitude, généralement",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בְּדֶרֶךְ כְּלָל אֲנִי קָם מֻקְדָּם",
+          "tr": "bederekh klal ani kam mukdam",
+          "fr": "d'habitude je me lève tôt",
+          "he_plain": "בדרך כלל אני קם מקדם"
+        }
+      ],
+      "he_plain": "בדרך כלל"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְעִתִּים קְרוֹבוֹת",
+      "tr": "le'itim krovot",
+      "fr": "souvent",
+      "niveau": "B1",
+      "he_plain": "לעתים קרובות"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְעִתִּים רְחוֹקוֹת",
+      "tr": "le'itim rechokot",
+      "fr": "rarement",
+      "niveau": "B1",
+      "he_plain": "לעתים רחוקות"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְאַחֲרוֹנָה",
+      "tr": "le'acharonah",
+      "fr": "récemment, dernièrement",
+      "niveau": "B1",
+      "he_plain": "לאחרונה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "מֵעַכְשָׁיו",
+      "tr": "me'akhshav",
+      "fr": "à partir de maintenant",
+      "niveau": "A2",
+      "he_plain": "מעכשיו"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לִפְנֵי כֵן",
+      "tr": "lifnei khen",
+      "fr": "avant cela",
+      "niveau": "B1",
+      "he_plain": "לפני כן"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "עַד עַכְשָׁיו",
+      "tr": "'ad akhshav",
+      "fr": "jusqu'à maintenant",
+      "niveau": "A2",
+      "he_plain": "עד עכשיו"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "עַד כֹּה",
+      "tr": "'ad koh",
+      "fr": "jusqu'à présent",
+      "niveau": "B1",
+      "he_plain": "עד כה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "מָתַישֶׁהוּ",
+      "tr": "mataishehu",
+      "fr": "un jour, à un moment donné",
+      "niveau": "B1",
+      "he_plain": "מתישהו"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "פַּעַם",
+      "tr": "pa'am",
+      "fr": "autrefois, une fois",
+      "niveau": "A2",
+      "he_plain": "פעם"
+    },
+    {
+      "cat": "Adverbes",
       "he": "כָּאן",
       "tr": "kan",
       "fr": "ici",
@@ -32860,6 +34669,190 @@
         }
       ],
       "he_plain": "בפנים"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "קָדִימָה",
+      "tr": "kadimah",
+      "fr": "en avant, vers l'avant",
+      "niveau": "A2",
+      "he_plain": "קדימה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "אֲחוֹרָה",
+      "tr": "achorah",
+      "fr": "en arrière, vers l'arrière",
+      "niveau": "B1",
+      "he_plain": "אחורה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "אֵיפְשֶׁהוּ",
+      "tr": "eifshehu",
+      "fr": "quelque part",
+      "niveau": "B1",
+      "he_plain": "איפשהו"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּדִיּוּק",
+      "tr": "bediyuk",
+      "fr": "exactement",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה בְּדִיּוּק מָה שֶׁרָצִיתִי",
+          "tr": "zeh bediyuk mah sheratsiti",
+          "fr": "c'est exactement ce que je voulais",
+          "he_plain": "זה בדיוק מה שרציתי"
+        }
+      ],
+      "he_plain": "בדיוק"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "מַמָּשׁ",
+      "tr": "mamash",
+      "fr": "vraiment, carrément",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "זֶה מַמָּשׁ טָעִים",
+          "tr": "zeh mamash ta'im",
+          "fr": "c'est vraiment délicieux",
+          "he_plain": "זה ממש טעים"
+        }
+      ],
+      "he_plain": "ממש"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְגַמְרֵי",
+      "tr": "legamrei",
+      "fr": "complètement, totalement",
+      "niveau": "A2",
+      "he_plain": "לגמרי"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּקֹשִׁי",
+      "tr": "bekoshi",
+      "fr": "à peine, difficilement",
+      "niveau": "A2",
+      "he_plain": "בקשי"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בִּמְיֻחָד",
+      "tr": "bimyuchad",
+      "fr": "spécialement, particulièrement",
+      "niveau": "A2",
+      "he_plain": "במיחד"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּוַדַּאי",
+      "tr": "bevadai",
+      "fr": "certainement, sûrement",
+      "niveau": "A2",
+      "he_plain": "בודאי"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְמַדַּי",
+      "tr": "lemadai",
+      "fr": "assez, plutôt",
+      "niveau": "C1",
+      "he_plain": "למדי"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "נוֹרָא",
+      "tr": "nora",
+      "fr": "terriblement, super (intensif familier)",
+      "niveau": "B1",
+      "he_plain": "נורא"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "כָּכָה",
+      "tr": "kakhah",
+      "fr": "comme ça, ainsi",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "לָמָּה אַתָּה מְדַבֵּר כָּכָה",
+          "tr": "lamah atah medaber kakhah",
+          "fr": "pourquoi parles-tu comme ça",
+          "he_plain": "למה אתה מדבר ככה"
+        }
+      ],
+      "he_plain": "ככה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "כָּךְ",
+      "tr": "kakh",
+      "fr": "ainsi, de cette façon",
+      "niveau": "A2",
+      "he_plain": "כך"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "אֵיכְשֶׁהוּ",
+      "tr": "eikhshehu",
+      "fr": "d'une manière ou d'une autre",
+      "niveau": "B1",
+      "he_plain": "איכשהו"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּקַלּוּת",
+      "tr": "bekalut",
+      "fr": "facilement",
+      "niveau": "A2",
+      "he_plain": "בקלות"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "יַחַד",
+      "tr": "yachad",
+      "fr": "ensemble",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ לוֹמְדִים יַחַד",
+          "tr": "anachnu lomdim yachad",
+          "fr": "nous étudions ensemble",
+          "he_plain": "אנחנו לומדים יחד"
+        }
+      ],
+      "he_plain": "יחד"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְבַד",
+      "tr": "levad",
+      "fr": "seul, tout seul",
+      "niveau": "A1",
+      "he_plain": "לבד"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּכַוָּנָה",
+      "tr": "bekhavanah",
+      "fr": "exprès, intentionnellement",
+      "niveau": "A2",
+      "he_plain": "בכונה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּטָעוּת",
+      "tr": "bete'ut",
+      "fr": "par erreur, par mégarde",
+      "niveau": "A2",
+      "he_plain": "בטעות"
     },
     {
       "cat": "Saisons & mois",
@@ -33151,6 +35144,274 @@
       "he_plain": "כל כך"
     },
     {
+      "cat": "Mots de quantité",
+      "he": "מַשֶּׁהוּ",
+      "tr": "mashehu",
+      "fr": "quelque chose",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹצֶה לֶאֱכֹל מַשֶּׁהוּ",
+          "tr": "ani rotseh le'ekhol mashehu",
+          "fr": "je veux manger quelque chose",
+          "he_plain": "אני רוצה לאכל משהו"
+        }
+      ],
+      "he_plain": "משהו"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "מִישֶׁהוּ",
+      "tr": "mishehu",
+      "fr": "quelqu'un",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מִישֶׁהוּ מְחַכֶּה לְךָ בַּחוּץ",
+          "tr": "mishehu mechakeh lekha bachuts",
+          "fr": "quelqu'un t'attend dehors",
+          "he_plain": "מישהו מחכה לך בחוץ"
+        }
+      ],
+      "he_plain": "מישהו"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כֻּלָּם",
+      "tr": "kulam",
+      "fr": "tous, tout le monde",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "כֻּלָּם רוֹצִים לָבוֹא",
+          "tr": "kulam rotsim lavo",
+          "fr": "tout le monde veut venir",
+          "he_plain": "כלם רוצים לבוא"
+        }
+      ],
+      "he_plain": "כלם"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כֻּלָּן",
+      "tr": "kulan",
+      "fr": "toutes (féminin)",
+      "niveau": "A2",
+      "he_plain": "כלן"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כֻּלָּנוּ",
+      "tr": "kulanu",
+      "fr": "nous tous",
+      "niveau": "A2",
+      "he_plain": "כלנו"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כָּל אֶחָד",
+      "tr": "kol echad",
+      "fr": "chacun, tout le monde",
+      "niveau": "A1",
+      "he_plain": "כל אחד"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "אַף אֶחָד",
+      "tr": "af echad",
+      "fr": "personne, aucun",
+      "note": "toujours avec la négation : אַף אֶחָד לֹא בָּא",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אַף אֶחָד לֹא יוֹדֵעַ",
+          "tr": "af echad lo yode'a",
+          "fr": "personne ne sait",
+          "he_plain": "אף אחד לא יודע"
+        }
+      ],
+      "he_plain": "אף אחד"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "אַף לֹא אֶחָד",
+      "tr": "af lo echad",
+      "fr": "pas un seul",
+      "niveau": "B1",
+      "he_plain": "אף לא אחד"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "שׁוּם דָּבָר",
+      "tr": "shum davar",
+      "fr": "rien",
+      "note": "toujours avec la négation : לֹא אָמַרְתִּי שׁוּם דָּבָר",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "לֹא קָרָה שׁוּם דָּבָר",
+          "tr": "lo karah shum davar",
+          "fr": "il ne s'est rien passé",
+          "he_plain": "לא קרה שום דבר"
+        }
+      ],
+      "he_plain": "שום דבר"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כָּל דָּבָר",
+      "tr": "kol davar",
+      "fr": "n'importe quoi, toute chose",
+      "niveau": "A2",
+      "he_plain": "כל דבר"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כָּל מִינֵי",
+      "tr": "kol minei",
+      "fr": "toutes sortes de",
+      "niveau": "A2",
+      "he_plain": "כל מיני"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "אַחֵר",
+      "tr": "acher",
+      "fr": "autre",
+      "note": "féminin אַחֶרֶת, pluriel אֲחֵרִים / אֲחֵרוֹת",
+      "niveau": "A2",
+      "he_plain": "אחר"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "אֲחֵרִים",
+      "tr": "acherim",
+      "fr": "d'autres (pluriel)",
+      "niveau": "A2",
+      "he_plain": "אחרים"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "הֲכִי",
+      "tr": "hakhi",
+      "fr": "le plus (superlatif)",
+      "note": "précède l'adjectif : הֲכִי טוֹב « le meilleur »",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "זֶה הַסֵּפֶר הֲכִי טוֹב",
+          "tr": "zeh hasefer hakhi tov",
+          "fr": "c'est le meilleur livre",
+          "he_plain": "זה הספר הכי טוב"
+        }
+      ],
+      "he_plain": "הכי"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כִּמְעַט",
+      "tr": "kim'at",
+      "fr": "presque",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי כִּמְעַט מוּכָן לָצֵאת",
+          "tr": "ani kim'at mukhan latset",
+          "fr": "je suis presque prêt à sortir",
+          "he_plain": "אני כמעט מוכן לצאת"
+        }
+      ],
+      "he_plain": "כמעט"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "בְּעֵרֶךְ",
+      "tr": "be'erekh",
+      "fr": "environ, à peu près",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה עוֹלֶה בְּעֵרֶךְ מֵאָה שֶׁקֶל",
+          "tr": "zeh 'oleh be'erekh me'ah shekel",
+          "fr": "ça coûte environ cent shekels",
+          "he_plain": "זה עולה בערך מאה שקל"
+        }
+      ],
+      "he_plain": "בערך"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "לְפָחוֹת",
+      "tr": "lefachot",
+      "fr": "au moins",
+      "niveau": "A2",
+      "he_plain": "לפחות"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "יוֹתֵר מִדַּי",
+      "tr": "yoter midai",
+      "fr": "trop",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה יוֹתֵר מִדַּי יָקָר",
+          "tr": "zeh yoter midai yakar",
+          "fr": "c'est trop cher",
+          "he_plain": "זה יותר מדי יקר"
+        }
+      ],
+      "he_plain": "יותר מדי"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "בְּסַךְ הַכֹּל",
+      "tr": "besakh hakol",
+      "fr": "en tout, au total",
+      "niveau": "A2",
+      "he_plain": "בסך הכל"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "לְכָל הַיּוֹתֵר",
+      "tr": "lekhol hayoter",
+      "fr": "au plus, tout au plus",
+      "niveau": "B2",
+      "he_plain": "לכל היותר"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "עוֹד",
+      "tr": "'od",
+      "fr": "encore, plus, davantage",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹצֶה עוֹד קָפֶה",
+          "tr": "ani rotseh 'od kafeh",
+          "fr": "je veux encore du café",
+          "he_plain": "אני רוצה עוד קפה"
+        }
+      ],
+      "he_plain": "עוד"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "רַק",
+      "tr": "rak",
+      "fr": "seulement, ne... que",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי רַק שֶׁקֶל אֶחָד",
+          "tr": "yesh li rak shekel echad",
+          "fr": "je n'ai qu'un seul shekel",
+          "he_plain": "יש לי רק שקל אחד"
+        }
+      ],
+      "he_plain": "רק"
+    },
+    {
       "cat": "Expressions",
       "he": "שָׁלוֹם",
       "tr": "shalom",
@@ -33406,6 +35667,192 @@
       "fr": "qu'est-ce que ça veut dire ?",
       "niveau": "A2",
       "he_plain": "מה זה אומר?"
+    },
+    {
+      "cat": "Expressions",
+      "he": "כַּמּוּבָן",
+      "tr": "kamuvan",
+      "fr": "bien sûr, évidemment",
+      "niveau": "A2",
+      "he_plain": "כמובן"
+    },
+    {
+      "cat": "Expressions",
+      "he": "לְמַעֲשֶׂה",
+      "tr": "lema'aseh",
+      "fr": "en fait, en réalité",
+      "niveau": "B1",
+      "he_plain": "למעשה"
+    },
+    {
+      "cat": "Expressions",
+      "he": "בִּכְלָל לֹא",
+      "tr": "bikhlal lo",
+      "fr": "pas du tout",
+      "niveau": "A2",
+      "he_plain": "בכלל לא"
+    },
+    {
+      "cat": "Expressions",
+      "he": "עֲדַיִן לֹא",
+      "tr": "'adayin lo",
+      "fr": "pas encore",
+      "niveau": "A1",
+      "he_plain": "עדין לא"
+    },
+    {
+      "cat": "Expressions",
+      "he": "אוֹתוֹ דָּבָר",
+      "tr": "oto davar",
+      "fr": "la même chose, pareil",
+      "niveau": "A2",
+      "he_plain": "אותו דבר"
+    },
+    {
+      "cat": "Expressions",
+      "he": "חוּץ מִזֶּה",
+      "tr": "chuts mizeh",
+      "fr": "à part ça, en plus de ça",
+      "niveau": "A2",
+      "he_plain": "חוץ מזה"
+    },
+    {
+      "cat": "Expressions",
+      "he": "דֶּרֶךְ אַגַּב",
+      "tr": "derekh agav",
+      "fr": "au fait, en passant",
+      "niveau": "B1",
+      "he_plain": "דרך אגב"
+    },
+    {
+      "cat": "Expressions",
+      "he": "לְצַעֲרִי",
+      "tr": "letsa'ari",
+      "fr": "malheureusement, à mon grand regret",
+      "niveau": "B1",
+      "he_plain": "לצערי"
+    },
+    {
+      "cat": "Expressions",
+      "he": "לְמַרְבֵּה הַמַּזָּל",
+      "tr": "lemarbeh hamazal",
+      "fr": "heureusement, par chance",
+      "niveau": "B2",
+      "he_plain": "למרבה המזל"
+    },
+    {
+      "cat": "Expressions",
+      "he": "לְמַרְבֵּה הַצַּעַר",
+      "tr": "lemarbeh hatsa'ar",
+      "fr": "malheureusement",
+      "niveau": "C1",
+      "he_plain": "למרבה הצער"
+    },
+    {
+      "cat": "Expressions",
+      "he": "כִּבְיָכוֹל",
+      "tr": "kivyakhol",
+      "fr": "soi-disant, en quelque sorte",
+      "niveau": "C1",
+      "he_plain": "כביכול"
+    },
+    {
+      "cat": "Expressions",
+      "he": "מִמֵּילָא",
+      "tr": "mimeila",
+      "fr": "de toute façon, de toute manière",
+      "niveau": "B1",
+      "he_plain": "ממילא"
+    },
+    {
+      "cat": "Expressions",
+      "he": "לָשִׂים לֵב",
+      "tr": "lasim lev",
+      "fr": "faire attention, remarquer",
+      "note": "suivi de לְ : לָשִׂים לֵב לְמַשֶּׁהוּ",
+      "niveau": "B1",
+      "he_plain": "לשים לב"
+    },
+    {
+      "cat": "Expressions",
+      "he": "תָּלוּי",
+      "tr": "talui",
+      "fr": "ça dépend",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה תָּלוּי בַּמֶּזֶג הָאֲוִיר",
+          "tr": "zeh talui bamezeg ha'avir",
+          "fr": "ça dépend du temps qu'il fait",
+          "he_plain": "זה תלוי במזג האויר"
+        }
+      ],
+      "he_plain": "תלוי"
+    },
+    {
+      "cat": "Expressions",
+      "he": "אִכְפַּת",
+      "tr": "ikhpat",
+      "fr": "tenir à, se soucier de",
+      "note": "surtout à la négative : לֹא אִכְפַּת לִי « ça m'est égal »",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "לֹא אִכְפַּת לִי בִּכְלָל",
+          "tr": "lo ikhpat li bikhlal",
+          "fr": "ça m'est complètement égal",
+          "he_plain": "לא אכפת לי בכלל"
+        }
+      ],
+      "he_plain": "אכפת"
+    },
+    {
+      "cat": "Expressions",
+      "he": "מִסְתַּבֵּר",
+      "tr": "mistaber",
+      "fr": "il s'avère, apparemment",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "מִסְתַּבֵּר שֶׁהוּא לֹא בָּא",
+          "tr": "mistaber shehu lo ba",
+          "fr": "il s'avère qu'il ne vient pas",
+          "he_plain": "מסתבר שהוא לא בא"
+        }
+      ],
+      "he_plain": "מסתבר"
+    },
+    {
+      "cat": "Expressions",
+      "he": "נִשְׁמָע",
+      "tr": "nishma'",
+      "fr": "ça a l'air, ça semble (à l'oreille)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶה נִשְׁמָע רַעְיוֹן טוֹב",
+          "tr": "zeh nishma' ra'ayon tov",
+          "fr": "ça a l'air d'une bonne idée",
+          "he_plain": "זה נשמע רעיון טוב"
+        }
+      ],
+      "he_plain": "נשמע"
+    },
+    {
+      "cat": "Expressions",
+      "he": "שָׁוֶה",
+      "tr": "shaveh",
+      "fr": "ça vaut le coup, ça vaut",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶה שָׁוֶה אֶת הַכֶּסֶף",
+          "tr": "zeh shaveh et hakesef",
+          "fr": "ça vaut son prix",
+          "he_plain": "זה שוה את הכסף"
+        }
+      ],
+      "he_plain": "שוה"
     },
     {
       "cat": "Existence",

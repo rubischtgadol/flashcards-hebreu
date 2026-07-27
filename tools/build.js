@@ -68,8 +68,12 @@ const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms pers
   'Prépositions','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine','Adverbes','Saisons & mois',
   'Mots de quantité','Expressions','Existence','Phrases','Hébreu parlé'];
 // Niveaux CECRL (data-niveau du carnet) dont la disparition doit faire échouer le
-// build — le carnet actuel n'a rien au-delà de B2 ; étendre quand il grandira.
-const EXPECTED_LEVELS = ['A1','A2','B1','B2'];
+// build — étendre quand le carnet grandira. C1 ouvert le 2026-07-27 avec le lot
+// « mortier grammatical » : l'app n'a rien demandé (07-filtres.js range déjà C1
+// dans la puce « Difficile »), seule cette constante verrouillait le palier.
+// ⚠️ Un niveau listé ici SANS aucune carte fait échouer le build (garde
+// `missingLevels`) : n'ajoute jamais un palier avant les mots qui le peuplent.
+const EXPECTED_LEVELS = ['A1','A2','B1','B2','C1'];
 // Thèmes sémantiques (data-theme du carnet, tables Noms/Adjectifs/Verbes
 // uniquement — les listes n'en portent pas, déjà mono-thème par nature).
 // ⚠️ Doit rester aligné sur la constante THEMES d'app.html (slugs identiques).

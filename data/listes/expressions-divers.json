@@ -226,6 +226,164 @@
       "fr": "qu'est-ce que ça veut dire ?",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "כַּמּוּבָן",
+      "tr": "kamuvan",
+      "fr": "bien sûr, évidemment",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "לְמַעֲשֶׂה",
+      "tr": "lema'aseh",
+      "fr": "en fait, en réalité",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "בִּכְלָל לֹא",
+      "tr": "bikhlal lo",
+      "fr": "pas du tout",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "עֲדַיִן לֹא",
+      "tr": "'adayin lo",
+      "fr": "pas encore",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אוֹתוֹ דָּבָר",
+      "tr": "oto davar",
+      "fr": "la même chose, pareil",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "חוּץ מִזֶּה",
+      "tr": "chuts mizeh",
+      "fr": "à part ça, en plus de ça",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "דֶּרֶךְ אַגַּב",
+      "tr": "derekh agav",
+      "fr": "au fait, en passant",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "לְצַעֲרִי",
+      "tr": "letsa'ari",
+      "fr": "malheureusement, à mon grand regret",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "לְמַרְבֵּה הַמַּזָּל",
+      "tr": "lemarbeh hamazal",
+      "fr": "heureusement, par chance",
+      "niveau": "B2",
+      "exemples": []
+    },
+    {
+      "he": "לְמַרְבֵּה הַצַּעַר",
+      "tr": "lemarbeh hatsa'ar",
+      "fr": "malheureusement",
+      "niveau": "C1",
+      "exemples": []
+    },
+    {
+      "he": "כִּבְיָכוֹל",
+      "tr": "kivyakhol",
+      "fr": "soi-disant, en quelque sorte",
+      "niveau": "C1",
+      "exemples": []
+    },
+    {
+      "he": "מִמֵּילָא",
+      "tr": "mimeila",
+      "fr": "de toute façon, de toute manière",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "לָשִׂים לֵב",
+      "tr": "lasim lev",
+      "fr": "faire attention, remarquer",
+      "niveau": "B1",
+      "exemples": [],
+      "note": "suivi de לְ : לָשִׂים לֵב לְמַשֶּׁהוּ"
+    },
+    {
+      "he": "תָּלוּי",
+      "tr": "talui",
+      "fr": "ça dépend",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה תָּלוּי בַּמֶּזֶג הָאֲוִיר",
+          "tr": "zeh talui bamezeg ha'avir",
+          "fr": "ça dépend du temps qu'il fait"
+        }
+      ]
+    },
+    {
+      "he": "אִכְפַּת",
+      "tr": "ikhpat",
+      "fr": "tenir à, se soucier de",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "לֹא אִכְפַּת לִי בִּכְלָל",
+          "tr": "lo ikhpat li bikhlal",
+          "fr": "ça m'est complètement égal"
+        }
+      ],
+      "note": "surtout à la négative : לֹא אִכְפַּת לִי « ça m'est égal »"
+    },
+    {
+      "he": "מִסְתַּבֵּר",
+      "tr": "mistaber",
+      "fr": "il s'avère, apparemment",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "מִסְתַּבֵּר שֶׁהוּא לֹא בָּא",
+          "tr": "mistaber shehu lo ba",
+          "fr": "il s'avère qu'il ne vient pas"
+        }
+      ]
+    },
+    {
+      "he": "נִשְׁמָע",
+      "tr": "nishma'",
+      "fr": "ça a l'air, ça semble (à l'oreille)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶה נִשְׁמָע רַעְיוֹן טוֹב",
+          "tr": "zeh nishma' ra'ayon tov",
+          "fr": "ça a l'air d'une bonne idée"
+        }
+      ]
+    },
+    {
+      "he": "שָׁוֶה",
+      "tr": "shaveh",
+      "fr": "ça vaut le coup, ça vaut",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶה שָׁוֶה אֶת הַכֶּסֶף",
+          "tr": "zeh shaveh et hakesef",
+          "fr": "ça vaut son prix"
+        }
+      ]
     }
   ]
 }

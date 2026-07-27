@@ -6522,5 +6522,33 @@
         "fr": "Ses muscles sont relâchés après le massage."
       }
     ]
+  },
+  {
+    "he": "זָמִין",
+    "fr": "disponible",
+    "formes": [
+      {
+        "he": "זְמִינָה",
+        "tr": "zeminah"
+      },
+      {
+        "he": "זְמִינִים",
+        "tr": "zeminim"
+      },
+      {
+        "he": "זְמִינוֹת",
+        "tr": "zeminot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֵּפֶר זָמִין בַּסִּפְרִיָּה",
+        "tr": "hasefer zamin basifriyah",
+        "fr": "le livre est disponible à la bibliothèque"
+      }
+    ]
   }
 ]

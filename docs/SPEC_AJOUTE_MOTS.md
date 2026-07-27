@@ -192,7 +192,8 @@ cellule vide (hors périmètre d'automatiser ce cas, comme avant).
   `Hébreu parlé`.
 - `sous_theme` requis seulement pour les listes dont au moins une entrée porte déjà
   un champ `groupe` dans `data/listes/<slug>.json` (aujourd'hui : `Adverbes` →
-  `Temps` | `Lieu & direction` ; `Saisons & mois` → `Saisons` | `Mois` ;
+  `Temps` | `Lieu & direction` | `Degré & intensité` | `Manière` (les deux
+  derniers ouverts le 27/07/2026) ; `Saisons & mois` → `Saisons` | `Mois` ;
   `Hébreu parlé` → `particules` | `conversation` | `reagir` | `emprunts`) — dérivé
   mécaniquement de la donnée, jamais d'une liste codée en dur dans le script.
 - **Pas de `theme`** sur une liste (mono-thème par nature ; en poser un = erreur).
@@ -419,10 +420,25 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
   sous-thème neuf exige un `<h3 class="subtheme">` **et** un placeholder
   `<!-- @ENTREES:table#groupe -->` neufs dans le gabarit source
   (`src/carnet/sections/*.html`) — composition de template, l'exact inverse de ce
-  que ce script doit désormais faire (§0, §4). Procédure : éditer le gabarit à la
-  main, puis relancer `ajoute_mots.js` avec ce `sous_theme` (il sera alors résolu
-  normalement, la garde anti-perte de `genereCarnet` confirmant que le placeholder
-  consomme bien l'entrée).
+  que ce script doit désormais faire (§0, §4).
+
+  ⚠️ **Corrigé le 2026-07-27 : éditer le gabarit ne suffit PAS.** La version
+  précédente de ce paragraphe annonçait « éditer le gabarit puis relancer
+  `ajoute_mots.js` » ; c'est faux, et l'erreur a été payée en ouvrant les
+  sous-thèmes « Degré & intensité » et « Manière » des Adverbes. La résolution du
+  sous-thème se fait sur **la donnée**, pas sur le gabarit
+  (`info.liste.entries` pour une liste, `groupesDeTable()` pour une table) : tant
+  qu'aucune entrée ne porte le `groupe` visé, le script répond « sous-thème
+  introuvable ». Et symétriquement, `genereCarnet()` refuse un placeholder qui ne
+  consomme aucune entrée (garde anti-perte). D'où un **blocage circulaire** :
+  ni l'un ni l'autre ne peut être posé en premier.
+
+  **Procédure réelle** : poser dans le même geste (a) le `<h3 class="subtheme">`
+  et son placeholder dans `src/carnet/sections/*.html`, puis (b) **au moins une
+  entrée d'amorce écrite à la main** dans `data/` portant le `groupe` attendu
+  (`slug()` du libellé : « Degré & intensité » → `degre-intensite`). Ne lancer
+  `node tools/build.js` qu'après les deux — entre les deux, il échoue légitimement.
+  `ajoute_mots.js` prend le relais normalement dès que l'amorce existe.
 - **`--parite` (retiré en v3)** : comparait `deriveCartes` (build.js) à
   l'extraction DOM d'`app.html` via jsdom. Depuis le chantier 2 tâche 8, `app.html`
   ne fait plus aucune extraction — il lit `cards.json` directement. Il n'y a plus

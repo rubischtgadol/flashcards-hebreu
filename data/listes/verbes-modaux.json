@@ -52,6 +52,61 @@
       "niveau": "B1",
       "exemples": [],
       "note": "invariable. Ex. כְּדַאי לְךָ לָלֶכֶת = tu ferais mieux d'y aller."
+    },
+    {
+      "he": "אֶפְשָׁר",
+      "tr": "efshar",
+      "fr": "il est possible, on peut",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֶפְשָׁר לְשַׁלֵּם בְּכַרְטִיס",
+          "tr": "efshar leshalem bekartis",
+          "fr": "on peut payer par carte"
+        }
+      ],
+      "note": "impersonnel, invariable : suit un infinitif"
+    },
+    {
+      "he": "אִי אֶפְשָׁר",
+      "tr": "i efshar",
+      "fr": "c'est impossible, on ne peut pas",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אִי אֶפְשָׁר לִישֹׁן פֹּה",
+          "tr": "i efshar lishon poh",
+          "fr": "on ne peut pas dormir ici"
+        }
+      ]
+    },
+    {
+      "he": "חַיָּב",
+      "tr": "chayav",
+      "fr": "devoir, être obligé de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי חַיָּב לָלֶכֶת עַכְשָׁיו",
+          "tr": "ani chayav lalekhet 'akhshav",
+          "fr": "je dois partir maintenant"
+        }
+      ],
+      "note": "s'accorde : חַיָּב / חַיֶּבֶת / חַיָּבִים / חַיָּבוֹת"
+    },
+    {
+      "he": "נִדְמֶה",
+      "tr": "nidmeh",
+      "fr": "il semble",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "נִדְמֶה לִי שֶׁהוּא צוֹדֵק",
+          "tr": "nidmeh li shehu tsodek",
+          "fr": "il me semble qu'il a raison"
+        }
+      ],
+      "note": "impersonnel : נִדְמֶה לִי שֶׁ… « il me semble que… »"
     }
   ]
 }

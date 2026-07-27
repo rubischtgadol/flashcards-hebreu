@@ -800,6 +800,70 @@
     ]
   },
   {
+    "he": "לְהִתְקָרֵב",
+    "fr": "s'approcher, se rapprocher",
+    "formes": [
+      {
+        "he": "מִתְקָרֵב",
+        "tr": "mitkarev"
+      },
+      {
+        "he": "מִתְקָרֶבֶת",
+        "tr": "mitkarevet"
+      },
+      {
+        "he": "מִתְקָרְבִים",
+        "tr": "mitkarvim"
+      },
+      {
+        "he": "מִתְקָרְבוֹת",
+        "tr": "mitkarvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "הָרַכֶּבֶת מִתְקָרֶבֶת אֶל הַתַּחֲנָה עַכְשָׁיו",
+        "tr": "harakevet mitkarevet el hatachanah 'akhshav",
+        "fr": "le train s'approche de la gare maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לַעֲבוֹר",
+    "fr": "passer, traverser",
+    "formes": [
+      {
+        "he": "עוֹבֵר",
+        "tr": "'over"
+      },
+      {
+        "he": "עוֹבֶרֶת",
+        "tr": "'overet"
+      },
+      {
+        "he": "עוֹבְרִים",
+        "tr": "'ovrim"
+      },
+      {
+        "he": "עוֹבְרוֹת",
+        "tr": "'ovrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי עוֹבֵר אֶת הָרְחוֹב עַכְשָׁיו",
+        "tr": "ani 'over et harechov 'akhshav",
+        "fr": "je traverse la rue maintenant"
+      }
+    ]
+  },
+  {
     "he": "לֶאֱכֹל",
     "fr": "manger",
     "formes": [
@@ -2332,6 +2396,70 @@
         "he": "סָבְתָא תּוֹפֶרֶת כַּפְתּוֹר לַחֻלְצָה.",
         "tr": "savta toferet kaftor lachultsah",
         "fr": "Grand-mère coud un bouton à la chemise."
+      }
+    ]
+  },
+  {
+    "he": "לְסַיֵּם",
+    "fr": "finir, terminer",
+    "formes": [
+      {
+        "he": "מְסַיֵּם",
+        "tr": "mesayem"
+      },
+      {
+        "he": "מְסַיֶּמֶת",
+        "tr": "mesayemet"
+      },
+      {
+        "he": "מְסַיְּמִים",
+        "tr": "mesaymim"
+      },
+      {
+        "he": "מְסַיְּמוֹת",
+        "tr": "mesaymot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מְסַיֵּם אֶת הָעֲבוֹדָה עַכְשָׁיו",
+        "tr": "ani mesayem et ha'avodah 'akhshav",
+        "fr": "je termine le travail maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לְהַשְׁאִיר",
+    "fr": "laisser (quelque chose)",
+    "formes": [
+      {
+        "he": "מַשְׁאִיר",
+        "tr": "mashir"
+      },
+      {
+        "he": "מַשְׁאִירָה",
+        "tr": "mashirah"
+      },
+      {
+        "he": "מַשְׁאִירִים",
+        "tr": "mashirim"
+      },
+      {
+        "he": "מַשְׁאִירוֹת",
+        "tr": "mashirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הוּא מַשְׁאִיר אֶת הַמַּפְתֵּחַ בַּבַּיִת",
+        "tr": "hu mash'ir et hamafteach babayit",
+        "fr": "il laisse la clé à la maison"
       }
     ]
   },
@@ -3932,6 +4060,70 @@
         "he": "אֲנִי מִתְגַּעְגֵּעַ לַמִּשְׁפָּחָה שֶׁלִּי.",
         "tr": "ani mitga'ge'a lamishpachah sheli",
         "fr": "Ma famille me manque."
+      }
+    ]
+  },
+  {
+    "he": "לְהַעֲדִיף",
+    "fr": "préférer",
+    "formes": [
+      {
+        "he": "מַעֲדִיף",
+        "tr": "ma'adif"
+      },
+      {
+        "he": "מַעֲדִיפָה",
+        "tr": "ma'adifah"
+      },
+      {
+        "he": "מַעֲדִיפִים",
+        "tr": "ma'adifim"
+      },
+      {
+        "he": "מַעֲדִיפוֹת",
+        "tr": "ma'adifot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "אֲנִי מַעֲדִיף קָפֶה עַל תֵּה",
+        "tr": "ani ma'adif kafeh 'al teh",
+        "fr": "je préfère le café au thé"
+      }
+    ]
+  },
+  {
+    "he": "לְהַתְאִים",
+    "fr": "convenir, aller (à quelqu'un)",
+    "formes": [
+      {
+        "he": "מַתְאִים",
+        "tr": "matim"
+      },
+      {
+        "he": "מַתְאִימָה",
+        "tr": "matimah"
+      },
+      {
+        "he": "מַתְאִימִים",
+        "tr": "matimim"
+      },
+      {
+        "he": "מַתְאִימוֹת",
+        "tr": "matimot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הַחֻלְצָה הַזֹּאת מַתְאִימָה לְךָ",
+        "tr": "hachultsah hazot mat'imah lekha",
+        "fr": "cette chemise te va bien"
       }
     ]
   },
@@ -5564,6 +5756,102 @@
         "he": "הַתַּלְמִיד פּוֹתֵר אֶת הַתַּרְגִּיל.",
         "tr": "hatalmid poter et hatargil",
         "fr": "L'élève résout l'exercice."
+      }
+    ]
+  },
+  {
+    "he": "לִקְרוֹת",
+    "fr": "se passer, arriver (événement)",
+    "formes": [
+      {
+        "he": "קוֹרֶה",
+        "tr": "koreh"
+      },
+      {
+        "he": "קוֹרָה",
+        "tr": "korah"
+      },
+      {
+        "he": "קוֹרִים",
+        "tr": "korim"
+      },
+      {
+        "he": "קוֹרוֹת",
+        "tr": "korot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "מַה קוֹרֶה כָּאן עַכְשָׁיו",
+        "tr": "mah koreh kan 'akhshav",
+        "fr": "qu'est-ce qui se passe ici maintenant"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְרַחֵשׁ",
+    "fr": "se produire, avoir lieu",
+    "formes": [
+      {
+        "he": "מִתְרַחֵשׁ",
+        "tr": "mitrachesh"
+      },
+      {
+        "he": "מִתְרַחֶשֶׁת",
+        "tr": "mitracheshet"
+      },
+      {
+        "he": "מִתְרַחֲשִׁים",
+        "tr": "mitrachashim"
+      },
+      {
+        "he": "מִתְרַחֲשׁוֹת",
+        "tr": "mitrachashot"
+      }
+    ],
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "זֶה מִתְרַחֵשׁ בְּכָל יוֹם",
+        "tr": "zeh mitrachesh bekhol yom",
+        "fr": "cela se produit chaque jour"
+      }
+    ]
+  },
+  {
+    "he": "לְהִזְדַּמֵּן",
+    "fr": "se présenter (occasion), arriver par hasard",
+    "formes": [
+      {
+        "he": "מִזְדַּמֵּן",
+        "tr": "mizdamen"
+      },
+      {
+        "he": "מִזְדַּמֶּנֶת",
+        "tr": "mizdamenet"
+      },
+      {
+        "he": "מִזְדַּמְּנִים",
+        "tr": "mizdamnim"
+      },
+      {
+        "he": "מִזְדַּמְּנוֹת",
+        "tr": "mizdamnot"
+      }
+    ],
+    "niveau": "C1",
+    "theme": "abstrait",
+    "groupe": "travail-etude-action",
+    "exemples": [
+      {
+        "he": "זֶה מִזְדַּמֵּן לִי לִפְעָמִים",
+        "tr": "zeh mizdamen li lif'amim",
+        "fr": "cela m'arrive parfois"
       }
     ]
   },

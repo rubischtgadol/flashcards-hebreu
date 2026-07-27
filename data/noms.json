@@ -2859,6 +2859,25 @@
     ]
   },
   {
+    "he": "מִשְׁטָח",
+    "fr": "surface",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִשְׁטָחִים",
+      "tr": "mishtachim"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "הַמִּשְׁטָח בַּמִּטְבָּח נָקִי מְאוֹד",
+        "tr": "hamishtach bamitbach naki me'od",
+        "fr": "la surface dans la cuisine est très propre"
+      }
+    ]
+  },
+  {
     "he": "מַיִם",
     "fr": "eau",
     "genre": "m",
@@ -6022,6 +6041,215 @@
     ]
   },
   {
+    "he": "אֵזוֹר",
+    "fr": "zone, secteur",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲזוֹרִים",
+      "tr": "azorim"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הָאֵזוֹר הַזֶּה שָׁקֵט וְנָעִים",
+        "tr": "ha'ezor hazeh shaket vena'im",
+        "fr": "cette zone est calme et agréable"
+      }
+    ]
+  },
+  {
+    "he": "מֶרְכָּז",
+    "fr": "centre",
+    "genre": "m",
+    "pluriel": {
+      "he": "מֶרְכָּזִים",
+      "tr": "merkazim"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַמֶּרְכָּז הַזֶּה גָּדוֹל וְעָמוּס",
+        "tr": "hamerkaz hazeh gadol ve'amus",
+        "fr": "ce centre est grand et animé"
+      }
+    ]
+  },
+  {
+    "he": "כִּוּוּן",
+    "fr": "direction, sens",
+    "genre": "m",
+    "pluriel": {
+      "he": "כִּוּוּנִים",
+      "tr": "kiuunim"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַכִּוּוּן הַזֶּה לֹא נָכוֹן",
+        "tr": "hakivun hazeh lo nakhon",
+        "fr": "cette direction n'est pas correcte"
+      }
+    ]
+  },
+  {
+    "he": "יְצִיאָה",
+    "fr": "sortie",
+    "genre": "f",
+    "pluriel": {
+      "he": "יְצִיאוֹת",
+      "tr": "yetsiyot"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַיְּצִיאָה מִן הַבִּנְיָן פְּתוּחָה",
+        "tr": "hayetsi'ah min habinyan petuchah",
+        "fr": "la sortie du bâtiment est ouverte"
+      }
+    ]
+  },
+  {
+    "he": "מָחוֹז",
+    "fr": "district, région",
+    "genre": "m",
+    "pluriel": {
+      "he": "מְחוֹזוֹת",
+      "tr": "mechozot"
+    },
+    "niveau": "B2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַמָּחוֹז הַזֶּה עָשִׁיר בְּתַרְבּוּת",
+        "tr": "hamachoz hazeh 'ashir betarbut",
+        "fr": "cette région est riche en culture"
+      }
+    ]
+  },
+  {
+    "he": "חֲזִית",
+    "fr": "façade, front",
+    "genre": "f",
+    "pluriel": {
+      "he": "חֲזִיתוֹת",
+      "tr": "chazitot"
+    },
+    "niveau": "B2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַחֲזִית שֶׁל הַבַּיִת יָפָה",
+        "tr": "hachazit shel habayit yafah",
+        "fr": "la façade de la maison est belle"
+      }
+    ]
+  },
+  {
+    "he": "כְּנִיסָה",
+    "fr": "entrée",
+    "genre": "f",
+    "pluriel": {
+      "he": "כְּנִיסוֹת",
+      "tr": "knisot"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַכְּנִיסָה לַבִּנְיָן סְגוּרָה",
+        "tr": "haknisah labinyan sgurah",
+        "fr": "l'entrée du bâtiment est fermée"
+      }
+    ]
+  },
+  {
+    "he": "גְּבוּל",
+    "fr": "frontière, limite",
+    "genre": "m",
+    "pluriel": {
+      "he": "גְּבוּלוֹת",
+      "tr": "gevulot"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַגְּבוּל בֵּין הַמְּדִינוֹת סָגוּר",
+        "tr": "hagvul bein hamedinot sagur",
+        "fr": "la frontière entre les pays est fermée"
+      }
+    ]
+  },
+  {
+    "he": "נָתִיב",
+    "fr": "voie, itinéraire",
+    "genre": "m",
+    "pluriel": {
+      "he": "נְתִיבִים",
+      "tr": "netivim"
+    },
+    "niveau": "B2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַנָּתִיב הַזֶּה מוֹבִיל לָעִיר",
+        "tr": "hanativ hazeh movil la'ir",
+        "fr": "cette voie mène à la ville"
+      }
+    ]
+  },
+  {
+    "he": "מַעֲבָר",
+    "fr": "passage",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַעֲבָרִים",
+      "tr": "ma'avarim"
+    },
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַמַּעֲבָר בֵּין הַכְּבִישִׁים מְסֻכָּן",
+        "tr": "hama'avar bein hakvishim mesukan",
+        "fr": "le passage entre les routes est dangereux"
+      }
+    ]
+  },
+  {
+    "he": "מִנְהָרָה",
+    "fr": "tunnel",
+    "genre": "f",
+    "pluriel": {
+      "he": "מִנְהָרוֹת",
+      "tr": "minharot"
+    },
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַמִּנְהָרָה אֲרֻכָּה וַאֲפֵלָה",
+        "tr": "haminharah arukah va'afelah",
+        "fr": "le tunnel est long et sombre"
+      }
+    ]
+  },
+  {
     "he": "שֶׁמֶשׁ",
     "fr": "soleil",
     "genre": "f",
@@ -6840,6 +7068,63 @@
         "he": "טִפַּסְנוּ עַל הַגִּבְעָה בַּבֹּקֶר.",
         "tr": "tipasnu 'al hagiv'ah baboker",
         "fr": "Nous avons grimpé sur la colline le matin."
+      }
+    ]
+  },
+  {
+    "he": "פִּסְגָּה",
+    "fr": "sommet, cime",
+    "genre": "f",
+    "pluriel": {
+      "he": "פִּסְגּוֹת",
+      "tr": "pisgot"
+    },
+    "niveau": "B2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַפִּסְגָּה גְּבוֹהָה וְקָרָה",
+        "tr": "hapisgah gvohah vekarah",
+        "fr": "le sommet est haut et froid"
+      }
+    ]
+  },
+  {
+    "he": "סְבִיבָה",
+    "fr": "environs, alentours",
+    "genre": "f",
+    "pluriel": {
+      "he": "סְבִיבוֹת",
+      "tr": "svivot"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַסְּבִיבָה כָּאן יָפָה מְאֹד",
+        "tr": "hasvivah kan yafah me'od",
+        "fr": "les alentours ici sont très beaux"
+      }
+    ]
+  },
+  {
+    "he": "שְׁבִיל",
+    "fr": "chemin, sentier",
+    "genre": "m",
+    "pluriel": {
+      "he": "שְׁבִילִים",
+      "tr": "shvilim"
+    },
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַשְּׁבִיל בַּיַּעַר צַר וְיָפֶה",
+        "tr": "hashvil baya'ar tsar veyafeh",
+        "fr": "le sentier dans la forêt est étroit et beau"
       }
     ]
   },
@@ -10449,6 +10734,253 @@
         "he": "זֹאת הִזְדַּמְּנוּת מְצֻיֶּנֶת לִלְמֹד.",
         "tr": "zot hizdamnut metsuyenet lilmod",
         "fr": "C'est une excellente occasion d'apprendre."
+      }
+    ]
+  },
+  {
+    "he": "צַד",
+    "fr": "côté",
+    "genre": "m",
+    "pluriel": {
+      "he": "צְדָדִים",
+      "tr": "tsdadim"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַצַּד הַשֵּׁנִי שֶׁל הָרְחוֹב שָׁקֵט",
+        "tr": "hatsad hasheni shel harechov shaket",
+        "fr": "l'autre côté de la rue est calme"
+      }
+    ]
+  },
+  {
+    "he": "קָצֶה",
+    "fr": "bord, extrémité",
+    "genre": "m",
+    "pluriel": {
+      "he": "קְצָווֹת",
+      "tr": "ketsavot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "קְצֵה הַשֻּׁלְחָן הַזֶּה שָׁבוּר",
+        "tr": "ketseh hashulchan hazeh shavur",
+        "fr": "le bord de cette table est cassé"
+      }
+    ]
+  },
+  {
+    "he": "אֶמְצַע",
+    "fr": "milieu",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֶמְצָעִים",
+      "tr": "emtsa'im"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אֲנִי גָּר בְּאֶמְצַע הָעִיר",
+        "tr": "ani gar be'emtsa' ha'ir",
+        "fr": "j'habite au milieu de la ville"
+      }
+    ]
+  },
+  {
+    "he": "חוּץ",
+    "fr": "extérieur, dehors",
+    "genre": "m",
+    "pluriel": {
+      "he": "חוּצוֹת",
+      "tr": "chutsot"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מְשַׂחֵק בַּחוּץ עַכְשָׁיו",
+        "tr": "hayeled mesachek bachuts 'akhshav",
+        "fr": "l'enfant joue dehors maintenant"
+      }
+    ]
+  },
+  {
+    "he": "מֶרְחָק",
+    "fr": "distance",
+    "genre": "m",
+    "pluriel": {
+      "he": "מֶרְחַקִּים",
+      "tr": "merchakim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַמֶּרְחָק בֵּין הֶעָרִים גָּדוֹל",
+        "tr": "hamerchak bein he'arim gadol",
+        "fr": "la distance entre les villes est grande"
+      }
+    ]
+  },
+  {
+    "he": "חָלָל",
+    "fr": "espace, vide",
+    "genre": "m",
+    "pluriel": {
+      "he": "חֲלָלִים",
+      "tr": "chalalim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַחֶדֶר הַזֶּה הוּא חָלָל רֵיק",
+        "tr": "hacheder hazeh hu chalal reik",
+        "fr": "cette pièce est un espace vide"
+      }
+    ]
+  },
+  {
+    "he": "הֶיקֵּף",
+    "fr": "périmètre, portée",
+    "genre": "m",
+    "pluriel": {
+      "he": "הֶיקֵּפִים",
+      "tr": "heikefim"
+    },
+    "niveau": "C1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הֶיקֵּף הָעִיר גָּדוֹל מְאוֹד",
+        "tr": "heikef ha'ir gadol me'od",
+        "fr": "le périmètre de la ville est très grand"
+      }
+    ]
+  },
+  {
+    "he": "זָוִית",
+    "fr": "angle",
+    "genre": "f",
+    "pluriel": {
+      "he": "זָוִיּוֹת",
+      "tr": "zaviyot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַזָּוִית הַזֹּאת חַדָּה מְאוֹד",
+        "tr": "hazavit hazot chadah me'od",
+        "fr": "cet angle est très aigu"
+      }
+    ]
+  },
+  {
+    "he": "תַּחְתִּית",
+    "fr": "fond, dessous",
+    "genre": "f",
+    "pluriel": {
+      "he": "תַּחְתִּיּוֹת",
+      "tr": "tachtiyot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַתַּחְתִּית שֶׁל הַכּוֹס נְקִיָּה",
+        "tr": "hatachtit shel hakos nekiyah",
+        "fr": "le fond du verre est propre"
+      }
+    ]
+  },
+  {
+    "he": "גֹּבַהּ",
+    "fr": "hauteur",
+    "genre": "m",
+    "pluriel": {
+      "he": "גְּבָהִים",
+      "tr": "gevahim"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "גֹּבַהּ הָהָר מַרְשִׁים",
+        "tr": "govah hahar marshim",
+        "fr": "la hauteur de la montagne est impressionnante"
+      }
+    ]
+  },
+  {
+    "he": "רֹחַב",
+    "fr": "largeur",
+    "genre": "m",
+    "pluriel": {
+      "he": "רְחָבִים",
+      "tr": "rechavim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "רֹחַב הַנָּהָר גָּדוֹל",
+        "tr": "rochav hanahar gadol",
+        "fr": "la largeur de la rivière est grande"
+      }
+    ]
+  },
+  {
+    "he": "אֹרֶךְ",
+    "fr": "longueur",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֳרָכִים",
+      "tr": "orakhim"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אֹרֶךְ הַחֶבֶל רַב",
+        "tr": "orekh hachevel rav",
+        "fr": "la longueur de la corde est grande"
+      }
+    ]
+  },
+  {
+    "he": "עֹמֶק",
+    "fr": "profondeur",
+    "genre": "m",
+    "pluriel": {
+      "he": "עֳמָקִים",
+      "tr": "'omakim"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "עֹמֶק הַיָּם רַב",
+        "tr": "omek hayam rav",
+        "fr": "la profondeur de la mer est grande"
       }
     ]
   }

@@ -173,6 +173,19 @@
       ],
       "fr_court": "est-ce que",
       "note": "marque la question oui/non"
+    },
+    {
+      "he": "מֵאֵיפֹה",
+      "tr": "me'eifoh",
+      "fr": "d'où",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מֵאֵיפֹה אַתָּה בָּא",
+          "tr": "me'eifoh atah ba",
+          "fr": "d'où viens-tu"
+        }
+      ]
     }
   ]
 }

@@ -14,6 +14,6 @@ carnet, autoritaires, jamais régénérés par he2tr. `he` garde la vocalisation
 `groupe` = slug du <h3 class="subtheme"> englobant, sur les tables toujours et sur
 les listes seulement quand la section comporte des sous-thèmes (ex. Adverbes,
 Saisons & mois) — absent partout ailleurs.
-Contraintes bloquantes : niveau ∈ {A1,A2,B1,B2} partout ; theme ∈ EXPECTED_THEMES
+Contraintes bloquantes : niveau ∈ {A1,A2,B1,B2,C1} partout ; theme ∈ EXPECTED_THEMES
 (build.js) pour noms/adjectifs/verbes ; ≥1 exemple pour noms/adjectifs/verbes ;
 aucune section vide ; he/fr non vides.

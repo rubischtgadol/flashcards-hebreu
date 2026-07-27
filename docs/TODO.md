@@ -14,7 +14,48 @@ ouvert** sur `main`, et « Dette ouverte » est vide.
 dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
 lance que sur décision explicite).
 
-**Dernier chantier livré — « Hébreu parlé », 27/07/2026, soldé et poussé.** Le
+**Dernier chantier livré — « Le mortier grammatical », 27/07/2026, soldé.**
+Constat du propriétaire : « il manque beaucoup de trucs de base comme *efshar*,
+*quelque chose*, *zone* ». Vérifié, et fondé : le carnet était riche en
+vocabulaire **thématique** (nourriture 87, ville-transport 94) et pauvre en
+**mots-outils** — אֶפְשָׁר, מַשֶּׁהוּ, מִישֶׁהוּ, רַק, כִּמְעַט, לָכֵן, כְּדֵי
+absents avec 1262 cartes au compteur. Audit systématique en 3 sous-agents
+parallèles : **301 candidats testés, ~150 absences confirmées**. **1262 → 1428
+cartes** (166 neuves, aucune retirée — consigne explicite : « ajoute tout ce que
+tu trouves, n'enlève rien », B2/C1 compris).
+
+- **Palier C1 ouvert** (`EXPECTED_LEVELS`, build.js) : 10 entrées de registre
+  soutenu. Côté app, **zéro câblage** — `NIVEAUX` rangeait déjà C1 dans
+  « Difficile ». Détail et piège de l'ordre en ARCHITECTURE.md § 4.
+- **Deux sous-thèmes neufs** aux Adverbes : « Degré & intensité », « Manière ».
+- ⚠️ **Erreur de spec corrigée** (SPEC_AJOUTE_MOTS §10) : « éditer le gabarit
+  puis relancer `ajoute_mots.js` » est **faux** pour un sous-thème de liste. La
+  résolution se fait sur `info.liste.entries` (la donnée), et `genereCarnet()`
+  refuse un placeholder qui ne consomme rien — **blocage circulaire**. Il faut
+  une **entrée d'amorce écrite à la main** en même temps que le gabarit.
+- ⚠️ **Leçon payée : un vérificateur d'absence doit être contrôlé avant usage.**
+  Le premier repli ktiv male/haser annonçait `רַק` et `מִיָּד` *présents* par
+  collision de squelette (ירק « légume », מדי « trop ») — un audit lancé
+  là-dessus aurait enterré les absences les plus criantes. Deux garde-fous :
+  une ו/י **initiale** n'est jamais mater lectionis, et **sous 3 lettres** de
+  squelette on exige l'exact. Corollaire assumé : le repli devient aveugle aux
+  mots courts, donc `כִּוּוּן` ressort `ABSENT` à tort — le doute se lève à la main.
+- ⚠️ **Les sous-agents confondent `ch` (het) et `kh` (khaf sans daguech)**, de
+  façon systématique (`'achshav`, `nachon`, `bechol`), et capitalisent les gloses
+  françaises avec un point final. Ne jamais insérer un rendu d'agent sans passer
+  les `tr` au comparateur `he2tr` : c'est lui qui a nommé les 12 fautes.
+- ⚠️ **Un audit délégué a des trous : le relire.** Les trois agents ont manqué
+  מַשֶּׁהוּ et מִישֶׁהוּ — les deux indéfinis les plus fréquents —, plus עוֹד,
+  פַּעַם, כָּזֶה. Et `רַק` a survécu à l'audit *et* à ma propre synthèse : il n'a
+  été rattrapé qu'au contrôle final contre la liste initiale. Un lot de
+  rattrapage (11 entrées) a suivi.
+- Preuve : `--check` vert sur les cinq artefacts, `verifie_exemples` **0 erreur**
+  (124 avertissements éditoriaux), `sw.js` estampillé `v-81e6df9c`. Pas de
+  WebKit : aucun CSS ni chemin de rendu touché.
+- **Graphe non flaggé** : aucun fichier créé, supprimé ni renommé — que des
+  éditions dans des fichiers existants, dérive tolérée par le rituel.
+
+**Chantier précédent — « Hébreu parlé », 27/07/2026, soldé et poussé.** Le
 carnet a une **37ᵉ section** : le registre familier, 45 entrées, dernière de
 *Partie 3 · Au quotidien*. Le constat qui l'a motivée : le carnet enseignait un
 hébreu correct mais écrit, et qui le maîtrisait entièrement ne comprenait

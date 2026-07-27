@@ -156,6 +156,179 @@
       ]
     },
     {
+      "he": "מִיָּד",
+      "tr": "miyad",
+      "fr": "tout de suite, immédiatement",
+      "niveau": "A1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "בְּקָרוֹב",
+      "tr": "bekarov",
+      "fr": "bientôt",
+      "niveau": "A1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "בֵּינְתַיִם",
+      "tr": "beintayim",
+      "fr": "entre-temps, en attendant",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "עֲדַיִן",
+      "tr": "'adayin",
+      "fr": "encore, toujours",
+      "niveau": "A1",
+      "groupe": "temps",
+      "exemples": [
+        {
+          "he": "הִיא עֲדַיִן עוֹבֶדֶת שָׁם",
+          "tr": "hi 'adayin 'ovedet sham",
+          "fr": "elle travaille encore là-bas"
+        }
+      ],
+      "note": "avec la négation : עֲדַיִן לֹא « pas encore »"
+    },
+    {
+      "he": "קֹדֶם",
+      "tr": "kodem",
+      "fr": "avant, d'abord",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "אַחַר כָּךְ",
+      "tr": "achar kakh",
+      "fr": "ensuite, après",
+      "niveau": "A1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "כָּרֶגַע",
+      "tr": "karega",
+      "fr": "en ce moment, actuellement",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "הָרֶגַע",
+      "tr": "harega",
+      "fr": "à l'instant, juste maintenant",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "כָּל הַזְּמַן",
+      "tr": "kol hazman",
+      "fr": "tout le temps",
+      "niveau": "A1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "מִדֵּי פַּעַם",
+      "tr": "midei pa'am",
+      "fr": "de temps en temps",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "בְּדֶרֶךְ כְּלָל",
+      "tr": "bederekh klal",
+      "fr": "d'habitude, généralement",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": [
+        {
+          "he": "בְּדֶרֶךְ כְּלָל אֲנִי קָם מֻקְדָּם",
+          "tr": "bederekh klal ani kam mukdam",
+          "fr": "d'habitude je me lève tôt"
+        }
+      ]
+    },
+    {
+      "he": "לְעִתִּים קְרוֹבוֹת",
+      "tr": "le'itim krovot",
+      "fr": "souvent",
+      "niveau": "B1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "לְעִתִּים רְחוֹקוֹת",
+      "tr": "le'itim rechokot",
+      "fr": "rarement",
+      "niveau": "B1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "לְאַחֲרוֹנָה",
+      "tr": "le'acharonah",
+      "fr": "récemment, dernièrement",
+      "niveau": "B1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "מֵעַכְשָׁיו",
+      "tr": "me'akhshav",
+      "fr": "à partir de maintenant",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "לִפְנֵי כֵן",
+      "tr": "lifnei khen",
+      "fr": "avant cela",
+      "niveau": "B1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "עַד עַכְשָׁיו",
+      "tr": "'ad akhshav",
+      "fr": "jusqu'à maintenant",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "עַד כֹּה",
+      "tr": "'ad koh",
+      "fr": "jusqu'à présent",
+      "niveau": "B1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "מָתַישֶׁהוּ",
+      "tr": "mataishehu",
+      "fr": "un jour, à un moment donné",
+      "niveau": "B1",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
+      "he": "פַּעַם",
+      "tr": "pa'am",
+      "fr": "autrefois, une fois",
+      "niveau": "A2",
+      "groupe": "temps",
+      "exemples": []
+    },
+    {
       "he": "כָּאן",
       "tr": "kan",
       "fr": "ici",
@@ -268,6 +441,182 @@
           "fr": "dedans il fait chaud et agréable"
         }
       ]
+    },
+    {
+      "he": "קָדִימָה",
+      "tr": "kadimah",
+      "fr": "en avant, vers l'avant",
+      "niveau": "A2",
+      "groupe": "lieu-direction",
+      "exemples": []
+    },
+    {
+      "he": "אֲחוֹרָה",
+      "tr": "achorah",
+      "fr": "en arrière, vers l'arrière",
+      "niveau": "B1",
+      "groupe": "lieu-direction",
+      "exemples": []
+    },
+    {
+      "he": "אֵיפְשֶׁהוּ",
+      "tr": "eifshehu",
+      "fr": "quelque part",
+      "niveau": "B1",
+      "groupe": "lieu-direction",
+      "exemples": []
+    },
+    {
+      "he": "בְּדִיּוּק",
+      "tr": "bediyuk",
+      "fr": "exactement",
+      "niveau": "A2",
+      "groupe": "degre-intensite",
+      "exemples": [
+        {
+          "he": "זֶה בְּדִיּוּק מָה שֶׁרָצִיתִי",
+          "tr": "zeh bediyuk mah sheratsiti",
+          "fr": "c'est exactement ce que je voulais"
+        }
+      ]
+    },
+    {
+      "he": "מַמָּשׁ",
+      "tr": "mamash",
+      "fr": "vraiment, carrément",
+      "niveau": "A1",
+      "groupe": "degre-intensite",
+      "exemples": [
+        {
+          "he": "זֶה מַמָּשׁ טָעִים",
+          "tr": "zeh mamash ta'im",
+          "fr": "c'est vraiment délicieux"
+        }
+      ]
+    },
+    {
+      "he": "לְגַמְרֵי",
+      "tr": "legamrei",
+      "fr": "complètement, totalement",
+      "niveau": "A2",
+      "groupe": "degre-intensite",
+      "exemples": []
+    },
+    {
+      "he": "בְּקֹשִׁי",
+      "tr": "bekoshi",
+      "fr": "à peine, difficilement",
+      "niveau": "A2",
+      "groupe": "degre-intensite",
+      "exemples": []
+    },
+    {
+      "he": "בִּמְיֻחָד",
+      "tr": "bimyuchad",
+      "fr": "spécialement, particulièrement",
+      "niveau": "A2",
+      "groupe": "degre-intensite",
+      "exemples": []
+    },
+    {
+      "he": "בְּוַדַּאי",
+      "tr": "bevadai",
+      "fr": "certainement, sûrement",
+      "niveau": "A2",
+      "groupe": "degre-intensite",
+      "exemples": []
+    },
+    {
+      "he": "לְמַדַּי",
+      "tr": "lemadai",
+      "fr": "assez, plutôt",
+      "niveau": "C1",
+      "groupe": "degre-intensite",
+      "exemples": []
+    },
+    {
+      "he": "נוֹרָא",
+      "tr": "nora",
+      "fr": "terriblement, super (intensif familier)",
+      "niveau": "B1",
+      "groupe": "degre-intensite",
+      "exemples": []
+    },
+    {
+      "he": "כָּכָה",
+      "tr": "kakhah",
+      "fr": "comme ça, ainsi",
+      "niveau": "A1",
+      "groupe": "maniere",
+      "exemples": [
+        {
+          "he": "לָמָּה אַתָּה מְדַבֵּר כָּכָה",
+          "tr": "lamah atah medaber kakhah",
+          "fr": "pourquoi parles-tu comme ça"
+        }
+      ]
+    },
+    {
+      "he": "כָּךְ",
+      "tr": "kakh",
+      "fr": "ainsi, de cette façon",
+      "niveau": "A2",
+      "groupe": "maniere",
+      "exemples": []
+    },
+    {
+      "he": "אֵיכְשֶׁהוּ",
+      "tr": "eikhshehu",
+      "fr": "d'une manière ou d'une autre",
+      "niveau": "B1",
+      "groupe": "maniere",
+      "exemples": []
+    },
+    {
+      "he": "בְּקַלּוּת",
+      "tr": "bekalut",
+      "fr": "facilement",
+      "niveau": "A2",
+      "groupe": "maniere",
+      "exemples": []
+    },
+    {
+      "he": "יַחַד",
+      "tr": "yachad",
+      "fr": "ensemble",
+      "niveau": "A1",
+      "groupe": "maniere",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ לוֹמְדִים יַחַד",
+          "tr": "anachnu lomdim yachad",
+          "fr": "nous étudions ensemble"
+        }
+      ]
+    },
+    {
+      "he": "לְבַד",
+      "tr": "levad",
+      "fr": "seul, tout seul",
+      "niveau": "A1",
+      "groupe": "maniere",
+      "exemples": []
+    },
+    {
+      "he": "בְּכַוָּנָה",
+      "tr": "bekhavanah",
+      "fr": "exprès, intentionnellement",
+      "niveau": "A2",
+      "groupe": "maniere",
+      "exemples": []
+    },
+    {
+      "he": "בְּטָעוּת",
+      "tr": "bete'ut",
+      "fr": "par erreur, par mégarde",
+      "niveau": "A2",
+      "groupe": "maniere",
+      "exemples": []
     }
   ]
 }

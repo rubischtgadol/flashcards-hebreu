@@ -70,6 +70,70 @@
       "fr": "elles",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "עַצְמִי",
+      "tr": "'atsmi",
+      "fr": "moi-même",
+      "niveau": "A2",
+      "exemples": [],
+      "note": "se combine : בְּעַצְמִי « par moi-même », אֶת עַצְמִי « moi-même » (COD)"
+    },
+    {
+      "he": "עַצְמְךָ",
+      "tr": "'atsmekha",
+      "fr": "toi-même (masculin)",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "עַצְמוֹ",
+      "tr": "'atsmo",
+      "fr": "lui-même",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "עַצְמָהּ",
+      "tr": "'atsmah",
+      "fr": "elle-même",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "עַצְמֵנוּ",
+      "tr": "'atsmenu",
+      "fr": "nous-mêmes",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "עַצְמָם",
+      "tr": "'atsmam",
+      "fr": "eux-mêmes",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "אֶחָד אֶת הַשֵּׁנִי",
+      "tr": "echad et hasheni",
+      "fr": "l'un l'autre (personnes)",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "זֶה אֶת זֶה",
+      "tr": "zeh et zeh",
+      "fr": "l'un l'autre (choses)",
+      "niveau": "B1",
+      "exemples": []
+    },
+    {
+      "he": "הֲדָדִי",
+      "tr": "hadadi",
+      "fr": "réciproque, mutuel",
+      "niveau": "B1",
+      "exemples": []
     }
   ]
 }

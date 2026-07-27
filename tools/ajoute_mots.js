@@ -460,7 +460,7 @@ function main(){
     verifieNiqqud(qui, op.he);
     if (!chaine(op.niveau) || !EXPECTED_LEVELS.includes(op.niveau)){
       err(qui + ' : niveau « ' + op.niveau + ' » invalide — EXPECTED_LEVELS (build.js) : ' + EXPECTED_LEVELS.join(', ') +
-        '. Au-delà de B2 : étendre EXPECTED_LEVELS dans build.js.');
+        '. Au-delà de C1 : étendre EXPECTED_LEVELS dans build.js.');
       return;
     }
 
