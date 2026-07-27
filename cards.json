@@ -33361,23 +33361,6 @@
     },
     {
       "cat": "Expressions",
-      "he": "יָאלְלָה",
-      "tr": "yallah",
-      "fr": "allez / on y va (familier)",
-      "niveau": "B1",
-      "he_plain": "יאללה"
-    },
-    {
-      "cat": "Expressions",
-      "he": "וַאלָה",
-      "tr": "valah",
-      "fr": "vraiment ?!",
-      "note": "étonnement — à ne pas confondre avec יָאלְלָה",
-      "niveau": "B2",
-      "he_plain": "ואלה"
-    },
-    {
-      "cat": "Expressions",
       "he": "כַּמָּה זֶה עוֹלֶה",
       "tr": "kamah zeh 'oleh",
       "fr": "combien ça coûte",
@@ -34246,6 +34229,137 @@
         }
       ],
       "he_plain": "סבבה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "יָאלְלָה",
+      "tr": "yallah",
+      "fr": "allez / on y va (familier)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "יָאלְלָה, אֲנַחְנוּ מְאַחֲרִים",
+          "tr": "yallah, anachnu me'acharim",
+          "fr": "Allez, on est en retard.",
+          "he_plain": "יאללה, אנחנו מאחרים"
+        }
+      ],
+      "he_plain": "יאללה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "וַאלָה",
+      "tr": "valah",
+      "fr": "vraiment ?!",
+      "note": "étonnement — à ne pas confondre avec יָאלְלָה",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "וַאלָה? לֹא הֶאֱמַנְתִּי",
+          "tr": "valah? lo he'emanti",
+          "fr": "Sérieux ? Je n'y croyais pas.",
+          "he_plain": "ואלה? לא האמנתי"
+        }
+      ],
+      "he_plain": "ואלה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "כַּפָּרָה",
+      "tr": "kaparah",
+      "fr": "mon chou, mon trésor",
+      "note": "affectueux ; souvent כַּפָּרָה עָלֶיךָ",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "תּוֹדָה, כַּפָּרָה עָלֶיךָ",
+          "tr": "todah, kaparah 'alekha",
+          "fr": "Merci, tu es un amour.",
+          "he_plain": "תודה, כפרה עליך"
+        }
+      ],
+      "he_plain": "כפרה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "נְשָׁמָה",
+      "tr": "neshamah",
+      "fr": "mon cœur (affectueux)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בּוֹאִי, נְשָׁמָה, נֵלֵךְ הַבַּיְתָה",
+          "tr": "bo'i, neshamah, nelekh habaytah",
+          "fr": "Viens, mon cœur, on rentre.",
+          "he_plain": "בואי, נשמה, נלך הביתה"
+        }
+      ],
+      "he_plain": "נשמה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "יָא חַבִּיבִּי",
+      "tr": "ya chabibi",
+      "fr": "eh mon vieux, mon pote",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "יָא חַבִּיבִּי, אֵיזֶה יוֹם",
+          "tr": "ya chabibi, eizeh yom",
+          "fr": "Eh mon vieux, quelle journée !",
+          "he_plain": "יא חביבי, איזה יום"
+        }
+      ],
+      "he_plain": "יא חביבי"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "סוֹף הַדֶּרֶךְ",
+      "tr": "sof haderekh",
+      "fr": "le top du top",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַהוֹפָעָה הָיְתָה סוֹף הַדֶּרֶךְ",
+          "tr": "hahofa'ah haytah sof haderekh",
+          "fr": "Le concert était le top du top.",
+          "he_plain": "ההופעה היתה סוף הדרך"
+        }
+      ],
+      "he_plain": "סוף הדרך"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "חָלָס",
+      "tr": "chalas",
+      "fr": "ça suffit, terminé",
+      "note": "de l'arabe ; plus sec que דַּי",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "חָלָס עִם הַוִּיכּוּחִים",
+          "tr": "chalas 'im havikuchim",
+          "fr": "Ça suffit avec les disputes.",
+          "he_plain": "חלס עם הויכוחים"
+        }
+      ],
+      "he_plain": "חלס"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "מַבְסוּט",
+      "tr": "mabsut",
+      "fr": "content, satisfait",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "הוּא יָצָא מַבְסוּט מֵהַפְּגִישָׁה",
+          "tr": "hu yatsa mabsut mehapgishah",
+          "fr": "Il est sorti content du rendez-vous.",
+          "he_plain": "הוא יצא מבסוט מהפגישה"
+        }
+      ],
+      "he_plain": "מבסוט"
     }
   ]
 }

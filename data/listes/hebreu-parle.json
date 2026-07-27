@@ -385,6 +385,91 @@
       "exemples": [
         { "he": "הַכֹּל סַבָּבָּה, אַל תִּדְאַג", "tr": "hakol sababah, al tid'ag", "fr": "Tout va bien, ne t'inquiète pas." }
       ]
+    },
+    {
+      "he": "יָאלְלָה",
+      "tr": "yallah",
+      "fr": "allez / on y va (familier)",
+      "niveau": "B1",
+      "groupe": "emprunts",
+      "exemples": [
+        { "he": "יָאלְלָה, אֲנַחְנוּ מְאַחֲרִים", "tr": "yallah, anachnu me'acharim", "fr": "Allez, on est en retard." }
+      ]
+    },
+    {
+      "he": "וַאלָה",
+      "tr": "valah",
+      "fr": "vraiment ?! (étonnement — à ne pas confondre avec יָאלְלָה ci-dessus, qui veut dire \"allez\")",
+      "niveau": "B2",
+      "groupe": "emprunts",
+      "fr_court": "vraiment ?!",
+      "note": "étonnement — à ne pas confondre avec יָאלְלָה",
+      "exemples": [
+        { "he": "וַאלָה? לֹא הֶאֱמַנְתִּי", "tr": "valah? lo he'emanti", "fr": "Sérieux ? Je n'y croyais pas." }
+      ]
+    },
+    {
+      "he": "כַּפָּרָה",
+      "tr": "kaparah",
+      "fr": "mon chou, mon trésor",
+      "niveau": "B2",
+      "groupe": "emprunts",
+      "note": "affectueux ; souvent כַּפָּרָה עָלֶיךָ",
+      "exemples": [
+        { "he": "תּוֹדָה, כַּפָּרָה עָלֶיךָ", "tr": "todah, kaparah 'alekha", "fr": "Merci, tu es un amour." }
+      ]
+    },
+    {
+      "he": "נְשָׁמָה",
+      "tr": "neshamah",
+      "fr": "mon cœur, mon âme (affectueux)",
+      "niveau": "B1",
+      "groupe": "emprunts",
+      "fr_court": "mon cœur (affectueux)",
+      "exemples": [
+        { "he": "בּוֹאִי, נְשָׁמָה, נֵלֵךְ הַבַּיְתָה", "tr": "bo'i, neshamah, nelekh habaytah", "fr": "Viens, mon cœur, on rentre." }
+      ]
+    },
+    {
+      "he": "יָא חַבִּיבִּי",
+      "tr": "ya chabibi",
+      "fr": "eh mon vieux, mon pote",
+      "niveau": "B2",
+      "groupe": "emprunts",
+      "exemples": [
+        { "he": "יָא חַבִּיבִּי, אֵיזֶה יוֹם", "tr": "ya chabibi, eizeh yom", "fr": "Eh mon vieux, quelle journée !" }
+      ]
+    },
+    {
+      "he": "סוֹף הַדֶּרֶךְ",
+      "tr": "sof haderekh",
+      "fr": "le top du top",
+      "niveau": "B1",
+      "groupe": "emprunts",
+      "exemples": [
+        { "he": "הַהוֹפָעָה הָיְתָה סוֹף הַדֶּרֶךְ", "tr": "hahofa'ah haytah sof haderekh", "fr": "Le concert était le top du top." }
+      ]
+    },
+    {
+      "he": "חָלָס",
+      "tr": "chalas",
+      "fr": "ça suffit, terminé",
+      "niveau": "B1",
+      "groupe": "emprunts",
+      "note": "de l'arabe ; plus sec que דַּי",
+      "exemples": [
+        { "he": "חָלָס עִם הַוִּיכּוּחִים", "tr": "chalas 'im havikuchim", "fr": "Ça suffit avec les disputes." }
+      ]
+    },
+    {
+      "he": "מַבְסוּט",
+      "tr": "mabsut",
+      "fr": "content, satisfait",
+      "niveau": "B2",
+      "groupe": "emprunts",
+      "exemples": [
+        { "he": "הוּא יָצָא מַבְסוּט מֵהַפְּגִישָׁה", "tr": "hu yatsa mabsut mehapgishah", "fr": "Il est sorti content du rendez-vous." }
+      ]
     }
   ]
 }
