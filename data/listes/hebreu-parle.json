@@ -241,6 +241,150 @@
       "exemples": [
         { "he": "תַּעֲשֶׂה טוֹבָה, תַּפְסִיק כְּבָר", "tr": "ta'aseh tovah, tafsik kvar", "fr": "Fais-moi plaisir, arrête un peu." }
       ]
+    },
+    {
+      "he": "אַחְלָה",
+      "tr": "achlah",
+      "fr": "super, génial",
+      "niveau": "A2",
+      "groupe": "reagir",
+      "note": "de l'arabe ; invariable, se place avant le nom",
+      "exemples": [
+        { "he": "אַחְלָה מִסְעָדָה מָצָאתָ", "tr": "achlah mis'adah matsata", "fr": "Tu as trouvé un super restaurant." }
+      ]
+    },
+    {
+      "he": "מַגְנִיב",
+      "tr": "magniv",
+      "fr": "cool, top",
+      "niveau": "A2",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "הַשִּׁיר הַזֶּה מַגְנִיב", "tr": "hashir hazeh magniv", "fr": "Cette chanson est top." }
+      ]
+    },
+    {
+      "he": "חֲבָל עַל הַזְּמַן",
+      "tr": "chaval 'al hazman",
+      "fr": "incroyable, une tuerie",
+      "niveau": "B1",
+      "groupe": "reagir",
+      "note": "littéralement « dommage pour le temps » ; le ton décide du sens, presque toujours élogieux",
+      "exemples": [
+        { "he": "הָאֹכֶל שָׁם חֲבָל עַל הַזְּמַן", "tr": "ha'okhel sham chaval 'al hazman", "fr": "La nourriture là-bas, c'est une tuerie." }
+      ]
+    },
+    {
+      "he": "עַל הַפָּנִים",
+      "tr": "'al hapanim",
+      "fr": "nul, catastrophique",
+      "niveau": "B1",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "הַשֵּׁרוּת פֹּה עַל הַפָּנִים", "tr": "hasherut poh 'al hapanim", "fr": "Le service ici est catastrophique." }
+      ]
+    },
+    {
+      "he": "בָּאסָה",
+      "tr": "basah",
+      "fr": "la loose, quelle déception",
+      "niveau": "A2",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "אֵיזוֹ בָּאסָה שֶׁלֹּא בָּאתָ", "tr": "eizo basah shelo bata", "fr": "Quelle loose que tu ne sois pas venu." }
+      ]
+    },
+    {
+      "he": "פַדִיחָה",
+      "tr": "fadichah",
+      "fr": "la honte, le malaise",
+      "niveau": "B1",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "אֵיזוֹ פַדִיחָה הָיְתָה לִי אֶתְמוֹל", "tr": "eizo fadichah haytah li etmol", "fr": "J'ai eu tellement honte hier." }
+      ]
+    },
+    {
+      "he": "כָּל הַכָּבוֹד",
+      "tr": "kol hakavod",
+      "fr": "bravo, chapeau",
+      "niveau": "A2",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "כָּל הַכָּבוֹד, עָבַדְתָּ קָשֶׁה", "tr": "kol hakavod, 'avadta kasheh", "fr": "Bravo, tu as travaillé dur." }
+      ]
+    },
+    {
+      "he": "אֵין מַצָּב",
+      "tr": "ein matsav",
+      "fr": "pas question ! / c'est pas possible",
+      "niveau": "A2",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "אֵין מַצָּב שֶׁהוּא אָמַר אֶת זֶה", "tr": "ein matsav shehu amar et zeh", "fr": "Pas possible qu'il ait dit ça." }
+      ]
+    },
+    {
+      "he": "בְּסֵדֶר גָּמוּר",
+      "tr": "beseder gamur",
+      "fr": "parfait, très bien",
+      "niveau": "A1",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "בְּסֵדֶר גָּמוּר, נִפָּגֵשׁ בְּשֶׁבַע", "tr": "beseder gamur, nipagesh besheva'", "fr": "Parfait, on se voit à sept heures." }
+      ]
+    },
+    {
+      "he": "שָׁוֶה",
+      "tr": "shaveh",
+      "fr": "ça vaut le coup",
+      "niveau": "A2",
+      "groupe": "reagir",
+      "note": "emploi familier — l'adjectif שָׁוֶה « égal » est aux Adjectifs",
+      "exemples": [
+        { "he": "הַמְּחִיר יָקָר אֲבָל זֶה שָׁוֶה", "tr": "hamechir yakar aval zeh shaveh", "fr": "Le prix est cher mais ça vaut le coup." }
+      ]
+    },
+    {
+      "he": "לֹא נוֹרָא",
+      "tr": "lo nora",
+      "fr": "ce n'est pas grave",
+      "niveau": "A2",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "אִחַרְתָּ? לֹא נוֹרָא", "tr": "icharta? lo nora", "fr": "Tu es en retard ? Ce n'est pas grave." }
+      ]
+    },
+    {
+      "he": "אֵיזֶה קֶטַע",
+      "tr": "eizeh keta'",
+      "fr": "c'est dingue / quel truc",
+      "niveau": "B1",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "אֵיזֶה קֶטַע, פָּגַשְׁתִּי אוֹתוֹ שׁוּב", "tr": "eizeh keta', pagashti oto shuv", "fr": "C'est dingue, je suis retombé sur lui." }
+      ]
+    },
+    {
+      "he": "עַל הַכֵּיפַק",
+      "tr": "'al hakeifak",
+      "fr": "au poil, nickel",
+      "niveau": "B2",
+      "groupe": "reagir",
+      "note": "de l'arabe kayf ; se dit d'un moment réussi",
+      "exemples": [
+        { "he": "הַחֻפְשָׁה הָיְתָה עַל הַכֵּיפַק", "tr": "hachufshah haytah 'al hakeifak", "fr": "Les vacances étaient au poil." }
+      ]
+    },
+    {
+      "he": "סַבָּבָּה",
+      "tr": "sababah",
+      "fr": "cool / ça va (familier)",
+      "niveau": "B1",
+      "groupe": "reagir",
+      "exemples": [
+        { "he": "הַכֹּל סַבָּבָּה, אַל תִּדְאַג", "tr": "hakol sababah, al tid'ag", "fr": "Tout va bien, ne t'inquiète pas." }
+      ]
     }
   ]
 }
