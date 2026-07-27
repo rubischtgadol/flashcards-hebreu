@@ -79,12 +79,13 @@ sonne israélienne, et ce sont les plus intraduisibles hors contexte :
 בִּכְלָל, אַגַּב, יַחֲסִית.
 
 **`reagir` — apprécier, déprécier (A2).**
-אֵין בְּעָיָה, סַבָּבָּה\*, אַחְלָה, מַגְנִיב, חֲבָל עַל הַזְּמַן, עַל הַפָּנִים,
-בָּאסָה, פַדִיחָה, כָּל הַכָּבוֹד, אֵין מַצָּב, בְּסֵדֶר גָּמוּר, שָׁוֶה, לֹא נוֹרָא.
+סַבָּבָּה\*, אַחְלָה, מַגְנִיב, חֲבָל עַל הַזְּמַן, עַל הַפָּנִים, בָּאסָה, פַדִיחָה,
+כָּל הַכָּבוֹד, אֵין מַצָּב, בְּסֵדֶר גָּמוּר, שָׁוֶה, לֹא נוֹרָא, אֵיזֶה קֶטַע,
+עַל הַכֵּיפַק.
 
 **`conversation` — relancer, couper, conclure (A1–A2).**
-מָה נִשְׁמַע, מָה קוֹרֶה, מָה פִּתְאוֹם, עֲזֹב, דַּי, נוּ, זֶהוּ, לֹא מְשַׁנֶּה,
-תֵּכֶף, בְּטַח, בָּרוּר, בֶּאֱמֶת, בְּחַיַּי, שֶׁיִּהְיֶה, תַּעֲשֶׂה טוֹבָה.
+מָה קוֹרֶה, מָה פִּתְאוֹם, עֲזֹב, דַּי, נוּ, זֶהוּ, לֹא מְשַׁנֶּה, תֵּכֶף, בְּטַח,
+בֶּאֱמֶת, בְּחַיַּי, שֶׁיִּהְיֶה, תַּעֲשֶׂה טוֹבָה.
 
 **`emprunts` — installés dans l'hébreu courant (A2).**
 יָאלְלָה\*, וַאלָה\*, כַּפָּרָה, נְשָׁמָה, יָא חַבִּיבִּי, סוֹף הַדֶּרֶךְ, חָלָס, מַבְסוּט.
@@ -94,14 +95,22 @@ sonne israélienne, et ce sont les plus intraduisibles hors contexte :
 nouvelle section, avec leurs `tr` et `fr` existants intacts — ce sont des valeurs
 autoritaires, on ne les rejoue pas.
 
-**Lemmes déjà présents dans un autre rôle grammatical.** פָּשׁוּט existe comme
-adjectif (« simple », data/adjectifs.json) et רֶגַע comme nom (« moment »). Une
-entrée n'est créée dans la nouvelle section que si le sens parlé est **réellement
-distinct** du sens déjà couvert — פָּשׁוּט particule (« tout simplement,
-carrément ») oui, רֶגַע non, puisque le sens « un instant / attends » est déjà
-servi. Chaque entrée est passée à `node tools/cherche_mots.js` avant rédaction, et
-la rubrique « orthographe voisine » est lue — un `ABSENT` seul ne conclut rien
-(ktiv male/haser).
+**Lemmes déjà présents dans un autre rôle grammatical.** Une entrée n'est créée
+dans la nouvelle section que si le sens parlé est **réellement distinct** du sens
+déjà couvert. Retenus à ce titre : פָּשׁוּט particule (« tout simplement,
+carrément »), quand l'adjectif « simple » est aux Adjectifs ; שָׁוֶה (« ça vaut le
+coup ») quand l'adjectif dit « égal ». Écartés : רֶגַע, dont le sens « un instant /
+attends » est déjà servi, et בָּרוּר, où seul l'usage interjectif diffère de
+l'adjectif « clair ».
+
+**⚠️ Écartés parce que déjà au carnet — le crible multi-mots.**
+`cherche_mots.js` ne prend qu'un mot à la fois : passer « אין בעיה » comme un
+seul terme répond `ABSENT` **à tort**. Le crible correct est une recherche de
+sous-chaîne sans nikoud sur tout `data/`. Il révèle que אֵין בְּעָיָה — l'un des
+exemples du besoin initial — est déjà au carnet **deux fois**
+(`listes/expressions-divers.json` et `listes/phrases.json`), et que מָה נִשְׁמָע
+l'est aussi (`listes/expressions-divers.json`). Tous deux sortent de l'inventaire.
+Les remplacent, à compte constant : אֵיזֶה קֶטַע et עַל הַכֵּיפַק.
 
 ## Le point délicat — les `tr`
 
@@ -112,7 +121,9 @@ précisément ceux que l'on a l'habitude de voir écrits autrement :
   est réservé au het.
 - חֲבָל עַל הַזְּמַן → `chaval al hazman` (het, donc `ch`).
 - כְּאִילּוּ → `ke'ilu` : alef entre deux voyelles s'écrit `'`.
-- אֵין בְּעָיָה → `eyn be'ayah` : ayin partout `'`, hey final conservé.
+- אֵין מַצָּב → `ein matsav` : אֵין s'écrit `ein` et non `eyn` (convention du
+  corpus, vérifiée), tsadi `ts`.
+- עַל הַפָּנִים → `'al hapanim` : l'ayin initial porte lui aussi l'apostrophe.
 
 Les `.tr` sont **autoritaires** : rédigés à la main contre le standard, copiés
 verbatim dans les cartes, jamais régénérés depuis `he2tr`. L'utilisateur qui tape
