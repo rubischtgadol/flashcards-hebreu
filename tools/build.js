@@ -107,8 +107,7 @@ function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
 // Un mot vocalisé s'écrit défectif (עִתּוֹן → « עתון » sans niqqud) mais se
 // cherche plein (« עיתון ») : la comparaison exacte sur he_plain rate le couple
 // et répond « absent » d'un mot présent — le sens dangereux (on insère alors un
-// doublon). Règle mesurée sur les 1053 he_plain du carnet (SPEC_ECONOMIE_TOKENS
-// §10.1) : A ~ B si l'un s'obtient de l'autre en n'INSÉRANT que des ו/י, forme
+// doublon). Règle mesurée sur les he_plain du carnet : A ~ B si l'un s'obtient de l'autre en n'INSÉRANT que des ו/י, forme
 // courte ≥ 3 lettres, ≤ 2 insertions → 37 paires (3,5 %), toutes des
 // quasi-homographes utiles (מלוח~מלח, עצוב~עצב). Les garde-fous ne sont pas
 // décoratifs : sans eux לישן (dormir) s'apparie à לשון (langue) et יפה à פה.

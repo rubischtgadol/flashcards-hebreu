@@ -100,7 +100,7 @@ function chercheTerme(cards, index, terme){
 
   if (voisins.length){
     // Le carnet est vocalisé, donc écrit en ktiv haser : un terme cherché en
-    // ktiv male tombe ici et non dans ABSENT (SPEC_ECONOMIE_TOKENS §10.1).
+    // ktiv male tombe ici et non dans ABSENT.
     console.log('  orthographe voisine (insertion de ו/י) : ' + voisins.length);
     liste(voisins, '    ');
   }

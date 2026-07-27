@@ -56,7 +56,7 @@
    eux, vivent dans `verifieCharte()` de `build.js` — détail dans ARCHITECTURE.md
    § Garde-fous.
 5. **Le graphe ne se recale JAMAIS dans le rituel — au plus il se FLAGGE (règle de
-   Ruben, 21/07).** `/graphify . --update` coûte **~235 000 tokens** (mesuré le 20/07) :
+   Ruben, 21/07).** `/graphify . --update` coûte **~235 000 tokens** (mesuré) :
    le lancer est toujours une décision séparée et explicite. **Le flag ne déclenche pas
    la mise à jour — rien dans ce rituel ne la déclenche.**
    - **Un fichier a été créé, supprimé ou renommé** → poser (ou compléter) la ligne de
@@ -188,3 +188,41 @@
   homographes. ⚠️ Piège payé en l'écrivant : l'espace avant « ms » est une **fine
   insécable U+202F** (invisible au terminal, échoue toute comparaison naïve) — elle
   est en escape `\u202f` dans la source d'`app.html` pour cette raison.
+
+## Règles de méthode
+
+Elles ne racontent rien : chacune dit une manière de se tromper qui reste ouverte
+au prochain garde-fou, au prochain déménagement de fichier, au prochain export
+supprimé.
+
+1. **Quand un fichier bouge ou disparaît, un `grep` borné aux `.md` ne suffit
+   pas.** Quatre familles de références lui échappent : les **chaînes d'usage et
+   messages d'erreur dans les scripts eux-mêmes** — certaines sortent dans
+   l'en-tête « FICHIER GÉNÉRÉ » des artefacts, donc les toucher force un rebuild,
+   qui réestampille `sw.js` au passage ; l'**allowlist**
+   `.claude/settings.local.json` ; les **liens markdown à fragment**
+   (`](…#L42)`), invisibles au motif sans `#` ; et le **bac à sable
+   d'`ajoute_mots.js`**, qui recopie un dépôt miniature — toute garde neuve qui
+   lit un fichier hors de ce périmètre casse le dry-run tant que le fichier n'y
+   est pas ajouté.
+2. ⚠️ **Un chiffre juste n'est pas une preuve — ce qui prouve, c'est d'où il
+   vient.** Un compte calculé *en process* peut afficher la bonne valeur en
+   validant un tout autre arbre. Un contrôle doit relire ce que le processus
+   contrôlé a réellement imprimé.
+3. ⚠️ **Générer un fichier prouve que le contenu arrive, jamais qu'il soit
+   seul.** Injecter des jetons garantit qu'ils sont là ; cela ne dit rien d'une
+   seconde déclaration écrite en dur à côté, qui gagnerait par cascade sans rien
+   casser de visible. Quand une tâche « clôt un piège par construction »,
+   demander *par quel chemin il pourrait revenir* et mécaniser ce chemin-là.
+4. ⚠️ **Une garde qui ne peut pas échouer ne prouve rien — et cela se vérifie,
+   ne se suppose pas.** Toute garde se prouve par **casse fabriquée** : sortie
+   non-zéro réelle, message nommé. Une garde muette par construction se supprime
+   plutôt qu'elle ne se garde pour la forme. Corollaire de même famille :
+   `String.replace` d'un motif qui ne matche pas **ne lève rien**, il rend la
+   chaîne inchangée — toute réécriture par regex a besoin d'une garde explicite
+   sur le motif introuvable, sinon la couture se défait en silence.
+5. ⚠️ **Un export mort n'est presque jamais seul : c'est la fermeture transitive
+   qu'il faut calculer, pas le nom.** Un helper « encore utilisé en interne » ne
+   l'est souvent que par d'autres helpers eux-mêmes morts ; tout le sous-graphe
+   ne tient que par les exports. Suivre les appelants jusqu'à l'appelant vivant,
+   ou constater qu'il n'y en a pas.

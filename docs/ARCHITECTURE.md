@@ -25,7 +25,7 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
         • flashcards_hebreu.html — app AUTONOME hors ligne (cartes inlinées)
         • index.html — le PORTAIL, assemblé par assemblePortail()
         …puis sw.js reçoit son ESTAMPILLE : la ligne `const VERSION` est réécrite
-          avec un hash des cinq artefacts + manifest.webmanifest (Task 19). Tout
+          avec un hash des cinq artefacts + manifest.webmanifest. Tout
           le reste de sw.js s'édite à la main.
                                 │
                                 │ app.html fetch('./cards.json')
@@ -37,11 +37,11 @@ Un toolkit en français pour apprendre l'hébreu moderne, déployé en **fichier
 
 Il n'y a donc **qu'une seule app** (les sources de `src/app/`, la racine étant un portail léger) et **qu'une seule source de contenu** (`data/*.json`). Le carnet, `cards.json`, `app.html`, le fichier autonome et le portail sont cinq projections mécaniques de ces sources, produites par `node tools/build.js`.
 
-⚠️ **Depuis le chantier 3 (2026-07-24), `app.html` n'est plus une source** : il est assemblé, et toute édition à la main y est écrasée au prochain build. Le détail du découpage est en § Anatomie de l'app.
+⚠️ **Depuis le chantier 3, `app.html` n'est plus une source** : il est assemblé, et toute édition à la main y est écrasée au prochain build. Le détail du découpage est en § Anatomie de l'app.
 
 ## Les fichiers
 
-⚠️ **Où vit quoi, depuis le chantier 4 (Task 17, 25/07)** : la racine ne porte plus que
+⚠️ **Où vit quoi, depuis le chantier 4** : la racine ne porte plus que
 ce qui est **servi** (les cinq artefacts, la couche PWA) plus `README.md`
 et `CLAUDE.md`. Les sources sont dans `data/` (contenu) et `src/` (gabarits du carnet, code
 de l'app, source du portail) ; l'outillage dans `tools/` ; la prose dans `docs/`. **Les outils se lancent
@@ -56,10 +56,10 @@ le recalculent pas. Les chemins de ce tableau sont donnés depuis la racine.
 | [app.html](../app.html) | App de flashcards en ligne. Ne contient **pas** de vocabulaire : elle charge ses cartes via `fetch('./cards.json')` au démarrage. Assemblée par `assembleApp()` depuis `src/app/` + `src/tokens.css` — **le code s'édite dans `src/app/`, jamais ici**. | ❌ **jamais** — généré par `build.js` (chantier 3) |
 | [flashcards_hebreu.html](../flashcards_hebreu.html) | Flashcards autonomes hors ligne, vocabulaire intégré. | ❌ **jamais** — généré par `build.js` |
 | [cards.json](../cards.json) | `{version, cartes}` — snapshot JSON des cartes dérivées de `data/`, chargé par `app.html` au démarrage. | ❌ **jamais** — généré par `build.js` |
-| [build.js](../tools/build.js) | Dev only. Lit `data/*.json` et `src/`, valide (`valideDonnees`), régénère les **cinq** artefacts committés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`), compte les cartes par section/niveau/thème, échoue si une section ou un niveau attendu tombe à 0, puis **estampille `VERSION` dans `sw.js`** (hash du contenu servi, Task 19 — seule ligne de `sw.js` que le build touche). `--check` compare les cinq artefacts régénérés aux committés sans écrire, et recalcule l'estampille. | ✅ oui |
+| [build.js](../tools/build.js) | Dev only. Lit `data/*.json` et `src/`, valide (`valideDonnees`), régénère les **cinq** artefacts committés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`), compte les cartes par section/niveau/thème, échoue si une section ou un niveau attendu tombe à 0, puis **estampille `VERSION` dans `sw.js`** (hash du contenu servi — seule ligne de `sw.js` que le build touche). `--check` compare les cinq artefacts régénérés aux committés sans écrire, et recalcule l'estampille. | ✅ oui |
 | [verifie_exemples.js](../tools/verifie_exemples.js) | Dev only. Filet de sécurité des exemples en situation (champs, longueur, nikoud, translittération concordante avec l'appli, niveau du vocabulaire) + règle de couverture : tout nom, adjectif ou verbe sans exemple est une erreur bloquante. Son lexique lit **les cartes et les sections de grammaire** — voir § 5.1 pour les deux garde-fous qui l'empêchent de devenir circulaire. | ✅ oui |
 | [ajoute_mots.js](../tools/ajoute_mots.js) | Dev only. Générateur de fiche, étage 1 (contrat : [SPEC_AJOUTE_MOTS.md](SPEC_AJOUTE_MOTS.md)) : consomme un petit `nouveaux_mots.json` (nom, adjectif, verbe, mot de liste, exemple sur mot existant) et insère les entrées correspondantes dans `data/*.json` — `tr` dérivés via le `he2tr` du **module source** `src/app/js/02-translitteration.js`, chargé par `fonctionsApp()` (comme `verifie_exemples.js`), placement par frontière de section, doublons corpus entier (idempotent — comparaison **exacte** sur `he_plain`, à quoi s'ajoute un signal « orthographe voisine » ktiv male/haser purement **informatif**, qui ne bloque jamais), tout-ou-rien. Valide en **sandbox** (`chargeDonnees`/`valideDonnees`/`deriveCartes`/`assertFormeCartes` + build + verifie sur un **dépôt miniature** temporaire qui reproduit la disposition `tools/` et embarque les fichiers racine lus par `verifieCharte()` — voir [SPEC_AJOUTE_MOTS.md](SPEC_AJOUTE_MOTS.md) §7.B, deux invariants) et n'écrit `data/*.json` qu'avec `--ecrire` après vert complet ; dry-run par défaut. Réutilise les exports de build.js : aucun troisième parseur, aucune constante dupliquée. | ✅ oui |
-| [cherche_mots.js](../tools/cherche_mots.js) | Dev only. Consultation **en lecture seule** de `data/*.json` (n'écrit jamais rien) — le canal cheap du piège n°15 de CLAUDE.md. `node tools/cherche_mots.js TERME…` : terme hébreu = comparaison exacte sur `he_plain` (headwords, puis formes pluriel/MS/FS/MP/FP, puis mot exact dans les exemples), **puis, seulement si l'exacte échoue, l'appariement ktiv male/haser** (`orthographeVoisine`) sorti en rubrique séparée « orthographe voisine » — le carnet vocalisé s'écrit défectif (עִתּוֹן → `עתון`) quand on cherche plein (`עיתון`), et sans cette rubrique 6 mots sur 24 ressortaient `ABSENT` en étant présents ; terme latin = sous-chaîne à frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `CATÉGORIE fichier:ligne · hébreu — français` (ancre dans `data/*.json`, qui remplace l'ancienne ancre « carnet Lnnnn » — la source d'un mot est désormais `data/`, le carnet n'en est qu'un dérivé généré), `ABSENT` seulement si ni exacte ni voisine, bornée à 8 occurrences par rubrique (surplus compté). `--stats` : total + répartition section/niveau/thème (du moins doté au plus doté). Répond « ce mot existe-t-il ? où ? quel thème est sous-doté ? » pour ~200 tokens au lieu de lire le carnet. Réutilise les exports de build.js (`chargeDonnees`, `deriveCartes`, `stripNikud`, `orthographeVoisine`, `fichiersDonnees`…) : aucun troisième parseur, et **aucune énumération de `data/` en propre** — l'index des fichiers vient de `fichiersDonnees()` depuis le 25/07. | ✅ oui |
+| [cherche_mots.js](../tools/cherche_mots.js) | Dev only. Consultation **en lecture seule** de `data/*.json` (n'écrit jamais rien) — le canal cheap du piège n°15 de CLAUDE.md. `node tools/cherche_mots.js TERME…` : terme hébreu = comparaison exacte sur `he_plain` (headwords, puis formes pluriel/MS/FS/MP/FP, puis mot exact dans les exemples), **puis, seulement si l'exacte échoue, l'appariement ktiv male/haser** (`orthographeVoisine`) sorti en rubrique séparée « orthographe voisine » — le carnet vocalisé s'écrit défectif (עִתּוֹן → `עתון`) quand on cherche plein (`עיתון`), et sans cette rubrique 6 mots sur 24 ressortaient `ABSENT` en étant présents ; terme latin = sous-chaîne à frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `CATÉGORIE fichier:ligne · hébreu — français` (ancre dans `data/*.json`, qui remplace l'ancienne ancre « carnet Lnnnn » — la source d'un mot est désormais `data/`, le carnet n'en est qu'un dérivé généré), `ABSENT` seulement si ni exacte ni voisine, bornée à 8 occurrences par rubrique (surplus compté). `--stats` : total + répartition section/niveau/thème (du moins doté au plus doté). Répond « ce mot existe-t-il ? où ? quel thème est sous-doté ? » pour ~200 tokens au lieu de lire le carnet. Réutilise les exports de build.js (`chargeDonnees`, `deriveCartes`, `stripNikud`, `orthographeVoisine`, `fichiersDonnees`…) : aucun troisième parseur, et **aucune énumération de `data/` en propre** — l'index des fichiers vient de `fichiersDonnees()`. | ✅ oui |
 | [mesure_translitteration.js](../tools/mesure_translitteration.js) | Dev only. Note `he2tr` face à **tous les `.tr` écrits à la main** (cartes, exemples, formes) — les seuls qui font foi. Sort trois nombres : accord exact, accord après `trKey` (celui qui dit ce que la saisie accepte) et distance d'édition totale. `--top` liste les 15 plus gros écarts ; `--shva` tabule, **sur le `tr` humain seul**, ce que l'usage fait du shva initial consonne par consonne. Existe parce que la règle du shva est morphologique et que `he2tr` ne peut que l'approcher : c'est le harnais qui arbitre toute retouche de l'approximation, et **un changement ne se garde que s'il améliore les trois nombres**. Charge les fonctions par `fonctionsApp()` — aucune copie de la translittération. | ✅ oui |
 | [manifest.webmanifest](../manifest.webmanifest), [sw.js](../sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
@@ -68,9 +68,9 @@ le recalculent pas. Les chemins de ce tableau sont donnés depuis la racine.
 L'app en ligne est installable (iPhone : Safari → « Sur l'écran d'accueil ») et fonctionne hors ligne :
 
 - **`manifest.webmanifest`** — nom, `display: standalone`, couleurs de la charte, icônes 192/512. `start_url` et `scope` sont **relatifs** (le site vit sous `/flashcards-hebreu/`).
-- **`sw.js`** — service worker en *stale-while-revalidate* : l'app et le carnet sont servis depuis le cache puis rafraîchis en arrière-plan (une mise à jour de contenu est visible au lancement suivant). Les polices Google sont en cache-first. Seules les navigations vers la racine (`/`, `/index.html`) sont rabattues sur la coquille `./` — le **portail** — les autres pages (le carnet !) sont servies telles quelles. ⚠️ **`VERSION` ne s'incrémente plus à la main** (Task 19) : `node tools/build.js` l'estampille avec un sha256 des cinq artefacts + `manifest.webmanifest`, et `--check` recalcule le hash. Le seul geste manuel qui reste sur ce fichier est le préfixe de `CACHE`, à changer pour forcer une vraie purge (changement de stratégie qui rendrait les entrées gardées nuisibles).
+- **`sw.js`** — service worker en *stale-while-revalidate* : l'app et le carnet sont servis depuis le cache puis rafraîchis en arrière-plan (une mise à jour de contenu est visible au lancement suivant). Les polices Google sont en cache-first. Seules les navigations vers la racine (`/`, `/index.html`) sont rabattues sur la coquille `./` — le **portail** — les autres pages (le carnet !) sont servies telles quelles. ⚠️ **`VERSION` ne s'incrémente plus à la main** : `node tools/build.js` l'estampille avec un sha256 des cinq artefacts + `manifest.webmanifest`, et `--check` recalcule le hash. Le seul geste manuel qui reste sur ce fichier est le préfixe de `CACHE`, à changer pour forcer une vraie purge (changement de stratégie qui rendrait les entrées gardées nuisibles).
 - **L'enregistrement du service worker vit DANS le bloc `BUILD:ONLINE-ONLY` d'`app.html`** : le fichier autonome ne doit pas en hériter (inutile hors ligne, et invalide en `file://`). Le portail (`index.html`) porte son propre petit script d'enregistrement.
-- **`start_url` pointe sur `./`** : l'icône installée ouvre le **portail** (décision du 2026-07-19, qui annule le `./app.html` de la veille — atterrir directement dans les flashcards surprenait). (Une PWA installée avant garde son ancien `start_url` — la réinstaller une fois.)
+- **`start_url` pointe sur `./`** : l'icône installée ouvre le **portail** (qui annule le `./app.html` de la veille — atterrir directement dans les flashcards surprenait). (Une PWA installée avant garde son ancien `start_url` — la réinstaller une fois.)
 - Les icônes sont un א en Frank Ruhl Libre 700 (la police du bandeau de l'app) sur fond `--bg`, or `--gold` ; en cas de changement de palette, les régénérer (ImageMagick). ⚠️ `icons/` **n'entre pas** dans le hash qui estampille `VERSION` : une icône régénérée ne déplace donc pas la version. Conséquence bornée — tout le même-origine étant en *stale-while-revalidate*, la nouvelle icône arrive avec un lancement de retard.
 - Limite iOS : l'icône d'une PWA déjà installée est figée à l'installation — supprimer/réajouter l'app pour la rafraîchir.
 
@@ -86,7 +86,7 @@ aucune garde de mouvement, là où `app.html` et `index.html` avaient les trois.
 (snapshot du 19/07, supprimé du dépôt à la clôture — historique git) a traité ce
 décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
 
-- **`lang="he"` sur 100 % des nœuds hébreux** (5649 au 2026-07-21, après le lot grammaire — le compte **se mesure dans le
+- **`lang="he"` sur 100 % des nœuds hébreux** (le compte **se mesure dans le
   navigateur, il ne se calcule pas** : ajouter une entrée au carnet crée aussi ses `span.cursive`,
   donc un mot ajouté pèse plus d'un nœud). Trois familles à connaître quand on ajoute
   du contenu : les éléments purement hébreux portent l'attribut **directement** dans la source
@@ -135,7 +135,7 @@ par inadvertance :
 
 - **La rampe de 8 pas, et le socle qu'elle corrige.** ⚠️ `font-size:22px` est posé sur
   **`body`**, jamais sur `html` — dans les trois fichiers — donc **1rem vaut 16px**, pas
-  22px (mesuré en WebKit le 19/07). Le commentaire qui affirmait « tout le reste est en
+  22px (mesuré en WebKit). Le commentaire qui affirmait « tout le reste est en
   rem/em et suit » était faux, et c'est ce malentendu qui avait produit 24 tailles
   distinctes : chacune poussée à tâtons contre une base inerte. Le carnet porte désormais
   une rampe de 8 pas (`--pas-titre` … `--pas-micro`) dans un **second** bloc `:root`, local
@@ -173,7 +173,7 @@ Le carnet n'étant qu'une **sortie**, un attribut ajouté à ses spans ne peut p
 d'extraction : il n'y en a pas. Ce qui reste à vérifier après une retouche de balisage est
 `node tools/build.js --check` (les cinq artefacts en phase) et le filtre de recherche du
 carnet, qui travaille sur `textContent` — envelopper l'hébreu ne doit pas le casser
-(contrôlé : 3 résultats pour « שלום », 16 pour « maison »).
+(le compte du jour se relit par `node tools/cherche_mots.js <terme>` — ne pas le recopier ici, il bouge à chaque lot).
 
 ## Flux de données : du carnet aux cartes
 
@@ -186,7 +186,7 @@ Chaque fichier de liste (`data/listes/<slug>.json`) porte un champ `section`. **
 Deux formes d'entrées :
 
 - **`data/noms.json`, `data/adjectifs.json`, `data/verbes.json`** — un objet par mot (`he`, `fr`, `niveau`, `theme`, `groupe`, `exemples`, et selon la catégorie `genre`/`pluriel` ou `formes` ×3/×4). Rendus en tables par `genereCarnet()` ; lus directement par `deriveCartes()`, sans lecture positionnelle de colonnes.
-- **`data/listes/<slug>.json`** — `{ section, entries: [{ he, tr, fr, fr_court?, niveau, groupe?, exemples, note? }] }` pour pronoms, prépositions, nombres, expressions, **phrases**, etc. (voir la map `listCats`). La section **Phrases** (`section: 'Phrases'`) contient des phrases entières du quotidien : elles deviennent des cartes ordinaires (catégorie `Phrases`) et traversent tous les modes. La section **Hébreu parlé** (`section: 'Hébreu parlé'`, ajoutée le 27/07/2026) porte le registre familier — 45 entrées réparties en quatre `groupe` (`particules`, `conversation`, `reagir`, `emprunts`), chacune avec sa phrase d'usage, parce que תכלס ou דווקא ne veulent rien dire hors contexte. Ajouter une entrée `listCats` impose de la répercuter dans `build.js` (objet `listCats` **et** `EXPECTED_CATS`) **et** dans `catOrder` de [src/app/js/07-filtres.js](../src/app/js/07-filtres.js) : sans cette dernière ligne les cartes existent mais aucune puce ne s'affiche, `buildChips()` n'itérant que sur `catOrder`.
+- **`data/listes/<slug>.json`** — `{ section, entries: [{ he, tr, fr, fr_court?, niveau, groupe?, exemples, note? }] }` pour pronoms, prépositions, nombres, expressions, **phrases**, etc. (voir la map `listCats`). La section **Phrases** (`section: 'Phrases'`) contient des phrases entières du quotidien : elles deviennent des cartes ordinaires (catégorie `Phrases`) et traversent tous les modes. La section **Hébreu parlé** (`section: 'Hébreu parlé'`) porte le registre familier — 45 entrées réparties en quatre `groupe` (`particules`, `conversation`, `reagir`, `emprunts`), chacune avec sa phrase d'usage, parce que תכלס ou דווקא ne veulent rien dire hors contexte. Ajouter une entrée `listCats` impose de la répercuter dans `build.js` (objet `listCats` **et** `EXPECTED_CATS`) **et** dans `catOrder` de [src/app/js/07-filtres.js](../src/app/js/07-filtres.js) : sans cette dernière ligne les cartes existent mais aucune puce ne s'affiche, `buildChips()` n'itérant que sur `catOrder`.
 
 Une entrée peut porter des champs qui pilotent la carte sans toucher au code de l'app :
 
@@ -203,16 +203,16 @@ Les sections purement grammaticales (phrase sans verbe, racine, présent, passé
 
 Il n'y a plus d'`extractCards()`, ni côté `app.html` ni côté `build.js` : les deux implémentations regex/DOM qui devaient rester synchrones ont été supprimées au chantier 2, avec le mode `node tools/build.js --verrou` qui avait servi à prouver leur équivalence avant la coupure, et le harnais de comparaison des carnets.
 
-**Depuis le chantier 4 (Task 20), le dépôt ne contient plus une seule ligne de lecture de HTML.** Le mini-parseur qui restait dans `build.js` (`decodeEntities`, `firstSpanText`, `parseSections`, `closeOf`, `exemplesOf`, `attrOf`, `tdsOf`) n'avait plus que les scripts jetables de migration pour consommateurs : il a été supprimé avec eux, exports compris (`grep -c "function .*Of\b" tools/build.js` pour le vérifier). Le HTML ne fait plus que **sortir** du build. Si un besoin de relecture réapparaissait, le reprendre dans l'historique git plutôt que d'en réécrire un — un lecteur de HTML dans ce dépôt est le retour du couplage que trois chantiers ont servi à défaire.
+**Depuis le chantier 4, le dépôt ne contient plus une seule ligne de lecture de HTML.** Le mini-parseur qui restait dans `build.js` (`decodeEntities`, `firstSpanText`, `parseSections`, `closeOf`, `exemplesOf`, `attrOf`, `tdsOf`) n'avait plus que les scripts jetables de migration pour consommateurs : il a été supprimé avec eux, exports compris (`grep -c "function .*Of\b" tools/build.js` pour le vérifier). Le HTML ne fait plus que **sortir** du build. Si un besoin de relecture réapparaissait, le reprendre dans l'historique git plutôt que d'en réécrire un — un lecteur de HTML dans ce dépôt est le retour du couplage que trois chantiers ont servi à défaire.
 
 À la place, un seul chemin : `chargeDonnees(racine)` (build.js) lit `data/*.json` en mémoire, `valideDonnees(donnees)` la valide (champs, niveaux, thèmes, thème interdit sur une entrée de liste), puis deux fonctions consomment cette même structure sans jamais repasser par du HTML :
 
 - `genereCarnet(donnees, srcCarnet)` — assemble le carnet HTML depuis les gabarits de `src/carnet/` ;
 - `deriveCartes(donnees)` — dérive directement le tableau de cartes, validé en sortie par `assertFormeCartes(cards)` (forme des cartes : `cat`/`he`/`fr`/`he_plain` non vides, `tr === ''` sur les cartes de table, 4 formes pour un verbe, 3 pour un adjectif, 0 ou 1 pour un nom).
 
-**Et plus aucun artefact n'est une entrée — sans exception** (25/07). `verifie_exemples.js` et `ajoute_mots.js` avaient besoin de `he2tr` / `trKey` / `editDist` pour rester d'accord avec l'appli, et les prenaient dans `app.html` en découpant le texte à l'accolade (`grabFunction`, dupliqué mot pour mot dans les deux outils). Ils passent désormais par **`fonctionsApp(noms, racine)`** (exportée par `build.js`), qui évalue le module source `src/app/js/02-translitteration.js` **en entier** dans un bac `vm` : le module est déclaré « logique pure » par son en-tête `// Expose :` et ne contient que des déclarations de fonctions, donc aucun découpage n'est nécessaire — l'extracteur a disparu des deux outils. Une fonction absente lève une erreur **nommée** (vérifié par casse fabriquée : renommer `he2tr` fait mourir les deux outils en exit 1). Corollaire concret : les outils tournent sur un dépôt fraîchement cloné, `app.html` absent — et le bac à sable d'`ajoute_mots.js` ne copie plus l'artefact, puisque plus personne ne le lit.
+**Et plus aucun artefact n'est une entrée — sans exception**. `verifie_exemples.js` et `ajoute_mots.js` avaient besoin de `he2tr` / `trKey` / `editDist` pour rester d'accord avec l'appli, et les prenaient dans `app.html` en découpant le texte à l'accolade (`grabFunction`, dupliqué mot pour mot dans les deux outils). Ils passent désormais par **`fonctionsApp(noms, racine)`** (exportée par `build.js`), qui évalue le module source `src/app/js/02-translitteration.js` **en entier** dans un bac `vm` : le module est déclaré « logique pure » par son en-tête `// Expose :` et ne contient que des déclarations de fonctions, donc aucun découpage n'est nécessaire — l'extracteur a disparu des deux outils. Une fonction absente lève une erreur **nommée** (vérifié par casse fabriquée : renommer `he2tr` fait mourir les deux outils en exit 1). Corollaire concret : les outils tournent sur un dépôt fraîchement cloné, `app.html` absent — et le bac à sable d'`ajoute_mots.js` ne copie plus l'artefact, puisque plus personne ne le lit.
 
-**L'arborescence de `data/` ne s'énumère qu'à un seul endroit** (25/07) : `fichiersListes(racine)` (les fichiers de `data/listes/`, triés) et `fichiersDonnees(racine)` (les chemins relatifs de tout le contenu, tables puis listes, dans l'ordre de lecture), tous deux exportés par `build.js`. `chargeDonnees()` et le `construitIndexFichiers()` de `cherche_mots.js` portaient chacun leur propre `readdirSync` de `data/listes/` — deux endroits à corriger le jour où l'arborescence bouge, et rien pour signaler l'oubli du second. Un outil qui doit parcourir la source passe désormais par ces helpers, jamais par un `readdirSync` à lui.
+**L'arborescence de `data/` ne s'énumère qu'à un seul endroit** : `fichiersListes(racine)` (les fichiers de `data/listes/`, triés) et `fichiersDonnees(racine)` (les chemins relatifs de tout le contenu, tables puis listes, dans l'ordre de lecture), tous deux exportés par `build.js`. `chargeDonnees()` et le `construitIndexFichiers()` de `cherche_mots.js` portaient chacun leur propre `readdirSync` de `data/listes/` — deux endroits à corriger le jour où l'arborescence bouge, et rien pour signaler l'oubli du second. Un outil qui doit parcourir la source passe désormais par ces helpers, jamais par un `readdirSync` à lui.
 
 Le garde-fou : `node tools/build.js --check` régénère les **cinq** artefacts en mémoire et les **compare au contenu près** à ce qui est committé (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`), et recalcule l'estampille `VERSION` de `sw.js`. N'ayant plus qu'une seule fonction de dérivation par artefact, il n'existe plus de « côté non couvert » comme au temps des deux extracteurs : ce que `--check` valide couvre tout le chemin `data/` + `src/` → artefacts.
 
@@ -242,7 +242,7 @@ Quand `tr` est vide, l'UI génère la translittération à l'affichage via `he2t
 
 `data/*.json` stocke le **CECRL fin** (six valeurs, `niveau: "A1"…"C2"`, rendu en `data-niveau` sur le carnet généré) — standard, vérifiable contre des listes de référence — et l'app le replie en quatre libellés (table `NIVEAUX` d'app.html) : **Facile = A1, Intermédiaire = A2–B1, Difficile = B2–C1, Expert = C2**. Les chips de l'accueil sont construites depuis les données (`buildNivChips`) : un niveau vide n'affiche pas de chip — le carnet n'ayant rien au-delà de C1, « Expert » n'apparaîtra qu'avec les premiers mots C2 ; un corpus sans aucun niveau classé masque le groupe entier.
 
-⚠️ **`EXPECTED_LEVELS` (build.js) est le verrou, et il est plus étroit que le CECRL fin.** Le champ `niveau` accepte en principe `A1`…`C2`, mais `valideDonnees()` refuse tout ce qui n'est pas dans `EXPECTED_LEVELS` — `['A1','A2','B1','B2','C1']` depuis le 27/07/2026, où le palier **C1** a été ouvert avec le lot « mortier grammatical » (registre soutenu : כִּבְיָכוֹל, אוּלָם, עַל כָּל פָּנִים, כְּלַפֵּי…). Côté app, **rien à câbler** : `NIVEAUX` ([src/app/js/07-filtres.js](../src/app/js/07-filtres.js)) rangeait déjà C1 dans « Difficile », et la note de l'écran de réglages l'annonçait. Ouvrir C2 ne demandera donc, là aussi, que cette constante. ⚠️ **Mais l'ordre compte** : un palier listé dans `EXPECTED_LEVELS` sans aucune carte fait **échouer le build** (garde `missingLevels`) — ajouter le niveau et les mots qui le peuplent dans le même geste.
+⚠️ **`EXPECTED_LEVELS` (build.js) est le verrou, et il est plus étroit que le CECRL fin.** Le champ `niveau` accepte en principe `A1`…`C2`, mais `valideDonnees()` refuse tout ce qui n'est pas dans `EXPECTED_LEVELS` — `['A1','A2','B1','B2','C1']`, où le palier **C1** a été ouvert avec le lot « mortier grammatical » (registre soutenu : כִּבְיָכוֹל, אוּלָם, עַל כָּל פָּנִים, כְּלַפֵּי…). Côté app, **rien à câbler** : `NIVEAUX` ([src/app/js/07-filtres.js](../src/app/js/07-filtres.js)) rangeait déjà C1 dans « Difficile », et la note de l'écran de réglages l'annonçait. Ouvrir C2 ne demandera donc, là aussi, que cette constante. ⚠️ **Mais l'ordre compte** : un palier listé dans `EXPECTED_LEVELS` sans aucune carte fait **échouer le build** (garde `missingLevels`) — ajouter le niveau et les mots qui le peuplent dans le même geste.
 
 ⚠️ **La distribution par niveau ne se recopie plus ici** : elle change à chaque lot de vocabulaire, et toute valeur écrite dans cette page est périmée dès le lot suivant. Une seule autorité, qui la recalcule depuis `data/` : **`node tools/cherche_mots.js --stats`**. (L'historique des lots successifs est dans TODO_ARCHIVE.md.)
 
@@ -256,7 +256,7 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 ### 4.1 Les thèmes sémantiques (`data-theme`)
 
-Depuis le 2026-07-21, chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Quinze thèmes** (douze à la taxonomie initiale ; `vetements-couleurs` ajouté le jour même en seconde passe, puis `argent-achats` et `loisirs-culture` en troisième passe le jour même encore, extraits des fourre-tout — voir les arbitrages ci-dessous), et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Voici le **contrat** — les slugs et leurs libellés, qui eux ne bougent pas :
+Chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Quinze thèmes** (douze à la taxonomie initiale ; `vetements-couleurs` ajouté le jour même en seconde passe, puis `argent-achats` et `loisirs-culture` en troisième passe le jour même encore, extraits des fourre-tout — voir les arbitrages ci-dessous), et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Voici le **contrat** — les slugs et leurs libellés, qui eux ne bougent pas :
 
 | Slug | Libellé (app) |
 | --- | --- |
@@ -284,15 +284,11 @@ Côté app, le filtre est **optionnel** — c'est sa différence voulue avec Cat
 
 **Arbitrages de classement assumés** (un seul thème par mot, tranché sur l'usage dominant) : affamé/assoiffé, kilo/litre/gramme → `nourriture` ; hôpital → `corps-sante` ; plage, chaud/froid → `nature` ; vouloir/décider/choisir → `communication-pensee` ; perdu/proche/loin → `ville-transport`. Un reclassement se fait comme pour le niveau : éditer l'attribut dans le carnet, puis `node tools/build.js`.
 
-**Le treizième thème, né d'un arbitrage défait (2026-07-21, seconde passe).** La taxonomie initiale rangeait les couleurs en `abstrait` et les vêtements en `vie-quotidienne` — deux pis-aller documentés comme tels, qui gonflaient précisément les deux plus gros thèmes. `vetements-couleurs` les regroupe : 13 noms (vêtement → t-shirt, lunettes comprises), 11 adjectifs de couleur (rouge → marron), 2 verbes (porter, s'habiller), soit 26 entrées. Sa frontière est « ce qui s'enfile » : sac et bague restent en `vie-quotidienne` (objet transporté / bijou, pas de l'habillement).
-
-**Les quatorzième et quinzième thèmes (2026-07-21, troisième passe) — et le premier lot de vocabulaire neuf par thème.** Même méthode : `vie-quotidienne` (63 entrées) rendait encore deux amas cohérents. `argent-achats` (la transaction et ce qui la paie : acheter, vendre, payer, prix, loyer, riche/pauvre…) et `loisirs-culture` (l'activité et l'œuvre : jouer, chanter, danser, film, musique, ballon…) en extraient 35, et `vie-quotidienne` retombe à 28 (gestes et états du quotidien : se lever, dormir, prendre, donner, attendre…). Les deux frontières, miroir du « ce qui s'enfile » : **« la transaction, pas le lieu »** (magasin, marché, supermarché restent `ville-transport` ; salaire reste `travail-etudes` ; le portefeuille suit l'argent) et **« l'activité et l'œuvre, pas le lieu »** (cinéma, théâtre, musée, bibliothèque restent `ville-transport` ; livre, lire, écrire restent `travail-etudes`). S'y ajoute un **lot de 32 mots neufs** ciblé sur les manques révélés par ces deux champs (sport, vacances, vendeur, monnaie rendue, réduction, gratuit… étaient à zéro) : 14 en `argent-achats`, 18 en `loisirs-culture`, rédigé en sous-agent puis arbitré au fil principal (le compte de cartes de l'époque n'est pas recopié ici : voir `node tools/cherche_mots.js --stats`).
-
 ### 5. Les exemples en situation
 
 Chaque exemple est une phrase **écrite et affichée** — hébreu avec nikud, translittération au standard maison, français — jamais portée par le seul audio (PRODUCT.md : l'aisance orale est le but, le texte reste le vecteur). Côté app, le pli « Voir un exemple » (`exHtml`/`exBind` dans app.html) n'apparaît que là où la réponse est déjà visible : verso des Cartes, feedback de Saisie, verdict du QCM — jamais côté recto en fr→he (l'exemple contient le mot). Le tiroir de la recherche les affiche aussi (`srd-ex`). Le libellé du pli suit son état (« Voir un exemple » ↔ « Masquer l'exemple », géré dans `exActivate`). Un bouton Écouter par exemple lit la phrase entière (masqué sous `no-he-voice`). La délégation d'événements suit le motif `bindTap` avec `stopPropagation` — sans lui, toucher le pli retournerait la carte.
 
-**Ligne éditoriale.** Les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec (verbes : phrase au présent). Le compte courant s'affiche à chaque `node tools/build.js`. Les règles : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple proche du niveau du mot (les niveaux de § 4 disent par où commencer) — **le validateur tolère +1 niveau et n'alerte qu'à +2**, calibrage du 2026-07-19 : une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב) qui sont A2 par nature, alerter à +1 noyait le signal dans l'inévitable —, une situation concrète du quotidien par phrase. **Workflow des lots** (décision du 2026-07-18) : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node tools/verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node tools/build.js`, avant commit.
+**Ligne éditoriale.** Les tables Noms, Adjectifs et Verbes sont couvertes à **100 %**, et `verifie_exemples.js` en fait une **règle bloquante** : un mot ajouté à l'une de ces trois tables sans exemple met le contrôle en échec (verbes : phrase au présent). Le compte courant s'affiche à chaque `node tools/build.js`. Les règles : phrases courtes (3–8 mots — les phrases nominales de 3 mots sont idiomatiques, l'hébreu n'a pas de « être » au présent), présent, vocabulaire de l'exemple proche du niveau du mot (les niveaux de § 4 disent par où commencer) — **le validateur tolère +1 niveau et n'alerte qu'à +2**, calibrage du 2026-07-19 : une phrase du quotidien pour un verbe A1 réclame des noms concrets (תִּינוֹק, מַתָּנָה, מִכְתָּב) qui sont A2 par nature, alerter à +1 noyait le signal dans l'inévitable —, une situation concrète du quotidien par phrase. **Workflow des lots** : les lots suivants s'écrivent sans relecture humaine — chaque lot doit passer `node tools/verifie_exemples.js` (0 erreur ; les avertissements sont des signaux éditoriaux à arbitrer), puis `node tools/build.js`, avant commit.
 
 ### 5.1 Le lexique du validateur (deux garde-fous à ne pas retirer)
 
@@ -355,13 +351,13 @@ Chaque module s'ouvre donc sur un en-tête `// Expose : … — Utilise : …` q
 
 L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([src/app/js/07-filtres.js](../src/app/js/07-filtres.js)) dans l'objet `state` ([src/app/js/99-principal.js](../src/app/js/99-principal.js)). Chaque groupe est un `role="group"` relié à son `<h2>` (`aria-labelledby`, notes en `aria-describedby`). Les trois groupes « qu'on règle une fois » (Ordre, Longueur, Prononciation) vivent repliés dans le `<details class="adv">` « Réglages avancés », fermé par défaut.
 
-**Catégories et Niveau se replient de même** (2026-07-19), dans deux `<details class="adv">` de forme identique — c'étaient les deux plus gros points de décision de l'écran, **23 chips à eux deux** (18 catégories, 5 niveaux). Le repli avait alors fait passer le panneau de 1278 à 874 px et les arrêts de tabulation de 43 à 35 — ⚠️ mesures du 19/07, jamais revérifiées depuis et qu'aucune commande ne recalcule : à traiter comme le motif d'une décision, pas comme l'état d'aujourd'hui. Trois propriétés à ne pas casser :
+**Catégories et Niveau se replient de même**, dans deux `<details class="adv">` de forme identique : ce sont les deux plus gros points de décision de l'écran, **23 chips à eux deux** (18 catégories, 5 niveaux), et les laisser dépliés allongeait le panneau au point de repousser « Commencer » hors de vue. Trois propriétés à ne pas casser :
 
 - **Le `<h2>` du groupe *est* la rangée du `<summary>`** (et non un titre dupliqué au-dessus). Il reste la cible de l'`aria-labelledby`, donc le nom accessible n'est pas dédoublé ; il prend en revanche la voix du libellé de pli (`.adv summary h2.adv-lbl`) et non la voix Title dorée — un groupe replié se lit comme un pli, un groupe déplié comme une section.
 - **Le `<summary>` résume la sélection** (`refreshFoldSubs()`, appelé depuis `updateStart()` — donc par toutes les voies qui changent la sélection : chips, `#selall`, remise à zéro, restauration des préférences). Au-delà de deux entrées on compte au lieu de lister, une liste coupée à l'ellipse étant mensongère ; l'ordre suit `catOrder`, c'est-à-dire celui des chips à l'écran.
 - ⚠️ **L'état ouvert/replié se décide au chargement seulement** (`applyFoldState()`, depuis `applyPrefs()`) : ouvert tant que la sélection est vide. Sinon un profil vierge — qui par décision n'a aucune catégorie ni aucun niveau coché — n'offrirait plus rien à faire, et `#start-hint` désignerait des chips invisibles. Ensuite le pli n'obéit qu'à l'utilisateur : le refermer sous son doigt au premier choix serait hostile. `buildNivChips()` masque le pli entier quand le carnet ne porte aucun `data-niveau` ; même règle pour le pli « Thèmes » (`buildThemeChips()` et `data-theme`), à ceci près que ce pli-là ne s'ouvre jamais tout seul — sa sélection vide veut dire « Tous », pas « à faire ».
 
-Sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce) **tant qu'il est actif et seul allumé** (`body:not(.has-due) .start:enabled`), l'indice de sélection vide (`role="status"`) étant placé **au-dessus** de lui pour rester visible. Désactivé, il quitte le sticky *et* l'or pour une peau pleine et opaque : collant et translucide, il recouvrait quatre chips de catégories au premier écran en interceptant leurs taps (mesuré en WebKit le 2026-07-19, cf. DESIGN.md § CTA sous le pouce). Depuis le 2026-07-20, il quitte aussi l'or et le sticky **quand des cartes sont dues** — la carte « Révision du jour » est alors la lampe, et deux lumières simultanées ne feraient aucune hiérarchie (DESIGN.md § CTA sous le pouce, les trois registres). Détail des clés :
+Sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` en bas d'écran (zone du pouce) **tant qu'il est actif et seul allumé** (`body:not(.has-due) .start:enabled`), l'indice de sélection vide (`role="status"`) étant placé **au-dessus** de lui pour rester visible. Désactivé, il quitte le sticky *et* l'or pour une peau pleine et opaque : collant et translucide, il recouvrait quatre chips de catégories au premier écran en interceptant leurs taps (mesuré en WebKit, cf. DESIGN.md § CTA sous le pouce). Depuis le 2026-07-20, il quitte aussi l'or et le sticky **quand des cartes sont dues** — la carte « Révision du jour » est alors la lampe, et deux lumières simultanées ne feraient aucune hiérarchie (DESIGN.md § CTA sous le pouce, les trois registres). Détail des clés :
 
 - **mode** : `cards` (recto-verso), `input` (saisie tapée) ou `quiz` (QCM à 4 choix — `pickDistractors` ([src/app/js/12-qcm.js](../src/app/js/12-qcm.js)) sert les mauvaises réponses par **cascade**, du plus exigeant au filet : même `theme` + même `cat`, puis même `theme` + autre `cat`, puis même `cat`, puis autre `cat`, puis un dernier recours relâché qui garantit 4 options quel que soit le vivier. Le **thème d'abord** est ce qui empêche de résoudre le QCM par élimination sans reconnaître le mot ; ⚠️ seules les cartes des 3 tables portent `theme` (proportion du jour : `node -e "const c=require('./cards.json').cartes;console.log(c.filter(x=>x.theme).length+'/'+c.length)"`), donc les deux premiers étages sont gardés par `if(card.theme)` — sur une carte de liste ils se sautent en entier, sans quoi tous les `theme` absents s'apparieraient entre eux. À tous les étages sauf le dernier recours, on **écarte tout candidat dont une variante française frôle celles déjà retenues** (égalité ou Levenshtein ≤ 1) : pas de quasi-synonymes entre les options, et en fr→he pas de « deuxième bonne réponse » — garde-fou d'autant plus sollicité que des distracteurs du même thème sont sémantiquement plus proches ; les options de la catégorie « Phrases » portent la classe `.qc.ph` — corps réduit et boutons resserrés, pour que quatre phrases complètes empilées restent lisibles sur petit écran) ;
 - **direction** : `he2fr` / `fr2he` ;
@@ -370,7 +366,7 @@ Sous `@media (pointer:coarse)`, le bouton « Commencer » est `position:sticky` 
 - **audio** : voix hébraïque de `SpeechSynthesis` du navigateur (`loadVoices`/`speak`). Deux valeurs : « Au clic » (seul le bouton haut-parleur déclenche la lecture) et « Automatique » (lecture au rendu de la carte et à la révélation de l'hébreu) — le réglage est respecté dans **tous** les chemins de réponse. Sans voix hébraïque détectée, `reflectVoiceUi()` pose `body.no-he-voice` (boutons haut-parleur masqués) **et** désactive les chips « Prononciation » ; quand une voix est trouvée, la note du groupe affiche **son nom réel** (« Voix hébraïque détectée ✓ — Carmit ») **et, sur une seconde ligne `.voice-id` en voix Label et en LTR, son `voiceURI`** (« identifiant : com.apple.ttsbundle.Carmit-compact »). C'est l'outil de diagnostic de la synthèse robotique : le nom **renvoyé par `getVoices()`** ne dit pas la qualité, alors que l'identifiant, lui, la porte. Un suffixe `…-compact` confirme le plafond de WebKit sur iOS ; un `.enhanced.`/`.premium.` signifierait que son filtre a changé (cf. TODO.md point 3).
 
   ⚠️ **`name` est localisé par le système — ne jamais y brancher de logique.** iOS écrit bien la qualité dans le nom qu'il affiche dans ses Réglages, mais traduite : « Carmit (forbedret) » sur un téléphone en norvégien, « Erweitert » en allemand, « Enhanced » en anglais. C'est précisément l'écart entre ce nom-là et le « Carmit » nu que voit l'app qui **prouve** le filtre de WebKit (relevé sur l'appareil le 2026-07-19). Conséquence pour le code : `loadVoices()` classe et filtre d'abord sur **`voiceURI`** — identifiant reverse-DNS jamais traduit — et ne se rabat sur `name` qu'ensuite. Tester `name` seul, comme le faisait la première version, dégradait silencieusement le classement sur tout appareil non anglophone.
-  ⚠️ **Plafond de plateforme, mesuré le 2026-07-19** : sur iOS, la voix ne sera **jamais** une variante « Enhanced » ou « Premium ». WebKit filtre `getVoices()` sur `AVSpeechSynthesisVoiceQualityDefault` (bug WebKit 203689, pour réduire la surface de fingerprinting) et Apple le confirme : *« with Web Speech APIs only the pre-installed voices are available »*. `name` et `quality` sont deux champs distincts côté système, et l'API Web Speech n'expose pas le second : **le nom renvoyé par `getVoices()`** ne dira donc jamais la qualité, quelle que soit la variante installée. ⚠️ *Ne pas surinterpréter cette phrase* — le nom que **iOS** affiche dans ses propres Réglages, lui, la dit (traduite) ; c'est l'écart entre les deux qui prouve le filtre, et une rédaction antérieure de cette note l'avait à tort étendue à tous les noms. Ne pas conseiller à l'utilisateur d'installer une voix de meilleure qualité : la PWA ne pourra pas s'en servir. Seul `voiceURI` porte la qualité (`com.apple.ttsbundle.Carmit-compact` vs `com.apple.voice.enhanced.…`) — il est **affiché en permanence** sous le nom depuis le 2026-07-19, et sert désormais de détecteur : s'il passait un jour à `.enhanced.`, le sujet se rouvrirait (cf. TODO.md point 3) ;
+  ⚠️ **Plafond de plateforme, mesuré** : sur iOS, la voix ne sera **jamais** une variante « Enhanced » ou « Premium ». WebKit filtre `getVoices()` sur `AVSpeechSynthesisVoiceQualityDefault` (bug WebKit 203689, pour réduire la surface de fingerprinting) et Apple le confirme : *« with Web Speech APIs only the pre-installed voices are available »*. `name` et `quality` sont deux champs distincts côté système, et l'API Web Speech n'expose pas le second : **le nom renvoyé par `getVoices()`** ne dira donc jamais la qualité, quelle que soit la variante installée. ⚠️ *Ne pas surinterpréter cette phrase* — le nom que **iOS** affiche dans ses propres Réglages, lui, la dit (traduite) ; c'est l'écart entre les deux qui prouve le filtre, et une rédaction antérieure de cette note l'avait à tort étendue à tous les noms. Ne pas conseiller à l'utilisateur d'installer une voix de meilleure qualité : la PWA ne pourra pas s'en servir. Seul `voiceURI` porte la qualité (`com.apple.ttsbundle.Carmit-compact` vs `com.apple.voice.enhanced.…`) — il est **affiché en permanence** sous le nom, et sert désormais de détecteur : s'il passait un jour à `.enhanced.`, le sujet se rouvrirait (cf. TODO.md point 3) ;
 - **longueur** (`state.len` : `'10'|'20'|'50'|'all'`, défaut `'20'`) : `limitPool()` tronque le jeu **après** le mélange dans `start()` (aléatoire = pioche différente à chaque session ; dans l'ordre = les N premières). `startReview()` l'applique aussi, après tri des cartes dues par retard décroissant — le reste demeure dû et réapparaît sur la carte de révision (sous-titre explicite quand dû > limite). « Rejouer les ratées » n'est volontairement **jamais** limité.
 
 Chaque mode a sa zone dans `#study` (`#controls-cards` / `#input-zone` / `#quiz-zone`) et un `setup*Card()` qui bascule les classes body `input-mode` / `quiz-mode` ; `render()` aiguille selon `state.mode`. Le passage à la carte suivante est mutualisé (`nextAfterInput`, réutilisé par le QCM). Toutes les entrées de session (catégories, révision, rejeu) passent par `beginSession(pool)` ; `state.origQueue` mémorise le jeu de la session pour que « Recommencer » le rejoue tel quel (jamais un re-filtrage — sinon une session de révision repartirait à vide).
@@ -387,7 +383,7 @@ Couche de mémorisation persistée, **invisible pour `build.js`** (pur état app
 
 Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, restaurées via `buildChips()` (donc les deux chemins de démarrage) :
 
-- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, niveaux, mode, dir, script, order, audio, len}` — `niveaux` est **rétro-compatible** : absent des anciennes préférences (profil d'avant le filtre), il redevient « tout sélectionné », rien ne disparaît — mais un tableau présent et vide reste vide. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), **aucune catégorie ni aucun niveau n'est présélectionné** — le choix appartient à l'utilisateur (décision du 19/07/2026, qui remplace l'ancien défaut « tout sauf Phrases » de `defaultCats()`) ; les six autres réglages gardent leurs valeurs initiales. `updateStart()` guide alors : indice « Choisis au moins une catégorie » (ou niveau) dans `#start-hint` et CTA désactivé tant que la sélection est vide.
+- **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, niveaux, mode, dir, script, order, audio, len}` — `niveaux` est **rétro-compatible** : absent des anciennes préférences (profil d'avant le filtre), il redevient « tout sélectionné », rien ne disparaît — mais un tableau présent et vide reste vide. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), **aucune catégorie ni aucun niveau n'est présélectionné** — le choix appartient à l'utilisateur (qui remplace l'ancien défaut « tout sauf Phrases » de `defaultCats()`) ; les six autres réglages gardent leurs valeurs initiales. `updateStart()` guide alors : indice « Choisis au moins une catégorie » (ou niveau) dans `#start-hint` et CTA désactivé tant que la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he`, vocalisé) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
 - **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([src/app/js/12-qcm.js](../src/app/js/12-qcm.js)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([src/app/js/11-cartes.js](../src/app/js/02-translitteration.js)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
 - **Sortie explicite** : « Quitter » affiche sur l'accueil la ligne `#exit-note` (`role="status"`) « Session interrompue — X réponse(s) sur Y déjà comptée(s) dans ta révision » quand au moins une réponse a été donnée (les réponses sont déjà en SRS — le dire) ; masquée au démarrage suivant. Sur l'écran de fin, « Recommencer » est libellé « Rejouer ces N cartes » (même tirage `origQueue`), et une fin de **révision** avec ratées explique qu'elles sont aussitôt redevenues dues (effet Sisyphe du compteur, pas un bug).
@@ -399,7 +395,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 - Tout hébreu généré porte `lang="he"` (`.big-he`, `.sub-he`, `.cursive-line`, `.f-he`, `.qc-he`, `.sr-he`, `.srd-he`, `.answer .he`, `.m-he` de la liste des ratées, marque) — à préserver dans les gabarits de chaînes.
 - Focus clavier : un seul anneau global `:focus-visible` doré (aucun `outline:none` nu). Les
-  **trois** fichiers le portent depuis le 2026-07-19, et aucun ne pose de `border-radius` dessus
+  **trois** fichiers le portent, et aucun ne pose de `border-radius` dessus
   (ce rayon ne décorerait pas l'anneau : il redessinerait l'élément tant qu'il est focalisé).
   ⚠️ **Ne jamais écrire `transition:all`** — dans `app.html` ni ailleurs : le raccourci capture les longhands
   `outline-*`, et WebKit les fige alors à leurs valeurs initiales (`medium` = 3 px, `currentColor`,
@@ -447,189 +443,46 @@ Les quatre premiers filets détectent les cartes perdues ; les quatre suivants (
 1. **`init()` dans app.html** ([src/app/js/99-principal.js](../src/app/js/99-principal.js)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node tools/build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
 3. **`node tools/build.js --check`** : compare les **cinq** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html` depuis le chantier 3, `flashcards_hebreu.html`, `index.html` depuis le Task 18) au contenu committé — un artefact obsolète, une dérive des gabarits ou une dérive de `data/*.json` non répercutée se voient tous, puisque tous sortent de la même donnée. **Depuis le Task 19 il recalcule aussi l'estampille** : la `VERSION` committée dans `sw.js` doit égaler le hash du contenu servi, sinon FAIL nommé. Le contrôle est *gardé* par le précédent (il ne s'exerce que si les cinq artefacts sont déjà prouvés en phase) : si l'un est périmé, le correctif est le rebuild, qui repose l'estampille au passage.
-4. **Garde de taxonomie de `build.js`** (21/07) : `EXPECTED_THEMES` est comparé aux slugs de la constante `THEMES` de l'app assemblée en mémoire. Un thème ajouté d'un seul côté échoue le build en nommant la liste fautive ; la disparition de la constante échoue aussi, plutôt que de passer au vert en ne comparant rien.
-5. **`verifieCharte()` dans `build.js`** (25/07) : mécanise les pièges n°2, 3, 4 et 5 de CLAUDE.md, fatale en mode normal comme en `--check`. **Élargi au portail au Task 18** : les trois pages déployées y passent désormais, chacune sous sa forme fraîchement assemblée (jamais relue du disque — une garde qui interroge l'artefact committé valide le passé, pas ce que le build va écrire). Contrôles : `transition:…all` interdit dans l'app **et le portail** (WebKit fige les longhands `outline-*`, l'anneau de focus disparaît sans symptôme — le portail pose lui aussi un anneau or et anime ses portes) ; aucun `font-size` sur le sélecteur `html` (les trois) ; les jetons de `src/tokens.css` présents **verbatim** dans les trois, et le **nombre de blocs `:root` attendu par page** (carnet 3 — piège n°4, ils ne fusionnent jamais —, app 1, portail 1), ce qui interdit un second `:root` en dur qui reprendrait la main par cascade à côté de l'injection ; et `--bg` doit se retrouver dans `manifest.webmanifest` (`theme_color`, `background_color`) et dans chaque `<meta name="theme-color">` — le message rappelle que les icônes, elles, ne sont vérifiables par aucune commande. ⚠️ Le scan CSS ne parcourt que les contenus `<style>` : appliqué au document entier, le regex de blocs était quadratique sur les longs runs HTML sans accolade (build gelé, payé à l'installation du lot).
-6. **Jetons interdits du standalone élargis** (25/07) : `serviceWorker` et `BUILD:ONLINE-ONLY` rejoignent `fetch(`/`DOMParser` dans `generateStandalone()` — une fence `BUILD:ONLINE-ONLY` coupée en deux blocs (le regex non-greedy ne retire que le premier) sortait en exit 0 avec un standalone qui enregistre un service worker ; elle échoue désormais en nommant le jeton (finding du chantier 3 soldé).
-7. **`assertBacASableCoherent()` dans `ajoute_mots.js`** (Task 17, 25/07) : le bac à sable du générateur de fiche imprimait un compte de cartes calculé **en process** — il aurait affiché le bon chiffre même en validant un autre arbre que le candidat. Le script relit désormais le `TOTAL <n>` imprimé par le build **du bac à sable lui-même** et refuse toute divergence, ainsi qu'un `TOTAL` illisible (format de sortie de `build.js` changé). C'est le contrôle du contrôle : sans lui, la preuve la plus coûteuse du générateur pouvait passer au vert sans rien prouver. Voir [SPEC_AJOUTE_MOTS.md](SPEC_AJOUTE_MOTS.md) §7.B.
-8. **Hook `pre-commit` versionné** ([.githooks/pre-commit](../.githooks/pre-commit), 25/07 ; installation par machine : `git config core.hooksPath .githooks`) : exécute `node tools/build.js --check` et `node tools/verifie_exemples.js` avant chaque commit (bypass assumé : `--no-verify`). Il portait un troisième contrôle — « un fichier servi change sans bump de `VERSION` » —, **retiré au Task 19** : l'estampille étant recalculée par `--check`, le contrôle n°1 en hérite, et sans avoir à deviner la liste des fichiers servis dans une regex de shell.
-9. **Estampille de `VERSION`** (Task 19) : `node tools/build.js` réécrit la ligne `const VERSION` de `sw.js` avec `'v-' + sha256(cinq artefacts + manifest).slice(0,8)`. Deux gardes autour, chacune prouvée par casse fabriquée le 25/07 : la ligne introuvable est **fatale et nommée** (`String.replace` d'un motif qui ne matche pas ne lève rien — il rendrait la chaîne inchangée, remettant le piège n°10 en place en silence), et une `VERSION` éditée à la main échoue en `--check` (exit 1, valeur attendue nommée). ⚠️ `sw.js` n'entre jamais dans son propre hash : la version s'y écrit, donc l'y inclure ferait courir le hash après sa propre queue et `--check` ne repasserait jamais vert. Effet de bord connu : le champ `version` de `cards.json` (date du build) entre dans le hash et y est **collant** — après un changement de contenu puis un `git checkout -- data/` seul, la version ne revient pas à sa valeur d'origine ; restaurer les artefacts avec les sources (`git checkout -- .`) la ramène au bit près.
+4. **Garde de taxonomie de `build.js`** : `EXPECTED_THEMES` est comparé aux slugs de la constante `THEMES` de l'app assemblée en mémoire. Un thème ajouté d'un seul côté échoue le build en nommant la liste fautive ; la disparition de la constante échoue aussi, plutôt que de passer au vert en ne comparant rien.
+5. **`verifieCharte()` dans `build.js`** : mécanise les pièges n°2, 3, 4 et 5 de CLAUDE.md, fatale en mode normal comme en `--check`. **Élargi au portail au Task 18** : les trois pages déployées y passent désormais, chacune sous sa forme fraîchement assemblée (jamais relue du disque — une garde qui interroge l'artefact committé valide le passé, pas ce que le build va écrire). Contrôles : `transition:…all` interdit dans l'app **et le portail** (WebKit fige les longhands `outline-*`, l'anneau de focus disparaît sans symptôme — le portail pose lui aussi un anneau or et anime ses portes) ; aucun `font-size` sur le sélecteur `html` (les trois) ; les jetons de `src/tokens.css` présents **verbatim** dans les trois, et le **nombre de blocs `:root` attendu par page** (carnet 3 — piège n°4, ils ne fusionnent jamais —, app 1, portail 1), ce qui interdit un second `:root` en dur qui reprendrait la main par cascade à côté de l'injection ; et `--bg` doit se retrouver dans `manifest.webmanifest` (`theme_color`, `background_color`) et dans chaque `<meta name="theme-color">` — le message rappelle que les icônes, elles, ne sont vérifiables par aucune commande. ⚠️ Le scan CSS ne parcourt que les contenus `<style>` : appliqué au document entier, le regex de blocs était quadratique sur les longs runs HTML sans accolade (build gelé, payé à l'installation du lot).
+6. **Jetons interdits du standalone élargis** : `serviceWorker` et `BUILD:ONLINE-ONLY` rejoignent `fetch(`/`DOMParser` dans `generateStandalone()` — une fence `BUILD:ONLINE-ONLY` coupée en deux blocs (le regex non-greedy ne retire que le premier) sortait en exit 0 avec un standalone qui enregistre un service worker ; elle échoue désormais en nommant le jeton (finding du chantier 3 soldé).
+7. **`assertBacASableCoherent()` dans `ajoute_mots.js`** : le bac à sable du générateur de fiche imprimait un compte de cartes calculé **en process** — il aurait affiché le bon chiffre même en validant un autre arbre que le candidat. Le script relit désormais le `TOTAL <n>` imprimé par le build **du bac à sable lui-même** et refuse toute divergence, ainsi qu'un `TOTAL` illisible (format de sortie de `build.js` changé). C'est le contrôle du contrôle : sans lui, la preuve la plus coûteuse du générateur pouvait passer au vert sans rien prouver. Voir [SPEC_AJOUTE_MOTS.md](SPEC_AJOUTE_MOTS.md) §7.B.
+8. **Hook `pre-commit` versionné** ([.githooks/pre-commit](../.githooks/pre-commit) ; installation par machine : `git config core.hooksPath .githooks`) : exécute `node tools/build.js --check` et `node tools/verifie_exemples.js` avant chaque commit (bypass assumé : `--no-verify`). Il portait un troisième contrôle — « un fichier servi change sans bump de `VERSION` » —, **retiré au Task 19** : l'estampille étant recalculée par `--check`, le contrôle n°1 en hérite, et sans avoir à deviner la liste des fichiers servis dans une regex de shell.
+9. **Estampille de `VERSION`** : `node tools/build.js` réécrit la ligne `const VERSION` de `sw.js` avec `'v-' + sha256(cinq artefacts + manifest).slice(0,8)`. Deux gardes autour, chacune prouvée par casse fabriquée le 25/07 : la ligne introuvable est **fatale et nommée** (`String.replace` d'un motif qui ne matche pas ne lève rien — il rendrait la chaîne inchangée, remettant le piège n°10 en place en silence), et une `VERSION` éditée à la main échoue en `--check` (exit 1, valeur attendue nommée). ⚠️ `sw.js` n'entre jamais dans son propre hash : la version s'y écrit, donc l'y inclure ferait courir le hash après sa propre queue et `--check` ne repasserait jamais vert. Effet de bord connu : le champ `version` de `cards.json` (date du build) entre dans le hash et y est **collant** — après un changement de contenu puis un `git checkout -- data/` seul, la version ne revient pas à sa valeur d'origine ; restaurer les artefacts avec les sources (`git checkout -- .`) la ramène au bit près.
 
 ## Développement et déploiement
 
-- **Servir en HTTP** : `app.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
-- **Vérification sans navigateur graphique** (WSL, y compris réseau coupé) : des scripts Node jetables, hors du dépôt — `tools/build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin). Pour le **rendu visuel**, l'outil de référence est **Playwright + WebKit réel** (le moteur de Safari — même rendu que l'iPhone cible) avec `devices['iPhone 16 Pro']` pour le mobile et un viewport classique pour le desktop ; les libs système nécessaires (`libgtk-4-1`, `libavif13`, `libgstreamer-plugins-bad1.0-0`) sont installées et les navigateurs téléchargés persistent dans `~/.cache/ms-playwright` (seule la lib npm `playwright` est à réinstaller par session). Le Chrome headless **système** pend en WSL2 — ne pas l'utiliser. Détail opérationnel dans RITUEL.md § Outillage.
-- **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
-- **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
+Servir en HTTP depuis la racine (`app.html` lit `cards.json` par `fetch`, donc `file://` ne
+marche pas), déployer en poussant sur `main`. Le détail opérationnel — outillage WSL, navigateur
+de contrôle, ordre des commandes — vit dans [RITUEL.md](RITUEL.md), pas ici.
 
 ## Le graphe de connaissance du dépôt
 
-Depuis le 2026-07-20, le dépôt embarque une **cartographie de lui-même** dans `graphify-out/`,
-produite par [graphify](https://github.com/safishamsi/graphify). Elle existe pour une raison
-précise : `app.html` fait plus de 2 000 lignes et le carnet plus de 6 000 — les lire pour
-répondre à une question coûte des dizaines de milliers de tokens, là où une interrogation du
-graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
-baisse quand le graphe grossit — `graphify benchmark` le remesure.
+`graphify-out/` porte un graphe interrogeable du dépôt : `graphify explain <symbole>` rend la
+ligne source et les appelants, `graphify query` répond en langue naturelle, `graphify path`
+relie deux nœuds. Le mode d'emploi et la règle de coût sont dans [CLAUDE.md](../CLAUDE.md) ;
+l'état d'obsolescence, fichier par fichier, dans [TODO.md § Dette de graphe](TODO.md). Ils ne
+sont pas répétés ici.
 
-**Ce que contient le graphe** — 420 nœuds, 679 arêtes, 28 communautés, figés au dernier
-recalage décidé (2026-07-21). ⚠️ **Tous les chiffres que le graphe porte sur le CONTENU du
-carnet — nombre de sections, répartition `data-niveau`, ancres de ligne — datent de ce
-jour-là et ne valent plus.** Les comptes courants s'obtiennent par commande, jamais par
-lecture : `node tools/build.js --check` (sections, niveaux, thèmes, exemples) et
-`node tools/cherche_mots.js --stats`. Ce qui reste fiable dans le graphe, c'est la
-**structure** de ce qui n'a pas bougé — le balisage du carnet, les règles de design, les
-pièges. L'état d'obsolescence fichier par fichier est tenu dans TODO.md § Dette de graphe,
-seule référence.
+**Ce qui est versionné** : `graph.json` (le graphe interrogeable) et `GRAPH_REPORT.md` (la piste
+d'audit : god nodes, ponts entre communautés, provenance EXTRACTED/INFERRED/AMBIGUOUS).
+`graph.html`, le cache et les fichiers techniques restent locaux : ils contiennent des chemins
+absolus de la machine de développement, contraires à la décision d'anonymisation du dépôt.
 
-⚠️ **Leçon payée le 21/07, la seule qui arme encore quelque chose** : recaler après un lot
-de pur contenu a **churné** le graphe au lieu de l'étendre (des centaines de nœuds
-remplacés, pour ~4× le travail utile), parce qu'un lot de vocabulaire déplace tout le
-carnet sans rien changer à sa structure. D'où la règle du propriétaire : `--update` ne part
-jamais d'un rituel, seulement d'une décision explicite.
+**Deux limites structurelles**, qui tiennent au mode d'extraction — des lots confiés à des
+agents parallèles, aveugles aux identifiants forgés par les autres :
 
-Les huit plus grosses communautés couvrent l'essentiel des nœuds :
-
-| Communauté | Contenu |
-| --- | --- |
-| Mode Cartes et moteur de réponse (62) | `render`, `answer`, `doFlip`, `checkAnswer`, `editDist`, le clavier hébreu, les régions live |
-| `build.js` — chaîne de génération (50) | `build.js` et ses fonctions (extraction regex, `EXPECTED_CATS`/`EXPECTED_THEMES`, `generateStandalone`) |
-| Audit mécanique du carnet (39) | `audit_carnet_mecanique.js` et ses fonctions — ⚠️ **communauté morte**, le script n'existe plus (cf. TODO.md § Dette de graphe) |
-| Carnet : sections et régimes d'attributs (38) | les sections `<h2>`, les trois tables, les `word-list`, `data-niveau`/`data-theme`, le script cursive |
-| Amorçage, filtres et préférences (36) | `init`, `applyPrefs`, `buildChips`, `buildNivChips`/`buildThemeChips`, la barrière `BUILD:ONLINE-ONLY` |
-| Architecture : extraction et contrats (35) | le couplage des deux extracteurs, le schéma de carte, le contrat de balisage, les garde-fous |
-| Doctrine du dépôt et pièges (31) | les 14 pièges de CLAUDE.md, la charte unifiée, la couche PWA, le diagnostic de latence |
-| Révision espacée (Leitner) (24) | `recordResult`, `dueCards`, `cardId`, `masteryStats`, la carte « Révision du jour », la règle de la lampe |
-
-Les vingt restantes sont petites et thématiques : blocs de grammaire du carnet, extracteurs
-et build autonome, charte/colonne/typo du carnet, icônes PWA (192/512/Apple), portail, voix
-hébraïque, service worker, accessibilité, règles de design nommées, les sept principes de
-PRODUCT.md.
-
-**Comment l'interroger** (depuis la racine du dépôt) :
-
-```bash
-graphify explain "checkAnswer"                   # ligne source exacte + appelants/appelés
-graphify query "comment le verdict est-il annulable ?"
-graphify path "deriveCartes" "recordResult"      # comment deux choses se relient
-```
-
-`graphify explain` remplace les ancres `near line NNN` que CLAUDE.md portait : celles-ci
-avaient **dérivé trois fois** et étaient toutes fausses (+11) au moment de leur retrait, tandis
-que le graphe redérive les numéros de ligne mécaniquement. Les ancres `app.html#L` de ce
-fichier ont suivi le même sort au **Task 16 (25/07)** : recalées quatre fois, de nouveau
-toutes fausses après le chantier 3 (qui a réordonné le JS), elles ont été **remplacées par
-des liens vers le module source** (`src/app/js/*.js`, `src/app/coquille.html`) — plus aucun
-numéro de ligne d'artefact dans la doc (contrôle en TODO.md § Rituel étape 7 ; `TODO_ARCHIVE.md`, gel historique, est le seul fichier qui en porte encore).
-
-⚠️ **Le graphe est un instantané, pas une vérité vivante.** Il se périme exactement comme les
-ancres — la différence est qu'il se régénère en une commande au lieu de se vérifier à la main.
-Concrètement, ce graphe **date d'avant les chantiers 1 à 4** de la réorganisation du dépôt
-généré : il ne connaît ni `data/`, ni `src/carnet/`, ni la disparition des extracteurs HTML —
-une requête sur ces sujets répondra depuis l'ancien monde (l'extraction depuis le carnet, les
-deux implémentations d'`extractCards`). La dette est enregistrée par les flags
-`⚠️ GRAPHE À RECALER` de TODO.md « Reprendre ici » ; le recalage reste, comme toujours, une
-décision explicite, jamais automatique.
-En cas de contradiction entre le graphe et le fichier, **le fichier fait foi**, et le graphe
-doit être reconstruit :
-
-```bash
-/graphify . --update      # ne réextrait que les fichiers modifiés
-```
-
-**Ce qui est versionné** : `graph.json` (le graphe interrogeable) et `GRAPH_REPORT.md` (la
-piste d'audit : god nodes, ponts entre communautés, provenance EXTRACTED/INFERRED/AMBIGUOUS).
-`graph.html` (visualisation interactive), le cache et les fichiers techniques restent locaux —
-ces derniers contiennent des chemins absolus de la machine de développement, contraires à la
-décision d'anonymisation du dépôt.
-
-**Deux limites connues**, mesurées à la construction du 20/07 et toujours valables (le
-mécanisme n'a pas changé au recalage du 21/07, dont le diagnostic post-fusion affiche 0 arête
-pendante — les arêtes perdues le sont *avant* `graph.json`) : les deux découlent du même
-principe, l'extraction est découpée en lots confiés à des agents parallèles, qui ne voient
-pas les identifiants forgés par les autres.
-
-- **Dérive d'identifiants entre lots** : environ 26 arêtes visent un nœud qui n'existe pas,
-  parce que deux lots ont nommé le même concept différemment (`architecture_piege_transition_all`
-  contre l'identifiant retenu ailleurs). Ces arêtes sont **écartées à la construction** — elles
-  n'entrent jamais dans `graph.json`, qui n'en contient aucune ; c'est du signal perdu, pas du
-  graphe corrompu. Deux cas seulement relèvent d'une autre cause (`manifest.webmanifest`, dont
-  graphify ne reconnaît pas l'extension) et trois des modules Node (`fs`, `path`, `vm`) que
-  l'AST référence sans les définir. Le diagnostic `graphify.diagnostics` compte l'extraction
-  **brute** : un écart entre son total d'arêtes et celui de `graph.json` est normal.
-- **Chaque fichier déployé apparaît en double** — une fois extrait du fichier lui-même, une
-  fois extrait de la description qu'en fait la doc (`index_portal` contre
-  `architecture_index_html`). Ce n'est pas une erreur : les communautés documentaires sont la
-  vue *prose*, les autres la vue *code*. Mais le degré des nœuds-fichiers est de ce fait
-  sous-estimé, chaque moitié comptant seule — n'en tirez pas de conclusion sur l'importance
-  relative d'un fichier.
-
-## Cinq leçons de méthode
-
-> Détachées de TODO.md le 27/07/2026 : elles ne décrivent pas un état, elles
-> décrivent des manières de se tromper qui restent ouvertes. Leur place est
-> auprès de l'architecture qu'elles protègent, pas dans une liste de tâches.
-
-
-Elles ne sont pas archivées avec le chantier : chacune décrit une manière de se
-tromper qui reste ouverte au prochain garde-fou, au prochain déménagement de
-fichier, au prochain export supprimé.
-
-1. **Quand un fichier bouge ou disparaît, un `grep` borné aux `.md` rate quatre
-   familles de références.** (1) Les **chaînes d'usage et messages d'erreur dans
-   les scripts eux-mêmes** — dont trois sortent dans l'en-tête « FICHIER
-   GÉNÉRÉ » des artefacts, donc les toucher force un rebuild, qui réestampille
-   `sw.js` au passage ; (2) l'allowlist `.claude/settings.local.json` ; (3) les
-   **liens markdown à fragment** (`](…#L42)`) ; (4) le **bac à sable
-   d'`ajoute_mots.js`**, qui recopie un dépôt
-   miniature — toute garde neuve qui lit un fichier de la racine casse le
-   dry-run tant que le fichier n'est pas dans `FICHIERS_RACINE_BAC_A_SABLE`
-   (payé au Task 17 avec `index.html`, re-payé au Task 19 avec `sw.js`).
-2. ⚠️ **Un chiffre juste n'est pas une preuve — ce qui prouve, c'est d'où il
-   vient.** Le bac à sable d'`ajoute_mots.js` affichait un compte de cartes
-   calculé *en process* : il aurait montré le bon nombre en validant un tout
-   autre arbre. C'est maintenant `assertBacASableCoherent()` qui relit le `TOTAL`
-   imprimé par le build de la sandbox. Toute garde ajoutée ici se prouve par
-   **casse fabriquée** (exit 1 réel, message nommé), jamais par « je l'ai
-   ajoutée ».
-3. ⚠️ **Générer un fichier prouve que le contenu arrive, jamais qu'il soit
-   seul** (Task 18). L'injection des jetons au marqueur `<!-- @TOKENS -->`
-   garantit que `src/tokens.css` est bien dans les trois pages ; elle ne dit
-   rien d'un **second `:root` écrit en dur** à côté, qui gagnerait par cascade
-   et rouvrirait précisément la divergence que le Task 18 vient de fermer —
-   sans rien casser de visible. D'où le compte de blocs `:root` attendu par
-   page dans `verifieCharte()` (carnet 3, app 1, portail 1). Même forme de
-   raisonnement pour la suite : quand une tâche « clôt un piège par
-   construction », demander *par quel chemin il pourrait revenir* et mécaniser
-   ce chemin-là.
-4. ⚠️ **Une garde qui ne peut pas échouer ne prouve rien — et il faut le
-   vérifier, pas le supposer** (Task 19). L'estampille avait d'abord reçu un
-   contrôle d'existence sur chacun des six fichiers hachés ; la casse fabriquée
-   (retirer `manifest.webmanifest`) a montré qu'il était **muet par
-   construction** : `verifieCharte()` lit le manifeste bien avant, et le build
-   meurt là. Le contrôle a été supprimé plutôt que gardé pour la forme. Corollaire
-   inverse, du même task : `String.replace` d'un motif qui ne matche pas **ne lève
-   rien** — il rend la chaîne inchangée. Toute réécriture par regex a donc besoin
-   d'une garde explicite sur le motif introuvable, sinon la couture se défait en
-   silence (ici : `VERSION` figée pour toujours, c'est-à-dire le piège n°10 remis
-   en place sans que personne le sache).
-5. ⚠️ **Un export mort n'est presque jamais seul : c'est la fermeture transitive
-   qu'il faut calculer, pas le nom** (Task 20). Le plan annonçait sept helpers HTML
-   dont « les fonctions restent utilisées en interne par `build.js` ». Le contrôle
-   nom par nom (`grep -n "\bnom\b" tools/build.js`, définition **et** appels) a
-   montré l'inverse : `parseSections`, `exemplesOf`, `attrOf`, `tdsOf` n'avaient
-   plus **aucun** appelant interne, et les trois autres (`closeOf`, `firstSpanText`,
-   `decodeEntities`) n'étaient appelés que par les quatre premiers, plus leurs
-   propres satellites (`textContent`, `blocksOf`, `NAMED_ENTITIES`). Tout le
-   sous-graphe ne tenait que par les exports : en retirant les exports on retirait
-   le mini-parseur entier — 90 lignes, et l'affirmation « le dépôt ne lit plus de
-   HTML » devenue vraie au sens littéral. **Ne pas s'arrêter au nom cité par un
-   plan : suivre les appelants jusqu'à l'appelant vivant, ou constater qu'il n'y
-   en a pas.**
+- **Des arêtes se perdent entre lots.** Quand deux lots nomment le même concept différemment,
+  l'arête vise un nœud inexistant et se trouve **écartée à la construction** : elle n'entre
+  jamais dans `graph.json`. C'est du signal perdu, pas du graphe corrompu. Conséquence à
+  connaître : `graphify.diagnostics` compte l'extraction **brute**, donc un écart entre son
+  total d'arêtes et celui de `graph.json` est normal, jamais un symptôme.
+- **Chaque fichier déployé apparaît en double** — une fois vu du code, une fois vu de la prose
+  qui le décrit (`index_portal` contre `architecture_index_html`). Ce n'est pas une erreur :
+  ce sont deux vues. Mais le degré des nœuds-fichiers est de ce fait sous-estimé, chaque moitié
+  comptant seule — n'en tire aucune conclusion sur l'importance relative d'un fichier.
 
 ## Check-list d'une modification de contenu
 
-1. Éditer `data/*.json` (et lui seul pour le vocabulaire — jamais `vocabulaire_hebreu.html`, généré).
-2. `node tools/build.js` — vérifier les comptes par section.
-3. Si du vocabulaire ou des exemples ont changé : `node tools/verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
-4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
-5. **Ne pas recaler le graphe** : un lot de contenu ne crée ni ne supprime de fichier, donc pas même de flag (règle durcie du 21/07 — `--update` coûte ~235k jetons et ne se lance que sur décision explicite ; `graphify explain` re-dérive les lignes mécaniquement, et un désaccord graphe/fichier tranche pour le fichier). Voir RITUEL.md § Rituel étape 5.
-6. Committer `data/*.json` et les **cinq** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`) **plus `sw.js`**, dont le build vient de réestampiller `VERSION` — séparés en deux commits, le nom de cache se décale d'un commit sur le contenu qu'il nomme (piège 10). Puis pousser sur `main`.
+Elle vit dans [RITUEL.md](RITUEL.md) — un seul endroit, pour qu'il n'y ait pas deux versions à
+tenir d'accord.

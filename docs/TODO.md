@@ -3,8 +3,12 @@
 > **Ce fichier ne porte que ce qui change.** Scindé le 27/07/2026, après mesure : il faisait 460 lignes dont **77 % de procédures et de savoirs permanents**, si bien qu'une session en lisait 460 pour en utiliser 105. Ce qui ne bouge pas en est sorti :
 >
 > - le **rituel** et l'**outillage WSL** → [RITUEL.md](RITUEL.md) ;
-> - les **cinq leçons de méthode** → [ARCHITECTURE.md § Cinq leçons de méthode](ARCHITECTURE.md) ;
+> - les **règles de méthode** → [RITUEL.md § Règles de méthode](RITUEL.md) ;
 > - les **chantiers clos** et l'historique des acquis → [TODO_ARCHIVE.md](TODO_ARCHIVE.md), à ne pas charger en session sauf grep ponctuel.
+>
+> **Aucun récit de chantier ne vit ici** : ce qui a été fait, quand, et par quelle
+> décision est dans l'archive. Ce fichier répond à « où en est-on ? », jamais à
+> « que s'est-il passé ? ».
 >
 > Reste ici l'état courant, la dette, et les branches — c'est-à-dire tout ce qui aura changé à la prochaine session. ⚠️ **Si une section de ce fichier cesse de changer d'un chantier à l'autre, elle n'est plus à sa place** : c'est le critère qui a présidé à la scission.
 
@@ -31,55 +35,6 @@ ligne est là pour que le prochain recalage n'aille pas les chercher. Le flag
 enregistre la dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
 lance que sur décision explicite).
 
-**Dernier chantier livré — « Le mortier grammatical », 27/07/2026, soldé.**
-Constat du propriétaire : « il manque beaucoup de trucs de base comme *efshar*,
-*quelque chose*, *zone* ». Vérifié, et fondé : le carnet était riche en
-vocabulaire **thématique** (nourriture 87, ville-transport 94) et pauvre en
-**mots-outils** — אֶפְשָׁר, מַשֶּׁהוּ, מִישֶׁהוּ, רַק, כִּמְעַט, לָכֵן, כְּדֵי
-absents avec 1262 cartes au compteur. Audit systématique en 3 sous-agents
-parallèles : **301 candidats testés, ~150 absences confirmées**. **1262 → 1428
-cartes** (166 neuves, aucune retirée — consigne explicite : « ajoute tout ce que
-tu trouves, n'enlève rien », B2/C1 compris).
-
-- **Palier C1 ouvert** (`EXPECTED_LEVELS`, build.js) : 10 entrées de registre
-  soutenu. Côté app, **zéro câblage** — `NIVEAUX` rangeait déjà C1 dans
-  « Difficile ». Détail et piège de l'ordre en ARCHITECTURE.md § 4.
-- **Deux sous-thèmes neufs** aux Adverbes : « Degré & intensité », « Manière ».
-- ⚠️ **Erreur de spec corrigée** (SPEC_AJOUTE_MOTS §10) : « éditer le gabarit
-  puis relancer `ajoute_mots.js` » est **faux** pour un sous-thème de liste. La
-  résolution se fait sur `info.liste.entries` (la donnée), et `genereCarnet()`
-  refuse un placeholder qui ne consomme rien — **blocage circulaire**. Il faut
-  une **entrée d'amorce écrite à la main** en même temps que le gabarit.
-- ⚠️ **Leçon payée : un vérificateur d'absence doit être contrôlé avant usage.**
-  Le premier repli ktiv male/haser annonçait `רַק` et `מִיָּד` *présents* par
-  collision de squelette (ירק « légume », מדי « trop ») — un audit lancé
-  là-dessus aurait enterré les absences les plus criantes. Deux garde-fous :
-  une ו/י **initiale** n'est jamais mater lectionis, et **sous 3 lettres** de
-  squelette on exige l'exact. Corollaire assumé : le repli devient aveugle aux
-  mots courts, donc `כִּוּוּן` ressort `ABSENT` à tort — le doute se lève à la main.
-- ⚠️ **Les sous-agents confondent `ch` (het) et `kh` (khaf sans daguech)**, de
-  façon systématique (`'achshav`, `nachon`, `bechol`), et capitalisent les gloses
-  françaises avec un point final. Ne jamais insérer un rendu d'agent sans passer
-  les `tr` au comparateur `he2tr` : c'est lui qui a nommé les 12 fautes.
-- ⚠️ **Un audit délégué a des trous : le relire.** Les trois agents ont manqué
-  מַשֶּׁהוּ et מִישֶׁהוּ — les deux indéfinis les plus fréquents —, plus עוֹד,
-  פַּעַם, כָּזֶה. Et `רַק` a survécu à l'audit *et* à ma propre synthèse : il n'a
-  été rattrapé qu'au contrôle final contre la liste initiale. Un lot de
-  rattrapage (11 entrées) a suivi.
-- Preuve : `--check` vert sur les cinq artefacts, `verifie_exemples` **0 erreur**
-  (124 avertissements éditoriaux). Pas de WebKit : aucun CSS ni chemin de rendu
-  touché.
-
-**Passe documentaire du 27/07/2026, dans la foulée.** Toute la documentation a
-été auditée contre l'état réel (4 sous-agents, ~160 affirmations vérifiées) :
-**17 faussetés corrigées** — ARCHITECTURE.md 8 (dont `firstSpanText` et
-`parseSections` décrites comme vivantes alors que le mini-parseur HTML est parti
-au Task 20, et deux renvois de module intervertis), SPEC_AJOUTE_MOTS.md 5,
-DESIGN.md 3, README.md 1. `docs/superpowers/**` supprimé (4 fichiers de chantiers
-clos, précédent du dépôt, historique git conservé), 137 lignes de TODO.md
-archivées. Les **15 pièges de CLAUDE.md ont été re-vérifiés un par un : tous
-tiennent**.
-
 ### Deux branches latérales — aucune n'est le chantier courant
 
 `main` n'en porte aucune trace : consigné ici pour qu'une session ne les
@@ -89,13 +44,13 @@ redécouvre pas par hasard. L'écart se relit à tout moment —
 `refonte-retrofuturiste` **48 devant / 63 derrière**, `pilier-oral`
 **7 devant / 98 derrière**.
 
-⚠️ **Consigne du propriétaire, 27/07/2026 : « ne touche pas à la branche
+⚠️ **Consigne du propriétaire : « ne touche pas à la branche
 retrofuturiste ».** Ni checkout, ni merge, ni rebase, ni écriture dans son
 worktree. On peut la lire pour documenter l'écart — pas la modifier.
 
 - **`refonte-retrofuturiste`** — la charte v2 « La console d'étude », **refonte
   purement visuelle**. ⚠️ **Rectification du 27/07 : la rédaction précédente
-  annonçait qu'elle était « le chantier courant » depuis le 25/07.** C'est faux
+  annonçait qu'elle était « le chantier courant ».** C'est faux
   aujourd'hui — deux chantiers ont été livrés sur `main` le 27/07 (« Hébreu
   parlé », puis « Le mortier grammatical » et sa passe documentaire). `main` est
   bien le tronc actif ; cette branche est en attente, pas en cours. Elle est
@@ -176,15 +131,15 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   `app.html` devenu artefact. Le graphe situe encore les 83 fonctions de l'app
   **dans `app.html`**, à des lignes qui n'existent plus.
 - **2026-07-25 (tripwires)** — `.githooks/pre-commit` créé.
-- **2026-07-25 (Task 17)** — `tools/` et `docs/` créés (11 fichiers déplacés),
+- **2026-07-25** — `tools/` et `docs/` créés (11 fichiers déplacés),
   `audit_carnet_mecanique.js` **supprimé** : le graphe porte une **communauté
   morte de 39 nœuds** sur un fichier qui n'existe plus.
-- **2026-07-25 (Task 18)** — `src/portail/index.html` créé ; `index.html` devenu
+- **2026-07-25** — `src/portail/index.html` créé ; `index.html` devenu
   artefact généré. Le graphe le situe encore côté « source éditée à la main ».
 - **2026-07-25 (dette ouverte)** — `tools/mesure_translitteration.js` **créé**
   (harnais de notation de `he2tr`). Le graphe ne l'a jamais connu ; la ligne est
   ici pour que le prochain recalage sache qu'il existe.
-- **2026-07-25 (Task 20)** — `outils_migration/` **supprimé** (ses trois scripts :
+- **2026-07-25** — `outils_migration/` **supprimé** (ses trois scripts :
   `extrait_donnees.js`, `decoupe_carnet.js`, `decoupe_app.js`). Le graphe ne les a
   jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
@@ -192,7 +147,7 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 
 ### Dette ouverte — une entrée, rouverte le 27/07/2026
 
-Elle était vide depuis le 25/07 (les quatre entrées soldées sont dans
+Elle était vide (les quatre entrées soldées sont dans
 TODO_ARCHIVE.md). La passe documentaire en a rouvert une, trouvée en répondant à
 une question du propriétaire — « as-tu expliqué dans le carnet comment utiliser
 *efshar* ? ».

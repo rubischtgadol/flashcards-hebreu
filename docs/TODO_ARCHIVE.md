@@ -2487,3 +2487,614 @@ les relit.
 donc morts au sens du système de fichiers, et vivants au sens de l'historique.**
 Ils ne sont pas corrigés à dessein : une archive consigne ce qui a été écrit à sa
 date, elle ne se réécrit pas.
+
+---
+
+## Récit sorti d'ARCHITECTURE.md — archivé le 2026-07-27
+
+Le propriétaire a tranché : plus aucune histoire du projet dans les documents
+vivants. Ces quatre sections d'ARCHITECTURE.md étaient, pour l'essentiel, du
+récit daté — chantiers, numéros de Task, relevés figés — ou la redite de
+CLAUDE.md. Elles sont reproduites ici telles qu'elles étaient ; ce qui restait
+du contrat au présent a été réécrit dans ARCHITECTURE.md, sans date.
+
+## Développement et déploiement
+
+- **Servir en HTTP** : `app.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
+- **Vérification sans navigateur graphique** (WSL, y compris réseau coupé) : des scripts Node jetables, hors du dépôt — `tools/build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin). Pour le **rendu visuel**, l'outil de référence est **Playwright + WebKit réel** (le moteur de Safari — même rendu que l'iPhone cible) avec `devices['iPhone 16 Pro']` pour le mobile et un viewport classique pour le desktop ; les libs système nécessaires (`libgtk-4-1`, `libavif13`, `libgstreamer-plugins-bad1.0-0`) sont installées et les navigateurs téléchargés persistent dans `~/.cache/ms-playwright` (seule la lib npm `playwright` est à réinstaller par session). Le Chrome headless **système** pend en WSL2 — ne pas l'utiliser. Détail opérationnel dans RITUEL.md § Outillage.
+- **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
+- **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
+
+## Le graphe de connaissance du dépôt
+
+Depuis le 2026-07-20, le dépôt embarque une **cartographie de lui-même** dans `graphify-out/`,
+produite par [graphify](https://github.com/safishamsi/graphify). Elle existe pour une raison
+précise : `app.html` fait plus de 2 000 lignes et le carnet plus de 6 000 — les lire pour
+répondre à une question coûte des dizaines de milliers de tokens, là où une interrogation du
+graphe en coûte environ 2 300 (mesuré le 20/07 : **10,5× moins par question**). Ce rapport
+baisse quand le graphe grossit — `graphify benchmark` le remesure.
+
+**Ce que contient le graphe** — 420 nœuds, 679 arêtes, 28 communautés, figés au dernier
+recalage décidé (2026-07-21). ⚠️ **Tous les chiffres que le graphe porte sur le CONTENU du
+carnet — nombre de sections, répartition `data-niveau`, ancres de ligne — datent de ce
+jour-là et ne valent plus.** Les comptes courants s'obtiennent par commande, jamais par
+lecture : `node tools/build.js --check` (sections, niveaux, thèmes, exemples) et
+`node tools/cherche_mots.js --stats`. Ce qui reste fiable dans le graphe, c'est la
+**structure** de ce qui n'a pas bougé — le balisage du carnet, les règles de design, les
+pièges. L'état d'obsolescence fichier par fichier est tenu dans TODO.md § Dette de graphe,
+seule référence.
+
+⚠️ **Leçon payée le 21/07, la seule qui arme encore quelque chose** : recaler après un lot
+de pur contenu a **churné** le graphe au lieu de l'étendre (des centaines de nœuds
+remplacés, pour ~4× le travail utile), parce qu'un lot de vocabulaire déplace tout le
+carnet sans rien changer à sa structure. D'où la règle du propriétaire : `--update` ne part
+jamais d'un rituel, seulement d'une décision explicite.
+
+Les huit plus grosses communautés couvrent l'essentiel des nœuds :
+
+| Communauté | Contenu |
+| --- | --- |
+| Mode Cartes et moteur de réponse (62) | `render`, `answer`, `doFlip`, `checkAnswer`, `editDist`, le clavier hébreu, les régions live |
+| `build.js` — chaîne de génération (50) | `build.js` et ses fonctions (extraction regex, `EXPECTED_CATS`/`EXPECTED_THEMES`, `generateStandalone`) |
+| Audit mécanique du carnet (39) | `audit_carnet_mecanique.js` et ses fonctions — ⚠️ **communauté morte**, le script n'existe plus (cf. TODO.md § Dette de graphe) |
+| Carnet : sections et régimes d'attributs (38) | les sections `<h2>`, les trois tables, les `word-list`, `data-niveau`/`data-theme`, le script cursive |
+| Amorçage, filtres et préférences (36) | `init`, `applyPrefs`, `buildChips`, `buildNivChips`/`buildThemeChips`, la barrière `BUILD:ONLINE-ONLY` |
+| Architecture : extraction et contrats (35) | le couplage des deux extracteurs, le schéma de carte, le contrat de balisage, les garde-fous |
+| Doctrine du dépôt et pièges (31) | les 14 pièges de CLAUDE.md, la charte unifiée, la couche PWA, le diagnostic de latence |
+| Révision espacée (Leitner) (24) | `recordResult`, `dueCards`, `cardId`, `masteryStats`, la carte « Révision du jour », la règle de la lampe |
+
+Les vingt restantes sont petites et thématiques : blocs de grammaire du carnet, extracteurs
+et build autonome, charte/colonne/typo du carnet, icônes PWA (192/512/Apple), portail, voix
+hébraïque, service worker, accessibilité, règles de design nommées, les sept principes de
+PRODUCT.md.
+
+**Comment l'interroger** (depuis la racine du dépôt) :
+
+```bash
+graphify explain "checkAnswer"                   # ligne source exacte + appelants/appelés
+graphify query "comment le verdict est-il annulable ?"
+graphify path "deriveCartes" "recordResult"      # comment deux choses se relient
+```
+
+`graphify explain` remplace les ancres `near line NNN` que CLAUDE.md portait : celles-ci
+avaient **dérivé trois fois** et étaient toutes fausses (+11) au moment de leur retrait, tandis
+que le graphe redérive les numéros de ligne mécaniquement. Les ancres `app.html#L` de ce
+fichier ont suivi le même sort au **Task 16 (25/07)** : recalées quatre fois, de nouveau
+toutes fausses après le chantier 3 (qui a réordonné le JS), elles ont été **remplacées par
+des liens vers le module source** (`src/app/js/*.js`, `src/app/coquille.html`) — plus aucun
+numéro de ligne d'artefact dans la doc (contrôle en TODO.md § Rituel étape 7 ; `TODO_ARCHIVE.md`, gel historique, est le seul fichier qui en porte encore).
+
+⚠️ **Le graphe est un instantané, pas une vérité vivante.** Il se périme exactement comme les
+ancres — la différence est qu'il se régénère en une commande au lieu de se vérifier à la main.
+Concrètement, ce graphe **date d'avant les chantiers 1 à 4** de la réorganisation du dépôt
+généré : il ne connaît ni `data/`, ni `src/carnet/`, ni la disparition des extracteurs HTML —
+une requête sur ces sujets répondra depuis l'ancien monde (l'extraction depuis le carnet, les
+deux implémentations d'`extractCards`). La dette est enregistrée par les flags
+`⚠️ GRAPHE À RECALER` de TODO.md « Reprendre ici » ; le recalage reste, comme toujours, une
+décision explicite, jamais automatique.
+En cas de contradiction entre le graphe et le fichier, **le fichier fait foi**, et le graphe
+doit être reconstruit :
+
+```bash
+/graphify . --update      # ne réextrait que les fichiers modifiés
+```
+
+**Ce qui est versionné** : `graph.json` (le graphe interrogeable) et `GRAPH_REPORT.md` (la
+piste d'audit : god nodes, ponts entre communautés, provenance EXTRACTED/INFERRED/AMBIGUOUS).
+`graph.html` (visualisation interactive), le cache et les fichiers techniques restent locaux —
+ces derniers contiennent des chemins absolus de la machine de développement, contraires à la
+décision d'anonymisation du dépôt.
+
+**Deux limites connues**, mesurées à la construction du 20/07 et toujours valables (le
+mécanisme n'a pas changé au recalage du 21/07, dont le diagnostic post-fusion affiche 0 arête
+pendante — les arêtes perdues le sont *avant* `graph.json`) : les deux découlent du même
+principe, l'extraction est découpée en lots confiés à des agents parallèles, qui ne voient
+pas les identifiants forgés par les autres.
+
+- **Dérive d'identifiants entre lots** : environ 26 arêtes visent un nœud qui n'existe pas,
+  parce que deux lots ont nommé le même concept différemment (`architecture_piege_transition_all`
+  contre l'identifiant retenu ailleurs). Ces arêtes sont **écartées à la construction** — elles
+  n'entrent jamais dans `graph.json`, qui n'en contient aucune ; c'est du signal perdu, pas du
+  graphe corrompu. Deux cas seulement relèvent d'une autre cause (`manifest.webmanifest`, dont
+  graphify ne reconnaît pas l'extension) et trois des modules Node (`fs`, `path`, `vm`) que
+  l'AST référence sans les définir. Le diagnostic `graphify.diagnostics` compte l'extraction
+  **brute** : un écart entre son total d'arêtes et celui de `graph.json` est normal.
+- **Chaque fichier déployé apparaît en double** — une fois extrait du fichier lui-même, une
+  fois extrait de la description qu'en fait la doc (`index_portal` contre
+  `architecture_index_html`). Ce n'est pas une erreur : les communautés documentaires sont la
+  vue *prose*, les autres la vue *code*. Mais le degré des nœuds-fichiers est de ce fait
+  sous-estimé, chaque moitié comptant seule — n'en tirez pas de conclusion sur l'importance
+  relative d'un fichier.
+
+## Cinq leçons de méthode
+
+> Détachées de TODO.md le 27/07/2026 : elles ne décrivent pas un état, elles
+> décrivent des manières de se tromper qui restent ouvertes. Leur place est
+> auprès de l'architecture qu'elles protègent, pas dans une liste de tâches.
+
+
+Elles ne sont pas archivées avec le chantier : chacune décrit une manière de se
+tromper qui reste ouverte au prochain garde-fou, au prochain déménagement de
+fichier, au prochain export supprimé.
+
+1. **Quand un fichier bouge ou disparaît, un `grep` borné aux `.md` rate quatre
+   familles de références.** (1) Les **chaînes d'usage et messages d'erreur dans
+   les scripts eux-mêmes** — dont trois sortent dans l'en-tête « FICHIER
+   GÉNÉRÉ » des artefacts, donc les toucher force un rebuild, qui réestampille
+   `sw.js` au passage ; (2) l'allowlist `.claude/settings.local.json` ; (3) les
+   **liens markdown à fragment** (`](…#L42)`) ; (4) le **bac à sable
+   d'`ajoute_mots.js`**, qui recopie un dépôt
+   miniature — toute garde neuve qui lit un fichier de la racine casse le
+   dry-run tant que le fichier n'est pas dans `FICHIERS_RACINE_BAC_A_SABLE`
+   (payé au Task 17 avec `index.html`, re-payé au Task 19 avec `sw.js`).
+2. ⚠️ **Un chiffre juste n'est pas une preuve — ce qui prouve, c'est d'où il
+   vient.** Le bac à sable d'`ajoute_mots.js` affichait un compte de cartes
+   calculé *en process* : il aurait montré le bon nombre en validant un tout
+   autre arbre. C'est maintenant `assertBacASableCoherent()` qui relit le `TOTAL`
+   imprimé par le build de la sandbox. Toute garde ajoutée ici se prouve par
+   **casse fabriquée** (exit 1 réel, message nommé), jamais par « je l'ai
+   ajoutée ».
+3. ⚠️ **Générer un fichier prouve que le contenu arrive, jamais qu'il soit
+   seul** (Task 18). L'injection des jetons au marqueur `<!-- @TOKENS -->`
+   garantit que `src/tokens.css` est bien dans les trois pages ; elle ne dit
+   rien d'un **second `:root` écrit en dur** à côté, qui gagnerait par cascade
+   et rouvrirait précisément la divergence que le Task 18 vient de fermer —
+   sans rien casser de visible. D'où le compte de blocs `:root` attendu par
+   page dans `verifieCharte()` (carnet 3, app 1, portail 1). Même forme de
+   raisonnement pour la suite : quand une tâche « clôt un piège par
+   construction », demander *par quel chemin il pourrait revenir* et mécaniser
+   ce chemin-là.
+4. ⚠️ **Une garde qui ne peut pas échouer ne prouve rien — et il faut le
+   vérifier, pas le supposer** (Task 19). L'estampille avait d'abord reçu un
+   contrôle d'existence sur chacun des six fichiers hachés ; la casse fabriquée
+   (retirer `manifest.webmanifest`) a montré qu'il était **muet par
+   construction** : `verifieCharte()` lit le manifeste bien avant, et le build
+   meurt là. Le contrôle a été supprimé plutôt que gardé pour la forme. Corollaire
+   inverse, du même task : `String.replace` d'un motif qui ne matche pas **ne lève
+   rien** — il rend la chaîne inchangée. Toute réécriture par regex a donc besoin
+   d'une garde explicite sur le motif introuvable, sinon la couture se défait en
+   silence (ici : `VERSION` figée pour toujours, c'est-à-dire le piège n°10 remis
+   en place sans que personne le sache).
+5. ⚠️ **Un export mort n'est presque jamais seul : c'est la fermeture transitive
+   qu'il faut calculer, pas le nom** (Task 20). Le plan annonçait sept helpers HTML
+   dont « les fonctions restent utilisées en interne par `build.js` ». Le contrôle
+   nom par nom (`grep -n "\bnom\b" tools/build.js`, définition **et** appels) a
+   montré l'inverse : `parseSections`, `exemplesOf`, `attrOf`, `tdsOf` n'avaient
+   plus **aucun** appelant interne, et les trois autres (`closeOf`, `firstSpanText`,
+   `decodeEntities`) n'étaient appelés que par les quatre premiers, plus leurs
+   propres satellites (`textContent`, `blocksOf`, `NAMED_ENTITIES`). Tout le
+   sous-graphe ne tenait que par les exports : en retirant les exports on retirait
+   le mini-parseur entier — 90 lignes, et l'affirmation « le dépôt ne lit plus de
+   HTML » devenue vraie au sens littéral. **Ne pas s'arrêter au nom cité par un
+   plan : suivre les appelants jusqu'à l'appelant vivant, ou constater qu'il n'y
+   en a pas.**
+
+## Check-list d'une modification de contenu
+
+1. Éditer `data/*.json` (et lui seul pour le vocabulaire — jamais `vocabulaire_hebreu.html`, généré).
+2. `node tools/build.js` — vérifier les comptes par section.
+3. Si du vocabulaire ou des exemples ont changé : `node tools/verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
+4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
+5. **Ne pas recaler le graphe** : un lot de contenu ne crée ni ne supprime de fichier, donc pas même de flag (règle durcie du 21/07 — `--update` coûte ~235k jetons et ne se lance que sur décision explicite ; `graphify explain` re-dérive les lignes mécaniquement, et un désaccord graphe/fichier tranche pour le fichier). Voir RITUEL.md § Rituel étape 5.
+6. Committer `data/*.json` et les **cinq** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`) **plus `sw.js`**, dont le build vient de réestampiller `VERSION` — séparés en deux commits, le nom de cache se décale d'un commit sur le contenu qu'il nomme (piège 10). Puis pousser sur `main`.
+
+### Genèse des thèmes — sortie d'ARCHITECTURE.md le 2026-07-27
+
+**Le treizième thème, né d'un arbitrage défait (2026-07-21, seconde passe).** La taxonomie initiale rangeait les couleurs en `abstrait` et les vêtements en `vie-quotidienne` — deux pis-aller documentés comme tels, qui gonflaient précisément les deux plus gros thèmes. `vetements-couleurs` les regroupe : 13 noms (vêtement → t-shirt, lunettes comprises), 11 adjectifs de couleur (rouge → marron), 2 verbes (porter, s'habiller), soit 26 entrées. Sa frontière est « ce qui s'enfile » : sac et bague restent en `vie-quotidienne` (objet transporté / bijou, pas de l'habillement).
+
+**Les quatorzième et quinzième thèmes (2026-07-21, troisième passe) — et le premier lot de vocabulaire neuf par thème.** Même méthode : `vie-quotidienne` (63 entrées) rendait encore deux amas cohérents. `argent-achats` (la transaction et ce qui la paie : acheter, vendre, payer, prix, loyer, riche/pauvre…) et `loisirs-culture` (l'activité et l'œuvre : jouer, chanter, danser, film, musique, ballon…) en extraient 35, et `vie-quotidienne` retombe à 28 (gestes et états du quotidien : se lever, dormir, prendre, donner, attendre…). Les deux frontières, miroir du « ce qui s'enfile » : **« la transaction, pas le lieu »** (magasin, marché, supermarché restent `ville-transport` ; salaire reste `travail-etudes` ; le portefeuille suit l'argent) et **« l'activité et l'œuvre, pas le lieu »** (cinéma, théâtre, musée, bibliothèque restent `ville-transport` ; livre, lire, écrire restent `travail-etudes`). S'y ajoute un **lot de 32 mots neufs** ciblé sur les manques révélés par ces deux champs (sport, vacances, vendeur, monnaie rendue, réduction, gratuit… étaient à zéro) : 14 en `argent-achats`, 18 en `loisirs-culture`, rédigé en sous-agent puis arbitré au fil principal (le compte de cartes de l'époque n'est pas recopié ici : voir `node tools/cherche_mots.js --stats`).
+
+---
+
+## Récit de chantier sorti de TODO.md — archivé le 2026-07-27
+
+TODO.md répond désormais à « où en est-on ? » seulement. Le récit des chantiers
+livrés vit ici.
+
+**Dernier chantier livré — « Le mortier grammatical », 27/07/2026, soldé.**
+Constat du propriétaire : « il manque beaucoup de trucs de base comme *efshar*,
+*quelque chose*, *zone* ». Vérifié, et fondé : le carnet était riche en
+vocabulaire **thématique** (nourriture 87, ville-transport 94) et pauvre en
+**mots-outils** — אֶפְשָׁר, מַשֶּׁהוּ, מִישֶׁהוּ, רַק, כִּמְעַט, לָכֵן, כְּדֵי
+absents avec 1262 cartes au compteur. Audit systématique en 3 sous-agents
+parallèles : **301 candidats testés, ~150 absences confirmées**. **1262 → 1428
+cartes** (166 neuves, aucune retirée — consigne explicite : « ajoute tout ce que
+tu trouves, n'enlève rien », B2/C1 compris).
+
+- **Palier C1 ouvert** (`EXPECTED_LEVELS`, build.js) : 10 entrées de registre
+  soutenu. Côté app, **zéro câblage** — `NIVEAUX` rangeait déjà C1 dans
+  « Difficile ». Détail et piège de l'ordre en ARCHITECTURE.md § 4.
+- **Deux sous-thèmes neufs** aux Adverbes : « Degré & intensité », « Manière ».
+- ⚠️ **Erreur de spec corrigée** (SPEC_AJOUTE_MOTS §10) : « éditer le gabarit
+  puis relancer `ajoute_mots.js` » est **faux** pour un sous-thème de liste. La
+  résolution se fait sur `info.liste.entries` (la donnée), et `genereCarnet()`
+  refuse un placeholder qui ne consomme rien — **blocage circulaire**. Il faut
+  une **entrée d'amorce écrite à la main** en même temps que le gabarit.
+- ⚠️ **Leçon payée : un vérificateur d'absence doit être contrôlé avant usage.**
+  Le premier repli ktiv male/haser annonçait `רַק` et `מִיָּד` *présents* par
+  collision de squelette (ירק « légume », מדי « trop ») — un audit lancé
+  là-dessus aurait enterré les absences les plus criantes. Deux garde-fous :
+  une ו/י **initiale** n'est jamais mater lectionis, et **sous 3 lettres** de
+  squelette on exige l'exact. Corollaire assumé : le repli devient aveugle aux
+  mots courts, donc `כִּוּוּן` ressort `ABSENT` à tort — le doute se lève à la main.
+- ⚠️ **Les sous-agents confondent `ch` (het) et `kh` (khaf sans daguech)**, de
+  façon systématique (`'achshav`, `nachon`, `bechol`), et capitalisent les gloses
+  françaises avec un point final. Ne jamais insérer un rendu d'agent sans passer
+  les `tr` au comparateur `he2tr` : c'est lui qui a nommé les 12 fautes.
+- ⚠️ **Un audit délégué a des trous : le relire.** Les trois agents ont manqué
+  מַשֶּׁהוּ et מִישֶׁהוּ — les deux indéfinis les plus fréquents —, plus עוֹד,
+  פַּעַם, כָּזֶה. Et `רַק` a survécu à l'audit *et* à ma propre synthèse : il n'a
+  été rattrapé qu'au contrôle final contre la liste initiale. Un lot de
+  rattrapage (11 entrées) a suivi.
+- Preuve : `--check` vert sur les cinq artefacts, `verifie_exemples` **0 erreur**
+  (124 avertissements éditoriaux). Pas de WebKit : aucun CSS ni chemin de rendu
+  touché.
+
+**Passe documentaire du 27/07/2026, dans la foulée.** Toute la documentation a
+été auditée contre l'état réel (4 sous-agents, ~160 affirmations vérifiées) :
+**17 faussetés corrigées** — ARCHITECTURE.md 8 (dont `firstSpanText` et
+`parseSections` décrites comme vivantes alors que le mini-parseur HTML est parti
+au Task 20, et deux renvois de module intervertis), SPEC_AJOUTE_MOTS.md 5,
+DESIGN.md 3, README.md 1. `docs/superpowers/**` supprimé (4 fichiers de chantiers
+clos, précédent du dépôt, historique git conservé), 137 lignes de TODO.md
+archivées. Les **15 pièges de CLAUDE.md ont été re-vérifiés un par un : tous
+tiennent**.
+
+---
+
+## SPEC_ECONOMIE_TOKENS.md — archivée en entier le 2026-07-27
+
+Ce document decrivait un chantier (le passage a une consultation par commande) qui
+est livre depuis longtemps ; chaque regle quil enoncait vit desormais dans le code
+ou dans les documents vivants. Il ne restait que le compte rendu. Reproduit tel quel.
+
+# SPEC — Économie de tokens sur tout le dépôt (chantier transversal)
+
+Statut : **validée**. Déclencheur : l'inventaire du carnet par sous-agent du
+23/07 — 56k tokens pour apprendre que 24 mots étaient absents, quand une
+commande aurait répondu pour ~200.
+
+## 0. Principe directeur
+
+**Une question dont la réponse est mécanique — existence, comptage,
+localisation — se paye en commande (~200 tokens), jamais en lecture de fichier
+(~30–100k) ni en sous-agent (~30–56k).** Le sous-agent reste le bon canal pour
+ce qui exige du jugement en volume (WebKit, audits éditoriaux) ; il cesse d'être
+un canal de consultation. Deux conséquences : (1) le dépôt doit être outillé
+pour que le canal cheap **existe toujours** ; (2) les règles doivent être
+codifiées dans les fichiers du dépôt pour survivre au `/clear` — l'économie ne
+doit plus dépendre de la vigilance du propriétaire.
+
+## 1. Diagnostic mesuré
+
+⚠️ **Instantané daté, conservé comme motivation de cette spec — ne pas le lire comme
+l'état courant.** Plusieurs de ces valeurs ont bougé depuis : `TODO.md` est retombé à
+~32 Ko après deux vagues d'archivage (c'est précisément l'effet recherché), et le carnet
+a grossi. Pour les tailles du jour : `wc -l` ; pour les comptes de contenu :
+`node tools/cherche_mots.js --stats`.
+
+| Source de gaspillage | Taille | Coût d'une lecture complète | Fréquence |
+| --- | --- | --- | --- |
+| `vocabulaire_hebreu.html` | 9 591 lignes | ~100k tokens | chaque lot de contenu |
+| Inventaire par sous-agent | — | 56k (mesuré 23/07) | chaque proposition de lot |
+| **`TODO.md`** | **163 KB** (2 162 lignes) | **~40k tokens** | passe de doc de chaque rituel |
+| `ARCHITECTURE.md` | 69 KB | ~17k tokens | passes de doc |
+| `app.html` | 2 480 lignes | ~30k tokens | chantiers UI (le graphe couvre déjà) |
+| `CLAUDE.md` | 21 KB | ~5k tokens **rechargés à chaque tour** | permanent |
+
+TODO.md était alors le plus gros document du dépôt — plus lourd
+qu'ARCHITECTURE.md. Le trou d'outillage : le dry-run d'`ajoute_mots.js` détecte
+les doublons (§7.A) mais exige la fiche complète (niqqud, formes, exemples)
+avant de répondre — trop tard et trop cher pour un simple « existe-t-il ? ».
+Aucune commande de consultation amont n'existait.
+
+## 2. Chantier A — `cherche_mots.js`, la consultation par commande
+
+État : **livré et en service** — `tools/cherche_mots.js`, committé le 23/07 et
+déplacé dans `tools/` au Task 17 du chantier 4.
+
+Frère de `verifie_exemples.js` : dev-only, zéro dépendance, non déployé,
+consultation pure (n'écrit jamais rien). Réutilise les exports de `build.js` —
+`chargeDonnees`, `deriveCartes`, `stripNikud`, `orthographeVoisine`, `ROOT`,
+`EXPECTED_LEVELS`, `EXPECTED_THEMES` — donc pas de troisième parseur (doctrine
+SPEC_AJOUTE_MOTS §1). ⚠️ La rédaction initiale de cette spec le disait bâti sur
+`extractCards` et `NOTEBOOK` : c'est caduc depuis le chantier 2, qui a supprimé
+tout extracteur HTML — la source est `data/*.json`, plus le carnet généré.
+
+```text
+node tools/cherche_mots.js TERME [TERME…]   # existe-t-il ? où ?
+node tools/cherche_mots.js --stats          # répartition du corpus
+```
+
+### 2.1 Sémantique de recherche
+
+- **Terme hébreu** (contient un caractère de la plage hébraïque) : comparaison
+  **exacte** sur `he_plain` (niqqud retiré) — headwords, puis formes
+  (pluriel/MS/FS/MP/FP), puis présence dans les exemples (**mot exact**, pas
+  sous-chaîne : « חי » ne matche pas « מחיר »). Tout le corpus, tables et
+  listes. **Puis, et seulement après cet échec exact, l'appariement ktiv
+  male/haser** (`orthographeVoisine`, `build.js`, §10.1) sur les headwords et
+  les formes : le carnet étant vocalisé, il s'écrit défectif (עִתּוֹן →
+  « עתון ») quand on cherche plein (« עיתון »). Ces occurrences sortent dans
+  une rubrique **« orthographe voisine »** distincte, **jamais mêlée** aux
+  exactes — la question « ce mot est-il déjà là ? » et la question « en
+  existe-t-il une graphie voisine ? » n'ont pas la même réponse.
+- **Terme latin** : sous-chaîne **à frontière de mot en tête**, insensible à la
+  casse et aux accents, dans `.fr`, puis `note`, puis `exemples[].fr`.
+  La frontière de mot est obligatoire : la sous-chaîne nue fait 173 faux
+  positifs sur « fin » — `build.js` préfixe le `fr` de chaque verbe par
+  `(infinitif)` + espace (L190), que « fin » matche en sous-chaîne. Mesuré sur le
+  brouillon. « fin » trouve « fin », « fine », « finir » ; pas « enfin » ni
+  « infinitif ».
+- **Sortie** : une ligne par occurrence — `SECTION Lnnnn · hébreu — français`
+  (le n° de ligne, approximatif, sert d'ancre de lecture fenêtrée, §5.1) ;
+  `ABSENT` seulement si **ni** exacte **ni** voisine (sinon « aucune
+  correspondance exacte » suivi de la rubrique). Bornée à 8 occurrences par
+  terme et par rubrique, le surplus est **compté** (« … +165 autres ») —
+  jamais de troncature silencieuse.
+
+### 2.2 `--stats` (l'arbitrage « quel thème/niveau est sous-doté ? »)
+
+Total de cartes ; répartition par section ; par niveau (ordre
+`EXPECTED_LEVELS`) ; par thème (les 15 `EXPECTED_THEMES`, triés du moins doté
+au plus doté, avec ventilation par niveau, `⚠ vide` si 0) ; signaux
+éditoriaux : nombre d'entrées de tables à 1 seul exemple, nombre d'items de
+listes sans exemple (licite). Sortie bornée ~40 lignes.
+
+### 2.3 Validation du chantier A
+
+1. Les 24 candidats du lot en cours, côté **sens français** : les quatre
+   chevauchements connus sortent nommés (langue → לָשׁוֹן ; mince → רָזֶה ;
+   frais → רַעֲנָן ; vrai → נָכוֹן). Des hits **sans conflit** sont attendus et
+   licites (gloses : « couleur » matche `orange (couleur)`, « rond » matche
+   `rond-point`, « perdre » matche `perdre (un match)`…) — le critère n'est pas
+   « ABSENT partout », c'est « aucun chevauchement de sens non identifié ».
+2. Les 24 candidats côté **hébreu** : aucun présent comme headword. Une seule
+   présence comme *forme*, attendue et réelle : חי (candidat « vivant ») est la
+   forme MS de לִחְיוֹת — chevauchement légitime à arbitrer, que l'inventaire
+   par sous-agent du 23/07 n'avait pas vu (il n'extrayait que les headwords) :
+   la commande à ~200 tokens détecte ce que les 56k tokens rataient. Les
+   présences en mot exact dans des *exemples* sont informatives, pas des
+   collisions. Contre-test positif : `לשון` → présent (Noms).
+3. **Critère orthographique** (ajouté par §10.1, mesuré). Positif : les
+   6 mots que la comparaison exacte déclarait `ABSENT` alors qu'ils étaient
+   insérés — עיתון, דוגמה, עמוק, עגול, לזרוק, להרוויח — ressortent tous, en
+   rubrique « orthographe voisine ». **Négatif, et c'est là que le réglage se
+   joue** : `לישן` (dormir) ne doit pas remonter לשון (langue) et `יפה` (beau)
+   ne doit pas remonter פה (bouche) — les deux mots-pièges sont bien au corpus,
+   le contre-test n'est donc pas vide ; c'est le retrait naïf des ו/י, écarté,
+   qui les appariait. Réglage reproductible : 1053 `he_plain` distincts →
+   **37 paires** (3,5 %).
+4. Anti-régression : « fin » ne matche plus « (infinitif) ».
+5. Total `--stats` == compteur imprimé par `node tools/build.js`.
+6. `node tools/build.js` et `node tools/verifie_exemples.js` restent verts. ⚠️ La rédaction
+   initiale ajoutait « aucune modification de `build.js` — tout est déjà
+   exporté » : §10.1 y a depuis posé le helper d'appariement, seul endroit
+   licite (jamais de logique dupliquée), et `--check` doit rester vert avec.
+
+## 3. Chantier B — TODO.md : archiver les chantiers clos
+
+- Créer **`TODO_ARCHIVE.md`** ; y déplacer les sections de chantiers **clos /
+  soldés** (marqués TERMINÉ, CLOS, SOLDÉ, ou dont la mémoire/le git montre
+  qu'ils sont finis : refonte 5 étapes, audit C1–C12, lag iPhone, lots
+  d'exemples passés…) et les historiques de mesures datées.
+- **Pur couper-coller** : zéro réécriture de contenu, blocs entiers déplacés —
+  le diff se relit comme un déplacement, rien ne se perd.
+- Restent dans TODO.md : état courant, « Reprendre ici », chantiers **ouverts**,
+  § Outillage, § Rituel. Cible : ≤ ~15 KB (économie ~35k tokens par passe de
+  doc — la plus grosse du plan).
+- En tête de TODO.md, une ligne pointe l'archive : « chantiers clos →
+  TODO_ARCHIVE.md (ne pas charger en session sauf besoin explicite) ».
+- TODO_ARCHIVE.md n'est **jamais lu en session courante** ; il existe pour
+  l'histoire et le grep ponctuel.
+
+## 4. Chantier C — CLAUDE.md : compression (arbitrage par diff)
+
+~21 KB rechargés à chaque tour. Méthode, sur validation du propriétaire
+**ligne à ligne** (livrable = un diff, rien d'appliqué sans arbitrage) :
+
+- **Toutes les règles restent.** Aucune règle, aucun piège, aucun invariant
+  supprimé.
+- Migre : la **narration d'historique** — dates de mesures répétées, genèses
+  (« payé le 20/07 par… »), chiffres d'anecdotes déjà consignés en mémoire ou
+  dans ARCHITECTURE. Chaque piège garde sa règle sèche + une ligne de pourquoi
+  au maximum.
+- Destination : faits durables → ARCHITECTURE.md ; leçons d'agent → mémoire
+  (fichiers existants, pas de doublon).
+- ~~Cible : −30 à 40 %, soit ~1,5–2k tokens économisés **à chaque tour de chaque
+  session future**.~~ ⚠️ **Promesse fausse, abandonnée à l'exécution (§10.3).**
+  Résultat réel, mesuré : 21 014 o → 22 330 o (piège n°15, **+1 316**) → 21 026 o
+  (compression, **−1 304**) — soit **+12 o net**. La compression a exactement
+  payé le nouveau piège ; l'économie par tour est **nulle**. La cible était
+  irréaliste dès l'écriture de cette spec : le fichier est ~94 % de règles, et
+  la première puce de ce même §4 interdit d'en retirer une seule — on ne peut
+  donc pas couper 30 % d'un fichier dont 94 % est intouchable. **La leçon :
+  chiffrer une cible avant d'avoir mesuré la matière compressible.** Le vrai
+  gain du chantier est ailleurs, et il est acquis : TODO.md 163 → 16 Ko, et
+  l'inventaire du carnet à 56k tokens remplacé par une commande à ~200.
+
+## 5. Chantier D — règles de conduite (codifiées, plus jamais orales)
+
+### 5.1 Le piège n°15 de CLAUDE.md (texte proposé, verbatim)
+
+> 15\. ⚠️ **A question of existence, count or location is NEVER paid for by
+> reading a file or dispatching a subagent — a command answers it directly**:
+> `node tools/cherche_mots.js` (notebook: words, French senses, line anchors,
+> `--stats` for theme/level gaps), `graphify explain` (code), `grep -n` (the
+> rest). Corollaries: (a) never `Read` a file over ~30 KB without
+> `offset/limit` — the notebook, `app.html`, `flashcards_hebreu.html`,
+> `ARCHITECTURE.md`, `DESIGN.md`, `TODO_ARCHIVE.md` all qualify. Get the target
+> line from a command first (`cherche_mots.js` for content, `graphify explain`
+> for code, `grep -n` on a section title for `.md` docs), then read ±30 lines
+> around it — this includes the ritual's documentation pass, which edits
+> sections, never re-reads whole files; (b) never paste a list, log or
+> inventory longer than ~20 lines into a reply — named verdicts and `file:line`
+> references only; (c) the paid-for counter-example: 2026-07-23, a subagent
+> inventory of the notebook cost 56k tokens to learn that 24 words were
+> absent — ~200 tokens by command.
+
+### 5.2 Où chaque règle s'écrit (récapitulatif de codification)
+
+| Fichier | Modification |
+| --- | --- |
+| `CLAUDE.md` | piège n°15 (§5.1) ; + `cherche_mots.js` dans la liste d'outillage de « What this is » |
+| `TODO.md` | § Outillage : les deux commandes documentées ; « Reprendre ici » : flag `⚠️ GRAPHE À RECALER — 23/07 : cherche_mots.js, TODO_ARCHIVE.md, SPEC_ECONOMIE_TOKENS.md créés` (flag seulement, jamais d'update auto — règle du 21/07) |
+| `README.md` | 1 ligne outillage |
+| `ARCHITECTURE.md` | 1 ligne outillage (+ receveur des faits migrés du chantier C) |
+| Mémoire agent | `dedup-mots-sans-lire-la-liste.md` mise à jour → pointer `cherche_mots.js` au lieu du one-liner grep |
+
+### 5.3 Le déroulé standard d'un lot de vocabulaire (gravé par le piège 15)
+
+1. Proposition de N candidats — **`he` + `fr` seulement**, tableau court (~1k).
+2. `node tools/cherche_mots.js` sur les N (~200) — seules les collisions remontent.
+3. Arbitrage humain sur les collisions + le choix des mots.
+4. Rédaction du JSON complet (niqqud, formes, exemples).
+5. `node tools/ajoute_mots.js lot.json` — dry-run, validation profonde, doublons §7.A
+   en filet.
+6. Relecture : tableau des `tr` dérivés + diff ciblé.
+7. `--ecrire`, puis rituel (build, verifie, docs, commit).
+
+## 6. Ce qui ne change pas (déjà optimal)
+
+Graphe en rung 1 pour le code ; `tools/build.js --check` /
+`tools/verifie_exemples.js` ; WebKit par sous-agents ; flag graphe
+sans update automatique ; dry-run + diff ciblé d'`ajoute_mots.js` ;
+ARCHITECTURE/DESIGN non coupés — ce sont des références, la règle de lecture
+fenêtrée par taille (§5.1, corollaire a, qui les nomme explicitement) suffit.
+
+## 7. Écartés, et pourquoi
+
+- **Flag `--existe` dans `ajoute_mots.js`** : sa spec v2 est figée ; l'entrée
+  de la consultation amont est différente (chaînes nues, pas un JSON de
+  fiches). Un script, une responsabilité.
+- **Hook bloquant les sous-agents d'inventaire** : un hook ne juge pas
+  l'intention d'un prompt ; le piège 15 + la mémoire suffisent.
+- **Recalage du graphe** : flag seulement, conformément à la règle du 21/07.
+- **Étage 2 d'`ajoute_mots.js`** (pré-remplissage des fiches) : déjà spec'é
+  hors périmètre (SPEC_AJOUTE_MOTS §10), inchangé.
+
+## 8. Ordre d'exécution et commits
+
+1. **Commit 1** — cette spec, une fois validée ; la ligne « Statut » d'en-tête
+   passe à « validée (JJ/MM/AAAA) » dans le même commit (on ne commite pas un
+   document qui se déclare en arbitrage).
+2. **Commit 2** — outillage : `cherche_mots.js` ajusté + validation §2.3.
+3. **Commit 3** — docs : TODO archivé (§3) + codification (§5.2).
+4. **Chantier C** — diff proposé à part, commit séparé après arbitrage ligne à
+   ligne. Peut être refusé sans affecter le reste.
+5. Reprise du lot des 24 mots à l'étape 4 du déroulé §5.3 (les étapes 1–3 sont
+   déjà faites).
+
+## 9. Critères de succès du chantier entier
+
+- Un « ce mot existe-t-il ? » coûte ~200 tokens, prouvé par l'usage sur le lot
+  en cours.
+- `wc -c TODO.md` ≤ ~15 Ko ; le diff d'archivage est un pur déplacement.
+- Plus aucune règle d'économie qui ne vive que dans la conversation : tout est
+  dans CLAUDE.md, TODO.md ou la mémoire.
+- Le rituel et tous les gardes existants restent verts.
+
+## 10. Correctifs post-livraison (relecture du 23/07, à appliquer)
+
+La relecture par commandes du chantier livré a trouvé **un vrai défaut d'outil
+et une promesse fausse**. Le carnet n'a rien subi : le bug était latent (§10.5).
+Statut : **livré le 23/07/2026** (commit A outillage, commit B docs) — validation
+§10.5 verte de bout en bout, contre-tests négatifs compris.
+
+### 10.1 Correctif 1 — `cherche_mots.js` : faux « ABSENT » sur ktiv male/haser
+
+**Symptôme mesuré** : sur les 24 mots du lot fraîchement insérés, **6 ressortent
+`ABSENT`** — עיתון, דוגמה, עמוק, עגול, לזרוק, להרוויח.
+
+**Cause** : un mot vocalisé s'écrit en **ktiv haser** (עִתּוֹן → `עתון` une fois
+le niqqud retiré), mais on le cherche naturellement en **ktiv male** (`עיתון`).
+La comparaison exacte sur `he_plain` rate le couple. Le sens de l'échec est le
+dangereux : « absent » d'un mot présent ⇒ on insère un doublon. Taux réel :
+**6/24 = 25 %**.
+
+**Règle retenue** — après échec de la comparaison exacte, tenter la variante
+orthographique : *A ~ B si l'un s'obtient de l'autre en n'**insérant** que des
+ו/י*, avec deux garde-fous — forme courte **≥ 3 lettres**, **≤ 2 insertions**.
+Les occurrences ainsi trouvées sortent dans une rubrique **« orthographe
+voisine »**, jamais mêlées aux exactes.
+
+**Réglage mesuré sur les 1053 `he_plain` distincts du carnet :**
+
+| Réglage | Paires sur tout le corpus | Rattrape les 6 ? |
+| --- | --- | --- |
+| retrait naïf de tous les ו/י | 60 groupes / 132 mots — **écarté** | oui |
+| MIN 3 / MAX 1 | 27 | oui |
+| **MIN 3 / MAX 2 — retenu** | **37 (3,5 %)** | **oui** |
+| MIN 4 / MAX 2 | 8 | **non** (rate עמק, עגל) |
+
+Le retrait naïf est écarté par la mesure : il apparie לישן (dormir) ~ לשון
+(langue) et יפה (beau) ~ פה (bouche). Les 37 paires de la règle retenue sont au
+contraire **utiles** — מלוח~מלח (salé/sel), עצוב~עצב, רחב~רחוב : les
+quasi-homographes qu'un éditeur veut voir signalés.
+
+**Emplacement** : le helper va dans `build.js` + son `module.exports` (doctrine
+« jamais de logique dupliquée »), parce que §10.2 le consomme aussi.
+
+### 10.2 Correctif 2 — `ajoute_mots.js` partage l'angle mort
+
+Le garde doublons §7.A de SPEC_AJOUTE_MOTS compare `he_plain` **exactement**. Il
+passe aujourd'hui parce que tout candidat porte le niqqud, donc s'écrit défectif
+comme le carnet — mais une fiche future écrite en ktiv male vocalisé (עִיתּוֹן)
+glisserait à travers.
+
+**Correctif à risque maîtrisé** : signal « orthographe voisine » en
+**informatif non bloquant uniquement**, via le helper de §10.1. Le comportement
+bloquant ne change pas ⇒ les 12 cas d'erreur validés le 23/07 restent verts.
+
+### 10.3 Correctif 3 — documentaire : cette spec affirme deux choses fausses
+
+- **§2.1** annonce « comparaison **exacte** sur `he_plain` » — c'est exactement
+  ce qui a produit le bug. Réécrire avec la tolérance §10.1 et ses garde-fous.
+- **§2.3** n'a aucun critère orthographique. Ajouter : les 6 mots retrouvés,
+  **et** les contre-tests négatifs (לישן ne doit pas matcher לשון ; יפה ne doit
+  pas matcher פה).
+- **§4** promet « ~1,5–2k tokens économisés à chaque tour de chaque session
+  future ». **Faux** : CLAUDE.md est passé de 21 014 o à 22 330 o (piège n°15,
+  +1 316) puis à 21 026 o (compression, −1 304) — résultat net **+12 o**. La
+  compression a exactement payé le nouveau piège. Consigner le résultat réel et
+  la leçon : le fichier est ~94 % de règles, que §4 interdit de retirer ; **la
+  cible était irréaliste dès l'écriture de la spec**. Le vrai gain du chantier
+  est ailleurs et il est acquis : TODO.md 163 → 16 Ko, et l'inventaire à 56k
+  tokens remplacé par une commande à ~200.
+
+### 10.4 Correctif 4 — propagation
+
+`TODO.md` § Outillage et la mémoire agent `dedup-mots-sans-lire-la-liste.md`
+décrivent tous deux « hébreu → `he_plain` exact » : à corriger. Le piège n°15 de
+CLAUDE.md ne détaille pas l'appariement — rien à y changer, vérifier au passage.
+
+### 10.5 Validation des correctifs
+
+1. Les 6 mots ressortent trouvés (rubrique « orthographe voisine »).
+2. Contre-tests **négatifs** : `לישן` ne remonte pas לשון ; `יפה` ne remonte
+   pas פה.
+3. `node tools/build.js --check` vert ; `verifie_exemples.js` **sans erreur**, et son
+   compte d'avertissements inchangé par le correctif (il valait 14 à l'époque de ce
+   chantier ; il a suivi la croissance du corpus depuis — ce qui comptait était la
+   stabilité, pas la valeur).
+4. `ajoute_mots.js` : rejouer le lot des 24 déjà inséré donne toujours « Rien à
+   insérer » (idempotence intacte), et les 12 cas d'erreur du §8 de
+   SPEC_AJOUTE_MOTS restent verts.
+
+### 10.6 Ce que la mesure a aussi prouvé
+
+**Aucune des 37 paires n'est un doublon réel** — ce sont toutes des entrées
+légitimement distinctes. Le carnet ne contient donc **aucun doublon caché** par
+ce défaut : on corrige un piège avant qu'il ne morde, pas après.
+
+### 10.7 Ordre d'exécution
+
+Deux commits, **aucun contenu touché** ⇒ pas de bump `sw.js`, pas de flag graphe
+(aucun fichier créé/supprimé/renommé) :
+
+1. **Commit A** — outillage : helper dans `build.js` + export, consommation dans
+   `cherche_mots.js` (rubrique dédiée) et `ajoute_mots.js` (informatif), puis la
+   validation §10.5 en entier.
+2. **Commit B** — docs : §2.1, §2.3 et §4 de cette spec ; TODO.md § Outillage et
+   « Reprendre ici » ; mémoire agent.
+

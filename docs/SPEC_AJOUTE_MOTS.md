@@ -1,6 +1,6 @@
 # SPEC — `ajoute_mots.js`, le générateur de fiche (étage 1) — v3
 
-Spec v2 figée après audit red team (2026-07-23), décrivait un script qui composait
+Spec v2 figée après audit red team, décrivait un script qui composait
 le HTML du carnet et l'insérait dans `vocabulaire_hebreu.html` par offset de texte.
 **v3 (chantier 2, tâche 11)** : le script a basculé sur `data/*.json` — `build.js`
 v2 a fait de `data/` la source de vérité (tâche 7) et de `vocabulaire_hebreu.html`
@@ -415,7 +415,7 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
 - Le script ne commit pas git et ne met pas à jour la doc — fil principal (rung 4
   de la doctrine). En revanche il n'a plus rien à décider sur `sw.js` : le
   `node tools/build.js` qu'il lance en mode `--ecrire` **estampille `VERSION`**
-  lui-même (Task 19), donc les mots neufs atteignent le téléphone au 1ᵉʳ
+  lui-même, donc les mots neufs atteignent le téléphone au 1ᵉʳ
   lancement. Il reste à committer `sw.js` avec `data/` et les artefacts.
 
 ## 10. Hors périmètre — et procédures documentées pour ne pas les re-chercher
