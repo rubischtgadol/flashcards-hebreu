@@ -188,10 +188,12 @@ cellule vide (hors périmètre d'automatiser ce cas, comme avant).
   `Démonstratifs`, `Verbes modaux`, `Prépositions`, `Conjonctions`,
   `Mots interrogatifs`, `Nombres (0–10)`, `Nombres (11 et plus)`,
   `Nombres ordinaux`, `Jours de la semaine`, `Adverbes`, `Saisons & mois`,
-  `Mots de quantité`, `Expressions / Divers`, `Existence et possession`, `Phrases`.
+  `Mots de quantité`, `Expressions / Divers`, `Existence et possession`, `Phrases`,
+  `Hébreu parlé`.
 - `sous_theme` requis seulement pour les listes dont au moins une entrée porte déjà
   un champ `groupe` dans `data/listes/<slug>.json` (aujourd'hui : `Adverbes` →
-  `Temps` | `Lieu & direction` ; `Saisons & mois` → `Saisons` | `Mois`) — dérivé
+  `Temps` | `Lieu & direction` ; `Saisons & mois` → `Saisons` | `Mois` ;
+  `Hébreu parlé` → `particules` | `conversation` | `reagir` | `emprunts`) — dérivé
   mécaniquement de la donnée, jamais d'une liste codée en dur dans le script.
 - **Pas de `theme`** sur une liste (mono-thème par nature ; en poser un = erreur).
 - `exemples` optionnel (obligatoire seulement sur les 3 tables).

@@ -4,10 +4,48 @@
 
 ## Reprendre ici (prochaine session)
 
-**Où en est le dépôt (25/07/2026, tout poussé sur `main`).** La réorganisation
+**Où en est le dépôt (27/07/2026, tout poussé sur `main`).** La réorganisation
 « le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
 contrôle de sortie compris (Task 21 — preuve plus bas). **Aucun chantier n'est
 ouvert** sur `main`, et « Dette ouverte » est vide.
+
+⚠️ **GRAPHE À RECALER — 27/07/2026 : `data/listes/hebreu-parle.json`,
+`src/carnet/sections/37-hebreu-parle.html` (créés).** Le flag enregistre la
+dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
+lance que sur décision explicite).
+
+**Dernier chantier livré — « Hébreu parlé », 27/07/2026, soldé et poussé.** Le
+carnet a une **37ᵉ section** : le registre familier, 45 entrées, dernière de
+*Partie 3 · Au quotidien*. Le constat qui l'a motivée : le carnet enseignait un
+hébreu correct mais écrit, et qui le maîtrisait entièrement ne comprenait
+toujours pas une conversation israélienne, faute des particules qui la portent
+(תכלס, כאילו, דווקא, סתם). Quatre `groupe` — `particules` (10), `conversation`
+(13), `reagir` (14), `emprunts` (8) —, **chaque entrée avec sa phrase d'usage**,
+sans quoi les intraduisibles restent intraduisibles. **1220 → 1262 cartes** : 42
+mots neufs, **3 déplacés** depuis « Expressions / Divers » (סבבה, יאללה, ואלה),
+aucun dupliqué ; « Expressions » descend de 35 à 32.
+
+- Spec et plan : `docs/superpowers/specs/2026-07-27-hebreu-parle-design.md`,
+  `docs/superpowers/plans/2026-07-27-hebreu-parle.md`.
+- **Sept points de câblage** pour une section neuve, `ajoute_mots.js` la
+  déclarant hors périmètre : le fichier `data/listes/`, le gabarit
+  `src/carnet/sections/`, `sections.json`, le lien du sommaire dans
+  `00-preambule.html`, `EXPECTED_CATS` + `listCats` (`tools/build.js`), et
+  **`catOrder`** (`src/app/js/07-filtres.js`) — ce dernier est le piège : sans
+  lui les cartes existent mais aucune puce ne s'affiche.
+- ⚠️ **Leçon payée : `cherche_mots.js` ne prend qu'un mot à la fois.** Lui passer
+  « אין בעיה » comme un seul terme répond `ABSENT` **à tort**. Le crible correct
+  pour une expression est une recherche de sous-chaîne sans nikoud sur tout
+  `data/`. Il a montré que אֵין בְּעָיָה était déjà au carnet **deux fois** et
+  מָה נִשְׁמָע une fois — tous deux écartés de l'inventaire, remplacés par
+  אֵיזֶה קֶטַע et עַל הַכֵּיפַק à compte constant.
+- Preuve : `build` (45 cartes annoncées), `verifie_exemples` **0 erreur**,
+  `--check` vert, `sw.js` estampillé `v-8d7b83dc`. Pas de WebKit : aucun CSS ni
+  chemin de rendu touché, la section réutilisant les gabarits `word-list` /
+  `subtheme` existants.
+- **Reste à faire, si on veut** : le seul avertissement non trivial est celui de
+  l'exemple de יָאלְלָה (`.tr` à distance 2 de `he2tr` « yalelah »), qui vient de
+  la valeur autoritaire existante — **ne pas le corriger**.
 
 ⚠️ **Le chantier courant n'est pas sur `main` : c'est la charte v2, sur
 `refonte-retrofuturiste`** (décision du 25/07 — voir « Deux branches latérales »
