@@ -457,7 +457,7 @@ Les quatre premiers filets détectent les cartes perdues ; les quatre suivants (
 ## Développement et déploiement
 
 - **Servir en HTTP** : `app.html` fait un `fetch()`, donc `file://` ne marche pas. Depuis la racine : `python3 -m http.server` puis `http://localhost:8000/`. (Le fichier autonome, lui, s'ouvre en double-clic.)
-- **Vérification sans navigateur graphique** (WSL, y compris réseau coupé) : des scripts Node jetables, hors du dépôt — `tools/build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin). Pour le **rendu visuel**, l'outil de référence est **Playwright + WebKit réel** (le moteur de Safari — même rendu que l'iPhone cible) avec `devices['iPhone 16 Pro']` pour le mobile et un viewport classique pour le desktop ; les libs système nécessaires (`libgtk-4-1`, `libavif13`, `libgstreamer-plugins-bad1.0-0`) sont installées et les navigateurs téléchargés persistent dans `~/.cache/ms-playwright` (seule la lib npm `playwright` est à réinstaller par session). Le Chrome headless **système** pend en WSL2 — ne pas l'utiliser. Détail opérationnel dans TODO.md § Outillage.
+- **Vérification sans navigateur graphique** (WSL, y compris réseau coupé) : des scripts Node jetables, hors du dépôt — `tools/build.js --check` pour la cohérence, `node --check` sur le JS extrait pour la syntaxe, de petits harnais à stubs pour la logique pure (Leitner, distracteurs QCM, navigation), et jsdom pour booter le fichier autonome et exercer l'UI de bout en bout (chips, session, écran de fin). Pour le **rendu visuel**, l'outil de référence est **Playwright + WebKit réel** (le moteur de Safari — même rendu que l'iPhone cible) avec `devices['iPhone 16 Pro']` pour le mobile et un viewport classique pour le desktop ; les libs système nécessaires (`libgtk-4-1`, `libavif13`, `libgstreamer-plugins-bad1.0-0`) sont installées et les navigateurs téléchargés persistent dans `~/.cache/ms-playwright` (seule la lib npm `playwright` est à réinstaller par session). Le Chrome headless **système** pend en WSL2 — ne pas l'utiliser. Détail opérationnel dans RITUEL.md § Outillage.
 - **Déployer** = pousser sur `main` : GitHub Pages resert les fichiers tels quels, mêmes URL. Aucune étape de build côté CI — `flashcards_hebreu.html` doit donc être régénéré **et commité** avec les sources.
 - **Langue** : toute l'UI et la doc sont en français ; s'y tenir pour les chaînes visibles.
 
@@ -562,11 +562,74 @@ pas les identifiants forgés par les autres.
   sous-estimé, chaque moitié comptant seule — n'en tirez pas de conclusion sur l'importance
   relative d'un fichier.
 
+## Cinq leçons de méthode
+
+> Détachées de TODO.md le 27/07/2026 : elles ne décrivent pas un état, elles
+> décrivent des manières de se tromper qui restent ouvertes. Leur place est
+> auprès de l'architecture qu'elles protègent, pas dans une liste de tâches.
+
+
+Elles ne sont pas archivées avec le chantier : chacune décrit une manière de se
+tromper qui reste ouverte au prochain garde-fou, au prochain déménagement de
+fichier, au prochain export supprimé.
+
+1. **Quand un fichier bouge ou disparaît, un `grep` borné aux `.md` rate quatre
+   familles de références.** (1) Les **chaînes d'usage et messages d'erreur dans
+   les scripts eux-mêmes** — dont trois sortent dans l'en-tête « FICHIER
+   GÉNÉRÉ » des artefacts, donc les toucher force un rebuild, qui réestampille
+   `sw.js` au passage ; (2) l'allowlist `.claude/settings.local.json` ; (3) les
+   **liens markdown à fragment** (`](…#L42)`) ; (4) le **bac à sable
+   d'`ajoute_mots.js`**, qui recopie un dépôt
+   miniature — toute garde neuve qui lit un fichier de la racine casse le
+   dry-run tant que le fichier n'est pas dans `FICHIERS_RACINE_BAC_A_SABLE`
+   (payé au Task 17 avec `index.html`, re-payé au Task 19 avec `sw.js`).
+2. ⚠️ **Un chiffre juste n'est pas une preuve — ce qui prouve, c'est d'où il
+   vient.** Le bac à sable d'`ajoute_mots.js` affichait un compte de cartes
+   calculé *en process* : il aurait montré le bon nombre en validant un tout
+   autre arbre. C'est maintenant `assertBacASableCoherent()` qui relit le `TOTAL`
+   imprimé par le build de la sandbox. Toute garde ajoutée ici se prouve par
+   **casse fabriquée** (exit 1 réel, message nommé), jamais par « je l'ai
+   ajoutée ».
+3. ⚠️ **Générer un fichier prouve que le contenu arrive, jamais qu'il soit
+   seul** (Task 18). L'injection des jetons au marqueur `<!-- @TOKENS -->`
+   garantit que `src/tokens.css` est bien dans les trois pages ; elle ne dit
+   rien d'un **second `:root` écrit en dur** à côté, qui gagnerait par cascade
+   et rouvrirait précisément la divergence que le Task 18 vient de fermer —
+   sans rien casser de visible. D'où le compte de blocs `:root` attendu par
+   page dans `verifieCharte()` (carnet 3, app 1, portail 1). Même forme de
+   raisonnement pour la suite : quand une tâche « clôt un piège par
+   construction », demander *par quel chemin il pourrait revenir* et mécaniser
+   ce chemin-là.
+4. ⚠️ **Une garde qui ne peut pas échouer ne prouve rien — et il faut le
+   vérifier, pas le supposer** (Task 19). L'estampille avait d'abord reçu un
+   contrôle d'existence sur chacun des six fichiers hachés ; la casse fabriquée
+   (retirer `manifest.webmanifest`) a montré qu'il était **muet par
+   construction** : `verifieCharte()` lit le manifeste bien avant, et le build
+   meurt là. Le contrôle a été supprimé plutôt que gardé pour la forme. Corollaire
+   inverse, du même task : `String.replace` d'un motif qui ne matche pas **ne lève
+   rien** — il rend la chaîne inchangée. Toute réécriture par regex a donc besoin
+   d'une garde explicite sur le motif introuvable, sinon la couture se défait en
+   silence (ici : `VERSION` figée pour toujours, c'est-à-dire le piège n°10 remis
+   en place sans que personne le sache).
+5. ⚠️ **Un export mort n'est presque jamais seul : c'est la fermeture transitive
+   qu'il faut calculer, pas le nom** (Task 20). Le plan annonçait sept helpers HTML
+   dont « les fonctions restent utilisées en interne par `build.js` ». Le contrôle
+   nom par nom (`grep -n "\bnom\b" tools/build.js`, définition **et** appels) a
+   montré l'inverse : `parseSections`, `exemplesOf`, `attrOf`, `tdsOf` n'avaient
+   plus **aucun** appelant interne, et les trois autres (`closeOf`, `firstSpanText`,
+   `decodeEntities`) n'étaient appelés que par les quatre premiers, plus leurs
+   propres satellites (`textContent`, `blocksOf`, `NAMED_ENTITIES`). Tout le
+   sous-graphe ne tenait que par les exports : en retirant les exports on retirait
+   le mini-parseur entier — 90 lignes, et l'affirmation « le dépôt ne lit plus de
+   HTML » devenue vraie au sens littéral. **Ne pas s'arrêter au nom cité par un
+   plan : suivre les appelants jusqu'à l'appelant vivant, ou constater qu'il n'y
+   en a pas.**
+
 ## Check-list d'une modification de contenu
 
 1. Éditer `data/*.json` (et lui seul pour le vocabulaire — jamais `vocabulaire_hebreu.html`, généré).
 2. `node tools/build.js` — vérifier les comptes par section.
 3. Si du vocabulaire ou des exemples ont changé : `node tools/verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
 4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
-5. **Ne pas recaler le graphe** : un lot de contenu ne crée ni ne supprime de fichier, donc pas même de flag (règle durcie du 21/07 — `--update` coûte ~235k jetons et ne se lance que sur décision explicite ; `graphify explain` re-dérive les lignes mécaniquement, et un désaccord graphe/fichier tranche pour le fichier). Voir TODO.md § Rituel étape 5.
+5. **Ne pas recaler le graphe** : un lot de contenu ne crée ni ne supprime de fichier, donc pas même de flag (règle durcie du 21/07 — `--update` coûte ~235k jetons et ne se lance que sur décision explicite ; `graphify explain` re-dérive les lignes mécaniquement, et un désaccord graphe/fichier tranche pour le fichier). Voir RITUEL.md § Rituel étape 5.
 6. Committer `data/*.json` et les **cinq** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`) **plus `sw.js`**, dont le build vient de réestampiller `VERSION` — séparés en deux commits, le nom de cache se décale d'un commit sur le contenu qu'il nomme (piège 10). Puis pousser sur `main`.
