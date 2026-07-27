@@ -28,7 +28,7 @@ Le carnet est organisé en trois parties, avec un sommaire cliquable et une rech
 
 - **Partie 1 — Grammaire** : pronoms, démonstratifs, la racine (clé des verbes), le passé, le futur, patrons de conjugaison (binyanim), l'article défini, l'état construit, prépositions fléchies, le hé directionnel, existence & possession.
 - **Partie 2 — Vocabulaire, le dictionnaire** : verbes, noms et adjectifs, regroupés par thèmes.
-- **Partie 3 — Mots-outils & expressions** : prépositions, conjonctions, mots interrogatifs, nombres, jours de la semaine, mots de quantité, expressions courantes et **phrases utiles du quotidien** (« Combien ça coûte ? », « L'addition, s'il te plaît »…).
+- **Partie 3 — Mots-outils & expressions** : prépositions, conjonctions, mots interrogatifs, nombres, jours de la semaine, mots de quantité, adverbes (temps, lieu, degré, manière), pronoms réfléchis, expressions courantes, **phrases utiles du quotidien** (« Combien ça coûte ? », « L'addition, s'il te plaît »…) et **l'hébreu parlé** — le registre familier qu'on entend sans le trouver dans les manuels (תַּכְלֶס, כְּאִילוּ, סַבָּבָּה), chaque entrée avec sa phrase d'usage.
 
 Chaque mot hébreu est affiché avec nikud, sa translittération, sa traduction, et une ligne en écriture cursive.
 

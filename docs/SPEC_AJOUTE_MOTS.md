@@ -35,12 +35,17 @@ un verdict.**
    thème) se fait sur les objets JS renvoyés par `chargeDonnees()` — plus de scan
    `<h2>`/`<h3>`/`closeOf` sur un fichier HTML de ~8000 lignes : la « frontière de
    section » de la spec v2 devient un filtre sur le champ `groupe` d'un tableau.
-2. **Translittération : extraction textuelle, pas de copie.** Inchangé depuis v2 :
-   `ajoute_mots.js` lit `app.html`, extrait **textuellement** le source de `he2tr`
-   et l'évalue via `vm` — même procédé que `verifie_exemples.js`. Dérive impossible
-   par construction : la seule implémentation vivante reste celle d'`app.html`. Si
-   l'extraction échoue (fonction renommée/déplacée), erreur bruyante — jamais de
-   fallback silencieux. `stripNikud` vient de l'export de `build.js`.
+2. **Translittération : une seule implémentation vivante, prise à la source.**
+   ⚠️ **Corrigé le 27/07/2026 — ce paragraphe décrivait encore le procédé v2.**
+   `ajoute_mots.js` ne lit plus `app.html` et n'extrait plus rien textuellement :
+   il appelle **`fonctionsApp(['he2tr'], ROOT)`** (exporté par `build.js`), qui
+   évalue le **module source** `src/app/js/02-translitteration.js` en entier dans
+   un bac `vm`. La bascule date du 25/07 et vaut aussi pour
+   `verifie_exemples.js` : depuis, **aucun outil ne lit un artefact**, ce qui rend
+   littéralement vraie la règle « un artefact n'est jamais une entrée ». Dérive
+   toujours impossible par construction, mais la source de vérité a changé de
+   fichier. Échec bruyant si le module ou la fonction bouge — jamais de fallback
+   silencieux. `stripNikud` vient de l'export de `build.js`.
 3. **Écriture : uniquement `data/*.json`.** Jamais `vocabulaire_hebreu.html`
    directement (100 % généré depuis v2), jamais `cards.json`, jamais
    `flashcards_hebreu.html`, jamais `app.html`, jamais `sw.js`. Les trois artefacts
@@ -62,7 +67,7 @@ un verdict.**
 | --- | --- | --- |
 | `he` (hébreu **avec niqqud**) | **humain** | irréductible |
 | `fr` (sens) | **humain** | |
-| `niveau` (A1/A2/B1/B2) | **humain** | ∈ `EXPECTED_LEVELS` |
+| `niveau` (A1/A2/B1/B2/C1) | **humain** | ∈ `EXPECTED_LEVELS` |
 | `theme` (slug) | **humain** (tables seulement) | ∈ `EXPECTED_THEMES` (15) |
 | `section` + `sous_theme` | **humain** | où placer (§5) — titre humain ou slug `groupe`, §1.4 |
 | genre `m`/`f` + pluriel `he` (noms) | **humain** | |
@@ -273,7 +278,7 @@ dérivent) n'a plus d'existence possible dans ce modèle.
 2. **`data-niveau` obligatoire** partout ; **`theme` sur les 3 tables
    uniquement**, jamais sur une liste — contrôlé par `valideDonnees` (build.js)
    ET par les contrôles pré-insertion de ce script (double filet, §7).
-3. `theme` ∈ `EXPECTED_THEMES` (15), `niveau` ∈ `EXPECTED_LEVELS` (A1/A2/B1/B2) —
+3. `theme` ∈ `EXPECTED_THEMES` (15), `niveau` ∈ `EXPECTED_LEVELS` (A1/A2/B1/B2/C1, C1 ouvert le 27/07/2026) —
    lus depuis `build.js`, pas dupliqués.
 4. **Formes complètes** : Verbes 4, Adjectifs 3, toutes avec un `he` non vide
    (§3.3 — plus strict qu'en v2).
@@ -374,7 +379,7 @@ cassé → « impossible de relire son compte de cartes ».
 | Cas | Comportement |
 | --- | --- |
 | Thème inconnu (hors 15) | erreur pré-insertion, liste les 15 slugs, n'écrit rien ; le message documente la procédure d'extension (§10) |
-| Niveau hors A1/A2/B1/B2 | erreur pré-insertion ; le message pointe `EXPECTED_LEVELS` (build.js) |
+| Niveau hors `EXPECTED_LEVELS` (A1/A2/B1/B2/C1) | erreur pré-insertion ; le message pointe `EXPECTED_LEVELS` (build.js) |
 | Niqqud manquant (mot, forme ou exemple) | erreur nommée, n'écrit rien |
 | Doublon même section | warning bloquant nommé, skip sauf `--force` |
 | Doublon autre section | informatif nommé, ne bloque pas |
@@ -468,9 +473,11 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
    consommateur ; les helpers HTML qui survivaient pour les scripts jetables du
    chantier 1 sont partis avec eux au Task 20, exports compris — `build.js`
    n'exporte plus rien qui lise du HTML.
-2. `he2tr` : extraction textuelle depuis `app.html` + éval `vm`, en reprenant le
-   procédé déjà en place dans `verifie_exemples.js` ; échec bruyant si la fonction
-   bouge. `stripNikud` : export de `build.js`, pas d'extraction.
+2. `he2tr` : **`fonctionsApp(['he2tr'], ROOT)`** (export de `build.js`), qui évalue
+   le module source `src/app/js/02-translitteration.js` dans un bac `vm` ; échec
+   bruyant si le module ou la fonction bouge. ⚠️ La rédaction d'origine annonçait
+   une « extraction textuelle depuis `app.html` » — vrai en v2, faux depuis le
+   25/07 : plus aucun outil ne lit un artefact. `stripNikud` : export de `build.js`.
 3. `slug()` : même algorithme que celui qui a produit les valeurs `groupe`
    actuelles de `data/` (chantier 1) — voir §1.4. Redéfini
    localement dans `ajoute_mots.js` (fonction à 2 lignes, pas assez pour justifier

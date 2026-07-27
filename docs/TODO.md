@@ -6,12 +6,22 @@
 
 **Où en est le dépôt (27/07/2026, tout poussé sur `main`).** La réorganisation
 « le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
-contrôle de sortie compris (Task 21 — preuve plus bas). **Aucun chantier n'est
-ouvert** sur `main`, et « Dette ouverte » est vide.
+contrôle de sortie compris (Task 21 — la preuve et sa procédure de rejeu sont
+dans TODO_ARCHIVE.md § « Chantiers clos et dette soldée — archivés le
+2026-07-27 »). **Aucun chantier n'est ouvert** sur `main`, et la dette ouverte
+est vide (les quatre entrées soldées le 25/07 sont archivées au même endroit).
+
+**Le carnet compte 1428 cartes** (A1 429 · A2 573 · B1 390 · B2 26 · C1 10).
+⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
+prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
+--stats`, jamais cette page.
 
 ⚠️ **GRAPHE À RECALER — 27/07/2026 : `data/listes/hebreu-parle.json`,
-`src/carnet/sections/37-hebreu-parle.html` (créés).** Le flag enregistre la
-dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
+`src/carnet/sections/37-hebreu-parle.html` (créés) ; `docs/superpowers/**`
+(4 fichiers supprimés au ménage documentaire).** Le graphe n'a jamais connu ces
+quatre-là — il est antérieur à `docs/` —, donc il n'y a rien à en retirer : la
+ligne est là pour que le prochain recalage n'aille pas les chercher. Le flag
+enregistre la dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
 lance que sur décision explicite).
 
 **Dernier chantier livré — « Le mortier grammatical », 27/07/2026, soldé.**
@@ -50,118 +60,39 @@ tu trouves, n'enlève rien », B2/C1 compris).
   été rattrapé qu'au contrôle final contre la liste initiale. Un lot de
   rattrapage (11 entrées) a suivi.
 - Preuve : `--check` vert sur les cinq artefacts, `verifie_exemples` **0 erreur**
-  (124 avertissements éditoriaux), `sw.js` estampillé `v-81e6df9c`. Pas de
-  WebKit : aucun CSS ni chemin de rendu touché.
-- **Graphe non flaggé** : aucun fichier créé, supprimé ni renommé — que des
-  éditions dans des fichiers existants, dérive tolérée par le rituel.
+  (124 avertissements éditoriaux). Pas de WebKit : aucun CSS ni chemin de rendu
+  touché.
 
-**Chantier précédent — « Hébreu parlé », 27/07/2026, soldé et poussé.** Le
-carnet a une **37ᵉ section** : le registre familier, 45 entrées, dernière de
-*Partie 3 · Au quotidien*. Le constat qui l'a motivée : le carnet enseignait un
-hébreu correct mais écrit, et qui le maîtrisait entièrement ne comprenait
-toujours pas une conversation israélienne, faute des particules qui la portent
-(תכלס, כאילו, דווקא, סתם). Quatre `groupe` — `particules` (10), `conversation`
-(13), `reagir` (14), `emprunts` (8) —, **chaque entrée avec sa phrase d'usage**,
-sans quoi les intraduisibles restent intraduisibles. **1220 → 1262 cartes** : 42
-mots neufs, **3 déplacés** depuis « Expressions / Divers » (סבבה, יאללה, ואלה),
-aucun dupliqué ; « Expressions » descend de 35 à 32.
+**Passe documentaire du 27/07/2026, dans la foulée.** Toute la documentation a
+été auditée contre l'état réel (4 sous-agents, ~160 affirmations vérifiées) :
+**17 faussetés corrigées** — ARCHITECTURE.md 8 (dont `firstSpanText` et
+`parseSections` décrites comme vivantes alors que le mini-parseur HTML est parti
+au Task 20, et deux renvois de module intervertis), SPEC_AJOUTE_MOTS.md 5,
+DESIGN.md 3, README.md 1. `docs/superpowers/**` supprimé (4 fichiers de chantiers
+clos, précédent du dépôt, historique git conservé), 137 lignes de TODO.md
+archivées. Les **15 pièges de CLAUDE.md ont été re-vérifiés un par un : tous
+tiennent**.
 
-- Spec et plan : `docs/superpowers/specs/2026-07-27-hebreu-parle-design.md`,
-  `docs/superpowers/plans/2026-07-27-hebreu-parle.md`.
-- **Sept points de câblage** pour une section neuve, `ajoute_mots.js` la
-  déclarant hors périmètre : le fichier `data/listes/`, le gabarit
-  `src/carnet/sections/`, `sections.json`, le lien du sommaire dans
-  `00-preambule.html`, `EXPECTED_CATS` + `listCats` (`tools/build.js`), et
-  **`catOrder`** (`src/app/js/07-filtres.js`) — ce dernier est le piège : sans
-  lui les cartes existent mais aucune puce ne s'affiche.
-- ⚠️ **Leçon payée : `cherche_mots.js` ne prend qu'un mot à la fois.** Lui passer
-  « אין בעיה » comme un seul terme répond `ABSENT` **à tort**. Le crible correct
-  pour une expression est une recherche de sous-chaîne sans nikoud sur tout
-  `data/`. Il a montré que אֵין בְּעָיָה était déjà au carnet **deux fois** et
-  מָה נִשְׁמָע une fois — tous deux écartés de l'inventaire, remplacés par
-  אֵיזֶה קֶטַע et עַל הַכֵּיפַק à compte constant.
-- Preuve : `build` (45 cartes annoncées), `verifie_exemples` **0 erreur**,
-  `--check` vert, `sw.js` estampillé `v-8d7b83dc`. Pas de WebKit : aucun CSS ni
-  chemin de rendu touché, la section réutilisant les gabarits `word-list` /
-  `subtheme` existants.
-- **Reste à faire, si on veut** : le seul avertissement non trivial est celui de
-  l'exemple de יָאלְלָה (`.tr` à distance 2 de `he2tr` « yalelah »), qui vient de
-  la valeur autoritaire existante — **ne pas le corriger**.
+### Deux branches latérales — aucune n'est le chantier courant
 
-⚠️ **Le chantier courant n'est pas sur `main` : c'est la charte v2, sur
-`refonte-retrofuturiste`** (décision du 25/07 — voir « Deux branches latérales »
-plus bas, qui dit aussi ce que la réorganisation vient de lui faire gagner).
-`main` est au repos ; ce qui suit décrit son rangement.
-
-Le dépôt est rangé ainsi :
-
-| Où | Quoi | S'édite à la main ? |
-| --- | --- | --- |
-| `data/*.json` | **le contenu** : noms, adjectifs, verbes, `listes/*.json` | ✅ oui — source unique |
-| `src/carnet/` | gabarits et prose du carnet | ✅ oui |
-| `src/app/` | **le code de l'app** : `coquille.html`, `ordre.json`, 6 fragments `css/`, 14 modules `js/` | ✅ oui |
-| `src/portail/` | **la source du portail** : `index.html` (les jetons y sont injectés au marqueur `<!-- @TOKENS -->`) | ✅ oui |
-| `src/tokens.css` | le bloc `:root` de la charte, source unique des **trois** pages déployées | ✅ oui |
-| `tools/` | les 5 outils (`build`, `verifie_exemples`, `ajoute_mots`, `cherche_mots`, `mesure_translitteration`) | ✅ oui |
-| `docs/` | toute la prose du projet | ✅ oui |
-| `vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html` | les **5 artefacts générés** | ❌ **jamais** — écrasés au build |
-| `sw.js` | le service worker | ✅ oui — **sauf** la ligne `const VERSION`, estampillée par le build depuis le Task 19 (`grep -n "const VERSION" sw.js` pour la valeur du jour) |
-
-⚠️ **Les outils se lancent DEPUIS LA RACINE**, jamais depuis `tools/` :
-`node tools/build.js`, `node tools/verifie_exemples.js`,
-`node tools/cherche_mots.js`, `node tools/ajoute_mots.js`,
-`node tools/mesure_translitteration.js`. Chacun vise
-`ROOT = path.join(__dirname, '..')`, exporté par `build.js` et consommé par les
-quatre autres — jamais recalculé ailleurs.
-
-### La preuve de sortie (Task 21, 25/07) — et comment la rejouer
-
-Ce qu'a établi le contrôle final. Chaque ligne dit **la commande**, pas son
-résultat du jour : c'est elle qui refait la preuve, à n'importe quelle date.
-Plan complet dans
-[le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md).
-
-1. **Rituel en ligne de commande** — `node tools/build.js`, puis
-   `node tools/build.js --check`, puis `node tools/verifie_exemples.js`
-   (0 erreur exigée ; les ⚠ sont des signaux éditoriaux),
-   `node tools/cherche_mots.js שלום` répond.
-   ⚠️ **Le dry-run d'`ajoute_mots.js` ne prouve son bac à sable que sur un mot
-   ABSENT du carnet** — un mot déjà présent court-circuite sur l'idempotence et
-   ne prouve rien. Choisir le candidat avec `node tools/cherche_mots.js <mot>`
-   jusqu'à obtenir `ABSENT`, puis exiger dans la sortie les **deux** lignes
-   `✓ build.js bac à sable : vert (N cartes, concordantes avec le candidat)` et
-   `✓ verifie_exemples.js bac à sable : 0 erreur`, et un `git status` propre.
-2. **Parcours WebKit complet**, en sous-agent Sonnet (jamais depuis le fil
-   principal) : serveur `python3 -m http.server` **depuis la racine**,
-   `devices['iPhone 16 Pro']`, portail → app → une session de **chacun** des
-   trois modes (`cards`, `input`, `quiz`) → révision du jour → carnet.
-   Les 8 étapes sont passées PASS le 25/07, dont : cartes chargées par l'app
-   **égales** à `node -e "console.log(require('./cards.json').cartes.length)"`,
-   0 erreur console, 0 réponse HTTP ≥ 400, carnet sans débordement horizontal.
-   C'était le premier parcours complet depuis le découpage de l'app en 14
-   modules — **aucune régression**.
-   ⚠️ Piège de pilotage, à ne pas rechercher : le portail ouvre sur un écran
-   d'accueil plein écran (`#accueil`) qui **intercepte les clics** tant qu'il
-   n'a pas été cliqué lui-même. Un script qui vise les portes directement
-   échoue sans rien avoir prouvé.
-3. **Livraison** — push sur `main`, puis `https://rubischtgadol.github.io/flashcards-hebreu/cards.json`
-   doit répondre 200 après le redéploiement Pages (une à deux minutes).
-   ⚠️ Sur l'iPhone, **deux lancements** pour voir la nouvelle version : le
-   service worker sert d'abord le cache et rafraîchit derrière
-   (stale-while-revalidate).
-
-### Deux branches latérales — dont le chantier courant
-
-`main` n'en portait aucune trace : consigné ici pour qu'une session ne les
+`main` n'en porte aucune trace : consigné ici pour qu'une session ne les
 redécouvre pas par hasard. L'écart se relit à tout moment —
 `git rev-list --count main..<branche>` (devant) et
-`git rev-list --count <branche>..main` (derrière).
+`git rev-list --count <branche>..main` (derrière). Relevé du 27/07 :
+`refonte-retrofuturiste` **48 devant / 63 derrière**, `pilier-oral`
+**7 devant / 98 derrière**.
+
+⚠️ **Consigne du propriétaire, 27/07/2026 : « ne touche pas à la branche
+retrofuturiste ».** Ni checkout, ni merge, ni rebase, ni écriture dans son
+worktree. On peut la lire pour documenter l'écart — pas la modifier.
 
 - **`refonte-retrofuturiste`** — la charte v2 « La console d'étude », **refonte
-  purement visuelle**. ⚠️ **Elle a été DÉGARÉE le 25/07 : le propriétaire a
-  annoncé qu'il ne travaillerait plus que dessus.** C'est donc le chantier
-  courant ; ce qui suit dans « Reprendre ici » décrit un `main` au repos, pas un
-  dépôt sans travail en cours. Elle est **sortie en worktree**
+  purement visuelle**. ⚠️ **Rectification du 27/07 : la rédaction précédente
+  annonçait qu'elle était « le chantier courant » depuis le 25/07.** C'est faux
+  aujourd'hui — deux chantiers ont été livrés sur `main` le 27/07 (« Hébreu
+  parlé », puis « Le mortier grammatical » et sa passe documentaire). `main` est
+  bien le tronc actif ; cette branche est en attente, pas en cours. Elle est
+  **sortie en worktree**
   (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`), donc on
   ne la `checkout` pas depuis ce répertoire-ci. Intention déjà cadrée sur la
   branche (commit `92e7aa3`, spec §7) : les deux chartes coexisteront via un
@@ -309,48 +240,6 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
-
-### Dette ouverte — **vide** depuis le 25/07
-
-La liste des petits défauts connus est vide pour la première fois. Les quatre
-entrées qu'elle portait ont été traitées ; ce qu'il faut en retenir vit
-désormais là où on le cherchera, pas ici.
-
-1. **Étiquette de diagnostic « extraction »** — corrigée. Elle mesurait un
-   `JSON.parse` sous un nom hérité de l'extracteur HTML : devenue « lecture
-   JSON », et « carnet (réseau) » devenue « cartes (réseau) », puisque l'app
-   charge `cards.json` et non le carnet.
-2. **Double énumération de `data/listes/`** — corrigée. `cherche_mots.js` avait
-   son propre `readdirSync` à côté de celui de `build.js` ; les deux passent par
-   `fichiersListes()` / `fichiersDonnees()`, exportés par `build.js`.
-3. **`he2tr` extraite d'`app.html`** — corrigée, et c'était la dernière entorse
-   au principe « aucun artefact n'est jamais une entrée ». Les fonctions
-   viennent de `fonctionsApp()` (`build.js`), qui évalue le module source
-   `src/app/js/02-translitteration.js` en entier dans un bac `vm` ; l'extracteur
-   textuel a disparu des deux outils, et `app.html` n'est plus copié dans le bac
-   à sable. Détail dans ARCHITECTURE.md § Flux de données.
-4. **Les quatre fautes reproductibles de `he2tr`** — corrigées : shva initial
-   (`shkufah`), yud consonantique (`meyuman`), redoublement (`bodedim`), alef
-   devant yod final (`achra'i`). ⚠️ **Mais la règle du shva initial est
-   morphologique, donc elle reste approchée — par conception, pas par dette
-   résiduelle.** Ce qui a remplacé le défaut, c'est une mesure et son outil :
-   `node tools/mesure_translitteration.js` (`--top`, `--shva`) donne l'accord
-   exact, l'accord après `trKey` et la distance d'édition contre tous les `.tr`
-   écrits à la main. **Aucune retouche de la classe de consonnes ne se garde si
-   les trois nombres ne s'améliorent pas tous les trois** — c'est ainsi que ג a
-   été écarté, et pourquoi `gdolim` sort encore `gedolim`. Le raisonnement
-   complet est dans ARCHITECTURE.md § Ce que `he2tr` sait faire du shva initial.
-   La règle qui n'a pas bougé : **les `tr` du carnet font foi**, on ne les
-   régénère jamais en masse depuis `he2tr`.
-
-**Reclassé, pas corrigé** — le « premier lancement sans chip de niveau »
-(`state.niveaux` vide, « Commencer » muet) n'a jamais été un défaut : c'est une
-décision du 19/07, écrite en commentaire au-dessus d'`applyPrefs()` dans
-`src/app/js/13-reglages.js`, et `#start-hint` guide l'utilisateur. À ne rouvrir
-que si l'intention change.
-
-*Si un nouveau défaut connu apparaît, c'est ici qu'il se note — avec ce qui le
-rend non bloquant, faute de quoi il devient un chantier.*
 
 ## Outillage (WSL, à recréer en début de session si besoin)
 

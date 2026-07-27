@@ -46,7 +46,7 @@ ce qui est **servi** (les cinq artefacts, la couche PWA) plus `README.md`
 et `CLAUDE.md`. Les sources sont dans `data/` (contenu) et `src/` (gabarits du carnet, code
 de l'app, source du portail) ; l'outillage dans `tools/` ; la prose dans `docs/`. **Les outils se lancent
 toujours depuis la racine** (`node tools/build.js`), jamais depuis `tools/` : ils visent
-`ROOT = path.join(__dirname, '..')`, exporté par `build.js` pour que les trois autres ne
+`ROOT = path.join(__dirname, '..')`, exporté par `build.js` pour que les quatre autres ne
 le recalculent pas. Les chemins de ce tableau sont donnés depuis la racine.
 
 | Fichier | Rôle | Édité à la main ? |
@@ -97,7 +97,7 @@ décalage comme un lot unique. Ce qui est désormais acquis, et à préserver :
   l'hébreu en phonétique française — sur un document dont l'hébreu *est* le produit.
 - **Garde `prefers-reduced-motion`**, qui doit inclure `scroll-behavior:auto`. Le `transition:none`
   global de l'app **ne suffirait pas** ici : c'est le défilement doux (`html{scroll-behavior:smooth}`)
-  qui anime les 27 liens du sommaire.
+  qui anime les 37 liens du sommaire.
 - **Bloc `@media (pointer:coarse)`** tenant les cibles à 44 px : pastilles du sommaire, `.app-link`,
   `.search-clear` (elle était à 28 px alors que son jumeau dans l'app était déjà à 44).
 - Le champ de recherche porte un `aria-label` (il n'avait qu'un `placeholder`).
@@ -143,7 +143,7 @@ par inadvertance :
   Aucune taille littérale hors rampe ; seule exception nommée, le `1.15em` de l'hébreu en
   prose, relatif par nature. **Ne pas déplacer le 22px sur `html`** pour « réparer » :
   ×1,375 sur chaque `rem` d'ici *et* d'`app.html`. Détail : DESIGN.md §3.
-- **Tout hébreu se compose en Frank Ruhl**, y compris les 152 suites insérées au milieu
+- **Tout hébreu se compose en Frank Ruhl**, y compris les 429 suites insérées au milieu
   d'un paragraphe français, atteintes par `span[lang="he"]:not([class])` (serif + 1,15em).
   Elles héritaient d'Assistant, ce qui violait la règle des trois voix *et* celle de la
   vedette, et rendait le nikoud illisible dans les passages qui l'enseignent. Deux voix
@@ -163,12 +163,17 @@ par inadvertance :
   (×5, titres de sous-section de grammaire) — ces cinq-là vivaient dans des attributs `style=`
   du corps du document et **échappaient au détecteur**, qui ne lit que le CSS.
 
-**Sûreté vis-à-vis de l'extraction** : ajouter `lang` aux spans est sans risque, `firstSpanText`
-(`firstSpanText` dans [build.js](../tools/build.js)) cherchant `class="he"` par correspondance exacte et tolérant les
-autres attributs, et `parseSections` cherchant `class="count"` de même. Le vérifier malgré tout
-avec `node tools/build.js --check` : la preuve est que le fichier autonome reste **inchangé au octet**.
-Attention aussi au filtre de recherche du carnet, qui travaille sur `textContent` — l'envelopper
-d'hébreu ne doit pas le casser (contrôlé : 3 résultats pour « שלום », 16 pour « maison »).
+**Sûreté vis-à-vis de l'extraction — la question ne se pose plus.** ⚠️ Ce paragraphe
+argumentait jusqu'au 27/07/2026 que `lang` sur les spans était sans risque parce que
+`firstSpanText` cherchait `class="he"` par correspondance exacte et `parseSections`
+`class="count"` de même. **Ces deux fonctions n'existent plus** : le mini-parseur HTML de
+`build.js` a été retiré en entier au Task 20 (il n'en reste qu'une ligne de commentaire,
+[build.js:100](../tools/build.js#L100)), et plus aucun outil du dépôt ne lit un artefact.
+Le carnet n'étant qu'une **sortie**, un attribut ajouté à ses spans ne peut plus casser
+d'extraction : il n'y en a pas. Ce qui reste à vérifier après une retouche de balisage est
+`node tools/build.js --check` (les cinq artefacts en phase) et le filtre de recherche du
+carnet, qui travaille sur `textContent` — envelopper l'hébreu ne doit pas le casser
+(contrôlé : 3 résultats pour « שלום », 16 pour « maison »).
 
 ## Flux de données : du carnet aux cartes
 
@@ -384,7 +389,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 
 - **Préférences** (`localStorage`, clé `prefs_v1`) : `{cats, niveaux, mode, dir, script, order, audio, len}` — `niveaux` est **rétro-compatible** : absent des anciennes préférences (profil d'avant le filtre), il redevient « tout sélectionné », rien ne disparaît — mais un tableau présent et vide reste vide. `savePrefs()` est déclenché à chaque changement (`segPick`, chips de catégories, « tout sélectionner ») ; `applyPrefs()` restaure l'état **et** le reflète dans l'UI (`aria-pressed`). Au **premier lancement** (aucune préférence), **aucune catégorie ni aucun niveau n'est présélectionné** — le choix appartient à l'utilisateur (décision du 19/07/2026, qui remplace l'ancien défaut « tout sauf Phrases » de `defaultCats()`) ; les six autres réglages gardent leurs valeurs initiales. `updateStart()` guide alors : indice « Choisis au moins une catégorie » (ou niveau) dans `#start-hint` et CTA désactivé tant que la sélection est vide.
 - **Instantané de session** (`sessionStorage`, clé `sess_v1`) : `{queueIds, origIds, missedIds, idx, goodCount, total, session, mode, dir, script}`. `sessSave()` est appelé à chaque avancée (`render`) et réponse ; `sessRestore()` reconstruit la file par id de carte (`cat|he`, vocalisé) et rouvre `#study` directement. Si le vocabulaire a changé sous la session (un id manque, `idx` hors limites), la session est **abandonnée proprement** (`sessClear()`). Effacé à la fin (`finish`), à « Quitter » (`exit`) et au retour au menu (`back-setup`).
-- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([src/app/js/12-qcm.js](../src/app/js/12-qcm.js)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([src/app/js/02-translitteration.js](../src/app/js/02-translitteration.js)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
+- **Verdict annulable dans les trois modes** (un pouce qui glisse ne doit pas polluer les boîtes de Leitner) : `recordResult` mémorise l'entrée SRS d'avant écriture (`lastRecord`), que `undoLastRecord` restaure. En **saisie**, `fixVerdict` (« J'avais juste → » après un raté, « En fait, je ne savais pas » après un juste ou un « Presque ») ré-enregistre le verdict inverse et rééquilibre `goodCount`/`missed`. En **QCM**, `quizFixVerdict` ([src/app/js/12-qcm.js](../src/app/js/12-qcm.js)) fait de même via le bouton `#quiz-fix` (mêmes libellés), qui se fige en confirmation (`✓ Compté comme réussi` / `✗ À revoir`) et s'annonce dans `#quiz-live`. En **Cartes**, la carte suivante étant déjà affichée, `undoCardAnswer` ([src/app/js/11-cartes.js](../src/app/js/02-translitteration.js)) revient en arrière via l'instantané `cardsUndo` posé par `answer()` : SRS restauré, `goodCount`/`missed`/`idx` réalignés, bouton « ‹ Annuler la dernière réponse » visible seulement quand un retour est possible. `beginSession` remet `cardsUndo`/`lastRecord` à zéro. En saisie, **Entrée/Vérifier sur champ vide est un no-op** (ni raté compté, ni écriture SRS — « Je ne sais pas » reste le geste volontaire).
 - **Sortie explicite** : « Quitter » affiche sur l'accueil la ligne `#exit-note` (`role="status"`) « Session interrompue — X réponse(s) sur Y déjà comptée(s) dans ta révision » quand au moins une réponse a été donnée (les réponses sont déjà en SRS — le dire) ; masquée au démarrage suivant. Sur l'écran de fin, « Recommencer » est libellé « Rejouer ces N cartes » (même tirage `origQueue`), et une fin de **révision** avec ratées explique qu'elles sont aussitôt redevenues dues (effet Sisyphe du compteur, pas un bug).
 - **Remise à zéro du profil** : la zone « Repartir de zéro » ferme le pli « Réglages avancés » (action rare et destructrice — jamais en concurrence avec « Commencer » ni la révision du jour ; le sous-titre du pli continue de n'annoncer que les valeurs mémorisées). Deux temps obligatoires : le bouton `#reset-btn` ouvre un bloc de confirmation qui **nomme la perte** (nombre de cartes suivies, via `masteryStats().seen`), « Annuler » est le défaut sûr et reçoit le focus. Confirmer efface `srs_v1`, `prefs_v1` (localStorage) et `sess_v1` (sessionStorage), remet en mémoire `SRS={}`, `lastRecord`/`cardsUndo` à `null` **et les six clés de réglage de `state` à leurs valeurs initiales** (`applyPrefs()` sans préférences ne les touche pas), puis rafraîchit l'UI en place — `applyPrefs()` (aucune catégorie ni niveau sélectionné, l'état du premier lancement), `refreshSrsUi()`, `updateStart()`, `#exit-note` masqué — sans recharger la page. Une ligne `role="status"` (`#reset-done`) annonce « Profil effacé », et le focus revient sur le bouton d'appel.
 - **Écran d'erreur du loader** (`showLoaderError`, dans le bloc `BUILD:ONLINE-ONLY`) : diagnostic distinguant fichier local (`file://`), perte réseau et indisponibilité, avec un bouton « Réessayer » qui relance `init()`.
@@ -418,7 +423,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 `checkAnswer` ([src/app/js/03-reponses.js](../src/app/js/03-reponses.js)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies dans [src/app/js/99-principal.js](../src/app/js/99-principal.js) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`, décision du 2026-07-19) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([src/app/js/02-translitteration.js](../src/app/js/02-translitteration.js)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([src/app/js/11-cartes.js](../src/app/js/11-cartes.js)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies dans [src/app/js/99-principal.js](../src/app/js/99-principal.js) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`, décision du 2026-07-19) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([src/app/js/02-translitteration.js](../src/app/js/02-translitteration.js)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([src/app/js/02-translitteration.js](../src/app/js/11-cartes.js)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.
@@ -517,7 +522,7 @@ numéro de ligne d'artefact dans la doc (contrôle en TODO.md § Rituel étape 7
 
 ⚠️ **Le graphe est un instantané, pas une vérité vivante.** Il se périme exactement comme les
 ancres — la différence est qu'il se régénère en une commande au lieu de se vérifier à la main.
-Concrètement, ce graphe **date d'avant les chantiers 1-2** de la réorganisation du dépôt
+Concrètement, ce graphe **date d'avant les chantiers 1 à 4** de la réorganisation du dépôt
 généré : il ne connaît ni `data/`, ni `src/carnet/`, ni la disparition des extracteurs HTML —
 une requête sur ces sujets répondra depuis l'ancien monde (l'extraction depuis le carnet, les
 deux implémentations d'`extractCards`). La dette est enregistrée par les flags
@@ -564,4 +569,4 @@ pas les identifiants forgés par les autres.
 3. Si du vocabulaire ou des exemples ont changé : `node tools/verifie_exemples.js` — 0 erreur exigé (un nom, adjectif ou verbe ajouté doit arriver **avec** son exemple, règle de couverture).
 4. Ouvrir `http://localhost:8000/` — vérifier « N mots chargés » et la carte concernée.
 5. **Ne pas recaler le graphe** : un lot de contenu ne crée ni ne supprime de fichier, donc pas même de flag (règle durcie du 21/07 — `--update` coûte ~235k jetons et ne se lance que sur décision explicite ; `graphify explain` re-dérive les lignes mécaniquement, et un désaccord graphe/fichier tranche pour le fichier). Voir TODO.md § Rituel étape 5.
-6. Committer `data/*.json` et les **quatre** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`), pousser sur `main`.
+6. Committer `data/*.json` et les **cinq** artefacts régénérés (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`) **plus `sw.js`**, dont le build vient de réestampiller `VERSION` — séparés en deux commits, le nom de cache se décale d'un commit sur le contenu qu'il nomme (piège 10). Puis pousser sur `main`.
