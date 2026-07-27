@@ -33813,6 +33813,219 @@
         }
       ],
       "he_plain": "יחסית"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "מָה קוֹרֶה",
+      "tr": "mah koreh",
+      "fr": "quoi de neuf ? / ça roule ?",
+      "note": "plus familier que מָה נִשְׁמָע",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "מָה קוֹרֶה, אָח שֶׁלִּי?",
+          "tr": "mah koreh, ach sheli?",
+          "fr": "Quoi de neuf, mon frère ?",
+          "he_plain": "מה קורה, אח שלי?"
+        }
+      ],
+      "he_plain": "מה קורה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "מָה פִּתְאוֹם",
+      "tr": "mah pit'om",
+      "fr": "et puis quoi encore ! / pas du tout",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מָה פִּתְאוֹם? אֲנִי מְשַׁלֵּם",
+          "tr": "mah pit'om? ani meshalem",
+          "fr": "Et puis quoi encore ? C'est moi qui paie.",
+          "he_plain": "מה פתאום? אני משלם"
+        }
+      ],
+      "he_plain": "מה פתאום"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "עֲזֹב",
+      "tr": "'azov",
+      "fr": "laisse tomber",
+      "note": "à une femme : עִזְבִי, 'izvi",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עֲזֹב, זֶה לֹא חָשׁוּב",
+          "tr": "'azov, zeh lo chashuv",
+          "fr": "Laisse tomber, ce n'est pas important.",
+          "he_plain": "עזב, זה לא חשוב"
+        }
+      ],
+      "he_plain": "עזב"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "דַּי",
+      "tr": "dai",
+      "fr": "ça suffit ! / arrête",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "דַּי, מַסְפִּיק לְהַיּוֹם",
+          "tr": "dai, maspik lehayom",
+          "fr": "Ça suffit, assez pour aujourd'hui.",
+          "he_plain": "די, מספיק להיום"
+        }
+      ],
+      "he_plain": "די"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "נוּ",
+      "tr": "nu",
+      "fr": "alors ? / allez",
+      "note": "presse ou relance — du yiddish",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "נוּ, מָה אָמְרוּ לְךָ?",
+          "tr": "nu, mah amru lekha?",
+          "fr": "Alors, qu'est-ce qu'ils t'ont dit ?",
+          "he_plain": "נו, מה אמרו לך?"
+        }
+      ],
+      "he_plain": "נו"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "זֶהוּ",
+      "tr": "zehu",
+      "fr": "voilà, c'est tout",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶהוּ, סִיַּמְנוּ אֶת הָעֲבוֹדָה",
+          "tr": "zehu, siyamnu et ha'avodah",
+          "fr": "Voilà, on a fini le travail.",
+          "he_plain": "זהו, סימנו את העבודה"
+        }
+      ],
+      "he_plain": "זהו"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "לֹא מְשַׁנֶּה",
+      "tr": "lo meshaneh",
+      "fr": "peu importe",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "לֹא מְשַׁנֶּה, נִפָּגֵשׁ מָחָר",
+          "tr": "lo meshaneh, nipagesh machar",
+          "fr": "Peu importe, on se voit demain.",
+          "he_plain": "לא משנה, נפגש מחר"
+        }
+      ],
+      "he_plain": "לא משנה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "תֵּכֶף",
+      "tr": "tekhef",
+      "fr": "tout de suite, dans une minute",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תֵּכֶף אֲנִי מַגִּיעַ",
+          "tr": "tekhef ani magi'a",
+          "fr": "J'arrive tout de suite.",
+          "he_plain": "תכף אני מגיע"
+        }
+      ],
+      "he_plain": "תכף"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "בְּטַח",
+      "tr": "betach",
+      "fr": "bien sûr, évidemment",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בְּטַח שֶׁאֲנִי בָּא",
+          "tr": "betach she'ani ba",
+          "fr": "Bien sûr que je viens.",
+          "he_plain": "בטח שאני בא"
+        }
+      ],
+      "he_plain": "בטח"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "בֶּאֱמֶת",
+      "tr": "be'emet",
+      "fr": "vraiment ? / sérieusement",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בֶּאֱמֶת? לֹא יָדַעְתִּי",
+          "tr": "be'emet? lo yada'ti",
+          "fr": "Vraiment ? Je ne savais pas.",
+          "he_plain": "באמת? לא ידעתי"
+        }
+      ],
+      "he_plain": "באמת"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "בְּחַיַּי",
+      "tr": "bechayai",
+      "fr": "je te jure",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בְּחַיַּי שֶׁלֹּא סִפַּרְתִּי לָהּ",
+          "tr": "bechayai shelo siparti lah",
+          "fr": "Je te jure que je ne lui ai rien dit.",
+          "he_plain": "בחיי שלא ספרתי לה"
+        }
+      ],
+      "he_plain": "בחיי"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "שֶׁיִּהְיֶה",
+      "tr": "sheyihyeh",
+      "fr": "soit / admettons",
+      "note": "concession un peu résignée : « bon, d'accord »",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "אַתָּה לֹא מַסְכִּים? שֶׁיִּהְיֶה",
+          "tr": "atah lo maskim? sheyihyeh",
+          "fr": "Tu n'es pas d'accord ? Soit.",
+          "he_plain": "אתה לא מסכים? שיהיה"
+        }
+      ],
+      "he_plain": "שיהיה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "תַּעֲשֶׂה טוֹבָה",
+      "tr": "ta'aseh tovah",
+      "fr": "fais-moi plaisir / arrête un peu",
+      "note": "à une femme : תַּעֲשִׂי טוֹבָה",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תַּעֲשֶׂה טוֹבָה, תַּפְסִיק כְּבָר",
+          "tr": "ta'aseh tovah, tafsik kvar",
+          "fr": "Fais-moi plaisir, arrête un peu.",
+          "he_plain": "תעשה טובה, תפסיק כבר"
+        }
+      ],
+      "he_plain": "תעשה טובה"
     }
   ]
 }
