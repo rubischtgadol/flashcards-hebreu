@@ -871,6 +871,64 @@ function verifieCharte(appAssembled, notebookGenerated, portailGenerated){
   console.log('Charte : transition:all absent, font-size hors de html, :root au compte attendu, tokens et theme-color (' + bg + ') en phase sur les 3 pages déployées.');
 }
 
+/*
+ * verifieDoc(racine) — la doc attribue-t-elle chaque symbole au bon module ? (2026-07-27)
+ *
+ * Motif : la passe d'audit du 27/07 a trouvé dans ARCHITECTURE.md deux renvois symbole→module
+ * INTERVERTIS (`undoCardAnswer` donné dans 02-translitteration.js, `he2tr` dans 11-cartes.js).
+ * Classe de défaut typique du dépôt : faux, invisible, et coûteux — il envoie corriger dans le
+ * mauvais fichier. La source de vérité existe déjà, c'est l'en-tête « // Expose : » de chaque
+ * module plus ses définitions top-level ; il n'y avait qu'à comparer.
+ *
+ * ⚠️ Absence de docs/ tolérée, et ce n'est pas de la complaisance : le bac à sable
+ * d'`ajoute_mots.js` recopie tools/, src/ et deux fichiers racine — jamais docs/. Une garde
+ * fatale qui EXIGERAIT le fichier casserait tous les dry-runs (leçon n°1 d'ARCHITECTURE.md,
+ * payée au Task 17 avec index.html puis au Task 19 avec sw.js). Le bac à sable valide de la
+ * donnée, pas de la prose : il est légitime qu'il ne contrôle pas la doc. Le build réel, lui,
+ * la contrôle — et `--check` passe par le même chemin.
+ *
+ * ⚠️ Le symbole retenu est le DERNIER en accents graves avant le lien, jamais le premier de la
+ * phrase : « `listCats` … et dans `catOrder` de [07-filtres.js] » attribue `catOrder`. Une
+ * première version prenait le premier et rendait 5 fausses alertes sur 9 — une garde qui crie
+ * à tort est désactivée dans la semaine, donc elle ne vaut que juste.
+ */
+function verifieDoc(racine){
+  const docPath = path.join(racine, 'docs', 'ARCHITECTURE.md');
+  const dirJs = path.join(racine, 'src', 'app', 'js');
+  if (!fs.existsSync(docPath) || !fs.existsSync(dirJs)) return;
+
+  // module → symboles qu'il définit (top-level) ou déclare exposer.
+  const definis = {};
+  for (const f of fs.readdirSync(dirJs).filter(n => n.endsWith('.js'))){
+    const src = fs.readFileSync(path.join(dirJs, f), 'utf8');
+    const noms = new Set();
+    for (const m of src.matchAll(/^(?:function|const|let|var)\s+([A-Za-z_$][A-Za-z0-9_$]*)/gm)) noms.add(m[1]);
+    const tete = src.split('\n')[0].match(/^\/\/ Expose\s*:\s*(.*?)(?:—\s*Utilise|$)/);
+    if (tete) tete[1].split(',').map(s => s.trim()).filter(Boolean).forEach(s => noms.add(s));
+    definis[f] = noms;
+  }
+
+  const doc = fs.readFileSync(docPath, 'utf8');
+  const RE = /`([A-Za-z_$][A-Za-z0-9_$]*)`(?:\([^)`\n]*\))?[^`\n[]{0,40}\[src\/app\/js\/([0-9]{2}-[a-z-]+\.js)\]/g;
+  const echecs = []; let controles = 0;
+  for (const m of doc.matchAll(RE)){
+    const [, sym, mod] = m;
+    controles++;
+    if (!definis[mod]){ echecs.push('docs/ARCHITECTURE.md renvoie `' + sym + '` vers ' + mod + ', qui n\'existe pas dans src/app/js/.'); continue; }
+    if (definis[mod].has(sym)) continue;
+    const vrais = Object.keys(definis).filter(f => definis[f].has(sym)).sort();
+    echecs.push('docs/ARCHITECTURE.md attribue `' + sym + '` à ' + mod + ' — il est défini dans '
+      + (vrais.length ? vrais.join(', ') : 'aucun module (renommé ou supprimé ?)') + '.');
+  }
+
+  if (echecs.length){
+    console.error('\n✗ Doc désynchronisée du code (' + echecs.length + ') :');
+    for (const e of echecs) console.error('  - ' + e);
+    process.exit(1);
+  }
+  console.log('Doc : ' + controles + ' renvois symbole→module d\'ARCHITECTURE.md vérifiés contre les en-têtes « Expose ».');
+}
+
 // ---------- génération du fichier autonome depuis l'app assemblée ----------
 // `fichier` (obligatoire en pratique) : où l'auteur doit aller corriger. ⚠️ JAMAIS 'app.html'
 // — depuis la tâche 13 c'est un artefact généré, et y envoyer l'auteur lui fait éditer un
@@ -1048,6 +1106,7 @@ function main(){
   const portailAssembled = assemblePortail(SRC_PORTAIL);
   verifieTaxonomieApp(appAssembled); // fatale — exercée en mode normal comme en --check
   verifieCharte(appAssembled, notebookGenerated, portailAssembled); // fatale — même régime (tripwires de charte)
+  verifieDoc(ROOT);                                                 // fatale aussi ; muette si docs/ absent (bac à sable)
   const appGenerated = insereEntete(appAssembled, ENTETE_GENERE_APP);
   const portailGenerated = insereEntete(portailAssembled, ENTETE_GENERE_PORTAIL);
 
