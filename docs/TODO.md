@@ -8,8 +8,9 @@
 « le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
 contrôle de sortie compris (Task 21 — la preuve et sa procédure de rejeu sont
 dans TODO_ARCHIVE.md § « Chantiers clos et dette soldée — archivés le
-2026-07-27 »). **Aucun chantier n'est ouvert** sur `main`, et la dette ouverte
-est vide (les quatre entrées soldées le 25/07 sont archivées au même endroit).
+2026-07-27 »). **Aucun chantier n'est ouvert** sur `main` ; la dette ouverte
+compte **une entrée**, rouverte le 27/07 (les notes d'usage que le carnet stocke
+sans les afficher — voir § Dette ouverte).
 
 **Le carnet compte 1428 cartes** (A1 429 · A2 573 · B1 390 · B2 26 · C1 10).
 ⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
@@ -240,6 +241,39 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
+
+### Dette ouverte — une entrée, rouverte le 27/07/2026
+
+Elle était vide depuis le 25/07 (les quatre entrées soldées sont dans
+TODO_ARCHIVE.md). La passe documentaire en a rouvert une, trouvée en répondant à
+une question du propriétaire — « as-tu expliqué dans le carnet comment utiliser
+*efshar* ? ».
+
+1. ⚠️ **Le carnet stocke 49 notes d'usage qu'il n'affiche pas.** `gabarits.js`
+   émet le champ `note` de `data/` en attribut `data-note` sur le `<li>`
+   ([src/carnet/gabarits.js](../src/carnet/gabarits.js), `itemListe`), et
+   **rien ne le lit** : aucun `attr(data-note)` dans `src/carnet/carnet.css`,
+   aucune lecture dans `src/carnet/carnet.js`. Vérifiable :
+   `grep -c data-note vocabulaire_hebreu.html` → 49, et le même compte d'entrées
+   portant une `note` dans `data/`. Ces notes ne s'affichent **que dans l'app**,
+   au dos de la carte (`.note-line`, `src/app/js/10-rendu.js`).
+
+   Ce qui est perdu, ce n'est pas de la décoration : c'est le mode d'emploi des
+   mots-outils. `אֶפְשָׁר` « impersonnel, invariable : suit un infinitif »,
+   `כְּשֶׁ` « préfixe soudé au verbe », `אַף אֶחָד` « toujours avec la
+   négation », `יָכוֹל` et `צָרִיךְ` et leur accord — un lecteur du carnet ne
+   voit rien de tout cela. Le défaut est **antérieur au lot du 27/07** : יָכוֹל
+   et צָרִיךְ portaient déjà leur note invisible.
+
+   **Non bloquant** parce que l'exemple en situation, lui, s'affiche, et qu'il
+   porte l'essentiel de l'usage. **Ce qui le résoudrait** : afficher la note sous
+   la ligne du mot dans le carnet — c'est une décision de charte (voix, place
+   dans la hiérarchie typographique, comportement en colonne étroite), pas une
+   correction mécanique, d'où son inscription ici plutôt qu'un correctif
+   improvisé.
+
+*Si un nouveau défaut connu apparaît, c'est ici qu'il se note — avec ce qui le
+rend non bloquant, faute de quoi il devient un chantier.*
 
 ## Outillage (WSL, à recréer en début de session si besoin)
 
