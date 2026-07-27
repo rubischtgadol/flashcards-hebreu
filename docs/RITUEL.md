@@ -1,7 +1,6 @@
 # Le rituel et l'outillage
 
-> **Procédures permanentes.** Ce fichier a été détaché de [TODO.md](TODO.md)
-> le 27/07/2026 : le rituel et l'outillage ne changent pas d'une session à
+> **Procédures permanentes.** Ce fichier reste distinct de [TODO.md](TODO.md) : le rituel et l'outillage ne changent pas d'une session à
 > l'autre, alors que TODO.md décrit un état qui change à chaque chantier. Les
 > mélanger obligeait à parcourir 460 lignes pour en utiliser 105. TODO.md ne
 > porte plus que ce qui bouge ; ce qui ne bouge pas est ici.
@@ -22,8 +21,7 @@
    quand de la **logique** a bougé. **WebKit/Playwright uniquement si tu as touché à
    l'UI** — balisage, CSS, ou un chemin de rendu. Démarrer un vrai navigateur pour
    reconfirmer ce que `--check` vient d'établir est du confort, pas une preuve : ça coûte
-   l'installation de l'outillage plus une session de pilotage. (Leçon payée le 20/07 sur
-   le lot d'exemples.)
+   l'installation de l'outillage plus une session de pilotage.
 
    ⚠️ **Et quand le contrôle est justifié, le déléguer à un sous-agent.** Une session
    WebKit, c'est des dizaines d'allers-retours de pilotage et des captures d'écran — le
@@ -38,29 +36,28 @@
    de X et nomme chaque défaut »), jamais « vérifie que c'est bon » : un contrôle muet
    passe toujours au vert, c'est la leçon de la garde de couverture de `build.js`.
    Doctrine complète dans CLAUDE.md § *The token-economy doctrine — STANDING DIRECTIVE*.
-4. **Rien à faire sur `sw.js` : l'étape 1 a déjà estampillé `VERSION`** (Task 19 — un hash
+4. **Rien à faire sur `sw.js` : l'étape 1 a déjà estampillé `VERSION`** (un hash
    des cinq artefacts + `manifest.webmanifest`). Le seul devoir qui reste est de
    **committer `sw.js` avec les artefacts** : séparés en deux commits, le nom du cache
    retarde d'un commit sur le contenu qu'il nomme. Un `VERSION` édité à la main est
    rejeté par `--check` — et pour forcer une vraie purge de cache, c'est le préfixe de
    `CACHE` qu'on change, pas la version.
 
-   ⚠️ **Depuis le 25/07, un hook `pre-commit` versionné tient le filet** (`.githooks/
+   ⚠️ **Un hook `pre-commit` versionné tient le filet** (`.githooks/
    pre-commit` ; installation, une fois par machine : `git config core.hooksPath
    .githooks`). Il exécute `node tools/build.js --check` + `node tools/verifie_exemples.js`
    avant chaque commit (bypass assumé, à justifier dans le message : `git commit
-   --no-verify`). Il portait un troisième contrôle — bump manuel de `VERSION` exigé dès
-   qu'un fichier servi changeait — **retiré au Task 19** : `--check` recalculant
-   l'estampille, le premier contrôle en hérite. Le hook est le filet, pas le rituel :
+   --no-verify`). Il n'a pas de contrôle distinct pour `VERSION` : `--check` recalcule
+   l'estampille, et le premier contrôle en hérite. Le hook est le filet, pas le rituel :
    continuer à lancer les étapes à la main. Les tripwires de charte (pièges n°2, 3, 5),
    eux, vivent dans `verifieCharte()` de `build.js` — détail dans ARCHITECTURE.md
    § Garde-fous.
 5. **Le graphe ne se recale JAMAIS dans le rituel — au plus il se FLAGGE (règle de
-   Ruben, 21/07).** `/graphify . --update` coûte **~235 000 tokens** (mesuré) :
+   Ruben).** `/graphify . --update` coûte **~235 000 tokens** (mesuré) :
    le lancer est toujours une décision séparée et explicite. **Le flag ne déclenche pas
    la mise à jour — rien dans ce rituel ne la déclenche.**
    - **Un fichier a été créé, supprimé ou renommé** → poser (ou compléter) la ligne de
-     flag dans « Reprendre ici » : `⚠️ GRAPHE À RECALER — <date> : <fichiers>`. Le flag
+     flag dans « Reprendre ici » : `⚠️ GRAPHE À RECALER : <fichiers>`. Le flag
      consigne la dette pour que le prochain recalage décidé sache pourquoi il tourne —
      c'est TOUT ce qu'il fait.
    - **Tout le reste** — lots de contenu du carnet, prose des `.md`, et même les
@@ -71,9 +68,8 @@
    - Quand un recalage EST décidé (flag en attente + une session qui a besoin d'une
      carte juste), solder le flag dans le même commit que `graphify-out/graph.json`.
 
-   ⚠️ *Le piège qui a payé cette règle* : le lot de 54 exemples du 20/07 était du contenu
-   pur, et le recalage lancé quand même a coûté **~4 fois le travail utile** pour faire
-   passer deux compteurs de 510 à 564. Le diff de `--update` (168 nœuds ajoutés, 87
+   ⚠️ Un recalage lancé sur un lot de contenu pur coûte **~4 fois le travail utile** pour ne
+   faire bouger que quelques compteurs. Le diff de `--update` (168 nœuds ajoutés, 87
    retirés) montre qu'il **brasse** le graphe au lieu de l'étendre — raison de plus pour ne
    pas le lancer pour rien.
 6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
@@ -92,11 +88,9 @@
    navigateur, il ne se calcule pas** (une entrée crée aussi ses `span.cursive` générés,
    donc elle pèse plus d'un nœud) — raison de plus pour ne pas le figer dans la prose.
 7. **Plus aucune ancre de ligne vers `app.html` dans la doc — et ne pas en réintroduire**
-   (clos au Task 16, 25/07). Elles avaient dérivé **cinq fois** (19/07 au matin ; toutes
-   fausses le soir, +25 ; après les plis, de +22 à +82 selon l'endroit ; +11 uniforme le
-   20/07 ; puis en vrac au chantier 3, qui a réordonné le JS). Le décalage n'est **pas**
-   uniforme — et une ancre fausse est pire qu'absente : elle envoie lire le mauvais code
-   avec assurance. La cause de fond a été supprimée plutôt que réparée une sixième fois :
+   Les ancres de ligne dérivent à chaque réorganisation du code, et le décalage n'est
+   **pas** uniforme — une ancre fausse est pire qu'absente : elle envoie lire le mauvais code
+   avec assurance. La cause de fond est supprimée plutôt que réparée à chaque fois :
    `app.html` est un artefact régénéré à chaque build, donc **la doc pointe le module
    source** (`src/app/js/12-qcm.js`, `src/app/coquille.html`…), sans numéro de ligne pour
    le code — `graphify explain "<symbole>"` redonne la ligne exacte sans entretien manuel.
@@ -106,7 +100,7 @@
 
    `grep -rnE '\]\((\.\./)?app\.html#L' README.md CLAUDE.md docs/*.md --exclude=TODO_ARCHIVE.md --exclude=TODO.md`
 
-   — doit rester **vide**. (Depuis le Task 17, la prose vit dans `docs/`, donc une
+   — doit rester **vide**. (La prose vit dans `docs/`, donc une
    ancre y prendrait la forme `](../app.html#L…)` : le motif ci-dessus couvre les deux
    graphies. `TODO.md` s'exclut lui-même — il contient la commande.)
 8. Commit par changement, messages en français (comme l'historique), puis push sur `main`
@@ -139,7 +133,7 @@
   JS, reduced-motion), iPhone 16 Pro (tactile, débordement, chevauchement
   texte/ménorahs), navigation réelle des deux portes, `start_url`, tirage fr/he
   (détection hébreu par plage Unicode, pas par mot littéral).
-- **Suite d'audit** (scratchpad, à recréer au besoin — écrite le 19/07 pour l'audit du
+- **Suite d'audit** (scratchpad, à recréer au besoin — pour l'audit du
   carnet, réutilisable sur n'importe quelle page) : `audit_carnet.js` mesure en un passage
   le contraste réel de chaque nœud texte (composition alpha comprise, seuils AA 4,5:1/3:1),
   la hiérarchie des titres et les sauts de niveau, les landmarks, la **couverture `lang="he"`**
@@ -147,7 +141,7 @@
   débordement horizontal à 320/375/402/430/768 px et les cibles tactiles sur iPhone 16 Pro.
   ⚠️ Piège Playwright : la forme **chaîne** d'`evaluate()` attend une *expression* — envelopper
   le corps dans `(()=>{ … })()`, sinon `SyntaxError: Unexpected keyword 'function'`.
-- **Suite de mise en page** (scratchpad, à recréer au besoin — écrite le 20/07 pour le
+- **Suite de mise en page** (scratchpad, à recréer au besoin — pour le
   bornage de la largeur de lecture, réutilisable sur tout changement de layout). Elle
   compare **deux copies du fichier**, l'une avec le bloc CSS en cause retiré, aux six
   largeurs 1440/1280/992/900/768 + iPhone 16 Pro, et mesure : débordement horizontal du
@@ -180,8 +174,7 @@
   `w.CARDS` après un boot. Pour vérifier le contenu chargé, passer par le DOM (la
   recherche est le plus court chemin : remplir `#search-input` — et non `#search` —
   puis lire `#search-results`). `window.eval('CARDS')` marche en dernier recours.
-- **Suite du diagnostic de latence** (scratchpad de session, à recréer au besoin —
-  écrite le 20/07) : `test_perf_note.js` boote le **standalone** en jsdom et vérifie
+- **Suite du diagnostic de latence** (scratchpad de session, à recréer au besoin) : `test_perf_note.js` boote le **standalone** en jsdom et vérifie
   le format des trois rapports (chip, départ, `#perf-boot` vide donc masqué) ;
   `test_srs_migration.js` sème un `srs_v1` à l'ancien format **avant** le boot
   (`beforeParse` + `localStorage.setItem`) et vérifie migration + séparation des

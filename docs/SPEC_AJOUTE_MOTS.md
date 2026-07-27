@@ -1,15 +1,12 @@
-# SPEC — `ajoute_mots.js`, le générateur de fiche (étage 1) — v3
+# SPEC — `ajoute_mots.js`, le générateur de fiche (étage 1)
 
-Spec v2 figée après audit red team, décrivait un script qui composait
-le HTML du carnet et l'insérait dans `vocabulaire_hebreu.html` par offset de texte.
-**v3 (chantier 2, tâche 11)** : le script a basculé sur `data/*.json` — `build.js`
-v2 a fait de `data/` la source de vérité (tâche 7) et de `vocabulaire_hebreu.html`
-un artefact 100 % généré (`genereCarnet()`/`gabarits.js`) ; toute l'étape « composer
-le HTML de la fiche » a donc disparu de ce script. Cette révision documente le
-script tel qu'il est après la bascule — pas un idéal : deux fonctionnalités de v2
-sont retirées plutôt qu'adaptées (§10), parce que leur prérequis technique a
-disparu ou que leur portée a changé de nature (composition de gabarit, plus
-l'affaire d'un outil d'insertion de données).
+Le script insère directement dans `data/*.json`. `build.js` fait de `data/` la
+source de vérité et de `vocabulaire_hebreu.html` un artefact 100 % généré
+(`genereCarnet()`/`gabarits.js`) : composer le HTML d'une fiche n'est donc pas
+l'affaire de ce script. Deux fonctionnalités sont hors périmètre plutôt
+qu'adaptées (§10), parce que leur prérequis technique a disparu ou que leur
+portée a changé de nature — composer un gabarit n'est plus le travail d'un outil
+d'insertion de données.
 
 ## 0. Principe directeur
 
@@ -26,7 +23,7 @@ un verdict.**
 
 ## 1. Architecture — une seule source pour la donnée, une seule pour la translittération
 
-1. **Donnée : réutiliser `build.js` v2.** `build.js` exporte
+1. **Donnée : réutiliser `build.js`.** `build.js` exporte
    `{ chargeDonnees, valideDonnees, deriveCartes, genereCarnet, NOTEBOOK, APP,
    stripNikud, orthographeVoisine, EXPECTED_LEVELS, EXPECTED_THEMES, listCats, … }`
    (module.exports en fin de fichier). `ajoute_mots.js` fait `require('./build.js')`
@@ -34,29 +31,27 @@ un verdict.**
    **aucune** constante. Le placement (bon tableau `data/*.json`, bon groupe/sous-
    thème) se fait sur les objets JS renvoyés par `chargeDonnees()` — plus de scan
    `<h2>`/`<h3>`/`closeOf` sur un fichier HTML de ~8000 lignes : la « frontière de
-   section » de la spec v2 devient un filtre sur le champ `groupe` d'un tableau.
+   section » devient un filtre sur le champ `groupe` d'un tableau.
 2. **Translittération : une seule implémentation vivante, prise à la source.**
-   ⚠️ **Corrigé le 27/07/2026 — ce paragraphe décrivait encore le procédé v2.**
-   `ajoute_mots.js` ne lit plus `app.html` et n'extrait plus rien textuellement :
+   `ajoute_mots.js` ne lit pas `app.html` et n'extrait plus rien textuellement :
    il appelle **`fonctionsApp(['he2tr'], ROOT)`** (exporté par `build.js`), qui
    évalue le **module source** `src/app/js/02-translitteration.js` en entier dans
-   un bac `vm`. La bascule date du 25/07 et vaut aussi pour
-   `verifie_exemples.js` : depuis, **aucun outil ne lit un artefact**, ce qui rend
-   littéralement vraie la règle « un artefact n'est jamais une entrée ». Dérive
-   toujours impossible par construction, mais la source de vérité a changé de
-   fichier. Échec bruyant si le module ou la fonction bouge — jamais de fallback
+   un bac `vm`. Le même mécanisme vaut pour `verifie_exemples.js` : **aucun outil ne
+   lit un artefact**, ce qui rend littéralement vraie la règle « un artefact n'est
+   jamais une entrée ». Dérive impossible par construction, la source de vérité étant
+   ce module. Échec bruyant si le module ou la fonction bouge — jamais de fallback
    silencieux. `stripNikud` vient de l'export de `build.js`.
 3. **Écriture : uniquement `data/*.json`.** Jamais `vocabulaire_hebreu.html`
-   directement (100 % généré depuis v2), jamais `cards.json`, jamais
+   directement (100 % généré), jamais `cards.json`, jamais
    `flashcards_hebreu.html`, jamais `app.html`, jamais `sw.js`. Les trois artefacts
    déployés/dérivés sont régénérés en appelant `node tools/build.js`, jamais composés par
    ce script.
 4. **Sous-thème humain → `groupe` de data/ : un seul algorithme, déjà éprouvé.**
    Le champ `groupe` de `data/*.json` est un slug (`"nourriture-repas"`), pas le
    titre humain qui vivait dans `<h3 class="subtheme">` (`"Nourriture & repas"`).
-   `ajoute_mots.js` réutilise **l'algorithme `slug()` qui a produit ces valeurs au
-   chantier 1** (NFD + retrait diacritiques + minuscule + `[^a-z0-9]+` → `-` ;
-   les scripts qui l'ont appliqué ont été supprimés au Task 20) plutôt que d'en
+   `ajoute_mots.js` réutilise **l'algorithme `slug()` qui a produit les valeurs
+   `groupe` de `data/`** (NFD + retrait diacritiques + minuscule + `[^a-z0-9]+` → `-` ;
+   les scripts qui l'ont appliqué ont depuis été supprimés) plutôt que d'en
    redéfinir un second. Il est idempotent sur un slug déjà propre
    (`slug("nourriture-repas") === "nourriture-repas"`), donc `sous_theme` accepte
    indifféremment l'ancien titre humain ou directement le slug de `data/`.
@@ -71,7 +66,7 @@ un verdict.**
 | `theme` (slug) | **humain** (tables seulement) | ∈ `EXPECTED_THEMES` (15) |
 | `section` + `sous_theme` | **humain** | où placer (§5) — titre humain ou slug `groupe`, §1.4 |
 | genre `m`/`f` + pluriel `he` (noms) | **humain** | |
-| formes MS/FS/MP/FP `he` (verbes/adjectifs) | **humain** | le niqqud des formes ; les 3/4 formes sont obligatoires (§3.3, changement v3) |
+| formes MS/FS/MP/FP `he` (verbes/adjectifs) | **humain** | le niqqud des formes ; les 3/4 formes sont obligatoires (§3.3) |
 | exemple(s) : `he` + `fr` | **humain** | verbe ⇒ phrase au présent |
 | `note` / `fr_court` (listes) | **humain**, optionnel | |
 | `apres` (ancrage dans une liste ordonnée) | **humain**, optionnel | §5.3 |
@@ -80,7 +75,7 @@ un verdict.**
 | placement + position dans le tableau/la liste | **machine** | §5 |
 | `build.js` + `verifie_exemples.js`, verdict | **machine** | §7 |
 
-### 2.1 Politique des `tr` (inchangée depuis v2)
+### 2.1 Politique des `tr`
 
 Tout champ portant de l'hébreu **qui reçoit un `.tr` dans le schéma de `data/`**
 accepte un `tr` optionnel dans le JSON. Absent → dérivé via `he2tr` et écrit en dur ;
@@ -100,7 +95,7 @@ mais `ledaber` —, ayin vs alef, patach furtif) :
 
 **Les fautes reproductibles d'`he2tr`** (shva initial devant sifflante, yud
 consonantique rendu `i`, redoublement mal résolu, alef final sans apostrophe —
-détail dans la version précédente de ce document, `git log -p` si besoin) restent
+détail retrouvable par `git log -p` si besoin) restent
 à chercher en priorité dans le tableau ; le `⚠` ne les couvre pas toutes.
 
 **Exception contractuelle** : le headword des entrées de tables (`he` de
@@ -110,10 +105,9 @@ générateur n'en dérive donc jamais pour ce champ précis.
 
 ## 3. Format d'entrée — `nouveaux_mots.json`
 
-**Inchangé depuis v2** : un tableau d'objets, champ discriminant `type` ∈
+Un tableau d'objets, champ discriminant `type` ∈
 `nom` | `adjectif` | `verbe` | `liste` | `exemple`. Les cinq formes d'opération et
-leurs champs sont identiques à la version précédente de ce document ; seul le
-§3.3 change (voir ci-dessous). Résumé des champs communs :
+leurs champs sont détaillés ci-dessous. Résumé des champs communs :
 
 ```json
 { "type": "...", "he": "...", "fr": "...", "niveau": "A2",
@@ -148,20 +142,19 @@ leurs champs sont identiques à la version précédente de ce document ; seul le
 - Pas de `sous_theme` (Adjectifs = table unique, `groupe: ""` dans `data/`).
 - `he` = MS ; `formes` = les 3 autres colonnes.
 
-### 3.3 Formes de table : les 3/4 sont obligatoires, jamais de défectif (**changement v3**)
+### 3.3 Formes de table : les 3/4 sont obligatoires, jamais de défectif
 
-v2 tolérait une forme adjectif `null` (défectif/invariable) qui produisait un
-`<td>—</td>` — ce comportement venait de l'ancien générateur HTML manuel. Le
-gabarit repris tel quel de `build.js` v2 (`src/carnet/gabarits.js:heSpan`,
+Le
+gabarit de `build.js` (`src/carnet/gabarits.js:heSpan`,
 `ligneAdjectif`/`ligneVerbe`) **n'a pas de représentation pour une forme absente** :
 `heSpan({})` écrirait littéralement `undefined` dans le carnet plutôt qu'un tiret
 (vérifié en lisant `heSpan` avant d'écrire ce contrôle — aucune entrée de
 `data/adjectifs.json` n'a de forme défective aujourd'hui, donc ce gap dormait sans
-symptôme). `ajoute_mots.js` v3 est donc **plus strict que v2** ici : les 3 formes
-d'un adjectif (`fs`/`mp`/`fp`) et les 4 d'un verbe (`ms`/`fs`/`mp`/`fp`) doivent
-toutes porter un `he` non vide et vocalisé — erreur pré-insertion nommée sinon.
+symptôme). `ajoute_mots.js` exige donc que les 3 formes
+d'un adjectif (`fs`/`mp`/`fp`) et les 4 d'un verbe (`ms`/`fs`/`mp`/`fp`) portent
+toutes un `he` non vide et vocalisé — erreur pré-insertion nommée sinon.
 Un vrai défectif reste possible via une note éditoriale dans `fr`, pas via une
-cellule vide (hors périmètre d'automatiser ce cas, comme avant).
+cellule vide (hors périmètre d'automatiser ce cas).
 
 ### 3.4 `verbe`
 
@@ -174,7 +167,7 @@ cellule vide (hors périmètre d'automatiser ce cas, comme avant).
 ```
 
 - `he` = infinitif ; `formes` = les 4 formes du présent, toutes obligatoires et
-  non vides (inchangé depuis v2 — `deriveCartes` les pousse sans condition).
+  non vides (`deriveCartes` les pousse sans condition).
   Exemple obligatoirement au présent.
 
 ### 3.5 `liste`
@@ -197,8 +190,7 @@ cellule vide (hors périmètre d'automatiser ce cas, comme avant).
   `Hébreu parlé`.
 - `sous_theme` requis seulement pour les listes dont au moins une entrée porte déjà
   un champ `groupe` dans `data/listes/<slug>.json` (aujourd'hui : `Adverbes` →
-  `Temps` | `Lieu & direction` | `Degré & intensité` | `Manière` (les deux
-  derniers ouverts le 27/07/2026) ; `Saisons & mois` → `Saisons` | `Mois` ;
+  `Temps` | `Lieu & direction` | `Degré & intensité` | `Manière` ; `Saisons & mois` → `Saisons` | `Mois` ;
   `Hébreu parlé` → `particules` | `conversation` | `reagir` | `emprunts`) — dérivé
   mécaniquement de la donnée, jamais d'une liste codée en dur dans le script.
 - **Pas de `theme`** sur une liste (mono-thème par nature ; en poser un = erreur).
@@ -221,7 +213,7 @@ cellule vide (hors périmètre d'automatiser ce cas, comme avant).
 
 ## 4. Ce que le script construit — l'objet `data/*.json`, plus de gabarit HTML
 
-**Toute la section « gabarits de sortie » de v2 (balisage `<tr>`/`<li>` byte-exact,
+**La composition de gabarits de sortie (balisage `<tr>`/`<li>` byte-exact,
 règles d'échappement `&`/`<`/`>`, squelette de nouveau sous-thème) a disparu.**
 `ajoute_mots.js` construit un objet JS conforme à `data/SCHEMA.md` et l'écrit via
 `JSON.stringify(valeur, null, 2) + '\n'` — round-trip byte-identique au format déjà
@@ -236,7 +228,7 @@ diff avec l'existant reste minimal) :
 - `data/adjectifs.json` / `verbes.json` : `he, fr, formes, niveau, theme, groupe, exemples`.
 - `data/listes/<slug>.json` (entrée) : `he, tr, fr, niveau, [groupe], exemples, [fr_court], [note]`.
 
-L'invariant headword-avant-exemple (v2 §4.7) n'a plus de sens à ce niveau : c'est
+L'invariant headword-avant-exemple n'a plus de sens à ce niveau : c'est
 `gabarits.js` qui décide de l'ordre d'affichage à partir de l'objet — le script ne
 compose plus rien qui puisse l'inverser.
 
@@ -278,10 +270,10 @@ dérivent) n'a plus d'existence possible dans ce modèle.
 2. **`data-niveau` obligatoire** partout ; **`theme` sur les 3 tables
    uniquement**, jamais sur une liste — contrôlé par `valideDonnees` (build.js)
    ET par les contrôles pré-insertion de ce script (double filet, §7).
-3. `theme` ∈ `EXPECTED_THEMES` (15), `niveau` ∈ `EXPECTED_LEVELS` (A1/A2/B1/B2/C1, C1 ouvert le 27/07/2026) —
+3. `theme` ∈ `EXPECTED_THEMES` (15), `niveau` ∈ `EXPECTED_LEVELS` (A1/A2/B1/B2/C1) —
    lus depuis `build.js`, pas dupliqués.
 4. **Formes complètes** : Verbes 4, Adjectifs 3, toutes avec un `he` non vide
-   (§3.3 — plus strict qu'en v2).
+   (§3.3).
 5. **≥1 exemple par entrée des 3 tables** (verbe : présent) — sinon
    `verifie_exemples.js` bloque en bac à sable.
 6. **`he_plain`/`tr` jamais saisis à la main sans que le script les dérive** : le
@@ -311,7 +303,7 @@ dérivent) n'a plus d'existence possible dans ce modèle.
   signal informatif seulement, jamais bloquant.
 - **Tout ou rien** : validation complète du lot d'abord ; une seule entrée
   invalide ⇒ aucune écriture (jamais de `data/` à demi-modifié).
-- **`valideDonnees(candidat)` en process** (nouveau en v3) : une fois le clone
+- **`valideDonnees(candidat)` en process** : une fois le clone
   candidat construit (donnée originale + insertions), le script rappelle
   `valideDonnees` (le même contrôle que `build.js` lance à chaque run) directement
   en process, avant tout bac à sable — filet bon marché contre un bogue de
@@ -333,25 +325,24 @@ dépôt réel.
 ⚠️ **Deux invariants, chacun payé une fois — un bac à sable faux passe au vert, comme
 un témoin muet.**
 
-1. **La disposition `tools/` doit être reproduite.** Depuis le chantier 4 les scripts
+1. **La disposition `tools/` doit être reproduite.** Les scripts
    calculent leur racine par `path.join(__dirname, '..')` : copiés *à plat* dans le
    temporaire, ils prendraient `os.tmpdir()` pour racine et vérifieraient tout autre
-   chose que le candidat. Éprouvé par casse fabriquée le 25/07 — et l'échec observé est
+   chose que le candidat. Éprouvé par casse fabriquée — l'échec observé est
    **bruyant** (`Cannot find module '../src/carnet/gabarits.js'`, exit 1), non silencieux
-   comme le plan du chantier 4 le craignait. Ce bruit vient du `require` relatif de
+   qu'on aurait pu le craindre. Ce bruit vient du `require` relatif de
    `build.js` : c'est un accident heureux, pas une garantie, et l'invariant ne s'appuie
    pas dessus.
 2. **Tout fichier de la racine que `build.js` lit du disque doit figurer dans
    `FICHIERS_RACINE_BAC_A_SABLE`** — et rien d'autre : un fichier copié « au cas où »
    ferait croire que le bac à sable en dépend et masquerait la règle. Payé deux fois,
-   toujours par un ENOENT au dry-run : le 25/07 `verifieCharte()` a introduit la lecture
-   d'`index.html` sans que le bac à sable la suive (cassé jusqu'au Task 17 — et depuis le
-   Task 18 `index.html` est SORTI de la liste, le portail étant généré et contrôlé sur la
-   chaîne assemblée) ; au Task 19 l'estampille a introduit la lecture — et la réécriture —
-   de `sw.js`, absent du temporaire. Ajouter une garde qui lit un fichier racine, c'est
+   toujours par un ENOENT au dry-run : `verifieCharte()` a introduit la lecture
+   d'`index.html`, qui n'est pas dans la liste puisque le portail est généré et contrôlé
+   sur la chaîne assemblée ; et l'estampille lit — puis réécrit — `sw.js`, qui doit donc
+   y être. Ajouter une garde qui lit un fichier racine, c'est
    ajouter ce fichier ici.
 
-### Le contrôle du contrôle (`assertBacASableCoherent`, Task 17)
+### Le contrôle du contrôle (`assertBacASableCoherent`)
 
 Le verdict imprimait un compte de cartes calculé **en process**
 (`comptes(deriveCartes(candidat))`) : il aurait affiché le bon chiffre même si le bac à
@@ -359,7 +350,7 @@ sable avait validé un tout autre arbre — un témoin muet, vert sans rien prou
 script relit donc le `TOTAL <n>` que le **bac à sable lui-même** a imprimé et exige la
 concordance avec le compte attendu (`cartes réelles + n` insertions) ; il refuse aussi de
 continuer si ce `TOTAL` n'est pas lisible (format de sortie de `build.js` changé). Les
-deux branches sont éprouvées par casse fabriquée (25/07, exit 1 réel avec message
+deux branches sont éprouvées par casse fabriquée (exit 1 réel avec message
 nommé) : arbre substitué → « il a compté 1220 cartes, on en attendait 1221 » ; motif
 cassé → « impossible de relire son compte de cartes ».
 
@@ -383,7 +374,7 @@ cassé → « impossible de relire son compte de cartes ».
 | Niqqud manquant (mot, forme ou exemple) | erreur nommée, n'écrit rien |
 | Doublon même section | warning bloquant nommé, skip sauf `--force` |
 | Doublon autre section | informatif nommé, ne bloque pas |
-| Sous-thème introuvable | erreur + slugs disponibles ; **pas de création automatique** (§10, changement v3) |
+| Sous-thème introuvable | erreur + slugs disponibles ; **pas de création automatique** (§10) |
 | Typo de label de section (`-` vs `–`, `&` vs `et`) | « vouliez-vous dire… », pas d'erreur sèche |
 | `theme` sur une liste | erreur (mono-thème par nature) |
 | Entrée de table sans exemple | erreur pré-insertion |
@@ -420,17 +411,13 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
 
 ## 10. Hors périmètre — et procédures documentées pour ne pas les re-chercher
 
-- **`--nouveau-sous-theme` (retiré en v3)** : v2 créait un squelette `<h3>` +
-  `<table>`/`<ul>` neuf dans le carnet HTML directement. Depuis `build.js` v2, un
+- **`--nouveau-sous-theme` (hors périmètre)** : un
   sous-thème neuf exige un `<h3 class="subtheme">` **et** un placeholder
   `<!-- @ENTREES:table#groupe -->` neufs dans le gabarit source
   (`src/carnet/sections/*.html`) — composition de template, l'exact inverse de ce
   que ce script doit désormais faire (§0, §4).
 
-  ⚠️ **Corrigé le 2026-07-27 : éditer le gabarit ne suffit PAS.** La version
-  précédente de ce paragraphe annonçait « éditer le gabarit puis relancer
-  `ajoute_mots.js` » ; c'est faux, et l'erreur a été payée en ouvrant les
-  sous-thèmes « Degré & intensité » et « Manière » des Adverbes. La résolution du
+  ⚠️ **Éditer le gabarit ne suffit PAS.** La résolution du
   sous-thème se fait sur **la donnée**, pas sur le gabarit
   (`info.liste.entries` pour une liste, `groupesDeTable()` pour une table) : tant
   qu'aucune entrée ne porte le `groupe` visé, le script répond « sous-thème
@@ -444,8 +431,8 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
   (`slug()` du libellé : « Degré & intensité » → `degre-intensite`). Ne lancer
   `node tools/build.js` qu'après les deux — entre les deux, il échoue légitimement.
   `ajoute_mots.js` prend le relais normalement dès que l'amorce existe.
-- **`--parite` (retiré en v3)** : comparait `deriveCartes` (build.js) à
-  l'extraction DOM d'`app.html` via jsdom. Depuis le chantier 2 tâche 8, `app.html`
+- **`--parite` (hors périmètre)** : comparait `deriveCartes` (build.js) à
+  l'extraction DOM d'`app.html` via jsdom. `app.html`
   ne fait plus aucune extraction — il lit `cards.json` directement. Il n'y a plus
   deux extracteurs à faire converger : le flag n'a plus d'objet.
 - **Étage 2** (plus tard) : pré-remplir les champs mécaniques du JSON (pluriel,
@@ -464,22 +451,21 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
 
 ## 11. Notes de construction
 
-1. `build.js` v2 exporte déjà tout ce qu'il faut (`chargeDonnees`, `valideDonnees`,
+1. `build.js` exporte déjà tout ce qu'il faut (`chargeDonnees`, `valideDonnees`,
    `deriveCartes`, `genereCarnet`, `NOTEBOOK`, `APP`, `stripNikud`,
    `orthographeVoisine`, `EXPECTED_LEVELS`, `EXPECTED_THEMES`, `listCats`) — rien
    à y ajouter pour ce script. L'ancien parseur regex du carnet HTML
    (`extractCards` + `rowsOf`/`lisOf`) et le mode `node tools/build.js --verrou` ont été
    supprimés à cette même tâche (11), `ajoute_mots.js` en étant le dernier
    consommateur ; les helpers HTML qui survivaient pour les scripts jetables du
-   chantier 1 sont partis avec eux au Task 20, exports compris — `build.js`
+   jetables sont partis avec eux, exports compris — `build.js`
    n'exporte plus rien qui lise du HTML.
 2. `he2tr` : **`fonctionsApp(['he2tr'], ROOT)`** (export de `build.js`), qui évalue
    le module source `src/app/js/02-translitteration.js` dans un bac `vm` ; échec
    bruyant si le module ou la fonction bouge. ⚠️ La rédaction d'origine annonçait
-   une « extraction textuelle depuis `app.html` » — vrai en v2, faux depuis le
-   25/07 : plus aucun outil ne lit un artefact. `stripNikud` : export de `build.js`.
+   une « extraction textuelle depuis `app.html` » : plus aucun outil ne lit un artefact. `stripNikud` : export de `build.js`.
 3. `slug()` : même algorithme que celui qui a produit les valeurs `groupe`
-   actuelles de `data/` (chantier 1) — voir §1.4. Redéfini
+   actuelles de `data/` — voir §1.4. Redéfini
    localement dans `ajoute_mots.js` (fonction à 2 lignes, pas assez pour justifier
    un export de `build.js`, mais **jamais réinventé autrement**.)
 4. Rituel post-lot inchangé : le script exécute les étapes 1–2 (build + verifie,

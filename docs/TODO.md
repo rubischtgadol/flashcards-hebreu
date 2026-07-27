@@ -1,6 +1,6 @@
 # État du projet et travail restant
 
-> **Ce fichier ne porte que ce qui change.** Scindé le 27/07/2026, après mesure : il faisait 460 lignes dont **77 % de procédures et de savoirs permanents**, si bien qu'une session en lisait 460 pour en utiliser 105. Ce qui ne bouge pas en est sorti :
+> **Ce fichier ne porte que ce qui change.** Les procédures et les savoirs permanents n'y vivent plus : ce qui ne bouge pas en est sorti :
 >
 > - le **rituel** et l'**outillage WSL** → [RITUEL.md](RITUEL.md) ;
 > - les **règles de méthode** → [RITUEL.md § Règles de méthode](RITUEL.md) ;
@@ -14,12 +14,11 @@
 
 ## Reprendre ici (prochaine session)
 
-**Où en est le dépôt (27/07/2026, tout poussé sur `main`).** La réorganisation
+**Où en est le dépôt (tout poussé sur `main`).** La réorganisation
 « le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
-contrôle de sortie compris (Task 21 — la preuve et sa procédure de rejeu sont
-dans TODO_ARCHIVE.md § « Chantiers clos et dette soldée — archivés le
-2026-07-27 »). **Aucun chantier n'est ouvert** sur `main` ; la dette ouverte
-compte **une entrée**, rouverte le 27/07 (les notes d'usage que le carnet stocke
+contrôle de sortie compris ; la preuve et sa procédure de rejeu vivent dans
+l'archive. **Aucun chantier n'est ouvert** sur `main` ; la dette ouverte
+compte **une entrée** (les notes d'usage que le carnet stocke
 sans les afficher — voir § Dette ouverte).
 
 **Le carnet compte 1428 cartes** (A1 429 · A2 573 · B1 390 · B2 26 · C1 10).
@@ -27,7 +26,7 @@ sans les afficher — voir § Dette ouverte).
 prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
 --stats`, jamais cette page.
 
-⚠️ **GRAPHE À RECALER — 27/07/2026 : `data/listes/hebreu-parle.json`,
+⚠️ **GRAPHE À RECALER : `data/listes/hebreu-parle.json`,
 `src/carnet/sections/37-hebreu-parle.html` (créés) ; `docs/superpowers/**`
 (4 fichiers supprimés au ménage documentaire).** Le graphe n'a jamais connu ces
 quatre-là — il est antérieur à `docs/` —, donc il n'y a rien à en retirer : la
@@ -40,7 +39,7 @@ lance que sur décision explicite).
 `main` n'en porte aucune trace : consigné ici pour qu'une session ne les
 redécouvre pas par hasard. L'écart se relit à tout moment —
 `git rev-list --count main..<branche>` (devant) et
-`git rev-list --count <branche>..main` (derrière). Relevé du 27/07 :
+`git rev-list --count <branche>..main` (derrière). Au dernier relevé :
 `refonte-retrofuturiste` **48 devant / 63 derrière**, `pilier-oral`
 **7 devant / 98 derrière**.
 
@@ -49,10 +48,7 @@ retrofuturiste ».** Ni checkout, ni merge, ni rebase, ni écriture dans son
 worktree. On peut la lire pour documenter l'écart — pas la modifier.
 
 - **`refonte-retrofuturiste`** — la charte v2 « La console d'étude », **refonte
-  purement visuelle**. ⚠️ **Rectification du 27/07 : la rédaction précédente
-  annonçait qu'elle était « le chantier courant ».** C'est faux
-  aujourd'hui — deux chantiers ont été livrés sur `main` le 27/07 (« Hébreu
-  parlé », puis « Le mortier grammatical » et sa passe documentaire). `main` est
+  purement visuelle**. `main` est
   bien le tronc actif ; cette branche est en attente, pas en cours. Elle est
   **sortie en worktree**
   (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`), donc on
@@ -62,8 +58,7 @@ worktree. On peut la lire pour documenter l'écart — pas la modifier.
 - **`pilier-oral`** — verso des verbes en grille 2×2, accueil idiomatique,
   quelques points de vocabulaire. Pas d'échéance décidée.
 
-⚠️ **Le coût du report n'est PAS le même pour les deux — vérifié le 25/07, après
-une première rédaction qui les mettait à tort dans le même sac.** La commande qui
+⚠️ **Le coût du report n'est PAS le même pour les deux.** La commande qui
 tranche, branche par branche :
 
 ```bash
@@ -77,7 +72,7 @@ git diff --name-only main...<branche> -- app.html index.html vocabulaire_hebreu.
   la charte, et de la prose. Son résultat n'est donc pas un patch à fusionner
   mais une **spécification arbitrée à implémenter** — travail neuf, côté `src/`.
   Ce qui entrera vraiment en conflit à un merge : les docs (la branche les édite
-  à la **racine**, `main` les a déplacées dans `docs/` au Task 17), `data/`
+  à la **racine**, `main` les a déplacées dans `docs/`), `data/`
   (doublon de commit ci-dessous) et `outils_migration/extrait_donnees.js`
   (supprimé sur `main`, modifié sur la branche) — trois conflits mécaniques,
   aucun sur du code d'application.
@@ -110,42 +105,42 @@ déjà fait.
 ### Dette de graphe — flags en attente, aucun ne déclenche rien
 
 `/graphify . --update` coûte **~235 000 tokens** : c'est toujours une décision
-séparée et explicite (règle du propriétaire, 21/07). Ces flags **consignent la
+séparée et explicite (règle du propriétaire). Ces flags **consignent la
 dette**, ils ne la soldent pas. Quand un recalage est décidé, les effacer dans
 le même commit que `graphify-out/graph.json`.
 
-⚠️ **État du graphe au 25/07 : il ne connaît ni `data/`, ni `src/carnet/`, ni
+⚠️ **État du graphe : il ne connaît ni `data/`, ni `src/carnet/`, ni
 `src/app/`, ni `src/portail/`, ni `tools/`, ni `docs/`, ni `.githooks/`.** Il reste fiable sur ce
 qui n'a pas bougé — la structure du carnet, les règles de design, les pièges.
 Pour tout le reste, va directement au `grep -n` sur le module nommé par les
 en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 
-- **2026-07-23** — `SPEC_AJOUTE_MOTS.md`, `ajoute_mots.js`,
+- `SPEC_AJOUTE_MOTS.md`, `ajoute_mots.js`,
   `SPEC_ECONOMIE_TOKENS.md`, `cherche_mots.js`, `TODO_ARCHIVE.md` créés.
-- **2026-07-24** — `data/**`, `src/carnet/**`, `src/tokens.css`,
-  `outils_migration/**` créés ; carnet régénéré (chantier 1). Puis (chantier 2)
-  `cards.json` créé ; `genere_carnet.js`, `valide_donnees.js` et
+- `data/**`, `src/carnet/**`, `src/tokens.css`,
+  `outils_migration/**` créés ; carnet régénéré.
+  Puis :   `cards.json` créé ; `genere_carnet.js`, `valide_donnees.js` et
   `compare_carnets.js` supprimés d'`outils_migration/`.
-- **2026-07-25 (chantier 3)** — `src/app/**` créé (coquille, `ordre.json`, 6
-  fragments CSS, 14 modules JS), `outils_migration/decoupe_app.js` créé ;
+- `src/app/**` créé (coquille, `ordre.json`, 6
+  fragments CSS, 14 modules JS) ;
   `app.html` devenu artefact. Le graphe situe encore les 83 fonctions de l'app
   **dans `app.html`**, à des lignes qui n'existent plus.
-- **2026-07-25 (tripwires)** — `.githooks/pre-commit` créé.
-- **2026-07-25** — `tools/` et `docs/` créés (11 fichiers déplacés),
+- `.githooks/pre-commit` créé.
+- `tools/` et `docs/` créés (11 fichiers déplacés),
   `audit_carnet_mecanique.js` **supprimé** : le graphe porte une **communauté
   morte de 39 nœuds** sur un fichier qui n'existe plus.
-- **2026-07-25** — `src/portail/index.html` créé ; `index.html` devenu
+- `src/portail/index.html` créé ; `index.html` devenu
   artefact généré. Le graphe le situe encore côté « source éditée à la main ».
-- **2026-07-25 (dette ouverte)** — `tools/mesure_translitteration.js` **créé**
+- `tools/mesure_translitteration.js` **créé**
   (harnais de notation de `he2tr`). Le graphe ne l'a jamais connu ; la ligne est
   ici pour que le prochain recalage sache qu'il existe.
-- **2026-07-25** — `outils_migration/` **supprimé** (ses trois scripts :
+- `outils_migration/` **supprimé** (ses trois scripts :
   `extrait_donnees.js`, `decoupe_carnet.js`, `decoupe_app.js`). Le graphe ne les a
   jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
 
-### Dette ouverte — une entrée, rouverte le 27/07/2026
+### Dette ouverte — une entrée
 
 Elle était vide (les quatre entrées soldées sont dans
 TODO_ARCHIVE.md). La passe documentaire en a rouvert une, trouvée en répondant à
@@ -165,7 +160,7 @@ une question du propriétaire — « as-tu expliqué dans le carnet comment util
    mots-outils. `אֶפְשָׁר` « impersonnel, invariable : suit un infinitif »,
    `כְּשֶׁ` « préfixe soudé au verbe », `אַף אֶחָד` « toujours avec la
    négation », `יָכוֹל` et `צָרִיךְ` et leur accord — un lecteur du carnet ne
-   voit rien de tout cela. Le défaut est **antérieur au lot du 27/07** : יָכוֹל
+   voit rien de tout cela. Le défaut n'est pas nouveau : יָכוֹל
    et צָרִיךְ portaient déjà leur note invisible.
 
    **Non bloquant** parce que l'exemple en situation, lui, s'affiche, et qu'il
