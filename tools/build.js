@@ -65,7 +65,7 @@ const SW = path.join(ROOT, 'sw.js');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
-  'Comparatif et superlatif',
+  'Comparatif et superlatif','Tournures impersonnelles',
   'Prépositions','Prépositions fléchies','Conjonctions','Connecteurs du discours','Mots interrogatifs','Nombres','Jours de la semaine','Heure et date','Adverbes','Saisons & mois',
   'Mots de quantité','Expressions','Existence','Phrases','Hébreu parlé'];
 // Niveaux CECRL (data-niveau du carnet) dont la disparition doit faire échouer le
@@ -90,6 +90,7 @@ const THEMED_CATS = ['Noms','Adjectifs','Verbes'];
 // contre cette table — une seule source côté Node, ici et nulle part ailleurs.
 const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'Démonstratifs',
   'Verbes modaux':'Verbes modaux', 'Comparatif et superlatif':'Comparatif et superlatif',
+  'Tournures impersonnelles':'Tournures impersonnelles',
   'Prépositions':'Prépositions', 'Prépositions fléchies':'Prépositions fléchies', 'Conjonctions':'Conjonctions',
   'Connecteurs du discours':'Connecteurs du discours', 'Mots interrogatifs':'Mots interrogatifs',
   'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',

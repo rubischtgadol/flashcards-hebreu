@@ -39,7 +39,9 @@ fractions et multiplicatifs ») ; `data/listes/connecteurs-du-discours.json`,
 `src/carnet/sections/36-heure-et-date.html` (créés — section « Heure et
 date ») ; `data/listes/comparatif-et-superlatif.json`,
 `src/carnet/sections/26-comparatif-et-superlatif.html` (créés — section
-« Comparatif et superlatif »).** Le graphe n'a jamais connu ces fichiers — il
+« Comparatif et superlatif ») ; `data/listes/tournures-impersonnelles.json`,
+`src/carnet/sections/23-tournures-impersonnelles.html` (créés — section
+« Tournures impersonnelles »).** Le graphe n'a jamais connu ces fichiers — il
 est antérieur à `docs/` —, donc il n'y a rien à en retirer : la ligne est là
 pour que le prochain recalage n'aille pas les chercher. Le flag enregistre la
 dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se

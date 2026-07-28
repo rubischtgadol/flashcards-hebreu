@@ -107,6 +107,19 @@
         }
       ],
       "note": "impersonnel : נִדְמֶה לִי שֶׁ… « il me semble que… »"
+    },
+    {
+      "he": "מוּטָב",
+      "tr": "mutav",
+      "fr": "il vaut mieux (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "מוּטָב שֶׁתֵּלֵךְ עַכְשָׁיו",
+          "tr": "mutav shetelekh achshav",
+          "fr": "il vaut mieux que tu partes maintenant"
+        }
+      ]
     }
   ]
 }

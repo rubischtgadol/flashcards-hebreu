@@ -33273,6 +33273,22 @@
       "he_plain": "נדמה"
     },
     {
+      "cat": "Verbes modaux",
+      "he": "מוּטָב",
+      "tr": "mutav",
+      "fr": "il vaut mieux (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "מוּטָב שֶׁתֵּלֵךְ עַכְשָׁיו",
+          "tr": "mutav shetelekh achshav",
+          "fr": "il vaut mieux que tu partes maintenant",
+          "he_plain": "מוטב שתלך עכשיו"
+        }
+      ],
+      "he_plain": "מוטב"
+    },
+    {
       "cat": "Comparatif et superlatif",
       "he": "יוֹתֵר מִ־",
       "tr": "yoter mi-",
@@ -33367,6 +33383,198 @@
         }
       ],
       "he_plain": "אותו דבר כמו"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "קַר לִי",
+      "tr": "kar li",
+      "fr": "j'ai froid",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "קַר לִי בַּחוּץ הַיּוֹם",
+          "tr": "kar li bachuts hayom",
+          "fr": "j'ai froid dehors aujourd'hui",
+          "he_plain": "קר לי בחוץ היום"
+        }
+      ],
+      "he_plain": "קר לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "חַם לִי",
+      "tr": "cham li",
+      "fr": "j'ai chaud",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "חַם לִי בַּחֶדֶר הַזֶּה",
+          "tr": "cham li bacheder hazeh",
+          "fr": "j'ai chaud dans cette pièce",
+          "he_plain": "חם לי בחדר הזה"
+        }
+      ],
+      "he_plain": "חם לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "כּוֹאֵב לִי",
+      "tr": "koev li",
+      "fr": "j'ai mal",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "כּוֹאֵב לִי הָרֹאשׁ עַכְשָׁיו",
+          "tr": "koev li harosh achshav",
+          "fr": "j'ai mal à la tête maintenant",
+          "he_plain": "כואב לי הראש עכשיו"
+        }
+      ],
+      "he_plain": "כואב לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "נָעִים לִי",
+      "tr": "na'im li",
+      "fr": "je me sens bien",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "נָעִים לִי לָשֶׁבֶת כָּאן",
+          "tr": "na'im li lashevet kan",
+          "fr": "je me sens bien assis ici",
+          "he_plain": "נעים לי לשבת כאן"
+        }
+      ],
+      "he_plain": "נעים לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "קָשֶׁה לִי",
+      "tr": "kasheh li",
+      "fr": "c'est dur pour moi",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "קָשֶׁה לִי לְהָבִין אֶת זֶה",
+          "tr": "kashe li lehavin et zeh",
+          "fr": "c'est dur pour moi de comprendre ça",
+          "he_plain": "קשה לי להבין את זה"
+        }
+      ],
+      "he_plain": "קשה לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "בָּא לִי",
+      "tr": "ba li",
+      "fr": "j'ai envie (fam.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בָּא לִי לִישׁוֹן עַכְשָׁיו",
+          "tr": "ba li lishon achshav",
+          "fr": "j'ai envie de dormir maintenant",
+          "he_plain": "בא לי לישון עכשיו"
+        }
+      ],
+      "he_plain": "בא לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "מִתְחַשֵּׁק לִי",
+      "tr": "mitchashek li",
+      "fr": "j'ai envie de",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מִתְחַשֵּׁק לִי מַשֶּׁהוּ מָתוֹק",
+          "tr": "mitchashek li mashehu matok",
+          "fr": "j'ai envie de quelque chose de sucré",
+          "he_plain": "מתחשק לי משהו מתוק"
+        }
+      ],
+      "he_plain": "מתחשק לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "נִמְאַס לִי",
+      "tr": "nim'as li",
+      "fr": "j'en ai assez",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "נִמְאַס לִי מֵהָעֲבוֹדָה הַזֹּאת",
+          "tr": "nim'as li meha'avoda hazot",
+          "fr": "j'en ai assez de ce travail",
+          "he_plain": "נמאס לי מהעבודה הזאת"
+        }
+      ],
+      "he_plain": "נמאס לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "אִכְפַּת לִי",
+      "tr": "ikhpat li",
+      "fr": "ça m'importe",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אִכְפַּת לִי מִמְּךָ מְאֹד",
+          "tr": "ikhpat li mimkha me'od",
+          "fr": "je tiens beaucoup à toi",
+          "he_plain": "אכפת לי ממך מאד"
+        }
+      ],
+      "he_plain": "אכפת לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "אֵין לִי כֹּחַ",
+      "tr": "ein li koach",
+      "fr": "j'ai la flemme (fam.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֵין לִי כֹּחַ לְבַשֵּׁל הַיּוֹם",
+          "tr": "ein li koach levashel hayom",
+          "fr": "j'ai la flemme de cuisiner aujourd'hui",
+          "he_plain": "אין לי כח לבשל היום"
+        }
+      ],
+      "he_plain": "אין לי כח"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "מַגִּיעַ לִי",
+      "tr": "magia li",
+      "fr": "je le mérite / j'y ai droit",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מַגִּיעַ לִי חֹפֶשׁ אָרֹךְ",
+          "tr": "magia li chofesh arokh",
+          "fr": "je mérite de longues vacances",
+          "he_plain": "מגיע לי חפש ארך"
+        }
+      ],
+      "he_plain": "מגיע לי"
+    },
+    {
+      "cat": "Tournures impersonnelles",
+      "he": "מַסְפִּיק לִי",
+      "tr": "maspik li",
+      "fr": "ça me suffit",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה מַסְפִּיק לִי לְהַיּוֹם",
+          "tr": "zeh maspik li lehayom",
+          "fr": "ça me suffit pour aujourd'hui",
+          "he_plain": "זה מספיק לי להיום"
+        }
+      ],
+      "he_plain": "מספיק לי"
     },
     {
       "cat": "Prépositions",

@@ -134,7 +134,7 @@ let themeCounts = {};
 const catsEl = document.getElementById('cats');
 const nivEl = document.getElementById('niv');
 const themeEl = document.getElementById('theme');
-const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Comparatif et superlatif','Noms',
+const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Tournures impersonnelles','Adjectifs','Comparatif et superlatif','Noms',
   'Prépositions','Prépositions fléchies','Conjonctions','Connecteurs du discours','Mots interrogatifs','Existence','Nombres',
   'Jours de la semaine','Heure et date','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases','Hébreu parlé'];
 function buildChips(){
