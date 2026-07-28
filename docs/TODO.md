@@ -30,6 +30,24 @@ preuve et sa procédure de rejeu vivent dans l'archive. **Aucun chantier n'est
 ouvert** sur `main` ; la dette ouverte compte **cinq entrées** (voir § Dette
 ouverte).
 
+**Acquis depuis** — trois choses, toutes sur `main`. (1) **Le palier « ordi »
+de l'app** (`min-width:900px`, DESIGN.md § Le palier « ordi » de l'app) : l'app
+n'avait aucune media query de largeur qui fasse *grandir*, d'où une carte de
+420 px et un hébreu de 57,6 px sur un écran de 1900. Largeur et rampe
+hébraïque rendues, hauteur de carte passée au contenu — ce dernier point règle
+le débordement sous la ligne de flottaison, qui était le même défaut vu par
+l'autre bout. (2) **`.face` en trois rangées de flux** au lieu de deux éléments
+en `position:absolute` : l'étiquette et l'indice ne défilaient pas avec le
+contenu et le recouvraient en mode saisie. Correction valable à toutes les
+tailles, téléphone compris. (3) **Section neuve « Le nikoud »** en tête de
+Partie 1 (carnet seul, aucune carte : un signe de voyelle ne se révise pas
+comme un mot) — les treize signes, le shva, les chatafs des gutturales, le
+qamats katan, le dagesh et ses trois rôles, le point du shin, le patach
+furtif, le ktiv male. La règle de l'article devant gutturale (הֶ et non הַ :
+*hechadash*) a rejoint la section « L'article défini », où elle manquait.
+Garde neuve au passage : `verifieOrphelins()` couvre enfin
+`src/carnet/sections.json` (entrée 11 du § Garde-fous).
+
 **Le carnet compte 1717 cartes** (A1 490 · A2 667 · B1 498 · B2 45 · C1 17).
 ⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
 prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
@@ -46,10 +64,15 @@ explicite) :
   `nombres-fractions.json`, `connecteurs-du-discours.json`,
   `heure-et-date.json`, `comparatif-et-superlatif.json`,
   `tournures-impersonnelles.json`, `imperatif.json`.
-- **Cinq fichiers de `src/carnet/sections/` créés** :
-  `23-tournures-impersonnelles.html`, `26-comparatif-et-superlatif.html`,
-  `29-connecteurs-du-discours.html`, `34-nombres-fractions.html`,
-  `36-heure-et-date.html`.
+- **Six fichiers de `src/carnet/sections/` créés** :
+  `01-le-nikoud.html`, `23-tournures-impersonnelles.html`,
+  `26-comparatif-et-superlatif.html`, `29-connecteurs-du-discours.html`,
+  `34-nombres-fractions.html`, `36-heure-et-date.html`.
+  ⚠️ `01-le-nikoud.html` partage son préfixe avec `01-pronoms-personnels.html`
+  (les deux ouvrent la Partie 1, et « le-nikoud » trie avant
+  « pronoms-personnels ») : l'ordre qui fait foi est celui de `sections.json`,
+  jamais le numéro. La place 42 reste vacante, toujours réservée
+  à « Abréviations et sigles ».
 - **Quinze sections de `src/carnet/sections/` renommées** (numérotation à
   trous, six places réservées — dont la place 42, encore vacante, gardée pour
   « Abréviations et sigles », reportée : voir § Dette ouverte).

@@ -308,6 +308,10 @@ function genereCarnet(donnees, srcCarnet){
   const tete = lire('tete.html');
   const pied = lire('pied.html');
   const sectionsListees = JSON.parse(lire('sections.json'));
+  // Même garde que côté app (cf. commentaire de verifieOrphelins) : sans elle, une
+  // section neuve non listée disparaît du carnet sans un mot, et --check repasse
+  // vert sur l'artefact amputé.
+  verifieOrphelins(path.join(srcCarnet, 'sections'), '.html', sectionsListees, null, 'src/carnet/sections.json');
   const tokens = lisTokens().brut;
   const cssCarnet = lire('carnet.css');
   const jsCarnet = lire('carnet.js');
@@ -632,19 +636,26 @@ function report(cards){
 // en cause — pas un diff vague. Fatale (process.exit(1)) avant toute écriture, donc en
 // mode normal comme en --check : appelée depuis assembleApp(), toujours avant les lectures
 // de contenu qui suivent.
-function verifieOrphelins(repertoire, extension, listeOrdonnee, cle){
+// `manifeste` est le chemin du fichier d'ordre à nommer dans l'erreur, `cle` la clé
+// qu'il faut y regarder (facultative : sections.json est un tableau nu). Les deux
+// étaient codés en dur sur src/app/ordre.json tant que l'app était seule concernée ;
+// src/carnet/sections.json souffrait exactement du même trou — une section neuve
+// déposée dans src/carnet/sections/ sans être listée était omise du carnet EN
+// SILENCE, sans que rien ne l'annonce. Un point de câblage sans garde est un défaut.
+function verifieOrphelins(repertoire, extension, listeOrdonnee, cle, manifeste){
   const etiquette = path.relative(ROOT, repertoire) + '/';
+  const ou = cle ? `${manifeste} (clé ${cle})` : manifeste;
   const surDisque = fs.readdirSync(repertoire).filter(f => f.endsWith(extension));
   const manquants = listeOrdonnee.filter(f => !surDisque.includes(f));
   if (manquants.length){
-    console.error(`\n✗ src/app/ordre.json (clé ${cle}) liste des fichiers absents de ${etiquette} : ` + manquants.join(', '));
-    console.error('  (fichier renommé ou supprimé sans mettre ordre.json à jour ?)');
+    console.error(`\n✗ ${ou} liste des fichiers absents de ${etiquette} : ` + manquants.join(', '));
+    console.error(`  (fichier renommé ou supprimé sans mettre ${path.basename(manifeste)} à jour ?)`);
     process.exit(1);
   }
   const orphelins = surDisque.filter(f => !listeOrdonnee.includes(f));
   if (orphelins.length){
-    console.error(`\n✗ Fichier(s) dans ${etiquette} absent(s) de src/app/ordre.json (clé ${cle}) : ` + orphelins.join(', '));
-    console.error(`  (nouveau fichier ajouté sans l'inscrire dans ordre.json ? il serait omis du build en silence.)`);
+    console.error(`\n✗ Fichier(s) dans ${etiquette} absent(s) de ${ou} : ` + orphelins.join(', '));
+    console.error(`  (nouveau fichier ajouté sans l'inscrire dans ${path.basename(manifeste)} ? il serait omis du build en silence.)`);
     process.exit(1);
   }
 }
@@ -668,8 +679,8 @@ function assembleApp(srcApp){
   // build EN SILENCE. Doit s'exécuter avant toute lecture de contenu ci-dessous.
   const jsDir = path.join(srcApp, 'js');
   const cssDir = path.join(srcApp, 'css');
-  verifieOrphelins(jsDir, '.js', ordre.js, 'js');
-  verifieOrphelins(cssDir, '.css', ordre.css, 'css');
+  verifieOrphelins(jsDir, '.js', ordre.js, 'js', 'src/app/ordre.json');
+  verifieOrphelins(cssDir, '.css', ordre.css, 'css', 'src/app/ordre.json');
 
   // Séparateur explicite entre modules JS (round de correction Task 13, minor 1) : dès que
   // ordre.json liste plusieurs fichiers, un module sans retour à la ligne final collerait
