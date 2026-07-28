@@ -34452,13 +34452,13 @@
     {
       "cat": "Prépositions fléchies",
       "he": "עָלֶיהָ",
-      "tr": "'aleihah",
+      "tr": "'aleiha",
       "fr": "sur elle",
       "niveau": "B1",
       "exemples": [
         {
           "he": "הִיא כָּעֲסָה עָלֶיהָ",
-          "tr": "hi ka'asah 'aleihah",
+          "tr": "hi ka'asah 'aleiha",
           "fr": "elle s'est fâchée contre elle",
           "he_plain": "היא כעסה עליה"
         }
@@ -36554,10 +36554,10 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הָרִאשׁוֹנָה בַּתּוֹר",
-          "tr": "hi harishona bator",
-          "fr": "elle est la première dans la file",
-          "he_plain": "היא הראשונה בתור"
+          "he": "הַדִּירָה שֶׁלָּנוּ בַּקּוֹמָה הָרִאשׁוֹנָה",
+          "tr": "hadirah shelanu bakomah harishonah",
+          "fr": "notre appartement est au premier étage",
+          "he_plain": "הדירה שלנו בקומה הראשונה"
         }
       ],
       "he_plain": "ראשונה"
@@ -36579,10 +36579,10 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁנִיָּה בַּתּוֹר",
-          "tr": "hi hashniya bator",
-          "fr": "elle est la deuxième dans la file",
-          "he_plain": "היא השניה בתור"
+          "he": "זֹאת הַפַּעַם הַשְּׁנִיָּה שֶׁהוּא מְאַחֵר",
+          "tr": "zot hapa'am hashniyah shehu me'acher",
+          "fr": "c'est la deuxième fois qu'il est en retard",
+          "he_plain": "זאת הפעם השניה שהוא מאחר"
         }
       ],
       "he_plain": "שניה"
@@ -36604,10 +36604,10 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁלִישִׁית בַּתּוֹר",
-          "tr": "hi hashlishit bator",
-          "fr": "elle est la troisième dans la file",
-          "he_plain": "היא השלישית בתור"
+          "he": "אֲנִי יוֹשֶׁבֶת בַּשּׁוּרָה הַשְּׁלִישִׁית",
+          "tr": "ani yoshevet bashurah hashlishit",
+          "fr": "je suis assise au troisième rang",
+          "he_plain": "אני יושבת בשורה השלישית"
         }
       ],
       "he_plain": "שלישית"
@@ -36628,10 +36628,10 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הָרְבִיעִית בַּתּוֹר",
-          "tr": "hi harevi'it bator",
-          "fr": "elle est la quatrième dans la file",
-          "he_plain": "היא הרביעית בתור"
+          "he": "הַדֶּלֶת הָרְבִיעִית מִשְּׂמֹאל פְּתוּחָה",
+          "tr": "hadelet harvi'it mismol petuchah",
+          "fr": "la quatrième porte à gauche est ouverte",
+          "he_plain": "הדלת הרביעית משמאל פתוחה"
         }
       ],
       "he_plain": "רביעית"
@@ -36652,10 +36652,10 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הַחֲמִישִׁית בַּתּוֹר",
-          "tr": "hi hachamishit bator",
-          "fr": "elle est la cinquième dans la file",
-          "he_plain": "היא החמישית בתור"
+          "he": "זוֹ הַשָּׁנָה הַחֲמִישִׁית שֶׁלִּי בָּאָרֶץ",
+          "tr": "zo hashanah hachamishit sheli ba'arets",
+          "fr": "c'est ma cinquième année dans le pays",
+          "he_plain": "זו השנה החמישית שלי בארץ"
         }
       ],
       "he_plain": "חמישית"
@@ -36676,10 +36676,10 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַשִּׁישִּׁית בַּתּוֹר",
-          "tr": "hashishit bator",
-          "fr": "elle est la sixième dans la file",
-          "he_plain": "היא השישית בתור"
+          "he": "הַבַּת שֶׁלִּי בַּכִּתָּה הַשִּׁישִּׁית",
+          "tr": "habat sheli bakitah hashishit",
+          "fr": "ma fille est en sixième année",
+          "he_plain": "הבת שלי בכתה השישית"
         }
       ],
       "he_plain": "שישית"
@@ -36700,10 +36700,10 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁבִיעִית בַּתּוֹר",
-          "tr": "hi hashvi'it bator",
-          "fr": "elle est la septième dans la file",
-          "he_plain": "היא השביעית בתור"
+          "he": "אֲנִי יוֹרֶדֶת בַּתַּחֲנָה הַשְּׁבִיעִית",
+          "tr": "ani yoredet batachanah hashvi'it",
+          "fr": "je descends au septième arrêt",
+          "he_plain": "אני יורדת בתחנה השביעית"
         }
       ],
       "he_plain": "שביעית"
@@ -36724,10 +36724,10 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁמִינִית בַּתּוֹר",
-          "tr": "hi hashminit bator",
-          "fr": "elle est la huitième dans la file",
-          "he_plain": "היא השמינית בתור"
+          "he": "זֹאת הַתְּמוּנָה הַשְּׁמִינִית שֶׁל הַמִּשְׁפָּחָה",
+          "tr": "zot hatmunah hashminit shel hamishpachah",
+          "fr": "c'est la huitième photo de famille",
+          "he_plain": "זאת התמונה השמינית של המשפחה"
         }
       ],
       "he_plain": "שמינית"
@@ -36748,10 +36748,10 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַתְּשִׁיעִית בַּתּוֹר",
-          "tr": "hi hatshi'it bator",
-          "fr": "elle est la neuvième dans la file",
-          "he_plain": "היא התשיעית בתור"
+          "he": "זֹאת הַהִזְדַּמְּנוּת הַתְּשִׁיעִית שֶׁלּוֹ לְהַצְלִיחַ",
+          "tr": "zot hahizdamnut hatshi'it shelo lehatsliyach",
+          "fr": "c'est sa neuvième chance de réussir",
+          "he_plain": "זאת ההזדמנות התשיעית שלו להצליח"
         }
       ],
       "he_plain": "תשיעית"
@@ -36772,10 +36772,10 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הָעֲשִׂירִית בַּתּוֹר",
-          "tr": "ha'asirit bator",
-          "fr": "elle est la dixième dans la file",
-          "he_plain": "היא העשירית בתור"
+          "he": "זֹאת הַחֲנוּת הָעֲשִׂירִית שֶׁפָּתְחוּ הַשָּׁנָה",
+          "tr": "zot hachanut ha'asirit shepatchu hashanah",
+          "fr": "c'est la dixième boutique qu'ils ont ouverte cette année",
+          "he_plain": "זאת החנות העשירית שפתחו השנה"
         }
       ],
       "he_plain": "עשירית"
@@ -37602,7 +37602,7 @@
       "exemples": [
         {
           "he": "כַּנִּרְאֶה יֵרֵד גֶּשֶׁם מָחָר",
-          "tr": "kanir'e yered geshem machar",
+          "tr": "kanireh yered geshem machar",
           "fr": "apparemment il va pleuvoir demain",
           "he_plain": "כנראה ירד גשם מחר"
         }

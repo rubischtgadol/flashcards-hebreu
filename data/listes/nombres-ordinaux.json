@@ -16,9 +16,9 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הָרִאשׁוֹנָה בַּתּוֹר",
-          "tr": "hi harishona bator",
-          "fr": "elle est la première dans la file"
+          "he": "הַדִּירָה שֶׁלָּנוּ בַּקּוֹמָה הָרִאשׁוֹנָה",
+          "tr": "hadirah shelanu bakomah harishonah",
+          "fr": "notre appartement est au premier étage"
         }
       ]
     },
@@ -37,9 +37,9 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁנִיָּה בַּתּוֹר",
-          "tr": "hi hashniya bator",
-          "fr": "elle est la deuxième dans la file"
+          "he": "זֹאת הַפַּעַם הַשְּׁנִיָּה שֶׁהוּא מְאַחֵר",
+          "tr": "zot hapa'am hashniyah shehu me'acher",
+          "fr": "c'est la deuxième fois qu'il est en retard"
         }
       ]
     },
@@ -58,9 +58,9 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁלִישִׁית בַּתּוֹר",
-          "tr": "hi hashlishit bator",
-          "fr": "elle est la troisième dans la file"
+          "he": "אֲנִי יוֹשֶׁבֶת בַּשּׁוּרָה הַשְּׁלִישִׁית",
+          "tr": "ani yoshevet bashurah hashlishit",
+          "fr": "je suis assise au troisième rang"
         }
       ]
     },
@@ -78,9 +78,9 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הָרְבִיעִית בַּתּוֹר",
-          "tr": "hi harevi'it bator",
-          "fr": "elle est la quatrième dans la file"
+          "he": "הַדֶּלֶת הָרְבִיעִית מִשְּׂמֹאל פְּתוּחָה",
+          "tr": "hadelet harvi'it mismol petuchah",
+          "fr": "la quatrième porte à gauche est ouverte"
         }
       ]
     },
@@ -98,9 +98,9 @@
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא הַחֲמִישִׁית בַּתּוֹר",
-          "tr": "hi hachamishit bator",
-          "fr": "elle est la cinquième dans la file"
+          "he": "זוֹ הַשָּׁנָה הַחֲמִישִׁית שֶׁלִּי בָּאָרֶץ",
+          "tr": "zo hashanah hachamishit sheli ba'arets",
+          "fr": "c'est ma cinquième année dans le pays"
         }
       ]
     },
@@ -118,9 +118,9 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַשִּׁישִּׁית בַּתּוֹר",
-          "tr": "hashishit bator",
-          "fr": "elle est la sixième dans la file"
+          "he": "הַבַּת שֶׁלִּי בַּכִּתָּה הַשִּׁישִּׁית",
+          "tr": "habat sheli bakitah hashishit",
+          "fr": "ma fille est en sixième année"
         }
       ]
     },
@@ -138,9 +138,9 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁבִיעִית בַּתּוֹר",
-          "tr": "hi hashvi'it bator",
-          "fr": "elle est la septième dans la file"
+          "he": "אֲנִי יוֹרֶדֶת בַּתַּחֲנָה הַשְּׁבִיעִית",
+          "tr": "ani yoredet batachanah hashvi'it",
+          "fr": "je descends au septième arrêt"
         }
       ]
     },
@@ -158,9 +158,9 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַשְּׁמִינִית בַּתּוֹר",
-          "tr": "hi hashminit bator",
-          "fr": "elle est la huitième dans la file"
+          "he": "זֹאת הַתְּמוּנָה הַשְּׁמִינִית שֶׁל הַמִּשְׁפָּחָה",
+          "tr": "zot hatmunah hashminit shel hamishpachah",
+          "fr": "c'est la huitième photo de famille"
         }
       ]
     },
@@ -178,9 +178,9 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הַתְּשִׁיעִית בַּתּוֹר",
-          "tr": "hi hatshi'it bator",
-          "fr": "elle est la neuvième dans la file"
+          "he": "זֹאת הַהִזְדַּמְּנוּת הַתְּשִׁיעִית שֶׁלּוֹ לְהַצְלִיחַ",
+          "tr": "zot hahizdamnut hatshi'it shelo lehatsliyach",
+          "fr": "c'est sa neuvième chance de réussir"
         }
       ]
     },
@@ -198,9 +198,9 @@
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הִיא הָעֲשִׂירִית בַּתּוֹר",
-          "tr": "ha'asirit bator",
-          "fr": "elle est la dixième dans la file"
+          "he": "זֹאת הַחֲנוּת הָעֲשִׂירִית שֶׁפָּתְחוּ הַשָּׁנָה",
+          "tr": "zot hachanut ha'asirit shepatchu hashanah",
+          "fr": "c'est la dixième boutique qu'ils ont ouverte cette année"
         }
       ]
     }
