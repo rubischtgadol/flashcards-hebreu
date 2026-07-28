@@ -41,7 +41,9 @@ date ») ; `data/listes/comparatif-et-superlatif.json`,
 `src/carnet/sections/26-comparatif-et-superlatif.html` (créés — section
 « Comparatif et superlatif ») ; `data/listes/tournures-impersonnelles.json`,
 `src/carnet/sections/23-tournures-impersonnelles.html` (créés — section
-« Tournures impersonnelles »).** Le graphe n'a jamais connu ces fichiers — il
+« Tournures impersonnelles ») ; `data/listes/imperatif.json` (créé — section
+« Impératif », branchée sur le gabarit existant `08-l-imperatif.html`).**
+Le graphe n'a jamais connu ces fichiers — il
 est antérieur à `docs/` —, donc il n'y a rien à en retirer : la ligne est là
 pour que le prochain recalage n'aille pas les chercher. Le flag enregistre la
 dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se

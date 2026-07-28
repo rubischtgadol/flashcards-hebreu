@@ -1,0 +1,187 @@
+{
+  "section": "Impératif",
+  "entries": [
+    {
+      "he": "בּוֹא",
+      "tr": "bo",
+      "fr": "viens !",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "בּוֹא הֵנָה עַכְשָׁיו!",
+          "tr": "bo hena achshav!",
+          "fr": "viens ici maintenant !"
+        }
+      ]
+    },
+    {
+      "he": "בּוֹאִי",
+      "tr": "bo'i",
+      "fr": "viens ! (à une femme)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "בּוֹאִי אִתִּי לַמְּסִבָּה",
+          "tr": "bo'i iti lamesiba",
+          "fr": "viens avec moi à la fête"
+        }
+      ]
+    },
+    {
+      "he": "בּוֹאוּ",
+      "tr": "bo'u",
+      "fr": "venez !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בּוֹאוּ נֵשֵׁב בַּגִּנָּה",
+          "tr": "bo'u neshev baginah",
+          "fr": "venez, asseyons-nous dans le jardin"
+        }
+      ]
+    },
+    {
+      "he": "תֵּן",
+      "tr": "ten",
+      "fr": "donne !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תֵּן לִי אֶת הַסֵּפֶר",
+          "tr": "ten li et hasefer",
+          "fr": "donne-moi le livre"
+        }
+      ]
+    },
+    {
+      "he": "קַח",
+      "tr": "kach",
+      "fr": "prends !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "קַח אֶת הַמַּפְתְּחוֹת שֶׁלְּךָ",
+          "tr": "kach et hamaftechot shelkha",
+          "fr": "prends tes clés"
+        }
+      ]
+    },
+    {
+      "he": "חַכֵּה",
+      "tr": "chakeh",
+      "fr": "attends !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "חַכֵּה רֶגַע, אֲנִי בָּא",
+          "tr": "chakeh rega, ani ba",
+          "fr": "attends un instant, j'arrive"
+        }
+      ]
+    },
+    {
+      "he": "שֵׁב",
+      "tr": "shev",
+      "fr": "assieds-toi !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שֵׁב כָּאן לְיָדִי",
+          "tr": "shev kan leyadi",
+          "fr": "assieds-toi ici à côté de moi"
+        }
+      ]
+    },
+    {
+      "he": "סַע",
+      "tr": "sa",
+      "fr": "roule ! / vas-y (en véhicule)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "סַע לְאַט בַּגֶּשֶׁם",
+          "tr": "sa le'at bageshem",
+          "fr": "roule lentement sous la pluie"
+        }
+      ]
+    },
+    {
+      "he": "תִּשְׁמַע",
+      "tr": "tishma",
+      "fr": "écoute ! (futur-impératif, le courant)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תִּשְׁמַע, אֲנִי צָרִיךְ עֶזְרָה",
+          "tr": "tishma, ani tsarikh ezra",
+          "fr": "écoute, j'ai besoin d'aide"
+        }
+      ]
+    },
+    {
+      "he": "תַּגִּיד",
+      "tr": "tagid",
+      "fr": "dis !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תַּגִּיד לִי מָה קָרָה",
+          "tr": "tagid li ma kara",
+          "fr": "dis-moi ce qui s'est passé"
+        }
+      ]
+    },
+    {
+      "he": "תִּרְאֶה",
+      "tr": "tireh",
+      "fr": "regarde !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תִּרְאֶה אֵיזֶה יֹפִי בַּחוּץ",
+          "tr": "tireh eize yofi bachuts",
+          "fr": "regarde comme c'est beau dehors"
+        }
+      ]
+    },
+    {
+      "he": "תֵּרָגַע",
+      "tr": "teraga",
+      "fr": "calme-toi !",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תֵּרָגַע, הַכֹּל בְּסֵדֶר",
+          "tr": "teraga, hakol beseder",
+          "fr": "calme-toi, tout va bien"
+        }
+      ]
+    },
+    {
+      "he": "תַּעֲצֹר",
+      "tr": "ta'atsor",
+      "fr": "arrête !",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תַּעֲצֹר אֶת הָרֶכֶב פֹּה",
+          "tr": "ta'atsor et harekhev po",
+          "fr": "arrête la voiture ici"
+        }
+      ]
+    },
+    {
+      "he": "זוּז",
+      "tr": "zuz",
+      "fr": "bouge ! (fam.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זוּז, אַתָּה חוֹסֵם לִי",
+          "tr": "zuz, ata chosem li",
+          "fr": "bouge, tu me bloques"
+        }
+      ]
+    }
+  ]
+}
