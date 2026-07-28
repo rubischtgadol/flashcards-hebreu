@@ -34258,6 +34258,663 @@
       "he_plain": "אותם"
     },
     {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתִּי",
+      "tr": "iti",
+      "fr": "avec moi",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הוּא בָּא אִיתִּי",
+          "tr": "hu ba iti",
+          "fr": "il est venu avec moi",
+          "he_plain": "הוא בא איתי"
+        }
+      ],
+      "he_plain": "איתי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתְּךָ",
+      "tr": "itkha",
+      "fr": "avec toi (h.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹצֶה לָבוֹא אִיתְּךָ",
+          "tr": "ani rotseh lavo itkha",
+          "fr": "je veux venir avec toi",
+          "he_plain": "אני רוצה לבוא איתך"
+        }
+      ],
+      "he_plain": "איתך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתָּךְ",
+      "tr": "itakh",
+      "fr": "avec toi (f.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא רוֹצָה לָבוֹא אִיתָּךְ",
+          "tr": "hi rotsah lavo itakh",
+          "fr": "elle veut venir avec toi",
+          "he_plain": "היא רוצה לבוא איתך"
+        }
+      ],
+      "he_plain": "איתך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתּוֹ",
+      "tr": "ito",
+      "fr": "avec lui",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בָּאתִי אִיתּוֹ אֶתְמוֹל",
+          "tr": "bati ito etmol",
+          "fr": "je suis venu avec lui hier",
+          "he_plain": "באתי איתו אתמול"
+        }
+      ],
+      "he_plain": "איתו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתָּהּ",
+      "tr": "itah",
+      "fr": "avec elle",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "דִּבַּרְתִּי אִיתָּהּ אֶתְמוֹל",
+          "tr": "dibarti itah etmol",
+          "fr": "j'ai parlé avec elle hier",
+          "he_plain": "דברתי איתה אתמול"
+        }
+      ],
+      "he_plain": "איתה"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתָּנוּ",
+      "tr": "itanu",
+      "fr": "avec nous",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בּוֹא אִיתָּנוּ הָעֶרֶב",
+          "tr": "bo itanu ha'erev",
+          "fr": "viens avec nous ce soir",
+          "he_plain": "בוא איתנו הערב"
+        }
+      ],
+      "he_plain": "איתנו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתְּכֶם",
+      "tr": "itkhem",
+      "fr": "avec vous",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹכֵל אִיתְּכֶם",
+          "tr": "ani okhel itkhem",
+          "fr": "je mange avec vous",
+          "he_plain": "אני אוכל איתכם"
+        }
+      ],
+      "he_plain": "איתכם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אִיתָּם",
+      "tr": "itam",
+      "fr": "avec eux",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הֵם שִׂחֲקוּ אִיתָּם",
+          "tr": "hem sichaku itam",
+          "fr": "ils ont joué avec eux",
+          "he_plain": "הם שחקו איתם"
+        }
+      ],
+      "he_plain": "איתם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עָלַיי",
+      "tr": "'alai",
+      "fr": "sur moi / à mon sujet",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אַתָּה יָכוֹל לִסְמֹךְ עָלַיי",
+          "tr": "atah yakhol lismokh 'alai",
+          "fr": "tu peux compter sur moi",
+          "he_plain": "אתה יכול לסמך עליי"
+        }
+      ],
+      "he_plain": "עליי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עָלֶיךָ",
+      "tr": "'aleikha",
+      "fr": "sur toi (h.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי סוֹמֵךְ עָלֶיךָ",
+          "tr": "ani somekh 'aleikha",
+          "fr": "je compte sur toi",
+          "he_plain": "אני סומך עליך"
+        }
+      ],
+      "he_plain": "עליך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עָלַיִךְ",
+      "tr": "'alayikh",
+      "fr": "sur toi (f.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי סוֹמֵךְ עָלַיִךְ",
+          "tr": "ani somekh 'alayikh",
+          "fr": "je compte sur toi",
+          "he_plain": "אני סומך עליך"
+        }
+      ],
+      "he_plain": "עליך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עָלָיו",
+      "tr": "'alav",
+      "fr": "sur lui",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא כָּעַס עָלָיו",
+          "tr": "hu ka'as 'alav",
+          "fr": "il s'est fâché contre lui",
+          "he_plain": "הוא כעס עליו"
+        }
+      ],
+      "he_plain": "עליו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עָלֶיהָ",
+      "tr": "'aleihah",
+      "fr": "sur elle",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא כָּעֲסָה עָלֶיהָ",
+          "tr": "hi ka'asah 'aleihah",
+          "fr": "elle s'est fâchée contre elle",
+          "he_plain": "היא כעסה עליה"
+        }
+      ],
+      "he_plain": "עליה"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עֲלֵינוּ",
+      "tr": "'aleinu",
+      "fr": "sur nous",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא הִסְתַּכֵּל עֲלֵינוּ",
+          "tr": "hu histakel 'aleinu",
+          "fr": "il nous a regardés",
+          "he_plain": "הוא הסתכל עלינו"
+        }
+      ],
+      "he_plain": "עלינו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עֲלֵיכֶם",
+      "tr": "'aleikhem",
+      "fr": "sur vous",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי סוֹמֵךְ עֲלֵיכֶם",
+          "tr": "ani somekh 'aleikhem",
+          "fr": "je compte sur vous",
+          "he_plain": "אני סומך עליכם"
+        }
+      ],
+      "he_plain": "עליכם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "עֲלֵיהֶם",
+      "tr": "'aleihem",
+      "fr": "sur eux",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הֵם דִּבְּרוּ עֲלֵיהֶם",
+          "tr": "hem dibru 'aleihem",
+          "fr": "ils ont parlé d'eux",
+          "he_plain": "הם דברו עליהם"
+        }
+      ],
+      "he_plain": "עליהם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מִמֶּנִּי",
+      "tr": "mimeni",
+      "fr": "de moi / que moi (comparaison)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא בִּקְשָׁה מִמֶּנִּי עֶזְרָה",
+          "tr": "hi bikshah mimeni 'ezrah",
+          "fr": "elle m'a demandé de l'aide",
+          "he_plain": "היא בקשה ממני עזרה"
+        }
+      ],
+      "he_plain": "ממני"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מִמְּךָ",
+      "tr": "mimkha",
+      "fr": "de toi (h.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי מְבַקֵּשׁ מִמְּךָ טוֹבָה",
+          "tr": "ani mevakesh mimkha tovah",
+          "fr": "je te demande une faveur",
+          "he_plain": "אני מבקש ממך טובה"
+        }
+      ],
+      "he_plain": "ממך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מִמֵּךְ",
+      "tr": "mimekh",
+      "fr": "de toi (f.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי מְבַקֵּשׁ מִמֵּךְ טוֹבָה",
+          "tr": "ani mevakesh mimekh tovah",
+          "fr": "je te demande une faveur",
+          "he_plain": "אני מבקש ממך טובה"
+        }
+      ],
+      "he_plain": "ממך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מִמֶּנּוּ",
+      "tr": "mimenu",
+      "fr": "de lui",
+      "note": "aussi « de nous », homographe assumé",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שָׁאַלְתִּי מִמֶּנּוּ עֵט",
+          "tr": "sha'alti mimenu et",
+          "fr": "je lui ai emprunté un stylo",
+          "he_plain": "שאלתי ממנו עט"
+        }
+      ],
+      "he_plain": "ממנו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מִמֶּנָּה",
+      "tr": "mimenah",
+      "fr": "d'elle",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שָׁאַלְתִּי מִמֶּנָּה עֵט",
+          "tr": "sha'alti mimenah et",
+          "fr": "je lui ai emprunté un stylo",
+          "he_plain": "שאלתי ממנה עט"
+        }
+      ],
+      "he_plain": "ממנה"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מֵאִיתָּנוּ",
+      "tr": "me'itanu",
+      "fr": "de nous (sans ambiguïté)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַמֶּרְחָק מֵאִיתָּנוּ גָּדוֹל",
+          "tr": "hamerchak me'itanu gadol",
+          "fr": "la distance depuis chez nous est grande",
+          "he_plain": "המרחק מאיתנו גדול"
+        }
+      ],
+      "he_plain": "מאיתנו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מִכֶּם",
+      "tr": "mikem",
+      "fr": "de vous",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי מְבַקֵּשׁ מִכֶּם טוֹבָה",
+          "tr": "ani mevakesh mikem tovah",
+          "fr": "je vous demande une faveur",
+          "he_plain": "אני מבקש מכם טובה"
+        }
+      ],
+      "he_plain": "מכם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מֵהֶם",
+      "tr": "mehem",
+      "fr": "d'eux",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "קִבַּלְתִּי מֵהֶם מִכְתָּב",
+          "tr": "kibalti mehem mikhtav",
+          "fr": "j'ai reçu une lettre d'eux",
+          "he_plain": "קבלתי מהם מכתב"
+        }
+      ],
+      "he_plain": "מהם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בִּי",
+      "tr": "bi",
+      "fr": "en moi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא מַאֲמִין בִּי",
+          "tr": "hu ma'amin bi",
+          "fr": "il croit en moi",
+          "he_plain": "הוא מאמין בי"
+        }
+      ],
+      "he_plain": "בי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בְּךָ",
+      "tr": "bekha",
+      "fr": "en toi (h.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי מַאֲמִין בְּךָ",
+          "tr": "ani ma'amin bekha",
+          "fr": "je crois en toi",
+          "he_plain": "אני מאמין בך"
+        }
+      ],
+      "he_plain": "בך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בָּךְ",
+      "tr": "bakh",
+      "fr": "en toi (f.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי מַאֲמִינָה בָּךְ",
+          "tr": "ani ma'aminah bakh",
+          "fr": "je crois en toi",
+          "he_plain": "אני מאמינה בך"
+        }
+      ],
+      "he_plain": "בך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בּוֹ",
+      "tr": "bo",
+      "fr": "en lui, y",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "קָרָאתִי בּוֹ אֶתְמוֹל",
+          "tr": "karati bo etmol",
+          "fr": "j'y ai lu hier",
+          "he_plain": "קראתי בו אתמול"
+        }
+      ],
+      "he_plain": "בו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בָּהּ",
+      "tr": "bah",
+      "fr": "en elle",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא בָּטְחָה בָּהּ",
+          "tr": "hi batchah bah",
+          "fr": "elle avait confiance en elle",
+          "he_plain": "היא בטחה בה"
+        }
+      ],
+      "he_plain": "בה"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בָּנוּ",
+      "tr": "banu",
+      "fr": "en nous",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַמּוֹרָה בָּטְחָה בָּנוּ",
+          "tr": "hamorah batchah banu",
+          "fr": "la professeure avait confiance en nous",
+          "he_plain": "המורה בטחה בנו"
+        }
+      ],
+      "he_plain": "בנו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בָּכֶם",
+      "tr": "bakhem",
+      "fr": "en vous",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי בּוֹטֵחַ בָּכֶם",
+          "tr": "ani boteach bakhem",
+          "fr": "j'ai confiance en vous",
+          "he_plain": "אני בוטח בכם"
+        }
+      ],
+      "he_plain": "בכם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בָּהֶם",
+      "tr": "bahem",
+      "fr": "en eux",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי בּוֹטֵחַ בָּהֶם",
+          "tr": "ani boteach bahem",
+          "fr": "j'ai confiance en eux",
+          "he_plain": "אני בוטח בהם"
+        }
+      ],
+      "he_plain": "בהם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אֶצְלִי",
+      "tr": "etsli",
+      "fr": "chez moi",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הֶחָתוּל יָשֵׁן אֶצְלִי",
+          "tr": "hechatul yashen etsli",
+          "fr": "le chat dort chez moi",
+          "he_plain": "החתול ישן אצלי"
+        }
+      ],
+      "he_plain": "אצלי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בִּשְׁבִילִי",
+      "tr": "bishvili",
+      "fr": "pour moi",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא קָנְתָה עוּגָה בִּשְׁבִילִי",
+          "tr": "hi kantah 'ugah bishvili",
+          "fr": "elle a acheté un gâteau pour moi",
+          "he_plain": "היא קנתה עוגה בשבילי"
+        }
+      ],
+      "he_plain": "בשבילי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לְיָדִי",
+      "tr": "leyadi",
+      "fr": "à côté de moi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא יָשַׁב לְיָדִי",
+          "tr": "hu yashav leyadi",
+          "fr": "il s'est assis à côté de moi",
+          "he_plain": "הוא ישב לידי"
+        }
+      ],
+      "he_plain": "לידי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "מוּלִי",
+      "tr": "muli",
+      "fr": "en face de moi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא יוֹשֶׁבֶת מוּלִי",
+          "tr": "hi yoshevet muli",
+          "fr": "elle est assise en face de moi",
+          "he_plain": "היא יושבת מולי"
+        }
+      ],
+      "he_plain": "מולי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לְפָנַיי",
+      "tr": "lefanai",
+      "fr": "devant/avant moi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא הָלַךְ לְפָנַיי",
+          "tr": "hu halakh lefanai",
+          "fr": "il a marché devant moi",
+          "he_plain": "הוא הלך לפניי"
+        }
+      ],
+      "he_plain": "לפניי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אַחֲרַיי",
+      "tr": "acharai",
+      "fr": "après/derrière moi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַכֶּלֶב רָץ אַחֲרַיי",
+          "tr": "hakelev rats acharai",
+          "fr": "le chien a couru après moi",
+          "he_plain": "הכלב רץ אחריי"
+        }
+      ],
+      "he_plain": "אחריי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בֵּינֵינוּ",
+      "tr": "beineinu",
+      "fr": "entre nous",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶה נִשְׁאָר בֵּינֵינוּ",
+          "tr": "zeh nish'ar beineinu",
+          "fr": "ça reste entre nous",
+          "he_plain": "זה נשאר בינינו"
+        }
+      ],
+      "he_plain": "בינינו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "כָּמוֹנִי",
+      "tr": "kamoni",
+      "fr": "comme moi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֵין אִישׁ כָּמוֹנִי",
+          "tr": "ein ish kamoni",
+          "fr": "il n'y a personne comme moi",
+          "he_plain": "אין איש כמוני"
+        }
+      ],
+      "he_plain": "כמוני"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "בִּגְלָלִי",
+      "tr": "biglali",
+      "fr": "à cause de moi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הֵם צָחֲקוּ בִּגְלָלִי",
+          "tr": "hem tsachaku biglali",
+          "fr": "ils ont ri à cause de moi",
+          "he_plain": "הם צחקו בגללי"
+        }
+      ],
+      "he_plain": "בגללי"
+    },
+    {
       "cat": "Conjonctions",
       "he": "אֲבָל",
       "tr": "aval",
