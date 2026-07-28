@@ -36870,6 +36870,118 @@
       "he_plain": "רק"
     },
     {
+      "cat": "Mots de quantité",
+      "he": "רֹב",
+      "tr": "rov",
+      "fr": "la plupart de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "רֹב הָאֲנָשִׁים אוֹהֲבִים פִּיצָה",
+          "tr": "rov ha'anashim ohavim pitsah",
+          "fr": "la plupart des gens aiment la pizza",
+          "he_plain": "רב האנשים אוהבים פיצה"
+        }
+      ],
+      "he_plain": "רב"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כַּמּוּת",
+      "tr": "kamut",
+      "fr": "quantité",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "יֵשׁ כָּאן כַּמּוּת גְּדוֹלָה שֶׁל אֹכֶל",
+          "tr": "yesh kan kamut gedolah shel okhel",
+          "fr": "il y a ici une grande quantité de nourriture",
+          "he_plain": "יש כאן כמות גדולה של אכל"
+        }
+      ],
+      "he_plain": "כמות"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "טִיפָּה",
+      "tr": "tipah",
+      "fr": "une goutte, un chouïa (fam.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תּוֹסִיף רַק טִיפָּה שֶׁמֶן",
+          "tr": "tosif rak tipah shemen",
+          "fr": "ajoute juste une goutte d'huile",
+          "he_plain": "תוסיף רק טיפה שמן"
+        }
+      ],
+      "he_plain": "טיפה"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "חֵלֶק",
+      "tr": "chelek",
+      "fr": "partie, part",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה רַק חֵלֶק מֵהַסִּפּוּר",
+          "tr": "zeh rak chelek mehasipur",
+          "fr": "ce n'est qu'une partie de l'histoire",
+          "he_plain": "זה רק חלק מהספור"
+        }
+      ],
+      "he_plain": "חלק"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כָּל כָּךְ הַרְבֵּה",
+      "tr": "kol kakh harbeh",
+      "fr": "tellement de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָהּ כָּל כָּךְ הַרְבֵּה חֲבֵרִים",
+          "tr": "yesh lah kol kakh harbeh chaverim",
+          "fr": "elle a tellement d'amis",
+          "he_plain": "יש לה כל כך הרבה חברים"
+        }
+      ],
+      "he_plain": "כל כך הרבה"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "אֵין סְפוֹר",
+      "tr": "ein sfor",
+      "fr": "d'innombrables",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "יֵשׁ אֵין סְפוֹר כּוֹכָבִים בַּשָּׁמַיִם",
+          "tr": "yesh ein sfor kokhavim bashamayim",
+          "fr": "il y a d'innombrables étoiles dans le ciel",
+          "he_plain": "יש אין ספור כוכבים בשמים"
+        }
+      ],
+      "he_plain": "אין ספור"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "כַּמָּה שֶׁיּוֹתֵר",
+      "tr": "kamah sheyoter",
+      "fr": "le plus possible",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תִּשְׁתֶּה מַיִם כַּמָּה שֶׁיּוֹתֵר",
+          "tr": "tishteh mayim kamah sheyoter",
+          "fr": "bois de l'eau le plus possible",
+          "he_plain": "תשתה מים כמה שיותר"
+        }
+      ],
+      "he_plain": "כמה שיותר"
+    },
+    {
       "cat": "Expressions",
       "he": "שָׁלוֹם",
       "tr": "shalom",

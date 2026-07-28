@@ -358,6 +358,97 @@
           "fr": "je n'ai qu'un seul shekel"
         }
       ]
+    },
+    {
+      "he": "רֹב",
+      "tr": "rov",
+      "fr": "la plupart de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "רֹב הָאֲנָשִׁים אוֹהֲבִים פִּיצָה",
+          "tr": "rov ha'anashim ohavim pitsah",
+          "fr": "la plupart des gens aiment la pizza"
+        }
+      ]
+    },
+    {
+      "he": "כַּמּוּת",
+      "tr": "kamut",
+      "fr": "quantité",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "יֵשׁ כָּאן כַּמּוּת גְּדוֹלָה שֶׁל אֹכֶל",
+          "tr": "yesh kan kamut gedolah shel okhel",
+          "fr": "il y a ici une grande quantité de nourriture"
+        }
+      ]
+    },
+    {
+      "he": "טִיפָּה",
+      "tr": "tipah",
+      "fr": "une goutte, un chouïa (fam.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תּוֹסִיף רַק טִיפָּה שֶׁמֶן",
+          "tr": "tosif rak tipah shemen",
+          "fr": "ajoute juste une goutte d'huile"
+        }
+      ]
+    },
+    {
+      "he": "חֵלֶק",
+      "tr": "chelek",
+      "fr": "partie, part",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה רַק חֵלֶק מֵהַסִּפּוּר",
+          "tr": "zeh rak chelek mehasipur",
+          "fr": "ce n'est qu'une partie de l'histoire"
+        }
+      ]
+    },
+    {
+      "he": "כָּל כָּךְ הַרְבֵּה",
+      "tr": "kol kakh harbeh",
+      "fr": "tellement de",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָהּ כָּל כָּךְ הַרְבֵּה חֲבֵרִים",
+          "tr": "yesh lah kol kakh harbeh chaverim",
+          "fr": "elle a tellement d'amis"
+        }
+      ]
+    },
+    {
+      "he": "אֵין סְפוֹר",
+      "tr": "ein sfor",
+      "fr": "d'innombrables",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "יֵשׁ אֵין סְפוֹר כּוֹכָבִים בַּשָּׁמַיִם",
+          "tr": "yesh ein sfor kokhavim bashamayim",
+          "fr": "il y a d'innombrables étoiles dans le ciel"
+        }
+      ]
+    },
+    {
+      "he": "כַּמָּה שֶׁיּוֹתֵר",
+      "tr": "kamah sheyoter",
+      "fr": "le plus possible",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תִּשְׁתֶּה מַיִם כַּמָּה שֶׁיּוֹתֵר",
+          "tr": "tishteh mayim kamah sheyoter",
+          "fr": "bois de l'eau le plus possible"
+        }
+      ]
     }
   ]
 }
