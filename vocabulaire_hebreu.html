@@ -13847,7 +13847,7 @@
       var block = [h2];
       var n = h2.nextElementSibling;
       while(n && n.tagName !== 'H2'){ block.push(n); n = n.nextElementSibling; }
-      sections.push({ h2: h2, block: block });
+      sections.push({ h2: h2, block: block, hay: norm(h2.textContent) });
     });
 
     function clearHighlights(el){
@@ -13920,6 +13920,18 @@
       // hide the prose: une recherche montre des correspondances, pas des leçons.
       sections.forEach(function(s){
         var visible = false;
+        // Un TITRE qui correspond est une correspondance, pas une leçon : c'est
+        // exactement ce que montrerait la pilule du sommaire — lequel est
+        // justement masqué pendant une recherche (plus haut), si bien qu'une
+        // section cherchée par son nom devenait introuvable des deux côtés à la
+        // fois. Le cas se voyait sur « Le nikoud », section de référence dont le
+        // nom ne vit que dans le titre et la prose : « qamats » ou « dagesh » la
+        // trouvaient (ce sont des lignes de tableau, donc indexées), « nikoud »
+        // ne la trouvait pas et la masquait. La règle « des correspondances, pas
+        // des leçons » n'est PAS entamée : la branche ci-dessous continue de
+        // masquer notes, encadrés et recettes des sections retenues — un titre
+        // seul apparaît, jamais le cours qui le suit.
+        if(s.hay.indexOf(q) !== -1){ visible = true; shown++; }
         s.block.forEach(function(b){
           if(visible) return;
           if(b.matches && b.matches('.example') && !b.classList.contains('search-hidden')){ visible = true; return; }

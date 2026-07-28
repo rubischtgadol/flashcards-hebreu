@@ -48,6 +48,21 @@ furtif, le ktiv male. La règle de l'article devant gutturale (הֶ et non הַ 
 Garde neuve au passage : `verifieOrphelins()` couvre enfin
 `src/carnet/sections.json` (entrée 11 du § Garde-fous).
 
+**Deux défauts anciens du carnet sur iPhone, soldés depuis** (ils préexistaient
+au nikoud, la section neuve les a seulement fait apparaître). (4) **Le carnet
+ne déborde plus horizontalement** : `scrollWidth` 444 → 402 pour 402 de
+viewport, 0 nœud texte débordant contre 6. Une seule cause pour deux symptômes
+sans ressemblance — `display:contents` supprime la boîte mais **pas
+l'héritage**, si bien que le `white-space:nowrap` de `th,td` traversait la
+cellule dissoute du mode carte (DESIGN.md § Rangs en cartes). ⚠️ Le piège de
+mesure qui va avec est consigné en piège n°16 de CLAUDE.md : un débordement de
+texte est **invisible** sur `getBoundingClientRect()` des éléments, il se
+mesure au `Range` sur les nœuds texte. (5) **La recherche indexe les titres de
+section** : une section dont le nom ne vit que dans le titre et la prose était
+introuvable *et* masquée — « qamats » trouvait le nikoud, « nikoud » non. La
+règle « des correspondances, pas des leçons » est intacte : un titre seul
+apparaît, jamais le cours.
+
 **Le carnet compte 1717 cartes** (A1 490 · A2 667 · B1 498 · B2 45 · C1 17).
 ⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
 prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
