@@ -1,0 +1,111 @@
+[
+  {
+    "he": "וְכוּ'",
+    "tr": "vekhule",
+    "fr": "etc.",
+    "niveau": "B1",
+    "note": "forme développée : וְכוּלֵי (araméen, « et le reste »)",
+    "exemples": [
+      { "he": "הֵבֵאתִי עִפָּרוֹן, מַחְבֶּרֶת וְכוּ'", "tr": "heveti iparon, machberet vekhule", "fr": "j'ai apporté un crayon, un cahier, etc." }
+    ]
+  },
+  {
+    "he": "ז\"א",
+    "tr": "zot omeret",
+    "fr": "c.-à-d. (זֹאת אוֹמֶרֶת)",
+    "niveau": "B1",
+    "note": "forme développée : זֹאת אוֹמֶרֶת",
+    "exemples": [
+      { "he": "הוּא עָיֵף, ז\"א הוּא צָרִיךְ לָנוּחַ", "tr": "hu ayef, zot omeret hu tsarikh lanuach", "fr": "il est fatigué, c'est-à-dire il doit se reposer" }
+    ]
+  },
+  {
+    "he": "וְכַדּוֹמֶה",
+    "tr": "vekhadomeh",
+    "fr": "et similaires",
+    "niveau": "B2",
+    "exemples": [
+      { "he": "קָנִיתִי תַּפּוּחִים, בַּנָּנוֹת וְכַדּוֹמֶה", "tr": "kaniti tapuchim, bananot vekhadomeh", "fr": "j'ai acheté des pommes, des bananes et similaires" }
+    ]
+  },
+  {
+    "he": "ד\"ר",
+    "tr": "doktor",
+    "fr": "Dr (docteur)",
+    "niveau": "A2",
+    "note": "forme développée : דּוֹקְטוֹר",
+    "exemples": [
+      { "he": "ד\"ר כֹּהֵן מְחַכָּה לָךְ", "tr": "doktor kohen mechaka lakh", "fr": "le Dr Cohen t'attend" }
+    ]
+  },
+  {
+    "he": "עו\"ד",
+    "tr": "orekh din",
+    "fr": "Maître (avocat, עוֹרֵךְ דִּין)",
+    "niveau": "B1",
+    "note": "forme développée : עוֹרֵךְ דִּין",
+    "exemples": [
+      { "he": "עו\"ד לֵוִי יָבוֹא מָחָר", "tr": "orekh din levi yavo machar", "fr": "Maître Lévi viendra demain" }
+    ]
+  },
+  {
+    "he": "ת\"א",
+    "tr": "tel aviv",
+    "fr": "Tel-Aviv",
+    "niveau": "A2",
+    "note": "forme développée : תֵּל אָבִיב",
+    "exemples": [
+      { "he": "אֲנִי גָּר בְּת\"א כְּבָר שָׁנָה", "tr": "ani gar betel aviv kvar shana", "fr": "j'habite à Tel-Aviv depuis un an déjà" }
+    ]
+  },
+  {
+    "he": "נ.ב.",
+    "tr": "nun bet",
+    "fr": "P.-S.",
+    "niveau": "B2",
+    "note": "lu comme les noms des lettres נוּן בֵּית — ne développe pas de phrase, calque de l'usage occidental « P.-S. »",
+    "exemples": [
+      { "he": "נ.ב. אֲנִי מִתְגַּעְגֵּעַ אֵלַיִךְ", "tr": "nun bet, ani mitga'ge'a elayikh", "fr": "P.-S. tu me manques" }
+    ]
+  },
+  {
+    "he": "חוּ\"ל",
+    "tr": "chul",
+    "fr": "l'étranger (חוּץ לָאָרֶץ)",
+    "niveau": "B1",
+    "note": "forme développée : חוּץ לָאָרֶץ",
+    "exemples": [
+      { "he": "הֵם נָסְעוּ לְחוּ\"ל בַּקַּיִץ", "tr": "hem nas'u lechul bakayits", "fr": "ils sont partis à l'étranger en été" }
+    ]
+  },
+  {
+    "he": "צה\"ל",
+    "tr": "tsahal",
+    "fr": "Tsahal (l'armée)",
+    "niveau": "B1",
+    "note": "forme développée : צְבָא הֲגָנָה לְיִשְׂרָאֵל",
+    "exemples": [
+      { "he": "אָחִי מְשָׁרֵת בְּצה\"ל", "tr": "achi mesharet betsahal", "fr": "mon frère sert dans Tsahal" }
+    ]
+  },
+  {
+    "he": "בע\"ה",
+    "tr": "be'ezrat hashem",
+    "fr": "avec l'aide de Dieu (à l'écrit)",
+    "niveau": "C1",
+    "note": "forme développée : בְּעֶזְרַת הַשֵּׁם",
+    "exemples": [
+      { "he": "נִפָּגֵשׁ בְּקָרוֹב, בע\"ה", "tr": "nipagesh bekarov, be'ezrat hashem", "fr": "on se reverra bientôt, avec l'aide de Dieu" }
+    ]
+  },
+  {
+    "he": "אי\"ה",
+    "tr": "im yirtse hashem",
+    "fr": "si Dieu veut (à l'écrit)",
+    "niveau": "C1",
+    "note": "forme développée : אִם יִרְצֶה הַשֵּׁם",
+    "exemples": [
+      { "he": "נִתְרָאֶה בַּחֲתֻנָּה, אי\"ה", "tr": "nitra'e bachatuna, im yirtse hashem", "fr": "on se verra au mariage, si Dieu veut" }
+    ]
+  }
+]

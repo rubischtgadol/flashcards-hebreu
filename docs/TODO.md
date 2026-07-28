@@ -14,40 +14,48 @@
 
 ## Reprendre ici (prochaine session)
 
-**Où en est le dépôt (tout poussé sur `main`).** La réorganisation
-« le dépôt généré » est **CLOSE** : ses 21 tasks, chantiers 1 à 4, sont soldés,
-contrôle de sortie compris ; la preuve et sa procédure de rejeu vivent dans
-l'archive. **Aucun chantier n'est ouvert** sur `main` ; la dette ouverte
-compte **une entrée** (les notes d'usage que le carnet stocke
-sans les afficher — voir § Dette ouverte).
+**Où en est le dépôt (tout poussé sur `main`).** Le chantier « mots-outils et
+nombres » est **CLOS** : l'audit d'existence avait montré que le carnet
+enseignait massivement les classes ouvertes (noms, adjectifs, verbes) en
+sautant la morphologie qui les relie — prépositions fléchies, conjonctions,
+connecteurs du discours, heure et date, existence et possession, impératif,
+tournures impersonnelles, comparatif et superlatif, interrogatifs,
+démonstratifs, nombres. Six catégories neuves dans l'app (Prépositions
+fléchies, Connecteurs du discours, Heure et date, Comparatif et superlatif,
+Tournures impersonnelles, Impératif), cinq sections neuves dans le carnet,
+un outil neuf (`tools/controle_tr.js`) et une garde neuve (`verifieCatOrder`,
+§ Garde-fous contre la casse silencieuse d'ARCHITECTURE.md). La réorganisation
+« le dépôt généré » (chantiers 1 à 4, 21 tasks) reste soldée elle aussi ; la
+preuve et sa procédure de rejeu vivent dans l'archive. **Aucun chantier n'est
+ouvert** sur `main` ; la dette ouverte compte **cinq entrées** (voir § Dette
+ouverte).
 
-**Le carnet compte 1440 cartes** (A1 429 · A2 579 · B1 396 · B2 26 · C1 10).
+**Le carnet compte 1717 cartes** (A1 490 · A2 667 · B1 498 · B2 45 · C1 17).
 ⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
 prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
 --stats`, jamais cette page.
 
-⚠️ **GRAPHE À RECALER : `data/listes/hebreu-parle.json`,
-`src/carnet/sections/43-hebreu-parle.html`, `tools/controle_tr.js` (créés) ;
-`docs/superpowers/**` (4 fichiers supprimés au ménage documentaire) ; 15
-sections de `src/carnet/sections/` renommées (numérotation à trous, six
-places réservées — Tâche 2b) ; `data/listes/prepositions-flechies.json` (créé
-— section « Prépositions fléchies ») ; `data/listes/nombres-fractions.json`,
-`src/carnet/sections/34-nombres-fractions.html` (créés — section « Nombres —
-fractions et multiplicatifs ») ; `data/listes/connecteurs-du-discours.json`,
-`src/carnet/sections/29-connecteurs-du-discours.html` (créés — section
-« Connecteurs du discours ») ; `data/listes/heure-et-date.json`,
-`src/carnet/sections/36-heure-et-date.html` (créés — section « Heure et
-date ») ; `data/listes/comparatif-et-superlatif.json`,
-`src/carnet/sections/26-comparatif-et-superlatif.html` (créés — section
-« Comparatif et superlatif ») ; `data/listes/tournures-impersonnelles.json`,
-`src/carnet/sections/23-tournures-impersonnelles.html` (créés — section
-« Tournures impersonnelles ») ; `data/listes/imperatif.json` (créé — section
-« Impératif », branchée sur le gabarit existant `08-l-imperatif.html`).**
-Le graphe n'a jamais connu ces fichiers — il
-est antérieur à `docs/` —, donc il n'y a rien à en retirer : la ligne est là
-pour que le prochain recalage n'aille pas les chercher. Le flag enregistre la
-dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
-lance que sur décision explicite).
+⚠️ **GRAPHE À RECALER** — le graphe est antérieur à `docs/` : il n'a jamais
+connu ce qui suit, donc rien à en retirer, seulement à y ajouter au prochain
+recalage. Le flag enregistre la dette, il ne déclenche rien
+(`/graphify . --update` coûte ~235k tokens et ne se lance que sur décision
+explicite) :
+
+- **Outil créé** : `tools/controle_tr.js`.
+- **Sept fichiers de `data/listes/` créés** : `prepositions-flechies.json`,
+  `nombres-fractions.json`, `connecteurs-du-discours.json`,
+  `heure-et-date.json`, `comparatif-et-superlatif.json`,
+  `tournures-impersonnelles.json`, `imperatif.json`.
+- **Cinq fichiers de `src/carnet/sections/` créés** :
+  `23-tournures-impersonnelles.html`, `26-comparatif-et-superlatif.html`,
+  `29-connecteurs-du-discours.html`, `34-nombres-fractions.html`,
+  `36-heure-et-date.html`.
+- **Quinze sections de `src/carnet/sections/` renommées** (numérotation à
+  trous, six places réservées — dont la place 42, encore vacante, gardée pour
+  « Abréviations et sigles », reportée : voir § Dette ouverte).
+- **Dette antérieure, toujours ouverte** : `data/listes/hebreu-parle.json`,
+  `src/carnet/sections/43-hebreu-parle.html` (créés, chantier précédent) ;
+  `docs/superpowers/**` (4 fichiers supprimés au ménage documentaire).
 
 ### Deux branches latérales — aucune n'est le chantier courant
 
@@ -156,12 +164,14 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
 
-### Dette ouverte — une entrée
+### Dette ouverte — cinq entrées
 
 Elle était vide (les quatre entrées soldées sont dans
-TODO_ARCHIVE.md). La passe documentaire en a rouvert une, trouvée en répondant à
-une question du propriétaire — « as-tu expliqué dans le carnet comment utiliser
-*efshar* ? ».
+TODO_ARCHIVE.md). Une passe documentaire l'a rouverte une première fois, en
+répondant à une question du propriétaire — « as-tu expliqué dans le carnet
+comment utiliser *efshar* ? ». Le chantier « mots-outils et nombres » en
+ajoute quatre : une section reportée et trois limites connues de
+l'outillage.
 
 1. ⚠️ **Le carnet stocke 49 notes d'usage qu'il n'affiche pas.** `gabarits.js`
    émet le champ `note` de `data/` en attribut `data-note` sur le `<li>`
@@ -185,6 +195,45 @@ une question du propriétaire — « as-tu expliqué dans le carnet comment util
    dans la hiérarchie typographique, comportement en colonne étroite), pas une
    correction mécanique, d'où son inscription ici plutôt qu'un correctif
    improvisé.
+
+2. ⚠️ **Section « Abréviations et sigles » reportée.** Contenu prêt — 11
+   entrées (וְכוּ', ז"א, ד"ר, עו"ד, ת"א, נ.ב., חוּ"ל, צה"ל, בע"ה, אי"ה,
+   וְכַדּוֹמֶה) — mais `node tools/verifie_exemples.js` sort **13 erreurs
+   bloquantes** dessus, pour une raison structurelle et non une faute de
+   saisie : le validateur exige de la niqqud sur chaque mot, or un sigle
+   n'est pas vocalisé par nature, et sa translittération est la **forme lue à
+   voix haute** (ז"א se lit `zot omeret`, עו"ד se lit `orekh din`), pas une
+   transcription lettre par lettre — l'écart avec `he2tr` dépasse donc
+   forcément le seuil. Trois voies possibles, aucune tranchée : (a) exempter
+   cette catégorie dans `verifie_exemples.js` ; (b) renoncer à la section ;
+   (c) définir un contrat de `tr` propre à cette classe. Le bordereau est
+   conservé dans le dépôt, hors pipeline :
+   [docs/lots-en-attente/abreviations-et-sigles.json](lots-en-attente/abreviations-et-sigles.json).
+
+3. ⚠️ **286 désaccords bruts préexistants**, révélés dans tout le corpus par
+   `controle_tr.js` maintenant qu'il descend dans les exemples et les
+   formes : chva après ל/מ/כ ~109, כָּל rendu `kal` au lieu de `kol` (kamats
+   katan) ~36, diphtongue -ay/-ayy ~24, hé final/mappiq ~22. Ce sont les
+   limites connues de `he2tr`. ⚠️ **Ne pas y toucher** : la règle du chva
+   initial est morphologique et calibrée sur tout le corpus ; sa retouche
+   exige de rejouer le harnais de mesure (`node tools/mesure_translitteration.js`)
+   et d'améliorer strictement les trois métriques (accord exact, accord
+   replié, distance d'édition).
+
+4. **`controle_tr.js` ignore en silence un `tr` manquant** sur
+   `formes[]`/`pluriel` (`tools/controle_tr.js`, garde
+   `if (!he || !tr) return;`) : aucun autre outil du pipeline ne le
+   contrôle. Conforme à sa responsabilité déclarée (pas de validation de
+   schéma), mais c'est un silence dans une garde — à décider plus tard.
+
+5. **Deux revues de lot n'ont pas été faites** (sections neuves des lots C et
+   D) et **le contrôle WebKit n'a pas été passé**, le chantier ayant été clos
+   sur demande. Tolérable : `verifieCatOrder` garde désormais
+   **mécaniquement** l'existence des puces, qui était précisément le risque
+   muet que le contrôle visuel servait à attraper ; et `build.js --check`
+   prouve les cinq artefacts en phase. Ce qu'un WebKit apporterait encore :
+   le rendu des blocs `h3.subtheme` des huit séries fléchies, et un contrôle
+   aux largeurs desktop.
 
 *Si un nouveau défaut connu apparaît, c'est ici qu'il se note — avec ce qui le
 rend non bloquant, faute de quoi il devient un chantier.*
