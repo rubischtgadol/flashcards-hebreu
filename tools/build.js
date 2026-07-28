@@ -65,7 +65,7 @@ const SW = path.join(ROOT, 'sw.js');
 
 // Sections dont la disparition doit faire échouer le build (clé = catégorie des cartes).
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
-  'Prépositions','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine','Adverbes','Saisons & mois',
+  'Prépositions','Prépositions fléchies','Conjonctions','Mots interrogatifs','Nombres','Jours de la semaine','Adverbes','Saisons & mois',
   'Mots de quantité','Expressions','Existence','Phrases','Hébreu parlé'];
 // Niveaux CECRL (data-niveau du carnet) dont la disparition doit faire échouer le
 // build — étendre quand le carnet grandira. C1 ouvert le 2026-07-27 avec le lot
@@ -89,7 +89,7 @@ const THEMED_CATS = ['Noms','Adjectifs','Verbes'];
 // contre cette table — une seule source côté Node, ici et nulle part ailleurs.
 const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'Démonstratifs',
   'Verbes modaux':'Verbes modaux',
-  'Prépositions':'Prépositions', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
+  'Prépositions':'Prépositions', 'Prépositions fléchies':'Prépositions fléchies', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
   'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',
   'Jours de la semaine':'Jours de la semaine', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
   'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',

@@ -1,0 +1,341 @@
+{
+  "section": "Prépositions fléchies",
+  "entries": [
+    {
+      "he": "שֶׁלִּי",
+      "tr": "sheli",
+      "fr": "à moi / mon, ma",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "הַתִּיק הַזֶּה שֶׁלִּי",
+          "tr": "hatik haze sheli",
+          "fr": "ce sac est à moi"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁלְּךָ",
+      "tr": "shelkha",
+      "fr": "à toi (à un homme)",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "הַמַּפְתֵּחַ שֶׁלְּךָ עַל הַשֻּׁלְחָן",
+          "tr": "hamafteach shelkha 'al hashulchan",
+          "fr": "ta clé est sur la table"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁלָּךְ",
+      "tr": "shelakh",
+      "fr": "à toi (à une femme)",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "זֹאת הַמְּכוֹנִית שֶׁלָּךְ",
+          "tr": "zot hamekhonit shelakh",
+          "fr": "c'est ta voiture"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁלּוֹ",
+      "tr": "shelo",
+      "fr": "à lui / son, sa",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "הַכֶּלֶב שֶׁלּוֹ חָמוּד",
+          "tr": "hakelev shelo chamud",
+          "fr": "son chien est mignon"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁלָּהּ",
+      "tr": "shelah",
+      "fr": "à elle",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "הַתִּיק שֶׁלָּהּ אָדֹם",
+          "tr": "hatik shelah adom",
+          "fr": "son sac (à elle) est rouge"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁלָּנוּ",
+      "tr": "shelanu",
+      "fr": "à nous / notre",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "הַבַּיִת שֶׁלָּנוּ קָטָן",
+          "tr": "habayit shelanu katan",
+          "fr": "notre maison est petite"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁלָּכֶם",
+      "tr": "shelakhem",
+      "fr": "à vous",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "הַמְּכוֹנִית שֶׁלָּכֶם יָפָה",
+          "tr": "hamekhonit shelakhem yafah",
+          "fr": "votre voiture est belle"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁלָּהֶם",
+      "tr": "shelahem",
+      "fr": "à eux / leur",
+      "niveau": "A1",
+      "groupe": "shel",
+      "exemples": [
+        {
+          "he": "הַבַּיִת שֶׁלָּהֶם גָּדוֹל",
+          "tr": "habayit shelahem gadol",
+          "fr": "leur maison est grande"
+        }
+      ]
+    },
+    {
+      "he": "לִי",
+      "tr": "li",
+      "fr": "à moi, me",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי סֵפֶר",
+          "tr": "yesh li sefer",
+          "fr": "j'ai un livre"
+        }
+      ]
+    },
+    {
+      "he": "לְךָ",
+      "tr": "lekha",
+      "fr": "à toi, te (h.)",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "הוּא נָתַן לְךָ מַתָּנָה",
+          "tr": "hu natan lekha matanah",
+          "fr": "il t'a donné un cadeau"
+        }
+      ]
+    },
+    {
+      "he": "לָךְ",
+      "tr": "lakh",
+      "fr": "à toi, te (f.)",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "הִיא כָּתְבָה לָךְ מִכְתָּב",
+          "tr": "hi katvah lakh mikhtav",
+          "fr": "elle t'a écrit une lettre"
+        }
+      ]
+    },
+    {
+      "he": "לוֹ",
+      "tr": "lo",
+      "fr": "à lui, lui",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "קָנִיתִי לוֹ מַתָּנָה",
+          "tr": "kaniti lo matanah",
+          "fr": "je lui ai acheté un cadeau"
+        }
+      ]
+    },
+    {
+      "he": "לָהּ",
+      "tr": "lah",
+      "fr": "à elle, lui",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "שָׁלַחְתִּי לָהּ הוֹדָעָה",
+          "tr": "shalachti lah hoda'ah",
+          "fr": "je lui ai envoyé un message"
+        }
+      ]
+    },
+    {
+      "he": "לָנוּ",
+      "tr": "lanu",
+      "fr": "à nous, nous",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָנוּ זְמַן",
+          "tr": "yesh lanu zman",
+          "fr": "nous avons du temps"
+        }
+      ]
+    },
+    {
+      "he": "לָכֶם",
+      "tr": "lakhem",
+      "fr": "à vous, vous",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "אֵין לָכֶם מָקוֹם",
+          "tr": "ein lakhem makom",
+          "fr": "vous n'avez pas de place"
+        }
+      ]
+    },
+    {
+      "he": "לָהֶם",
+      "tr": "lahem",
+      "fr": "à eux, leur",
+      "niveau": "A1",
+      "groupe": "le",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָהֶם זְמַן",
+          "tr": "yesh lahem zman",
+          "fr": "ils ont du temps"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתִי",
+      "tr": "oti",
+      "fr": "moi (complément direct)",
+      "niveau": "A1",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "הִיא רוֹאָה אוֹתִי",
+          "tr": "hi ro'ah oti",
+          "fr": "elle me voit"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתְךָ",
+      "tr": "otkha",
+      "fr": "toi (h., COD)",
+      "niveau": "A1",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹהֵב אוֹתְךָ",
+          "tr": "ani ohev otkha",
+          "fr": "je t'aime"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתָךְ",
+      "tr": "otakh",
+      "fr": "toi (f., COD)",
+      "niveau": "A1",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹהֶבֶת אוֹתָךְ",
+          "tr": "ani ohevet otakh",
+          "fr": "je t'aime"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתוֹ",
+      "tr": "oto",
+      "fr": "le, lui (COD)",
+      "niveau": "A1",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "אֲנִי מַכִּיר אוֹתוֹ",
+          "tr": "ani makir oto",
+          "fr": "je le connais"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתָהּ",
+      "tr": "otah",
+      "fr": "la, elle (COD)",
+      "niveau": "A1",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "אֲנִי מַכִּירָה אוֹתָהּ",
+          "tr": "ani makirah otah",
+          "fr": "je la connais"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתָנוּ",
+      "tr": "otanu",
+      "fr": "nous (COD)",
+      "niveau": "A2",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "הַמּוֹרֶה רוֹאֶה אוֹתָנוּ",
+          "tr": "hamoreh ro'eh otanu",
+          "fr": "le professeur nous voit"
+        }
+      ]
+    },
+    {
+      "he": "אֶתְכֶם",
+      "tr": "etkhem",
+      "fr": "vous (COD ; normé, familier אותכם)",
+      "niveau": "A2",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "אֲנִי מַזְמִין אֶתְכֶם",
+          "tr": "ani mazmin etkhem",
+          "fr": "je vous invite"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתָם",
+      "tr": "otam",
+      "fr": "les, eux (COD)",
+      "niveau": "A2",
+      "groupe": "et",
+      "exemples": [
+        {
+          "he": "הַמּוֹרָה מַכִּירָה אוֹתָם",
+          "tr": "hamorah makirah otam",
+          "fr": "la professeure les connaît"
+        }
+      ]
+    }
+  ]
+}

@@ -135,7 +135,7 @@ const catsEl = document.getElementById('cats');
 const nivEl = document.getElementById('niv');
 const themeEl = document.getElementById('theme');
 const catOrder = ['Pronoms personnels','Démonstratifs','Verbes','Verbes modaux','Adjectifs','Noms',
-  'Prépositions','Conjonctions','Mots interrogatifs','Existence','Nombres',
+  'Prépositions','Prépositions fléchies','Conjonctions','Mots interrogatifs','Existence','Nombres',
   'Jours de la semaine','Saisons & mois','Adverbes','Mots de quantité','Expressions','Phrases','Hébreu parlé'];
 function buildChips(){
   catCounts = {};

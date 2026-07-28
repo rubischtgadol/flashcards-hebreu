@@ -33874,6 +33874,390 @@
       "he_plain": "אודות"
     },
     {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלִּי",
+      "tr": "sheli",
+      "fr": "à moi / mon, ma",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַתִּיק הַזֶּה שֶׁלִּי",
+          "tr": "hatik haze sheli",
+          "fr": "ce sac est à moi",
+          "he_plain": "התיק הזה שלי"
+        }
+      ],
+      "he_plain": "שלי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלְּךָ",
+      "tr": "shelkha",
+      "fr": "à toi (à un homme)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַמַּפְתֵּחַ שֶׁלְּךָ עַל הַשֻּׁלְחָן",
+          "tr": "hamafteach shelkha 'al hashulchan",
+          "fr": "ta clé est sur la table",
+          "he_plain": "המפתח שלך על השלחן"
+        }
+      ],
+      "he_plain": "שלך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלָּךְ",
+      "tr": "shelakh",
+      "fr": "à toi (à une femme)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "זֹאת הַמְּכוֹנִית שֶׁלָּךְ",
+          "tr": "zot hamekhonit shelakh",
+          "fr": "c'est ta voiture",
+          "he_plain": "זאת המכונית שלך"
+        }
+      ],
+      "he_plain": "שלך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלּוֹ",
+      "tr": "shelo",
+      "fr": "à lui / son, sa",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַכֶּלֶב שֶׁלּוֹ חָמוּד",
+          "tr": "hakelev shelo chamud",
+          "fr": "son chien est mignon",
+          "he_plain": "הכלב שלו חמוד"
+        }
+      ],
+      "he_plain": "שלו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלָּהּ",
+      "tr": "shelah",
+      "fr": "à elle",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַתִּיק שֶׁלָּהּ אָדֹם",
+          "tr": "hatik shelah adom",
+          "fr": "son sac (à elle) est rouge",
+          "he_plain": "התיק שלה אדם"
+        }
+      ],
+      "he_plain": "שלה"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלָּנוּ",
+      "tr": "shelanu",
+      "fr": "à nous / notre",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַבַּיִת שֶׁלָּנוּ קָטָן",
+          "tr": "habayit shelanu katan",
+          "fr": "notre maison est petite",
+          "he_plain": "הבית שלנו קטן"
+        }
+      ],
+      "he_plain": "שלנו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלָּכֶם",
+      "tr": "shelakhem",
+      "fr": "à vous",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַמְּכוֹנִית שֶׁלָּכֶם יָפָה",
+          "tr": "hamekhonit shelakhem yafah",
+          "fr": "votre voiture est belle",
+          "he_plain": "המכונית שלכם יפה"
+        }
+      ],
+      "he_plain": "שלכם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "שֶׁלָּהֶם",
+      "tr": "shelahem",
+      "fr": "à eux / leur",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַבַּיִת שֶׁלָּהֶם גָּדוֹל",
+          "tr": "habayit shelahem gadol",
+          "fr": "leur maison est grande",
+          "he_plain": "הבית שלהם גדול"
+        }
+      ],
+      "he_plain": "שלהם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לִי",
+      "tr": "li",
+      "fr": "à moi, me",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי סֵפֶר",
+          "tr": "yesh li sefer",
+          "fr": "j'ai un livre",
+          "he_plain": "יש לי ספר"
+        }
+      ],
+      "he_plain": "לי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לְךָ",
+      "tr": "lekha",
+      "fr": "à toi, te (h.)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הוּא נָתַן לְךָ מַתָּנָה",
+          "tr": "hu natan lekha matanah",
+          "fr": "il t'a donné un cadeau",
+          "he_plain": "הוא נתן לך מתנה"
+        }
+      ],
+      "he_plain": "לך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לָךְ",
+      "tr": "lakh",
+      "fr": "à toi, te (f.)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הִיא כָּתְבָה לָךְ מִכְתָּב",
+          "tr": "hi katvah lakh mikhtav",
+          "fr": "elle t'a écrit une lettre",
+          "he_plain": "היא כתבה לך מכתב"
+        }
+      ],
+      "he_plain": "לך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לוֹ",
+      "tr": "lo",
+      "fr": "à lui, lui",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "קָנִיתִי לוֹ מַתָּנָה",
+          "tr": "kaniti lo matanah",
+          "fr": "je lui ai acheté un cadeau",
+          "he_plain": "קניתי לו מתנה"
+        }
+      ],
+      "he_plain": "לו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לָהּ",
+      "tr": "lah",
+      "fr": "à elle, lui",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "שָׁלַחְתִּי לָהּ הוֹדָעָה",
+          "tr": "shalachti lah hoda'ah",
+          "fr": "je lui ai envoyé un message",
+          "he_plain": "שלחתי לה הודעה"
+        }
+      ],
+      "he_plain": "לה"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לָנוּ",
+      "tr": "lanu",
+      "fr": "à nous, nous",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָנוּ זְמַן",
+          "tr": "yesh lanu zman",
+          "fr": "nous avons du temps",
+          "he_plain": "יש לנו זמן"
+        }
+      ],
+      "he_plain": "לנו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לָכֶם",
+      "tr": "lakhem",
+      "fr": "à vous, vous",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֵין לָכֶם מָקוֹם",
+          "tr": "ein lakhem makom",
+          "fr": "vous n'avez pas de place",
+          "he_plain": "אין לכם מקום"
+        }
+      ],
+      "he_plain": "לכם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "לָהֶם",
+      "tr": "lahem",
+      "fr": "à eux, leur",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָהֶם זְמַן",
+          "tr": "yesh lahem zman",
+          "fr": "ils ont du temps",
+          "he_plain": "יש להם זמן"
+        }
+      ],
+      "he_plain": "להם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אוֹתִי",
+      "tr": "oti",
+      "fr": "moi (complément direct)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הִיא רוֹאָה אוֹתִי",
+          "tr": "hi ro'ah oti",
+          "fr": "elle me voit",
+          "he_plain": "היא רואה אותי"
+        }
+      ],
+      "he_plain": "אותי"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אוֹתְךָ",
+      "tr": "otkha",
+      "fr": "toi (h., COD)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹהֵב אוֹתְךָ",
+          "tr": "ani ohev otkha",
+          "fr": "je t'aime",
+          "he_plain": "אני אוהב אותך"
+        }
+      ],
+      "he_plain": "אותך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אוֹתָךְ",
+      "tr": "otakh",
+      "fr": "toi (f., COD)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹהֶבֶת אוֹתָךְ",
+          "tr": "ani ohevet otakh",
+          "fr": "je t'aime",
+          "he_plain": "אני אוהבת אותך"
+        }
+      ],
+      "he_plain": "אותך"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אוֹתוֹ",
+      "tr": "oto",
+      "fr": "le, lui (COD)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי מַכִּיר אוֹתוֹ",
+          "tr": "ani makir oto",
+          "fr": "je le connais",
+          "he_plain": "אני מכיר אותו"
+        }
+      ],
+      "he_plain": "אותו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אוֹתָהּ",
+      "tr": "otah",
+      "fr": "la, elle (COD)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי מַכִּירָה אוֹתָהּ",
+          "tr": "ani makirah otah",
+          "fr": "je la connais",
+          "he_plain": "אני מכירה אותה"
+        }
+      ],
+      "he_plain": "אותה"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אוֹתָנוּ",
+      "tr": "otanu",
+      "fr": "nous (COD)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַמּוֹרֶה רוֹאֶה אוֹתָנוּ",
+          "tr": "hamoreh ro'eh otanu",
+          "fr": "le professeur nous voit",
+          "he_plain": "המורה רואה אותנו"
+        }
+      ],
+      "he_plain": "אותנו"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אֶתְכֶם",
+      "tr": "etkhem",
+      "fr": "vous (COD ; normé, familier אותכם)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי מַזְמִין אֶתְכֶם",
+          "tr": "ani mazmin etkhem",
+          "fr": "je vous invite",
+          "he_plain": "אני מזמין אתכם"
+        }
+      ],
+      "he_plain": "אתכם"
+    },
+    {
+      "cat": "Prépositions fléchies",
+      "he": "אוֹתָם",
+      "tr": "otam",
+      "fr": "les, eux (COD)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַמּוֹרָה מַכִּירָה אוֹתָם",
+          "tr": "hamorah makirah otam",
+          "fr": "la professeure les connaît",
+          "he_plain": "המורה מכירה אותם"
+        }
+      ],
+      "he_plain": "אותם"
+    },
+    {
       "cat": "Conjonctions",
       "he": "אֲבָל",
       "tr": "aval",
