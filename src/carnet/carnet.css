@@ -241,6 +241,22 @@
       margin:0 0 10px;
     }
     .table-wrap:has(ul.exemples) td:first-child{ display:contents; }
+    /* ⚠️ `display:contents` supprime la BOÎTE, pas l'HÉRITAGE : le
+       `white-space:nowrap` de la règle générique `th,td` continue de descendre
+       à travers la cellule dissoute vers .he, .cursive, .fr et tout le contenu
+       de ul.exemples. En grille défilante c'était sans conséquence (le wrap
+       coupait), mais la carte mobile passe en `overflow-x:visible` : plus rien
+       ne coupe, et le texte insécable PEINT hors de l'écran. Deux symptômes,
+       une cause — la glose française d'une entrée sortait à gauche de sa carte
+       (left −31px, texte coupé), et les .fr/.tr des phrases d'exemple, eux en
+       direction:ltr, sortaient à DROITE et poussaient le document à 444px pour
+       402 de viewport. ⚠️ Le débordement ne se voit pas sur le rect des
+       éléments (les boîtes flex se rétrécissent, seul le texte dépasse) : il se
+       mesure au Range sur les nœuds texte. La cellule voisine posait déjà
+       `white-space:normal` de son côté ; c'est la même remise à zéro, pour la
+       cellule que le display:contents avait rendue invisible à la règle. */
+    .table-wrap:has(ul.exemples) td:first-child,
+    .table-wrap:has(ul.exemples) td:first-child *{ white-space:normal; }
     .table-wrap:has(ul.exemples) td:first-child > .he{ order:1; flex:0 0 100%; }
     .table-wrap:has(ul.exemples) td:first-child > .cursive{ order:2; flex:0 0 100%; }
     .table-wrap:has(ul.exemples) td:first-child > .fr{ order:3; flex:0 0 100%; }
