@@ -376,6 +376,18 @@ Sous 640 px, les **tables de vocabulaire** — reconnues à leurs exemples embar
 
 La **barre de recherche du carnet est opaque** (`--bg` plein, ni voile translucide ni `backdrop-filter`) : le glassmorphism est une anti-référence de PRODUCT.md, et le texte fantôme qui transparaissait au défilement en était le symptôme. Le **sommaire est complet par contrat** : **une pilule par `<h2 id>`, sans exception**, en groupes de 3 à 8 — une pilule manquante est un mensonge par omission. Le contrat se contrôle, jamais ne se mémorise : `grep -c '<h2 id=' vocabulaire_hebreu.html` doit égaler `grep -o 'href="#sec-' vocabulaire_hebreu.html | wc -l`.
 
+### Le palier « ordi » de l'app (≥ 900 px)
+
+L'app est née sur iPhone et y était restée : ses seules media queries de largeur étaient des `max-width:480px`, c'est-à-dire des ordres de **rétrécir**. Aucune ne disait jamais de grandir. Un écran de 1900 px affichait donc une carte plafonnée à 420 px et un hébreu de 57,6 px au milieu d'un vide — **la règle de la vedette énoncée mais non tenue**, faute d'avoir pris une place qui était disponible.
+
+Le palier `min-width:900px` rend les deux choses que le plafond mobile retenait. **La largeur** : colonne 520 → 760 px, carte 420 → 640 px. **La rampe hébraïque**, d'environ +35 % — mot 3,6 → 4,8rem, inflexions 2 → 2,6rem, exemple 1,5 → 2rem, et surtout la translittération d'exemple 0,8 → 1rem, qui tombait à 12,8 px, moitié moins que la ligne française qu'elle accompagne. La correction du mode saisie suit (`.feedback .answer .he` 1,9 → 2,6rem) : c'est la réponse qu'on est venu lire, elle ne peut pas être le plus petit hébreu de l'écran.
+
+**Les contrôles, eux, ne bougent pas.** Les agrandir avec l'hébreu reviendrait à ne rien avoir hiérarchisé : la règle de la vedette veut un écart, pas une homothétie.
+
+**La hauteur de carte passe au contenu, et c'est ce qui règle le débordement.** `height:min(60vh,520px)` était rigide : la carte réclamait 60 % de l'écran même à moitié vide, si bien que la réponse suivie de l'exemple déplié partait sous la ligne de flottaison — le vide latéral et le débordement vertical étaient **le même défaut**, une carte qui gaspille la largeur et réclame la hauteur. Au-delà de 900 px elle prend ce qu'il lui faut (`height:auto`, `min-height:min(42vh,380px)`).
+
+**Corollaire structurel, valable à toutes les tailles** : l'étiquette de catégorie et l'indice de la carte sont passés de `position:absolute` à deux rangées de flux (`.face` en grille `auto 1fr auto`, `#face-content` seul à défiler). Épinglés, ils ne défilaient pas avec le contenu : un adjectif à trois inflexions dans la carte compacte du mode saisie passait **sous** « traduis en français ». Le padding réservait leur place, ce qui ne vaut que tant que rien ne défile.
+
 ### Carte de révision (composant signature)
 « Révision du jour » : la seule surface teintée d'or au repos (dégradé 135° d'or à 16 % → 5 %, bordure or). Elle a droit à cette exception parce qu'elle est *l'action* que le système veut encourager chaque jour.
 

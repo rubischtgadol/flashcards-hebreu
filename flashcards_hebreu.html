@@ -263,20 +263,30 @@
   body.input-mode .flip{ min-height:190px; height:min(32vh,290px); }
   body.input-mode .stage{ flex:0 0 auto; margin-bottom:2px; }
   .flip:active{ transform:scale(.994); }
+  /* Trois rangées en flux — étiquette / contenu / indice —, et non plus un
+     contenu centré entre deux éléments épinglés en `position:absolute`.
+     Épinglés, l'étiquette et l'indice ne défilaient pas avec le contenu : dès
+     que la carte était trop courte pour lui (un adjectif à trois inflexions
+     dans la carte compacte du mode saisie), le texte passait *sous* « traduis
+     en français » au lieu de s'arrêter avant. Le padding réservait la place
+     des deux, ce qui ne vaut que tant que rien ne défile. En flux, la rangée
+     du milieu est la seule à défiler et ne peut plus recouvrir personne. */
   .face{
-    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:44px 22px 40px; text-align:center; overflow-y:auto;
+    flex:1; min-height:0; display:grid; grid-template-rows:auto 1fr auto;
+    padding:16px 22px 14px; text-align:center;
   }
-  /* Marges auto : garde le contenu centré, mais si la carte déborde (carte compacte
-     du mode saisie) le haut du texte reste atteignable au défilement. */
-  #face-content{ margin-block:auto; }
+  /* min-height:0 laisse la rangée se comprimer au lieu de pousser la carte ;
+     align-content:center garde le contenu centré tant qu'il y a du mou. */
+  #face-content{ min-height:0; overflow-y:auto; display:grid; align-content:center; }
   .face .eyebrow{
-    position:absolute; top:16px; left:0; right:0;
+    /* Le padding latéral réserve les deux coins : le bouton d'écoute est en
+       absolu par-dessus, et l'étiquette est centrée — sans lui, une catégorie
+       longue passerait dessous sur la carte étroite du téléphone. */
+    padding-inline:46px;
     font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
     color:var(--gold); font-weight:600;
   }
   .face .hint{
-    position:absolute; bottom:14px; left:0; right:0;
     font-size:.84rem; color:var(--ink-dim);
   }
   .speak-btn{
@@ -380,6 +390,62 @@
   .forms .form-cell{ display:flex; flex-direction:column; align-items:center; gap:3px; min-width:78px; }
   .forms .f-he{ font-family:'Frank Ruhl Libre','David Libre','Times New Roman',serif; font-size:2rem; line-height:1.1; direction:rtl; }
   .forms .f-lbl{ font-size:.85rem; color:var(--ink-dim); direction:ltr; line-height:1.2; white-space:nowrap; }
+
+  /* ---------- Le palier « ordi » ----------
+     L'app est née sur iPhone et s'y était arrêtée : avant ce bloc, ses seules
+     @media de largeur étaient des `max-width:480px` — c'est-à-dire des ordres
+     de *rétrécir*. Aucune ne disait jamais de grandir, si bien qu'un écran de
+     1900 px affichait une carte de 420 px et un hébreu de 57,6 px au milieu
+     d'un vide. La règle de la vedette (docs/DESIGN.md) dit que l'hébreu est
+     toujours plus grand que tout le reste : sur ordi il y avait la place, et
+     elle n'était pas prise.
+
+     Deux corrections, liées par la même cause. On rend la largeur — et on
+     rend surtout la *hauteur au contenu* : `height:min(60vh,520px)` était
+     rigide, la carte réclamait 60 % de l'écran même à moitié vide, et la
+     réponse suivie de l'exemple déplié partait alors sous la ligne de
+     flottaison. Ici la carte prend ce qu'il lui faut, pas davantage.
+     ⚠️ Palier à 900 px, pas au-dessous : c'est la largeur à partir de
+     laquelle 640 px de carte laissent encore des marges franches. */
+  @media (min-width:900px){
+    .study{ max-width:760px; }
+    .flip{
+      max-width:640px;
+      height:auto; min-height:min(42vh,380px); max-height:none;
+    }
+    /* Le mode saisie comprimait la carte à 32vh pour que la correction tienne
+       sous elle ; à cette largeur le besoin disparaît et c'était précisément
+       cet écrasement qui faisait défiler les inflexions. */
+    body.input-mode .flip{ min-height:min(30vh,260px); height:auto; }
+    .face{ padding:20px 30px 18px; }
+    .face .eyebrow{ font-size:.9rem; padding-inline:56px; }
+    .face .hint{ font-size:.95rem; }
+
+    .big-he{ font-size:4.8rem; }
+    .big-he.cursive{ font-size:4.2rem; }
+    .big-fr{ font-size:3rem; }
+    .big-he.phrase{ font-size:2.8rem; }
+    .big-fr.phrase{ font-size:1.9rem; }
+    .translit{ font-size:1.4rem; }
+    .sub-he{ font-size:2.5rem; }
+    .sub-fr{ font-size:1.35rem; }
+    .cursive-line{ font-size:2.2rem; }
+    .note-line{ font-size:1.15rem; }
+
+    .forms{ gap:16px 30px; margin-top:24px; }
+    .forms.forms-grid{ gap:16px 44px; }
+    .forms .f-he{ font-size:2.6rem; }
+    .forms .f-lbl{ font-size:1rem; }
+    body.input-mode #face-content .forms{ gap:12px 22px; }
+    body.input-mode #face-content .forms .f-he{ font-size:2.2rem; }
+
+    /* L'exemple était le plus maltraité : sa translittération tombait à
+       12,8 px, moitié moins que la ligne française qu'elle accompagne. */
+    .ex-he{ font-size:2rem; }
+    .ex-tr{ font-size:1rem; }
+    .ex-fr{ font-size:1.15rem; }
+    .ex-toggle{ font-size:1rem; }
+  }
 
   /* ---------- Answer controls ---------- */
   .controls{ display:flex; gap:10px; margin-top:18px; min-height:52px; }
@@ -514,6 +580,30 @@
   /* Inflexions sur la carte elle-même (mode saisie, sens hébreu→français) */
   body.input-mode #face-content .forms{ margin:12px auto 0; gap:10px 14px; }
   body.input-mode #face-content .forms .f-he{ font-size:1.7rem; }
+
+  /* ---------- Le palier « ordi » (suite de 30-cartes.css) ----------
+     La correction du mode saisie souffrait du même défaut que la carte : le
+     mot juste y était rendu à 1,9rem — plus petit que la carte qui venait de
+     le poser à 3,6rem, et la ligne de translittération à 1,1rem. C'est la
+     réponse, c'est-à-dire ce qu'on est venu lire : elle ne peut pas être le
+     plus petit hébreu de l'écran. Les boutons, eux, ne bougent pas — la règle
+     de la vedette veut qu'aucun contrôle ne rivalise avec l'hébreu, et les
+     agrandir avec lui reviendrait à ne rien avoir hiérarchisé du tout. */
+  @media (min-width:900px){
+    .feedback{ font-size:1.15rem; }
+    .feedback .verdict{ font-size:1.25rem; }
+    .feedback .answer .he{ font-size:2.6rem; }
+    .feedback .answer .tr{ font-size:1.35rem; }
+    .feedback .your-answer{ font-size:1rem; }
+    .feedback .forms .f-he{ font-size:2.2rem; }
+    .feedback .forms{ gap:12px 22px; }
+    #answer-input{ font-size:1.25rem; }
+
+    .done{ max-width:760px; }
+    .missed-list{ max-width:620px; }
+    .missed-list .m-he{ font-size:1.7rem; }
+    .missed-list .m-fr{ font-size:1.05rem; }
+  }
 
   /* ---------- Mode QCM ---------- */
   /* Carte plus compacte : question en haut, réponses cliquables en dessous. */

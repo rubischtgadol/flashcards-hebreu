@@ -132,3 +132,27 @@
   body.input-mode #face-content .forms{ margin:12px auto 0; gap:10px 14px; }
   body.input-mode #face-content .forms .f-he{ font-size:1.7rem; }
 
+  /* ---------- Le palier « ordi » (suite de 30-cartes.css) ----------
+     La correction du mode saisie souffrait du même défaut que la carte : le
+     mot juste y était rendu à 1,9rem — plus petit que la carte qui venait de
+     le poser à 3,6rem, et la ligne de translittération à 1,1rem. C'est la
+     réponse, c'est-à-dire ce qu'on est venu lire : elle ne peut pas être le
+     plus petit hébreu de l'écran. Les boutons, eux, ne bougent pas — la règle
+     de la vedette veut qu'aucun contrôle ne rivalise avec l'hébreu, et les
+     agrandir avec lui reviendrait à ne rien avoir hiérarchisé du tout. */
+  @media (min-width:900px){
+    .feedback{ font-size:1.15rem; }
+    .feedback .verdict{ font-size:1.25rem; }
+    .feedback .answer .he{ font-size:2.6rem; }
+    .feedback .answer .tr{ font-size:1.35rem; }
+    .feedback .your-answer{ font-size:1rem; }
+    .feedback .forms .f-he{ font-size:2.2rem; }
+    .feedback .forms{ gap:12px 22px; }
+    #answer-input{ font-size:1.25rem; }
+
+    .done{ max-width:760px; }
+    .missed-list{ max-width:620px; }
+    .missed-list .m-he{ font-size:1.7rem; }
+    .missed-list .m-fr{ font-size:1.05rem; }
+  }
+
