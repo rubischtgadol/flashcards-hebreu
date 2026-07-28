@@ -37333,6 +37333,358 @@
       "he_plain": "שבת"
     },
     {
+      "cat": "Heure et date",
+      "he": "בַּבֹּקֶר",
+      "tr": "baboker",
+      "fr": "le matin (complément de temps)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי עוֹבֵד בַּבֹּקֶר",
+          "tr": "ani 'oved baboker",
+          "fr": "je travaille le matin",
+          "he_plain": "אני עובד בבקר"
+        }
+      ],
+      "he_plain": "בבקר"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בַּצָּהֳרַיִם",
+      "tr": "batsohorayim",
+      "fr": "à midi",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹכֵל בַּצָּהֳרַיִם",
+          "tr": "ani okhel batsohorayim",
+          "fr": "je mange à midi",
+          "he_plain": "אני אוכל בצהרים"
+        }
+      ],
+      "he_plain": "בצהרים"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "אַחַר הַצָּהֳרַיִם",
+      "tr": "achar hatsohorayim",
+      "fr": "l'après-midi",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי יָשֵׁן אַחַר הַצָּהֳרַיִם",
+          "tr": "ani yashen achar hatsohorayim",
+          "fr": "je dors l'après-midi",
+          "he_plain": "אני ישן אחר הצהרים"
+        }
+      ],
+      "he_plain": "אחר הצהרים"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בָּעֶרֶב",
+      "tr": "ba'erev",
+      "fr": "le soir",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ אוֹכְלִים בָּעֶרֶב",
+          "tr": "anachnu okhlim ba'erev",
+          "fr": "nous mangeons le soir",
+          "he_plain": "אנחנו אוכלים בערב"
+        }
+      ],
+      "he_plain": "בערב"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בַּלַּיְלָה",
+      "tr": "balaylah",
+      "fr": "la nuit",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַיֶּלֶד יָשֵׁן בַּלַּיְלָה",
+          "tr": "hayeled yashen balaylah",
+          "fr": "l'enfant dort la nuit",
+          "he_plain": "הילד ישן בלילה"
+        }
+      ],
+      "he_plain": "בלילה"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "לִפְנוֹת בֹּקֶר",
+      "tr": "lifnot boker",
+      "fr": "au petit matin",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא קָם לִפְנוֹת בֹּקֶר",
+          "tr": "hu kam lifnot boker",
+          "fr": "il se lève au petit matin",
+          "he_plain": "הוא קם לפנות בקר"
+        }
+      ],
+      "he_plain": "לפנות בקר"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "חֲצוֹת",
+      "tr": "chatsot",
+      "fr": "minuit",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַמְּסִבָּה נִגְמֶרֶת בַּחֲצוֹת",
+          "tr": "hamsibah nigmeret bachatsot",
+          "fr": "la fête finit à minuit",
+          "he_plain": "המסבה נגמרת בחצות"
+        }
+      ],
+      "he_plain": "חצות"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "וָחֵצִי",
+      "tr": "vachetsi",
+      "fr": "et demie (שָׁלוֹשׁ וָחֵצִי)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה שָׁלוֹשׁ וָחֵצִי",
+          "tr": "hasha'ah shalosh vachetsi",
+          "fr": "il est trois heures et demie",
+          "he_plain": "השעה שלוש וחצי"
+        }
+      ],
+      "he_plain": "וחצי"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "וָרֶבַע",
+      "tr": "vareva'",
+      "fr": "et quart",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה אַרְבַּע וָרֶבַע",
+          "tr": "hasha'ah arba' vareva'",
+          "fr": "il est quatre heures et quart",
+          "he_plain": "השעה ארבע ורבע"
+        }
+      ],
+      "he_plain": "ורבע"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בְּשָׁעָה",
+      "tr": "besha'ah",
+      "fr": "à … heure(s)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַשִּׁעוּר מַתְחִיל בְּשָׁעָה שֶׁבַע",
+          "tr": "hashi'ur matchil besha'ah sheva'",
+          "fr": "le cours commence à sept heures",
+          "he_plain": "השעור מתחיל בשעה שבע"
+        }
+      ],
+      "he_plain": "בשעה"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בְּאֵיזוֹ שָׁעָה",
+      "tr": "be'eizo sha'ah",
+      "fr": "à quelle heure",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בְּאֵיזוֹ שָׁעָה אַתָּה קָם?",
+          "tr": "be'eizo sha'ah atah kam?",
+          "fr": "à quelle heure te lèves-tu ?",
+          "he_plain": "באיזו שעה אתה קם?"
+        }
+      ],
+      "he_plain": "באיזו שעה"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "עֶשְׂרִים לְ־",
+      "tr": "'esrim le-",
+      "fr": "… moins vingt",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה עֶשְׂרִים לְשֵׁשׁ",
+          "tr": "hasha'ah 'esrim leshesh",
+          "fr": "il est six heures moins vingt",
+          "he_plain": "השעה עשרים לשש"
+        }
+      ],
+      "he_plain": "עשרים ל"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "שִׁלְשׁוֹם",
+      "tr": "shilshom",
+      "fr": "avant-hier",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "פָּגַשְׁתִּי אוֹתָהּ שִׁלְשׁוֹם",
+          "tr": "pagashti otah shilshom",
+          "fr": "je l'ai rencontrée avant-hier",
+          "he_plain": "פגשתי אותה שלשום"
+        }
+      ],
+      "he_plain": "שלשום"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "אֶתְמוֹל בָּעֶרֶב",
+      "tr": "etmol ba'erev",
+      "fr": "hier soir",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "רָאִיתִי סֶרֶט אֶתְמוֹל בָּעֶרֶב",
+          "tr": "ra'iti seret etmol ba'erev",
+          "fr": "j'ai vu un film hier soir",
+          "he_plain": "ראיתי סרט אתמול בערב"
+        }
+      ],
+      "he_plain": "אתמול בערב"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "הַשָּׁבוּעַ",
+      "tr": "hashavu'a",
+      "fr": "cette semaine",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי עָסוּק הַשָּׁבוּעַ",
+          "tr": "ani 'asuk hashavu'a",
+          "fr": "je suis occupé cette semaine",
+          "he_plain": "אני עסוק השבוע"
+        }
+      ],
+      "he_plain": "השבוע"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בַּשָּׁבוּעַ הַבָּא",
+      "tr": "bashavu'a haba",
+      "fr": "la semaine prochaine",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "נִפָּגֵשׁ בַּשָּׁבוּעַ הַבָּא",
+          "tr": "nipagesh bashavu'a haba",
+          "fr": "on se voit la semaine prochaine",
+          "he_plain": "נפגש בשבוע הבא"
+        }
+      ],
+      "he_plain": "בשבוע הבא"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בַּשָּׁבוּעַ שֶׁעָבַר",
+      "tr": "bashavu'a she'avar",
+      "fr": "la semaine dernière",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הָיִיתִי חוֹלֶה בַּשָּׁבוּעַ שֶׁעָבַר",
+          "tr": "hayiti choleh bashavu'a she'avar",
+          "fr": "j'étais malade la semaine dernière",
+          "he_plain": "הייתי חולה בשבוע שעבר"
+        }
+      ],
+      "he_plain": "בשבוע שעבר"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בַּחֹדֶשׁ שֶׁעָבַר",
+      "tr": "bachodesh she'avar",
+      "fr": "le mois dernier",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִתְחַתַּנּוּ בַּחֹדֶשׁ שֶׁעָבַר",
+          "tr": "hitchatanu bachodesh she'avar",
+          "fr": "ils se sont mariés le mois dernier",
+          "he_plain": "התחתנו בחדש שעבר"
+        }
+      ],
+      "he_plain": "בחדש שעבר"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "לִפְנֵי שָׁבוּעַ",
+      "tr": "lifnei shavu'a",
+      "fr": "il y a une semaine",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִגַּעְתִּי לִפְנֵי שָׁבוּעַ",
+          "tr": "higa'ti lifnei shavu'a",
+          "fr": "je suis arrivé il y a une semaine",
+          "he_plain": "הגעתי לפני שבוע"
+        }
+      ],
+      "he_plain": "לפני שבוע"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בְּעוֹד שָׁבוּעַ",
+      "tr": "be'od shavu'a",
+      "fr": "dans une semaine",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַטִּיּוּל מַתְחִיל בְּעוֹד שָׁבוּעַ",
+          "tr": "hatiyul matchil be'od shavu'a",
+          "fr": "le voyage commence dans une semaine",
+          "he_plain": "הטיול מתחיל בעוד שבוע"
+        }
+      ],
+      "he_plain": "בעוד שבוע"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בֶּן כַּמָּה",
+      "tr": "ben kamah",
+      "fr": "quel âge (à un homme)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "בֶּן כַּמָּה אַתָּה?",
+          "tr": "ben kamah atah?",
+          "fr": "quel âge as-tu ?",
+          "he_plain": "בן כמה אתה?"
+        }
+      ],
+      "he_plain": "בן כמה"
+    },
+    {
+      "cat": "Heure et date",
+      "he": "בַּת כַּמָּה",
+      "tr": "bat kamah",
+      "fr": "quel âge (à une femme)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "בַּת כַּמָּה הַיַּלְדָּה?",
+          "tr": "bat kamah hayaldah?",
+          "fr": "quel âge a la fillette ?",
+          "he_plain": "בת כמה הילדה?"
+        }
+      ],
+      "he_plain": "בת כמה"
+    },
+    {
       "cat": "Adverbes",
       "he": "עַכְשָׁיו",
       "tr": "'akhshav",

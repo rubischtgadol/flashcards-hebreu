@@ -35,7 +35,9 @@ places réservées — Tâche 2b) ; `data/listes/prepositions-flechies.json` (cr
 `src/carnet/sections/34-nombres-fractions.html` (créés — section « Nombres —
 fractions et multiplicatifs ») ; `data/listes/connecteurs-du-discours.json`,
 `src/carnet/sections/29-connecteurs-du-discours.html` (créés — section
-« Connecteurs du discours »).** Le graphe n'a jamais connu ces fichiers — il
+« Connecteurs du discours ») ; `data/listes/heure-et-date.json`,
+`src/carnet/sections/36-heure-et-date.html` (créés — section « Heure et
+date »).** Le graphe n'a jamais connu ces fichiers — il
 est antérieur à `docs/` —, donc il n'y a rien à en retirer : la ligne est là
 pour que le prochain recalage n'aille pas les chercher. Le flag enregistre la
 dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
