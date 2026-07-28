@@ -14,64 +14,32 @@
 
 ## Reprendre ici (prochaine session)
 
-**Où en est le dépôt (tout poussé sur `main`).** Le chantier « mots-outils et
-nombres » est **CLOS** : l'audit d'existence avait montré que le carnet
-enseignait massivement les classes ouvertes (noms, adjectifs, verbes) en
-sautant la morphologie qui les relie — prépositions fléchies, conjonctions,
-connecteurs du discours, heure et date, existence et possession, impératif,
-tournures impersonnelles, comparatif et superlatif, interrogatifs,
-démonstratifs, nombres. Six catégories neuves dans l'app (Prépositions
-fléchies, Connecteurs du discours, Heure et date, Comparatif et superlatif,
-Tournures impersonnelles, Impératif), cinq sections neuves dans le carnet,
-un outil neuf (`tools/controle_tr.js`) et une garde neuve (`verifieCatOrder`,
-§ Garde-fous contre la casse silencieuse d'ARCHITECTURE.md). La réorganisation
-« le dépôt généré » (chantiers 1 à 4, 21 tasks) reste soldée elle aussi ; la
-preuve et sa procédure de rejeu vivent dans l'archive. **Aucun chantier n'est
-ouvert** sur `main` ; la dette ouverte compte **quatre entrées** (voir § Dette
-ouverte).
+**Aucun chantier n'est ouvert sur `main`, et tout est poussé.** La dette ouverte
+compte **quatre entrées** (voir § Dette ouverte) ; deux branches latérales
+dorment (voir § Deux branches latérales), dont une à laquelle il ne faut pas
+toucher.
 
-**Acquis depuis** — trois choses, toutes sur `main`. (1) **Le palier « ordi »
-de l'app** (`min-width:900px`, DESIGN.md § Le palier « ordi » de l'app) : l'app
-n'avait aucune media query de largeur qui fasse *grandir*, d'où une carte de
-420 px et un hébreu de 57,6 px sur un écran de 1900. Largeur et rampe
-hébraïque rendues, hauteur de carte passée au contenu — ce dernier point règle
-le débordement sous la ligne de flottaison, qui était le même défaut vu par
-l'autre bout. (2) **`.face` en trois rangées de flux** au lieu de deux éléments
-en `position:absolute` : l'étiquette et l'indice ne défilaient pas avec le
-contenu et le recouvraient en mode saisie. Correction valable à toutes les
-tailles, téléphone compris. (3) **Section neuve « Le nikoud »** en tête de
-Partie 1 (carnet seul, aucune carte : un signe de voyelle ne se révise pas
-comme un mot) — les treize signes, le shva, les chatafs des gutturales, le
-qamats katan, le dagesh et ses trois rôles, le point du shin, le patach
-furtif, le ktiv male. La règle de l'article devant gutturale (הֶ et non הַ :
-*hechadash*) a rejoint la section « L'article défini », où elle manquait.
-Garde neuve au passage : `verifieOrphelins()` couvre enfin
-`src/carnet/sections.json` (entrée 11 du § Garde-fous). (6) **Section neuve
-« Abréviations et sigles »** à la place 42, celle qui l'attendait — 11 entrées,
-cartes comprises cette fois (un sigle se révise, contrairement à un signe de
-voyelle). Elle était bloquée par le validateur, pas par son contenu : levée par
-un **contrat de sigle** dans `verifie_exemples.js`, décrit au § Le lexique du
-validateur d'ARCHITECTURE.md.
+**Ce que le dépôt contient**, en chiffres qui périment — aucun ne vaut recopie,
+chacun a une commande qui le recalcule :
 
-**Deux défauts anciens du carnet sur iPhone, soldés depuis** (ils préexistaient
-au nikoud, la section neuve les a seulement fait apparaître). (4) **Le carnet
-ne déborde plus horizontalement** : `scrollWidth` 444 → 402 pour 402 de
-viewport, 0 nœud texte débordant contre 6. Une seule cause pour deux symptômes
-sans ressemblance — `display:contents` supprime la boîte mais **pas
-l'héritage**, si bien que le `white-space:nowrap` de `th,td` traversait la
-cellule dissoute du mode carte (DESIGN.md § Rangs en cartes). ⚠️ Le piège de
-mesure qui va avec est consigné en piège n°16 de CLAUDE.md : un débordement de
-texte est **invisible** sur `getBoundingClientRect()` des éléments, il se
-mesure au `Range` sur les nœuds texte. (5) **La recherche indexe les titres de
-section** : une section dont le nom ne vit que dans le titre et la prose était
-introuvable *et* masquée — « qamats » trouvait le nikoud, « nikoud » non. La
-règle « des correspondances, pas des leçons » est intacte : un titre seul
-apparaît, jamais le cours.
+| Fait | Valeur | L'autorité qui la recalcule |
+| --- | --- | --- |
+| Cartes | 1728 (A1 490 · A2 669 · B1 503 · B2 47 · C1 19) | `node tools/cherche_mots.js --stats` |
+| Sections du carnet | 45 (44 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
+| Catégories de cartes | 25 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
+| Garde-fous anti-casse silencieuse | 11 | ARCHITECTURE.md § Garde-fous |
+| Outils dev | 6 dans `tools/` | `ls tools/*.js` |
+| Modules de l'app | 14 JS + 6 CSS dans `src/app/` | `src/app/ordre.json`, gardé par `verifieOrphelins()` |
 
-**Le carnet compte 1728 cartes.**
-⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
-prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
---stats`, jamais cette page.
+⚠️ **Ce tableau est le seul endroit de ce fichier qui porte des chiffres**, et
+c'est déjà un risque assumé : la colonne de droite existe pour qu'on ne le croie
+jamais sur parole. Un chiffre sans sa commande est une dette.
+
+**Ce qui s'est passé pour en arriver là ne vit pas ici** — les cinq derniers
+chantiers (palier ordi, `.face` en flux, section nikoud, les deux défauts iPhone
+du carnet, section abréviations) sont archivés dans
+[TODO_ARCHIVE.md](TODO_ARCHIVE.md) § « Chantiers clos — archivés le 2026-07-28 ».
+Ce fichier répond à « où en est-on ? », jamais à « que s'est-il passé ? ».
 
 ⚠️ **GRAPHE À RECALER** — le graphe est antérieur à `docs/` : il n'a jamais
 connu ce qui suit, donc rien à en retirer, seulement à y ajouter au prochain

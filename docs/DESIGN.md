@@ -335,7 +335,7 @@ Caractère commun : **discrets jusqu'à l'action**. Au repos, un contrôle est t
 Pas de barre de navigation : l'app est un flux setup → session → score. Le retour est un bouton « Quitter » discret (couche carte, filet, texte estompé) ; la progression est une fine barre d'or (5px, pilule) + compteur mono.
 
 ### Le pli
-Une forme unique, portée par un `<details>` natif : rangée posée sur la nuit claire, filet, rayon 12px, chevron qui pivote à l'ouverture, résumé estompé aligné à droite. **Quatre emplois** : « Réglages avancés » (Ordre, Longueur, Prononciation — ce qu'on règle une fois), « Catégories » et « Niveau » (les deux plus gros points de décision de l'écran, **23 chips à eux deux** — 18 catégories et 5 niveaux), plus « Thèmes ».
+Une forme unique, portée par un `<details>` natif : rangée posée sur la nuit claire, filet, rayon 12px, chevron qui pivote à l'ouverture, résumé estompé aligné à droite. **Quatre emplois** : « Réglages avancés » (Ordre, Longueur, Prononciation — ce qu'on règle une fois), « Catégories » et « Niveau » (les deux plus gros points de décision de l'écran, **28 chips à eux deux** — 25 catégories et 3 niveaux, les puces vides n'étant pas rendues), plus « Thèmes ».
 
 **Un pli ne cache rien : il condense.** Le résumé de la rangée porte la sélection en cours (« Verbes, Noms », « Toutes (17) », « Aléatoire · 20 cartes · Au clic »). Au-delà de deux entrées on donne un compte plutôt qu'une liste — une liste coupée à l'ellipse en dirait moins que rien, elle mentirait. Corollaire : pas de pli sans résumé véridique.
 

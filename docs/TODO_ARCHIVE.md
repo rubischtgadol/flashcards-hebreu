@@ -2392,7 +2392,7 @@ quatre autres — jamais recalculé ailleurs.
 Ce qu'a établi le contrôle final. Chaque ligne dit **la commande**, pas son
 résultat du jour : c'est elle qui refait la preuve, à n'importe quelle date.
 Plan complet dans
-[le plan du chantier](superpowers/plans/2026-07-24-reorganisation-depot-genere.md).
+le plan du chantier — `docs/superpowers/plans/2026-07-24-reorganisation-depot-genere.md`, **supprimé depuis au ménage documentaire, à relire dans l'historique git** (le lien vivant a été retiré : il promettait un fichier qui n'existe plus).
 
 1. **Rituel en ligne de commande** — `node tools/build.js`, puis
    `node tools/build.js --check`, puis `node tools/verifie_exemples.js`
@@ -3098,3 +3098,73 @@ Deux commits, **aucun contenu touché** ⇒ pas de bump `sw.js`, pas de flag gra
 2. **Commit B** — docs : §2.1, §2.3 et §4 de cette spec ; TODO.md § Outillage et
    « Reprendre ici » ; mémoire agent.
 
+
+## Chantiers clos — archivés le 2026-07-28
+
+Déplacé depuis TODO.md § « Reprendre ici », qui s'en était rempli. Quatre
+chantiers, tous poussés sur `main`, tous vérifiés en WebKit avant commit.
+
+**1. Le palier « ordi » de l'app** (`c03baee`). L'app était née sur iPhone et y
+était restée : ses seules media queries de largeur étaient des
+`max-width:480px`, c'est-à-dire des ordres de *rétrécir*. Aucune ne disait
+jamais de grandir, d'où une carte plafonnée à 420 px et un hébreu de 57,6 px au
+milieu d'un écran de 1900. Le vide latéral et le débordement sous la ligne de
+flottaison étaient **le même défaut vu par deux bouts** — une carte qui gaspille
+la largeur (`max-width` en dur) et réclame la hauteur (`height:min(60vh,520px)`
+rigide, réclamée même à moitié vide). Palier `min-width:900px` : colonne
+520 → 760 px, carte 420 → 640 px, rampe hébraïque +35 %, hauteur passée au
+contenu. Les contrôles ne bougent pas — les agrandir avec l'hébreu aurait annulé
+la hiérarchie que la règle de la vedette cherche. Vérifié 6/6 : aucun
+débordement vertical aux quatre largeurs dans les deux modes, et **iPhone
+inchangé** (51,2 / 30,4 / 24 / 12,8 / 30,4 px), qui était le contrôle miroir du
+piège 13.
+
+**2. `.face` en trois rangées de flux** (même commit). L'étiquette de catégorie
+et l'indice de la carte étaient en `position:absolute` dans une `.face` qui
+défile : épinglés, ils ne défilaient pas avec le contenu, et un adjectif à trois
+inflexions dans la carte compacte du mode saisie passait **sous** « traduis en
+français ». Le padding réservait leur place, ce qui ne vaut que tant que rien ne
+défile. Correction valable à toutes les tailles, téléphone compris ; rangées
+jointives au pixel après coup (165→184, 184→365, 365→385).
+
+**3. Section « Le nikoud »** (`f31e85e`), en tête de Partie 1. Tout le carnet est
+vocalisé et n'expliquait nulle part comment lire cette vocalisation : 43 sections,
+aucune sur le système d'écriture. Carnet seul, aucune carte — un signe de voyelle
+ne se révise pas comme un mot, la question « traduis ָ » n'a pas de sens. Les
+treize signes un par un, précédés du tableau « cinq sons, treize signes » qui est
+ce qui rend l'ensemble apprenable ; puis le shva et ses deux emplois, les chatafs
+des gutturales, le qamats katan, le dagesh et ses trois rôles, le point du shin,
+le patach furtif, le ktiv male. Les 29 mots cités reprennent la vocalisation
+exacte du carnet, vérifiée entrée par entrée contre `data/`. La règle de l'article
+devant gutturale (הֶ et non הַ : *hechadash*) a rejoint « L'article défini », où
+elle manquait. Garde neuve au passage : `verifieOrphelins()` couvre enfin
+`src/carnet/sections.json`.
+
+**4. Les deux défauts du carnet sur iPhone** (`0f6e6c0`, `4e801c6`), préexistants
+— la section nikoud les a seulement fait apparaître. Le débordement horizontal
+d'abord : `display:contents` supprime la boîte mais **pas l'héritage**, si bien
+que le `white-space:nowrap` de `th,td` traversait la cellule dissoute du mode
+carte vers des textes qui doivent revenir à la ligne ; en grille défilante le
+wrap coupait, mais la carte mobile est en `overflow-x:visible`. Une cause, deux
+symptômes opposés : la glose sortait à gauche, les `.fr`/`.tr` des exemples (en
+`direction:ltr`) sortaient à droite. `scrollWidth` 444 → 402, 6 → 0 nœuds texte
+débordants. ⚠️ La leçon de mesure est devenue le **piège n°16 de CLAUDE.md** : un
+débordement de texte est invisible sur `getBoundingClientRect()` des éléments, il
+se mesure au `Range` sur les nœuds texte — deux investigations avaient conclu de
+travers avant qu'on le voie. La recherche ensuite : elle n'indexait ni les titres
+ni la prose, si bien qu'une section cherchée par son nom était introuvable *et*
+masquée (« qamats » trouvait le nikoud, « nikoud » non). Les titres sont
+désormais indexés, sans entamer la règle « des correspondances, pas des leçons » —
+mesuré : 24 blocs de prose dans la section retenue, 0 visible.
+
+**5. Section « Abréviations et sigles »** (`3631a8c`), à la place 42 qui
+l'attendait. Elle était prête depuis un chantier et bloquée **non par son contenu
+mais par le validateur** : 13 erreurs, toutes structurelles. Levée par un
+**contrat de sigle** typographique dans `verifie_exemples.js` — gershayim,
+apostrophe finale, points — plutôt que par une exemption de catégorie, si bien
+que la règle vaut partout dans le corpus au lieu d'ouvrir un trou par section.
+⚠️ L'apostrophe non finale ne compte pas : elle note un son étranger (ג' = j,
+צ' = tch) sur un mot ordinaire, qui reste soumis au contrôle. Éprouvé par cas
+fabriqué dans les deux sens, dont celui qui comptait : un mot ordinaire non
+vocalisé **dans une phrase portant par ailleurs un vrai sigle** échoue toujours,
+l'exemption étant par jeton et non par phrase. 1717 → 1728 cartes.

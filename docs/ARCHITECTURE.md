@@ -347,7 +347,7 @@ Chaque module s'ouvre donc sur un en-tête `// Expose : … — Utilise : …` q
 
 L'écran setup utilise des toggles segmentés `.chip` portant des `data-*` (`data-mode`, `data-dir`, `data-script`, `data-order`, `data-audio`, `data-len`), câblés en boucle sur `SEG_KEYS` par `segPick(container, key, btn)` ([src/app/js/07-filtres.js](../src/app/js/07-filtres.js)) dans l'objet `state` ([src/app/js/99-principal.js](../src/app/js/99-principal.js)). Chaque groupe est un `role="group"` relié à son `<h2>` (`aria-labelledby`, notes en `aria-describedby`). Les trois groupes « qu'on règle une fois » (Ordre, Longueur, Prononciation) vivent repliés dans le `<details class="adv">` « Réglages avancés », fermé par défaut.
 
-**Catégories et Niveau se replient de même**, dans deux `<details class="adv">` de forme identique : ce sont les deux plus gros points de décision de l'écran, **23 chips à eux deux** (18 catégories, 5 niveaux), et les laisser dépliés allongeait le panneau au point de repousser « Commencer » hors de vue. Trois propriétés à ne pas casser :
+**Catégories et Niveau se replient de même**, dans deux `<details class="adv">` de forme identique : ce sont les deux plus gros points de décision de l'écran, **28 chips à eux deux** (25 catégories, 3 niveaux — les puces vides ne sont pas rendues, cf. les `filter` de `buildChips`/`buildNivChips`, d'où 3 et non les 4 `NIVEAUX` déclarés : « Expert » attend ses cartes C2), et les laisser dépliés allongeait le panneau au point de repousser « Commencer » hors de vue. Trois propriétés à ne pas casser :
 
 - **Le `<h2>` du groupe *est* la rangée du `<summary>`** (et non un titre dupliqué au-dessus). Il reste la cible de l'`aria-labelledby`, donc le nom accessible n'est pas dédoublé ; il prend en revanche la voix du libellé de pli (`.adv summary h2.adv-lbl`) et non la voix Title dorée — un groupe replié se lit comme un pli, un groupe déplié comme une section.
 - **Le `<summary>` résume la sélection** (`refreshFoldSubs()`, appelé depuis `updateStart()` — donc par toutes les voies qui changent la sélection : chips, `#selall`, remise à zéro, restauration des préférences). Au-delà de deux entrées on compte au lieu de lister, une liste coupée à l'ellipse étant mensongère ; l'ordre suit `catOrder`, c'est-à-dire celui des chips à l'écran.
@@ -434,7 +434,9 @@ La règle « écrit seulement s'il s'entend » est **morphologique**, pas phoné
 
 ## Garde-fous contre la casse silencieuse
 
-Les quatre premiers filets détectent les cartes perdues ; les quatre suivants (chaque garde éprouvée par un cas de casse fabriqué avant d'être crue) attrapent la casse de charte, la preuve muette et le commit incomplet :
+Onze filets, groupés par ce qu'ils rattrapent plutôt que par leur rang — la numérotation dérive, les familles non : les **cartes perdues** (1, 2), la **dérive d'artefact ou d'estampille** (3, 8, 9), la **casse de charte ou de taxonomie** (4, 5), le **silence d'un point de câblage** (10, 11), et la **preuve muette** (6, 7).
+
+⚠️ **Chacune a été vue échouer sur un cas de casse fabriqué avant d'être crue.** C'est la règle qui donne leur valeur aux dix autres lignes de cette section : une garde qu'on n'a jamais vue rougir ne prouve rien, elle rassure. Un contrôle muet passe toujours au vert.
 
 1. **`init()` dans app.html** ([src/app/js/99-principal.js](../src/app/js/99-principal.js)) : avertit (console + écran setup) si une catégorie attendue donne 0 carte au chargement.
 2. **`node tools/build.js`** : compte par section, sortie non-zéro si une section de `EXPECTED_CATS` est vide, ancres `mustReplace` qui échouent bruyamment.
