@@ -7758,6 +7758,22 @@
     ]
   },
   {
+    "he": "גִּיל",
+    "fr": "âge",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "מָה הַגִּיל שֶׁלְּךָ?",
+        "tr": "mah hagil shelkha?",
+        "fr": "quel est ton âge ?"
+      }
+    ]
+  },
+  {
     "he": "סֵפֶר",
     "fr": "livre",
     "genre": "m",

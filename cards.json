@@ -28339,6 +28339,24 @@
     },
     {
       "cat": "Noms",
+      "he": "גִּיל",
+      "tr": "",
+      "fr": "âge (m)",
+      "genre": "m",
+      "niveau": "A2",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "מָה הַגִּיל שֶׁלְּךָ?",
+          "tr": "mah hagil shelkha?",
+          "fr": "quel est ton âge ?",
+          "he_plain": "מה הגיל שלך?"
+        }
+      ],
+      "he_plain": "גיל"
+    },
+    {
+      "cat": "Noms",
       "he": "סֵפֶר",
       "tr": "",
       "fr": "livre (m)",
