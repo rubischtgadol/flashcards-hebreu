@@ -38453,6 +38453,86 @@
     },
     {
       "cat": "Hébreu parlé",
+      "he": "בְּהַצְלָחָה",
+      "tr": "behatslachah",
+      "fr": "bonne chance !",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "בְּהַצְלָחָה בַּמִּבְחָן מָחָר",
+          "tr": "behatslachah bamivchan machar",
+          "fr": "bonne chance pour l'examen demain",
+          "he_plain": "בהצלחה במבחן מחר"
+        }
+      ],
+      "he_plain": "בהצלחה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "תִּתְחַדֵּשׁ",
+      "tr": "titchadesh",
+      "fr": "profite bien ! (à qui étrenne du neuf)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "נַעֲלַיִם חֲדָשׁוֹת? תִּתְחַדֵּשׁ!",
+          "tr": "na'alayim chadashot? titchadesh!",
+          "fr": "de nouvelles chaussures ? Profite bien !",
+          "he_plain": "נעלים חדשות? תתחדש!"
+        }
+      ],
+      "he_plain": "תתחדש"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "אֵיךְ הוֹלֵךְ",
+      "tr": "eikh holekh",
+      "fr": "comment ça va ? (fam.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֵיךְ הוֹלֵךְ, מָה נִשְׁמָע?",
+          "tr": "eikh holekh, mah nishma?",
+          "fr": "comment ça va, quoi de neuf ?",
+          "he_plain": "איך הולך, מה נשמע?"
+        }
+      ],
+      "he_plain": "איך הולך"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "בַּיי",
+      "tr": "bai",
+      "fr": "salut ! (au revoir)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "בַּיי, נִתְרָאֶה מָחָר!",
+          "tr": "bai, nitra'e machar!",
+          "fr": "salut, à demain !",
+          "he_plain": "ביי, נתראה מחר!"
+        }
+      ],
+      "he_plain": "ביי"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "אוֹקֵיי",
+      "tr": "okei",
+      "fr": "OK",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אוֹקֵיי, אֲנִי בָּא מִיָּד",
+          "tr": "okei, ani ba miyad",
+          "fr": "OK, j'arrive tout de suite",
+          "he_plain": "אוקיי, אני בא מיד"
+        }
+      ],
+      "he_plain": "אוקיי"
+    },
+    {
+      "cat": "Hébreu parlé",
       "he": "אַחְלָה",
       "tr": "achlah",
       "fr": "super, génial",
@@ -38678,6 +38758,22 @@
         }
       ],
       "he_plain": "סבבה"
+    },
+    {
+      "cat": "Hébreu parlé",
+      "he": "מָה אִכְפַּת לִי",
+      "tr": "mah ikhpat li",
+      "fr": "qu'est-ce que ça peut me faire (fam.)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "מָה אִכְפַּת לִי מִמֶּנּוּ",
+          "tr": "mah ikhpat li mimenu",
+          "fr": "qu'est-ce que ça peut me faire de lui",
+          "he_plain": "מה אכפת לי ממנו"
+        }
+      ],
+      "he_plain": "מה אכפת לי"
     },
     {
       "cat": "Hébreu parlé",

@@ -9,7 +9,11 @@
       "groupe": "particules",
       "note": "de l'hébreu תַּכְלִית par le yiddish ; s'écrit souvent תכל'ס",
       "exemples": [
-        { "he": "תַּכְלֶ'ס, אֲנִי לֹא רוֹצֶה לָלֶכֶת", "tr": "takhles, ani lo rotseh lalekhet", "fr": "Franchement, je n'ai pas envie d'y aller." }
+        {
+          "he": "תַּכְלֶ'ס, אֲנִי לֹא רוֹצֶה לָלֶכֶת",
+          "tr": "takhles, ani lo rotseh lalekhet",
+          "fr": "Franchement, je n'ai pas envie d'y aller."
+        }
       ]
     },
     {
@@ -20,7 +24,11 @@
       "groupe": "particules",
       "note": "tic de langage omniprésent ; sert aussi à rapporter des paroles",
       "exemples": [
-        { "he": "הוּא כְּאִילּוּ לֹא רוֹאֶה אוֹתִי", "tr": "hu ke'ilu lo ro'eh oti", "fr": "Il fait genre qu'il ne me voit pas." }
+        {
+          "he": "הוּא כְּאִילּוּ לֹא רוֹאֶה אוֹתִי",
+          "tr": "hu ke'ilu lo ro'eh oti",
+          "fr": "Il fait genre qu'il ne me voit pas."
+        }
       ]
     },
     {
@@ -31,7 +39,11 @@
       "groupe": "particules",
       "note": "renverse l'attente de l'interlocuteur — intraduisible mot à mot",
       "exemples": [
-        { "he": "דַּוְקָא אָהַבְתִּי אֶת הַסֶּרֶט", "tr": "davka ahavti et haseret", "fr": "En fait si, j'ai bien aimé le film." }
+        {
+          "he": "דַּוְקָא אָהַבְתִּי אֶת הַסֶּרֶט",
+          "tr": "davka ahavti et haseret",
+          "fr": "En fait si, j'ai bien aimé le film."
+        }
       ]
     },
     {
@@ -42,7 +54,11 @@
       "groupe": "particules",
       "note": "aussi « n'importe quoi » : סְתָם דִּבּוּרִים",
       "exemples": [
-        { "he": "סְתָם שָׁאַלְתִּי, בְּלִי סִבָּה", "tr": "stam sha'alti, beli sibah", "fr": "Je demandais juste comme ça, sans raison." }
+        {
+          "he": "סְתָם שָׁאַלְתִּי, בְּלִי סִבָּה",
+          "tr": "stam sha'alti, beli sibah",
+          "fr": "Je demandais juste comme ça, sans raison."
+        }
       ]
     },
     {
@@ -52,7 +68,11 @@
       "niveau": "B1",
       "groupe": "particules",
       "exemples": [
-        { "he": "בְּעֶצֶם, אַתָּה צוֹדֵק", "tr": "be'etsem, atah tsodek", "fr": "Au fond, tu as raison." }
+        {
+          "he": "בְּעֶצֶם, אַתָּה צוֹדֵק",
+          "tr": "be'etsem, atah tsodek",
+          "fr": "Au fond, tu as raison."
+        }
       ]
     },
     {
@@ -63,7 +83,11 @@
       "groupe": "particules",
       "note": "emploi adverbial — l'adjectif פָּשׁוּט « simple » est aux Adjectifs",
       "exemples": [
-        { "he": "פָּשׁוּט שָׁכַחְתִּי אֶת הַמַּפְתֵּחַ", "tr": "pashut shakhachti et hamafteach", "fr": "J'ai tout simplement oublié la clé." }
+        {
+          "he": "פָּשׁוּט שָׁכַחְתִּי אֶת הַמַּפְתֵּחַ",
+          "tr": "pashut shakhachti et hamafteach",
+          "fr": "J'ai tout simplement oublié la clé."
+        }
       ]
     },
     {
@@ -73,7 +97,11 @@
       "niveau": "B1",
       "groupe": "particules",
       "exemples": [
-        { "he": "בְּקִיצוּר, זֶה לֹא עָבַד", "tr": "bekitsur, zeh lo 'avad", "fr": "Bref, ça n'a pas marché." }
+        {
+          "he": "בְּקִיצוּר, זֶה לֹא עָבַד",
+          "tr": "bekitsur, zeh lo 'avad",
+          "fr": "Bref, ça n'a pas marché."
+        }
       ]
     },
     {
@@ -84,7 +112,11 @@
       "groupe": "particules",
       "note": "négatif : « pas du tout » ; positif : « d'ailleurs, en général »",
       "exemples": [
-        { "he": "לֹא הֵבַנְתִּי בִּכְלָל", "tr": "lo hevanti bikhlal", "fr": "Je n'ai pas compris du tout." }
+        {
+          "he": "לֹא הֵבַנְתִּי בִּכְלָל",
+          "tr": "lo hevanti bikhlal",
+          "fr": "Je n'ai pas compris du tout."
+        }
       ]
     },
     {
@@ -94,7 +126,11 @@
       "niveau": "B1",
       "groupe": "particules",
       "exemples": [
-        { "he": "אַגַּב, רָאִיתִי אוֹתוֹ אֶתְמוֹל", "tr": "agav, ra'iti oto etmol", "fr": "Au fait, je l'ai vu hier." }
+        {
+          "he": "אַגַּב, רָאִיתִי אוֹתוֹ אֶתְמוֹל",
+          "tr": "agav, ra'iti oto etmol",
+          "fr": "Au fait, je l'ai vu hier."
+        }
       ]
     },
     {
@@ -104,7 +140,11 @@
       "niveau": "B2",
       "groupe": "particules",
       "exemples": [
-        { "he": "זֶה יַחֲסִית זוֹל", "tr": "zeh yachasit zol", "fr": "C'est relativement bon marché." }
+        {
+          "he": "זֶה יַחֲסִית זוֹל",
+          "tr": "zeh yachasit zol",
+          "fr": "C'est relativement bon marché."
+        }
       ]
     },
     {
@@ -115,7 +155,11 @@
       "groupe": "conversation",
       "note": "plus familier que מָה נִשְׁמָע",
       "exemples": [
-        { "he": "מָה קוֹרֶה, אָח שֶׁלִּי?", "tr": "mah koreh, ach sheli?", "fr": "Quoi de neuf, mon frère ?" }
+        {
+          "he": "מָה קוֹרֶה, אָח שֶׁלִּי?",
+          "tr": "mah koreh, ach sheli?",
+          "fr": "Quoi de neuf, mon frère ?"
+        }
       ]
     },
     {
@@ -125,7 +169,11 @@
       "niveau": "B1",
       "groupe": "conversation",
       "exemples": [
-        { "he": "מָה פִּתְאוֹם? אֲנִי מְשַׁלֵּם", "tr": "mah pit'om? ani meshalem", "fr": "Et puis quoi encore ? C'est moi qui paie." }
+        {
+          "he": "מָה פִּתְאוֹם? אֲנִי מְשַׁלֵּם",
+          "tr": "mah pit'om? ani meshalem",
+          "fr": "Et puis quoi encore ? C'est moi qui paie."
+        }
       ]
     },
     {
@@ -136,7 +184,11 @@
       "groupe": "conversation",
       "note": "à une femme : עִזְבִי, 'izvi",
       "exemples": [
-        { "he": "עֲזֹב, זֶה לֹא חָשׁוּב", "tr": "'azov, zeh lo chashuv", "fr": "Laisse tomber, ce n'est pas important." }
+        {
+          "he": "עֲזֹב, זֶה לֹא חָשׁוּב",
+          "tr": "'azov, zeh lo chashuv",
+          "fr": "Laisse tomber, ce n'est pas important."
+        }
       ]
     },
     {
@@ -146,7 +198,11 @@
       "niveau": "A1",
       "groupe": "conversation",
       "exemples": [
-        { "he": "דַּי, מַסְפִּיק לְהַיּוֹם", "tr": "dai, maspik lehayom", "fr": "Ça suffit, assez pour aujourd'hui." }
+        {
+          "he": "דַּי, מַסְפִּיק לְהַיּוֹם",
+          "tr": "dai, maspik lehayom",
+          "fr": "Ça suffit, assez pour aujourd'hui."
+        }
       ]
     },
     {
@@ -157,7 +213,11 @@
       "groupe": "conversation",
       "note": "presse ou relance — du yiddish",
       "exemples": [
-        { "he": "נוּ, מָה אָמְרוּ לְךָ?", "tr": "nu, mah amru lekha?", "fr": "Alors, qu'est-ce qu'ils t'ont dit ?" }
+        {
+          "he": "נוּ, מָה אָמְרוּ לְךָ?",
+          "tr": "nu, mah amru lekha?",
+          "fr": "Alors, qu'est-ce qu'ils t'ont dit ?"
+        }
       ]
     },
     {
@@ -167,7 +227,11 @@
       "niveau": "A2",
       "groupe": "conversation",
       "exemples": [
-        { "he": "זֶהוּ, סִיַּמְנוּ אֶת הָעֲבוֹדָה", "tr": "zehu, siyamnu et ha'avodah", "fr": "Voilà, on a fini le travail." }
+        {
+          "he": "זֶהוּ, סִיַּמְנוּ אֶת הָעֲבוֹדָה",
+          "tr": "zehu, siyamnu et ha'avodah",
+          "fr": "Voilà, on a fini le travail."
+        }
       ]
     },
     {
@@ -177,7 +241,11 @@
       "niveau": "A2",
       "groupe": "conversation",
       "exemples": [
-        { "he": "לֹא מְשַׁנֶּה, נִפָּגֵשׁ מָחָר", "tr": "lo meshaneh, nipagesh machar", "fr": "Peu importe, on se voit demain." }
+        {
+          "he": "לֹא מְשַׁנֶּה, נִפָּגֵשׁ מָחָר",
+          "tr": "lo meshaneh, nipagesh machar",
+          "fr": "Peu importe, on se voit demain."
+        }
       ]
     },
     {
@@ -187,7 +255,11 @@
       "niveau": "A2",
       "groupe": "conversation",
       "exemples": [
-        { "he": "תֵּכֶף אֲנִי מַגִּיעַ", "tr": "tekhef ani magi'a", "fr": "J'arrive tout de suite." }
+        {
+          "he": "תֵּכֶף אֲנִי מַגִּיעַ",
+          "tr": "tekhef ani magi'a",
+          "fr": "J'arrive tout de suite."
+        }
       ]
     },
     {
@@ -197,7 +269,11 @@
       "niveau": "A2",
       "groupe": "conversation",
       "exemples": [
-        { "he": "בְּטַח שֶׁאֲנִי בָּא", "tr": "betach she'ani ba", "fr": "Bien sûr que je viens." }
+        {
+          "he": "בְּטַח שֶׁאֲנִי בָּא",
+          "tr": "betach she'ani ba",
+          "fr": "Bien sûr que je viens."
+        }
       ]
     },
     {
@@ -207,7 +283,11 @@
       "niveau": "A2",
       "groupe": "conversation",
       "exemples": [
-        { "he": "בֶּאֱמֶת? לֹא יָדַעְתִּי", "tr": "be'emet? lo yada'ti", "fr": "Vraiment ? Je ne savais pas." }
+        {
+          "he": "בֶּאֱמֶת? לֹא יָדַעְתִּי",
+          "tr": "be'emet? lo yada'ti",
+          "fr": "Vraiment ? Je ne savais pas."
+        }
       ]
     },
     {
@@ -217,7 +297,11 @@
       "niveau": "B1",
       "groupe": "conversation",
       "exemples": [
-        { "he": "בְּחַיַּי שֶׁלֹּא סִפַּרְתִּי לָהּ", "tr": "bechayai shelo siparti lah", "fr": "Je te jure que je ne lui ai rien dit." }
+        {
+          "he": "בְּחַיַּי שֶׁלֹּא סִפַּרְתִּי לָהּ",
+          "tr": "bechayai shelo siparti lah",
+          "fr": "Je te jure que je ne lui ai rien dit."
+        }
       ]
     },
     {
@@ -228,7 +312,11 @@
       "groupe": "conversation",
       "note": "concession un peu résignée : « bon, d'accord »",
       "exemples": [
-        { "he": "אַתָּה לֹא מַסְכִּים? שֶׁיִּהְיֶה", "tr": "atah lo maskim? sheyihyeh", "fr": "Tu n'es pas d'accord ? Soit." }
+        {
+          "he": "אַתָּה לֹא מַסְכִּים? שֶׁיִּהְיֶה",
+          "tr": "atah lo maskim? sheyihyeh",
+          "fr": "Tu n'es pas d'accord ? Soit."
+        }
       ]
     },
     {
@@ -239,7 +327,81 @@
       "groupe": "conversation",
       "note": "à une femme : תַּעֲשִׂי טוֹבָה",
       "exemples": [
-        { "he": "תַּעֲשֶׂה טוֹבָה, תַּפְסִיק כְּבָר", "tr": "ta'aseh tovah, tafsik kvar", "fr": "Fais-moi plaisir, arrête un peu." }
+        {
+          "he": "תַּעֲשֶׂה טוֹבָה, תַּפְסִיק כְּבָר",
+          "tr": "ta'aseh tovah, tafsik kvar",
+          "fr": "Fais-moi plaisir, arrête un peu."
+        }
+      ]
+    },
+    {
+      "he": "בְּהַצְלָחָה",
+      "tr": "behatslachah",
+      "fr": "bonne chance !",
+      "niveau": "A1",
+      "groupe": "conversation",
+      "exemples": [
+        {
+          "he": "בְּהַצְלָחָה בַּמִּבְחָן מָחָר",
+          "tr": "behatslachah bamivchan machar",
+          "fr": "bonne chance pour l'examen demain"
+        }
+      ]
+    },
+    {
+      "he": "תִּתְחַדֵּשׁ",
+      "tr": "titchadesh",
+      "fr": "profite bien ! (à qui étrenne du neuf)",
+      "niveau": "B1",
+      "groupe": "conversation",
+      "exemples": [
+        {
+          "he": "נַעֲלַיִם חֲדָשׁוֹת? תִּתְחַדֵּשׁ!",
+          "tr": "na'alayim chadashot? titchadesh!",
+          "fr": "de nouvelles chaussures ? Profite bien !"
+        }
+      ]
+    },
+    {
+      "he": "אֵיךְ הוֹלֵךְ",
+      "tr": "eikh holekh",
+      "fr": "comment ça va ? (fam.)",
+      "niveau": "A2",
+      "groupe": "conversation",
+      "exemples": [
+        {
+          "he": "אֵיךְ הוֹלֵךְ, מָה נִשְׁמָע?",
+          "tr": "eikh holekh, mah nishma?",
+          "fr": "comment ça va, quoi de neuf ?"
+        }
+      ]
+    },
+    {
+      "he": "בַּיי",
+      "tr": "bai",
+      "fr": "salut ! (au revoir)",
+      "niveau": "A1",
+      "groupe": "conversation",
+      "exemples": [
+        {
+          "he": "בַּיי, נִתְרָאֶה מָחָר!",
+          "tr": "bai, nitra'e machar!",
+          "fr": "salut, à demain !"
+        }
+      ]
+    },
+    {
+      "he": "אוֹקֵיי",
+      "tr": "okei",
+      "fr": "OK",
+      "niveau": "A1",
+      "groupe": "conversation",
+      "exemples": [
+        {
+          "he": "אוֹקֵיי, אֲנִי בָּא מִיָּד",
+          "tr": "okei, ani ba miyad",
+          "fr": "OK, j'arrive tout de suite"
+        }
       ]
     },
     {
@@ -250,7 +412,11 @@
       "groupe": "reagir",
       "note": "de l'arabe ; invariable, se place avant le nom",
       "exemples": [
-        { "he": "אַחְלָה מִסְעָדָה מָצָאתָ", "tr": "achlah mis'adah matsata", "fr": "Tu as trouvé un super restaurant." }
+        {
+          "he": "אַחְלָה מִסְעָדָה מָצָאתָ",
+          "tr": "achlah mis'adah matsata",
+          "fr": "Tu as trouvé un super restaurant."
+        }
       ]
     },
     {
@@ -260,7 +426,11 @@
       "niveau": "A2",
       "groupe": "reagir",
       "exemples": [
-        { "he": "הַשִּׁיר הַזֶּה מַגְנִיב", "tr": "hashir hazeh magniv", "fr": "Cette chanson est top." }
+        {
+          "he": "הַשִּׁיר הַזֶּה מַגְנִיב",
+          "tr": "hashir hazeh magniv",
+          "fr": "Cette chanson est top."
+        }
       ]
     },
     {
@@ -271,7 +441,11 @@
       "groupe": "reagir",
       "note": "littéralement « dommage pour le temps » ; le ton décide du sens, presque toujours élogieux",
       "exemples": [
-        { "he": "הָאֹכֶל שָׁם חֲבָל עַל הַזְּמַן", "tr": "ha'okhel sham chaval 'al hazman", "fr": "La nourriture là-bas, c'est une tuerie." }
+        {
+          "he": "הָאֹכֶל שָׁם חֲבָל עַל הַזְּמַן",
+          "tr": "ha'okhel sham chaval 'al hazman",
+          "fr": "La nourriture là-bas, c'est une tuerie."
+        }
       ]
     },
     {
@@ -281,7 +455,11 @@
       "niveau": "B1",
       "groupe": "reagir",
       "exemples": [
-        { "he": "הַשֵּׁרוּת פֹּה עַל הַפָּנִים", "tr": "hasherut poh 'al hapanim", "fr": "Le service ici est catastrophique." }
+        {
+          "he": "הַשֵּׁרוּת פֹּה עַל הַפָּנִים",
+          "tr": "hasherut poh 'al hapanim",
+          "fr": "Le service ici est catastrophique."
+        }
       ]
     },
     {
@@ -291,7 +469,11 @@
       "niveau": "A2",
       "groupe": "reagir",
       "exemples": [
-        { "he": "אֵיזוֹ בָּאסָה שֶׁלֹּא בָּאתָ", "tr": "eizo basah shelo bata", "fr": "Quelle loose que tu ne sois pas venu." }
+        {
+          "he": "אֵיזוֹ בָּאסָה שֶׁלֹּא בָּאתָ",
+          "tr": "eizo basah shelo bata",
+          "fr": "Quelle loose que tu ne sois pas venu."
+        }
       ]
     },
     {
@@ -301,7 +483,11 @@
       "niveau": "B1",
       "groupe": "reagir",
       "exemples": [
-        { "he": "אֵיזוֹ פַדִיחָה הָיְתָה לִי אֶתְמוֹל", "tr": "eizo fadichah haytah li etmol", "fr": "J'ai eu tellement honte hier." }
+        {
+          "he": "אֵיזוֹ פַדִיחָה הָיְתָה לִי אֶתְמוֹל",
+          "tr": "eizo fadichah haytah li etmol",
+          "fr": "J'ai eu tellement honte hier."
+        }
       ]
     },
     {
@@ -311,7 +497,11 @@
       "niveau": "A2",
       "groupe": "reagir",
       "exemples": [
-        { "he": "כָּל הַכָּבוֹד, עָבַדְתָּ קָשֶׁה", "tr": "kol hakavod, 'avadta kasheh", "fr": "Bravo, tu as travaillé dur." }
+        {
+          "he": "כָּל הַכָּבוֹד, עָבַדְתָּ קָשֶׁה",
+          "tr": "kol hakavod, 'avadta kasheh",
+          "fr": "Bravo, tu as travaillé dur."
+        }
       ]
     },
     {
@@ -321,7 +511,11 @@
       "niveau": "A2",
       "groupe": "reagir",
       "exemples": [
-        { "he": "אֵין מַצָּב שֶׁהוּא אָמַר אֶת זֶה", "tr": "ein matsav shehu amar et zeh", "fr": "Pas possible qu'il ait dit ça." }
+        {
+          "he": "אֵין מַצָּב שֶׁהוּא אָמַר אֶת זֶה",
+          "tr": "ein matsav shehu amar et zeh",
+          "fr": "Pas possible qu'il ait dit ça."
+        }
       ]
     },
     {
@@ -331,7 +525,11 @@
       "niveau": "A1",
       "groupe": "reagir",
       "exemples": [
-        { "he": "בְּסֵדֶר גָּמוּר, נִפָּגֵשׁ בְּשֶׁבַע", "tr": "beseder gamur, nipagesh besheva'", "fr": "Parfait, on se voit à sept heures." }
+        {
+          "he": "בְּסֵדֶר גָּמוּר, נִפָּגֵשׁ בְּשֶׁבַע",
+          "tr": "beseder gamur, nipagesh besheva'",
+          "fr": "Parfait, on se voit à sept heures."
+        }
       ]
     },
     {
@@ -342,7 +540,11 @@
       "groupe": "reagir",
       "note": "emploi familier — l'adjectif שָׁוֶה « égal » est aux Adjectifs",
       "exemples": [
-        { "he": "הַמְּחִיר יָקָר אֲבָל זֶה שָׁוֶה", "tr": "hamechir yakar aval zeh shaveh", "fr": "Le prix est cher mais ça vaut le coup." }
+        {
+          "he": "הַמְּחִיר יָקָר אֲבָל זֶה שָׁוֶה",
+          "tr": "hamechir yakar aval zeh shaveh",
+          "fr": "Le prix est cher mais ça vaut le coup."
+        }
       ]
     },
     {
@@ -352,7 +554,11 @@
       "niveau": "A2",
       "groupe": "reagir",
       "exemples": [
-        { "he": "אִחַרְתָּ? לֹא נוֹרָא", "tr": "icharta? lo nora", "fr": "Tu es en retard ? Ce n'est pas grave." }
+        {
+          "he": "אִחַרְתָּ? לֹא נוֹרָא",
+          "tr": "icharta? lo nora",
+          "fr": "Tu es en retard ? Ce n'est pas grave."
+        }
       ]
     },
     {
@@ -362,7 +568,11 @@
       "niveau": "B1",
       "groupe": "reagir",
       "exemples": [
-        { "he": "אֵיזֶה קֶטַע, פָּגַשְׁתִּי אוֹתוֹ שׁוּב", "tr": "eizeh keta', pagashti oto shuv", "fr": "C'est dingue, je suis retombé sur lui." }
+        {
+          "he": "אֵיזֶה קֶטַע, פָּגַשְׁתִּי אוֹתוֹ שׁוּב",
+          "tr": "eizeh keta', pagashti oto shuv",
+          "fr": "C'est dingue, je suis retombé sur lui."
+        }
       ]
     },
     {
@@ -373,7 +583,11 @@
       "groupe": "reagir",
       "note": "de l'arabe kayf ; se dit d'un moment réussi",
       "exemples": [
-        { "he": "הַחֻפְשָׁה הָיְתָה עַל הַכֵּיפַק", "tr": "hachufshah haytah 'al hakeifak", "fr": "Les vacances étaient au poil." }
+        {
+          "he": "הַחֻפְשָׁה הָיְתָה עַל הַכֵּיפַק",
+          "tr": "hachufshah haytah 'al hakeifak",
+          "fr": "Les vacances étaient au poil."
+        }
       ]
     },
     {
@@ -383,7 +597,25 @@
       "niveau": "B1",
       "groupe": "reagir",
       "exemples": [
-        { "he": "הַכֹּל סַבָּבָּה, אַל תִּדְאַג", "tr": "hakol sababah, al tid'ag", "fr": "Tout va bien, ne t'inquiète pas." }
+        {
+          "he": "הַכֹּל סַבָּבָּה, אַל תִּדְאַג",
+          "tr": "hakol sababah, al tid'ag",
+          "fr": "Tout va bien, ne t'inquiète pas."
+        }
+      ]
+    },
+    {
+      "he": "מָה אִכְפַּת לִי",
+      "tr": "mah ikhpat li",
+      "fr": "qu'est-ce que ça peut me faire (fam.)",
+      "niveau": "B2",
+      "groupe": "reagir",
+      "exemples": [
+        {
+          "he": "מָה אִכְפַּת לִי מִמֶּנּוּ",
+          "tr": "mah ikhpat li mimenu",
+          "fr": "qu'est-ce que ça peut me faire de lui"
+        }
       ]
     },
     {
@@ -393,7 +625,11 @@
       "niveau": "B1",
       "groupe": "emprunts",
       "exemples": [
-        { "he": "יָאלְלָה, אֲנַחְנוּ מְאַחֲרִים", "tr": "yallah, anachnu me'acharim", "fr": "Allez, on est en retard." }
+        {
+          "he": "יָאלְלָה, אֲנַחְנוּ מְאַחֲרִים",
+          "tr": "yallah, anachnu me'acharim",
+          "fr": "Allez, on est en retard."
+        }
       ]
     },
     {
@@ -405,7 +641,11 @@
       "fr_court": "vraiment ?!",
       "note": "étonnement — à ne pas confondre avec יָאלְלָה",
       "exemples": [
-        { "he": "וַאלָה? לֹא הֶאֱמַנְתִּי", "tr": "valah? lo he'emanti", "fr": "Sérieux ? Je n'y croyais pas." }
+        {
+          "he": "וַאלָה? לֹא הֶאֱמַנְתִּי",
+          "tr": "valah? lo he'emanti",
+          "fr": "Sérieux ? Je n'y croyais pas."
+        }
       ]
     },
     {
@@ -416,7 +656,11 @@
       "groupe": "emprunts",
       "note": "affectueux ; souvent כַּפָּרָה עָלֶיךָ",
       "exemples": [
-        { "he": "תּוֹדָה, כַּפָּרָה עָלֶיךָ", "tr": "todah, kaparah 'alekha", "fr": "Merci, tu es un amour." }
+        {
+          "he": "תּוֹדָה, כַּפָּרָה עָלֶיךָ",
+          "tr": "todah, kaparah 'alekha",
+          "fr": "Merci, tu es un amour."
+        }
       ]
     },
     {
@@ -427,7 +671,11 @@
       "groupe": "emprunts",
       "fr_court": "mon cœur (affectueux)",
       "exemples": [
-        { "he": "בּוֹאִי, נְשָׁמָה, נֵלֵךְ הַבַּיְתָה", "tr": "bo'i, neshamah, nelekh habaytah", "fr": "Viens, mon cœur, on rentre." }
+        {
+          "he": "בּוֹאִי, נְשָׁמָה, נֵלֵךְ הַבַּיְתָה",
+          "tr": "bo'i, neshamah, nelekh habaytah",
+          "fr": "Viens, mon cœur, on rentre."
+        }
       ]
     },
     {
@@ -437,7 +685,11 @@
       "niveau": "B2",
       "groupe": "emprunts",
       "exemples": [
-        { "he": "יָא חַבִּיבִּי, אֵיזֶה יוֹם", "tr": "ya chabibi, eizeh yom", "fr": "Eh mon vieux, quelle journée !" }
+        {
+          "he": "יָא חַבִּיבִּי, אֵיזֶה יוֹם",
+          "tr": "ya chabibi, eizeh yom",
+          "fr": "Eh mon vieux, quelle journée !"
+        }
       ]
     },
     {
@@ -447,7 +699,11 @@
       "niveau": "B1",
       "groupe": "emprunts",
       "exemples": [
-        { "he": "הַהוֹפָעָה הָיְתָה סוֹף הַדֶּרֶךְ", "tr": "hahofa'ah haytah sof haderekh", "fr": "Le concert était le top du top." }
+        {
+          "he": "הַהוֹפָעָה הָיְתָה סוֹף הַדֶּרֶךְ",
+          "tr": "hahofa'ah haytah sof haderekh",
+          "fr": "Le concert était le top du top."
+        }
       ]
     },
     {
@@ -458,7 +714,11 @@
       "groupe": "emprunts",
       "note": "de l'arabe ; plus sec que דַּי",
       "exemples": [
-        { "he": "חָלָס עִם הַוִּיכּוּחִים", "tr": "chalas 'im havikuchim", "fr": "Ça suffit avec les disputes." }
+        {
+          "he": "חָלָס עִם הַוִּיכּוּחִים",
+          "tr": "chalas 'im havikuchim",
+          "fr": "Ça suffit avec les disputes."
+        }
       ]
     },
     {
@@ -468,7 +728,11 @@
       "niveau": "B2",
       "groupe": "emprunts",
       "exemples": [
-        { "he": "הוּא יָצָא מַבְסוּט מֵהַפְּגִישָׁה", "tr": "hu yatsa mabsut mehapgishah", "fr": "Il est sorti content du rendez-vous." }
+        {
+          "he": "הוּא יָצָא מַבְסוּט מֵהַפְּגִישָׁה",
+          "tr": "hu yatsa mabsut mehapgishah",
+          "fr": "Il est sorti content du rendez-vous."
+        }
       ]
     }
   ]
