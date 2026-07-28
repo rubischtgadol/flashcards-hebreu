@@ -186,6 +186,162 @@
           "fr": "d'où viens-tu"
         }
       ]
+    },
+    {
+      "he": "מַדּוּעַ",
+      "tr": "madu'a",
+      "fr": "pourquoi (soutenu)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מַדּוּעַ אַתָּה עָצוּב?",
+          "tr": "madu'a atah 'atsuv?",
+          "fr": "pourquoi es-tu triste ?"
+        }
+      ]
+    },
+    {
+      "he": "כֵּיצַד",
+      "tr": "keitsad",
+      "fr": "comment (soutenu)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "כֵּיצַד זֶה קָרָה?",
+          "tr": "keitsad zeh karah?",
+          "fr": "comment cela est-il arrivé ?"
+        }
+      ]
+    },
+    {
+      "he": "מִנַּיִן",
+      "tr": "minayin",
+      "fr": "d'où (soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "מִנַּיִן אַתָּה בָּא?",
+          "tr": "minayin atah ba?",
+          "fr": "d'où viens-tu ?"
+        }
+      ]
+    },
+    {
+      "he": "שֶׁל מִי",
+      "tr": "shel mi",
+      "fr": "à qui (possession)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "שֶׁל מִי הַתִּיק הַזֶּה?",
+          "tr": "shel mi hatik hazeh?",
+          "fr": "à qui est ce sac ?"
+        }
+      ]
+    },
+    {
+      "he": "אֶת מִי",
+      "tr": "et mi",
+      "fr": "qui (COD)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֶת מִי רָאִיתָ?",
+          "tr": "et mi ra'ita?",
+          "fr": "qui as-tu vu ?"
+        }
+      ]
+    },
+    {
+      "he": "עִם מִי",
+      "tr": "'im mi",
+      "fr": "avec qui",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עִם מִי אַתָּה הוֹלֵךְ?",
+          "tr": "'im mi atah holekh?",
+          "fr": "avec qui vas-tu ?"
+        }
+      ]
+    },
+    {
+      "he": "בַּמֶּה",
+      "tr": "bameh",
+      "fr": "en quoi, avec quoi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בַּמֶּה אֶפְשָׁר לַעֲזֹר?",
+          "tr": "bame efshar la'azor?",
+          "fr": "En quoi peut-on aider ?"
+        }
+      ]
+    },
+    {
+      "he": "מִמָּה",
+      "tr": "mimah",
+      "fr": "de quoi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מִמָּה זֶה עָשׂוּי?",
+          "tr": "mimah zeh 'asuy?",
+          "fr": "de quoi est-ce fait ?"
+        }
+      ]
+    },
+    {
+      "he": "לְשֵׁם מָה",
+      "tr": "leshem mah",
+      "fr": "dans quel but",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "לְשֵׁם מָה בָּאתָ?",
+          "tr": "leshem mah bata?",
+          "fr": "dans quel but es-tu venu ?"
+        }
+      ]
+    },
+    {
+      "he": "כַּמָּה זְמַן",
+      "tr": "kamah zeman",
+      "fr": "combien de temps",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "כַּמָּה זְמַן זֶה לוֹקֵחַ?",
+          "tr": "kamah zeman zeh lokeach?",
+          "fr": "combien de temps cela prend-il ?"
+        }
+      ]
+    },
+    {
+      "he": "מַה זֶּה",
+      "tr": "mah zeh",
+      "fr": "qu'est-ce que c'est",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מַה זֶּה הָרַעַשׁ הַזֶּה?",
+          "tr": "mah zeh hara'ash hazeh?",
+          "fr": "qu'est-ce que c'est que ce bruit ?"
+        }
+      ]
+    },
+    {
+      "he": "מָה קָרָה",
+      "tr": "mah karah",
+      "fr": "que s'est-il passé",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מָה קָרָה אֶתְמוֹל?",
+          "tr": "mah karah etmol?",
+          "fr": "que s'est-il passé hier ?"
+        }
+      ]
     }
   ]
 }

@@ -34672,6 +34672,198 @@
       "he_plain": "מאיפה"
     },
     {
+      "cat": "Mots interrogatifs",
+      "he": "מַדּוּעַ",
+      "tr": "madu'a",
+      "fr": "pourquoi (soutenu)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מַדּוּעַ אַתָּה עָצוּב?",
+          "tr": "madu'a atah 'atsuv?",
+          "fr": "pourquoi es-tu triste ?",
+          "he_plain": "מדוע אתה עצוב?"
+        }
+      ],
+      "he_plain": "מדוע"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "כֵּיצַד",
+      "tr": "keitsad",
+      "fr": "comment (soutenu)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "כֵּיצַד זֶה קָרָה?",
+          "tr": "keitsad zeh karah?",
+          "fr": "comment cela est-il arrivé ?",
+          "he_plain": "כיצד זה קרה?"
+        }
+      ],
+      "he_plain": "כיצד"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "מִנַּיִן",
+      "tr": "minayin",
+      "fr": "d'où (soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "מִנַּיִן אַתָּה בָּא?",
+          "tr": "minayin atah ba?",
+          "fr": "d'où viens-tu ?",
+          "he_plain": "מנין אתה בא?"
+        }
+      ],
+      "he_plain": "מנין"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "שֶׁל מִי",
+      "tr": "shel mi",
+      "fr": "à qui (possession)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "שֶׁל מִי הַתִּיק הַזֶּה?",
+          "tr": "shel mi hatik hazeh?",
+          "fr": "à qui est ce sac ?",
+          "he_plain": "של מי התיק הזה?"
+        }
+      ],
+      "he_plain": "של מי"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "אֶת מִי",
+      "tr": "et mi",
+      "fr": "qui (COD)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֶת מִי רָאִיתָ?",
+          "tr": "et mi ra'ita?",
+          "fr": "qui as-tu vu ?",
+          "he_plain": "את מי ראית?"
+        }
+      ],
+      "he_plain": "את מי"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "עִם מִי",
+      "tr": "'im mi",
+      "fr": "avec qui",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עִם מִי אַתָּה הוֹלֵךְ?",
+          "tr": "'im mi atah holekh?",
+          "fr": "avec qui vas-tu ?",
+          "he_plain": "עם מי אתה הולך?"
+        }
+      ],
+      "he_plain": "עם מי"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "בַּמֶּה",
+      "tr": "bameh",
+      "fr": "en quoi, avec quoi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בַּמֶּה אֶפְשָׁר לַעֲזֹר?",
+          "tr": "bame efshar la'azor?",
+          "fr": "En quoi peut-on aider ?",
+          "he_plain": "במה אפשר לעזר?"
+        }
+      ],
+      "he_plain": "במה"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "מִמָּה",
+      "tr": "mimah",
+      "fr": "de quoi",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מִמָּה זֶה עָשׂוּי?",
+          "tr": "mimah zeh 'asuy?",
+          "fr": "de quoi est-ce fait ?",
+          "he_plain": "ממה זה עשוי?"
+        }
+      ],
+      "he_plain": "ממה"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "לְשֵׁם מָה",
+      "tr": "leshem mah",
+      "fr": "dans quel but",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "לְשֵׁם מָה בָּאתָ?",
+          "tr": "leshem mah bata?",
+          "fr": "dans quel but es-tu venu ?",
+          "he_plain": "לשם מה באת?"
+        }
+      ],
+      "he_plain": "לשם מה"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "כַּמָּה זְמַן",
+      "tr": "kamah zeman",
+      "fr": "combien de temps",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "כַּמָּה זְמַן זֶה לוֹקֵחַ?",
+          "tr": "kamah zeman zeh lokeach?",
+          "fr": "combien de temps cela prend-il ?",
+          "he_plain": "כמה זמן זה לוקח?"
+        }
+      ],
+      "he_plain": "כמה זמן"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "מַה זֶּה",
+      "tr": "mah zeh",
+      "fr": "qu'est-ce que c'est",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מַה זֶּה הָרַעַשׁ הַזֶּה?",
+          "tr": "mah zeh hara'ash hazeh?",
+          "fr": "qu'est-ce que c'est que ce bruit ?",
+          "he_plain": "מה זה הרעש הזה?"
+        }
+      ],
+      "he_plain": "מה זה"
+    },
+    {
+      "cat": "Mots interrogatifs",
+      "he": "מָה קָרָה",
+      "tr": "mah karah",
+      "fr": "que s'est-il passé",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מָה קָרָה אֶתְמוֹל?",
+          "tr": "mah karah etmol?",
+          "fr": "que s'est-il passé hier ?",
+          "he_plain": "מה קרה אתמול?"
+        }
+      ],
+      "he_plain": "מה קרה"
+    },
+    {
       "cat": "Nombres",
       "he": "אֶפֶס",
       "tr": "efes",
