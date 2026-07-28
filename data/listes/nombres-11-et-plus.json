@@ -257,6 +257,71 @@
       "fr": "million",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "מָאתַיִם",
+      "tr": "matayim",
+      "fr": "deux cents",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי מָאתַיִם שְׁקָלִים",
+          "tr": "yesh li matayim shkalim",
+          "fr": "j'ai deux cents shekels"
+        }
+      ]
+    },
+    {
+      "he": "שְׁלוֹשׁ מֵאוֹת",
+      "tr": "shlosh me'ot",
+      "fr": "trois cents (modèle de 300 à 900)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בַּסֵּפֶר שְׁלוֹשׁ מֵאוֹת עַמּוּדִים",
+          "tr": "basefer shlosh me'ot amudim",
+          "fr": "le livre a trois cents pages"
+        }
+      ]
+    },
+    {
+      "he": "אַלְפַּיִם",
+      "tr": "alpayim",
+      "fr": "deux mille",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הָעִיר בַּת אַלְפַּיִם שָׁנָה",
+          "tr": "ha'ir bat alpayim shana",
+          "fr": "la ville a deux mille ans"
+        }
+      ]
+    },
+    {
+      "he": "שְׁלוֹשֶׁת אֲלָפִים",
+      "tr": "shloshet alafim",
+      "fr": "trois mille (modèle de 3000 à 10 000)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בָּעִיר שְׁלוֹשֶׁת אֲלָפִים תּוֹשָׁבִים",
+          "tr": "ba'ir shloshet alafim toshavim",
+          "fr": "la ville compte trois mille habitants"
+        }
+      ]
+    },
+    {
+      "he": "מִילְיַארְד",
+      "tr": "milyard",
+      "fr": "milliard",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה עוֹלֶה מִילְיַארְד דּוֹלָר",
+          "tr": "zeh oleh milyard dolar",
+          "fr": "ça coûte un milliard de dollars"
+        }
+      ]
     }
   ]
 }

@@ -10,12 +10,38 @@
       "note": "féminin : רִאשׁוֹנָה (rishonah)"
     },
     {
+      "he": "רִאשׁוֹנָה",
+      "tr": "rishonah",
+      "fr": "première",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הָרִאשׁוֹנָה בַּתּוֹר",
+          "tr": "hi harishona bator",
+          "fr": "elle est la première dans la file"
+        }
+      ]
+    },
+    {
       "he": "שֵׁנִי",
       "tr": "sheni",
       "fr": "deuxième",
       "niveau": "A1",
       "exemples": [],
       "note": "féminin : שְׁנִיָּה (shniyah)"
+    },
+    {
+      "he": "שְׁנִיָּה",
+      "tr": "shniyah",
+      "fr": "deuxième (aussi « seconde » de temps : autre entrée)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁנִיָּה בַּתּוֹר",
+          "tr": "hi hashniya bator",
+          "fr": "elle est la deuxième dans la file"
+        }
+      ]
     },
     {
       "he": "שְׁלִישִׁי",
@@ -26,11 +52,37 @@
       "note": "féminin : שְׁלִישִׁית (shlishit)"
     },
     {
+      "he": "שְׁלִישִׁית",
+      "tr": "shlishit",
+      "fr": "troisième (féminin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁלִישִׁית בַּתּוֹר",
+          "tr": "hi hashlishit bator",
+          "fr": "elle est la troisième dans la file"
+        }
+      ]
+    },
+    {
       "he": "רְבִיעִי",
       "tr": "revi'i",
       "fr": "quatrième",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "רְבִיעִית",
+      "tr": "revi'it",
+      "fr": "quatrième (féminin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הָרְבִיעִית בַּתּוֹר",
+          "tr": "hi harevi'it bator",
+          "fr": "elle est la quatrième dans la file"
+        }
+      ]
     },
     {
       "he": "חֲמִישִׁי",
@@ -40,11 +92,37 @@
       "exemples": []
     },
     {
+      "he": "חֲמִישִׁית",
+      "tr": "chamishit",
+      "fr": "cinquième (féminin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הַחֲמִישִׁית בַּתּוֹר",
+          "tr": "hi hachamishit bator",
+          "fr": "elle est la cinquième dans la file"
+        }
+      ]
+    },
+    {
       "he": "שִׁשִּׁי",
       "tr": "shishi",
       "fr": "sixième",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "שִׁישִּׁית",
+      "tr": "shishit",
+      "fr": "sixième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַשִּׁישִּׁית בַּתּוֹר",
+          "tr": "hashishit bator",
+          "fr": "elle est la sixième dans la file"
+        }
+      ]
     },
     {
       "he": "שְׁבִיעִי",
@@ -54,11 +132,37 @@
       "exemples": []
     },
     {
+      "he": "שְׁבִיעִית",
+      "tr": "shvi'it",
+      "fr": "septième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁבִיעִית בַּתּוֹר",
+          "tr": "hi hashvi'it bator",
+          "fr": "elle est la septième dans la file"
+        }
+      ]
+    },
+    {
       "he": "שְׁמִינִי",
       "tr": "shmini",
       "fr": "huitième",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "שְׁמִינִית",
+      "tr": "shminit",
+      "fr": "huitième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁמִינִית בַּתּוֹר",
+          "tr": "hi hashminit bator",
+          "fr": "elle est la huitième dans la file"
+        }
+      ]
     },
     {
       "he": "תְּשִׁיעִי",
@@ -68,11 +172,37 @@
       "exemples": []
     },
     {
+      "he": "תְּשִׁיעִית",
+      "tr": "tshi'it",
+      "fr": "neuvième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַתְּשִׁיעִית בַּתּוֹר",
+          "tr": "hi hatshi'it bator",
+          "fr": "elle est la neuvième dans la file"
+        }
+      ]
+    },
+    {
       "he": "עֲשִׂירִי",
       "tr": "'asiri",
       "fr": "dixième",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "עֲשִׂירִית",
+      "tr": "'asirit",
+      "fr": "dixième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הָעֲשִׂירִית בַּתּוֹר",
+          "tr": "ha'asirit bator",
+          "fr": "elle est la dixième dans la file"
+        }
+      ]
     }
   ]
 }

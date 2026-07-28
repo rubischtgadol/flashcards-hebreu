@@ -34601,12 +34601,108 @@
     },
     {
       "cat": "Nombres",
+      "he": "מָאתַיִם",
+      "tr": "matayim",
+      "fr": "deux cents",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי מָאתַיִם שְׁקָלִים",
+          "tr": "yesh li matayim shkalim",
+          "fr": "j'ai deux cents shekels",
+          "he_plain": "יש לי מאתים שקלים"
+        }
+      ],
+      "he_plain": "מאתים"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שְׁלוֹשׁ מֵאוֹת",
+      "tr": "shlosh me'ot",
+      "fr": "trois cents (modèle de 300 à 900)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "בַּסֵּפֶר שְׁלוֹשׁ מֵאוֹת עַמּוּדִים",
+          "tr": "basefer shlosh me'ot amudim",
+          "fr": "le livre a trois cents pages",
+          "he_plain": "בספר שלוש מאות עמודים"
+        }
+      ],
+      "he_plain": "שלוש מאות"
+    },
+    {
+      "cat": "Nombres",
+      "he": "אַלְפַּיִם",
+      "tr": "alpayim",
+      "fr": "deux mille",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הָעִיר בַּת אַלְפַּיִם שָׁנָה",
+          "tr": "ha'ir bat alpayim shana",
+          "fr": "la ville a deux mille ans",
+          "he_plain": "העיר בת אלפים שנה"
+        }
+      ],
+      "he_plain": "אלפים"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שְׁלוֹשֶׁת אֲלָפִים",
+      "tr": "shloshet alafim",
+      "fr": "trois mille (modèle de 3000 à 10 000)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בָּעִיר שְׁלוֹשֶׁת אֲלָפִים תּוֹשָׁבִים",
+          "tr": "ba'ir shloshet alafim toshavim",
+          "fr": "la ville compte trois mille habitants",
+          "he_plain": "בעיר שלושת אלפים תושבים"
+        }
+      ],
+      "he_plain": "שלושת אלפים"
+    },
+    {
+      "cat": "Nombres",
+      "he": "מִילְיַארְד",
+      "tr": "milyard",
+      "fr": "milliard",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה עוֹלֶה מִילְיַארְד דּוֹלָר",
+          "tr": "zeh oleh milyard dolar",
+          "fr": "ça coûte un milliard de dollars",
+          "he_plain": "זה עולה מיליארד דולר"
+        }
+      ],
+      "he_plain": "מיליארד"
+    },
+    {
+      "cat": "Nombres",
       "he": "רִאשׁוֹן",
       "tr": "rishon",
       "fr": "premier",
       "note": "féminin : רִאשׁוֹנָה (rishonah)",
       "niveau": "A1",
       "he_plain": "ראשון"
+    },
+    {
+      "cat": "Nombres",
+      "he": "רִאשׁוֹנָה",
+      "tr": "rishonah",
+      "fr": "première",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הָרִאשׁוֹנָה בַּתּוֹר",
+          "tr": "hi harishona bator",
+          "fr": "elle est la première dans la file",
+          "he_plain": "היא הראשונה בתור"
+        }
+      ],
+      "he_plain": "ראשונה"
     },
     {
       "cat": "Nombres",
@@ -34619,12 +34715,44 @@
     },
     {
       "cat": "Nombres",
+      "he": "שְׁנִיָּה",
+      "tr": "shniyah",
+      "fr": "deuxième (aussi « seconde » de temps : autre entrée)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁנִיָּה בַּתּוֹר",
+          "tr": "hi hashniya bator",
+          "fr": "elle est la deuxième dans la file",
+          "he_plain": "היא השניה בתור"
+        }
+      ],
+      "he_plain": "שניה"
+    },
+    {
+      "cat": "Nombres",
       "he": "שְׁלִישִׁי",
       "tr": "shlishi",
       "fr": "troisième",
       "note": "féminin : שְׁלִישִׁית (shlishit)",
       "niveau": "A1",
       "he_plain": "שלישי"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שְׁלִישִׁית",
+      "tr": "shlishit",
+      "fr": "troisième (féminin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁלִישִׁית בַּתּוֹר",
+          "tr": "hi hashlishit bator",
+          "fr": "elle est la troisième dans la file",
+          "he_plain": "היא השלישית בתור"
+        }
+      ],
+      "he_plain": "שלישית"
     },
     {
       "cat": "Nombres",
@@ -34636,11 +34764,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "רְבִיעִית",
+      "tr": "revi'it",
+      "fr": "quatrième (féminin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הָרְבִיעִית בַּתּוֹר",
+          "tr": "hi harevi'it bator",
+          "fr": "elle est la quatrième dans la file",
+          "he_plain": "היא הרביעית בתור"
+        }
+      ],
+      "he_plain": "רביעית"
+    },
+    {
+      "cat": "Nombres",
       "he": "חֲמִישִׁי",
       "tr": "chamishi",
       "fr": "cinquième",
       "niveau": "A2",
       "he_plain": "חמישי"
+    },
+    {
+      "cat": "Nombres",
+      "he": "חֲמִישִׁית",
+      "tr": "chamishit",
+      "fr": "cinquième (féminin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הַחֲמִישִׁית בַּתּוֹר",
+          "tr": "hi hachamishit bator",
+          "fr": "elle est la cinquième dans la file",
+          "he_plain": "היא החמישית בתור"
+        }
+      ],
+      "he_plain": "חמישית"
     },
     {
       "cat": "Nombres",
@@ -34652,11 +34812,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "שִׁישִּׁית",
+      "tr": "shishit",
+      "fr": "sixième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַשִּׁישִּׁית בַּתּוֹר",
+          "tr": "hashishit bator",
+          "fr": "elle est la sixième dans la file",
+          "he_plain": "היא השישית בתור"
+        }
+      ],
+      "he_plain": "שישית"
+    },
+    {
+      "cat": "Nombres",
       "he": "שְׁבִיעִי",
       "tr": "shvi'i",
       "fr": "septième",
       "niveau": "A2",
       "he_plain": "שביעי"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שְׁבִיעִית",
+      "tr": "shvi'it",
+      "fr": "septième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁבִיעִית בַּתּוֹר",
+          "tr": "hi hashvi'it bator",
+          "fr": "elle est la septième dans la file",
+          "he_plain": "היא השביעית בתור"
+        }
+      ],
+      "he_plain": "שביעית"
     },
     {
       "cat": "Nombres",
@@ -34668,6 +34860,22 @@
     },
     {
       "cat": "Nombres",
+      "he": "שְׁמִינִית",
+      "tr": "shminit",
+      "fr": "huitième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַשְּׁמִינִית בַּתּוֹר",
+          "tr": "hi hashminit bator",
+          "fr": "elle est la huitième dans la file",
+          "he_plain": "היא השמינית בתור"
+        }
+      ],
+      "he_plain": "שמינית"
+    },
+    {
+      "cat": "Nombres",
       "he": "תְּשִׁיעִי",
       "tr": "tshi'i",
       "fr": "neuvième",
@@ -34676,11 +34884,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "תְּשִׁיעִית",
+      "tr": "tshi'it",
+      "fr": "neuvième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הַתְּשִׁיעִית בַּתּוֹר",
+          "tr": "hi hatshi'it bator",
+          "fr": "elle est la neuvième dans la file",
+          "he_plain": "היא התשיעית בתור"
+        }
+      ],
+      "he_plain": "תשיעית"
+    },
+    {
+      "cat": "Nombres",
       "he": "עֲשִׂירִי",
       "tr": "'asiri",
       "fr": "dixième",
       "niveau": "A2",
       "he_plain": "עשירי"
+    },
+    {
+      "cat": "Nombres",
+      "he": "עֲשִׂירִית",
+      "tr": "'asirit",
+      "fr": "dixième (féminin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הִיא הָעֲשִׂירִית בַּתּוֹר",
+          "tr": "ha'asirit bator",
+          "fr": "elle est la dixième dans la file",
+          "he_plain": "היא העשירית בתור"
+        }
+      ],
+      "he_plain": "עשירית"
     },
     {
       "cat": "Jours de la semaine",
