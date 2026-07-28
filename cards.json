@@ -34046,6 +34046,406 @@
       "he_plain": "אם בכלל"
     },
     {
+      "cat": "Conjonctions",
+      "he": "וְ־",
+      "tr": "ve-",
+      "fr": "et (préfixe ; cf. section 12)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי קוֹנֶה לֶחֶם וְחָלָב",
+          "tr": "ani koneh lechem vechalav",
+          "fr": "j'achète du pain et du lait",
+          "he_plain": "אני קונה לחם וחלב"
+        }
+      ],
+      "he_plain": "ו"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "שֶׁ־",
+      "tr": "she-",
+      "fr": "que, qui (cf. section 20)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "זֶה הַסֵּפֶר שֶׁקָּנִיתִי",
+          "tr": "zeh hasefer shekaniti",
+          "fr": "c'est le livre que j'ai acheté",
+          "he_plain": "זה הספר שקניתי"
+        }
+      ],
+      "he_plain": "ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כַּאֲשֶׁר",
+      "tr": "ka'asher",
+      "fr": "quand, lorsque (soutenu)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "כַּאֲשֶׁר אֲנִי עָיֵף אֲנִי יָשֵׁן",
+          "tr": "ka'asher ani 'ayef ani yashen",
+          "fr": "quand je suis fatigué, je dors",
+          "he_plain": "כאשר אני עיף אני ישן"
+        }
+      ],
+      "he_plain": "כאשר"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אֲשֶׁר",
+      "tr": "asher",
+      "fr": "qui, que (soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "זֶהוּ הַבַּיִת אֲשֶׁר קָנִיתִי",
+          "tr": "zehu habayit asher kaniti",
+          "fr": "voici la maison que j'ai achetée",
+          "he_plain": "זהו הבית אשר קניתי"
+        }
+      ],
+      "he_plain": "אשר"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אֶלָּא",
+      "tr": "ela",
+      "fr": "mais plutôt, sinon",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֵין בְּרֵרָה אֶלָּא לָלֶכֶת",
+          "tr": "ein bererah ela lalekhet",
+          "fr": "il n'y a pas d'autre choix que d'y aller",
+          "he_plain": "אין בררה אלא ללכת"
+        }
+      ],
+      "he_plain": "אלא"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אַחֲרֵי שֶׁ",
+      "tr": "acharei she",
+      "fr": "après que",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹכֵל אַחֲרֵי שֶׁאֲנִי עוֹבֵד",
+          "tr": "ani okhel acharei she'ani 'oved",
+          "fr": "je mange après que je travaille",
+          "he_plain": "אני אוכל אחרי שאני עובד"
+        }
+      ],
+      "he_plain": "אחרי ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "לִפְנֵי שֶׁ",
+      "tr": "lifnei she",
+      "fr": "avant que",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי מִתְקַלֵּחַ לִפְנֵי שֶׁאֲנִי יָשֵׁן",
+          "tr": "ani mitkaleach lifnei she'ani yashen",
+          "fr": "je me douche avant de dormir",
+          "he_plain": "אני מתקלח לפני שאני ישן"
+        }
+      ],
+      "he_plain": "לפני ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "עַד שֶׁ",
+      "tr": "ad she",
+      "fr": "jusqu'à ce que",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי מְחַכֶּה עַד שֶׁאַתָּה מַגִּיעַ",
+          "tr": "ani mechakeh 'ad she'atah magi'a",
+          "fr": "j'attends jusqu'à ce que tu arrives",
+          "he_plain": "אני מחכה עד שאתה מגיע"
+        }
+      ],
+      "he_plain": "עד ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "מֵאָז שֶׁ",
+      "tr": "me'az she",
+      "fr": "depuis que",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי שָׂמֵחַ מֵאָז שֶׁעָבַרְתִּי",
+          "tr": "ani sameach me'az she'avarti",
+          "fr": "je suis heureux depuis que j'ai déménagé",
+          "he_plain": "אני שמח מאז שעברתי"
+        }
+      ],
+      "he_plain": "מאז ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כְּדֵי שֶׁ",
+      "tr": "kdei she",
+      "fr": "pour que",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי לוֹמֵד כְּדֵי שֶׁאֶצְלִיחַ",
+          "tr": "ani lomed kdei she'etsliyach",
+          "fr": "j'étudie pour que je réussisse",
+          "he_plain": "אני לומד כדי שאצליח"
+        }
+      ],
+      "he_plain": "כדי ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "מִכֵּיוָן שֶׁ",
+      "tr": "mikeivan she",
+      "fr": "étant donné que",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי עָיֵף מִכֵּיוָן שֶׁלֹּא יָשַׁנְתִּי",
+          "tr": "ani 'ayef mikeivan shelo yashanti",
+          "fr": "je suis fatigué étant donné que je n'ai pas dormi",
+          "he_plain": "אני עיף מכיון שלא ישנתי"
+        }
+      ],
+      "he_plain": "מכיון ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כָּךְ שֶׁ",
+      "tr": "kakh she",
+      "fr": "de sorte que",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "דִּבַּרְתִּי לְאַט כָּךְ שֶׁתָּבִין",
+          "tr": "dibarti le'at kakh shetavin",
+          "fr": "j'ai parlé lentement de sorte que tu comprennes",
+          "he_plain": "דברתי לאט כך שתבין"
+        }
+      ],
+      "he_plain": "כך ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "בְּעוֹד שֶׁ",
+      "tr": "be'od she",
+      "fr": "tandis que",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "הִיא קוֹרֵאת בְּעוֹד שֶׁאֲנִי כּוֹתֵב",
+          "tr": "hi koret be'od she'ani kotev",
+          "fr": "elle lit tandis que j'écris",
+          "he_plain": "היא קוראת בעוד שאני כותב"
+        }
+      ],
+      "he_plain": "בעוד ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אַף שֶׁ",
+      "tr": "af she",
+      "fr": "bien que",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "אֲנִי הוֹלֵךְ אַף שֶׁאֲנִי חוֹלֶה",
+          "tr": "ani holekh af she'ani choleh",
+          "fr": "je pars bien que je sois malade",
+          "he_plain": "אני הולך אף שאני חולה"
+        }
+      ],
+      "he_plain": "אף ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "עַל מְנָת שֶׁ",
+      "tr": "al menat she",
+      "fr": "afin que (soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "אֲנִי עוֹבֵד עַל מְנָת שֶׁאֶצְלִיחַ",
+          "tr": "ani 'oved 'al menat she'etsliyach",
+          "fr": "je travaille afin de réussir",
+          "he_plain": "אני עובד על מנת שאצליח"
+        }
+      ],
+      "he_plain": "על מנת ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "בִּתְנַאי שֶׁ",
+      "tr": "bitnai she",
+      "fr": "à condition que",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אָבוֹא בִּתְנַאי שֶׁתָּבוֹא גַּם אַתָּה",
+          "tr": "avo bitna'i shetavo gam atah",
+          "fr": "je viendrai à condition que tu viennes aussi",
+          "he_plain": "אבוא בתנאי שתבוא גם אתה"
+        }
+      ],
+      "he_plain": "בתנאי ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "בְּמִקְרֶה שֶׁ",
+      "tr": "bemikreh she",
+      "fr": "au cas où",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "קַח מִטְרִיָּה בְּמִקְרֶה שֶׁיֵּרֵד גֶּשֶׁם",
+          "tr": "kach mitriyah bemikreh sheyered geshem",
+          "fr": "prends un parapluie au cas où il pleuvrait",
+          "he_plain": "קח מטריה במקרה שירד גשם"
+        }
+      ],
+      "he_plain": "במקרה ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כְּפִי שֶׁ",
+      "tr": "kfi she",
+      "fr": "comme, ainsi que",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי חוֹשֵׁב כְּפִי שֶׁאַתָּה חוֹשֵׁב",
+          "tr": "ani choshev kfi she'atah choshev",
+          "fr": "je pense comme tu penses",
+          "he_plain": "אני חושב כפי שאתה חושב"
+        }
+      ],
+      "he_plain": "כפי ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כְּמוֹ שֶׁ",
+      "tr": "kmo she",
+      "fr": "comme (+ proposition)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עָשִׂיתִי כְּמוֹ שֶׁאָמַרְתָּ",
+          "tr": "'asiti kmo she'amarta",
+          "fr": "j'ai fait comme tu as dit",
+          "he_plain": "עשיתי כמו שאמרת"
+        }
+      ],
+      "he_plain": "כמו ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "כְּכֹל שֶׁ",
+      "tr": "kekhol she",
+      "fr": "plus… (plus…)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "כְּכֹל שֶׁאֲנִי לוֹמֵד אֲנִי מֵבִין יוֹתֵר",
+          "tr": "kekhol she'ani lomed ani mevin yoter",
+          "fr": "plus j'étudie, plus je comprends",
+          "he_plain": "ככל שאני לומד אני מבין יותר"
+        }
+      ],
+      "he_plain": "ככל ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אוֹ שֶׁ",
+      "tr": "o she",
+      "fr": "ou bien (+ proposition)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "נֵלֵךְ הַיּוֹם, אוֹ שֶׁנֵּלֵךְ מָחָר",
+          "tr": "nelekh hayom, o shenelekh machar",
+          "fr": "on ira aujourd'hui, ou bien on ira demain",
+          "he_plain": "נלך היום, או שנלך מחר"
+        }
+      ],
+      "he_plain": "או ש"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "בֵּין אִם",
+      "tr": "bein im",
+      "fr": "que… ou que…",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "אָבוֹא בֵּין אִם תָּבוֹא בֵּין אִם לֹא",
+          "tr": "avo bein im tavo bein im lo",
+          "fr": "je viendrai que tu viennes ou non",
+          "he_plain": "אבוא בין אם תבוא בין אם לא"
+        }
+      ],
+      "he_plain": "בין אם"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "גַּם … וְגַם",
+      "tr": "gam… vegam",
+      "fr": "et… et…",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הוּא גַּם חָכָם וְגַם נֶחְמָד",
+          "tr": "hu gam chakham vegam nechmad",
+          "fr": "il est à la fois intelligent et gentil",
+          "he_plain": "הוא גם חכם וגם נחמד"
+        }
+      ],
+      "he_plain": "גם … וגם"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "אוֹ … אוֹ",
+      "tr": "o… o",
+      "fr": "ou… ou…",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אוֹ תֵּה אוֹ קָפֶה, מָה אַתָּה רוֹצֶה",
+          "tr": "o teh o kafeh, mah atah rotseh",
+          "fr": "ou thé ou café, que veux-tu ?",
+          "he_plain": "או תה או קפה, מה אתה רוצה"
+        }
+      ],
+      "he_plain": "או … או"
+    },
+    {
+      "cat": "Conjonctions",
+      "he": "לֹא … אֶלָּא",
+      "tr": "lo… ela",
+      "fr": "non pas… mais",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶה לֹא בְּעָיָה, אֶלָּא הִזְדַּמְּנוּת",
+          "tr": "zeh lo be'ayah, ela hizdamnut",
+          "fr": "ce n'est pas un problème, mais une opportunité",
+          "he_plain": "זה לא בעיה, אלא הזדמנות"
+        }
+      ],
+      "he_plain": "לא … אלא"
+    },
+    {
       "cat": "Mots interrogatifs",
       "he": "מָה",
       "tr": "mah",
