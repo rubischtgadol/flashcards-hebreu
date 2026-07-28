@@ -1,0 +1,77 @@
+{
+  "section": "Nombres — fractions et multiplicatifs",
+  "entries": [
+    {
+      "he": "חֵצִי",
+      "tr": "chetsi",
+      "fr": "demi, moitié",
+      "niveau": "A1",
+      "exemples": [
+        {"he": "אֲנִי רוֹצֶה חֵצִי תַּפּוּחַ", "tr": "ani rotse chetsi tapuach", "fr": "je veux une demi-pomme"}
+      ]
+    },
+    {
+      "he": "רֶבַע",
+      "tr": "reva'",
+      "fr": "quart",
+      "niveau": "A1",
+      "exemples": [
+        {"he": "אֲנִי מְאַחֵר רֶבַע שָׁעָה", "tr": "ani me'acher reva' sha'ah", "fr": "je suis en retard d'un quart d'heure"}
+      ]
+    },
+    {
+      "he": "שְׁלִישׁ",
+      "tr": "shlish",
+      "fr": "tiers",
+      "niveau": "A2",
+      "exemples": [
+        {"he": "אֲנִי אוֹכֵל שְׁלִישׁ מֵהָעוּגָה", "tr": "ani ochel shlish meha'uga", "fr": "je mange un tiers du gâteau"}
+      ]
+    },
+    {
+      "he": "שְׁלוֹשָׁה רְבָעִים",
+      "tr": "shloshah reva'im",
+      "fr": "trois quarts",
+      "niveau": "B1",
+      "exemples": [
+        {"he": "שְׁלוֹשָׁה רְבָעִים מֵהַכּוֹס מָלֵא", "tr": "shlosha reva'im mehakos male", "fr": "les trois quarts du verre sont pleins"}
+      ]
+    },
+    {
+      "he": "אָחוּז",
+      "tr": "achuz",
+      "fr": "pour cent, pourcentage",
+      "niveau": "A2",
+      "exemples": [
+        {"he": "הַמְּחִיר יָרַד בְּעֶשְׂרִים אָחוּז", "tr": "hamechir yarad be'esrim achuz", "fr": "le prix a baissé de vingt pour cent"}
+      ]
+    },
+    {
+      "he": "פַּעֲמַיִם",
+      "tr": "pa'amayim",
+      "fr": "deux fois",
+      "niveau": "A1",
+      "exemples": [
+        {"he": "אֲנִי הוֹלֵךְ לְשָׁם פַּעֲמַיִם בַּשָּׁבוּעַ", "tr": "ani holech lesham pa'amayim bashavu'a", "fr": "j'y vais deux fois par semaine"}
+      ]
+    },
+    {
+      "he": "פִּי שְׁנַיִם",
+      "tr": "pi shnayim",
+      "fr": "le double, deux fois plus",
+      "niveau": "B1",
+      "exemples": [
+        {"he": "הַבַּיִת הַזֶּה גָּדוֹל פִּי שְׁנַיִם", "tr": "habayit haze gadol pi shnayim", "fr": "cette maison est deux fois plus grande"}
+      ]
+    },
+    {
+      "he": "כָּפוּל",
+      "tr": "kaful",
+      "fr": "multiplié par, double",
+      "niveau": "A2",
+      "exemples": [
+        {"he": "שְׁלוֹשָׁה כָּפוּל שְׁלוֹשָׁה זֶה תֵּשַׁע", "tr": "shlosha kaful shlosha zeh tesha'", "fr": "trois multiplié par trois égale neuf"}
+      ]
+    }
+  ]
+}

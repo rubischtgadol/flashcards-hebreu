@@ -91,6 +91,7 @@ const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'
   'Verbes modaux':'Verbes modaux',
   'Prépositions':'Prépositions', 'Prépositions fléchies':'Prépositions fléchies', 'Conjonctions':'Conjonctions', 'Mots interrogatifs':'Mots interrogatifs',
   'Nombres (0–10)':'Nombres', 'Nombres (11 et plus)':'Nombres', 'Nombres ordinaux':'Nombres',
+  'Nombres — fractions et multiplicatifs':'Nombres',
   'Jours de la semaine':'Jours de la semaine', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
   'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
   'Existence et possession':'Existence', 'Phrases':'Phrases', 'Hébreu parlé':'Hébreu parlé' };
