@@ -32927,6 +32927,38 @@
       "he_plain": "הדדי"
     },
     {
+      "cat": "Pronoms personnels",
+      "he": "בְּעַצְמִי",
+      "tr": "be'atsmi",
+      "fr": "moi-même, tout seul",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עָשִׂיתִי אֶת זֶה בְּעַצְמִי",
+          "tr": "'asiti et zeh be'atsmi",
+          "fr": "je l'ai fait moi-même",
+          "he_plain": "עשיתי את זה בעצמי"
+        }
+      ],
+      "he_plain": "בעצמי"
+    },
+    {
+      "cat": "Pronoms personnels",
+      "he": "כָּלְשֶׁהוּ",
+      "tr": "kolshehu",
+      "fr": "quelconque",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי רַעֲיוֹן כָּלְשֶׁהוּ",
+          "tr": "yesh li ra'ayon kolshehu",
+          "fr": "j'ai une idée quelconque",
+          "he_plain": "יש לי רעיון כלשהו"
+        }
+      ],
+      "he_plain": "כלשהו"
+    },
+    {
       "cat": "Démonstratifs",
       "he": "זֶה",
       "tr": "zeh",
@@ -32981,6 +33013,118 @@
       "fr": "comme ça, une telle",
       "niveau": "A2",
       "he_plain": "כזאת"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "זוֹ",
+      "tr": "zo",
+      "fr": "cette, celle-ci (variante de זאת)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זוֹ הַמְּכוֹנִית שֶׁלִּי",
+          "tr": "zo hamkhonit sheli",
+          "fr": "c'est ma voiture",
+          "he_plain": "זו המכונית שלי"
+        }
+      ],
+      "he_plain": "זו"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "אֵלּוּ",
+      "tr": "elu",
+      "fr": "ces, ceux-ci (variante de אלה)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֵלּוּ הַסְּפָרִים שֶׁלִּי",
+          "tr": "elu hasfarim sheli",
+          "fr": "ce sont mes livres",
+          "he_plain": "אלו הספרים שלי"
+        }
+      ],
+      "he_plain": "אלו"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "הַזֶּה",
+      "tr": "hazeh",
+      "fr": "ce …-ci (après le nom : הַסֵּפֶר הַזֶּה)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַסֵּפֶר הַזֶּה מְעַנְיֵן",
+          "tr": "hasefer hazeh me'anyen",
+          "fr": "ce livre est intéressant",
+          "he_plain": "הספר הזה מענין"
+        }
+      ],
+      "he_plain": "הזה"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "הַזֹּאת",
+      "tr": "hazot",
+      "fr": "cette …-ci",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הָעִיר הַזֹּאת יָפָה",
+          "tr": "ha'ir hazot yafah",
+          "fr": "cette ville est belle",
+          "he_plain": "העיר הזאת יפה"
+        }
+      ],
+      "he_plain": "הזאת"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "הָאֵלֶּה",
+      "tr": "ha'eleh",
+      "fr": "ces …-ci",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַיְלָדִים הָאֵלֶּה חֲכָמִים",
+          "tr": "hayladim ha'eleh chakhamim",
+          "fr": "ces enfants sont intelligents",
+          "he_plain": "הילדים האלה חכמים"
+        }
+      ],
+      "he_plain": "האלה"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "פֹּה",
+      "tr": "poh",
+      "fr": "ici (courant)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי גָּר פֹּה",
+          "tr": "ani gar poh",
+          "fr": "j'habite ici",
+          "he_plain": "אני גר פה"
+        }
+      ],
+      "he_plain": "פה"
+    },
+    {
+      "cat": "Démonstratifs",
+      "he": "שָׁמָּה",
+      "tr": "shamah",
+      "fr": "là-bas (familier)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הֵם נָסְעוּ שָׁמָּה",
+          "tr": "hem nas'u shamah",
+          "fr": "ils sont partis là-bas",
+          "he_plain": "הם נסעו שמה"
+        }
+      ],
+      "he_plain": "שמה"
     },
     {
       "cat": "Verbes modaux",
@@ -33647,6 +33791,87 @@
         }
       ],
       "he_plain": "כולל"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "אֶת",
+      "tr": "et",
+      "fr": "(marque du complément d'objet direct défini)",
+      "note": "אֲנִי רוֹאֶה אֶת הַבַּיִת ; cf. section 16 du carnet",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹאֶה אֶת הַבַּיִת",
+          "tr": "ani ro'eh et habayit",
+          "fr": "je vois la maison",
+          "he_plain": "אני רואה את הבית"
+        }
+      ],
+      "he_plain": "את"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "בְּ־",
+      "tr": "be-",
+      "fr": "dans, en, à (préfixe collé au mot)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי גָּר בְּעִיר גְּדוֹלָה",
+          "tr": "ani gar be'ir gedolah",
+          "fr": "j'habite dans une grande ville",
+          "he_plain": "אני גר בעיר גדולה"
+        }
+      ],
+      "he_plain": "ב"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "לְ־",
+      "tr": "le-",
+      "fr": "à, pour, vers (préfixe collé au mot)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי כּוֹתֵב לְחָבֵר",
+          "tr": "ani kotev lechaver",
+          "fr": "j'écris à un ami",
+          "he_plain": "אני כותב לחבר"
+        }
+      ],
+      "he_plain": "ל"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "לְלֹא",
+      "tr": "lelo",
+      "fr": "sans (soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "הוּא עָבַד לְלֹא הַפְסָקָה",
+          "tr": "hu 'avad lelo hafsakah",
+          "fr": "il a travaillé sans interruption",
+          "he_plain": "הוא עבד ללא הפסקה"
+        }
+      ],
+      "he_plain": "ללא"
+    },
+    {
+      "cat": "Prépositions",
+      "he": "אוֹדוֹת",
+      "tr": "odot",
+      "fr": "au sujet de (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "הוּא סִפֵּר אוֹדוֹת הַטִּיּוּל",
+          "tr": "hu siper odot hatiyul",
+          "fr": "il a raconté au sujet du voyage",
+          "he_plain": "הוא ספר אודות הטיול"
+        }
+      ],
+      "he_plain": "אודות"
     },
     {
       "cat": "Conjonctions",

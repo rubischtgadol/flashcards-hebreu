@@ -447,6 +447,72 @@
           "fr": "le prix comprend le petit-déjeuner"
         }
       ]
+    },
+    {
+      "he": "אֶת",
+      "tr": "et",
+      "fr": "(marque du complément d'objet direct défini)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹאֶה אֶת הַבַּיִת",
+          "tr": "ani ro'eh et habayit",
+          "fr": "je vois la maison"
+        }
+      ],
+      "note": "אֲנִי רוֹאֶה אֶת הַבַּיִת ; cf. section 16 du carnet"
+    },
+    {
+      "he": "בְּ־",
+      "tr": "be-",
+      "fr": "dans, en, à (préfixe collé au mot)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי גָּר בְּעִיר גְּדוֹלָה",
+          "tr": "ani gar be'ir gedolah",
+          "fr": "j'habite dans une grande ville"
+        }
+      ]
+    },
+    {
+      "he": "לְ־",
+      "tr": "le-",
+      "fr": "à, pour, vers (préfixe collé au mot)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי כּוֹתֵב לְחָבֵר",
+          "tr": "ani kotev lechaver",
+          "fr": "j'écris à un ami"
+        }
+      ]
+    },
+    {
+      "he": "לְלֹא",
+      "tr": "lelo",
+      "fr": "sans (soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "הוּא עָבַד לְלֹא הַפְסָקָה",
+          "tr": "hu 'avad lelo hafsakah",
+          "fr": "il a travaillé sans interruption"
+        }
+      ]
+    },
+    {
+      "he": "אוֹדוֹת",
+      "tr": "odot",
+      "fr": "au sujet de (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "הוּא סִפֵּר אוֹדוֹת הַטִּיּוּל",
+          "tr": "hu siper odot hatiyul",
+          "fr": "il a raconté au sujet du voyage"
+        }
+      ]
     }
   ]
 }

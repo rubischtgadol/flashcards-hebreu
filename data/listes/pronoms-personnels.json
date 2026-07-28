@@ -134,6 +134,32 @@
       "fr": "réciproque, mutuel",
       "niveau": "B1",
       "exemples": []
+    },
+    {
+      "he": "בְּעַצְמִי",
+      "tr": "be'atsmi",
+      "fr": "moi-même, tout seul",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עָשִׂיתִי אֶת זֶה בְּעַצְמִי",
+          "tr": "'asiti et zeh be'atsmi",
+          "fr": "je l'ai fait moi-même"
+        }
+      ]
+    },
+    {
+      "he": "כָּלְשֶׁהוּ",
+      "tr": "kolshehu",
+      "fr": "quelconque",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי רַעֲיוֹן כָּלְשֶׁהוּ",
+          "tr": "yesh li ra'ayon kolshehu",
+          "fr": "j'ai une idée quelconque"
+        }
+      ]
     }
   ]
 }

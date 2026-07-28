@@ -49,6 +49,97 @@
       "fr": "comme ça, une telle",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "זוֹ",
+      "tr": "zo",
+      "fr": "cette, celle-ci (variante de זאת)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זוֹ הַמְּכוֹנִית שֶׁלִּי",
+          "tr": "zo hamkhonit sheli",
+          "fr": "c'est ma voiture"
+        }
+      ]
+    },
+    {
+      "he": "אֵלּוּ",
+      "tr": "elu",
+      "fr": "ces, ceux-ci (variante de אלה)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֵלּוּ הַסְּפָרִים שֶׁלִּי",
+          "tr": "elu hasfarim sheli",
+          "fr": "ce sont mes livres"
+        }
+      ]
+    },
+    {
+      "he": "הַזֶּה",
+      "tr": "hazeh",
+      "fr": "ce …-ci (après le nom : הַסֵּפֶר הַזֶּה)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַסֵּפֶר הַזֶּה מְעַנְיֵן",
+          "tr": "hasefer hazeh me'anyen",
+          "fr": "ce livre est intéressant"
+        }
+      ]
+    },
+    {
+      "he": "הַזֹּאת",
+      "tr": "hazot",
+      "fr": "cette …-ci",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הָעִיר הַזֹּאת יָפָה",
+          "tr": "ha'ir hazot yafah",
+          "fr": "cette ville est belle"
+        }
+      ]
+    },
+    {
+      "he": "הָאֵלֶּה",
+      "tr": "ha'eleh",
+      "fr": "ces …-ci",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַיְלָדִים הָאֵלֶּה חֲכָמִים",
+          "tr": "hayladim ha'eleh chakhamim",
+          "fr": "ces enfants sont intelligents"
+        }
+      ]
+    },
+    {
+      "he": "פֹּה",
+      "tr": "poh",
+      "fr": "ici (courant)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֲנִי גָּר פֹּה",
+          "tr": "ani gar poh",
+          "fr": "j'habite ici"
+        }
+      ]
+    },
+    {
+      "he": "שָׁמָּה",
+      "tr": "shamah",
+      "fr": "là-bas (familier)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הֵם נָסְעוּ שָׁמָּה",
+          "tr": "hem nas'u shamah",
+          "fr": "ils sont partis là-bas"
+        }
+      ]
     }
   ]
 }
