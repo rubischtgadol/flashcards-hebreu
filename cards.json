@@ -36704,6 +36704,230 @@
       "he_plain": "אין"
     },
     {
+      "cat": "Existence",
+      "he": "יֵשׁ לִי",
+      "tr": "yesh li",
+      "fr": "j'ai",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי כֶּלֶב",
+          "tr": "yesh li kelev",
+          "fr": "j'ai un chien",
+          "he_plain": "יש לי כלב"
+        }
+      ],
+      "he_plain": "יש לי"
+    },
+    {
+      "cat": "Existence",
+      "he": "אֵין לִי",
+      "tr": "ein li",
+      "fr": "je n'ai pas",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אֵין לִי זְמַן",
+          "tr": "ein li zeman",
+          "fr": "je n'ai pas le temps",
+          "he_plain": "אין לי זמן"
+        }
+      ],
+      "he_plain": "אין לי"
+    },
+    {
+      "cat": "Existence",
+      "he": "יֵשׁ לְךָ",
+      "tr": "yesh lekha",
+      "fr": "tu as (la série suit לְ fléchi)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לְךָ אָח?",
+          "tr": "yesh lekha ach?",
+          "fr": "tu as un frère ?",
+          "he_plain": "יש לך אח?"
+        }
+      ],
+      "he_plain": "יש לך"
+    },
+    {
+      "cat": "Existence",
+      "he": "הָיָה",
+      "tr": "hayah",
+      "fr": "il était / il y avait",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הוּא הָיָה עָיֵף",
+          "tr": "hu hayah 'ayef",
+          "fr": "il était fatigué",
+          "he_plain": "הוא היה עיף"
+        }
+      ],
+      "he_plain": "היה"
+    },
+    {
+      "cat": "Existence",
+      "he": "הָיְתָה",
+      "tr": "haytah",
+      "fr": "elle était",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הִיא הָיְתָה שָׁם",
+          "tr": "hi haytah sham",
+          "fr": "elle était là-bas",
+          "he_plain": "היא היתה שם"
+        }
+      ],
+      "he_plain": "היתה"
+    },
+    {
+      "cat": "Existence",
+      "he": "הָיוּ",
+      "tr": "hayu",
+      "fr": "ils étaient / il y avait (pl.)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הֵם הָיוּ בַּבַּיִת",
+          "tr": "hem hayu babayit",
+          "fr": "ils étaient à la maison",
+          "he_plain": "הם היו בבית"
+        }
+      ],
+      "he_plain": "היו"
+    },
+    {
+      "cat": "Existence",
+      "he": "יִהְיֶה",
+      "tr": "yihyeh",
+      "fr": "il sera / il y aura",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הוּא יִהְיֶה כָּאן מָחָר",
+          "tr": "hu yihyeh kan machar",
+          "fr": "il sera ici demain",
+          "he_plain": "הוא יהיה כאן מחר"
+        }
+      ],
+      "he_plain": "יהיה"
+    },
+    {
+      "cat": "Existence",
+      "he": "הָיִיתִי",
+      "tr": "hayiti",
+      "fr": "j'étais",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֶתְמוֹל הָיִיתִי עָיֵף",
+          "tr": "etmol hayiti 'ayef",
+          "fr": "hier j'étais fatigué",
+          "he_plain": "אתמול הייתי עיף"
+        }
+      ],
+      "he_plain": "הייתי"
+    },
+    {
+      "cat": "Existence",
+      "he": "הָיָה לִי",
+      "tr": "hayah li",
+      "fr": "j'avais",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הָיָה לִי כֶּלֶב",
+          "tr": "hayah li kelev",
+          "fr": "j'avais un chien",
+          "he_plain": "היה לי כלב"
+        }
+      ],
+      "he_plain": "היה לי"
+    },
+    {
+      "cat": "Existence",
+      "he": "יִהְיֶה לִי",
+      "tr": "yihyeh li",
+      "fr": "j'aurai",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מָחָר יִהְיֶה לִי זְמַן",
+          "tr": "machar yihyeh li zeman",
+          "fr": "demain j'aurai du temps",
+          "he_plain": "מחר יהיה לי זמן"
+        }
+      ],
+      "he_plain": "יהיה לי"
+    },
+    {
+      "cat": "Existence",
+      "he": "לֹא הָיָה",
+      "tr": "lo hayah",
+      "fr": "il n'y avait pas",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "לֹא הָיָה שָׁם אִישׁ",
+          "tr": "lo hayah sham ish",
+          "fr": "il n'y avait personne là-bas",
+          "he_plain": "לא היה שם איש"
+        }
+      ],
+      "he_plain": "לא היה"
+    },
+    {
+      "cat": "Existence",
+      "he": "נִמְצָא",
+      "tr": "nimtsa",
+      "fr": "se trouve",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַסֵּפֶר נִמְצָא עַל הַשֻּׁלְחָן",
+          "tr": "hasefer nimtsa 'al hashulchan",
+          "fr": "le livre se trouve sur la table",
+          "he_plain": "הספר נמצא על השלחן"
+        }
+      ],
+      "he_plain": "נמצא"
+    },
+    {
+      "cat": "Existence",
+      "he": "קַיָּם",
+      "tr": "kayam",
+      "fr": "existe, existant",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַחוֹק עֲדַיִן קַיָּם",
+          "tr": "hachok 'adayin kayam",
+          "fr": "la loi existe encore",
+          "he_plain": "החוק עדין קים"
+        }
+      ],
+      "he_plain": "קים"
+    },
+    {
+      "cat": "Existence",
+      "he": "יֶשְׁנוֹ",
+      "tr": "yeshno",
+      "fr": "il existe (soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "יֶשְׁנוֹ פִּתְרוֹן אֶחָד",
+          "tr": "yeshno pitron echad",
+          "fr": "il existe une solution",
+          "he_plain": "ישנו פתרון אחד"
+        }
+      ],
+      "he_plain": "ישנו"
+    },
+    {
       "cat": "Phrases",
       "he": "אֲנִי רוֹצֶה מַיִם, בְּבַקָּשָׁה.",
       "tr": "ani rotseh mayim, bevakashah",
