@@ -27,11 +27,13 @@ prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
 --stats`, jamais cette page.
 
 ⚠️ **GRAPHE À RECALER : `data/listes/hebreu-parle.json`,
-`src/carnet/sections/37-hebreu-parle.html`, `tools/controle_tr.js` (créés) ;
-`docs/superpowers/**` (4 fichiers supprimés au ménage documentaire).** Le graphe n'a jamais connu ces
-quatre-là — il est antérieur à `docs/` —, donc il n'y a rien à en retirer : la
-ligne est là pour que le prochain recalage n'aille pas les chercher. Le flag
-enregistre la dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
+`src/carnet/sections/43-hebreu-parle.html`, `tools/controle_tr.js` (créés) ;
+`docs/superpowers/**` (4 fichiers supprimés au ménage documentaire) ; 15
+sections de `src/carnet/sections/` renommées (numérotation à trous, six
+places réservées — Tâche 2b).** Le graphe n'a jamais connu ces fichiers — il
+est antérieur à `docs/` —, donc il n'y a rien à en retirer : la ligne est là
+pour que le prochain recalage n'aille pas les chercher. Le flag enregistre la
+dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
 lance que sur décision explicite).
 
 ### Deux branches latérales — aucune n'est le chantier courant
