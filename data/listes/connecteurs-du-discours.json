@@ -1,0 +1,304 @@
+{
+  "section": "Connecteurs du discours",
+  "entries": [
+    {
+      "he": "כְּלוֹמַר",
+      "tr": "klomar",
+      "fr": "c'est-à-dire",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא בָּא מָחָר, כְּלוֹמַר בְּיוֹם רְבִיעִי",
+          "tr": "hu ba machar, klomar beyom revi'i",
+          "fr": "il vient demain, c'est-à-dire mercredi"
+        }
+      ]
+    },
+    {
+      "he": "לְמָשָׁל",
+      "tr": "lemashal",
+      "fr": "par exemple",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹהֵב פֵּרוֹת, לְמָשָׁל תַּפּוּחִים",
+          "tr": "ani ohev perot, lemashal tapuchim",
+          "fr": "j'aime les fruits, par exemple les pommes"
+        }
+      ]
+    },
+    {
+      "he": "לְדֻגְמָה",
+      "tr": "ledugmah",
+      "fr": "par exemple (à l'écrit)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "יֵשׁ הַרְבֵּה דְּרָכִים, לְדֻגְמָה זוֹ",
+          "tr": "yesh harbeh derakhim, ledugmah zo",
+          "fr": "il y a plusieurs façons, par exemple celle-ci"
+        }
+      ]
+    },
+    {
+      "he": "בְּנוֹסָף",
+      "tr": "benosaf",
+      "fr": "en outre, de plus",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא חָכָם, בְּנוֹסָף הוּא נֶחְמָד",
+          "tr": "hu chakham, benosaf hu nechmad",
+          "fr": "il est intelligent, en outre il est gentil"
+        }
+      ]
+    },
+    {
+      "he": "מִצַּד אֶחָד",
+      "tr": "mitsad echad",
+      "fr": "d'un côté",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מִצַּד אֶחָד אֲנִי שָׂמֵחַ",
+          "tr": "mitsad echad ani sameach",
+          "fr": "d'un côté je suis content"
+        }
+      ]
+    },
+    {
+      "he": "מִצַּד שֵׁנִי",
+      "tr": "mitsad sheni",
+      "fr": "de l'autre côté",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "מִצַּד שֵׁנִי אֲנִי מְפַחֵד",
+          "tr": "mitsad sheni ani mefached",
+          "fr": "de l'autre côté j'ai peur"
+        }
+      ]
+    },
+    {
+      "he": "עִם זֹאת",
+      "tr": "im zot",
+      "fr": "cela dit, toutefois",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "הוּא עָיֵף, עִם זֹאת הוּא עוֹבֵד",
+          "tr": "hu 'ayef, 'im zot hu 'oved",
+          "fr": "il est fatigué, cela dit il travaille"
+        }
+      ]
+    },
+    {
+      "he": "לְפִיכָךְ",
+      "tr": "lefikhakh",
+      "fr": "par conséquent (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "יָרַד גֶּשֶׁם, לְפִיכָךְ נִשְׁאַרְנוּ בַּבַּיִת",
+          "tr": "yarad geshem, lefikhakh nisharnu babayit",
+          "fr": "il a plu, par conséquent nous sommes restés à la maison"
+        }
+      ]
+    },
+    {
+      "he": "אָמְנָם",
+      "tr": "omnam",
+      "fr": "certes",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "אָמְנָם קַר, אֲבָל יָפֶה בַּחוּץ",
+          "tr": "amnam kar, aval yafeh bachuts",
+          "fr": "certes il fait froid, mais il fait beau dehors"
+        }
+      ]
+    },
+    {
+      "he": "אַף עַל פִּי כֵן",
+      "tr": "af al pi khen",
+      "fr": "malgré tout (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "יָרַד גֶּשֶׁם, אַף עַל פִּי כֵן יָצָאנוּ",
+          "tr": "yarad geshem, af 'al pi khen yatsanu",
+          "fr": "il pleuvait, malgré tout nous sommes sortis"
+        }
+      ]
+    },
+    {
+      "he": "יֶתֶר עַל כֵּן",
+      "tr": "yeter al ken",
+      "fr": "qui plus est (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "הוּא חָכָם, יֶתֶר עַל כֵּן נָדִיב",
+          "tr": "hu chakham, yeter 'al ken nadiv",
+          "fr": "il est intelligent, qui plus est généreux"
+        }
+      ]
+    },
+    {
+      "he": "לְסִכּוּם",
+      "tr": "lesikum",
+      "fr": "en résumé",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "לְסִכּוּם, הַיּוֹם הָיָה מֻצְלָח",
+          "tr": "lesikum, hayom hayah mutslach",
+          "fr": "en résumé, la journée a été réussie"
+        }
+      ]
+    },
+    {
+      "he": "כָּאָמוּר",
+      "tr": "ka'amur",
+      "fr": "comme dit plus haut (écrit)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "כָּאָמוּר, אֲנַחְנוּ נִפְגָּשִׁים מָחָר",
+          "tr": "ka'amur, anachnu nifgashim machar",
+          "fr": "comme dit plus haut, nous nous voyons demain"
+        }
+      ]
+    },
+    {
+      "he": "רֵאשִׁית",
+      "tr": "reshit",
+      "fr": "premièrement",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "רֵאשִׁית, אֲנִי צָרִיךְ לָנוּחַ",
+          "tr": "reshit, ani tsarikh lanuach",
+          "fr": "premièrement, je dois me reposer"
+        }
+      ]
+    },
+    {
+      "he": "שֵׁנִית",
+      "tr": "shenit",
+      "fr": "deuxièmement",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שֵׁנִית, אֲנִי צָרִיךְ לִקְנוֹת אֹכֶל",
+          "tr": "shenit, ani tsarikh liknot okhel",
+          "fr": "deuxièmement, je dois acheter à manger"
+        }
+      ]
+    },
+    {
+      "he": "לְבַסּוֹף",
+      "tr": "levasof",
+      "fr": "finalement",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "לְבַסּוֹף מָצָאתִי אֶת הַמַּפְתֵּחַ",
+          "tr": "levasof matsati et hamafteach",
+          "fr": "finalement j'ai trouvé la clé"
+        }
+      ]
+    },
+    {
+      "he": "וְכֵן",
+      "tr": "vekhen",
+      "fr": "ainsi que, de même",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "קָנִיתִי לֶחֶם וְכֵן חָלָב",
+          "tr": "kaniti lechem vekhen chalav",
+          "fr": "j'ai acheté du pain, ainsi que du lait"
+        }
+      ]
+    },
+    {
+      "he": "כְּמוֹ כֵן",
+      "tr": "kmo khen",
+      "fr": "de même (soutenu)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא לָמַד, כְּמוֹ כֵן הוּא עָבַד",
+          "tr": "hu lamad, kmo khen hu 'avad",
+          "fr": "il a étudié, de même il a travaillé"
+        }
+      ]
+    },
+    {
+      "he": "דְּהַיְנוּ",
+      "tr": "dehaynu",
+      "fr": "à savoir (soutenu)",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי שָׂפָה אַחַת, דְּהַיְנוּ עִבְרִית",
+          "tr": "yesh li safah achat, dehaynu 'ivrit",
+          "fr": "j'ai une langue, à savoir l'hébreu"
+        }
+      ]
+    },
+    {
+      "he": "וּבְכֵן",
+      "tr": "uvekhen",
+      "fr": "eh bien",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "וּבְכֵן, מָה אַתֶּם רוֹצִים",
+          "tr": "uvkhen, mah atem rotsim",
+          "fr": "eh bien, que voulez-vous ?"
+        }
+      ]
+    },
+    {
+      "he": "בְּהֶתְאֵם",
+      "tr": "behetem",
+      "fr": "en conséquence (adminis.)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "הֵם פָּעֲלוּ בְּהֶתְאֵם לַחֹק",
+          "tr": "hem pa'alu behetem lachok",
+          "fr": "ils ont agi en conséquence de la loi"
+        }
+      ]
+    },
+    {
+      "he": "כְּתוֹצָאָה מִכָּךְ",
+      "tr": "ktotsa'ah mikakh",
+      "fr": "en conséquence de quoi",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "יָרַד גֶּשֶׁם, כְּתוֹצָאָה מִכָּךְ אֵחַרְנוּ",
+          "tr": "yarad geshem, ktotsa'ah mikakh echarnu",
+          "fr": "il a plu, en conséquence de quoi nous sommes arrivés en retard"
+        }
+      ]
+    },
+    {
+      "he": "בְּעִקְבוֹת",
+      "tr": "be'ikvot",
+      "fr": "à la suite de",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "בְּעִקְבוֹת הַגֶּשֶׁם נִשְׁאַרְנוּ בַּבַּיִת",
+          "tr": "be'ikvot hageshem nisharnu babayit",
+          "fr": "à la suite de la pluie, nous sommes restés à la maison"
+        }
+      ]
+    }
+  ]
+}
