@@ -870,6 +870,39 @@ function verifieCharte(appAssembled, notebookGenerated, portailGenerated){
   console.log('Charte : transition:all absent, font-size hors de html, :root au compte attendu, tokens et theme-color (' + bg + ') en phase sur les 3 pages déployées.');
 }
 
+/**
+ * verifieCatOrder(racine) — le 7e point de câblage, enfin gardé.
+ *
+ * `catOrder` (src/app/js/07-filtres.js) est la seule liste dont dépend l'affichage
+ * des puces de catégorie : buildChips() n'itère que sur elle. Une section neuve
+ * complète et correcte mais absente de catOrder produit un carnet juste, un
+ * --check vert et une app SANS sa puce — un échec parfaitement muet, le seul des
+ * sept points de câblage que rien ne surveillait.
+ *
+ * Sens fatal : toute catégorie attendue (EXPECTED_CATS ∪ valeurs de listCats)
+ * doit figurer dans catOrder. Sens inverse (une entrée de catOrder qui ne
+ * correspond à aucune catégorie) : simple avertissement — buildChips() filtre
+ * déjà sur catCounts, une entrée morte n'affiche rien et ne casse rien.
+ *
+ * Le bac à sable d'ajoute_mots.js recopie src/ : la garde y fonctionne (contrairement
+ * à verifieDoc, qui doit tolérer l'absence de docs/).
+ */
+function verifieCatOrder(racine){
+  const f = path.join(racine, 'src', 'app', 'js', '07-filtres.js');
+  const src = fs.readFileSync(f, 'utf8');
+  const m = src.match(/const\s+catOrder\s*=\s*\[([\s\S]*?)\]/);
+  if (!m) throw new Error('verifieCatOrder : const catOrder introuvable dans 07-filtres.js');
+  const ordre = (m[1].match(/'([^']+)'/g) || []).map(s => s.slice(1, -1));
+  const attendues = [...new Set([...EXPECTED_CATS, ...Object.values(listCats)])];
+  const absentes = attendues.filter(c => !ordre.includes(c));
+  if (absentes.length) {
+    throw new Error('catOrder (07-filtres.js) : catégorie(s) sans puce dans l\'app : '
+      + absentes.join(', ') + ' — ajoute-les à catOrder.');
+  }
+  const mortes = ordre.filter(c => !attendues.includes(c));
+  if (mortes.length) console.log('  ⚠ catOrder : entrée(s) sans catégorie : ' + mortes.join(', '));
+}
+
 /*
  * verifieDoc(racine) — la doc attribue-t-elle chaque symbole au bon module ? (2026-07-27)
  *
@@ -1106,6 +1139,7 @@ function main(){
   verifieTaxonomieApp(appAssembled); // fatale — exercée en mode normal comme en --check
   verifieCharte(appAssembled, notebookGenerated, portailAssembled); // fatale — même régime (tripwires de charte)
   verifieDoc(ROOT);                                                 // fatale aussi ; muette si docs/ absent (bac à sable)
+  try { verifieCatOrder(ROOT); } catch (e) { console.error('✗ ' + e.message); process.exit(1); } // fatale — 7e point de câblage
   const appGenerated = insereEntete(appAssembled, ENTETE_GENERE_APP);
   const portailGenerated = insereEntete(portailAssembled, ENTETE_GENERE_PORTAIL);
 
