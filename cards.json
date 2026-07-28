@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-27",
+  "version": "2026-07-28",
   "cartes": [
     {
       "cat": "Verbes",
@@ -17862,6 +17862,154 @@
       "he_plain": "זמין"
     },
     {
+      "cat": "Adjectifs",
+      "he": "צְפוֹנִי",
+      "tr": "",
+      "fr": "nord, septentrional, nordique",
+      "forms": [
+        {
+          "he": "צְפוֹנִית",
+          "tr": "tsfonit",
+          "label": "f. sing.",
+          "he_plain": "צפונית"
+        },
+        {
+          "he": "צְפוֹנִיִּים",
+          "tr": "tsfoniyim",
+          "label": "m. plur.",
+          "he_plain": "צפוניים"
+        },
+        {
+          "he": "צְפוֹנִיּוֹת",
+          "tr": "tsfoniyot",
+          "label": "f. plur.",
+          "he_plain": "צפוניות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הָרוּחַ הַצְּפוֹנִית קָרָה מְאוֹד",
+          "tr": "haruach hatsfonit karah me'od",
+          "fr": "le vent du nord est très froid",
+          "he_plain": "הרוח הצפונית קרה מאוד"
+        }
+      ],
+      "he_plain": "צפוני"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "דְּרוֹמִי",
+      "tr": "",
+      "fr": "sud, méridional",
+      "forms": [
+        {
+          "he": "דְּרוֹמִית",
+          "tr": "deromit",
+          "label": "f. sing.",
+          "he_plain": "דרומית"
+        },
+        {
+          "he": "דְּרוֹמִיִּים",
+          "tr": "deromiyim",
+          "label": "m. plur.",
+          "he_plain": "דרומיים"
+        },
+        {
+          "he": "דְּרוֹמִיּוֹת",
+          "tr": "deromiyot",
+          "label": "f. plur.",
+          "he_plain": "דרומיות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַחוֹף הַדְּרוֹמִי יָפֶה מְאוֹד",
+          "tr": "hachof hadromi yafeh me'od",
+          "fr": "la plage du sud est très belle",
+          "he_plain": "החוף הדרומי יפה מאוד"
+        }
+      ],
+      "he_plain": "דרומי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "מִזְרָחִי",
+      "tr": "",
+      "fr": "est, oriental",
+      "forms": [
+        {
+          "he": "מִזְרָחִית",
+          "tr": "mizrachit",
+          "label": "f. sing.",
+          "he_plain": "מזרחית"
+        },
+        {
+          "he": "מִזְרָחִיִּים",
+          "tr": "mizrachiyim",
+          "label": "m. plur.",
+          "he_plain": "מזרחיים"
+        },
+        {
+          "he": "מִזְרָחִיּוֹת",
+          "tr": "mizrachiyot",
+          "label": "f. plur.",
+          "he_plain": "מזרחיות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הָאֹכֶל הַמִּזְרָחִי חָרִיף מְאוֹד",
+          "tr": "ha'okhel hamizrachi charif me'od",
+          "fr": "la cuisine orientale est très épicée",
+          "he_plain": "האכל המזרחי חריף מאוד"
+        }
+      ],
+      "he_plain": "מזרחי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "מַעֲרָבִי",
+      "tr": "",
+      "fr": "ouest, occidental",
+      "forms": [
+        {
+          "he": "מַעֲרָבִית",
+          "tr": "ma'aravit",
+          "label": "f. sing.",
+          "he_plain": "מערבית"
+        },
+        {
+          "he": "מַעֲרָבִיִּים",
+          "tr": "ma'araviyim",
+          "label": "m. plur.",
+          "he_plain": "מערביים"
+        },
+        {
+          "he": "מַעֲרָבִיּוֹת",
+          "tr": "ma'araviyot",
+          "label": "f. plur.",
+          "he_plain": "מערביות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַכֹּתֶל הַמַּעֲרָבִי נִמְצָא בִּירוּשָׁלַיִם",
+          "tr": "hakotel hama'aravi nimtsa birushalayim",
+          "fr": "le Mur occidental se trouve à Jérusalem",
+          "he_plain": "הכתל המערבי נמצא בירושלים"
+        }
+      ],
+      "he_plain": "מערבי"
+    },
+    {
       "cat": "Noms",
       "he": "אִישׁ",
       "tr": "",
@@ -26214,6 +26362,104 @@
         }
       ],
       "he_plain": "מנהרה"
+    },
+    {
+      "cat": "Noms",
+      "he": "צָפוֹן",
+      "tr": "",
+      "fr": "nord (m)",
+      "genre": "m",
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַמִּשְׁפָּחָה גָּרָה בַּצָּפוֹן",
+          "tr": "hamishpachah garah batsafon",
+          "fr": "la famille habite dans le nord",
+          "he_plain": "המשפחה גרה בצפון"
+        }
+      ],
+      "he_plain": "צפון"
+    },
+    {
+      "cat": "Noms",
+      "he": "דָּרוֹם",
+      "tr": "",
+      "fr": "sud (m)",
+      "genre": "m",
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "בַּדָּרוֹם חַם מְאוֹד בַּקַּיִץ",
+          "tr": "badarom cham me'od bakayits",
+          "fr": "dans le sud il fait très chaud en été",
+          "he_plain": "בדרום חם מאוד בקיץ"
+        }
+      ],
+      "he_plain": "דרום"
+    },
+    {
+      "cat": "Noms",
+      "he": "מִזְרָח",
+      "tr": "",
+      "fr": "est, orient (m)",
+      "genre": "m",
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַשֶּׁמֶשׁ עוֹלָה בַּמִּזְרָח כָּל בֹּקֶר",
+          "tr": "hashemesh 'olah bamizrach kol boker",
+          "fr": "le soleil se lève à l'est chaque matin",
+          "he_plain": "השמש עולה במזרח כל בקר"
+        }
+      ],
+      "he_plain": "מזרח"
+    },
+    {
+      "cat": "Noms",
+      "he": "מַעֲרָב",
+      "tr": "",
+      "fr": "ouest, occident (m)",
+      "genre": "m",
+      "niveau": "A2",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "הַשֶּׁמֶשׁ שׁוֹקַעַת בַּמַּעֲרָב בָּעֶרֶב",
+          "tr": "hashemesh shoka'at bama'arav ba'erev",
+          "fr": "le soleil se couche à l'ouest le soir",
+          "he_plain": "השמש שוקעת במערב בערב"
+        }
+      ],
+      "he_plain": "מערב"
+    },
+    {
+      "cat": "Noms",
+      "he": "מַצְפֵּן",
+      "tr": "",
+      "fr": "boussole (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מַצְפֵּנִים",
+          "tr": "matspenim",
+          "label": "pluriel",
+          "he_plain": "מצפנים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "ville-transport",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי מַצְפֵּן בַּתִּיק",
+          "tr": "yesh li matspen batik",
+          "fr": "j'ai une boussole dans le sac",
+          "he_plain": "יש לי מצפן בתיק"
+        }
+      ],
+      "he_plain": "מצפן"
     },
     {
       "cat": "Noms",
@@ -34693,6 +34939,48 @@
       "fr": "quelque part",
       "niveau": "B1",
       "he_plain": "איפשהו"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "יָמִינָה",
+      "tr": "yaminah",
+      "fr": "à droite, vers la droite",
+      "note": "forme directionnelle (hé directionnel) : יָמִין « la droite » → יָמִינָה « vers la droite »",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תִּפְנֶה יָמִינָה בָּרַמְזוֹר",
+          "tr": "tifneh yaminah baramzor",
+          "fr": "tourne à droite au feu",
+          "he_plain": "תפנה ימינה ברמזור"
+        }
+      ],
+      "he_plain": "ימינה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "שְׂמֹאלָה",
+      "tr": "smolah",
+      "fr": "à gauche, vers la gauche",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תִּפְנֶה שְׂמֹאלָה אַחֲרֵי הַכִּכָּר",
+          "tr": "tifneh smolah acharei hakikar",
+          "fr": "tourne à gauche après la place",
+          "he_plain": "תפנה שמאלה אחרי הככר"
+        }
+      ],
+      "he_plain": "שמאלה"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "צָפוֹנָה",
+      "tr": "tsafonah",
+      "fr": "vers le nord",
+      "note": "même hé directionnel : דָּרוֹמָה, מִזְרָחָה, מַעֲרָבָה se forment pareil",
+      "niveau": "B1",
+      "he_plain": "צפונה"
     },
     {
       "cat": "Adverbes",

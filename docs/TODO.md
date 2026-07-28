@@ -21,7 +21,7 @@ l'archive. **Aucun chantier n'est ouvert** sur `main` ; la dette ouverte
 compte **une entrée** (les notes d'usage que le carnet stocke
 sans les afficher — voir § Dette ouverte).
 
-**Le carnet compte 1428 cartes** (A1 429 · A2 573 · B1 390 · B2 26 · C1 10).
+**Le carnet compte 1440 cartes** (A1 429 · A2 579 · B1 396 · B2 26 · C1 10).
 ⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
 prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
 --stats`, jamais cette page.
@@ -115,11 +115,12 @@ qui n'a pas bougé — la structure du carnet, les règles de design, les piège
 Pour tout le reste, va directement au `grep -n` sur le module nommé par les
 en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 
-- `SPEC_AJOUTE_MOTS.md`, `ajoute_mots.js`,
-  `SPEC_ECONOMIE_TOKENS.md`, `cherche_mots.js`, `TODO_ARCHIVE.md` créés.
+- `SPEC_AJOUTE_MOTS.md`, `ajoute_mots.js`, `cherche_mots.js`, `TODO_ARCHIVE.md` créés.
+- `SPEC_ECONOMIE_TOKENS.md` créée puis **supprimée** (versée à l'archive) : le graphe
+  ne l'a jamais connue, rien à en retirer.
 - `data/**`, `src/carnet/**`, `src/tokens.css`,
   `outils_migration/**` créés ; carnet régénéré.
-  Puis :   `cards.json` créé ; `genere_carnet.js`, `valide_donnees.js` et
+  Puis : `cards.json` créé ; `genere_carnet.js`, `valide_donnees.js` et
   `compare_carnets.js` supprimés d'`outils_migration/`.
 - `src/app/**` créé (coquille, `ordre.json`, 6
   fragments CSS, 14 modules JS) ;

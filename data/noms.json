@@ -6250,6 +6250,89 @@
     ]
   },
   {
+    "he": "צָפוֹן",
+    "fr": "nord",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַמִּשְׁפָּחָה גָּרָה בַּצָּפוֹן",
+        "tr": "hamishpachah garah batsafon",
+        "fr": "la famille habite dans le nord"
+      }
+    ]
+  },
+  {
+    "he": "דָּרוֹם",
+    "fr": "sud",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "בַּדָּרוֹם חַם מְאוֹד בַּקַּיִץ",
+        "tr": "badarom cham me'od bakayits",
+        "fr": "dans le sud il fait très chaud en été"
+      }
+    ]
+  },
+  {
+    "he": "מִזְרָח",
+    "fr": "est, orient",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַשֶּׁמֶשׁ עוֹלָה בַּמִּזְרָח כָּל בֹּקֶר",
+        "tr": "hashemesh 'olah bamizrach kol boker",
+        "fr": "le soleil se lève à l'est chaque matin"
+      }
+    ]
+  },
+  {
+    "he": "מַעֲרָב",
+    "fr": "ouest, occident",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַשֶּׁמֶשׁ שׁוֹקַעַת בַּמַּעֲרָב בָּעֶרֶב",
+        "tr": "hashemesh shoka'at bama'arav ba'erev",
+        "fr": "le soleil se couche à l'ouest le soir"
+      }
+    ]
+  },
+  {
+    "he": "מַצְפֵּן",
+    "fr": "boussole",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַצְפֵּנִים",
+      "tr": "matspenim"
+    },
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי מַצְפֵּן בַּתִּיק",
+        "tr": "yesh li matspen batik",
+        "fr": "j'ai une boussole dans le sac"
+      }
+    ]
+  },
+  {
     "he": "שֶׁמֶשׁ",
     "fr": "soleil",
     "genre": "f",

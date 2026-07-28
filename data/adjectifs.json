@@ -6550,5 +6550,117 @@
         "fr": "le livre est disponible à la bibliothèque"
       }
     ]
+  },
+  {
+    "he": "צְפוֹנִי",
+    "fr": "nord, septentrional, nordique",
+    "formes": [
+      {
+        "he": "צְפוֹנִית",
+        "tr": "tsfonit"
+      },
+      {
+        "he": "צְפוֹנִיִּים",
+        "tr": "tsfoniyim"
+      },
+      {
+        "he": "צְפוֹנִיּוֹת",
+        "tr": "tsfoniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָרוּחַ הַצְּפוֹנִית קָרָה מְאוֹד",
+        "tr": "haruach hatsfonit karah me'od",
+        "fr": "le vent du nord est très froid"
+      }
+    ]
+  },
+  {
+    "he": "דְּרוֹמִי",
+    "fr": "sud, méridional",
+    "formes": [
+      {
+        "he": "דְּרוֹמִית",
+        "tr": "deromit"
+      },
+      {
+        "he": "דְּרוֹמִיִּים",
+        "tr": "deromiyim"
+      },
+      {
+        "he": "דְּרוֹמִיּוֹת",
+        "tr": "deromiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחוֹף הַדְּרוֹמִי יָפֶה מְאוֹד",
+        "tr": "hachof hadromi yafeh me'od",
+        "fr": "la plage du sud est très belle"
+      }
+    ]
+  },
+  {
+    "he": "מִזְרָחִי",
+    "fr": "est, oriental",
+    "formes": [
+      {
+        "he": "מִזְרָחִית",
+        "tr": "mizrachit"
+      },
+      {
+        "he": "מִזְרָחִיִּים",
+        "tr": "mizrachiyim"
+      },
+      {
+        "he": "מִזְרָחִיּוֹת",
+        "tr": "mizrachiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הָאֹכֶל הַמִּזְרָחִי חָרִיף מְאוֹד",
+        "tr": "ha'okhel hamizrachi charif me'od",
+        "fr": "la cuisine orientale est très épicée"
+      }
+    ]
+  },
+  {
+    "he": "מַעֲרָבִי",
+    "fr": "ouest, occidental",
+    "formes": [
+      {
+        "he": "מַעֲרָבִית",
+        "tr": "ma'aravit"
+      },
+      {
+        "he": "מַעֲרָבִיִּים",
+        "tr": "ma'araviyim"
+      },
+      {
+        "he": "מַעֲרָבִיּוֹת",
+        "tr": "ma'araviyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַכֹּתֶל הַמַּעֲרָבִי נִמְצָא בִּירוּשָׁלַיִם",
+        "tr": "hakotel hama'aravi nimtsa birushalayim",
+        "fr": "le Mur occidental se trouve à Jérusalem"
+      }
+    ]
   }
 ]

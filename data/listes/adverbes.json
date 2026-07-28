@@ -467,6 +467,44 @@
       "exemples": []
     },
     {
+      "he": "יָמִינָה",
+      "tr": "yaminah",
+      "fr": "à droite, vers la droite",
+      "niveau": "A2",
+      "groupe": "lieu-direction",
+      "exemples": [
+        {
+          "he": "תִּפְנֶה יָמִינָה בָּרַמְזוֹר",
+          "tr": "tifneh yaminah baramzor",
+          "fr": "tourne à droite au feu"
+        }
+      ],
+      "note": "forme directionnelle (hé directionnel) : יָמִין « la droite » → יָמִינָה « vers la droite »"
+    },
+    {
+      "he": "שְׂמֹאלָה",
+      "tr": "smolah",
+      "fr": "à gauche, vers la gauche",
+      "niveau": "A2",
+      "groupe": "lieu-direction",
+      "exemples": [
+        {
+          "he": "תִּפְנֶה שְׂמֹאלָה אַחֲרֵי הַכִּכָּר",
+          "tr": "tifneh smolah acharei hakikar",
+          "fr": "tourne à gauche après la place"
+        }
+      ]
+    },
+    {
+      "he": "צָפוֹנָה",
+      "tr": "tsafonah",
+      "fr": "vers le nord",
+      "niveau": "B1",
+      "groupe": "lieu-direction",
+      "exemples": [],
+      "note": "même hé directionnel : דָּרוֹמָה, מִזְרָחָה, מַעֲרָבָה se forment pareil"
+    },
+    {
       "he": "בְּדִיּוּק",
       "tr": "bediyuk",
       "fr": "exactement",
