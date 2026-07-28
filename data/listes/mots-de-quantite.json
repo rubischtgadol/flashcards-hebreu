@@ -449,6 +449,32 @@
           "fr": "bois de l'eau le plus possible"
         }
       ]
+    },
+    {
+      "he": "אַף",
+      "tr": "af",
+      "fr": "aucun (אַף אֶחָד לֹא)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אַף אֶחָד לֹא בַּבַּיִת",
+          "tr": "af echad lo babayit",
+          "fr": "personne n'est à la maison"
+        }
+      ]
+    },
+    {
+      "he": "שׁוּם",
+      "tr": "shum",
+      "fr": "aucun (שׁוּם דָּבָר)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֵין לִי שׁוּם בְּעָיָה",
+          "tr": "ein li shum be'aya",
+          "fr": "je n'ai aucun problème"
+        }
+      ]
     }
   ]
 }

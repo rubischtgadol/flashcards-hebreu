@@ -35958,6 +35958,86 @@
     },
     {
       "cat": "Adverbes",
+      "he": "מִזְּמַן",
+      "tr": "mizman",
+      "fr": "depuis longtemps",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֲנִי גָּר כָּאן מִזְּמַן",
+          "tr": "ani gar kan mizman",
+          "fr": "j'habite ici depuis longtemps",
+          "he_plain": "אני גר כאן מזמן"
+        }
+      ],
+      "he_plain": "מזמן"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "פִּתְאוֹם",
+      "tr": "pit'om",
+      "fr": "soudain",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "פִּתְאוֹם הוּא הִתְחִיל לִבְכּוֹת",
+          "tr": "pit'om hu hitchil livkot",
+          "fr": "soudain il s'est mis à pleurer",
+          "he_plain": "פתאום הוא התחיל לבכות"
+        }
+      ],
+      "he_plain": "פתאום"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "סוֹף סוֹף",
+      "tr": "sof sof",
+      "fr": "enfin !",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "סוֹף סוֹף סִיַּמְתִּי אֶת הָעֲבוֹדָה",
+          "tr": "sof sof siyamti et ha'avoda",
+          "fr": "enfin j'ai fini le travail",
+          "he_plain": "סוף סוף סימתי את העבודה"
+        }
+      ],
+      "he_plain": "סוף סוף"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְעוֹלָם",
+      "tr": "le'olam",
+      "fr": "(à) jamais (au futur : לְעוֹלָם לֹא)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "לְעוֹלָם לֹא אֶשְׁכַּח אֶת זֶה",
+          "tr": "le'olam lo eshkach et zeh",
+          "fr": "jamais je n'oublierai cela",
+          "he_plain": "לעולם לא אשכח את זה"
+        }
+      ],
+      "he_plain": "לעולם"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "שׁוּב פַּעַם",
+      "tr": "shuv pa'am",
+      "fr": "encore une fois (fam.)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אַתָּה שׁוּב פַּעַם מְאַחֵר",
+          "tr": "ata shuv pa'am me'acher",
+          "fr": "tu es encore une fois en retard",
+          "he_plain": "אתה שוב פעם מאחר"
+        }
+      ],
+      "he_plain": "שוב פעם"
+    },
+    {
+      "cat": "Adverbes",
       "he": "כָּאן",
       "tr": "kan",
       "fr": "ici",
@@ -36234,6 +36314,70 @@
     },
     {
       "cat": "Adverbes",
+      "he": "בְּעִיקָר",
+      "tr": "be'ikar",
+      "fr": "surtout, principalement",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹהֵב בְּעִיקָר אֶת הַקַּיִץ",
+          "tr": "ani ohev be'ikar et hakayits",
+          "fr": "j'aime surtout l'été",
+          "he_plain": "אני אוהב בעיקר את הקיץ"
+        }
+      ],
+      "he_plain": "בעיקר"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "בְּהֶחְלֵט",
+      "tr": "behechlet",
+      "fr": "absolument",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אַתָּה צוֹדֵק בְּהֶחְלֵט",
+          "tr": "ata tsodek behechlet",
+          "fr": "tu as tout à fait raison",
+          "he_plain": "אתה צודק בהחלט"
+        }
+      ],
+      "he_plain": "בהחלט"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "גַּם כֵּן",
+      "tr": "gam ken",
+      "fr": "aussi, également",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי רוֹצֶה לָבוֹא גַּם כֵּן",
+          "tr": "ani rotse lavo gam ken",
+          "fr": "je veux venir aussi",
+          "he_plain": "אני רוצה לבוא גם כן"
+        }
+      ],
+      "he_plain": "גם כן"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "כַּנִּרְאֶה",
+      "tr": "kanireh",
+      "fr": "apparemment, sans doute",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "כַּנִּרְאֶה יֵרֵד גֶּשֶׁם מָחָר",
+          "tr": "kanir'e yered geshem machar",
+          "fr": "apparemment il va pleuvoir demain",
+          "he_plain": "כנראה ירד גשם מחר"
+        }
+      ],
+      "he_plain": "כנראה"
+    },
+    {
+      "cat": "Adverbes",
       "he": "כָּכָה",
       "tr": "kakhah",
       "fr": "comme ça, ainsi",
@@ -36311,6 +36455,38 @@
       "fr": "par erreur, par mégarde",
       "niveau": "A2",
       "he_plain": "בטעות"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "מַהֵר",
+      "tr": "maher",
+      "fr": "vite",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "אַתָּה מְדַבֵּר מַהֵר מִדַּי",
+          "tr": "ata medaber maher midai",
+          "fr": "tu parles trop vite",
+          "he_plain": "אתה מדבר מהר מדי"
+        }
+      ],
+      "he_plain": "מהר"
+    },
+    {
+      "cat": "Adverbes",
+      "he": "לְאַט",
+      "tr": "le'at",
+      "fr": "lentement",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הִיא הוֹלֶכֶת לְאַט בַּבֹּקֶר",
+          "tr": "hi holekhet le'at baboker",
+          "fr": "elle marche lentement le matin",
+          "he_plain": "היא הולכת לאט בבקר"
+        }
+      ],
+      "he_plain": "לאט"
     },
     {
       "cat": "Saisons & mois",
@@ -36980,6 +37156,38 @@
         }
       ],
       "he_plain": "כמה שיותר"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "אַף",
+      "tr": "af",
+      "fr": "aucun (אַף אֶחָד לֹא)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אַף אֶחָד לֹא בַּבַּיִת",
+          "tr": "af echad lo babayit",
+          "fr": "personne n'est à la maison",
+          "he_plain": "אף אחד לא בבית"
+        }
+      ],
+      "he_plain": "אף"
+    },
+    {
+      "cat": "Mots de quantité",
+      "he": "שׁוּם",
+      "tr": "shum",
+      "fr": "aucun (שׁוּם דָּבָר)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אֵין לִי שׁוּם בְּעָיָה",
+          "tr": "ein li shum be'aya",
+          "fr": "je n'ai aucun problème",
+          "he_plain": "אין לי שום בעיה"
+        }
+      ],
+      "he_plain": "שום"
     },
     {
       "cat": "Expressions",
