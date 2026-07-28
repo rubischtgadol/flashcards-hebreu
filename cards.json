@@ -34064,11 +34064,44 @@
     },
     {
       "cat": "Nombres",
+      "he": "אֶחָד",
+      "tr": "echad",
+      "fr": "un (avec un nom masculin)",
+      "note": "Le féminin (אַחַת…) est la série de comptage par défaut ; le masculin s'accorde : שְׁלוֹשָׁה יְלָדִים.",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי אָח אֶחָד",
+          "tr": "yesh li ach echad",
+          "fr": "j'ai un frère",
+          "he_plain": "יש לי אח אחד"
+        }
+      ],
+      "he_plain": "אחד"
+    },
+    {
+      "cat": "Nombres",
       "he": "שְׁתַּיִם",
       "tr": "shtayim",
       "fr": "deux",
       "niveau": "A1",
       "he_plain": "שתים"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שְׁנַיִם",
+      "tr": "shnayim",
+      "fr": "deux (masculin ; devant un nom : שְׁנֵי)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי שְׁנֵי אַחִים",
+          "tr": "yesh li shnei achim",
+          "fr": "j'ai deux frères",
+          "he_plain": "יש לי שני אחים"
+        }
+      ],
+      "he_plain": "שנים"
     },
     {
       "cat": "Nombres",
@@ -34080,11 +34113,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "שְׁלוֹשָׁה",
+      "tr": "shloshah",
+      "fr": "trois (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שְׁלוֹשָׁה יְלָדִים מְשַׂחֲקִים בַּגַּן",
+          "tr": "shlosha yeladim mesachakim bagan",
+          "fr": "trois enfants jouent au jardin",
+          "he_plain": "שלושה ילדים משחקים בגן"
+        }
+      ],
+      "he_plain": "שלושה"
+    },
+    {
+      "cat": "Nombres",
       "he": "אַרְבַּע",
       "tr": "arba'",
       "fr": "quatre",
       "niveau": "A1",
       "he_plain": "ארבע"
+    },
+    {
+      "cat": "Nombres",
+      "he": "אַרְבָּעָה",
+      "tr": "arba'ah",
+      "fr": "quatre (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אַרְבָּעָה סְפָרִים עַל הַשֻּׁלְחָן",
+          "tr": "arba'a sfarim al hashulchan",
+          "fr": "quatre livres sur la table",
+          "he_plain": "ארבעה ספרים על השלחן"
+        }
+      ],
+      "he_plain": "ארבעה"
     },
     {
       "cat": "Nombres",
@@ -34096,11 +34161,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "חֲמִישָּׁה",
+      "tr": "chamishah",
+      "fr": "cinq (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "חֲמִישָּׁה תַּלְמִידִים בַּכִּתָּה",
+          "tr": "chamisha talmidim bakita",
+          "fr": "cinq élèves dans la classe",
+          "he_plain": "חמישה תלמידים בכתה"
+        }
+      ],
+      "he_plain": "חמישה"
+    },
+    {
+      "cat": "Nombres",
       "he": "שֵׁשׁ",
       "tr": "shesh",
       "fr": "six",
       "niveau": "A1",
       "he_plain": "שש"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שִׁישָּׁה",
+      "tr": "shishah",
+      "fr": "six (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שִׁישָּׁה אֲנָשִׁים בַּחֶדֶר",
+          "tr": "shisha anashim bacheder",
+          "fr": "six personnes dans la pièce",
+          "he_plain": "שישה אנשים בחדר"
+        }
+      ],
+      "he_plain": "שישה"
     },
     {
       "cat": "Nombres",
@@ -34112,10 +34209,42 @@
     },
     {
       "cat": "Nombres",
+      "he": "שִׁבְעָה",
+      "tr": "shiv'ah",
+      "fr": "sept (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שִׁבְעָה יָמִים בַּשָּׁבוּעַ",
+          "tr": "shiv'a yamim bashavu'a",
+          "fr": "sept jours dans la semaine",
+          "he_plain": "שבעה ימים בשבוע"
+        }
+      ],
+      "he_plain": "שבעה"
+    },
+    {
+      "cat": "Nombres",
       "he": "שְׁמוֹנֶה",
       "tr": "shmoneh",
       "fr": "huit",
       "niveau": "A1",
+      "he_plain": "שמונה"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שְׁמוֹנָה",
+      "tr": "shmonah",
+      "fr": "huit (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שְׁמוֹנָה כִּסְאוֹת בַּמִּטְבָּח",
+          "tr": "shmona kis'ot bamitbach",
+          "fr": "huit chaises dans la cuisine",
+          "he_plain": "שמונה כסאות במטבח"
+        }
+      ],
       "he_plain": "שמונה"
     },
     {
@@ -34128,11 +34257,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "תִּשְׁעָה",
+      "tr": "tish'ah",
+      "fr": "neuf (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תִּשְׁעָה כְּלָבִים בָּרְחוֹב",
+          "tr": "tish'a klavim barechov",
+          "fr": "neuf chiens dans la rue",
+          "he_plain": "תשעה כלבים ברחוב"
+        }
+      ],
+      "he_plain": "תשעה"
+    },
+    {
+      "cat": "Nombres",
       "he": "עֶשֶׂר",
       "tr": "'eser",
       "fr": "dix",
       "niveau": "A1",
       "he_plain": "עשר"
+    },
+    {
+      "cat": "Nombres",
+      "he": "עֲשָׂרָה",
+      "tr": "'asarah",
+      "fr": "dix (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עֲשָׂרָה עֶפְרוֹנוֹת בַּיַּלְקוּט",
+          "tr": "asara efronot bayalkut",
+          "fr": "dix crayons dans le cartable",
+          "he_plain": "עשרה עפרונות בילקוט"
+        }
+      ],
+      "he_plain": "עשרה"
     },
     {
       "cat": "Nombres",
@@ -34144,11 +34305,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "אַחַד עָשָׂר",
+      "tr": "achad asar",
+      "fr": "onze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "יֶלֶד בֶּן אַחַד עָשָׂר",
+          "tr": "yeled ben achad asar",
+          "fr": "un garçon de onze ans",
+          "he_plain": "ילד בן אחד עשר"
+        }
+      ],
+      "he_plain": "אחד עשר"
+    },
+    {
+      "cat": "Nombres",
       "he": "שְׁתֵּים עֶשְׂרֵה",
       "tr": "shteim 'esreh",
       "fr": "douze",
       "niveau": "A2",
       "he_plain": "שתים עשרה"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שְׁנֵים עָשָׂר",
+      "tr": "shneim asar",
+      "fr": "douze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שְׁנֵים עָשָׂר חֳדָשִׁים בַּשָּׁנָה",
+          "tr": "shneim asar chodashim bashana",
+          "fr": "douze mois dans l'année",
+          "he_plain": "שנים עשר חדשים בשנה"
+        }
+      ],
+      "he_plain": "שנים עשר"
     },
     {
       "cat": "Nombres",
@@ -34160,11 +34353,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "שְׁלוֹשָׁה עָשָׂר",
+      "tr": "shloshah 'asar",
+      "fr": "treize (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא בֶּן שְׁלוֹשָׁה עָשָׂר",
+          "tr": "hu ben shlosha asar",
+          "fr": "il a treize ans",
+          "he_plain": "הוא בן שלושה עשר"
+        }
+      ],
+      "he_plain": "שלושה עשר"
+    },
+    {
+      "cat": "Nombres",
       "he": "אַרְבַּע עֶשְׂרֵה",
       "tr": "arba' 'esreh",
       "fr": "quatorze",
       "niveau": "A2",
       "he_plain": "ארבע עשרה"
+    },
+    {
+      "cat": "Nombres",
+      "he": "אַרְבָּעָה עָשָׂר",
+      "tr": "arba'ah 'asar",
+      "fr": "quatorze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אַרְבָּעָה עָשָׂר יְלָדִים בַּקְּבוּצָה",
+          "tr": "arba'a asar yeladim bakvutsa",
+          "fr": "quatorze enfants dans le groupe",
+          "he_plain": "ארבעה עשר ילדים בקבוצה"
+        }
+      ],
+      "he_plain": "ארבעה עשר"
     },
     {
       "cat": "Nombres",
@@ -34176,11 +34401,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "חֲמִישָּׁה עָשָׂר",
+      "tr": "chamishah 'asar",
+      "fr": "quinze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "חֲמִישָּׁה עָשָׂר סְפָרִים בָּאָרוֹן",
+          "tr": "chamisha asar sfarim ba'aron",
+          "fr": "quinze livres dans l'armoire",
+          "he_plain": "חמישה עשר ספרים בארון"
+        }
+      ],
+      "he_plain": "חמישה עשר"
+    },
+    {
+      "cat": "Nombres",
       "he": "שֵׁשׁ עֶשְׂרֵה",
       "tr": "shesh 'esreh",
       "fr": "seize",
       "niveau": "A2",
       "he_plain": "שש עשרה"
+    },
+    {
+      "cat": "Nombres",
+      "he": "שִׁישָּׁה עָשָׂר",
+      "tr": "shishah 'asar",
+      "fr": "seize (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שִׁישָּׁה עָשָׂר תַּלְמִידִים בַּטִּיּוּל",
+          "tr": "shisha asar talmidim batiyul",
+          "fr": "seize élèves en excursion",
+          "he_plain": "שישה עשר תלמידים בטיול"
+        }
+      ],
+      "he_plain": "שישה עשר"
     },
     {
       "cat": "Nombres",
@@ -34192,6 +34449,22 @@
     },
     {
       "cat": "Nombres",
+      "he": "שִׁבְעָה עָשָׂר",
+      "tr": "shiv'ah 'asar",
+      "fr": "dix-sept (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שִׁבְעָה עָשָׂר אֲנָשִׁים בָּאוּלָם",
+          "tr": "shiv'a asar anashim ba'ulam",
+          "fr": "dix-sept personnes dans la salle",
+          "he_plain": "שבעה עשר אנשים באולם"
+        }
+      ],
+      "he_plain": "שבעה עשר"
+    },
+    {
+      "cat": "Nombres",
       "he": "שְׁמוֹנֶה עֶשְׂרֵה",
       "tr": "shmoneh 'esreh",
       "fr": "dix-huit",
@@ -34200,11 +34473,43 @@
     },
     {
       "cat": "Nombres",
+      "he": "שְׁמוֹנָה עָשָׂר",
+      "tr": "shmonah 'asar",
+      "fr": "dix-huit (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא בֶּן שְׁמוֹנָה עָשָׂר",
+          "tr": "hu ben shmona asar",
+          "fr": "il a dix-huit ans",
+          "he_plain": "הוא בן שמונה עשר"
+        }
+      ],
+      "he_plain": "שמונה עשר"
+    },
+    {
+      "cat": "Nombres",
       "he": "תְּשַׁע עֶשְׂרֵה",
       "tr": "tsha 'esreh",
       "fr": "dix-neuf",
       "niveau": "A2",
       "he_plain": "תשע עשרה"
+    },
+    {
+      "cat": "Nombres",
+      "he": "תִּשְׁעָה עָשָׂר",
+      "tr": "tish'ah 'asar",
+      "fr": "dix-neuf (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תִּשְׁעָה עָשָׂר יְלָדִים בַּגַּן",
+          "tr": "tish'a asar yeladim bagan",
+          "fr": "dix-neuf enfants au jardin d'enfants",
+          "he_plain": "תשעה עשר ילדים בגן"
+        }
+      ],
+      "he_plain": "תשעה עשר"
     },
     {
       "cat": "Nombres",

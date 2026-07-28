@@ -16,11 +16,38 @@
       "exemples": []
     },
     {
+      "he": "אֶחָד",
+      "tr": "echad",
+      "fr": "un (avec un nom masculin)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי אָח אֶחָד",
+          "tr": "yesh li ach echad",
+          "fr": "j'ai un frère"
+        }
+      ],
+      "note": "Le féminin (אַחַת…) est la série de comptage par défaut ; le masculin s'accorde : שְׁלוֹשָׁה יְלָדִים."
+    },
+    {
       "he": "שְׁתַּיִם",
       "tr": "shtayim",
       "fr": "deux",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "שְׁנַיִם",
+      "tr": "shnayim",
+      "fr": "deux (masculin ; devant un nom : שְׁנֵי)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי שְׁנֵי אַחִים",
+          "tr": "yesh li shnei achim",
+          "fr": "j'ai deux frères"
+        }
+      ]
     },
     {
       "he": "שָׁלוֹשׁ",
@@ -30,11 +57,37 @@
       "exemples": []
     },
     {
+      "he": "שְׁלוֹשָׁה",
+      "tr": "shloshah",
+      "fr": "trois (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שְׁלוֹשָׁה יְלָדִים מְשַׂחֲקִים בַּגַּן",
+          "tr": "shlosha yeladim mesachakim bagan",
+          "fr": "trois enfants jouent au jardin"
+        }
+      ]
+    },
+    {
       "he": "אַרְבַּע",
       "tr": "arba'",
       "fr": "quatre",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "אַרְבָּעָה",
+      "tr": "arba'ah",
+      "fr": "quatre (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אַרְבָּעָה סְפָרִים עַל הַשֻּׁלְחָן",
+          "tr": "arba'a sfarim al hashulchan",
+          "fr": "quatre livres sur la table"
+        }
+      ]
     },
     {
       "he": "חָמֵשׁ",
@@ -44,11 +97,37 @@
       "exemples": []
     },
     {
+      "he": "חֲמִישָּׁה",
+      "tr": "chamishah",
+      "fr": "cinq (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "חֲמִישָּׁה תַּלְמִידִים בַּכִּתָּה",
+          "tr": "chamisha talmidim bakita",
+          "fr": "cinq élèves dans la classe"
+        }
+      ]
+    },
+    {
       "he": "שֵׁשׁ",
       "tr": "shesh",
       "fr": "six",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "שִׁישָּׁה",
+      "tr": "shishah",
+      "fr": "six (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שִׁישָּׁה אֲנָשִׁים בַּחֶדֶר",
+          "tr": "shisha anashim bacheder",
+          "fr": "six personnes dans la pièce"
+        }
+      ]
     },
     {
       "he": "שֶׁבַע",
@@ -58,11 +137,37 @@
       "exemples": []
     },
     {
+      "he": "שִׁבְעָה",
+      "tr": "shiv'ah",
+      "fr": "sept (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שִׁבְעָה יָמִים בַּשָּׁבוּעַ",
+          "tr": "shiv'a yamim bashavu'a",
+          "fr": "sept jours dans la semaine"
+        }
+      ]
+    },
+    {
       "he": "שְׁמוֹנֶה",
       "tr": "shmoneh",
       "fr": "huit",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "שְׁמוֹנָה",
+      "tr": "shmonah",
+      "fr": "huit (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "שְׁמוֹנָה כִּסְאוֹת בַּמִּטְבָּח",
+          "tr": "shmona kis'ot bamitbach",
+          "fr": "huit chaises dans la cuisine"
+        }
+      ]
     },
     {
       "he": "תֵּשַׁע",
@@ -72,11 +177,37 @@
       "exemples": []
     },
     {
+      "he": "תִּשְׁעָה",
+      "tr": "tish'ah",
+      "fr": "neuf (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "תִּשְׁעָה כְּלָבִים בָּרְחוֹב",
+          "tr": "tish'a klavim barechov",
+          "fr": "neuf chiens dans la rue"
+        }
+      ]
+    },
+    {
       "he": "עֶשֶׂר",
       "tr": "'eser",
       "fr": "dix",
       "niveau": "A1",
       "exemples": []
+    },
+    {
+      "he": "עֲשָׂרָה",
+      "tr": "'asarah",
+      "fr": "dix (avec un nom masculin)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "עֲשָׂרָה עֶפְרוֹנוֹת בַּיַּלְקוּט",
+          "tr": "asara efronot bayalkut",
+          "fr": "dix crayons dans le cartable"
+        }
+      ]
     }
   ]
 }

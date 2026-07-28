@@ -9,11 +9,37 @@
       "exemples": []
     },
     {
+      "he": "אַחַד עָשָׂר",
+      "tr": "achad asar",
+      "fr": "onze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "יֶלֶד בֶּן אַחַד עָשָׂר",
+          "tr": "yeled ben achad asar",
+          "fr": "un garçon de onze ans"
+        }
+      ]
+    },
+    {
       "he": "שְׁתֵּים עֶשְׂרֵה",
       "tr": "shteim 'esreh",
       "fr": "douze",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "שְׁנֵים עָשָׂר",
+      "tr": "shneim asar",
+      "fr": "douze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שְׁנֵים עָשָׂר חֳדָשִׁים בַּשָּׁנָה",
+          "tr": "shneim asar chodashim bashana",
+          "fr": "douze mois dans l'année"
+        }
+      ]
     },
     {
       "he": "שְׁלוֹשׁ עֶשְׂרֵה",
@@ -23,11 +49,37 @@
       "exemples": []
     },
     {
+      "he": "שְׁלוֹשָׁה עָשָׂר",
+      "tr": "shloshah 'asar",
+      "fr": "treize (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא בֶּן שְׁלוֹשָׁה עָשָׂר",
+          "tr": "hu ben shlosha asar",
+          "fr": "il a treize ans"
+        }
+      ]
+    },
+    {
       "he": "אַרְבַּע עֶשְׂרֵה",
       "tr": "arba' 'esreh",
       "fr": "quatorze",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "אַרְבָּעָה עָשָׂר",
+      "tr": "arba'ah 'asar",
+      "fr": "quatorze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אַרְבָּעָה עָשָׂר יְלָדִים בַּקְּבוּצָה",
+          "tr": "arba'a asar yeladim bakvutsa",
+          "fr": "quatorze enfants dans le groupe"
+        }
+      ]
     },
     {
       "he": "חֲמֵשׁ עֶשְׂרֵה",
@@ -37,11 +89,37 @@
       "exemples": []
     },
     {
+      "he": "חֲמִישָּׁה עָשָׂר",
+      "tr": "chamishah 'asar",
+      "fr": "quinze (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "חֲמִישָּׁה עָשָׂר סְפָרִים בָּאָרוֹן",
+          "tr": "chamisha asar sfarim ba'aron",
+          "fr": "quinze livres dans l'armoire"
+        }
+      ]
+    },
+    {
       "he": "שֵׁשׁ עֶשְׂרֵה",
       "tr": "shesh 'esreh",
       "fr": "seize",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "שִׁישָּׁה עָשָׂר",
+      "tr": "shishah 'asar",
+      "fr": "seize (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שִׁישָּׁה עָשָׂר תַּלְמִידִים בַּטִּיּוּל",
+          "tr": "shisha asar talmidim batiyul",
+          "fr": "seize élèves en excursion"
+        }
+      ]
     },
     {
       "he": "שְׁבַע עֶשְׂרֵה",
@@ -51,6 +129,19 @@
       "exemples": []
     },
     {
+      "he": "שִׁבְעָה עָשָׂר",
+      "tr": "shiv'ah 'asar",
+      "fr": "dix-sept (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "שִׁבְעָה עָשָׂר אֲנָשִׁים בָּאוּלָם",
+          "tr": "shiv'a asar anashim ba'ulam",
+          "fr": "dix-sept personnes dans la salle"
+        }
+      ]
+    },
+    {
       "he": "שְׁמוֹנֶה עֶשְׂרֵה",
       "tr": "shmoneh 'esreh",
       "fr": "dix-huit",
@@ -58,11 +149,37 @@
       "exemples": []
     },
     {
+      "he": "שְׁמוֹנָה עָשָׂר",
+      "tr": "shmonah 'asar",
+      "fr": "dix-huit (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא בֶּן שְׁמוֹנָה עָשָׂר",
+          "tr": "hu ben shmona asar",
+          "fr": "il a dix-huit ans"
+        }
+      ]
+    },
+    {
       "he": "תְּשַׁע עֶשְׂרֵה",
       "tr": "tsha 'esreh",
       "fr": "dix-neuf",
       "niveau": "A2",
       "exemples": []
+    },
+    {
+      "he": "תִּשְׁעָה עָשָׂר",
+      "tr": "tish'ah 'asar",
+      "fr": "dix-neuf (masculin)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "תִּשְׁעָה עָשָׂר יְלָדִים בַּגַּן",
+          "tr": "tish'a asar yeladim bagan",
+          "fr": "dix-neuf enfants au jardin d'enfants"
+        }
+      ]
     },
     {
       "he": "עֶשְׂרִים",
