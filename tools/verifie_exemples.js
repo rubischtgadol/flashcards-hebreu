@@ -41,6 +41,21 @@ const { he2tr, trKey, editDist } = fonctionsApp(['he2tr', 'trKey', 'editDist']);
 // ---------- lexique : tout l'hébreu du carnet, avec son niveau ----------
 const LEVELS = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 };
 function stripNikud(s){ return s.replace(/[֑-ׇ]/g, ''); }
+// Un sigle se reconnaît à sa TYPOGRAPHIE, pas à une liste de catégories exemptées :
+// gershayim avant la dernière lettre (צה"ל, ד"ר, ז"א), apostrophe finale de
+// troncation (וכו'), ou points (נ.ב.). La règle vaut donc partout dans le corpus —
+// un sigle cité dans un exemple de Noms est traité comme celui d'une liste — au lieu
+// d'ouvrir un trou par section, où n'importe quel mot non vocalisé passerait.
+// ⚠️ L'apostrophe NON finale ne compte pas : elle note un son étranger (ג' = j,
+// צ' = tch, ז' = j de « jour ») sur un mot ordinaire, lequel se vocalise
+// normalement — גִ'ירָפָה (girafa) doit rester soumis au contrôle de nikoud.
+function estSigle(tok){
+  const t = stripNikud(tok);
+  if (/["״]/.test(t)) return true;                  // צה"ל · ד"ר · ז"א
+  if (/['׳]$/.test(t)) return true;                 // וכו'
+  if (/^(?:[א-ת]\.){2,}$/.test(t)) return true;     // נ.ב.
+  return false;
+}
 
 const cards = deriveCartes(chargeDonnees(ROOT));
 // he_plain (mot + formes) → meilleur (plus bas) niveau connu ; 0 = non classé (toujours permis).
@@ -117,17 +132,27 @@ cards.forEach(card => {
     // 2. longueur (les mots à maqaf comptent pour leurs morceaux)
     const count = ex.he_plain.trim().split(/[\s־]+/).filter(Boolean).length;
     if (count < 3 || count > 8) flag('err', card, ex, count + ' mots (ligne éditoriale : 3–8)');
-    // 3. nikoud sur chaque mot
+    // 3. nikoud sur chaque mot — un sigle en est dispensé, n'étant pas vocalisé
+    //    par nature : le pointer serait une faute, pas une rigueur.
     heWords.forEach(w => {
+      if (estSigle(w)) return;
       const plain = stripNikud(w);
       if (plain.replace(/[^א-ת]/g, '').length > 1 && w === plain)
         flag('err', card, ex, 'mot sans nikoud : ' + plain);
     });
     // 4. translittération concordante avec l'appli
+    const porteSigle = heWords.some(estSigle);
     const auto = trKey(he2tr(ex.he));
     const given = trKey(ex.tr);
     const d = editDist(auto, given);
-    if (d > 3) flag('err', card, ex, '.tr « ' + ex.tr + ' » trop loin de he2tr « ' + he2tr(ex.he) + ' » (distance ' + d + ')');
+    if (porteSigle){
+      // he2tr est un transcripteur lettre→son ; la prononciation d'un sigle est
+      // LEXICALE, pas dérivable (ז"א se lit « zot omeret », עו"ד « orekh din »,
+      // צה"ל « tsahal »). Comparer les deux est invalide par catégorie, et l'écart
+      // dépasse forcément le seuil : c'est un signal éditorial, jamais un blocage.
+      if (d > 3) flag('warn', card, ex, '.tr « ' + ex.tr + ' » — écart structurel attendu : la phrase porte un sigle, que he2tr transcrit lettre à lettre (« ' + he2tr(ex.he) + ' ») là où .tr donne sa forme lue');
+    }
+    else if (d > 3) flag('err', card, ex, '.tr « ' + ex.tr + ' » trop loin de he2tr « ' + he2tr(ex.he) + ' » (distance ' + d + ')');
     else if (d > 1) flag('warn', card, ex, '.tr « ' + ex.tr + ' » s\'écarte de he2tr « ' + he2tr(ex.he) + ' » (distance ' + d + ')');
     // 5. niveau du vocabulaire de la phrase (noms propres du quotidien admis)
     const sansPropres = ex.he_plain.replace(/תל אביב|ירושלים|ישראל/g, ' ');

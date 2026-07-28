@@ -27,7 +27,7 @@ un outil neuf (`tools/controle_tr.js`) et une garde neuve (`verifieCatOrder`,
 § Garde-fous contre la casse silencieuse d'ARCHITECTURE.md). La réorganisation
 « le dépôt généré » (chantiers 1 à 4, 21 tasks) reste soldée elle aussi ; la
 preuve et sa procédure de rejeu vivent dans l'archive. **Aucun chantier n'est
-ouvert** sur `main` ; la dette ouverte compte **cinq entrées** (voir § Dette
+ouvert** sur `main` ; la dette ouverte compte **quatre entrées** (voir § Dette
 ouverte).
 
 **Acquis depuis** — trois choses, toutes sur `main`. (1) **Le palier « ordi »
@@ -46,7 +46,12 @@ qamats katan, le dagesh et ses trois rôles, le point du shin, le patach
 furtif, le ktiv male. La règle de l'article devant gutturale (הֶ et non הַ :
 *hechadash*) a rejoint la section « L'article défini », où elle manquait.
 Garde neuve au passage : `verifieOrphelins()` couvre enfin
-`src/carnet/sections.json` (entrée 11 du § Garde-fous).
+`src/carnet/sections.json` (entrée 11 du § Garde-fous). (6) **Section neuve
+« Abréviations et sigles »** à la place 42, celle qui l'attendait — 11 entrées,
+cartes comprises cette fois (un sigle se révise, contrairement à un signe de
+voyelle). Elle était bloquée par le validateur, pas par son contenu : levée par
+un **contrat de sigle** dans `verifie_exemples.js`, décrit au § Le lexique du
+validateur d'ARCHITECTURE.md.
 
 **Deux défauts anciens du carnet sur iPhone, soldés depuis** (ils préexistaient
 au nikoud, la section neuve les a seulement fait apparaître). (4) **Le carnet
@@ -63,7 +68,7 @@ introuvable *et* masquée — « qamats » trouvait le nikoud, « nikoud » non.
 règle « des correspondances, pas des leçons » est intacte : un titre seul
 apparaît, jamais le cours.
 
-**Le carnet compte 1717 cartes** (A1 490 · A2 667 · B1 498 · B2 45 · C1 17).
+**Le carnet compte 1728 cartes.**
 ⚠️ Ce chiffre est le seul de ce fichier qui vaille recopie, et il périme au
 prochain lot : l'autorité qui le recalcule est `node tools/cherche_mots.js
 --stats`, jamais cette page.
@@ -75,22 +80,25 @@ recalage. Le flag enregistre la dette, il ne déclenche rien
 explicite) :
 
 - **Outil créé** : `tools/controle_tr.js`.
-- **Sept fichiers de `data/listes/` créés** : `prepositions-flechies.json`,
+- **Huit fichiers de `data/listes/` créés** : `prepositions-flechies.json`,
   `nombres-fractions.json`, `connecteurs-du-discours.json`,
   `heure-et-date.json`, `comparatif-et-superlatif.json`,
-  `tournures-impersonnelles.json`, `imperatif.json`.
-- **Six fichiers de `src/carnet/sections/` créés** :
+  `tournures-impersonnelles.json`, `imperatif.json`,
+  `abreviations-et-sigles.json`.
+- **Fichier supprimé** : `docs/lots-en-attente/abreviations-et-sigles.json`
+  (bordereau consommé — son contenu vit désormais dans `data/listes/`, et
+  garder les deux les aurait laissés diverger).
+- **Sept fichiers de `src/carnet/sections/` créés** :
   `01-le-nikoud.html`, `23-tournures-impersonnelles.html`,
   `26-comparatif-et-superlatif.html`, `29-connecteurs-du-discours.html`,
-  `34-nombres-fractions.html`, `36-heure-et-date.html`.
+  `34-nombres-fractions.html`, `36-heure-et-date.html`,
+  `42-abreviations-et-sigles.html`.
   ⚠️ `01-le-nikoud.html` partage son préfixe avec `01-pronoms-personnels.html`
   (les deux ouvrent la Partie 1, et « le-nikoud » trie avant
   « pronoms-personnels ») : l'ordre qui fait foi est celui de `sections.json`,
-  jamais le numéro. La place 42 reste vacante, toujours réservée
-  à « Abréviations et sigles ».
+  jamais le numéro.
 - **Quinze sections de `src/carnet/sections/` renommées** (numérotation à
-  trous, six places réservées — dont la place 42, encore vacante, gardée pour
-  « Abréviations et sigles », reportée : voir § Dette ouverte).
+  trous ; la place 42, qui était réservée, est désormais occupée).
 - **Dette antérieure, toujours ouverte** : `data/listes/hebreu-parle.json`,
   `src/carnet/sections/43-hebreu-parle.html` (créés, chantier précédent) ;
   `docs/superpowers/**` (4 fichiers supprimés au ménage documentaire).
@@ -202,7 +210,7 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
 
-### Dette ouverte — cinq entrées
+### Dette ouverte — quatre entrées
 
 Elle était vide (les quatre entrées soldées sont dans
 TODO_ARCHIVE.md). Une passe documentaire l'a rouverte une première fois, en
@@ -234,21 +242,7 @@ l'outillage.
    correction mécanique, d'où son inscription ici plutôt qu'un correctif
    improvisé.
 
-2. ⚠️ **Section « Abréviations et sigles » reportée.** Contenu prêt — 11
-   entrées (וְכוּ', ז"א, ד"ר, עו"ד, ת"א, נ.ב., חוּ"ל, צה"ל, בע"ה, אי"ה,
-   וְכַדּוֹמֶה) — mais `node tools/verifie_exemples.js` sort **13 erreurs
-   bloquantes** dessus, pour une raison structurelle et non une faute de
-   saisie : le validateur exige de la niqqud sur chaque mot, or un sigle
-   n'est pas vocalisé par nature, et sa translittération est la **forme lue à
-   voix haute** (ז"א se lit `zot omeret`, עו"ד se lit `orekh din`), pas une
-   transcription lettre par lettre — l'écart avec `he2tr` dépasse donc
-   forcément le seuil. Trois voies possibles, aucune tranchée : (a) exempter
-   cette catégorie dans `verifie_exemples.js` ; (b) renoncer à la section ;
-   (c) définir un contrat de `tr` propre à cette classe. Le bordereau est
-   conservé dans le dépôt, hors pipeline :
-   [docs/lots-en-attente/abreviations-et-sigles.json](lots-en-attente/abreviations-et-sigles.json).
-
-3. ⚠️ **286 désaccords bruts préexistants**, révélés dans tout le corpus par
+2. ⚠️ **286 désaccords bruts préexistants**, révélés dans tout le corpus par
    `controle_tr.js` maintenant qu'il descend dans les exemples et les
    formes : chva après ל/מ/כ ~109, כָּל rendu `kal` au lieu de `kol` (kamats
    katan) ~36, diphtongue -ay/-ayy ~24, hé final/mappiq ~22. Ce sont les
@@ -258,13 +252,13 @@ l'outillage.
    et d'améliorer strictement les trois métriques (accord exact, accord
    replié, distance d'édition).
 
-4. **`controle_tr.js` ignore en silence un `tr` manquant** sur
+3. **`controle_tr.js` ignore en silence un `tr` manquant** sur
    `formes[]`/`pluriel` (`tools/controle_tr.js`, garde
    `if (!he || !tr) return;`) : aucun autre outil du pipeline ne le
    contrôle. Conforme à sa responsabilité déclarée (pas de validation de
    schéma), mais c'est un silence dans une garde — à décider plus tard.
 
-5. **Deux revues de lot n'ont pas été faites** (sections neuves des lots C et
+4. **Deux revues de lot n'ont pas été faites** (sections neuves des lots C et
    D) et **le contrôle WebKit n'a pas été passé**, le chantier ayant été clos
    sur demande. Tolérable : `verifieCatOrder` garde désormais
    **mécaniquement** l'existence des puces, qui était précisément le risque
