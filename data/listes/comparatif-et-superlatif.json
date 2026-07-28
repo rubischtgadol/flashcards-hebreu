@@ -1,0 +1,83 @@
+{
+  "section": "Comparatif et superlatif",
+  "entries": [
+    {
+      "he": "יוֹתֵר מִ־",
+      "tr": "yoter mi-",
+      "fr": "plus que",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַסֵּפֶר יוֹתֵר טוֹב מֵהַסֶּרֶט",
+          "tr": "hasefer yoter tov mehaseret",
+          "fr": "le livre est meilleur que le film"
+        }
+      ]
+    },
+    {
+      "he": "פָּחוֹת מִ־",
+      "tr": "pachot mi-",
+      "fr": "moins que",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "הַסֶּרֶט פָּחוֹת מְעַנְיֵן מֵהַסֵּפֶר",
+          "tr": "haseret pachot me'anyen mehasefer",
+          "fr": "le film est moins intéressant que le livre"
+        }
+      ]
+    },
+    {
+      "he": "בְּיוֹתֵר",
+      "tr": "beyoter",
+      "fr": "le plus (après l'adjectif : הַטּוֹב בְּיוֹתֵר)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶהוּ הַסֵּפֶר הַטּוֹב בְּיוֹתֵר",
+          "tr": "zehu hasefer hatov beyoter",
+          "fr": "c'est le meilleur livre"
+        }
+      ]
+    },
+    {
+      "he": "הַרְבֵּה יוֹתֵר",
+      "tr": "harbeh yoter",
+      "fr": "beaucoup plus",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַבַּיִת הַזֶּה הַרְבֵּה יוֹתֵר גָּדוֹל מִשֶּׁלִּי",
+          "tr": "habayit hazeh harbeh yoter gadol misheli",
+          "fr": "cette maison est beaucoup plus grande que la mienne"
+        }
+      ]
+    },
+    {
+      "he": "כְּכֹל שֶׁ… כָּךְ",
+      "tr": "kekhol she… kakh",
+      "fr": "plus…, plus…",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "כְּכֹל שֶׁלּוֹמְדִים יוֹתֵר כָּךְ יוֹדְעִים יוֹתֵר",
+          "tr": "kekhol shelomdim yoter kakh yod'im yoter",
+          "fr": "plus on étudie, plus on sait"
+        }
+      ]
+    },
+    {
+      "he": "אוֹתוֹ דָּבָר כְּמוֹ",
+      "tr": "oto davar kmo",
+      "fr": "la même chose que",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "זֶה אוֹתוֹ דָּבָר כְּמוֹ אֶתְמוֹל",
+          "tr": "zeh oto davar kmo etmol",
+          "fr": "c'est la même chose qu'hier"
+        }
+      ]
+    }
+  ]
+}

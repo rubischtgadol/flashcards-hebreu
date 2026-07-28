@@ -37,7 +37,9 @@ fractions et multiplicatifs ») ; `data/listes/connecteurs-du-discours.json`,
 `src/carnet/sections/29-connecteurs-du-discours.html` (créés — section
 « Connecteurs du discours ») ; `data/listes/heure-et-date.json`,
 `src/carnet/sections/36-heure-et-date.html` (créés — section « Heure et
-date »).** Le graphe n'a jamais connu ces fichiers — il
+date ») ; `data/listes/comparatif-et-superlatif.json`,
+`src/carnet/sections/26-comparatif-et-superlatif.html` (créés — section
+« Comparatif et superlatif »).** Le graphe n'a jamais connu ces fichiers — il
 est antérieur à `docs/` —, donc il n'y a rien à en retirer : la ligne est là
 pour que le prochain recalage n'aille pas les chercher. Le flag enregistre la
 dette, il ne déclenche rien (`/graphify . --update` coûte ~235k tokens et ne se
