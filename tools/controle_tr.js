@@ -29,7 +29,19 @@
 // ✔ replié  = trKey confond les deux graphies : divergence d'affichage seulement.
 // ✘ BRUT    = désaccord réel → arbitrage humain (le tr rédigé est souverain : un
 //             BRUT n'est pas forcément une faute — cf. chva morphologique).
-// Code retour 1 s'il reste au moins un ✘ BRUT (tête, exemple ou forme).
+// ⚠ MUET    = il n'y a rien à comparer : `he` absent, ou `tr` absent sur une
+//             forme / un pluriel / un exemple. PAS sur une tête, où l'absence de
+//             `tr` est la norme des tables (1051 des 1728 entrées du corpus).
+// Code retour 1 s'il reste au moins un ✘ BRUT ou un ⚠ MUET.
+//
+// Correctif du 2026-07-29 — le silence levé. La garde `if (!he || !tr) return;`
+// avalait sans un mot un `tr` manquant sur formes[]/pluriel, et aucun autre outil
+// du pipeline ne le regardait : une forme pouvait donc être insérée sans
+// translittération, sans que rien ne le dise. Le corpus est à 0 manquant sur
+// 2070 formes et 1482 exemples — la garde ne casse donc rien aujourd'hui, elle
+// protège cette discipline. L'outil ne valide toujours pas le schéma : il ne
+// regarde que les couples he/tr, qui sont son sujet, et signale ceux qui ont un
+// trou.
 const fs = require('fs'), path = require('path');
 const { fonctionsApp } = require(path.join(__dirname, 'build.js'));
 const { he2tr, trKey } = fonctionsApp(['he2tr', 'trKey']);
@@ -37,10 +49,25 @@ const { he2tr, trKey } = fonctionsApp(['he2tr', 'trKey']);
 // Ponctuation finale retirée des deux côtés — cf. piège ci-dessus.
 function sansPonctuationFinale(s){ return (s || '').replace(/[?!.,;:]+\s*$/, ''); }
 
-let bruts = 0, tetes = 0, exemplesN = 0, formesN = 0;
+let bruts = 0, muets = 0, tetes = 0, exemplesN = 0, formesN = 0;
 
-function controle(tag, he, tr, porteur){
-  if (!he || !tr) return; // pas de validation de schéma : un champ manquant n'est pas signalé ici
+// `trRequis` sépare les deux absences, qui n'ont rien à voir.
+// Sur une TÊTE de table (Noms/Adjectifs/Verbes), l'absence de `tr` est la norme
+// documentée : 1051 des 1728 entrées du corpus n'en portent pas et l'app retombe
+// sur he2tr pour l'affichage. Les signaler noierait le rapport sous un millier de
+// fausses alertes — donc silence, et rien à comparer.
+// Sur une FORME, un PLURIEL ou un EXEMPLE, le corpus est à 0 manquant sur 2070 et
+// 1482 : une absence y est une anomalie, elle se voit à l'écran (`formsHtml`
+// n'écrit la translittération que si elle existe) et **aucun autre outil du
+// pipeline ne la regarde**. C'était le silence de cette garde ; il est levé.
+function controle(tag, he, tr, porteur, trRequis){
+  if (!he || (trRequis && !tr)) {
+    muets++;
+    const label = porteur ? `  [porteur: ${porteur}]` : '';
+    console.log(`⚠ MUET    ${tag}${label}  ${he || 'he ABSENT'}  ${tr ? 'rédigé=' + tr : 'tr ABSENT'}`);
+    return;
+  }
+  if (!tr) return; // tête sans tr : absence normale, il n'y a rien à comparer
   const heNet = sansPonctuationFinale(he), trNet = sansPonctuationFinale(tr);
   const auto = he2tr(heNet);
   if (auto === trNet) return; // accord exact : rien à dire
@@ -54,20 +81,20 @@ const j = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const entries = Array.isArray(j) ? j : (j.entries || j.mots);
 for (const e of entries) {
   tetes++;
-  controle('TÊTE   ', e.he, e.tr, null);
+  controle('TÊTE   ', e.he, e.tr, null, false);
   const porteur = `${e.he} / ${e.fr || ''}`;
   for (const ex of (e.exemples || [])) {
     exemplesN++;
-    controle('EXEMPLE', ex.he, ex.tr, porteur);
+    controle('EXEMPLE', ex.he, ex.tr, porteur, true);
   }
   for (const f of (e.formes || [])) {
     formesN++;
-    controle('FORME  ', f.he, f.tr, porteur);
+    controle('FORME  ', f.he, f.tr, porteur, true);
   }
   if (e.pluriel) {
     formesN++;
-    controle('FORME  ', e.pluriel.he, e.pluriel.tr, porteur);
+    controle('FORME  ', e.pluriel.he, e.pluriel.tr, porteur, true);
   }
 }
-console.log(`${tetes} tête(s), ${exemplesN} exemple(s), ${formesN} forme(s) contrôlé(s), ${bruts} désaccord(s) brut(s)`);
-process.exit(bruts ? 1 : 0);
+console.log(`${tetes} tête(s), ${exemplesN} exemple(s), ${formesN} forme(s) contrôlé(s), ${bruts} désaccord(s) brut(s), ${muets} champ(s) muet(s)`);
+process.exit(bruts || muets ? 1 : 0);
