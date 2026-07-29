@@ -98,11 +98,11 @@ Le carnet est aligné sur `app.html` et `index.html` pour l'accessibilité : mê
   qui anime les 42 liens du sommaire.
 - **Bloc `@media (pointer:coarse)`** tenant les cibles à 44 px : pastilles du sommaire, `.app-link`,
   `.search-clear` (elle était à 28 px alors que son jumeau dans l'app était déjà à 44).
-- Le champ de recherche porte un `aria-label` (il n'avait qu'un `placeholder`).
+- Le champ de recherche porte un `aria-label`.
 - **Anneau `:focus-visible` doré global**, identique à celui des deux autres fichiers
-  (`outline:2px solid var(--gold)`, offset 2px, **jamais de `border-radius`**). ⚠️ Les deux `transition:all` du carnet ont été corrigés **avant** de poser
-  l'anneau : dans l'autre ordre il serait né déjà cassé (voir le piège décrit plus bas, il vaut
-  pour les trois fichiers et pas seulement pour `app.html`). Mesuré sous vraie tabulation :
+  (`outline:2px solid var(--gold)`, offset 2px, **jamais de `border-radius`**). ⚠️ Aucun `transition:all` ne doit subsister quand on pose un anneau : le
+  raccourci capture les longhands `outline-*` et l'anneau naît déjà cassé (piège décrit plus
+  bas, il vaut pour les trois fichiers et pas seulement pour `app.html`). Mesuré sous vraie tabulation :
   23 focusables déclarés, 1 masqué, **22 arrêts, 0 sans anneau d'or**.
 - **`<main>`** autour des trois parties. Le `<nav class="toc">` et la barre de recherche restent
   **hors** du landmark : l'un est une navigation, l'autre un outil global.
@@ -130,9 +130,7 @@ par inadvertance :
 
 - **La rampe de 8 pas, et le socle qu'elle corrige.** ⚠️ `font-size:22px` est posé sur
   **`body`**, jamais sur `html` — dans les trois fichiers — donc **1rem vaut 16px**, pas
-  22px (mesuré en WebKit). Le commentaire qui affirmait « tout le reste est en
-  rem/em et suit » était faux, et c'est ce malentendu qui avait produit 24 tailles
-  distinctes : chacune poussée à tâtons contre une base inerte. Le carnet porte désormais
+  22px (mesuré en WebKit). Le carnet porte
   une rampe de 8 pas (`--pas-titre` … `--pas-micro`) dans un **second** bloc `:root`, local
   au fichier — le premier reste le jeu de jetons partagé, identique au caractère près.
   Aucune taille littérale hors rampe ; seule exception nommée, le `1.15em` de l'hébreu en
@@ -151,7 +149,6 @@ par inadvertance :
   nouvelle étiquette rejoint l'une des deux — on n'en invente pas une troisième.
 - **`border:1px dashed` ne veut dire qu'une chose : « rien ici »** (`.empty`, section vidée par la
   recherche). Un encadré important prend un filet **plein** : c'est la classe `.attention` (×4).
-  Le pointillé portait auparavant les deux sens opposés.
 - **Aucune surface n'est teintée d'or au repos** : `.part` puis `.tip` ont été éteints, chacun
   après le test « action, sélection ou identité ? ». Seule la carte « Révision du jour » de l'app
   garde cette licence. Deux composants extraits au passage : `.attention` (×4) et `.gram-title`
@@ -248,7 +245,7 @@ Les cas limites se tranchent vers le bas (l'app sert des débutants : mieux vaut
 
 ### 4.1 Les thèmes sémantiques (`data-theme`)
 
-Chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Quinze thèmes** (douze à la taxonomie initiale ; `vetements-couleurs` ajouté le jour même en seconde passe, puis `argent-achats` et `loisirs-culture` en troisième passe le jour même encore, extraits des fourre-tout — voir les arbitrages ci-dessous), et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Voici le **contrat** — les slugs et leurs libellés, qui eux ne bougent pas :
+Chaque `<tr>` des trois tables Noms/Adjectifs/Verbes porte un `data-theme` — le champ sémantique du mot, classé sur sa glose française. **Quinze thèmes**, et la liste vit à **deux endroits qui doivent rester alignés** : `EXPECTED_THEMES` dans build.js (le garde-fou) et la table `THEMES` dans app.html (slugs + libellés + ordre des chips). Voici le **contrat** — les slugs et leurs libellés, qui eux ne bougent pas :
 
 | Slug | Libellé (app) |
 | --- | --- |
@@ -415,7 +412,7 @@ Deux couches d'état applicatif, elles aussi **invisibles pour `build.js`**, res
 `checkAnswer` ([src/app/js/03-reponses.js](../src/app/js/03-reponses.js)) corrige avec tolérance et renvoie `'exact'`, `'almost'` ou `false` (toute valeur non-false = réponse acceptée) :
 
 - **Direction hébreu → français** : `normFr` retire accents et casse ; `frVariants` éclate le champ français sur `/`, virgules, parenthèses et articles, pour accepter plusieurs formulations.
-- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies dans [src/app/js/99-principal.js](../src/app/js/99-principal.js) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([src/app/js/02-translitteration.js](../src/app/js/02-translitteration.js)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([src/app/js/02-translitteration.js](../src/app/js/11-cartes.js)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
+- **Direction français → hébreu** : accepte **soit** du vrai hébreu (clavier virtuel israélien intégré, rangées définies dans [src/app/js/99-principal.js](../src/app/js/99-principal.js) — replié derrière le bouton « Clavier hébreu », et **absent sur tactile** (`@media (pointer:coarse)`) : l'iPhone a son clavier hébreu natif, le virtuel ne sert que les claviers physiques AZERTY du bureau), comparé sans nikud (`normHe`), **soit** une translittération « à la française ». Celle-ci est repliée en clé canonique par `trKey` ([src/app/js/02-translitteration.js](../src/app/js/02-translitteration.js)) — `ph→f`, `kh/ch→h`, `q→k`, `w→v`, `tz/ts`, `ou→u`, apostrophes ignorées, doublons réduits — et comparée à `he2tr(card.he)` ([src/app/js/02-translitteration.js](../src/app/js/02-translitteration.js)), le générateur hébreu→translittération piloté par le nikud, avec une petite tolérance de Levenshtein (`editDist`).
 - **Pédagogie du verdict** : `'almost'` (accepté uniquement grâce à la tolérance `editDist`) fait afficher par `showInputFeedback` le verdict « ✓ Presque ! La forme exacte : » — vert, tentative affichée non barrée pour comparer. Les kinds de feedback sont `'ok' | 'almost' | 'no' | 'skip'` ; `fixVerdict` traite `ok`/`almost` comme « avait été compté juste ».
 
 ⚠️ `trKey` et `he2tr` doivent **converger vers la même forme canonique** : toute modification de l'acceptation se fait dans les deux ensemble. Et `he2tr` sert aussi à l'**affichage** dès qu'une carte n'a pas de `tr` de carnet.

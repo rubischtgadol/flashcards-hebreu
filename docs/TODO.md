@@ -63,7 +63,7 @@ explicite) :
   trous ; la place 42, qui était réservée, est désormais occupée).
 - **Dette antérieure, toujours ouverte** : `data/listes/hebreu-parle.json`,
   `src/carnet/sections/43-hebreu-parle.html` (créés, chantier précédent) ;
-  `docs/superpowers/**` (4 fichiers supprimés au ménage documentaire).
+  `docs/superpowers/**` (5 fichiers supprimés, répertoire disparu — le dernier était le plan d'implémentation d'un chantier clos, dont le récit vit dans TODO_ARCHIVE.md et le contenu dans git).
 
 ### Deux branches latérales — aucune n'est le chantier courant
 
@@ -180,8 +180,9 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 Ce qui reste connu, non corrigé, et pourquoi chacun est tolérable. Une entrée
 sans sa raison d'être tolérée n'est pas une dette : c'est un chantier.
 
-1. ⚠️ **258 désaccords bruts entre `he2tr` et les `tr` rédigés à la main**, sur
-   4229 paires. Ce qui reste tient à trois causes, toutes documentées, et
+1. ⚠️ **259 désaccords entre `he2tr` et les `tr` rédigés à la main** que `trKey`
+   ne replie pas, sur 4229 paires — le nombre que rend `node
+   tools/mesure_translitteration.js` (4229 moins les 3970 accords repliés). Ce qui reste tient à trois causes, toutes documentées, et
    **aucune n'est un défaut du moteur** : le chva initial, morphologique et
    délibérément approximé (CLAUDE.md § Transliteration standard) ; le hé final,
    où les écarts sont des `tr` rédigés qui s'écartent du standard — une règle

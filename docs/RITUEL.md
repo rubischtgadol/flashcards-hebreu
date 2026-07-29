@@ -1,9 +1,8 @@
 # Le rituel et l'outillage
 
 > **Procédures permanentes.** Ce fichier reste distinct de [TODO.md](TODO.md) : le rituel et l'outillage ne changent pas d'une session à
-> l'autre, alors que TODO.md décrit un état qui change à chaque chantier. Les
-> mélanger obligeait à parcourir 460 lignes pour en utiliser 105. TODO.md ne
-> porte plus que ce qui bouge ; ce qui ne bouge pas est ici.
+> l'autre, alors que TODO.md décrit un état qui change à chaque chantier.
+> TODO.md ne porte que ce qui bouge ; ce qui ne bouge pas est ici.
 
 ## Rituel à chaque modification
 
@@ -146,7 +145,7 @@
   compare **deux copies du fichier**, l'une avec le bloc CSS en cause retiré, aux six
   largeurs 1440/1280/992/900/768 + iPhone 16 Pro, et mesure : débordement horizontal du
   document (`scrollWidth` vs `clientWidth`), `clientWidth`/`scrollWidth` de **chacune**
-  des `.table-wrap` — c'est le contrôle qui a attrapé les deux régressions du jour —,
+  des `.table-wrap` — c'est le contrôle qui attrape une régression de largeur —,
   les axes de centrage, et les **caractères par ligne** de la prose.
   ⚠️ **La mesure des caractères par ligne ne peut pas se faire au plus long nœud texte** :
   la prose du carnet est fragmentée par des `<span>` hébreux et des `<b>`, si bien que le
