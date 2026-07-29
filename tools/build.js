@@ -324,8 +324,12 @@ function genereCarnet(donnees, srcCarnet){
   // code — une source, injectée, jamais recopiée.
   // Chemin dérivé de srcCarnet et non de ROOT : ajoute_mots.js fait tourner ce
   // build dans un bac à sable dont la racine n'est pas celle du dépôt.
-  const jsCarnet = fs.readFileSync(path.join(srcCarnet, '..', '..', MODULE_TRANSLIT), 'utf8')
-    + '\n' + lire('carnet.js');
+  // L'ordre est significatif : le module partagé expose `normHe` et
+  // `cleRecherche`, dont les deux fichiers suivants dépendent. Un fichier
+  // manquant fait échouer `readFileSync` en le nommant — c'est la garde.
+  const SCRIPTS_CARNET = ['cursive.js', 'carnet.js'];
+  const jsCarnet = [fs.readFileSync(path.join(srcCarnet, '..', '..', MODULE_TRANSLIT), 'utf8')]
+    .concat(SCRIPTS_CARNET.map(lire)).join('\n');
 
   const corps = sectionsListees
     .map(f => fs.readFileSync(path.join(srcCarnet, 'sections', f), 'utf8'))
@@ -916,6 +920,49 @@ function verifieCharte(appAssembled, notebookGenerated, portailGenerated){
  * voulu. Un témoin disparu rend le contrôle muet, et un contrôle muet passe
  * toujours au vert.
  */
+/**
+ * verifieStructureCarnet(carnet) — tout le contenu est-il DANS <main> ?
+ *
+ * Défaut trouvé le 2026-07-29 : `</main>` vivait dans
+ * `sections/41-phrases.html`, et **deux sections le suivent au registre**
+ * (`42-abreviations-et-sigles`, `43-hebreu-parle`). Elles se rendaient donc
+ * hors de `<main>`, et n'héritaient pas de la colonne de lecture posée par
+ * `main > *:not(.table-wrap)` (carnet.css) : deux sections entières en pleine
+ * largeur, sans borne.
+ *
+ * ⚠️ Rigoureusement muet : le carnet régénéré était complet, `--check` vert,
+ * et le téléphone borne la largeur tout seul — donc le banc iPhone ne pouvait
+ * pas le voir (piège n°13). C'est le mode de panne exact que ce dépôt garde
+ * partout ailleurs. La balise fermante vit désormais dans `pied.html`, toujours
+ * assemblé en dernier ; cette garde interdit qu'elle en reparte.
+ */
+function verifieStructureCarnet(html){
+  // Le balisage seulement : le JS injecté est du TEXTE, et un commentaire qui
+  // cite `<main>` n'est pas une balise. Sans cette coupe, la garde comptait les
+  // mentions de sa propre documentation et échouait sur un carnet juste —
+  // symétrique de la leçon de verifieCharte(), qui ne scanne que les <style>.
+  const carnet = html.replace(/<script[\s\S]*?<\/script>/g, '');
+  const echecs = [];
+  const ouvre = (carnet.match(/<main[\s>]/g) || []).length;
+  const ferme = (carnet.match(/<\/main>/g) || []).length;
+  if (ouvre !== 1 || ferme !== 1)
+    echecs.push('le carnet ouvre ' + ouvre + ' fois <main> et le ferme ' + ferme + ' fois ; on en attend 1 et 1.');
+  else {
+    const fin = carnet.indexOf('</main>');
+    const apres = carnet.slice(fin);
+    const orphelines = (apres.match(/<h2 id="sec-[^"]+"/g) || []);
+    if (orphelines.length)
+      echecs.push(orphelines.length + ' section(s) se rendent APRÈS </main>, donc sans la colonne de '
+        + 'lecture de `main > *` : ' + orphelines.map(h => h.match(/sec-[^"]+/)[0]).join(', ')
+        + '. La balise fermante appartient à src/carnet/pied.html, assemblé en dernier.');
+  }
+  if (echecs.length){
+    console.error('✗ structure du carnet : ' + echecs.length + ' échec(s).');
+    for (const e of echecs) console.error('  - ' + e);
+    process.exit(1);
+  }
+}
+
 // ⚠️ Le contrôle NÉGATIF est la moitié qui sert. Les couples positifs
 // ci-dessous passent au vert dès que le repliage est généreux — et un repliage
 // TROP généreux est l'autre façon de mentir : « zzzqqq » rendait trois mots
@@ -1240,6 +1287,7 @@ function main(){
   verifieDoc(ROOT);                                                 // fatale aussi ; muette si docs/ absent (bac à sable)
   try { verifieCatOrder(ROOT); } catch (e) { console.error('✗ ' + e.message); process.exit(1); } // fatale — 7e point de câblage
   verifieRecherche(cards);                                          // fatale — une recherche qui rate le fait en silence
+  verifieStructureCarnet(notebookGenerated);                        // fatale — une section hors <main> perd sa colonne, sans symptôme
   const appGenerated = insereEntete(appAssembled, ENTETE_GENERE_APP);
   const portailGenerated = insereEntete(portailAssembled, ENTETE_GENERE_PORTAIL);
 

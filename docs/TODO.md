@@ -15,10 +15,14 @@
 ## Reprendre ici (prochaine session)
 
 🟠 **Un défaut ouvert** (voir § Défauts ouverts) : le portail anime encore sous
-« réduire les animations ». Le défaut de recherche signalé le 29/07 est
-**corrigé** — `cleRecherche` replie ktiv male/haser et les variantes de
-translittération sur les deux surfaces, `verifieRecherche()` le garde dans les
-deux sens.
+« réduire les animations ». Soldés le 29/07 : la **recherche** (`cleRecherche`
+replie ktiv male/haser et les variantes de translittération sur les deux
+surfaces, `verifieRecherche()` la garde dans les deux sens) et la **structure du
+carnet** (`</main>` fermait dans une section, deux sections se rendaient hors de
+la colonne de lecture ; `verifieStructureCarnet()` l'interdit désormais).
+
+📏 **Un chantier est MESURÉ et attend ton arbitrage : la graphie pleine
+(ktiv male)** — voir § Le chantier ktiv male.
 
 **Un chantier est ouvert sur `main` : le système de chartes graphiques.** La
 spec est validée et amendée
@@ -45,8 +49,8 @@ chacun a une commande qui le recalcule :
 | Cartes | 1728 (A1 490 · A2 669 · B1 503 · B2 47 · C1 19) | `node tools/cherche_mots.js --stats` |
 | Sections du carnet | 45 (44 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
 | Catégories de cartes | 25 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
-| Garde-fous anti-casse silencieuse | 12 | ARCHITECTURE.md § Garde-fous |
-| Outils dev | 6 dans `tools/` | `ls tools/*.js` |
+| Garde-fous anti-casse silencieuse | 13 | ARCHITECTURE.md § Garde-fous |
+| Outils dev | 7 dans `tools/` | `ls tools/*.js` |
 | Modules de l'app | 14 JS + 6 CSS dans `src/app/` | `src/app/ordre.json`, gardé par `verifieOrphelins()` |
 
 ⚠️ **Ce tableau est le seul endroit de ce fichier qui porte des chiffres**, et
@@ -59,7 +63,8 @@ recalage. Le flag enregistre la dette, il ne déclenche rien
 (`/graphify . --update` coûte ~235k tokens et ne se lance que sur décision
 explicite) :
 
-- **Outil créé** : `tools/controle_tr.js`.
+- **Outils créés** : `tools/controle_tr.js`, `tools/propose_ktiv_male.js`.
+- **Fichier créé** : `src/carnet/cursive.js` (le script de la ligne cursive, sorti de `sections/41-phrases.html`).
 - **Fichiers créés** : `docs/superpowers/specs/2026-07-29-systeme-de-chartes-design.md`
   et `docs/superpowers/plans/2026-07-29-systeme-de-chartes.md`
   (premières entrées de `docs/superpowers/` sur `main`).
@@ -195,6 +200,40 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
+
+### Le chantier ktiv male — mesuré, non lancé, en attente d'arbitrage
+
+**Le défaut.** `data/` stocke le vocalisé en *ktiv haser* (`מְסֻבָּךְ`). Les deux
+surfaces affichent des lignes **sans nikoud** en se contentant de retirer les
+points : `מסבך`. Ce n'est ni du ktiv haser (qui a besoin de ses points) ni du
+ktiv male (`מסובך`) — c'est une graphie qu'aucun texte réel n'emploie, montrée à
+quelqu'un qui apprend. Où : la **ligne cursive du carnet** (sous chaque mot de
+tableau ou de liste, ~5573) et, dans l'app, la ligne cursive du verso fr→hé
+(inconditionnelle), les deux modes d'écriture et le QCM. **Décision du
+propriétaire (29/07) : la cursive reste SANS nikoud** — la sortie de secours
+« afficher le vocalisé » est donc écartée, il faut la vraie graphie pleine.
+
+**La mesure** (`node tools/propose_ktiv_male.js`, le chiffre se recalcule) :
+sur 4780 formes hébraïques, **1346 s'écartent** (28 %) — dont **338 vedettes**.
+Par confiance : **801 mécaniques** (kubutz/holam/hirik, confirmation en bloc) et
+**545 à arbitrer** (redoublement du ו/י). Le lot le plus court est donc
+**338 vedettes, dont 76 seulement demandent un jugement** (`--vedettes`).
+
+⚠️ **Aucune règle ne fermera le redoublement, et c'est démontré** : `לַיְלָה` et
+`בַּיְשָׁן` portent le motif *identique* (patach, yod, chva) et donnent `לילה`
+(un yod) contre `ביישן` (deux). Et il n'existe **aucun harnais** : `he2tr` se
+règle contre 4229 `tr` écrits à la main, alors que `data/` ne porte aucune
+graphie pleine manuscrite. L'outil PROPOSE, il ne décide pas.
+
+**Le régime visé** : celui des `.tr` — un champ écrit à la main qui fait
+autorité, présent seulement là où il diffère, plus une garde qui refuse une
+entrée qui en aurait besoin sans en porter.
+
+**Les deux questions ouvertes, qui sont au propriétaire** : le **périmètre**
+(vedettes seules, ou tout ce que le carnet met en cursive — les vedettes seules
+laissent un mot en graphie pleine au-dessus de ses formes en graphie
+défective) ; et le **moment** (avant ou après le chantier des chartes — celui-ci
+ne bloque rien et ne se périme pas).
 
 ### Défauts ouverts — à corriger, pas à tolérer
 

@@ -3251,6 +3251,56 @@ Sur l'orientation RTL, la recommandation de l'agent **n'a pas été suivie** : l
 sélectionner ». Le défaut était réel (42 px au lieu de 44), sa cause déclarée
 était fausse ; les trois règles mortes ont été retirées plutôt que reconduites.
 
+## Le carnet fermait `<main>` trop tôt — corrigé le 2026-07-29
+
+Trouvé en tirant un fil qui n'en était pas un. Je croyais avoir repéré un défaut
+— « le carnet n'a aucune ligne cursive » — après avoir compté `class="cursive"`
+dans l'artefact : zéro. **C'était moi qui tombais dans le piège n°6 de
+CLAUDE.md**, qui dit mot pour mot que ce compte « doit être mesuré dans un
+navigateur, pas calculé depuis la source ». Les cursives sont créées au
+chargement par un script inline ; elles sont 5573.
+
+Mais sous le faux défaut il y en avait un vrai. Ce script vivait dans
+`src/carnet/sections/41-phrases.html` — un comportement **global** du carnet
+logé dans un fichier de section —, et le même fichier portait le `</main>`. Or
+**deux sections le suivent au registre** : « Abréviations et sigles » et
+« Hébreu parlé » se rendaient donc **hors de `<main>`**, sans la colonne de
+lecture posée par `main > *:not(.table-wrap)`. Deux sections entières en pleine
+largeur sur ordinateur, et rigoureusement invisibles autrement : le carnet était
+complet, `--check` vert, et le banc iPhone borne la largeur tout seul
+(piège n°13).
+
+Correction : `</main>` rejoint `pied.html`, toujours assemblé en dernier ; le
+script part dans `src/carnet/cursive.js` et consomme le `normHe` du module
+partagé au lieu d'une quatrième copie locale du même `replace`.
+`verifieStructureCarnet()` échoue désormais sur toute section rendue après la
+fermeture, en la nommant — vue échouer sur le défaut d'origine, qui a rendu les
+deux noms.
+
+⚠️ **Leçon pour toute garde qui lit du balisage** : retirer les `<script>`
+d'abord. La première version comptait les `<main>` cités dans le commentaire du
+JS injecté et échouait sur un carnet juste. C'est la symétrique de la leçon de
+`verifieCharte()`, qui ne scanne que les `<style>`.
+
+## La graphie pleine mesurée, non lancée — 2026-07-29
+
+Chantier chiffré puis laissé ouvert, faute d'être décidable par un agent. Ce que
+la mesure a coûté et rendu : trois versions successives de la règle, chacune
+corrigée par un cas du corpus. (1) La première ajoutait un yod aux mots qui en
+portaient déjà un (`אִישׁ` → `אייש`). (2) La deuxième redoublait le yod après une
+mère de lecture (`אוֹיֵב` → `אוייב`) parce qu'elle comptait le holam comme une
+voyelle pleine, donc prenait le `ו` de `אוֹ` pour une consonne. (3) La troisième
+laissait le redoublement court-circuiter les trois autres règles par son
+`continue` : `מְיֻחָד` sortait `מייחד` au lieu de `מיוחד`. Chaque version passait
+ses témoins précédents — d'où six témoins figés dans l'outil.
+
+⚠️ **Et la limite est démontrée, pas supposée** : `לַיְלָה` et `בַּיְשָׁן` portent
+le motif identique (patach, yod, chva) et donnent `לילה` contre `ביישן`. Aucune
+règle sur le nikoud ne les sépare. S'y ajoute l'absence de harnais : `he2tr` se
+règle contre 4229 `tr` manuscrits, `data/` ne porte aucune graphie pleine
+écrite à la main. L'outil `tools/propose_ktiv_male.js` propose et compte ; il ne
+décide pas.
+
 ## La recherche qui mentait — corrigée le 2026-07-29
 
 Signalé par le propriétaire en deux fois : `מסובך` ne rendait rien alors que

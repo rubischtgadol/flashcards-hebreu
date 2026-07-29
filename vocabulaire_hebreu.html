@@ -13528,29 +13528,6 @@
     <span class="word-main"><span class="he" lang="he">אֲנִי אָבוּד.</span></span>
     <span class="meta"><span class="tr">ani avud</span><span class="fr">je suis perdu (m.)</span></span>
   </li></ul>
-
-</main>
-
-<script>
-  // Génère automatiquement une ligne en cursif (sans nikud) sous chaque mot hébreu.
-  // S'applique à tout élément .he présent dans ce fichier.
-  document.addEventListener('DOMContentLoaded', function(){
-    function stripNikud(str){
-      // Supprime les points-voyelles, dagesh, points shin/sin, cantillation (U+0591–U+05C7)
-      return str.replace(/[\u0591-\u05C7]/g, '');
-    }
-    // Cursive uniquement sous les entrées de dictionnaire (cellules de tableau,
-    // listes de mots) — jamais dans le texte courant des notes/recettes, où une
-    // ligne en display:block fragmenterait la phrase.
-    document.querySelectorAll('td .he, .word-main .he').forEach(function(el){
-      var cursive = document.createElement('span');
-      cursive.className = 'cursive'; cursive.lang = 'he';
-      cursive.textContent = stripNikud(el.textContent);
-      el.insertAdjacentElement('afterend', cursive);
-    });
-  });
-</script>
-
 <h2 id="sec-abreviations-et-sigles"><span lang="he">רָאשֵׁי תֵּבוֹת</span> <span class="count">Abréviations et sigles</span></h2>
 <div class="note">
   L'hébreu abrège beaucoup, et depuis longtemps : <span lang="he">רָאשֵׁי תֵּבוֹת</span> (rashei tevot, « têtes de mots ») désigne les sigles formés des initiales d'une expression. On les croise partout — panneaux, formulaires, SMS, en-têtes de lettre — souvent sans que le lecteur débutant sache qu'il s'agit d'une abréviation.<br><br>
@@ -13985,6 +13962,8 @@
   
       <ul class="exemples"><li><span class="he" lang="he">הוּא יָצָא מַבְסוּט מֵהַפְּגִישָׁה</span><span class="tr">hu yatsa mabsut mehapgishah</span><span class="fr">Il est sorti content du rendez-vous.</span></li></ul>
     </li></ul>
+</main>
+
 <script>// Expose : he2tr, trKey, cleRecherche, normHe, editDist — Utilise : (rien — logique pure)
 function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
 function editDist(a,b){
@@ -14156,6 +14135,37 @@ function cleRecherche(s){
     })
     .join(' ');
 }
+
+  // ---------- La ligne en écriture cursive ----------
+  // Sous chaque mot hébreu du dictionnaire, une seconde ligne dans la fonte
+  // cursive israélienne, SANS nikoud (décision du propriétaire) : à la main,
+  // on n'écrit pas les points.
+  //
+  // ⚠️ Ce fichier existe parce que ce comportement vivait dans
+  // `sections/41-phrases.html` — un comportement GLOBAL du carnet logé dans un
+  // fichier de section, que rien n'annonçait et que rien ne gardait. La section
+  // renommée, retirée ou déplacée, les 5573 cursives disparaissaient d'un coup,
+  // en silence, `--check` restant vert (le carnet régénéré est cohérent avec
+  // son registre : il est seulement amputé). Le même fichier portait aussi le
+  // `</main>`, et comme deux sections le suivent au registre, elles se
+  // rendaient HORS de `<main>` — donc sans la colonne de lecture posée par
+  // `main > *` (carnet.css). Voir la garde `verifieStructureCarnet()`.
+  //
+  // Le dénudage vient de `normHe` (module de translittération injecté avant ce
+  // fichier), et non d'une quatrième copie locale du même `replace`.
+  document.addEventListener('DOMContentLoaded', function(){
+    // Cursive uniquement sous les entrées de dictionnaire (cellules de tableau,
+    // listes de mots) — jamais dans le texte courant des notes et des recettes,
+    // où une ligne en display:block fragmenterait la phrase.
+    document.querySelectorAll('td .he, .word-main .he').forEach(function(el){
+      var cursive = document.createElement('span');
+      cursive.className = 'cursive';
+      cursive.lang = 'he';
+      cursive.textContent = normHe(el.textContent);
+      el.insertAdjacentElement('afterend', cursive);
+    });
+  });
+
 
   // ---------- Dynamic search / filter for the vocabulary notebook ----------
   document.addEventListener('DOMContentLoaded', function(){

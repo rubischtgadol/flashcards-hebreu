@@ -1,26 +1,3 @@
 <h2 id="sec-phrases"><span lang="he">מִשְׁפָּטִים שִׁמּוּשִׁיִּים</span> <span class="count">Phrases</span></h2>
 <div class="note">Le vocabulaire en situation : phrases courtes du quotidien, à savoir dire telles quelles. La mention (m.)/(f.) indique le genre de la personne qui parle ou à qui l'on parle.</div>
 <ul class="word-list"><!-- @ENTREES:listes/phrases --></ul>
-
-</main>
-
-<script>
-  // Génère automatiquement une ligne en cursif (sans nikud) sous chaque mot hébreu.
-  // S'applique à tout élément .he présent dans ce fichier.
-  document.addEventListener('DOMContentLoaded', function(){
-    function stripNikud(str){
-      // Supprime les points-voyelles, dagesh, points shin/sin, cantillation (U+0591–U+05C7)
-      return str.replace(/[\u0591-\u05C7]/g, '');
-    }
-    // Cursive uniquement sous les entrées de dictionnaire (cellules de tableau,
-    // listes de mots) — jamais dans le texte courant des notes/recettes, où une
-    // ligne en display:block fragmenterait la phrase.
-    document.querySelectorAll('td .he, .word-main .he').forEach(function(el){
-      var cursive = document.createElement('span');
-      cursive.className = 'cursive'; cursive.lang = 'he';
-      cursive.textContent = stripNikud(el.textContent);
-      el.insertAdjacentElement('afterend', cursive);
-    });
-  });
-</script>
-
