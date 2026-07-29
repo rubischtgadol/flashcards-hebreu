@@ -1,6 +1,12 @@
   /* ---------- Study screen ---------- */
   .study{ display:none; flex-direction:column; flex:1; max-width:520px; width:100%; margin:0 auto; }
   .study.active{ display:flex; }
+  /* Colonne flex à TOUTES les largeurs, y compris sous le palier ordi où elle
+     n'est qu'un conteneur transparent. C'est délibéré : en flex, les marges de
+     ses enfants ne fusionnent pas — exactement le régime qu'ils connaissaient
+     dans le `.study` flex avant que ce conteneur existe. C'est ce qui rend le
+     téléphone strictement immobile malgré une boîte de plus dans l'arbre. */
+  .answer-col{ display:flex; flex-direction:column; }
   .setup.hidden{ display:none; }
 
   .progress-wrap{ display:flex; align-items:center; gap:12px; margin:6px 2px 16px; }
@@ -23,8 +29,16 @@
     min-height:340px; max-height:520px; height:min(60vh,520px);
     transition:transform .12s ease;
   }
-  /* En mode saisie, carte plus compacte pour que réponse + Suivant tiennent à l'écran. */
-  body.input-mode .flip{ min-height:190px; height:min(32vh,290px); }
+  /* En mode saisie, carte plus compacte pour que réponse + Suivant tiennent à
+     l'écran. Mais `height:min(32vh,290px)` était un plafond RIGIDE, indifférent
+     à ce que la carte porte : un adjectif à trois inflexions réclamait 179px
+     là où il en recevait 151, et la troisième étiquette était coupée net
+     (mesuré : 28px avalés sur iPhone 16 Pro, 7px sur un Chrome à 380px). La
+     hauteur suit désormais le contenu, sous un plafond plus généreux — la carte
+     ne prend que ce qu'il lui faut, et ne dépasse jamais la borne qui protège la
+     ligne de flottaison. `overflow-y:auto` reste le filet en dessous du palier
+     ordi : c'est le seul endroit où un plafond peut encore mordre. */
+  body.input-mode .flip{ min-height:190px; height:auto; max-height:min(46vh,340px); }
   body.input-mode .stage{ flex:0 0 auto; margin-bottom:2px; }
   .flip:active{ transform:scale(.994); }
   /* Trois rangées en flux — étiquette / contenu / indice —, et non plus un
@@ -172,7 +186,30 @@
      ⚠️ Palier à 900 px, pas au-dessous : c'est la largeur à partir de
      laquelle 640 px de carte laissent encore des marges franches. */
   @media (min-width:900px){
-    .study{ max-width:760px; }
+    /* Deux colonnes : la carte à gauche, tout ce qu'on FAIT de la carte à droite.
+       Mesuré à 1536×730 avant ce bloc : « Suivant » passait 42px sous la fenêtre
+       avec l'exemple replié, 150px déplié, 222px sur un verbe à 4 formes ; en mode
+       Cartes « Je savais » dépassait de 19px. Le coût n'est pas la carte (264px)
+       mais le bloc de correction (375px) — l'empiler SOUS une carte qui prend déjà
+       la moitié de la hauteur utile ne pouvait pas tenir. Côte à côte, le déficit
+       tombe à 0 sur les six situations mesurées, et la largeur perdue était là.
+       420px à droite : c'est la translittération d'exemple qui dicte la largeur,
+       et 420px couvre 96,8 % du corpus — au-delà le texte se replie, il n'est
+       jamais tronqué. Pistes en `minmax(0,…fr)` et non en largeurs fixes : à 900px
+       il n'y a pas 1094px à distribuer, et les deux colonnes doivent se resserrer
+       ensemble plutôt que déborder. `.study.active` et non `.study` : c'est lui
+       qui porte le `display:flex`, à sélecteur moins spécifique on ne gagnerait
+       pas la cascade. */
+    .study{ max-width:1094px; }
+    .study.active{
+      display:grid;
+      grid-template-columns:minmax(0,1.524fr) minmax(0,1fr);
+      column-gap:34px;
+      align-items:start;
+    }
+    .progress-wrap{ grid-column:1 / -1; }
+    .stage{ grid-column:1; }
+    .answer-col{ grid-column:2; }
     .flip{
       max-width:640px;
       height:auto; min-height:min(42vh,380px); max-height:none;
@@ -180,7 +217,10 @@
     /* Le mode saisie comprimait la carte à 32vh pour que la correction tienne
        sous elle ; à cette largeur le besoin disparaît et c'était précisément
        cet écrasement qui faisait défiler les inflexions. */
-    body.input-mode .flip{ min-height:min(30vh,260px); height:auto; }
+    /* ⚠️ `max-height:none` est indispensable ici : le `.flip{max-height:none}`
+       ci-dessus ne suffit pas, `body.input-mode .flip` étant plus spécifique, le
+       plafond `46vh` posé pour le téléphone gagnerait aussi au palier ordi. */
+    body.input-mode .flip{ min-height:min(30vh,260px); height:auto; max-height:none; }
     .face{ padding:20px 30px 18px; }
     .face .eyebrow{ font-size:.9rem; padding-inline:56px; }
     /* Ici la carte fait exactement la hauteur de son contenu : `align-content:center`

@@ -15,7 +15,7 @@
 ## Reprendre ici (prochaine session)
 
 **Aucun chantier n'est ouvert sur `main`, et tout est poussé.** La dette ouverte
-compte **six entrées** (voir § Dette ouverte) ; deux branches latérales
+compte **trois entrées** (voir § Dette ouverte) ; deux branches latérales
 dorment (voir § Deux branches latérales), dont une à laquelle il ne faut pas
 toucher.
 
@@ -34,12 +34,6 @@ chacun a une commande qui le recalcule :
 ⚠️ **Ce tableau est le seul endroit de ce fichier qui porte des chiffres**, et
 c'est déjà un risque assumé : la colonne de droite existe pour qu'on ne le croie
 jamais sur parole. Un chiffre sans sa commande est une dette.
-
-**Ce qui s'est passé pour en arriver là ne vit pas ici** — les cinq derniers
-chantiers (palier ordi, `.face` en flux, section nikoud, les deux défauts iPhone
-du carnet, section abréviations) sont archivés dans
-[TODO_ARCHIVE.md](TODO_ARCHIVE.md) § « Chantiers clos — archivés le 2026-07-28 ».
-Ce fichier répond à « où en est-on ? », jamais à « que s'est-il passé ? ».
 
 ⚠️ **GRAPHE À RECALER** — le graphe est antérieur à `docs/` : il n'a jamais
 connu ce qui suit, donc rien à en retirer, seulement à y ajouter au prochain
@@ -74,11 +68,14 @@ explicite) :
 ### Deux branches latérales — aucune n'est le chantier courant
 
 `main` n'en porte aucune trace : consigné ici pour qu'une session ne les
-redécouvre pas par hasard. L'écart se relit à tout moment —
-`git rev-list --count main..<branche>` (devant) et
-`git rev-list --count <branche>..main` (derrière). Au dernier relevé :
-`refonte-retrofuturiste` **48 devant / 63 derrière**, `pilier-oral`
-**7 devant / 98 derrière**.
+redécouvre pas par hasard. ⚠️ **L'écart ne s'écrit pas ici** — il change à chaque
+commit sur `main`, donc tout chiffre recopié serait faux le lendemain. Il se
+relit :
+
+```bash
+git rev-list --count main..<branche>   # ce que la branche a en propre
+git rev-list --count <branche>..main   # ce qu'elle a manqué
+```
 
 ⚠️ **Consigne du propriétaire : « ne touche pas à la branche
 retrofuturiste ».** Ni checkout, ni merge, ni rebase, ni écriture dans son
@@ -178,99 +175,57 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
 
-### Dette ouverte — six entrées
+### Dette ouverte — trois entrées
 
-Elle était vide (les quatre entrées soldées sont dans
-TODO_ARCHIVE.md). Une passe documentaire l'a rouverte une première fois, en
-répondant à une question du propriétaire — « as-tu expliqué dans le carnet
-comment utiliser *efshar* ? ». Le chantier « mots-outils et nombres » en
-ajoute quatre : une section reportée et trois limites connues de
-l'outillage. Le chantier de la barre de défilement en ajoute deux, l'une
-mesurée en passant, l'autre trouvée par un balayage des overrides morts — il
-n'est allé corriger ni l'une ni l'autre.
+Ce qui reste connu, non corrigé, et pourquoi chacun est tolérable. Une entrée
+sans sa raison d'être tolérée n'est pas une dette : c'est un chantier.
 
-1. ⚠️ **Le carnet stocke 49 notes d'usage qu'il n'affiche pas.** `gabarits.js`
-   émet le champ `note` de `data/` en attribut `data-note` sur le `<li>`
-   ([src/carnet/gabarits.js](../src/carnet/gabarits.js), `itemListe`), et
-   **rien ne le lit** : aucun `attr(data-note)` dans `src/carnet/carnet.css`,
-   aucune lecture dans `src/carnet/carnet.js`. Vérifiable :
-   `grep -c data-note vocabulaire_hebreu.html` → 49, et le même compte d'entrées
-   portant une `note` dans `data/`. Ces notes ne s'affichent **que dans l'app**,
-   au dos de la carte (`.note-line`, `src/app/js/10-rendu.js`).
+1. ⚠️ **258 désaccords bruts entre `he2tr` et les `tr` rédigés à la main**, sur
+   4229 paires. Ce qui reste tient à trois causes, toutes documentées, et
+   **aucune n'est un défaut du moteur** : le chva initial, morphologique et
+   délibérément approximé (CLAUDE.md § Transliteration standard) ; le hé final,
+   où les écarts sont des `tr` rédigés qui s'écartent du standard — une règle
+   « hé muet » coûterait 903 accords exacts, mesuré ; et les phrases
+   multi-mots, où `trKey` n'ancre son pliage qu'en tête de chaîne.
 
-   Ce qui est perdu, ce n'est pas de la décoration : c'est le mode d'emploi des
-   mots-outils. `אֶפְשָׁר` « impersonnel, invariable : suit un infinitif »,
-   `כְּשֶׁ` « préfixe soudé au verbe », `אַף אֶחָד` « toujours avec la
-   négation », `יָכוֹל` et `צָרִיךְ` et leur accord — un lecteur du carnet ne
-   voit rien de tout cela. Le défaut n'est pas nouveau : יָכוֹל
-   et צָרִיךְ portaient déjà leur note invisible.
+   **Non bloquant, et c'est prouvé et non supposé : aucun de ces désaccords
+   n'est visible.** Le harnais ne compare jamais un champ sans `tr` rédigé, donc
+   `he2tr` n'est jamais ce qui s'affiche pour ces paires ; et `checkAnswer`
+   accepte **toujours** `trKey(card.tr)` ET `trKey(he2tr(card.he))` — un brut
+   ajoute une graphie tolérée, il n'en retire jamais.
 
-   **Non bloquant** parce que l'exemple en situation, lui, s'affiche, et qu'il
-   porte l'essentiel de l'usage. **Ce qui le résoudrait** : afficher la note sous
-   la ligne du mot dans le carnet — c'est une décision de charte (voix, place
-   dans la hiérarchie typographique, comportement en colonne étroite), pas une
-   correction mécanique, d'où son inscription ici plutôt qu'un correctif
-   improvisé.
+   ⚠️ **Ne pas y toucher sans le protocole complet** : `node
+   tools/mesure_translitteration.js` doit améliorer strictement les trois
+   métriques, **et** le contrôle paire par paire (ancienne `he2tr` contre
+   nouvelle, en bacs à sable `vm`) doit rendre **zéro perte**. La moyenne qui
+   monte ne prouve rien : c'est ce contrôle-là qui a attrapé une sur-application
+   sur `כַּלְכָּלִי` alors que le harnais était déjà au vert.
 
-2. ⚠️ **286 désaccords bruts préexistants**, révélés dans tout le corpus par
-   `controle_tr.js` maintenant qu'il descend dans les exemples et les
-   formes : chva après ל/מ/כ ~109, כָּל rendu `kal` au lieu de `kol` (kamats
-   katan) ~36, diphtongue -ay/-ayy ~24, hé final/mappiq ~22. Ce sont les
-   limites connues de `he2tr`. ⚠️ **Ne pas y toucher** : la règle du chva
-   initial est morphologique et calibrée sur tout le corpus ; sa retouche
-   exige de rejouer le harnais de mesure (`node tools/mesure_translitteration.js`)
-   et d'améliorer strictement les trois métriques (accord exact, accord
-   replié, distance d'édition).
+2. **Trois cellules de déficit vertical sur une fenêtre d'ordinateur très
+   basse.** Sur 42 combinaisons mesurées (7 gabarits × 6 situations), trois
+   demandent encore de faire défiler la page : 1536×620 en saisie fr→hébreu
+   exemple déplié (+66 px), 1536×620 en mode Cartes sur le verso d'un verbe à
+   4 formes exemple déplié (+59 px, et c'est la carte elle-même qui dépasse),
+   et 900×700 en saisie fr→hébreu exemple déplié (+59 px).
 
-3. **`controle_tr.js` ignore en silence un `tr` manquant** sur
-   `formes[]`/`pluriel` (`tools/controle_tr.js`, garde
-   `if (!he || !tr) return;`) : aucun autre outil du pipeline ne le
-   contrôle. Conforme à sa responsabilité déclarée (pas de validation de
-   schéma), mais c'est un silence dans une garde — à décider plus tard.
+   **Tolérable** : il faut cumuler une fenêtre de 700 px de haut ou moins, le
+   contenu le plus dense du corpus et l'exemple déplié. Les 39 autres cellules
+   sont à zéro. Le resserrer exigerait de replafonner la hauteur de carte, donc
+   de rouvrir le rognage que l'entrée 3 vient de fermer — le compromis se paie
+   d'un côté ou de l'autre.
 
-4. **Deux revues de lot n'ont pas été faites** (sections neuves des lots C et
-   D) et **le contrôle WebKit n'a pas été passé**, le chantier ayant été clos
-   sur demande. Tolérable : `verifieCatOrder` garde désormais
-   **mécaniquement** l'existence des puces, qui était précisément le risque
-   muet que le contrôle visuel servait à attraper ; et `build.js --check`
-   prouve les cinq artefacts en phase. Ce qu'un WebKit apporterait encore :
-   le rendu des blocs `h3.subtheme` des huit séries fléchies, et un contrôle
-   aux largeurs desktop.
+3. **Le téléphone défile de 60 px après une réponse sur un verbe à 4 formes.**
+   Conséquence assumée d'avoir rendu la hauteur de carte élastique en mode
+   saisie (`height:auto; max-height:min(46vh,340px)`) : le rognage des
+   inflexions a disparu — `#face-content` passe de 151/179 à 179/179 — mais la
+   carte occupe la place qu'elle réclamait. Sur un adjectif à 3 formes le
+   résidu tombe à 4 px.
 
-5. ⚠️ **La carte du mode saisie rogne ses inflexions sur téléphone.** Mesuré
-   sur les deux moteurs pendant le chantier de la barre de défilement :
-   `#face-content` offre 151 px pour 179 nécessaires sur iPhone 16 Pro
-   (28 px avalés), et 167 pour 174 sur le Chrome du propriétaire réduit à
-   380 px de large (7 px). La cause est le plafond en `vh` de
-   `body.input-mode .flip{height:min(32vh,290px)}`
-   ([src/app/css/30-cartes.css](../src/app/css/30-cartes.css)), posé pour que
-   le champ de réponse et « Suivant » restent au-dessus de la ligne de
-   flottaison, clavier virtuel compris. Sur un adjectif à trois inflexions,
-   la troisième étiquette est coupée net et chevauche « traduis en français ».
+   **Tolérable** : 60 px sur un viewport de 681 px, après réponse seulement, et
+   sur la carte la plus haute du corpus. Resserrer le plafond à 40vh rognerait
+   à nouveau les exemples longs — c'est le même arbitrage que l'entrée 2, vu
+   depuis le téléphone.
 
-   Ce qui le rend non bloquant : sous 900 px `#face-content` garde son
-   `overflow-y:auto` — c'est le seul palier où ce défilement est voulu —, donc
-   le contenu reste atteignable en faisant défiler la carte. Y toucher rouvre
-   le réglage du plafond `32vh` et exige sa propre campagne (clavier ouvert,
-   ligne de flottaison, les trois modes) : c'est un chantier à part entière,
-   d'où sa place ici plutôt que dans « Reprendre ici ».
-
-6. ⚠️ **Les puces de catégorie n'ont pas leur cible tactile.**
-   `src/app/css/20-selection.css:85` pose `@media (pointer:coarse){ .cat-row
-   .chip{ padding:9px 13px } }` sous un commentaire qui promet « une cible
-   confortable (~44px) » — et la ligne 90, `.cat-row .chip{ font-size:.9rem;
-   padding:5px 11px }`, l'écrase : même sélecteur, sans condition, plus bas
-   dans le même fichier. Au doigt les puces gardent donc 5 px de padding.
-   Même cause que le bloc mort du palier ordi soldé en même temps, et trouvée
-   par le même balayage.
-
-   Ce qui le rend non bloquant : les puces restent cliquables, seulement plus
-   petites que la barre des 44 px que le dépôt s'impose ailleurs. Le correctif
-   tient en une ligne — déplacer la déclaration `padding` de la `@media` après
-   la règle inconditionnelle — mais il **déplace le téléphone**, donc il exige
-   sa propre campagne sur l'écran de réglages, et non celle de la carte. Sa
-   hauteur réelle au doigt n'a pas été mesurée : elle est calculée sous 44 px,
-   pas constatée.
 
 *Si un nouveau défaut connu apparaît, c'est ici qu'il se note — avec ce qui le
 rend non bloquant, faute de quoi il devient un chantier.*

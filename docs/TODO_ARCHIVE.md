@@ -3168,3 +3168,86 @@ que la règle vaut partout dans le corpus au lieu d'ouvrir un trou par section.
 fabriqué dans les deux sens, dont celui qui comptait : un mot ordinaire non
 vocalisé **dans une phrase portant par ailleurs un vrai sigle** échoue toujours,
 l'exemption étant par jeton et non par phrase. 1717 → 1728 cartes.
+
+## Chantiers clos — archivés le 2026-07-29
+
+Une session, sept chantiers : un défaut signalé par le propriétaire, une refonte
+d'agencement, et les six entrées de la dette ouverte soldées ou requalifiées.
+
+**1. La barre de défilement dans la carte** (`5f18c5a`). Signalée sur capture :
+sur ordinateur, la carte du mode saisie affichait une barre interne qui lui
+volait 15 px de large. **Deux hypothèses ont été construites et réfutées** — une
+divergence de dimensionnement flex entre moteurs, puis un repli de police sous
+Windows — avant qu'une mesure demandée au propriétaire sur son propre navigateur
+ne tranche en dix secondes : `#face-content` débordait d'**exactement 1 px**
+(`clientHeight` 152, `scrollHeight` 153). Un arrondi sous-pixel que WebKit et
+Blink ne tranchent pas du même côté ; invisible sur notre banc, dont les barres
+sont en surimpression, et défigurant sous Windows où elles sont classiques et
+apparaissent dès le premier pixel. 80 cellules de mesure WebKit avaient rapporté
+une marge « exactement nulle » partout — ce qui se lisait « ça tient » et voulait
+dire « à un arrondi de casser ». D'où le **piège n°17** de CLAUDE.md, et son
+corollaire sur les DevTools ancrés à droite, qui avaient fait basculer la
+première mesure dans le palier téléphone.
+
+En vérifiant les respirations de la carte, **tout le bloc `body.input-mode
+#face-content .forms` du palier ordi s'est révélé mort depuis `c03baee`** : sa
+règle de base vit dans `40-reponses.css`, concaténé après `30-cartes.css`, et à
+sélecteur égal c'est le dernier qui gagne — une `@media` n'ajoute pas de
+spécificité. Les inflexions rendaient donc à 1,7rem sur ordinateur, la taille
+pensée pour la carte comprimée du téléphone. Un balayage des 1049 déclarations
+des six fragments n'a trouvé que deux overrides morts en tout.
+
+**2. L'agencement à deux colonnes.** Le propriétaire a signalé que « Suivant » et
+« J'avais juste » passaient sous la fenêtre. Mesuré à 1536×730 : **+42 px**
+l'exemple replié, **+150 px** déplié, **+222 px** sur un verbe à quatre formes ;
+en mode Cartes « Je savais » dépassait de 19 px. Le coupable n'était pas la carte
+(264 px) mais le bloc de correction (375 px). Trois agencements ont été proposés,
+le propriétaire a choisi les deux colonnes pour les trois modes. Un conteneur
+`.answer-col` a été ajouté à `coquille.html` — le seul changement de balisage —
+et `.study.active` passe en grille au palier 900. Colonne de droite à **420 px**,
+largeur dictée par la translittération d'exemple et couvrant 96,8 % du corpus.
+Déficit après : **zéro sur 39 des 42 combinaisons mesurées**.
+
+**3. Dette 1 — les notes d'usage du carnet.** Le carnet stockait ses notes en
+`data-note` sans jamais les rendre. Elles étaient **64 et non 49** : le chiffre
+de la dette avait vieilli, et toutes sont sur des listes, aucune sur une table.
+Rendues en `.note-line`, avec la voix qu'elles ont déjà dans l'app.
+
+**4. Dette 2 — les désaccords de translittération.** La seule entrée que la
+documentation interdisait de toucher sans protocole. Le harnais a montré **326
+désaccords et non 286**, et surtout que **zéro n'était visible** : `checkAnswer`
+accepte toujours les deux graphies. Deux règles ont été ajoutées avec gain strict
+sur les trois métriques — kamats katan de כל, et `ayv`→`av`. Exact 3557 → 3615,
+replié 3902 → 3970, distance 901 → 830 ; bruts 326 → 258.
+
+**La leçon de méthode vaut plus que le gain** : la moyenne qui monte ne prouve
+rien. Un contrôle paire par paire — ancienne `he2tr` contre nouvelle, évaluées
+côte à côte en bacs à sable `vm` — a révélé six pertes derrière un harnais déjà
+vert : **une vraie sur-application** de la règle du kamats sur `כַּלְכָּלִי`, et
+**cinq `tr` rédigés fautifs** (`kal` pour כָּל, `bastayv` pour בַּסְּתָיו),
+corrigés dans `data/`. Après resserrage de la règle : 0 perte, 73 gains.
+Corollaire consigné : améliorer `he2tr`, c'est auditer le corpus.
+
+**5. Dette 3 — le silence de `controle_tr.js`.** La garde `if (!he || !tr)
+return;` avalait un couple troué. Levée, mais **scopée sur la mesure** : 1051 des
+1728 têtes n'ont légitimement pas de `tr` (les tables retombent sur `he2tr`),
+alors que les 2070 formes et 1482 exemples en ont tous un. Le nouveau `⚠ MUET`
+ne parle donc que là où l'absence est une anomalie.
+
+**6. Dette 4 — la revue navigateur jamais passée.** Elle a trouvé ce qu'elle
+était censée trouver : **7 titres `h3.subtheme` hébraïques sans `lang="he"`**,
+plus l'hébreu du titre « Et ». Couverture portée à 11822/11822, mesurée dans le
+navigateur comme le piège 6 l'exige. Elle a aussi exposé un défaut que personne
+n'avait nommé : `.subtheme` appliquait à l'hébreu vocalisé une chasse de 0,12em
+pensée pour des capitales latines — שֶׁל mesurait 18,75 px, il en mesure 15,52.
+Sur l'orientation RTL, la recommandation de l'agent **n'a pas été suivie** : les
+44 `<h2>` du carnet posent tous l'hébreu en tête d'un bloc LTR.
+
+**7. Dettes 5 et 6 — le téléphone.** Le rognage des inflexions
+(`height:min(32vh,290px)`, un plafond rigide) est réglé en rendant la hauteur
+élastique : `#face-content` passe de 151/179 à 179/179. Et les chips gagnent
+`min-height:44px` sous `pointer:coarse`. ⚠️ La dette accusait `.cat-row .chip` :
+**ce sélecteur ne matchait rien** — `.cat-row` n'entoure que « tout
+sélectionner ». Le défaut était réel (42 px au lieu de 44), sa cause déclarée
+était fausse ; les trois règles mortes ont été retirées plutôt que reconduites.
+

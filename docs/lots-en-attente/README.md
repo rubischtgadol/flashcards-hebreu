@@ -6,10 +6,8 @@ Un lot atterrit ici quand son contenu est validé mais qu'il échoue à un contr
 
 Le dossier est **hors de `data/`** : `node tools/build.js` ne le lit jamais, et rien ici n'entre dans le carnet, les cartes ou l'app tant qu'un arbitrage n'a pas déplacé le contenu vers `data/`. Un bordereau inséré est **supprimé d'ici** dans le même commit — garder les deux copies les laisse diverger.
 
-## Le précédent, pour savoir à quoi ressemble un arbitrage réussi
+## La règle d'arbitrage
 
-`abreviations-et-sigles.json` a occupé ce dossier le temps d'un chantier, avec 11 entrées que `verifie_exemples.js` refusait par **13 erreurs bloquantes**. Le contenu n'y était pour rien : le validateur exigeait du nikoud sur chaque mot, or un sigle ne se vocalise pas, et sa translittération est sa **forme lue à voix haute** (ז"א se lit *zot omeret*), que `he2tr` ne peut pas dériver — l'écart dépassait donc forcément le seuil.
+**Un contrôle qui refuse un bon contenu signale souvent un contrat manquant, pas un contrôle trop sévère.** Devant un lot bloqué, trois voies s'ouvrent toujours : exempter la catégorie, renoncer au lot, ou **définir un contrat propre à sa classe**. La troisième est la bonne quand la classe est réelle : le contrat vaut ensuite partout dans le corpus, là où une exemption ouvre un trou par lequel tout passera.
 
-Trois voies avaient été notées : exempter la catégorie, renoncer à la section, ou définir un contrat propre à cette classe. **C'est la troisième qui a été retenue**, et le détour valait la peine : un « contrat de sigle » typographique (gershayim, apostrophe finale, points) vaut partout dans le corpus, là où une exemption de catégorie aurait ouvert un trou par lequel n'importe quel mot non vocalisé serait passé. Le lot est désormais dans `data/listes/`, la section au carnet, et le contrat décrit dans [ARCHITECTURE.md](../ARCHITECTURE.md) § « Les exemples en situation ».
-
-La leçon à retenir de ce dossier : **un contrôle qui refuse un bon contenu signale souvent un contrat manquant, pas un contrôle trop sévère.**
+Le contrat des sigles — gershayim, apostrophe finale, points — est né de ce raisonnement et vit dans [ARCHITECTURE.md](../ARCHITECTURE.md) § « Les exemples en situation ». Le récit de cet arbitrage est dans [TODO_ARCHIVE.md](../TODO_ARCHIVE.md).

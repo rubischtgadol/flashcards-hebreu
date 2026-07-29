@@ -145,15 +145,27 @@
   /* Sans voix hébraïque, le réglage « Prononciation » est sans effet → chips inertes. */
   .chip:disabled{ opacity:.45; cursor:not-allowed; border-color:var(--line); }
   .chip .n{ opacity:.6; font-size:.76em; margin-inline-start:5px; }
-  /* Au doigt : chips à hauteur de cible confortable (~44px), sans épaissir le bureau. */
-  @media (pointer:coarse){
-    .chip{ padding:11px 16px; }
-    .cat-row .chip{ padding:9px 13px; }
-  }
   .chip[aria-pressed="true"] .n{ opacity:.7; }
   .seg{ display:flex; gap:7px; flex-wrap:wrap; }
   .cat-row{ display:flex; align-items:center; gap:8px; margin-bottom:9px; }
-  .cat-row .chip{ font-size:.9rem; padding:5px 11px; }
+  /* Au doigt : chips à hauteur de cible réelle, sans épaissir le bureau.
+     `min-height` et non du rembourrage : la hauteur d'une puce dépend de son
+     corps, et le calcul par padding plafonnait à ~42px — sous la barre des 44px
+     que le reste de l'app tient déjà (cf. le bloc `pointer:coarse` de
+     `30-cartes.css`). Mesuré après : 59 puces, minimum 44px, aucune en dessous ;
+     et au pointeur fin la signature des hauteurs est inchangée (36px partout).
+     ⚠️ Trois règles `.cat-row .chip` vivaient ici et **ne matchaient rien** :
+     `.cat-row` n'entoure que le bouton « tout sélectionner », les puces de
+     catégorie vivant dans `#cats.chips`. La dette qui a mené ici accusait ce
+     sélecteur ; le défaut était réel, sa cause déclarée était fausse. Retirées
+     plutôt que reconduites — un sélecteur mort est un piège qui attend. */
+  @media (pointer:coarse){
+    .chip{
+      padding:11px 16px;
+      min-height:44px;
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+  }
   .selall{
     background:none; border:none; color:var(--gold); font-family:inherit;
     font-size:.9rem; cursor:pointer; text-decoration:underline; padding:0;
@@ -239,6 +251,12 @@
   /* ---------- Study screen ---------- */
   .study{ display:none; flex-direction:column; flex:1; max-width:520px; width:100%; margin:0 auto; }
   .study.active{ display:flex; }
+  /* Colonne flex à TOUTES les largeurs, y compris sous le palier ordi où elle
+     n'est qu'un conteneur transparent. C'est délibéré : en flex, les marges de
+     ses enfants ne fusionnent pas — exactement le régime qu'ils connaissaient
+     dans le `.study` flex avant que ce conteneur existe. C'est ce qui rend le
+     téléphone strictement immobile malgré une boîte de plus dans l'arbre. */
+  .answer-col{ display:flex; flex-direction:column; }
   .setup.hidden{ display:none; }
 
   .progress-wrap{ display:flex; align-items:center; gap:12px; margin:6px 2px 16px; }
@@ -261,8 +279,16 @@
     min-height:340px; max-height:520px; height:min(60vh,520px);
     transition:transform .12s ease;
   }
-  /* En mode saisie, carte plus compacte pour que réponse + Suivant tiennent à l'écran. */
-  body.input-mode .flip{ min-height:190px; height:min(32vh,290px); }
+  /* En mode saisie, carte plus compacte pour que réponse + Suivant tiennent à
+     l'écran. Mais `height:min(32vh,290px)` était un plafond RIGIDE, indifférent
+     à ce que la carte porte : un adjectif à trois inflexions réclamait 179px
+     là où il en recevait 151, et la troisième étiquette était coupée net
+     (mesuré : 28px avalés sur iPhone 16 Pro, 7px sur un Chrome à 380px). La
+     hauteur suit désormais le contenu, sous un plafond plus généreux — la carte
+     ne prend que ce qu'il lui faut, et ne dépasse jamais la borne qui protège la
+     ligne de flottaison. `overflow-y:auto` reste le filet en dessous du palier
+     ordi : c'est le seul endroit où un plafond peut encore mordre. */
+  body.input-mode .flip{ min-height:190px; height:auto; max-height:min(46vh,340px); }
   body.input-mode .stage{ flex:0 0 auto; margin-bottom:2px; }
   .flip:active{ transform:scale(.994); }
   /* Trois rangées en flux — étiquette / contenu / indice —, et non plus un
@@ -410,7 +436,30 @@
      ⚠️ Palier à 900 px, pas au-dessous : c'est la largeur à partir de
      laquelle 640 px de carte laissent encore des marges franches. */
   @media (min-width:900px){
-    .study{ max-width:760px; }
+    /* Deux colonnes : la carte à gauche, tout ce qu'on FAIT de la carte à droite.
+       Mesuré à 1536×730 avant ce bloc : « Suivant » passait 42px sous la fenêtre
+       avec l'exemple replié, 150px déplié, 222px sur un verbe à 4 formes ; en mode
+       Cartes « Je savais » dépassait de 19px. Le coût n'est pas la carte (264px)
+       mais le bloc de correction (375px) — l'empiler SOUS une carte qui prend déjà
+       la moitié de la hauteur utile ne pouvait pas tenir. Côte à côte, le déficit
+       tombe à 0 sur les six situations mesurées, et la largeur perdue était là.
+       420px à droite : c'est la translittération d'exemple qui dicte la largeur,
+       et 420px couvre 96,8 % du corpus — au-delà le texte se replie, il n'est
+       jamais tronqué. Pistes en `minmax(0,…fr)` et non en largeurs fixes : à 900px
+       il n'y a pas 1094px à distribuer, et les deux colonnes doivent se resserrer
+       ensemble plutôt que déborder. `.study.active` et non `.study` : c'est lui
+       qui porte le `display:flex`, à sélecteur moins spécifique on ne gagnerait
+       pas la cascade. */
+    .study{ max-width:1094px; }
+    .study.active{
+      display:grid;
+      grid-template-columns:minmax(0,1.524fr) minmax(0,1fr);
+      column-gap:34px;
+      align-items:start;
+    }
+    .progress-wrap{ grid-column:1 / -1; }
+    .stage{ grid-column:1; }
+    .answer-col{ grid-column:2; }
     .flip{
       max-width:640px;
       height:auto; min-height:min(42vh,380px); max-height:none;
@@ -418,7 +467,10 @@
     /* Le mode saisie comprimait la carte à 32vh pour que la correction tienne
        sous elle ; à cette largeur le besoin disparaît et c'était précisément
        cet écrasement qui faisait défiler les inflexions. */
-    body.input-mode .flip{ min-height:min(30vh,260px); height:auto; }
+    /* ⚠️ `max-height:none` est indispensable ici : le `.flip{max-height:none}`
+       ci-dessus ne suffit pas, `body.input-mode .flip` étant plus spécifique, le
+       plafond `46vh` posé pour le téléphone gagnerait aussi au palier ordi. */
+    body.input-mode .flip{ min-height:min(30vh,260px); height:auto; max-height:none; }
     .face{ padding:20px 30px 18px; }
     .face .eyebrow{ font-size:.9rem; padding-inline:56px; }
     /* Ici la carte fait exactement la hauteur de son contenu : `align-content:center`
@@ -876,39 +928,48 @@
     </div>
   </div>
 
-  <div class="controls" id="controls-cards">
-    <button class="btn-flip" id="btn-flip">Voir la réponse</button>
-    <button class="btn-again hide" id="btn-again">À revoir</button>
-    <button class="btn-good hide" id="btn-good">Je savais</button>
-  </div>
-  <!-- Un pouce qui glisse ne doit pas polluer les boîtes : la dernière réponse reste annulable. -->
-  <div class="fix-row" id="undo-row"><button class="fix-btn hide" type="button" id="undo-card">‹ Annuler la dernière réponse</button></div>
-  <!-- Verso annoncé aux lecteurs d'écran en mode Cartes (symétrique de #quiz-live). -->
-  <div class="visually-hidden" id="flip-live" aria-live="polite"></div>
-
-  <div class="input-zone hide" id="input-zone">
-    <div class="input-row" id="input-row">
-      <input id="answer-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…" aria-label="Ta réponse">
-      <button id="btn-check">Vérifier</button>
+  <!-- Colonne de droite au palier ordi : tout ce qu'on FAIT de la carte.
+       Conteneur ajouté pour la grille — sans lui, la colonne 2 ne peut être
+       tenue en une seule pile qu'au prix d'un `grid-row: 2 / span N` fragile.
+       Il est `display:flex; flex-direction:column` À TOUTES LES LARGEURS : c'est
+       ce qui garantit le téléphone au pixel près, les marges y étant traitées
+       comme dans le `.study` flex d'avant, sans fusion. -->
+  <div class="answer-col">
+    <div class="controls" id="controls-cards">
+      <button class="btn-flip" id="btn-flip">Voir la réponse</button>
+      <button class="btn-again hide" id="btn-again">À revoir</button>
+      <button class="btn-good hide" id="btn-good">Je savais</button>
     </div>
-        <div class="input-actions hide" id="input-actions">
-      <button class="ghost-btn hide" id="kb-toggle" type="button">Clavier hébreu</button>
-      <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
+    <!-- Un pouce qui glisse ne doit pas polluer les boîtes : la dernière réponse reste annulable. -->
+    <div class="fix-row" id="undo-row"><button class="fix-btn hide" type="button" id="undo-card">‹ Annuler la dernière réponse</button></div>
+    <!-- Verso annoncé aux lecteurs d'écran en mode Cartes (symétrique de #quiz-live). -->
+    <div class="visually-hidden" id="flip-live" aria-live="polite"></div>
+
+    <div class="input-zone hide" id="input-zone">
+      <div class="input-row" id="input-row">
+        <input id="answer-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…" aria-label="Ta réponse">
+        <button id="btn-check">Vérifier</button>
+      </div>
+          <div class="input-actions hide" id="input-actions">
+        <button class="ghost-btn hide" id="kb-toggle" type="button">Clavier hébreu</button>
+        <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
+      </div>
+      <div class="hebkb hide" id="hebkb"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="btn-next hide" id="btn-next">Suivant →</button>
     </div>
-    <div class="hebkb hide" id="hebkb"></div>
-    <div class="feedback" id="feedback" aria-live="polite"></div>
-    <button class="btn-next hide" id="btn-next">Suivant →</button>
+
+    <div class="quiz-zone hide" id="quiz-zone">
+      <div class="quiz-choices" id="quiz-choices"></div>
+      <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
+      <div class="fix-row"><button class="fix-btn hide" type="button" id="quiz-fix"></button></div>
+      <div class="quiz-ex" id="quiz-ex"></div>
+      <button class="btn-next hide" id="quiz-next">Suivant →</button>
+    </div>
+
+    <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span></div>
   </div>
 
-  <div class="quiz-zone hide" id="quiz-zone">
-    <div class="quiz-choices" id="quiz-choices"></div>
-    <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
-    <div class="fix-row"><button class="fix-btn hide" type="button" id="quiz-fix"></button></div>
-    <div class="quiz-ex" id="quiz-ex"></div>
-    <button class="btn-next hide" id="quiz-next">Suivant →</button>
-  </div>
-
-  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span></div>
 </section>
 
 <!-- ============ DONE ============ -->
@@ -1004,6 +1065,22 @@ function he2tr(he){
       if(ch==='ע'){ out+="'a"; wordStart=false; continue; }
     }
     out+=cons;
+    // Kamats katan : dans la racine כל le kamats se lit « o », jamais « a »
+    // (kol, bekhol, lekhol). C'est la seule occurrence assez fréquente et assez
+    // sûre pour être codée — le kamats katan général dépend de la syllabe fermée
+    // non accentuée, que ce translittérateur ne sait pas voir, et le coder « au
+    // jugé » régresserait ailleurs. Mesuré sur les 4229 paires du corpus :
+    // exact +31, replié +34, distance −34 — gain strict sur les trois.
+    // ⚠️ Et seulement si ce ל CLÔT le mot. Sans cette condition la règle
+    // sur-applique : dans כַּלְכָּלִי (kalkali) le second כ porte un kamats
+    // gadol suivi d'un ל non final, et le mot sortait « kalkoli ». Mesuré :
+    // c'était la seule vraie régression de la règle large, les cinq autres
+    // écarts qu'elle produisait étant des `tr` rédigés fautifs.
+    if(has(0x05B8) && (ch==='כ'||ch==='ך') && s[j]==='ל'){
+      var r=j+1;
+      while(r<s.length && s.charCodeAt(r)>=0x0591 && s.charCodeAt(r)<=0x05C7) r++;
+      if(r>=s.length || s[r]===' '){ out+='o'; wordStart=false; continue; }
+    }
     var emitted=false;
     for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
     // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
@@ -1016,6 +1093,9 @@ function he2tr(he){
   }
   out=out.replace(/iy(?![aeiou])/g,'i');
   out=out.replace(/ey(?![aeiou])/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
+  // Patach + yod muet + vav : le yod ne s'entend pas (akhshav, et non akhshayv).
+  // Mesuré : exact +20, replié +27, distance −30 — gain strict sur les trois.
+  out=out.replace(/ayv(?![aeiou])/g,'av');
   out=out.replace(/'y(?=\s|$)/g,"'i");     // alef + yod final : achra'i, et non achra'y
   // Le hé final se garde (standard : atah, zeh, morah).
   return out;

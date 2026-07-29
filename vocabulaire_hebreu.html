@@ -206,7 +206,7 @@
   /* Un cran au-dessus de ce qui l'entoure — même idiome relatif que .note .he,
      et volontairement en `em` : le rôle est « plus grand que mon contexte »,
      quel qu'il soit. Hors titres, qui portent déjà leur propre taille. */
-  :is(.note, .ex-gloss, .ex-title, .steps li, .fr, .ex-fr) span[lang="he"]:not([class]){
+  :is(.note, .note-line, .ex-gloss, .ex-title, .steps li, .fr, .ex-fr) span[lang="he"]:not([class]){
     font-size:1.15em;
   }
   .cursive{
@@ -360,6 +360,24 @@
     font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
     font-size:var(--pas-glose);
     color:var(--ink-dim);
+  }
+
+  /* Le mode d'emploi du mot, sur sa propre rangée (le `width:100%` la fait passer
+     à la ligne, comme pour les exemples juste dessous). Même voix que dans l'app,
+     au nom de classe près : corps, encre atténuée, italique — même contenu, même
+     rendu des deux côtés. Et **sans surface** : la couche « carte » est déjà
+     prise par l'exemple qui suit, et une note n'est pas un objet posé sur la
+     rangée, c'est une annotation de la rangée (règle des couches). Elle vient
+     AVANT l'exemple : la règle, puis son illustration. */
+  .word-list .note-line{
+    width:100%;
+    margin-top:6px;
+    direction:ltr;
+    text-align:right;
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    font-size:var(--pas-corps);
+    color:var(--ink-dim);
+    font-style:italic;
   }
 
   /* --- Exemples en situation (extraits vers les flashcards, cf. ARCHITECTURE.md) ---
@@ -547,6 +565,13 @@
   /* Filet plein, non pointillé : le pointillé ne dit plus qu'une chose dans ce
      carnet — « rien ici » (.empty). Voir la note de .attention. */
   .subtheme{ margin:26px 0 8px; padding-bottom:5px; border-bottom:1px solid var(--line); }
+  /* `.subtheme` partage la voix de `thead th` : capitales latines espacées de
+     0,12em. Or sept de ces titres commencent par une préposition hébraïque, et
+     l'hébreu ne prend pas la chasse ajoutée — elle disjoint les lettres et
+     décale le nikoud, qui se compose sous la ligne de base. Les capitales ne le
+     concernent pas davantage. On rend donc à l'hébreu sa chasse normale, sans
+     toucher au français qui l'accompagne dans le même titre. */
+  .subtheme span[lang="he"]{ letter-spacing:normal; text-transform:none; }
 
   /* ---------- Colonne de lecture ------------------------------------------
      Troisième bloc de jetons, et il reste séparé pour la même raison que la
@@ -939,6 +964,7 @@
   <li data-note="se combine : בְּעַצְמִי « par moi-même », אֶת עַצְמִי « moi-même » (COD)" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">עַצְמִי</span></span>
     <span class="meta"><span class="tr">'atsmi</span><span class="fr">moi-même</span></span>
+    <span class="note-line">se combine : <span lang="he">בְּעַצְמִי</span> « par moi-même », <span lang="he">אֶת עַצְמִי</span> « moi-même » (COD)</span>
   </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">עַצְמְךָ</span></span>
@@ -1799,7 +1825,7 @@
   <span lang="he">מִ</span> (de, depuis) ne fusionne pas : l'article reste visible — <span lang="he">מֵהַבַּיִת</span> (mehabayit) = depuis la maison.
 </div>
 
-<h2 id="sec-conjonction-et"><span lang="he">וְ</span> <span class="count">« Et » (וְ)</span></h2>
+<h2 id="sec-conjonction-et"><span lang="he">וְ</span> <span class="count">« Et » (<span lang="he">וְ</span>)</span></h2>
 <div class="note">
   « Et » n'est jamais un mot séparé : la lettre <span lang="he">וְ</span> se colle directement au mot suivant, comme l'article défini <span lang="he">הַ־</span>. Le principe : un seul signe, jamais détaché.
 </div>
@@ -2017,7 +2043,7 @@
 </table>
 </div>
 
-<h3 class="subtheme">שֶׁל — la possession (à moi, à toi…)</h3>
+<h3 class="subtheme"><span lang="he">שֶׁל</span> — la possession (à moi, à toi…)</h3>
 <ul class="word-list">  <li data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">שֶׁלִּי</span></span>
     <span class="meta"><span class="tr">sheli</span><span class="fr">à moi / mon, ma</span></span>
@@ -2066,7 +2092,7 @@
   
       <ul class="exemples"><li><span class="he" lang="he">הַבַּיִת שֶׁלָּהֶם גָּדוֹל</span><span class="tr">habayit shelahem gadol</span><span class="fr">leur maison est grande</span></li></ul>
     </li></ul>
-<h3 class="subtheme">לְ — à, pour (me, te, lui…)</h3>
+<h3 class="subtheme"><span lang="he">לְ</span> — à, pour (me, te, lui…)</h3>
 <ul class="word-list">  <li data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">לִי</span></span>
     <span class="meta"><span class="tr">li</span><span class="fr">à moi, me</span></span>
@@ -2115,7 +2141,7 @@
   
       <ul class="exemples"><li><span class="he" lang="he">יֵשׁ לָהֶם זְמַן</span><span class="tr">yesh lahem zman</span><span class="fr">ils ont du temps</span></li></ul>
     </li></ul>
-<h3 class="subtheme">אֶת — le complément direct (moi, toi, le…)</h3>
+<h3 class="subtheme"><span lang="he">אֶת</span> — le complément direct (moi, toi, le…)</h3>
 <ul class="word-list">  <li data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">אוֹתִי</span></span>
     <span class="meta"><span class="tr">oti</span><span class="fr">moi (complément direct)</span></span>
@@ -2164,7 +2190,7 @@
   
       <ul class="exemples"><li><span class="he" lang="he">הַמּוֹרָה מַכִּירָה אוֹתָם</span><span class="tr">hamorah makirah otam</span><span class="fr">la professeure les connaît</span></li></ul>
     </li></ul>
-<h3 class="subtheme">עִם — avec</h3>
+<h3 class="subtheme"><span lang="he">עִם</span> — avec</h3>
 <ul class="word-list">  <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">אִיתִּי</span></span>
     <span class="meta"><span class="tr">iti</span><span class="fr">avec moi</span></span>
@@ -2213,7 +2239,7 @@
   
       <ul class="exemples"><li><span class="he" lang="he">הֵם שִׂחֲקוּ אִיתָּם</span><span class="tr">hem sichaku itam</span><span class="fr">ils ont joué avec eux</span></li></ul>
     </li></ul>
-<h3 class="subtheme">עַל — sur</h3>
+<h3 class="subtheme"><span lang="he">עַל</span> — sur</h3>
 <ul class="word-list">  <li data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">עָלַיי</span></span>
     <span class="meta"><span class="tr">'alai</span><span class="fr">sur moi / à mon sujet</span></span>
@@ -2262,7 +2288,7 @@
   
       <ul class="exemples"><li><span class="he" lang="he">הֵם דִּבְּרוּ עֲלֵיהֶם</span><span class="tr">hem dibru 'aleihem</span><span class="fr">ils ont parlé d'eux</span></li></ul>
     </li></ul>
-<h3 class="subtheme">מִן — de, depuis</h3>
+<h3 class="subtheme"><span lang="he">מִן</span> — de, depuis</h3>
 <ul class="word-list">  <li data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">מִמֶּנִּי</span></span>
     <span class="meta"><span class="tr">mimeni</span><span class="fr">de moi / que moi (comparaison)</span></span>
@@ -2284,6 +2310,7 @@
   <li data-note="aussi « de nous », homographe assumé" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">מִמֶּנּוּ</span></span>
     <span class="meta"><span class="tr">mimenu</span><span class="fr">de lui</span></span>
+    <span class="note-line">aussi « de nous », homographe assumé</span>
   
       <ul class="exemples"><li><span class="he" lang="he">שָׁאַלְתִּי מִמֶּנּוּ עֵט</span><span class="tr">sha'alti mimenu et</span><span class="fr">je lui ai emprunté un stylo</span></li></ul>
     </li>
@@ -2311,7 +2338,7 @@
   
       <ul class="exemples"><li><span class="he" lang="he">קִבַּלְתִּי מֵהֶם מִכְתָּב</span><span class="tr">kibalti mehem mikhtav</span><span class="fr">j'ai reçu une lettre d'eux</span></li></ul>
     </li></ul>
-<h3 class="subtheme">בְּ — dans, en</h3>
+<h3 class="subtheme"><span lang="he">בְּ</span> — dans, en</h3>
 <ul class="word-list">  <li data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">בִּי</span></span>
     <span class="meta"><span class="tr">bi</span><span class="fr">en moi</span></span>
@@ -2855,7 +2882,7 @@
     </tr>
     <tr data-niveau="B1" data-theme="ville-transport">
       <td><span class="he" lang="he">לַעֲצֹר</span><span class="fr">arrêter, s'arrêter</span>
-      <ul class="exemples"><li><span class="he" lang="he">הָאוֹטוֹבּוּס עוֹצֵר בְּכָל תַּחֲנָה.</span><span class="tr">haotobus 'otser bekhal tachanah</span><span class="fr">Le bus s'arrête à chaque station.</span></li></ul>
+      <ul class="exemples"><li><span class="he" lang="he">הָאוֹטוֹבּוּס עוֹצֵר בְּכָל תַּחֲנָה.</span><span class="tr">haotobus 'otser bekhol tachanah</span><span class="fr">Le bus s'arrête à chaque station.</span></li></ul>
     </td>
       <td><span class="he" lang="he">עוֹצֵר</span><span class="tr">'otser</span></td>
       <td><span class="he" lang="he">עוֹצֶרֶת</span><span class="tr">'otseret</span></td>
@@ -4638,30 +4665,36 @@
 <ul class="word-list">  <li data-note="s'accorde : יָכוֹל / יְכוֹלָה / יְכוֹלִים / יְכוֹלוֹת. Ex. אֲנִי יָכוֹל לָלֶכֶת = je peux aller." data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">יָכוֹל</span></span>
     <span class="meta"><span class="tr">yakhol</span><span class="fr">pouvoir</span></span>
+    <span class="note-line">s'accorde : <span lang="he">יָכוֹל</span> / <span lang="he">יְכוֹלָה</span> / <span lang="he">יְכוֹלִים</span> / <span lang="he">יְכוֹלוֹת</span>. Ex. <span lang="he">אֲנִי יָכוֹל לָלֶכֶת</span> = je peux aller.</span>
   
       <ul class="exemples"><li><span class="he" lang="he">אֲנִי יָכוֹל לָבוֹא מָחָר</span><span class="tr">ani yakhol lavo machar</span><span class="fr">je peux venir demain</span></li></ul>
     </li>
   <li data-note="s'accorde : צָרִיךְ / צְרִיכָה / צְרִיכִים / צְרִיכוֹת. Ex. אֲנִי צָרִיךְ לָלֶכֶת = je dois y aller." data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">צָרִיךְ</span></span>
     <span class="meta"><span class="tr">tsarikh</span><span class="fr">il faut / devoir</span></span>
+    <span class="note-line">s'accorde : <span lang="he">צָרִיךְ</span> / <span lang="he">צְרִיכָה</span> / <span lang="he">צְרִיכִים</span> / <span lang="he">צְרִיכוֹת</span>. Ex. <span lang="he">אֲנִי צָרִיךְ לָלֶכֶת</span> = je dois y aller.</span>
   
       <ul class="exemples"><li><span class="he" lang="he">אֲנִי צָרִיךְ לָלֶכֶת עַכְשָׁיו</span><span class="tr">ani tsarikh lalekhet 'akhshav</span><span class="fr">je dois partir maintenant</span></li></ul>
     </li>
   <li data-note="invariable. Ex. מוּתָּר לְעַשֵּׁן = il est permis de fumer." data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">מוּתָּר</span></span>
     <span class="meta"><span class="tr">mutar</span><span class="fr">il est permis</span></span>
+    <span class="note-line">invariable. Ex. <span lang="he">מוּתָּר לְעַשֵּׁן</span> = il est permis de fumer.</span>
   </li>
   <li data-note="invariable. Ex. אָסוּר לְעַשֵּׁן = il est interdit de fumer." data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">אָסוּר</span></span>
     <span class="meta"><span class="tr">asur</span><span class="fr">il est interdit</span></span>
+    <span class="note-line">invariable. Ex. <span lang="he">אָסוּר לְעַשֵּׁן</span> = il est interdit de fumer.</span>
   </li>
   <li data-note="invariable. Ex. כְּדַאי לְךָ לָלֶכֶת = tu ferais mieux d'y aller." data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">כְּדַאי</span></span>
     <span class="meta"><span class="tr">kday</span><span class="fr">il vaut mieux / ça vaut le coup</span></span>
+    <span class="note-line">invariable. Ex. <span lang="he">כְּדַאי לְךָ לָלֶכֶת</span> = tu ferais mieux d'y aller.</span>
   </li>
   <li data-note="impersonnel, invariable : suit un infinitif" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">אֶפְשָׁר</span></span>
     <span class="meta"><span class="tr">efshar</span><span class="fr">il est possible, on peut</span></span>
+    <span class="note-line">impersonnel, invariable : suit un infinitif</span>
   
       <ul class="exemples"><li><span class="he" lang="he">אֶפְשָׁר לְשַׁלֵּם בְּכַרְטִיס</span><span class="tr">efshar leshalem bekartis</span><span class="fr">on peut payer par carte</span></li></ul>
     </li>
@@ -4674,12 +4707,14 @@
   <li data-note="s'accorde : חַיָּב / חַיֶּבֶת / חַיָּבִים / חַיָּבוֹת" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">חַיָּב</span></span>
     <span class="meta"><span class="tr">chayav</span><span class="fr">devoir, être obligé de</span></span>
+    <span class="note-line">s'accorde : <span lang="he">חַיָּב</span> / <span lang="he">חַיֶּבֶת</span> / <span lang="he">חַיָּבִים</span> / <span lang="he">חַיָּבוֹת</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">אֲנִי חַיָּב לָלֶכֶת עַכְשָׁיו</span><span class="tr">ani chayav lalekhet 'akhshav</span><span class="fr">je dois partir maintenant</span></li></ul>
     </li>
   <li data-note="impersonnel : נִדְמֶה לִי שֶׁ… « il me semble que… »" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">נִדְמֶה</span></span>
     <span class="meta"><span class="tr">nidmeh</span><span class="fr">il semble</span></span>
+    <span class="note-line">impersonnel : <span lang="he">נִדְמֶה לִי שֶׁ</span>… « il me semble que… »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">נִדְמֶה לִי שֶׁהוּא צוֹדֵק</span><span class="tr">nidmeh li shehu tsodek</span><span class="fr">il me semble qu'il a raison</span></li></ul>
     </li>
@@ -5183,7 +5218,7 @@
     </tr>
     <tr data-niveau="B1" data-theme="famille-personnes">
       <td><span class="he" lang="he">קָרוֹב</span><span class="fr">proche, parent (membre de la famille)</span>
-      <ul class="exemples"><li><span class="he" lang="he">כָּל הַקְּרוֹבִים בָּאוּ לַחֲתֻנָּה.</span><span class="tr">kal hakrovim bau lachatunah</span><span class="fr">Tous les proches sont venus au mariage.</span></li></ul>
+      <ul class="exemples"><li><span class="he" lang="he">כָּל הַקְּרוֹבִים בָּאוּ לַחֲתֻנָּה.</span><span class="tr">kol hakrovim bau lachatunah</span><span class="fr">Tous les proches sont venus au mariage.</span></li></ul>
     </td>
       <td>m</td>
       <td><span class="he" lang="he">קְרוֹבִים</span><span class="tr">kerovim</span></td>
@@ -5204,7 +5239,7 @@
     </tr>
     <tr data-niveau="A2" data-theme="famille-personnes">
       <td><span class="he" lang="he">אֶזְרָח</span><span class="fr">citoyen</span>
-      <ul class="exemples"><li><span class="he" lang="he">כָּל אֶזְרָח חַיָּב לְהַצְבִּיעַ.</span><span class="tr">kal ezrach chayav lehatsbi'a</span><span class="fr">Chaque citoyen doit voter.</span></li></ul>
+      <ul class="exemples"><li><span class="he" lang="he">כָּל אֶזְרָח חַיָּב לְהַצְבִּיעַ.</span><span class="tr">kol ezrach chayav lehatsbi'a</span><span class="fr">Chaque citoyen doit voter.</span></li></ul>
     </td>
       <td>m</td>
       <td><span class="he" lang="he">אֶזְרָחִים</span><span class="tr">ezrachim</span></td>
@@ -7368,7 +7403,7 @@
     </tr>
     <tr data-niveau="A2" data-theme="nature">
       <td><span class="he" lang="he">יַעַר</span><span class="fr">forêt</span>
-      <ul class="exemples"><li><span class="he" lang="he">אֲנַחְנוּ מְטַיְּלִים בַּיַּעַר בַּסְּתָיו</span><span class="tr">anachnu metaylim baya'ar bastayv</span><span class="fr">nous nous promenons dans la forêt en automne</span></li></ul>
+      <ul class="exemples"><li><span class="he" lang="he">אֲנַחְנוּ מְטַיְּלִים בַּיַּעַר בַּסְּתָיו</span><span class="tr">anachnu metaylim baya'ar bastav</span><span class="fr">nous nous promenons dans la forêt en automne</span></li></ul>
     </td>
       <td>m</td>
       <td><span class="he" lang="he">יְעָרוֹת</span><span class="tr">ye'arot</span></td>
@@ -8477,7 +8512,7 @@
     </tr>
     <tr data-niveau="A1" data-theme="loisirs-culture">
       <td><span class="he" lang="he">עִתּוֹן</span><span class="fr">journal</span>
-      <ul class="exemples"><li><span class="he" lang="he">אֲנִי קוֹרֵא עִתּוֹן כָּל בֹּקֶר</span><span class="tr">ani kore 'iton kal boker</span><span class="fr">je lis un journal chaque matin</span></li></ul>
+      <ul class="exemples"><li><span class="he" lang="he">אֲנִי קוֹרֵא עִתּוֹן כָּל בֹּקֶר</span><span class="tr">ani kore 'iton kol boker</span><span class="fr">je lis un journal chaque matin</span></li></ul>
     </td>
       <td>m</td>
       <td><span class="he" lang="he">עִתּוֹנִים</span><span class="tr">'itonim</span></td>
@@ -11085,6 +11120,7 @@
   <li data-fr-court="sous" data-note="littéraire — à l'oral on dit plutôt מִתַּחַת לְ" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">תַּחַת</span></span>
     <span class="meta"><span class="tr">tachat</span><span class="fr">sous (littéraire — à l'oral on dit plutôt <span lang="he">מִתַּחַת לְ</span>, mitachat le-)</span></span>
+    <span class="note-line">littéraire — à l'oral on dit plutôt <span lang="he">מִתַּחַת לְ</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">הֶחָתוּל יוֹשֵׁב תַּחַת הָעֵץ</span><span class="tr">hechatul yoshev tachat ha'ets</span><span class="fr">le chat est assis sous l'arbre</span></li></ul>
     </li>
@@ -11133,6 +11169,7 @@
   <li data-fr-court="de / depuis" data-note="écrit/soutenu — à l'oral on dit plutôt le préfixe מִ־" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">מִן</span></span>
     <span class="meta"><span class="tr">min</span><span class="fr">de / depuis (écrit/soutenu — à l'oral on dit plutôt le préfixe <span lang="he">מִ</span>-, mi-)</span></span>
+    <span class="note-line">écrit/soutenu — à l'oral on dit plutôt le préfixe <span lang="he">מִ־</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">אֲנִי חוֹזֵר מִן הָעֲבוֹדָה בָּעֶרֶב</span><span class="tr">ani chozer min ha'avodah ba'erev</span><span class="fr">je rentre du travail le soir</span></li></ul>
     </li>
@@ -11271,6 +11308,7 @@
   <li data-note="אֲנִי רוֹאֶה אֶת הַבַּיִת ; cf. section 16 du carnet" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">אֶת</span></span>
     <span class="meta"><span class="tr">et</span><span class="fr">(marque du complément d'objet direct défini)</span></span>
+    <span class="note-line"><span lang="he">אֲנִי רוֹאֶה אֶת הַבַּיִת</span> ; cf. section 16 du carnet</span>
   
       <ul class="exemples"><li><span class="he" lang="he">אֲנִי רוֹאֶה אֶת הַבַּיִת</span><span class="tr">ani ro'eh et habayit</span><span class="fr">je vois la maison</span></li></ul>
     </li>
@@ -11337,18 +11375,21 @@
   <li data-note="devant un infinitif ; כְּדֵי שֶׁ devant une proposition" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">כְּדֵי</span></span>
     <span class="meta"><span class="tr">kdei</span><span class="fr">afin de, pour</span></span>
+    <span class="note-line">devant un infinitif ; <span lang="he">כְּדֵי שֶׁ</span> devant une proposition</span>
   
       <ul class="exemples"><li><span class="he" lang="he">בָּאתִי כְּדֵי לַעֲזֹר לָךְ</span><span class="tr">bati kdei la'azor lakh</span><span class="fr">je suis venu pour t'aider</span></li></ul>
     </li>
   <li data-note="préfixe soudé au verbe : כְּשֶׁאֲנִי בָּא" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">כְּשֶׁ</span></span>
     <span class="meta"><span class="tr">kshe</span><span class="fr">quand, lorsque</span></span>
+    <span class="note-line">préfixe soudé au verbe : <span lang="he">כְּשֶׁאֲנִי בָּא</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">כְּשֶׁאֲנִי עָיֵף אֲנִי יָשֵׁן</span><span class="tr">kshe'ani 'ayef ani yashen</span><span class="fr">quand je suis fatigué je dors</span></li></ul>
     </li>
   <li data-note="devant une proposition ; בִּגְלַל seul devant un nom" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">בִּגְלַל שֶׁ</span></span>
     <span class="meta"><span class="tr">biglal she</span><span class="fr">parce que</span></span>
+    <span class="note-line">devant une proposition ; <span lang="he">בִּגְלַל</span> seul devant un nom</span>
   </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">לַמְרוֹת שֶׁ</span></span>
@@ -11377,6 +11418,7 @@
   <li data-note="registre soutenu, surtout à l'écrit" data-niveau="C1">
     <span class="word-main"><span class="he" lang="he">אוּלָם</span></span>
     <span class="meta"><span class="tr">ulam</span><span class="fr">cependant, toutefois</span></span>
+    <span class="note-line">registre soutenu, surtout à l'écrit</span>
   </li>
   <li data-niveau="C1">
     <span class="word-main"><span class="he" lang="he">עַל כָּל פָּנִים</span></span>
@@ -11763,12 +11805,14 @@
   <li data-fr-court="d'où" data-note="quasi absent de l'oral — on dit plutôt מֵאֵיפֹה" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">מֵאַיִן</span></span>
     <span class="meta"><span class="tr">me'ayin</span><span class="fr">d'où (quasi absent de l'oral — on dit plutôt <span lang="he">מֵאֵיפֹה</span>, me'eifoh)</span></span>
+    <span class="note-line">quasi absent de l'oral — on dit plutôt <span lang="he">מֵאֵיפֹה</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">מֵאַיִן הַסְּטוּדֶנְטִים הַחֲדָשִׁים?</span><span class="tr">me'ayin hastudentim hachadashim</span><span class="fr">d'où viennent les nouveaux étudiants ?</span></li></ul>
     </li>
   <li data-fr-court="est-ce que" data-note="marque la question oui/non" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">הַאִם</span></span>
     <span class="meta"><span class="tr">ha'im</span><span class="fr">est-ce que (marque la question oui/non)</span></span>
+    <span class="note-line">marque la question oui/non</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הַאִם אַתָּה מְדַבֵּר עִבְרִית?</span><span class="tr">ha'im atah medaber 'ivrit</span><span class="fr">est-ce que tu parles hébreu ?</span></li></ul>
     </li>
@@ -11864,6 +11908,7 @@
   <li data-note="Le féminin (אַחַת…) est la série de comptage par défaut ; le masculin s'accorde : שְׁלוֹשָׁה יְלָדִים." data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">אֶחָד</span></span>
     <span class="meta"><span class="tr">echad</span><span class="fr">un (avec un nom masculin)</span></span>
+    <span class="note-line">Le féminin (<span lang="he">אַחַת</span>…) est la série de comptage par défaut ; le masculin s'accorde : <span lang="he">שְׁלוֹשָׁה יְלָדִים</span>.</span>
   
       <ul class="exemples"><li><span class="he" lang="he">יֵשׁ לִי אָח אֶחָד</span><span class="tr">yesh li ach echad</span><span class="fr">j'ai un frère</span></li></ul>
     </li>
@@ -12156,6 +12201,7 @@
 <ul class="word-list">  <li data-note="féminin : רִאשׁוֹנָה (rishonah)" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">רִאשׁוֹן</span></span>
     <span class="meta"><span class="tr">rishon</span><span class="fr">premier</span></span>
+    <span class="note-line">féminin : <span lang="he">רִאשׁוֹנָה</span> (rishonah)</span>
   </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">רִאשׁוֹנָה</span></span>
@@ -12166,6 +12212,7 @@
   <li data-note="féminin : שְׁנִיָּה (shniyah)" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">שֵׁנִי</span></span>
     <span class="meta"><span class="tr">sheni</span><span class="fr">deuxième</span></span>
+    <span class="note-line">féminin : <span lang="he">שְׁנִיָּה</span> (shniyah)</span>
   </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">שְׁנִיָּה</span></span>
@@ -12176,6 +12223,7 @@
   <li data-note="féminin : שְׁלִישִׁית (shlishit)" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">שְׁלִישִׁי</span></span>
     <span class="meta"><span class="tr">shlishi</span><span class="fr">troisième</span></span>
+    <span class="note-line">féminin : <span lang="he">שְׁלִישִׁית</span> (shlishit)</span>
   </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">שְׁלִישִׁית</span></span>
@@ -12512,6 +12560,7 @@
   <li data-fr-court="un peu" data-note="courant à l'oral, = מְעַט" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">קְצָת</span></span>
     <span class="meta"><span class="tr">ktsat</span><span class="fr">un peu (courant à l'oral, équivalent de <span lang="he">מְעַט</span>)</span></span>
+    <span class="note-line">courant à l'oral, = <span lang="he">מְעַט</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">יֵשׁ קְצָת חָלָב בַּמְּקָרֵר</span><span class="tr">yesh ktsat chalav bamekarer</span><span class="fr">il y a un peu de lait dans le réfrigérateur</span></li></ul>
     </li>
@@ -12576,6 +12625,7 @@
   <li data-note="toujours avec la négation : אַף אֶחָד לֹא בָּא" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">אַף אֶחָד</span></span>
     <span class="meta"><span class="tr">af echad</span><span class="fr">personne, aucun</span></span>
+    <span class="note-line">toujours avec la négation : <span lang="he">אַף אֶחָד לֹא בָּא</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">אַף אֶחָד לֹא יוֹדֵעַ</span><span class="tr">af echad lo yode'a</span><span class="fr">personne ne sait</span></li></ul>
     </li>
@@ -12586,6 +12636,7 @@
   <li data-note="toujours avec la négation : לֹא אָמַרְתִּי שׁוּם דָּבָר" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">שׁוּם דָּבָר</span></span>
     <span class="meta"><span class="tr">shum davar</span><span class="fr">rien</span></span>
+    <span class="note-line">toujours avec la négation : <span lang="he">לֹא אָמַרְתִּי שׁוּם דָּבָר</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">לֹא קָרָה שׁוּם דָּבָר</span><span class="tr">lo karah shum davar</span><span class="fr">il ne s'est rien passé</span></li></ul>
     </li>
@@ -12600,6 +12651,7 @@
   <li data-note="féminin אַחֶרֶת, pluriel אֲחֵרִים / אֲחֵרוֹת" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">אַחֵר</span></span>
     <span class="meta"><span class="tr">acher</span><span class="fr">autre</span></span>
+    <span class="note-line">féminin <span lang="he">אַחֶרֶת</span>, pluriel <span lang="he">אֲחֵרִים</span> / <span lang="he">אֲחֵרוֹת</span></span>
   </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">אֲחֵרִים</span></span>
@@ -12608,6 +12660,7 @@
   <li data-note="précède l'adjectif : הֲכִי טוֹב « le meilleur »" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">הֲכִי</span></span>
     <span class="meta"><span class="tr">hakhi</span><span class="fr">le plus (superlatif)</span></span>
+    <span class="note-line">précède l'adjectif : <span lang="he">הֲכִי טוֹב</span> « le meilleur »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">זֶה הַסֵּפֶר הֲכִי טוֹב</span><span class="tr">zeh hasefer hakhi tov</span><span class="fr">c'est le meilleur livre</span></li></ul>
     </li>
@@ -12796,6 +12849,7 @@
   <li data-note="avec la négation : עֲדַיִן לֹא « pas encore »" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">עֲדַיִן</span></span>
     <span class="meta"><span class="tr">'adayin</span><span class="fr">encore, toujours</span></span>
+    <span class="note-line">avec la négation : <span lang="he">עֲדַיִן לֹא</span> « pas encore »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הִיא עֲדַיִן עוֹבֶדֶת שָׁם</span><span class="tr">hi 'adayin 'ovedet sham</span><span class="fr">elle travaille encore là-bas</span></li></ul>
     </li>
@@ -12911,12 +12965,14 @@
   <li data-note="vers la droite : יָמִינָה (yaminah)" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">יָמִין</span></span>
     <span class="meta"><span class="tr">yamin</span><span class="fr">droite</span></span>
+    <span class="note-line">vers la droite : <span lang="he">יָמִינָה</span> (yaminah)</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הַחֲנוּת מִיָּמִין לַתַּחֲנָה</span><span class="tr">hachanut miyamin latachanah</span><span class="fr">le magasin est à droite de la station</span></li></ul>
     </li>
   <li data-note="vers la gauche : שְׂמֹאלָה (smolah)" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">שְׂמֹאל</span></span>
     <span class="meta"><span class="tr">smol</span><span class="fr">gauche</span></span>
+    <span class="note-line">vers la gauche : <span lang="he">שְׂמֹאלָה</span> (smolah)</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הַסּוּפֶּרְמַרְקֶט מִשְּׂמֹאל לַבַּנְק</span><span class="tr">hasupermarket mismol labank</span><span class="fr">le supermarché est à gauche de la banque</span></li></ul>
     </li>
@@ -12959,6 +13015,7 @@
   <li data-note="forme directionnelle (hé directionnel) : יָמִין « la droite » → יָמִינָה « vers la droite »" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">יָמִינָה</span></span>
     <span class="meta"><span class="tr">yaminah</span><span class="fr">à droite, vers la droite</span></span>
+    <span class="note-line">forme directionnelle (hé directionnel) : <span lang="he">יָמִין</span> « la droite » → <span lang="he">יָמִינָה</span> « vers la droite »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">תִּפְנֶה יָמִינָה בָּרַמְזוֹר</span><span class="tr">tifneh yaminah baramzor</span><span class="fr">tourne à droite au feu</span></li></ul>
     </li>
@@ -12971,6 +13028,7 @@
   <li data-note="même hé directionnel : דָּרוֹמָה, מִזְרָחָה, מַעֲרָבָה se forment pareil" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">צָפוֹנָה</span></span>
     <span class="meta"><span class="tr">tsafonah</span><span class="fr">vers le nord</span></span>
+    <span class="note-line">même hé directionnel : <span lang="he">דָּרוֹמָה</span>, <span lang="he">מִזְרָחָה</span>, <span lang="he">מַעֲרָבָה</span> se forment pareil</span>
   </li></ul>
 <h3 class="subtheme">Degré & intensité</h3>
 <ul class="word-list">  <li data-niveau="A2">
@@ -13157,6 +13215,7 @@
 <ul class="word-list">  <li data-fr-court="bonjour / au revoir / paix" data-note="entre amis, l'oral dit aussi הַיי" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">שָׁלוֹם</span></span>
     <span class="meta"><span class="tr">shalom</span><span class="fr">bonjour / au revoir / paix (entre amis, l'oral dit aussi <span lang="he">הַיי</span>, hai)</span></span>
+    <span class="note-line">entre amis, l'oral dit aussi <span lang="he">הַיי</span></span>
   </li>
   <li data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">תּוֹדָה</span></span>
@@ -13333,6 +13392,7 @@
   <li data-note="suivi de לְ : לָשִׂים לֵב לְמַשֶּׁהוּ" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">לָשִׂים לֵב</span></span>
     <span class="meta"><span class="tr">lasim lev</span><span class="fr">faire attention, remarquer</span></span>
+    <span class="note-line">suivi de <span lang="he">לְ</span> : <span lang="he">לָשִׂים לֵב לְמַשֶּׁהוּ</span></span>
   </li>
   <li data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">תָּלוּי</span></span>
@@ -13343,6 +13403,7 @@
   <li data-note="surtout à la négative : לֹא אִכְפַּת לִי « ça m'est égal »" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">אִכְפַּת</span></span>
     <span class="meta"><span class="tr">ikhpat</span><span class="fr">tenir à, se soucier de</span></span>
+    <span class="note-line">surtout à la négative : <span lang="he">לֹא אִכְפַּת לִי</span> « ça m'est égal »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">לֹא אִכְפַּת לִי בִּכְלָל</span><span class="tr">lo ikhpat li bikhlal</span><span class="fr">ça m'est complètement égal</span></li></ul>
     </li>
@@ -13521,42 +13582,49 @@
 <ul class="word-list">  <li data-note="forme développée : דּוֹקְטוֹר" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">ד"ר</span></span>
     <span class="meta"><span class="tr">doktor</span><span class="fr">Dr (docteur)</span></span>
+    <span class="note-line">forme développée : <span lang="he">דּוֹקְטוֹר</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">ד"ר כֹּהֵן מְחַכָּה לָךְ</span><span class="tr">doktor kohen mechaka lakh</span><span class="fr">le Dr Cohen t'attend</span></li></ul>
     </li>
   <li data-note="forme développée : תֵּל אָבִיב" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">ת"א</span></span>
     <span class="meta"><span class="tr">tel aviv</span><span class="fr">Tel-Aviv</span></span>
+    <span class="note-line">forme développée : <span lang="he">תֵּל אָבִיב</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">אֲנִי גָּר בְּת"א כְּבָר שָׁנָה</span><span class="tr">ani gar betel aviv kvar shana</span><span class="fr">j'habite à Tel-Aviv depuis un an déjà</span></li></ul>
     </li>
   <li data-note="forme développée : וְכוּלֵי (araméen, « et le reste »)" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">וְכוּ'</span></span>
     <span class="meta"><span class="tr">vekhule</span><span class="fr">etc.</span></span>
+    <span class="note-line">forme développée : <span lang="he">וְכוּלֵי</span> (araméen, « et le reste »)</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הֵבֵאתִי עִפָּרוֹן, מַחְבֶּרֶת וְכוּ'</span><span class="tr">heveti iparon, machberet vekhule</span><span class="fr">j'ai apporté un crayon, un cahier, etc.</span></li></ul>
     </li>
   <li data-note="forme développée : זֹאת אוֹמֶרֶת" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">ז"א</span></span>
     <span class="meta"><span class="tr">zot omeret</span><span class="fr">c.-à-d. (<span lang="he">זֹאת אוֹמֶרֶת</span>)</span></span>
+    <span class="note-line">forme développée : <span lang="he">זֹאת אוֹמֶרֶת</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">הוּא עָיֵף, ז"א הוּא צָרִיךְ לָנוּחַ</span><span class="tr">hu ayef, zot omeret hu tsarikh lanuach</span><span class="fr">il est fatigué, c'est-à-dire il doit se reposer</span></li></ul>
     </li>
   <li data-note="forme développée : עוֹרֵךְ דִּין" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">עו"ד</span></span>
     <span class="meta"><span class="tr">orekh din</span><span class="fr">Maître (avocat, <span lang="he">עוֹרֵךְ דִּין</span>)</span></span>
+    <span class="note-line">forme développée : <span lang="he">עוֹרֵךְ דִּין</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">עו"ד לֵוִי יָבוֹא מָחָר</span><span class="tr">orekh din levi yavo machar</span><span class="fr">Maître Lévi viendra demain</span></li></ul>
     </li>
   <li data-note="forme développée : חוּץ לָאָרֶץ" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">חוּ"ל</span></span>
     <span class="meta"><span class="tr">chul</span><span class="fr">l'étranger (<span lang="he">חוּץ לָאָרֶץ</span>)</span></span>
+    <span class="note-line">forme développée : <span lang="he">חוּץ לָאָרֶץ</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">הֵם נָסְעוּ לְחוּ"ל בַּקַּיִץ</span><span class="tr">hem nas'u lechul bakayits</span><span class="fr">ils sont partis à l'étranger en été</span></li></ul>
     </li>
   <li data-note="forme développée : צְבָא הֲגָנָה לְיִשְׂרָאֵל" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">צה"ל</span></span>
     <span class="meta"><span class="tr">tsahal</span><span class="fr">Tsahal (l'armée)</span></span>
+    <span class="note-line">forme développée : <span lang="he">צְבָא הֲגָנָה לְיִשְׂרָאֵל</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">אָחִי מְשָׁרֵת בְּצה"ל</span><span class="tr">achi mesharet betsahal</span><span class="fr">mon frère sert dans Tsahal</span></li></ul>
     </li>
@@ -13569,18 +13637,21 @@
   <li data-note="lu comme les noms des lettres נוּן בֵּית — ne développe pas de phrase, calque de l'usage occidental « P.-S. »" data-niveau="B2">
     <span class="word-main"><span class="he" lang="he">נ.ב.</span></span>
     <span class="meta"><span class="tr">nun bet</span><span class="fr">P.-S.</span></span>
+    <span class="note-line">lu comme les noms des lettres <span lang="he">נוּן בֵּית</span> — ne développe pas de phrase, calque de l'usage occidental « P.-S. »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">נ.ב. אֲנִי מִתְגַּעְגֵּעַ אֵלַיִךְ</span><span class="tr">nun bet, ani mitga'ge'a elayikh</span><span class="fr">P.-S. tu me manques</span></li></ul>
     </li>
   <li data-note="forme développée : בְּעֶזְרַת הַשֵּׁם" data-niveau="C1">
     <span class="word-main"><span class="he" lang="he">בע"ה</span></span>
     <span class="meta"><span class="tr">be'ezrat hashem</span><span class="fr">avec l'aide de Dieu (à l'écrit)</span></span>
+    <span class="note-line">forme développée : <span lang="he">בְּעֶזְרַת הַשֵּׁם</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">נִפָּגֵשׁ בְּקָרוֹב, בע"ה</span><span class="tr">nipagesh bekarov, be'ezrat hashem</span><span class="fr">on se reverra bientôt, avec l'aide de Dieu</span></li></ul>
     </li>
   <li data-note="forme développée : אִם יִרְצֶה הַשֵּׁם" data-niveau="C1">
     <span class="word-main"><span class="he" lang="he">אי"ה</span></span>
     <span class="meta"><span class="tr">im yirtse hashem</span><span class="fr">si Dieu veut (à l'écrit)</span></span>
+    <span class="note-line">forme développée : <span lang="he">אִם יִרְצֶה הַשֵּׁם</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">נִתְרָאֶה בַּחֲתֻנָּה, אי"ה</span><span class="tr">nitra'e bachatuna, im yirtse hashem</span><span class="fr">on se verra au mariage, si Dieu veut</span></li></ul>
     </li></ul>
@@ -13590,24 +13661,28 @@
 <ul class="word-list">  <li data-note="de l'hébreu תַּכְלִית par le yiddish ; s'écrit souvent תכל'ס" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">תַּכְלֶ'ס</span></span>
     <span class="meta"><span class="tr">takhles</span><span class="fr">concrètement / au fond, en vrai</span></span>
+    <span class="note-line">de l'hébreu <span lang="he">תַּכְלִית</span> par le yiddish ; s'écrit souvent <span lang="he">תכל</span>'<span lang="he">ס</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">תַּכְלֶ'ס, אֲנִי לֹא רוֹצֶה לָלֶכֶת</span><span class="tr">takhles, ani lo rotseh lalekhet</span><span class="fr">Franchement, je n'ai pas envie d'y aller.</span></li></ul>
     </li>
   <li data-note="tic de langage omniprésent ; sert aussi à rapporter des paroles" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">כְּאִילּוּ</span></span>
     <span class="meta"><span class="tr">ke'ilu</span><span class="fr">genre / comme si</span></span>
+    <span class="note-line">tic de langage omniprésent ; sert aussi à rapporter des paroles</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הוּא כְּאִילּוּ לֹא רוֹאֶה אוֹתִי</span><span class="tr">hu ke'ilu lo ro'eh oti</span><span class="fr">Il fait genre qu'il ne me voit pas.</span></li></ul>
     </li>
   <li data-note="renverse l'attente de l'interlocuteur — intraduisible mot à mot" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">דַּוְקָא</span></span>
     <span class="meta"><span class="tr">davka</span><span class="fr">justement / au contraire / exprès</span></span>
+    <span class="note-line">renverse l'attente de l'interlocuteur — intraduisible mot à mot</span>
   
       <ul class="exemples"><li><span class="he" lang="he">דַּוְקָא אָהַבְתִּי אֶת הַסֶּרֶט</span><span class="tr">davka ahavti et haseret</span><span class="fr">En fait si, j'ai bien aimé le film.</span></li></ul>
     </li>
   <li data-note="aussi « n'importe quoi » : סְתָם דִּבּוּרִים" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">סְתָם</span></span>
     <span class="meta"><span class="tr">stam</span><span class="fr">juste comme ça / pour rien</span></span>
+    <span class="note-line">aussi « n'importe quoi » : <span lang="he">סְתָם דִּבּוּרִים</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">סְתָם שָׁאַלְתִּי, בְּלִי סִבָּה</span><span class="tr">stam sha'alti, beli sibah</span><span class="fr">Je demandais juste comme ça, sans raison.</span></li></ul>
     </li>
@@ -13620,6 +13695,7 @@
   <li data-note="emploi adverbial — l'adjectif פָּשׁוּט « simple » est aux Adjectifs" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">פָּשׁוּט</span></span>
     <span class="meta"><span class="tr">pashut</span><span class="fr">tout simplement, carrément</span></span>
+    <span class="note-line">emploi adverbial — l'adjectif <span lang="he">פָּשׁוּט</span> « simple » est aux Adjectifs</span>
   
       <ul class="exemples"><li><span class="he" lang="he">פָּשׁוּט שָׁכַחְתִּי אֶת הַמַּפְתֵּחַ</span><span class="tr">pashut shakhachti et hamafteach</span><span class="fr">J'ai tout simplement oublié la clé.</span></li></ul>
     </li>
@@ -13632,6 +13708,7 @@
   <li data-note="négatif : « pas du tout » ; positif : « d'ailleurs, en général »" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">בִּכְלָל</span></span>
     <span class="meta"><span class="tr">bikhlal</span><span class="fr">du tout / en général</span></span>
+    <span class="note-line">négatif : « pas du tout » ; positif : « d'ailleurs, en général »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">לֹא הֵבַנְתִּי בִּכְלָל</span><span class="tr">lo hevanti bikhlal</span><span class="fr">Je n'ai pas compris du tout.</span></li></ul>
     </li>
@@ -13651,6 +13728,7 @@
 <ul class="word-list">  <li data-note="plus familier que מָה נִשְׁמָע" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">מָה קוֹרֶה</span></span>
     <span class="meta"><span class="tr">mah koreh</span><span class="fr">quoi de neuf ? / ça roule ?</span></span>
+    <span class="note-line">plus familier que <span lang="he">מָה נִשְׁמָע</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">מָה קוֹרֶה, אָח שֶׁלִּי?</span><span class="tr">mah koreh, ach sheli?</span><span class="fr">Quoi de neuf, mon frère ?</span></li></ul>
     </li>
@@ -13663,6 +13741,7 @@
   <li data-note="à une femme : עִזְבִי, 'izvi" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">עֲזֹב</span></span>
     <span class="meta"><span class="tr">'azov</span><span class="fr">laisse tomber</span></span>
+    <span class="note-line">à une femme : <span lang="he">עִזְבִי</span>, 'izvi</span>
   
       <ul class="exemples"><li><span class="he" lang="he">עֲזֹב, זֶה לֹא חָשׁוּב</span><span class="tr">'azov, zeh lo chashuv</span><span class="fr">Laisse tomber, ce n'est pas important.</span></li></ul>
     </li>
@@ -13675,6 +13754,7 @@
   <li data-note="presse ou relance — du yiddish" data-niveau="A1">
     <span class="word-main"><span class="he" lang="he">נוּ</span></span>
     <span class="meta"><span class="tr">nu</span><span class="fr">alors ? / allez</span></span>
+    <span class="note-line">presse ou relance — du yiddish</span>
   
       <ul class="exemples"><li><span class="he" lang="he">נוּ, מָה אָמְרוּ לְךָ?</span><span class="tr">nu, mah amru lekha?</span><span class="fr">Alors, qu'est-ce qu'ils t'ont dit ?</span></li></ul>
     </li>
@@ -13717,12 +13797,14 @@
   <li data-note="concession un peu résignée : « bon, d'accord »" data-niveau="B2">
     <span class="word-main"><span class="he" lang="he">שֶׁיִּהְיֶה</span></span>
     <span class="meta"><span class="tr">sheyihyeh</span><span class="fr">soit / admettons</span></span>
+    <span class="note-line">concession un peu résignée : « bon, d'accord »</span>
   
       <ul class="exemples"><li><span class="he" lang="he">אַתָּה לֹא מַסְכִּים? שֶׁיִּהְיֶה</span><span class="tr">atah lo maskim? sheyihyeh</span><span class="fr">Tu n'es pas d'accord ? Soit.</span></li></ul>
     </li>
   <li data-note="à une femme : תַּעֲשִׂי טוֹבָה" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">תַּעֲשֶׂה טוֹבָה</span></span>
     <span class="meta"><span class="tr">ta'aseh tovah</span><span class="fr">fais-moi plaisir / arrête un peu</span></span>
+    <span class="note-line">à une femme : <span lang="he">תַּעֲשִׂי טוֹבָה</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">תַּעֲשֶׂה טוֹבָה, תַּפְסִיק כְּבָר</span><span class="tr">ta'aseh tovah, tafsik kvar</span><span class="fr">Fais-moi plaisir, arrête un peu.</span></li></ul>
     </li>
@@ -13760,6 +13842,7 @@
 <ul class="word-list">  <li data-note="de l'arabe ; invariable, se place avant le nom" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">אַחְלָה</span></span>
     <span class="meta"><span class="tr">achlah</span><span class="fr">super, génial</span></span>
+    <span class="note-line">de l'arabe ; invariable, se place avant le nom</span>
   
       <ul class="exemples"><li><span class="he" lang="he">אַחְלָה מִסְעָדָה מָצָאתָ</span><span class="tr">achlah mis'adah matsata</span><span class="fr">Tu as trouvé un super restaurant.</span></li></ul>
     </li>
@@ -13772,6 +13855,7 @@
   <li data-note="littéralement « dommage pour le temps » ; le ton décide du sens, presque toujours élogieux" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">חֲבָל עַל הַזְּמַן</span></span>
     <span class="meta"><span class="tr">chaval 'al hazman</span><span class="fr">incroyable, une tuerie</span></span>
+    <span class="note-line">littéralement « dommage pour le temps » ; le ton décide du sens, presque toujours élogieux</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הָאֹכֶל שָׁם חֲבָל עַל הַזְּמַן</span><span class="tr">ha'okhel sham chaval 'al hazman</span><span class="fr">La nourriture là-bas, c'est une tuerie.</span></li></ul>
     </li>
@@ -13814,6 +13898,7 @@
   <li data-note="emploi familier — l'adjectif שָׁוֶה « égal » est aux Adjectifs" data-niveau="A2">
     <span class="word-main"><span class="he" lang="he">שָׁוֶה</span></span>
     <span class="meta"><span class="tr">shaveh</span><span class="fr">ça vaut le coup</span></span>
+    <span class="note-line">emploi familier — l'adjectif <span lang="he">שָׁוֶה</span> « égal » est aux Adjectifs</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הַמְּחִיר יָקָר אֲבָל זֶה שָׁוֶה</span><span class="tr">hamechir yakar aval zeh shaveh</span><span class="fr">Le prix est cher mais ça vaut le coup.</span></li></ul>
     </li>
@@ -13832,6 +13917,7 @@
   <li data-note="de l'arabe kayf ; se dit d'un moment réussi" data-niveau="B2">
     <span class="word-main"><span class="he" lang="he">עַל הַכֵּיפַק</span></span>
     <span class="meta"><span class="tr">'al hakeifak</span><span class="fr">au poil, nickel</span></span>
+    <span class="note-line">de l'arabe kayf ; se dit d'un moment réussi</span>
   
       <ul class="exemples"><li><span class="he" lang="he">הַחֻפְשָׁה הָיְתָה עַל הַכֵּיפַק</span><span class="tr">hachufshah haytah 'al hakeifak</span><span class="fr">Les vacances étaient au poil.</span></li></ul>
     </li>
@@ -13857,12 +13943,14 @@
   <li data-fr-court="vraiment ?!" data-note="étonnement — à ne pas confondre avec יָאלְלָה" data-niveau="B2">
     <span class="word-main"><span class="he" lang="he">וַאלָה</span></span>
     <span class="meta"><span class="tr">valah</span><span class="fr">vraiment ?! (étonnement — à ne pas confondre avec <span lang="he">יָאלְלָה</span> ci-dessus, qui veut dire "allez")</span></span>
+    <span class="note-line">étonnement — à ne pas confondre avec <span lang="he">יָאלְלָה</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">וַאלָה? לֹא הֶאֱמַנְתִּי</span><span class="tr">valah? lo he'emanti</span><span class="fr">Sérieux ? Je n'y croyais pas.</span></li></ul>
     </li>
   <li data-note="affectueux ; souvent כַּפָּרָה עָלֶיךָ" data-niveau="B2">
     <span class="word-main"><span class="he" lang="he">כַּפָּרָה</span></span>
     <span class="meta"><span class="tr">kaparah</span><span class="fr">mon chou, mon trésor</span></span>
+    <span class="note-line">affectueux ; souvent <span lang="he">כַּפָּרָה עָלֶיךָ</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">תּוֹדָה, כַּפָּרָה עָלֶיךָ</span><span class="tr">todah, kaparah 'alekha</span><span class="fr">Merci, tu es un amour.</span></li></ul>
     </li>
@@ -13887,6 +13975,7 @@
   <li data-note="de l'arabe ; plus sec que דַּי" data-niveau="B1">
     <span class="word-main"><span class="he" lang="he">חָלָס</span></span>
     <span class="meta"><span class="tr">chalas</span><span class="fr">ça suffit, terminé</span></span>
+    <span class="note-line">de l'arabe ; plus sec que <span lang="he">דַּי</span></span>
   
       <ul class="exemples"><li><span class="he" lang="he">חָלָס עִם הַוִּיכּוּחִים</span><span class="tr">chalas 'im havikuchim</span><span class="fr">Ça suffit avec les disputes.</span></li></ul>
     </li>

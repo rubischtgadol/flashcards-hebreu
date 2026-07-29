@@ -221,39 +221,48 @@
     </div>
   </div>
 
-  <div class="controls" id="controls-cards">
-    <button class="btn-flip" id="btn-flip">Voir la réponse</button>
-    <button class="btn-again hide" id="btn-again">À revoir</button>
-    <button class="btn-good hide" id="btn-good">Je savais</button>
-  </div>
-  <!-- Un pouce qui glisse ne doit pas polluer les boîtes : la dernière réponse reste annulable. -->
-  <div class="fix-row" id="undo-row"><button class="fix-btn hide" type="button" id="undo-card">‹ Annuler la dernière réponse</button></div>
-  <!-- Verso annoncé aux lecteurs d'écran en mode Cartes (symétrique de #quiz-live). -->
-  <div class="visually-hidden" id="flip-live" aria-live="polite"></div>
-
-  <div class="input-zone hide" id="input-zone">
-    <div class="input-row" id="input-row">
-      <input id="answer-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…" aria-label="Ta réponse">
-      <button id="btn-check">Vérifier</button>
+  <!-- Colonne de droite au palier ordi : tout ce qu'on FAIT de la carte.
+       Conteneur ajouté pour la grille — sans lui, la colonne 2 ne peut être
+       tenue en une seule pile qu'au prix d'un `grid-row: 2 / span N` fragile.
+       Il est `display:flex; flex-direction:column` À TOUTES LES LARGEURS : c'est
+       ce qui garantit le téléphone au pixel près, les marges y étant traitées
+       comme dans le `.study` flex d'avant, sans fusion. -->
+  <div class="answer-col">
+    <div class="controls" id="controls-cards">
+      <button class="btn-flip" id="btn-flip">Voir la réponse</button>
+      <button class="btn-again hide" id="btn-again">À revoir</button>
+      <button class="btn-good hide" id="btn-good">Je savais</button>
     </div>
-        <div class="input-actions hide" id="input-actions">
-      <button class="ghost-btn hide" id="kb-toggle" type="button">Clavier hébreu</button>
-      <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
+    <!-- Un pouce qui glisse ne doit pas polluer les boîtes : la dernière réponse reste annulable. -->
+    <div class="fix-row" id="undo-row"><button class="fix-btn hide" type="button" id="undo-card">‹ Annuler la dernière réponse</button></div>
+    <!-- Verso annoncé aux lecteurs d'écran en mode Cartes (symétrique de #quiz-live). -->
+    <div class="visually-hidden" id="flip-live" aria-live="polite"></div>
+
+    <div class="input-zone hide" id="input-zone">
+      <div class="input-row" id="input-row">
+        <input id="answer-input" type="text" dir="auto" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Ta réponse…" aria-label="Ta réponse">
+        <button id="btn-check">Vérifier</button>
+      </div>
+          <div class="input-actions hide" id="input-actions">
+        <button class="ghost-btn hide" id="kb-toggle" type="button">Clavier hébreu</button>
+        <button class="ghost-btn" id="btn-skip" type="button">Je ne sais pas &#8594;</button>
+      </div>
+      <div class="hebkb hide" id="hebkb"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="btn-next hide" id="btn-next">Suivant →</button>
     </div>
-    <div class="hebkb hide" id="hebkb"></div>
-    <div class="feedback" id="feedback" aria-live="polite"></div>
-    <button class="btn-next hide" id="btn-next">Suivant →</button>
+
+    <div class="quiz-zone hide" id="quiz-zone">
+      <div class="quiz-choices" id="quiz-choices"></div>
+      <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
+      <div class="fix-row"><button class="fix-btn hide" type="button" id="quiz-fix"></button></div>
+      <div class="quiz-ex" id="quiz-ex"></div>
+      <button class="btn-next hide" id="quiz-next">Suivant →</button>
+    </div>
+
+    <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span></div>
   </div>
 
-  <div class="quiz-zone hide" id="quiz-zone">
-    <div class="quiz-choices" id="quiz-choices"></div>
-    <div class="visually-hidden" id="quiz-live" aria-live="polite"></div>
-    <div class="fix-row"><button class="fix-btn hide" type="button" id="quiz-fix"></button></div>
-    <div class="quiz-ex" id="quiz-ex"></div>
-    <button class="btn-next hide" id="quiz-next">Suivant →</button>
-  </div>
-
-  <div class="kbd-hint" id="kbd-hint"><kbd>espace</kbd> retourner · <kbd>&larr;</kbd> à revoir · <kbd>&rarr;</kbd> je savais<span class="spk-hint"> · <kbd>p</kbd> écouter</span></div>
 </section>
 
 <!-- ============ DONE ============ -->

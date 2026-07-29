@@ -177,7 +177,7 @@
   /* Un cran au-dessus de ce qui l'entoure — même idiome relatif que .note .he,
      et volontairement en `em` : le rôle est « plus grand que mon contexte »,
      quel qu'il soit. Hors titres, qui portent déjà leur propre taille. */
-  :is(.note, .ex-gloss, .ex-title, .steps li, .fr, .ex-fr) span[lang="he"]:not([class]){
+  :is(.note, .note-line, .ex-gloss, .ex-title, .steps li, .fr, .ex-fr) span[lang="he"]:not([class]){
     font-size:1.15em;
   }
   .cursive{
@@ -331,6 +331,24 @@
     font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
     font-size:var(--pas-glose);
     color:var(--ink-dim);
+  }
+
+  /* Le mode d'emploi du mot, sur sa propre rangée (le `width:100%` la fait passer
+     à la ligne, comme pour les exemples juste dessous). Même voix que dans l'app,
+     au nom de classe près : corps, encre atténuée, italique — même contenu, même
+     rendu des deux côtés. Et **sans surface** : la couche « carte » est déjà
+     prise par l'exemple qui suit, et une note n'est pas un objet posé sur la
+     rangée, c'est une annotation de la rangée (règle des couches). Elle vient
+     AVANT l'exemple : la règle, puis son illustration. */
+  .word-list .note-line{
+    width:100%;
+    margin-top:6px;
+    direction:ltr;
+    text-align:right;
+    font-family:'Assistant','Arial Hebrew','Helvetica Neue',Arial,sans-serif;
+    font-size:var(--pas-corps);
+    color:var(--ink-dim);
+    font-style:italic;
   }
 
   /* --- Exemples en situation (extraits vers les flashcards, cf. ARCHITECTURE.md) ---
@@ -518,6 +536,13 @@
   /* Filet plein, non pointillé : le pointillé ne dit plus qu'une chose dans ce
      carnet — « rien ici » (.empty). Voir la note de .attention. */
   .subtheme{ margin:26px 0 8px; padding-bottom:5px; border-bottom:1px solid var(--line); }
+  /* `.subtheme` partage la voix de `thead th` : capitales latines espacées de
+     0,12em. Or sept de ces titres commencent par une préposition hébraïque, et
+     l'hébreu ne prend pas la chasse ajoutée — elle disjoint les lettres et
+     décale le nikoud, qui se compose sous la ligne de base. Les capitales ne le
+     concernent pas davantage. On rend donc à l'hébreu sa chasse normale, sans
+     toucher au français qui l'accompagne dans le même titre. */
+  .subtheme span[lang="he"]{ letter-spacing:normal; text-transform:none; }
 
   /* ---------- Colonne de lecture ------------------------------------------
      Troisième bloc de jetons, et il reste séparé pour la même raison que la

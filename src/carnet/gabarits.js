@@ -55,7 +55,17 @@ function itemListe(e) {
   // nommée), gardé pour que le diff avec l'original reste minimal.
   const court = e.fr_court ? ` data-fr-court="${esc(e.fr_court)}"` : '';
   const note = e.note ? ` data-note="${esc(e.note)}"` : '';
-  return `  <li${court}${note} data-niveau="${e.niveau}">\n    <span class="word-main"><span class="he" lang="he">${e.he}</span></span>\n    <span class="meta"><span class="tr">${esc(e.tr)}</span><span class="fr">${escFr(e.fr)}</span></span>\n  ${exemplesHtml(e.exemples)}</li>`;
+  // La note est le mode d'emploi du mot — « suit un infinitif », « toujours avec
+  // la négation », « préfixe soudé au verbe ». Elle était stockée en `data-note`
+  // et rendue nulle part : 64 notes que le carnet portait sans jamais les
+  // montrer, alors que l'app les affiche au dos de la carte. Elle est désormais
+  // écrite, sous le même nom de classe et dans la même voix que là-bas
+  // (`.note-line`, src/app/js/10-rendu.js) — même contenu, même rendu des deux
+  // côtés. `escFr` et non `esc` : 52 des 64 notes contiennent de l'hébreu, qui
+  // doit porter son `lang="he"`. L'attribut `data-note` reste : c'est la forme
+  // lisible par une machine de ce que la ligne rend lisible par un œil.
+  const noteLigne = e.note ? `\n    <span class="note-line">${escFr(e.note)}</span>` : '';
+  return `  <li${court}${note} data-niveau="${e.niveau}">\n    <span class="word-main"><span class="he" lang="he">${e.he}</span></span>\n    <span class="meta"><span class="tr">${esc(e.tr)}</span><span class="fr">${escFr(e.fr)}</span></span>${noteLigne}\n  ${exemplesHtml(e.exemples)}</li>`;
 }
 
 // escFr exportée pour la garde de schéma de build.js:valideDonnees (aucun hébreu qui

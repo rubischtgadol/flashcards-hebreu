@@ -73,6 +73,22 @@ function he2tr(he){
       if(ch==='ע'){ out+="'a"; wordStart=false; continue; }
     }
     out+=cons;
+    // Kamats katan : dans la racine כל le kamats se lit « o », jamais « a »
+    // (kol, bekhol, lekhol). C'est la seule occurrence assez fréquente et assez
+    // sûre pour être codée — le kamats katan général dépend de la syllabe fermée
+    // non accentuée, que ce translittérateur ne sait pas voir, et le coder « au
+    // jugé » régresserait ailleurs. Mesuré sur les 4229 paires du corpus :
+    // exact +31, replié +34, distance −34 — gain strict sur les trois.
+    // ⚠️ Et seulement si ce ל CLÔT le mot. Sans cette condition la règle
+    // sur-applique : dans כַּלְכָּלִי (kalkali) le second כ porte un kamats
+    // gadol suivi d'un ל non final, et le mot sortait « kalkoli ». Mesuré :
+    // c'était la seule vraie régression de la règle large, les cinq autres
+    // écarts qu'elle produisait étant des `tr` rédigés fautifs.
+    if(has(0x05B8) && (ch==='כ'||ch==='ך') && s[j]==='ל'){
+      var r=j+1;
+      while(r<s.length && s.charCodeAt(r)>=0x0591 && s.charCodeAt(r)<=0x05C7) r++;
+      if(r>=s.length || s[r]===' '){ out+='o'; wordStart=false; continue; }
+    }
     var emitted=false;
     for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
     // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
@@ -85,6 +101,9 @@ function he2tr(he){
   }
   out=out.replace(/iy(?![aeiou])/g,'i');
   out=out.replace(/ey(?![aeiou])/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
+  // Patach + yod muet + vav : le yod ne s'entend pas (akhshav, et non akhshayv).
+  // Mesuré : exact +20, replié +27, distance −30 — gain strict sur les trois.
+  out=out.replace(/ayv(?![aeiou])/g,'av');
   out=out.replace(/'y(?=\s|$)/g,"'i");     // alef + yod final : achra'i, et non achra'y
   // Le hé final se garde (standard : atah, zeh, morah).
   return out;
