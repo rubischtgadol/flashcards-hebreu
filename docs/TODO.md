@@ -14,10 +14,18 @@
 
 ## Reprendre ici (prochaine session)
 
-**Aucun chantier n'est ouvert sur `main`, et tout est poussé.** La dette ouverte
-compte **trois entrées** (voir § Dette ouverte) ; deux branches latérales
-dorment (voir § Deux branches latérales), dont une à laquelle il ne faut pas
-toucher.
+**Un chantier est ouvert sur `main` : le système de chartes graphiques.** La
+spec est écrite et committée
+([superpowers/specs/2026-07-29-systeme-de-chartes-design.md](superpowers/specs/2026-07-29-systeme-de-chartes-design.md)),
+**en attente de relecture du propriétaire**. Décisions qui la cadrent : la
+direction v2 n'est pas figée (le système précède la direction) ; périmètre app +
+portail, carnet hors périmètre ; le système se nomme « charte » (`data-charte`,
+`src/chartes/`), jamais « thème » — collision avec les thèmes de vocabulaire.
+Après relecture : plan d'implémentation (writing-plans), puis trois lots —
+désincrustation, mécanisme + gardes, sélecteur. Tout le reste est poussé. La
+dette ouverte compte **trois entrées** (voir § Dette ouverte) ; deux branches
+latérales dorment (voir § Deux branches latérales), dont une à laquelle il ne
+faut pas toucher.
 
 **Ce que le dépôt contient**, en chiffres qui périment — aucun ne vaut recopie,
 chacun a une commande qui le recalcule :
@@ -42,6 +50,8 @@ recalage. Le flag enregistre la dette, il ne déclenche rien
 explicite) :
 
 - **Outil créé** : `tools/controle_tr.js`.
+- **Fichier créé** : `docs/superpowers/specs/2026-07-29-systeme-de-chartes-design.md`
+  (première entrée de `docs/superpowers/` sur `main`).
 - **Huit fichiers de `data/listes/` créés** : `prepositions-flechies.json`,
   `nombres-fractions.json`, `connecteurs-du-discours.json`,
   `heure-et-date.json`, `comparatif-et-superlatif.json`,
