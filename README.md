@@ -24,7 +24,7 @@ L'application est une **PWA installable** : sur iPhone, ouvrir un des liens dans
 
 ## Contenu du carnet
 
-Le carnet est organisé en trois parties, avec un sommaire cliquable et une recherche instantanée (français, hébreu avec ou sans nikud, translittération) :
+Le carnet est organisé en trois parties, avec un sommaire cliquable et une recherche instantanée (français, hébreu avec ou sans nikud — et quelle que soit la graphie, pleine ou défective —, translittération) :
 
 - **Partie 1 — Lire l'hébreu, puis la grammaire** : elle s'ouvre sur **le nikoud** — les treize signes un par un, avec leur nom, leur prononciation et un exemple tiré du carnet, puis le shva, les chatafs des gutturales, le qamats katan, le dagesh et ses trois rôles, le point du shin, le patach furtif, et pourquoi les Israéliens écrivent sans nikoud au quotidien. Viennent ensuite pronoms, démonstratifs, la racine (clé des verbes), le passé, le futur, patrons de conjugaison (binyanim), l'article défini, l'état construit, prépositions fléchies, le hé directionnel, existence & possession.
 - **Partie 2 — Vocabulaire, le dictionnaire** : verbes, noms et adjectifs, regroupés par thèmes.

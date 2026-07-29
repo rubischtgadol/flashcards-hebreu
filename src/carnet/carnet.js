@@ -16,10 +16,17 @@
     var searchWrap = document.querySelector('.search-wrap');
     if(searchWrap) searchWrap.insertAdjacentElement('afterend', emptyEl);
 
-    function norm(s){
+    // DEUX normalisations, et elles ne peuvent pas être la même.
+    // `cleRecherche` (injecté depuis src/app/js/02-translitteration.js, source
+    // unique partagée avec l'app) décide de ce qui CORRESPOND : il replie les
+    // mères de lecture ו/י et les variantes de translittération, donc il change
+    // la longueur de la chaîne. `normSurlignage` décide de ce qui est SURLIGNÉ :
+    // il lui faut un texte de même longueur que l'original, sans quoi la
+    // position retrouvée désigne les mauvais caractères. Replier le surlignage
+    // avec la clé de recherche éteindrait tout surlignage français en silence.
+    function normSurlignage(s){
       return (s||'').toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f\u0591-\u05C7]/g,'') // strip accents + nikud
-        .replace(/\s+/g,' ').trim();
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
     }
 
     // Build the list of searchable entries (list items + table rows).
@@ -29,18 +36,24 @@
       if(el.tagName === 'TR' && !el.querySelector('td')) return;
       // gather text from .he (nikud-bearing), .fr, .tr, plus genre cells — but NOT .cursive
       var parts = [];
-      el.querySelectorAll('.he, .fr, .tr').forEach(function(s){ parts.push(s.textContent); });
+      // La prononciation d'une vedette n'est pas toujours écrite dans data/ :
+      // on la calcule, sinon chercher un mot par son son ne rend rien alors
+      // que l'écran l'affiche (défaut du 2026-07-29).
+      el.querySelectorAll('.he, .fr, .tr').forEach(function(s){
+        parts.push(s.textContent);
+        if(s.classList.contains('he')) parts.push(he2tr(s.textContent));
+      });
       // include plain cell text (e.g. genre m/f) that isn't in a span
       el.querySelectorAll('td').forEach(function(td){
         if(!td.querySelector('span')) parts.push(td.textContent);
       });
-      entries.push({ el: el, hay: norm(parts.join(' ')) });
+      entries.push({ el: el, hay: cleRecherche(parts.join(" ")) });
     });
     // Also index example sentence blocks so nothing is invisible to search.
     document.querySelectorAll('.example').forEach(function(el){
       var parts = [];
       el.querySelectorAll('.ex-he, .ex-tr, .ex-fr').forEach(function(s){ parts.push(s.textContent); });
-      entries.push({ el: el, hay: norm(parts.join(' ')) });
+      entries.push({ el: el, hay: cleRecherche(parts.join(" ")) });
     });
 
     // Section blocks = each <h2> and everything up to the next <h2>.
@@ -50,7 +63,7 @@
       var block = [h2];
       var n = h2.nextElementSibling;
       while(n && n.tagName !== 'H2'){ block.push(n); n = n.nextElementSibling; }
-      sections.push({ h2: h2, block: block, hay: norm(h2.textContent) });
+      sections.push({ h2: h2, block: block, hay: cleRecherche(h2.textContent) });
     });
 
     function clearHighlights(el){
@@ -60,18 +73,18 @@
         // merge adjacent text nodes
       });
     }
-    function highlight(el, q){
+    // On reçoit la saisie BRUTE, pas la clé : on ne peut surligner que ce qui
+    // est littéralement à l'écran. Une rangée trouvée par le seul repliage
+    // (מסובך pour מסבך, « mesubach » pour « mesubakh ») reste donc sans
+    // surlignage — c'est juste, aucun caractère n'y correspond un à un.
+    function highlight(el, raw){
+      var q = normSurlignage(raw);
       if(!q) return;
       // .ex-fr/.ex-tr : les exemples de grammaire aussi — une correspondance
       // qui n'est pas surlignée laisse deviner pourquoi la section est là.
       el.querySelectorAll('.fr, .tr, .ex-fr, .ex-tr').forEach(function(span){
         var txt = span.textContent;
-        var i = norm(txt).indexOf(q);
-        if(i < 0) return;
-        // Map normalized index back is tricky with accents; do a simple case/accent-insensitive
-        // highlight by re-matching on a normalized copy per character.
-        var lower = txt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-        var pos = lower.indexOf(q);
+        var pos = normSurlignage(txt).indexOf(q);
         if(pos < 0) return;
         var before = txt.slice(0, pos), match = txt.slice(pos, pos+q.length), after = txt.slice(pos+q.length);
         span.innerHTML = '';
@@ -84,7 +97,7 @@
 
     function run(){
       var raw = input.value.trim();
-      var q = norm(raw);
+      var q = cleRecherche(raw);
       clearBtn.hidden = raw.length === 0;
       var toc = document.querySelector('.toc');
 
@@ -98,7 +111,7 @@
 
       var shown = 0;
       entries.forEach(function(e){
-        if(e.hay.indexOf(q) !== -1){ shown++; highlight(e.el, q); }
+        if(e.hay.indexOf(q) !== -1){ shown++; highlight(e.el, raw); }
         else { e.el.classList.add('search-hidden'); }
       });
 

@@ -315,7 +315,17 @@ function genereCarnet(donnees, srcCarnet){
   verifieOrphelins(path.join(srcCarnet, 'sections'), '.html', sectionsListees, null, 'src/carnet/sections.json');
   const tokens = lisTokens().brut;
   const cssCarnet = lire('carnet.css');
-  const jsCarnet = lire('carnet.js');
+  // Le carnet reçoit la logique pure de translittération AVANT son propre JS.
+  // Deux besoins, une seule source : sa recherche doit replier les graphies
+  // exactement comme celle de l'app (`cleRecherche` — sinon les deux surfaces
+  // répondent différemment à la même question), et elle doit calculer la
+  // prononciation des vedettes que `data/` ne porte pas (`he2tr`). Une copie
+  // locale divergerait en silence : c'est la règle des jetons appliquée au
+  // code — une source, injectée, jamais recopiée.
+  // Chemin dérivé de srcCarnet et non de ROOT : ajoute_mots.js fait tourner ce
+  // build dans un bac à sable dont la racine n'est pas celle du dépôt.
+  const jsCarnet = fs.readFileSync(path.join(srcCarnet, '..', '..', MODULE_TRANSLIT), 'utf8')
+    + '\n' + lire('carnet.js');
 
   const corps = sectionsListees
     .map(f => fs.readFileSync(path.join(srcCarnet, 'sections', f), 'utf8'))
@@ -887,6 +897,79 @@ function verifieCharte(appAssembled, notebookGenerated, portailGenerated){
 }
 
 /**
+ * verifieRecherche(cartes) — la recherche trouve-t-elle ce qu'elle affiche ?
+ *
+ * Défaut payé le 2026-07-29, signalé par le propriétaire : « מסובך » ne rendait
+ * RIEN alors que מְסֻבָּךְ est dans data/ — data/ stocke le vocalisé en ktiv
+ * haser, dénikoudé il donne מסבך, et l'on tape en ktiv male. Et « mesubakh »
+ * ne rendait rien non plus, alors que le résultat AFFICHE cette
+ * translittération (`c.tr||he2tr(c.he)`) : la botte de foin fouillait `c.tr`,
+ * vide sur les cartes issues des tables.
+ *
+ * Une recherche qui rate échoue en SILENCE — « aucun résultat » se lit « le mot
+ * n'est pas là » —, donc rien ne signalerait la rechute. D'où des couples
+ * requête → mot fixés ici. La botte de foin se compose exactement comme
+ * indexRecherche() dans src/app/js/07-filtres.js : les deux doivent bouger
+ * ensemble, et c'est cette garde qui le dit.
+ *
+ * ⚠️ Si un mot témoin quitte data/, la garde échoue en le nommant : c'est
+ * voulu. Un témoin disparu rend le contrôle muet, et un contrôle muet passe
+ * toujours au vert.
+ */
+// ⚠️ Le contrôle NÉGATIF est la moitié qui sert. Les couples positifs
+// ci-dessous passent au vert dès que le repliage est généreux — et un repliage
+// TROP généreux est l'autre façon de mentir : « zzzqqq » rendait trois mots
+// (2026-07-29) parce que la gémination écrasait les séries entières et le
+// réduisait à « zk ». Une requête absurde doit ne rien rendre, sinon la
+// tolérance a cessé d'être un service.
+const REQUETES_ABSURDES = ['zzzqqq', 'xwxwxw', 'qqqqq'];
+const CAS_RECHERCHE = [
+  { he: 'מְסֻבָּךְ', requetes: ['מסובך', 'מסבך', 'מְסֻבָּךְ', 'mesubakh', 'mesubach', 'msubakh', 'compliqué'] },
+  { he: 'מְבֻגָּר',  requetes: ['מבוגר', 'מבגר', 'mevugar'] },
+  { he: 'בַּעַל',    requetes: ['בעל', "ba'al", 'baal'] },
+];
+function verifieRecherche(cartes){
+  const { he2tr, cleRecherche } = fonctionsApp(['he2tr', 'cleRecherche']);
+  const echecs = [];
+  // La botte de foin de chaque carte, composée comme indexRecherche() le fait
+  // dans src/app/js/07-filtres.js — les deux doivent bouger ensemble.
+  const cle = (c) => {
+    const hay = [c.fr, c.he, c.he_plain, c.tr, he2tr(c.he)];
+    if (c.forms) c.forms.forEach(f => { hay.push(f.he, f.tr, he2tr(f.he)); });
+    return cleRecherche(hay.filter(Boolean).join(' '));
+  };
+  const toutesLesCles = cartes.map(cle);
+  for (const q of REQUETES_ABSURDES){
+    const k = cleRecherche(q);
+    const touches = toutesLesCles.filter(x => x.includes(k)).length;
+    if (touches)
+      echecs.push('la requête absurde « ' + q +' » (repliée en « ' + k + ' ») rend ' + touches
+        + ' carte(s) : le repliage sur-génère, il faut resserrer cleRecherche() et non la garde.');
+  }
+  for (const cas of CAS_RECHERCHE){
+    const carte = cartes.find(c => c.he === cas.he);
+    if (!carte){
+      echecs.push('le mot témoin « ' + cas.he + ' » a quitté data/ : la garde ne prouve plus rien '
+        + 'sur ce cas — le remplacer par un mot présent, jamais retirer le cas.');
+      continue;
+    }
+    const cleCarte = cle(carte);
+    for (const q of cas.requetes){
+      const k = cleRecherche(q);
+      if (!k) echecs.push('la requête « ' + q + ' » se replie sur du vide.');
+      else if (!cleCarte.includes(k))
+        echecs.push('« ' + q + ' » ne trouve pas ' + cas.he + ' (' + carte.fr + ') : la requête se replie '
+          + 'en « ' + k +' », absent de la clé « ' + cleCarte + ' ».');
+    }
+  }
+  if (echecs.length){
+    console.error('✗ recherche : ' + echecs.length + ' cas en échec.');
+    for (const e of echecs) console.error('  - ' + e);
+    process.exit(1);
+  }
+}
+
+/**
  * verifieCatOrder(racine) — le 7e point de câblage, enfin gardé.
  *
  * `catOrder` (src/app/js/07-filtres.js) est la seule liste dont dépend l'affichage
@@ -1156,6 +1239,7 @@ function main(){
   verifieCharte(appAssembled, notebookGenerated, portailAssembled); // fatale — même régime (tripwires de charte)
   verifieDoc(ROOT);                                                 // fatale aussi ; muette si docs/ absent (bac à sable)
   try { verifieCatOrder(ROOT); } catch (e) { console.error('✗ ' + e.message); process.exit(1); } // fatale — 7e point de câblage
+  verifieRecherche(cards);                                          // fatale — une recherche qui rate le fait en silence
   const appGenerated = insereEntete(appAssembled, ENTETE_GENERE_APP);
   const portailGenerated = insereEntete(portailAssembled, ENTETE_GENERE_PORTAIL);
 

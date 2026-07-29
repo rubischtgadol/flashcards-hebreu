@@ -987,7 +987,7 @@ function fmtMs(v){ return (v>=100 ? ''+Math.round(v) : v.toFixed(1).replace('.',
 function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function todayNum(){ return Math.floor(Date.now()/86400000); }
 function escapeHtml(s){ return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-// Expose : he2tr, trKey, normHe, editDist — Utilise : (rien — logique pure)
+// Expose : he2tr, trKey, cleRecherche, normHe, editDist — Utilise : (rien — logique pure)
 function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
 function editDist(a,b){
   const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
@@ -1109,6 +1109,54 @@ function trKey(s){
   s=s.replace(/^([^aeiou]{1,2})e(?=[^aeiou])/,'$1');
   s=s.replace(/(.)\1+/g,'$1');
   return s;
+}
+
+// Chercher n'est pas corriger, et les deux ne se replient donc pas pareil.
+// trKey arbitre une RÉPONSE : y accepter une faute est grave, il reste strict.
+// cleRecherche arbitre un RÉSULTAT : rendre un mot en trop ne coûte rien,
+// tandis que ne pas rendre le bon est un mensonge — « aucun résultat » se lit
+// « le mot n'est pas là ». D'où trois libertés que trKey ne prend pas.
+//   1. Les mères de lecture ו/י sautent. data/ stocke le vocalisé en ktiv
+//      haser (מְסֻבָּךְ) : dénikoudé il donne מסבך, alors qu'on tape מסובך, en
+//      ktiv male. Sans ce pliage la recherche répond « absent » d'un mot
+//      présent. Le prix est assumé : שיר et שר se confondent — quelques
+//      résultats en trop, jamais une absence fausse.
+//   2. Les lettres finales rejoignent leur forme de base, pour qu'un mot copié
+//      depuis le milieu d'une phrase retrouve le mot isolé.
+//   3. Le pliage latin s'applique MOT PAR MOT : l'ancre ^ du chva initial ne
+//      verrait sinon que le premier mot d'une botte de foin qui en compte des
+//      dizaines. Les apostrophes tombent AVANT le découpage, sinon « yode'a »
+//      ferait deux jetons quand « yodea » n'en fait qu'un, et les deux
+//      cesseraient de se rejoindre.
+function cleRecherche(s){
+  return (s||'').toLowerCase()
+    .normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g,'')
+    .replace(/['’׳]/g,'')
+    .replace(/[וי]/g,'')
+    .replace(/ך/g,'כ').replace(/ם/g,'מ').replace(/ן/g,'נ')
+    .replace(/ף/g,'פ').replace(/ץ/g,'צ')
+    .split(/[^a-zא-ת]+/)
+    .filter(Boolean)
+    .map(function(m){
+      if(/[א-ת]/.test(m)) return m;
+      m=m.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
+      m=m.replace(/ou/g,'u').replace(/ch/g,'h');
+      m=m.replace(/^([^aeiou]{1,2})e(?=[^aeiou])/,'$1');
+      // Gémination : PAIRES et CONSONNES seulement, là où trKey écrase les
+      // séries entières. Deux dérapages mesurés le 29/07 sur le contrôle
+      // négatif, que trKey ne connaît pas parce qu'il compare des mots entiers
+      // quand on cherche, ici, par sous-chaîne :
+      //   « zzzqqq » tombait sur « zk » — deux caractères qui se retrouvent
+      //   dans la moitié du corpus, donc une requête absurde rendait des mots ;
+      //   et « baal » tombait sur « bal », qui matche « balai » et « balcon ».
+      // Les voyelles gardent donc leur doublement (« baal » ≡ « ba'al » se
+      // rejoignent déjà par la chute de l'apostrophe), et une série de trois
+      // reste longue — he2tr n'écrit jamais de consonne doublée (mesuré :
+      // shabat, saba, aba), le pliage n'existe que pour accepter la graphie
+      // géminée que l'on TAPE (« shabbat »).
+      return m.replace(/([^aeiou])\1/g,'$1');
+    })
+    .join(' ');
 }
 // Expose : normFr, frVariants, checkAnswer, answerHtml — Utilise : he2tr/trKey/normHe/editDist (02), formsHtml (10), state (99)
 
@@ -1349,7 +1397,7 @@ function updateSpeaker(){
   }
   btn.classList.toggle('hide', !(TTS_OK && hebrewVisible));
 }
-// Expose : nivOfCard, nivOk, themeOk, searchNorm, runSearch, buildChips, buildNivChips, buildThemeChips, toggle, segPick, refreshAdvSub, foldSub, refreshFoldSubs, applyFoldState, refreshSelAll, updateStart, limitPool, THEMES, SPK_SVG, catCounts, nivCounts, themeCounts, catsEl, nivEl, themeEl, catOrder — Utilise : state (99), CARDS (05), escapeHtml (01), he2tr (02), speak/bindTap (06/11), savePrefs/sessRestore/srsMigrateIds (04), applyPrefs/perfReport (13), refreshSrsUi (08)
+// Expose : nivOfCard, nivOk, themeOk, indexRecherche, runSearch, buildChips, buildNivChips, buildThemeChips, toggle, segPick, refreshAdvSub, foldSub, refreshFoldSubs, applyFoldState, refreshSelAll, updateStart, limitPool, THEMES, SPK_SVG, catCounts, nivCounts, themeCounts, catsEl, nivEl, themeEl, catOrder — Utilise : state (99), CARDS (05), escapeHtml (01), he2tr/cleRecherche (02), speak/bindTap (06/11), savePrefs/sessRestore/srsMigrateIds (04), applyPrefs/perfReport (13), refreshSrsUi (08)
 
 // ================= Niveaux de difficulté (CECRL) =================
 // Le carnet stocke le CECRL fin (data-niveau="A1"…"C2") ; l'app l'affiche en
@@ -1392,10 +1440,43 @@ function themeOk(c){ return state.themes.size===0 || (c.theme && state.themes.ha
 
 // ----- Dynamic search over the word bank -----
 const SPK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg>';
-function searchNorm(s){
-  return (s||'').toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f\u0591-\u05C7]/g,'')
-    .replace(/\s+/g,' ').trim();
+// L'index de recherche, bâti UNE fois et gardé. Deux raisons de ne pas le
+// refaire à chaque frappe : he2tr est un transducteur, et il doit tourner sur
+// les cartes issues des tables — qui portent `tr:''` (l'immense majorité). Ce
+// manque était le défaut signalé le 2026-07-29 : la botte de foin fouillait
+// `c.tr` brut, si bien que la translittération AFFICHÉE juste à côté dans le
+// résultat (`c.tr||he2tr(c.he)`, plus bas) était elle-même introuvable.
+// ⚠️ L'index est apparié à CARDS par position : on garde la référence du
+// tableau et l'on rebâtit s'il a changé, sinon un rechargement des cartes
+// laisserait un index périmé qui désignerait les mauvais mots — en silence.
+let SEARCH_INDEX = null, SEARCH_INDEX_SRC = null;
+function indexRecherche(){
+  if(SEARCH_INDEX && SEARCH_INDEX_SRC === CARDS) return SEARCH_INDEX;
+  SEARCH_INDEX_SRC = CARDS;
+  SEARCH_INDEX = CARDS.map(c=>{
+    const hay=[c.fr, c.he, c.he_plain, c.tr, he2tr(c.he)];
+    if(c.forms) c.forms.forEach(f=>{ hay.push(f.he, f.tr, he2tr(f.he)); });
+    // `cle` sert à TROUVER (tout, formes comprises), les trois autres à
+    // CLASSER : chercher שלום et lire לְשַׁלֵּם en tête est presque aussi
+    // décourageant que ne rien trouver. Le squelette consonantique fait se
+    // rencontrer des mots d'une même racine — c'est voulu, mais le mot
+    // exactement demandé passe devant.
+    return {
+      cle: cleRecherche(hay.filter(Boolean).join(' ')),
+      he:  cleRecherche(c.he),
+      tr:  cleRecherche(c.tr || he2tr(c.he)),
+      fr:  cleRecherche(c.fr || '')
+    };
+  });
+  return SEARCH_INDEX;
+}
+// 2 : le mot demandé, exactement. 1 : le mot commence par ce qu'on a tapé —
+// c'est la frappe en cours. 0 : la correspondance est ailleurs (une forme
+// fléchie, un exemple, une racine voisine).
+function rangResultat(e, q){
+  if(e.he === q || e.tr === q || e.fr === q) return 2;
+  if(e.he.indexOf(q) === 0 || e.tr.indexOf(q) === 0 || e.fr.indexOf(q) === 0) return 1;
+  return 0;
 }
 function runSearch(){
   const input = document.getElementById('search-input');
@@ -1403,18 +1484,25 @@ function runSearch(){
   const clear = document.getElementById('search-clear');
   const raw = input.value.trim();
   clear.classList.toggle('hide', raw.length===0);
-  const q = searchNorm(raw);
+  const q = cleRecherche(raw);
   if(!q){ box.innerHTML=''; box.classList.add('hide'); return; }
   box.classList.remove('hide');
-  const hits=[];
-  for(const c of CARDS){
-    const hay=[c.fr, c.he, c.he_plain, c.tr];
-    if(c.forms) c.forms.forEach(f=>{ hay.push(f.he, f.tr); });
-    if(searchNorm(hay.join(' ')).includes(q)) hits.push(c);
-    if(hits.length>=80) break;
+  const idx = indexRecherche();
+  // On balaie TOUT avant de couper à 80 : s'arrêter au 80e trouvé rendrait le
+  // classement inopérant, puisque le mot exactement demandé peut être le 200e
+  // rencontré dans l'ordre du corpus.
+  const trouves=[];
+  for(let i=0;i<CARDS.length;i++){
+    if(idx[i].cle.includes(q)) trouves.push({ c: CARDS[i], r: rangResultat(idx[i], q) });
   }
+  trouves.sort((a,b)=> b.r - a.r);
+  const total = trouves.length;
+  const hits = trouves.slice(0, 80).map(t => t.c);
   if(!hits.length){ box.innerHTML='<div class="search-empty">Aucun résultat pour « '+escapeHtml(raw)+' ».</div>'; return; }
-  let html = '<div class="sr-count">'+hits.length+(hits.length>=80?'+':'')+' résultat'+(hits.length>1?'s':'')+'</div>';
+  // Le compte est désormais EXACT (on a balayé tout le corpus) : plus de « 80+ »
+  // qui laissait croire à un plafond alors qu'il disait « au moins 80 ».
+  let html = '<div class="sr-count">'+total+' résultat'+(total>1?'s':'')
+    + (total>hits.length ? ' · les '+hits.length+' plus proches' : '')+'</div>';
   html += hits.map((c,i)=>{
     const tr = '<span class="sr-tr">'+(c.tr||he2tr(c.he))+'</span>';
     const expandable = !!(c.forms || c.note || c.exemples);

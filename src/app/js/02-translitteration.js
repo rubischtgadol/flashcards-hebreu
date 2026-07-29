@@ -1,4 +1,4 @@
-// Expose : he2tr, trKey, normHe, editDist — Utilise : (rien — logique pure)
+// Expose : he2tr, trKey, cleRecherche, normHe, editDist — Utilise : (rien — logique pure)
 function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
 function editDist(a,b){
   const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
@@ -120,4 +120,52 @@ function trKey(s){
   s=s.replace(/^([^aeiou]{1,2})e(?=[^aeiou])/,'$1');
   s=s.replace(/(.)\1+/g,'$1');
   return s;
+}
+
+// Chercher n'est pas corriger, et les deux ne se replient donc pas pareil.
+// trKey arbitre une RÉPONSE : y accepter une faute est grave, il reste strict.
+// cleRecherche arbitre un RÉSULTAT : rendre un mot en trop ne coûte rien,
+// tandis que ne pas rendre le bon est un mensonge — « aucun résultat » se lit
+// « le mot n'est pas là ». D'où trois libertés que trKey ne prend pas.
+//   1. Les mères de lecture ו/י sautent. data/ stocke le vocalisé en ktiv
+//      haser (מְסֻבָּךְ) : dénikoudé il donne מסבך, alors qu'on tape מסובך, en
+//      ktiv male. Sans ce pliage la recherche répond « absent » d'un mot
+//      présent. Le prix est assumé : שיר et שר se confondent — quelques
+//      résultats en trop, jamais une absence fausse.
+//   2. Les lettres finales rejoignent leur forme de base, pour qu'un mot copié
+//      depuis le milieu d'une phrase retrouve le mot isolé.
+//   3. Le pliage latin s'applique MOT PAR MOT : l'ancre ^ du chva initial ne
+//      verrait sinon que le premier mot d'une botte de foin qui en compte des
+//      dizaines. Les apostrophes tombent AVANT le découpage, sinon « yode'a »
+//      ferait deux jetons quand « yodea » n'en fait qu'un, et les deux
+//      cesseraient de se rejoindre.
+function cleRecherche(s){
+  return (s||'').toLowerCase()
+    .normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g,'')
+    .replace(/['’׳]/g,'')
+    .replace(/[וי]/g,'')
+    .replace(/ך/g,'כ').replace(/ם/g,'מ').replace(/ן/g,'נ')
+    .replace(/ף/g,'פ').replace(/ץ/g,'צ')
+    .split(/[^a-zא-ת]+/)
+    .filter(Boolean)
+    .map(function(m){
+      if(/[א-ת]/.test(m)) return m;
+      m=m.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
+      m=m.replace(/ou/g,'u').replace(/ch/g,'h');
+      m=m.replace(/^([^aeiou]{1,2})e(?=[^aeiou])/,'$1');
+      // Gémination : PAIRES et CONSONNES seulement, là où trKey écrase les
+      // séries entières. Deux dérapages mesurés le 29/07 sur le contrôle
+      // négatif, que trKey ne connaît pas parce qu'il compare des mots entiers
+      // quand on cherche, ici, par sous-chaîne :
+      //   « zzzqqq » tombait sur « zk » — deux caractères qui se retrouvent
+      //   dans la moitié du corpus, donc une requête absurde rendait des mots ;
+      //   et « baal » tombait sur « bal », qui matche « balai » et « balcon ».
+      // Les voyelles gardent donc leur doublement (« baal » ≡ « ba'al » se
+      // rejoignent déjà par la chute de l'apostrophe), et une série de trois
+      // reste longue — he2tr n'écrit jamais de consonne doublée (mesuré :
+      // shabat, saba, aba), le pliage n'existe que pour accepter la graphie
+      // géminée que l'on TAPE (« shabbat »).
+      return m.replace(/([^aeiou])\1/g,'$1');
+    })
+    .join(' ');
 }

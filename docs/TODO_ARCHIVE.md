@@ -3251,6 +3251,51 @@ Sur l'orientation RTL, la recommandation de l'agent **n'a pas été suivie** : l
 sélectionner ». Le défaut était réel (42 px au lieu de 44), sa cause déclarée
 était fausse ; les trois règles mortes ont été retirées plutôt que reconduites.
 
+## La recherche qui mentait — corrigée le 2026-07-29
+
+Signalé par le propriétaire en deux fois : `מסובך` ne rendait rien alors que
+`מְסֻבָּךְ` (compliqué) est dans les Adjectifs, puis « la translittération non
+plus ». Un seul défaut à trois faces, toutes mesurées avant correction.
+
+**(a) L'orthographe, pas le nikud.** Les deux recherches déshabillaient le
+nikud correctement ; `data/` stocke le vocalisé en *ktiv haser*, donc dépouillé
+`מְסֻבָּךְ` donne `מסבך` — sans le `ו` du *ktiv male* que tout le monde tape.
+186 entrées sur 1728 étaient dans ce cas. **(b) La translittération absente de
+la botte de foin sur 1051 cartes / 1728** : les cartes issues des tables portent
+`tr:''`, l'écran affiche `he2tr(card.he)` et la recherche fouillait `c.tr` brut —
+la translittération **lisible à l'écran au même instant** était introuvable.
+**(c) Aucun repliage des variantes** : `searchNorm` ne faisait que minuscules +
+dénikoudage, si bien que `mesubakh`, `mesubach` et `msubakh` restaient trois
+chaînes distinctes. Le contraste qui résumait tout : `checkAnswer` acceptait
+déjà `trKey(card.tr)` **et** `trKey(he2tr(card.he))` — répondre était tolérant,
+chercher ne l'était pas. Les trois normalisations existaient dans le dépôt ; la
+recherche n'en appelait aucune.
+
+**Correction** : `cleRecherche` dans `02-translitteration.js` (source unique,
+injectée dans le carnet avant `carnet.js`), index mémoïsé côté app, classement
+des résultats, et `verifieRecherche()` dans le build.
+
+⚠️ **Le vrai enseignement est venu du contrôle NÉGATIF, et il a failli manquer.**
+Les douze cas positifs passaient au vert ; c'est `zzzqqq` qui a révélé que le
+repliage sur-générait — trois résultats, et `qqqqq` en rendait **449**. Cause :
+la gémination héritée de `trKey` écrase les *séries* (`(.)\1+`), si bien que
+`zzzqqq` tombait sur `zk`, deux caractères présents partout. Mesure qui a
+tranché : `he2tr` **n'émet jamais de consonne doublée** (`שַׁבָּת` → `shabat`,
+8 doublements dans tout le corpus, 0 triplement) — le pliage n'existe que pour
+accepter la graphie géminée qu'on *tape*. D'où paires seulement, consonnes
+seulement : les voyelles gardent leur doublement, ce qui a fait retomber `baal`
+de 10 résultats bruyants à 1 (`bal` matchait « balai » et « balcon »).
+Deuxième effet du même chantier : `שלום` rendait `לְשַׁלֵּם` en tête — le
+squelette consonantique fait se rencontrer les mots d'une même racine, d'où un
+classement à trois rangs (mot exact, préfixe, ailleurs) et un balayage complet
+du corpus avant la coupe à 80, puisque s'arrêter au 80e trouvé rendrait le
+classement inopérant.
+
+**Recette** : trois modes de panne vus échouer au build (mère de lecture non
+pliée, `he2tr` retiré de la botte de foin, mot témoin disparu de `data/`), puis
+WebKit sur les deux surfaces — 14 requêtes, 0 erreur console, régression hors
+recherche contrôlée, et les trois requêtes absurdes à zéro.
+
 ## Récits sortis des documents vivants — passe documentaire du 2026-07-29
 
 Chaque règle est restée dans son document, au présent ; voici les épisodes qui

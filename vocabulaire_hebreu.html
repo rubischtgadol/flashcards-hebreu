@@ -13985,7 +13985,178 @@
   
       <ul class="exemples"><li><span class="he" lang="he">הוּא יָצָא מַבְסוּט מֵהַפְּגִישָׁה</span><span class="tr">hu yatsa mabsut mehapgishah</span><span class="fr">Il est sorti content du rendez-vous.</span></li></ul>
     </li></ul>
-<script>
+<script>// Expose : he2tr, trKey, cleRecherche, normHe, editDist — Utilise : (rien — logique pure)
+function normHe(s){ return (s||'').replace(/[\u0591-\u05C7]/g,'').replace(/\s+/g,' ').trim(); }
+function editDist(a,b){
+  const m=a.length,n=b.length; if(!m)return n; if(!n)return m;
+  const d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++)d[0][j]=j;
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  }
+  return d[m][n];
+}
+// ---------- Translittération automatique depuis le nikud ----------
+function he2tr(he){
+  var V={}; V[0x05B7]='a'; V[0x05B8]='a'; V[0x05B2]='a'; V[0x05B5]='e'; V[0x05B6]='e'; V[0x05B1]='e';
+  V[0x05B4]='i'; V[0x05B9]='o'; V[0x05BA]='o'; V[0x05B3]='o'; V[0x05BB]='u';
+  var out='', s=(he||'').trim(), wordStart=true;
+  for(var i=0;i<s.length;i++){
+    var ch=s[i], code=s.charCodeAt(i);
+    if(code>=0x0591&&code<=0x05C7) continue;
+    var j=i+1, marks=[];
+    while(j<s.length){ var c=s.charCodeAt(j); if(c>=0x0591&&c<=0x05C7){ marks.push(c); j++; } else break; }
+    function has(m){ return marks.indexOf(m)!==-1; }
+    // Le yod qui suit clôt-il le mot ? (sert au cas de l'alef muet : achra'i)
+    var yodFinal=false;
+    if(s[j]==='י'){
+      yodFinal=true;
+      for(var q=j+1;q<s.length;q++){
+        var cq=s.charCodeAt(q);
+        if(cq>=0x0591&&cq<=0x05C7) continue;
+        yodFinal=(s[q]===' '); break;
+      }
+    }
+    var hasVowel=marks.some(function(m){ return V[m]; });
+    var isFinal=(j>=s.length || s[j]===' ');
+    var cons='';
+    switch(ch){
+      // Standard de translittération (cf. carnet) : א = ' entre deux voyelles
+      // seulement (tsme'a) ; ע = ' partout ('ivrit, be'er, rega').
+      // א = ' entre deux voyelles (tsme'ah), et devant un yod FINAL porteur du
+      // i, où l'alef s'entend également (achra'i, et non achray).
+      case 'א': cons=(!wordStart && /[aeiou]$/.test(out) && (hasVowel || yodFinal))?"'":''; break;
+      case 'ע': cons="'"; break;
+      case 'ב': cons=has(0x05BC)?'b':'v'; break;
+      case 'ג': cons='g'; break;
+      case 'ד': cons='d'; break;
+      case 'ה': cons='h'; break;
+      case 'ו':
+        if(has(0x05BC) && !hasVowel){ out+='u'; wordStart=false; continue; }
+        if(has(0x05B9)||has(0x05BA)){ out+='o'; wordStart=false; continue; }
+        cons='v'; break;
+      case 'ז': cons='z'; break;
+      case 'ח': cons='ch'; break;                    // standard : ח = ch
+      case 'ט': cons='t'; break;
+      case 'י': cons='y'; break;
+      case 'כ': cons=has(0x05BC)?'k':'kh'; break;    // standard : כ sans daguech = kh
+      case 'ך': cons='kh'; break;
+      case 'ל': cons='l'; break;
+      case 'מ': case 'ם': cons='m'; break;
+      case 'נ': case 'ן': cons='n'; break;
+      case 'ס': cons='s'; break;
+      case 'פ': cons=has(0x05BC)?'p':'f'; break;
+      case 'ף': cons='f'; break;
+      case 'צ': case 'ץ': cons='ts'; break;          // standard : צ = ts
+      case 'ק': cons='k'; break;
+      case 'ר': cons='r'; break;
+      case 'ש': cons=has(0x05C2)?'s':'sh'; break;
+      case 'ת': cons='t'; break;
+      default: cons=(ch===' ')?' ':(/[a-z]/i.test(ch)?ch:''); break;
+    }
+    // Patach furtif : la voyelle se lit avant la gutturale finale (koach, yode'a).
+    if(isFinal && has(0x05B7)){
+      if(ch==='ח'){ out+='ach'; wordStart=false; continue; }
+      if(ch==='ע'){ out+="'a"; wordStart=false; continue; }
+    }
+    out+=cons;
+    // Kamats katan : dans la racine כל le kamats se lit « o », jamais « a »
+    // (kol, bekhol, lekhol). C'est la seule occurrence assez fréquente et assez
+    // sûre pour être codée — le kamats katan général dépend de la syllabe fermée
+    // non accentuée, que ce translittérateur ne sait pas voir, et le coder « au
+    // jugé » régresserait ailleurs. Mesuré sur les 4229 paires du corpus :
+    // exact +31, replié +34, distance −34 — gain strict sur les trois.
+    // ⚠️ Et seulement si ce ל CLÔT le mot. Sans cette condition la règle
+    // sur-applique : dans כַּלְכָּלִי (kalkali) le second כ porte un kamats
+    // gadol suivi d'un ל non final, et le mot sortait « kalkoli ». Mesuré :
+    // c'était la seule vraie régression de la règle large, les cinq autres
+    // écarts qu'elle produisait étant des `tr` rédigés fautifs.
+    if(has(0x05B8) && (ch==='כ'||ch==='ך') && s[j]==='ל'){
+      var r=j+1;
+      while(r<s.length && s.charCodeAt(r)>=0x0591 && s.charCodeAt(r)<=0x05C7) r++;
+      if(r>=s.length || s[r]===' '){ out+='o'; wordStart=false; continue; }
+    }
+    var emitted=false;
+    for(var k=0;k<marks.length;k++){ if(V[marks[k]]){ out+=V[marks[k]]; emitted=true; } }
+    // Shva vocalisé : sur la première consonne d'un mot, il se prononce "e" (ledaber, metayel).
+    if(!emitted && wordStart && cons && cons!==' ' && has(0x05B0) && !(/[שסכצ]/.test(ch) && !/[אהחער]/.test(s[j]))) out+='e';
+    // Shva entre deux consonnes IDENTIQUES : il s'entend toujours (bodedim, et
+    // non boddim) — la gémination n'est pas prononçable, l'hébreu insère la
+    // voyelle. s[j] est la lettre suivante, les signes ayant été consommés.
+    else if(!emitted && cons && cons!==' ' && has(0x05B0) && s[j]===ch) out+='e';
+    if(ch===' ') wordStart=true; else if(cons||emitted) wordStart=false;
+  }
+  out=out.replace(/iy(?![aeiou])/g,'i');
+  out=out.replace(/ey(?![aeiou])/g,'ei');  // tsere/segol + yud → ei (beit, einayim)
+  // Patach + yod muet + vav : le yod ne s'entend pas (akhshav, et non akhshayv).
+  // Mesuré : exact +20, replié +27, distance −30 — gain strict sur les trois.
+  out=out.replace(/ayv(?![aeiou])/g,'av');
+  out=out.replace(/'y(?=\s|$)/g,"'i");     // alef + yod final : achra'i, et non achra'y
+  // Le hé final se garde (standard : atah, zeh, morah).
+  return out;
+}
+function trKey(s){
+  s=(s||'').toLowerCase().replace(/[^a-z]/g,'');
+  s=s.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
+  s=s.replace(/ou/g,'u').replace(/ch/g,'h');
+  // Shva initial : il s'entend ou non selon le mot (shkufah mais ledaber, cf.
+  // CLAUDE.md § Transliteration standard). he2tr tranche pour l'affichage ;
+  // la SAISIE, elle, doit accepter les deux graphies — on replie donc le « e »
+  // qui sépare les deux consonnes d'attaque. Sans ce pliage, corriger he2tr
+  // rétrograderait « shekufah » de Correct à Presque.
+  s=s.replace(/^([^aeiou]{1,2})e(?=[^aeiou])/,'$1');
+  s=s.replace(/(.)\1+/g,'$1');
+  return s;
+}
+
+// Chercher n'est pas corriger, et les deux ne se replient donc pas pareil.
+// trKey arbitre une RÉPONSE : y accepter une faute est grave, il reste strict.
+// cleRecherche arbitre un RÉSULTAT : rendre un mot en trop ne coûte rien,
+// tandis que ne pas rendre le bon est un mensonge — « aucun résultat » se lit
+// « le mot n'est pas là ». D'où trois libertés que trKey ne prend pas.
+//   1. Les mères de lecture ו/י sautent. data/ stocke le vocalisé en ktiv
+//      haser (מְסֻבָּךְ) : dénikoudé il donne מסבך, alors qu'on tape מסובך, en
+//      ktiv male. Sans ce pliage la recherche répond « absent » d'un mot
+//      présent. Le prix est assumé : שיר et שר se confondent — quelques
+//      résultats en trop, jamais une absence fausse.
+//   2. Les lettres finales rejoignent leur forme de base, pour qu'un mot copié
+//      depuis le milieu d'une phrase retrouve le mot isolé.
+//   3. Le pliage latin s'applique MOT PAR MOT : l'ancre ^ du chva initial ne
+//      verrait sinon que le premier mot d'une botte de foin qui en compte des
+//      dizaines. Les apostrophes tombent AVANT le découpage, sinon « yode'a »
+//      ferait deux jetons quand « yodea » n'en fait qu'un, et les deux
+//      cesseraient de se rejoindre.
+function cleRecherche(s){
+  return (s||'').toLowerCase()
+    .normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g,'')
+    .replace(/['’׳]/g,'')
+    .replace(/[וי]/g,'')
+    .replace(/ך/g,'כ').replace(/ם/g,'מ').replace(/ן/g,'נ')
+    .replace(/ף/g,'פ').replace(/ץ/g,'צ')
+    .split(/[^a-zא-ת]+/)
+    .filter(Boolean)
+    .map(function(m){
+      if(/[א-ת]/.test(m)) return m;
+      m=m.replace(/ph/g,'f').replace(/kh/g,'ch').replace(/q/g,'k').replace(/w/g,'v').replace(/tz/g,'ts');
+      m=m.replace(/ou/g,'u').replace(/ch/g,'h');
+      m=m.replace(/^([^aeiou]{1,2})e(?=[^aeiou])/,'$1');
+      // Gémination : PAIRES et CONSONNES seulement, là où trKey écrase les
+      // séries entières. Deux dérapages mesurés le 29/07 sur le contrôle
+      // négatif, que trKey ne connaît pas parce qu'il compare des mots entiers
+      // quand on cherche, ici, par sous-chaîne :
+      //   « zzzqqq » tombait sur « zk » — deux caractères qui se retrouvent
+      //   dans la moitié du corpus, donc une requête absurde rendait des mots ;
+      //   et « baal » tombait sur « bal », qui matche « balai » et « balcon ».
+      // Les voyelles gardent donc leur doublement (« baal » ≡ « ba'al » se
+      // rejoignent déjà par la chute de l'apostrophe), et une série de trois
+      // reste longue — he2tr n'écrit jamais de consonne doublée (mesuré :
+      // shabat, saba, aba), le pliage n'existe que pour accepter la graphie
+      // géminée que l'on TAPE (« shabbat »).
+      return m.replace(/([^aeiou])\1/g,'$1');
+    })
+    .join(' ');
+}
+
   // ---------- Dynamic search / filter for the vocabulary notebook ----------
   document.addEventListener('DOMContentLoaded', function(){
     var input   = document.getElementById('voc-search');
@@ -14003,10 +14174,17 @@
     var searchWrap = document.querySelector('.search-wrap');
     if(searchWrap) searchWrap.insertAdjacentElement('afterend', emptyEl);
 
-    function norm(s){
+    // DEUX normalisations, et elles ne peuvent pas être la même.
+    // `cleRecherche` (injecté depuis src/app/js/02-translitteration.js, source
+    // unique partagée avec l'app) décide de ce qui CORRESPOND : il replie les
+    // mères de lecture ו/י et les variantes de translittération, donc il change
+    // la longueur de la chaîne. `normSurlignage` décide de ce qui est SURLIGNÉ :
+    // il lui faut un texte de même longueur que l'original, sans quoi la
+    // position retrouvée désigne les mauvais caractères. Replier le surlignage
+    // avec la clé de recherche éteindrait tout surlignage français en silence.
+    function normSurlignage(s){
       return (s||'').toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f\u0591-\u05C7]/g,'') // strip accents + nikud
-        .replace(/\s+/g,' ').trim();
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
     }
 
     // Build the list of searchable entries (list items + table rows).
@@ -14016,18 +14194,24 @@
       if(el.tagName === 'TR' && !el.querySelector('td')) return;
       // gather text from .he (nikud-bearing), .fr, .tr, plus genre cells — but NOT .cursive
       var parts = [];
-      el.querySelectorAll('.he, .fr, .tr').forEach(function(s){ parts.push(s.textContent); });
+      // La prononciation d'une vedette n'est pas toujours écrite dans data/ :
+      // on la calcule, sinon chercher un mot par son son ne rend rien alors
+      // que l'écran l'affiche (défaut du 2026-07-29).
+      el.querySelectorAll('.he, .fr, .tr').forEach(function(s){
+        parts.push(s.textContent);
+        if(s.classList.contains('he')) parts.push(he2tr(s.textContent));
+      });
       // include plain cell text (e.g. genre m/f) that isn't in a span
       el.querySelectorAll('td').forEach(function(td){
         if(!td.querySelector('span')) parts.push(td.textContent);
       });
-      entries.push({ el: el, hay: norm(parts.join(' ')) });
+      entries.push({ el: el, hay: cleRecherche(parts.join(" ")) });
     });
     // Also index example sentence blocks so nothing is invisible to search.
     document.querySelectorAll('.example').forEach(function(el){
       var parts = [];
       el.querySelectorAll('.ex-he, .ex-tr, .ex-fr').forEach(function(s){ parts.push(s.textContent); });
-      entries.push({ el: el, hay: norm(parts.join(' ')) });
+      entries.push({ el: el, hay: cleRecherche(parts.join(" ")) });
     });
 
     // Section blocks = each <h2> and everything up to the next <h2>.
@@ -14037,7 +14221,7 @@
       var block = [h2];
       var n = h2.nextElementSibling;
       while(n && n.tagName !== 'H2'){ block.push(n); n = n.nextElementSibling; }
-      sections.push({ h2: h2, block: block, hay: norm(h2.textContent) });
+      sections.push({ h2: h2, block: block, hay: cleRecherche(h2.textContent) });
     });
 
     function clearHighlights(el){
@@ -14047,18 +14231,18 @@
         // merge adjacent text nodes
       });
     }
-    function highlight(el, q){
+    // On reçoit la saisie BRUTE, pas la clé : on ne peut surligner que ce qui
+    // est littéralement à l'écran. Une rangée trouvée par le seul repliage
+    // (מסובך pour מסבך, « mesubach » pour « mesubakh ») reste donc sans
+    // surlignage — c'est juste, aucun caractère n'y correspond un à un.
+    function highlight(el, raw){
+      var q = normSurlignage(raw);
       if(!q) return;
       // .ex-fr/.ex-tr : les exemples de grammaire aussi — une correspondance
       // qui n'est pas surlignée laisse deviner pourquoi la section est là.
       el.querySelectorAll('.fr, .tr, .ex-fr, .ex-tr').forEach(function(span){
         var txt = span.textContent;
-        var i = norm(txt).indexOf(q);
-        if(i < 0) return;
-        // Map normalized index back is tricky with accents; do a simple case/accent-insensitive
-        // highlight by re-matching on a normalized copy per character.
-        var lower = txt.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-        var pos = lower.indexOf(q);
+        var pos = normSurlignage(txt).indexOf(q);
         if(pos < 0) return;
         var before = txt.slice(0, pos), match = txt.slice(pos, pos+q.length), after = txt.slice(pos+q.length);
         span.innerHTML = '';
@@ -14071,7 +14255,7 @@
 
     function run(){
       var raw = input.value.trim();
-      var q = norm(raw);
+      var q = cleRecherche(raw);
       clearBtn.hidden = raw.length === 0;
       var toc = document.querySelector('.toc');
 
@@ -14085,7 +14269,7 @@
 
       var shown = 0;
       entries.forEach(function(e){
-        if(e.hay.indexOf(q) !== -1){ shown++; highlight(e.el, q); }
+        if(e.hay.indexOf(q) !== -1){ shown++; highlight(e.el, raw); }
         else { e.el.classList.add('search-hidden'); }
       });
 
