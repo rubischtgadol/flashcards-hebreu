@@ -106,7 +106,7 @@ All notebook `.tr` values and `he2tr` output follow it: `kh` = khaf without dage
 
    ⚠️ Bought once: refreshing after a pure-content lot cost ~4× the useful work and churned the graph (168 nodes added, 87 removed) rather than extending it — never run `--update` without a decision.
 6. Update the docs (README, ARCHITECTURE, DESIGN, PRODUCT, TODO — especially « Reprendre ici »).
-7. Commit per change, messages in French, then push to `main`.
+7. Commit per change, messages in French, then push to `main`. **This is a standing authorization from the owner, not merely a description of the procedure: pushing is the normal close of every change and is never to be asked for.** Announce it, don't request it. ⚠️ Stated explicitly because the temptation to ask is real and legitimate-looking — a push to `main` redeploys GitHub Pages, so it is outward-facing and would normally warrant a check-in. Here it does not. The rule is safe precisely because the tripwires stand upstream of it: the `pre-commit` hook runs `--check` and `verifie_exemples.js`, so what reaches `main` has already been proven in phase; and nothing is ever lost, since `git revert` restores artefacts and sources together (a plain revert leaves `--check` green — verify rather than assume).
 
 Full version, with the tooling traps, in **docs/RITUEL.md** § Rituel à chaque modification — that file holds what does not change from session to session; `docs/TODO.md` holds what does.
 
