@@ -52,13 +52,17 @@ défaut. `src/tokens.css` déménage en `src/chartes/carnet/jetons.css` (la cons
 
 Cinq familles, ~40 noms (11 aujourd'hui) :
 
-- **Couleur** — les 11 existants, plus les **alphas nommés** (`--or-halo`,
-  `--rouge-voile`…), les **encres de contraste** (`--sur-or` : l'encre posée sur un
-  fond or, aujourd'hui `#1a1206` en dur ×9) et les **ombres et voiles**
-  (`--ombre-carte`, aujourd'hui `rgba(0,0,0,.18)` en dur) — une charte à fond clair
-  veut d'autres ombres qu'une charte sombre. Choix : des jetons nommés plutôt que
-  `color-mix()` — zéro pari de compatibilité, et une charte peut donner à son halo une
-  autre teinte que son accent, ce qu'un calcul lui interdirait.
+- **Couleur** — les 11 existants, plus les **triplets par teinte** (`--gold-rgb:
+  212,162,76`, consommés en `rgba(var(--gold-rgb),.30)`) qui remplacent les alphas
+  dupliqués en dur, les **encres de contraste** (`--sur-or` : l'encre posée sur un
+  fond or, aujourd'hui `#1a1206` en dur ×8) et les **ombres et voiles**
+  (`--ombre-carte`, `--voile-sombre`) — une charte à fond clair veut d'autres ombres
+  qu'une charte sombre. Choix (précisé à l'écriture du plan, 29/07) : des triplets
+  plutôt que des alphas nommés un par un — l'inventaire montre 8 alphas pour le seul
+  or, soit ~14 jetons de plus que chaque charte neuve devrait remplir ; et plutôt que
+  `color-mix()` — zéro pari de compatibilité. L'alpha est un dosage de surface, la
+  teinte est un choix de charte ; une charte qui veut un halo d'une autre teinte que
+  son accent le fait par `regles.css`.
 - **Typographie** — les familles par voix (`--fonte-hebreu`, `--fonte-ui`,
   `--fonte-mono`, `--fonte-cursive`) et les graisses (`--graisse-titre`,
   `--graisse-vedette`…).
@@ -182,8 +186,11 @@ passe toujours au vert.
 **Lot 1 — la désincrustation.** Le gros du travail, et il est invisible : les littéraux
 de couleur, typo, forme, rythme et casse de `src/app/css/` et du portail deviennent des
 `var()` ; `src/tokens.css` devient `src/chartes/carnet/jetons.css` étendu au contrat
-complet ; le décor v1 migre vers `carnet/regles.css`. `verifieDesincrustation()` se pose
-**en fin de lot** — elle doit échouer tant que le lot n'est pas fini, c'est sa recette.
+complet. `verifieDesincrustation()` se pose **en fin de lot** — elle doit échouer tant
+que le lot n'est pas fini, c'est sa recette. (Précisé à l'écriture du plan, 29/07 : la
+migration du décor v1 vers `carnet/regles.css` part au lot 2 — un sélecteur porté ne
+matche rien tant que l'attribut n'existe pas, la menorah disparaîtrait et le rendu A/B
+casserait. Le lot 1 reste strictement invisible.)
 *Recette du lot* : rendu A/B WebKit avant/après **strictement identique** — téléphone
 (iPhone 16 Pro émulé) **et** 1440/1280/992/900/768 (piège n°13) — diff de captures à
 zéro pixel, verdict nommé par largeur, piloté en sous-agent.

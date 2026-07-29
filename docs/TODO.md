@@ -15,17 +15,21 @@
 ## Reprendre ici (prochaine session)
 
 **Un chantier est ouvert sur `main` : le système de chartes graphiques.** La
-spec est écrite et committée
-([superpowers/specs/2026-07-29-systeme-de-chartes-design.md](superpowers/specs/2026-07-29-systeme-de-chartes-design.md)),
-**en attente de relecture du propriétaire**. Décisions qui la cadrent : la
-direction v2 n'est pas figée (le système précède la direction) ; périmètre app +
-portail, carnet hors périmètre ; le système se nomme « charte » (`data-charte`,
-`src/chartes/`), jamais « thème » — collision avec les thèmes de vocabulaire.
-Après relecture : plan d'implémentation (writing-plans), puis trois lots —
-désincrustation, mécanisme + gardes, sélecteur. Tout le reste est poussé. La
-dette ouverte compte **trois entrées** (voir § Dette ouverte) ; deux branches
-latérales dorment (voir § Deux branches latérales), dont une à laquelle il ne
-faut pas toucher.
+spec est validée et amendée
+([superpowers/specs/2026-07-29-systeme-de-chartes-design.md](superpowers/specs/2026-07-29-systeme-de-chartes-design.md) —
+amendements du 29/07 : triplets RGB plutôt qu'alphas nommés, migration du décor
+au lot 2), et **le plan d'implémentation est écrit**
+([superpowers/plans/2026-07-29-systeme-de-chartes.md](superpowers/plans/2026-07-29-systeme-de-chartes.md)) :
+20 tâches en 3 phases — désincrustation (invisible, banc A/B 24 paires),
+mécanisme + 4 gardes (chacune à voir échouer), sélecteur. **Rien n'est
+implémenté : l'exécution attend la décision du propriétaire.** Décisions qui
+cadrent le chantier : la direction v2 n'est pas figée (le système précède la
+direction) ; périmètre app + portail, carnet hors périmètre ; le système se
+nomme « charte » (`data-charte`, `src/chartes/`), jamais « thème » — collision
+avec les thèmes de vocabulaire. Tout le reste est poussé. La dette ouverte
+compte **trois entrées** (voir § Dette ouverte) ; deux branches latérales
+dorment (voir § Deux branches latérales), dont une à laquelle il ne faut pas
+toucher.
 
 **Ce que le dépôt contient**, en chiffres qui périment — aucun ne vaut recopie,
 chacun a une commande qui le recalcule :
@@ -50,8 +54,9 @@ recalage. Le flag enregistre la dette, il ne déclenche rien
 explicite) :
 
 - **Outil créé** : `tools/controle_tr.js`.
-- **Fichier créé** : `docs/superpowers/specs/2026-07-29-systeme-de-chartes-design.md`
-  (première entrée de `docs/superpowers/` sur `main`).
+- **Fichiers créés** : `docs/superpowers/specs/2026-07-29-systeme-de-chartes-design.md`
+  et `docs/superpowers/plans/2026-07-29-systeme-de-chartes.md`
+  (premières entrées de `docs/superpowers/` sur `main`).
 - **Huit fichiers de `data/listes/` créés** : `prepositions-flechies.json`,
   `nombres-fractions.json`, `connecteurs-du-discours.json`,
   `heure-et-date.json`, `comparatif-et-superlatif.json`,
