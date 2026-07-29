@@ -148,6 +148,16 @@
     .feedback .your-answer{ font-size:1rem; }
     .feedback .forms .f-he{ font-size:2.2rem; }
     .feedback .forms{ gap:12px 22px; }
+    /* Les inflexions sur la carte elle-même. Ce bloc a vécu dans le palier ordi de
+       `30-cartes.css` et n'a JAMAIS rien appliqué : même sélecteur que la règle
+       inconditionnelle ci-dessus, mais dans un fichier concaténé AVANT elle, et
+       une @media n'ajoute pas de spécificité. Les inflexions rendaient donc à
+       1,7rem sur ordi — la taille pensée pour la carte comprimée du téléphone —
+       et la marge à 12px, soit douze pixels entre un mot de 76,8px et ses formes.
+       Corrigé en posant l'override là où vit sa base. 24px est la valeur que
+       `.forms` porte déjà au palier ordi : pas un nombre neuf. */
+    body.input-mode #face-content .forms{ margin-top:24px; gap:12px 22px; }
+    body.input-mode #face-content .forms .f-he{ font-size:2.2rem; }
     #answer-input{ font-size:1.25rem; }
 
     .done{ max-width:760px; }

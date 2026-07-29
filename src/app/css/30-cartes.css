@@ -183,7 +183,19 @@
     body.input-mode .flip{ min-height:min(30vh,260px); height:auto; }
     .face{ padding:20px 30px 18px; }
     .face .eyebrow{ font-size:.9rem; padding-inline:56px; }
-    .face .hint{ font-size:.95rem; }
+    /* Ici la carte fait exactement la hauteur de son contenu : `align-content:center`
+       n'a aucun mou à répartir, et la consigne se colle sous les inflexions. */
+    .face .hint{ font-size:.95rem; margin-top:12px; }
+    /* Au-dessus de 900px, rien ne défile dans la carte — il n'y a rien à y faire
+       défiler. `height:auto` y résout la hauteur sur le contenu, sur les DEUX
+       moteurs (mesuré : 80 combinaisons sous WebKit, marge exactement nulle ;
+       229,6px sous Blink pour un plancher à 218,9px). Ne restait qu'un arrondi
+       sous-pixel — `clientHeight` 152 contre `scrollHeight` 153 — invisible sous
+       WebKit dont les barres sont en surimpression, mais pas sous Windows où elles
+       sont classiques : 1px de dépassement y suffit à faire apparaître une barre à
+       flèches, qui vole en plus 15px de largeur au contenu. Le téléphone garde son
+       `overflow-y:auto` : là le plafond `32vh` rogne pour de vrai. */
+    #face-content{ overflow:visible; }
 
     .big-he{ font-size:4.8rem; }
     .big-he.cursive{ font-size:4.2rem; }
@@ -200,8 +212,10 @@
     .forms.forms-grid{ gap:16px 44px; }
     .forms .f-he{ font-size:2.6rem; }
     .forms .f-lbl{ font-size:1rem; }
-    body.input-mode #face-content .forms{ gap:12px 22px; }
-    body.input-mode #face-content .forms .f-he{ font-size:2.2rem; }
+    /* ⚠️ Les inflexions du mode saisie ne se règlent PAS ici : leur règle de base
+       est dans `40-reponses.css`, concaténé après ce fichier, et à sélecteur égal
+       c'est le dernier qui gagne — une @media n'ajoute pas de spécificité. Le
+       palier ordi de ce bloc-là vit donc au même endroit que sa base. */
 
     /* L'exemple était le plus maltraité : sa translittération tombait à
        12,8 px, moitié moins que la ligne française qu'elle accompagne. */

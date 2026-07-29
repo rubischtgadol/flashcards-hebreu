@@ -419,7 +419,19 @@
     body.input-mode .flip{ min-height:min(30vh,260px); height:auto; }
     .face{ padding:20px 30px 18px; }
     .face .eyebrow{ font-size:.9rem; padding-inline:56px; }
-    .face .hint{ font-size:.95rem; }
+    /* Ici la carte fait exactement la hauteur de son contenu : `align-content:center`
+       n'a aucun mou à répartir, et la consigne se colle sous les inflexions. */
+    .face .hint{ font-size:.95rem; margin-top:12px; }
+    /* Au-dessus de 900px, rien ne défile dans la carte — il n'y a rien à y faire
+       défiler. `height:auto` y résout la hauteur sur le contenu, sur les DEUX
+       moteurs (mesuré : 80 combinaisons sous WebKit, marge exactement nulle ;
+       229,6px sous Blink pour un plancher à 218,9px). Ne restait qu'un arrondi
+       sous-pixel — `clientHeight` 152 contre `scrollHeight` 153 — invisible sous
+       WebKit dont les barres sont en surimpression, mais pas sous Windows où elles
+       sont classiques : 1px de dépassement y suffit à faire apparaître une barre à
+       flèches, qui vole en plus 15px de largeur au contenu. Le téléphone garde son
+       `overflow-y:auto` : là le plafond `32vh` rogne pour de vrai. */
+    #face-content{ overflow:visible; }
 
     .big-he{ font-size:4.8rem; }
     .big-he.cursive{ font-size:4.2rem; }
@@ -436,8 +448,10 @@
     .forms.forms-grid{ gap:16px 44px; }
     .forms .f-he{ font-size:2.6rem; }
     .forms .f-lbl{ font-size:1rem; }
-    body.input-mode #face-content .forms{ gap:12px 22px; }
-    body.input-mode #face-content .forms .f-he{ font-size:2.2rem; }
+    /* ⚠️ Les inflexions du mode saisie ne se règlent PAS ici : leur règle de base
+       est dans `40-reponses.css`, concaténé après ce fichier, et à sélecteur égal
+       c'est le dernier qui gagne — une @media n'ajoute pas de spécificité. Le
+       palier ordi de ce bloc-là vit donc au même endroit que sa base. */
 
     /* L'exemple était le plus maltraité : sa translittération tombait à
        12,8 px, moitié moins que la ligne française qu'elle accompagne. */
@@ -597,6 +611,16 @@
     .feedback .your-answer{ font-size:1rem; }
     .feedback .forms .f-he{ font-size:2.2rem; }
     .feedback .forms{ gap:12px 22px; }
+    /* Les inflexions sur la carte elle-même. Ce bloc a vécu dans le palier ordi de
+       `30-cartes.css` et n'a JAMAIS rien appliqué : même sélecteur que la règle
+       inconditionnelle ci-dessus, mais dans un fichier concaténé AVANT elle, et
+       une @media n'ajoute pas de spécificité. Les inflexions rendaient donc à
+       1,7rem sur ordi — la taille pensée pour la carte comprimée du téléphone —
+       et la marge à 12px, soit douze pixels entre un mot de 76,8px et ses formes.
+       Corrigé en posant l'override là où vit sa base. 24px est la valeur que
+       `.forms` porte déjà au palier ordi : pas un nombre neuf. */
+    body.input-mode #face-content .forms{ margin-top:24px; gap:12px 22px; }
+    body.input-mode #face-content .forms .f-he{ font-size:2.2rem; }
     #answer-input{ font-size:1.25rem; }
 
     .done{ max-width:760px; }
@@ -1731,8 +1755,11 @@ function exActivate(t){
       t.textContent = open
         ? (n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')
         : (n>1 ? 'Masquer les exemples' : 'Masquer l’exemple');
-      // La face de carte défile (.face en overflow-y) : l'exemple déplié doit
-      // entrer dans le champ, sinon le tap semble ne rien faire sur mobile.
+      // L'exemple déplié doit entrer dans le champ, sinon le tap semble ne rien
+      // faire. Ce qui bouge dépend du palier : sur téléphone c'est l'intérieur de
+      // la carte (#face-content y garde overflow-y:auto) ; au-dessus de 900px la
+      // carte n'a plus de dedans à cacher — elle grandit — et c'est la page qui
+      // se replace. `block:'nearest'` couvre les deux sans distinction.
       if(!open){ try{ box.scrollIntoView({block:'nearest'}); }catch(e){} }
     }
   } else speak(t.dataset.he);

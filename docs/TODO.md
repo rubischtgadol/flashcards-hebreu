@@ -15,7 +15,7 @@
 ## Reprendre ici (prochaine session)
 
 **Aucun chantier n'est ouvert sur `main`, et tout est poussé.** La dette ouverte
-compte **quatre entrées** (voir § Dette ouverte) ; deux branches latérales
+compte **six entrées** (voir § Dette ouverte) ; deux branches latérales
 dorment (voir § Deux branches latérales), dont une à laquelle il ne faut pas
 toucher.
 
@@ -178,14 +178,16 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
 
-### Dette ouverte — quatre entrées
+### Dette ouverte — six entrées
 
 Elle était vide (les quatre entrées soldées sont dans
 TODO_ARCHIVE.md). Une passe documentaire l'a rouverte une première fois, en
 répondant à une question du propriétaire — « as-tu expliqué dans le carnet
 comment utiliser *efshar* ? ». Le chantier « mots-outils et nombres » en
 ajoute quatre : une section reportée et trois limites connues de
-l'outillage.
+l'outillage. Le chantier de la barre de défilement en ajoute deux, l'une
+mesurée en passant, l'autre trouvée par un balayage des overrides morts — il
+n'est allé corriger ni l'une ni l'autre.
 
 1. ⚠️ **Le carnet stocke 49 notes d'usage qu'il n'affiche pas.** `gabarits.js`
    émet le champ `note` de `data/` en attribut `data-note` sur le `<li>`
@@ -234,6 +236,41 @@ l'outillage.
    prouve les cinq artefacts en phase. Ce qu'un WebKit apporterait encore :
    le rendu des blocs `h3.subtheme` des huit séries fléchies, et un contrôle
    aux largeurs desktop.
+
+5. ⚠️ **La carte du mode saisie rogne ses inflexions sur téléphone.** Mesuré
+   sur les deux moteurs pendant le chantier de la barre de défilement :
+   `#face-content` offre 151 px pour 179 nécessaires sur iPhone 16 Pro
+   (28 px avalés), et 167 pour 174 sur le Chrome du propriétaire réduit à
+   380 px de large (7 px). La cause est le plafond en `vh` de
+   `body.input-mode .flip{height:min(32vh,290px)}`
+   ([src/app/css/30-cartes.css](../src/app/css/30-cartes.css)), posé pour que
+   le champ de réponse et « Suivant » restent au-dessus de la ligne de
+   flottaison, clavier virtuel compris. Sur un adjectif à trois inflexions,
+   la troisième étiquette est coupée net et chevauche « traduis en français ».
+
+   Ce qui le rend non bloquant : sous 900 px `#face-content` garde son
+   `overflow-y:auto` — c'est le seul palier où ce défilement est voulu —, donc
+   le contenu reste atteignable en faisant défiler la carte. Y toucher rouvre
+   le réglage du plafond `32vh` et exige sa propre campagne (clavier ouvert,
+   ligne de flottaison, les trois modes) : c'est un chantier à part entière,
+   d'où sa place ici plutôt que dans « Reprendre ici ».
+
+6. ⚠️ **Les puces de catégorie n'ont pas leur cible tactile.**
+   `src/app/css/20-selection.css:85` pose `@media (pointer:coarse){ .cat-row
+   .chip{ padding:9px 13px } }` sous un commentaire qui promet « une cible
+   confortable (~44px) » — et la ligne 90, `.cat-row .chip{ font-size:.9rem;
+   padding:5px 11px }`, l'écrase : même sélecteur, sans condition, plus bas
+   dans le même fichier. Au doigt les puces gardent donc 5 px de padding.
+   Même cause que le bloc mort du palier ordi soldé en même temps, et trouvée
+   par le même balayage.
+
+   Ce qui le rend non bloquant : les puces restent cliquables, seulement plus
+   petites que la barre des 44 px que le dépôt s'impose ailleurs. Le correctif
+   tient en une ligne — déplacer la déclaration `padding` de la `@media` après
+   la règle inconditionnelle — mais il **déplace le téléphone**, donc il exige
+   sa propre campagne sur l'écran de réglages, et non celle de la carte. Sa
+   hauteur réelle au doigt n'a pas été mesurée : elle est calculée sous 44 px,
+   pas constatée.
 
 *Si un nouveau défaut connu apparaît, c'est ici qu'il se note — avec ce qui le
 rend non bloquant, faute de quoi il devient un chantier.*

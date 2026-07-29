@@ -48,8 +48,11 @@ function exActivate(t){
       t.textContent = open
         ? (n>1 ? 'Voir les '+n+' exemples' : 'Voir un exemple')
         : (n>1 ? 'Masquer les exemples' : 'Masquer l’exemple');
-      // La face de carte défile (.face en overflow-y) : l'exemple déplié doit
-      // entrer dans le champ, sinon le tap semble ne rien faire sur mobile.
+      // L'exemple déplié doit entrer dans le champ, sinon le tap semble ne rien
+      // faire. Ce qui bouge dépend du palier : sur téléphone c'est l'intérieur de
+      // la carte (#face-content y garde overflow-y:auto) ; au-dessus de 900px la
+      // carte n'a plus de dedans à cacher — elle grandit — et c'est la page qui
+      // se replace. `block:'nearest'` couvre les deux sans distinction.
       if(!open){ try{ box.scrollIntoView({block:'nearest'}); }catch(e){} }
     }
   } else speak(t.dataset.he);
