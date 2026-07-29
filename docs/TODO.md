@@ -14,6 +14,13 @@
 
 ## Reprendre ici (prochaine session)
 
+🔴 **Deux défauts ouverts passent avant tout le reste** (voir § Défauts
+ouverts) : la recherche hébraïque ne trouve pas un mot tapé en ktiv male —
+`מסובך` ne rend rien pour un mot présent, et le même défaut fait afficher une
+graphie irréelle en mode « sans nikud » ; et le portail anime encore sous
+« réduire les animations ». Le premier est le plus grave : il fabrique une
+fausse absence, en silence.
+
 **Un chantier est ouvert sur `main` : le système de chartes graphiques.** La
 spec est validée et amendée
 ([superpowers/specs/2026-07-29-systeme-de-chartes-design.md](superpowers/specs/2026-07-29-systeme-de-chartes-design.md) —
@@ -189,6 +196,76 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
   jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
   son côté** — la ligne est ici pour que le prochain recalage n'aille pas les
   chercher.
+
+### Défauts ouverts — à corriger, pas à tolérer
+
+Distincts de la dette ci-dessous : aucun ne porte de raison d'être toléré. Ce
+sont des chantiers, dans l'ordre de gravité.
+
+1. 🔴 **On ne peut pas chercher un mot hébreu tel qu'on l'écrit vraiment.**
+   Signalé par le propriétaire le 29/07 : `מסובך` ne rend **rien**, alors que
+   `מְסֻבָּךְ` (compliqué) est bien dans les Adjectifs
+   ([data/adjectifs.json:2243](../data/adjectifs.json)).
+
+   ⚠️ **La cause n'est pas le nikud** — les deux recherches le déshabillent
+   correctement : le carnet normalise en NFD et retire `֑-ׇ`
+   ([src/carnet/carnet.js:21](../src/carnet/carnet.js)), l'app cherche dans
+   `he_plain` ([src/app/js/07-filtres.js:60](../src/app/js/07-filtres.js)). La
+   cause est **l'orthographe** : `data/` stocke la forme vocalisée en *ktiv
+   haser*, donc dépouillée elle donne `מסבך` — il manque le **ו** que le *ktiv
+   male* écrit et que tout le monde tape. Chercher `מסבך` marche ; chercher
+   `מסובך` échoue.
+
+   **Ampleur** : 186 entrées sur 1728 portent un kubutz ou un holam sans `ו`.
+   ⚠️ Chiffre indicatif, pas une garde : la mesure **sur-compte** (`רֹאשׁ` →
+   `ראש`, où le ktiv male n'insère rien) et **sous-compte** (les cas en `י`,
+   hirik haser, ne sont pas comptés). Elle se recalcule — et c'est elle qui fait
+   foi, pas le nombre recopié ici :
+
+   ```bash
+   node -e 'const fs=require("fs");let f=["noms","adjectifs","verbes"].map(n=>"data/"+n+".json");
+   for(const x of fs.readdirSync("data/listes"))f.push("data/listes/"+x);let t=0,k=0;
+   for(const p of f){const j=JSON.parse(fs.readFileSync(p,"utf8"));for(const e of (Array.isArray(j)?j:j.entries||[]))
+   if(e.he){t++;if(/ֻ/.test(e.he)||/[^ו]ֹ/.test(e.he))k++}}console.log(k+"/"+t)'
+   ```
+
+   ⚠️ **Le défaut ne s'arrête pas à la recherche.** `he_plain` sert aussi à
+   l'**affichage** en mode « écriture sans nikud »
+   ([src/app/js/10-rendu.js:8](../src/app/js/10-rendu.js)) : l'app y montre
+   `מסבך`, une graphie qu'aucun texte réel n'emploie. Le même correctif règle
+   les deux.
+
+   **Le correctif existe déjà — mais seulement côté outil.**
+   `orthographeVoisine()` (exportée par `tools/build.js`) trouve le mot du
+   premier coup : `node tools/cherche_mots.js מסובך` le rend sous « orthographe
+   voisine (insertion de ו/י) ». Elle n'a jamais été portée aux surfaces
+   déployées. Deux voies, à trancher au chantier : **(a)** le build calcule une
+   **clé de recherche en ktiv male** par entrée, que le carnet et l'app
+   consomment — dans l'esprit du dépôt (le build calcule, les surfaces
+   consomment), au prix d'un champ de plus dans `cards.json` et d'un attribut
+   dans le carnet ; **(b)** porter l'algorithme dans les deux JS de surface —
+   aucun champ en plus, mais deux implémentations à tenir d'accord, ce que « un
+   fichier ne fait qu'une chose » déconseille.
+
+   **Pourquoi ce n'est pas une dette** : c'est la fonction de consultation
+   principale du carnet, et elle échoue **en silence** — « aucun résultat » se
+   lit « le mot n'est pas là ». Le défaut fabrique une fausse absence, sur un
+   mot présent.
+
+2. 🟠 **Le portail continue d'animer sous « réduire les animations ».** Sa
+   coupure est écrite `*{transition:none;animation:none}`
+   ([src/portail/index.html:48](../src/portail/index.html)), or **`*` ne cible
+   pas les pseudo-éléments** : le halo de la menorah (`.menorah::before`,
+   [index.html:75](../src/portail/index.html)) garde son animation `lueur`. Le
+   commentaire juste au-dessus affirme pourtant « immobile sous
+   prefers-reduced-motion » ([index.html:67](../src/portail/index.html)) — le
+   code se contredit lui-même. Correctif : `*,*::before,*::after`. ⚠️ L'app
+   porte la même écriture ([10-base.css:14](../src/app/css/10-base.css)) mais
+   n'est **pas** touchée aujourd'hui — ses deux animations (`spin`, `cardIn`)
+   portent sur de vrais éléments ; à corriger quand même, la prochaine
+   animation sur un `::before` rouvrirait le défaut sans prévenir. Ce bug est
+   apparu **trois fois** dans ce dépôt : il mérite d'entrer dans les pièges de
+   `CLAUDE.md`.
 
 ### Dette ouverte — trois entrées
 
