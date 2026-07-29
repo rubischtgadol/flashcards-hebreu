@@ -15,11 +15,12 @@
 ## Reprendre ici (prochaine session)
 
 🔴 **Deux défauts ouverts passent avant tout le reste** (voir § Défauts
-ouverts) : la recherche hébraïque ne trouve pas un mot tapé en ktiv male —
-`מסובך` ne rend rien pour un mot présent, et le même défaut fait afficher une
-graphie irréelle en mode « sans nikud » ; et le portail anime encore sous
-« réduire les animations ». Le premier est le plus grave : il fabrique une
-fausse absence, en silence.
+ouverts). Le premier est le plus grave : **la recherche n'applique aucune des
+normalisations que le dépôt possède déjà** — ni en hébreu (`מסובך` ne rend rien
+pour un mot présent), ni en translittération (`mesubakh` non plus, et sur 61 %
+des cartes la translittération affichée n'est même pas dans la botte de foin).
+Elle échoue en silence, donc elle fabrique une fausse absence. Le second : le
+portail anime encore sous « réduire les animations ».
 
 **Un chantier est ouvert sur `main` : le système de chartes graphiques.** La
 spec est validée et amendée
@@ -202,21 +203,47 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 Distincts de la dette ci-dessous : aucun ne porte de raison d'être toléré. Ce
 sont des chantiers, dans l'ordre de gravité.
 
-1. 🔴 **On ne peut pas chercher un mot hébreu tel qu'on l'écrit vraiment.**
-   Signalé par le propriétaire le 29/07 : `מסובך` ne rend **rien**, alors que
-   `מְסֻבָּךְ` (compliqué) est bien dans les Adjectifs
-   ([data/adjectifs.json:2243](../data/adjectifs.json)).
+1. 🔴 **La recherche n'applique aucune des normalisations que le dépôt possède
+   déjà.** Signalé par le propriétaire le 29/07, en deux fois : ni l'hébreu tel
+   qu'on l'écrit, ni la translittération ne trouvent un mot présent. `מסובך` ne
+   rend **rien**, et `mesubakh` non plus, alors que `מְסֻבָּךְ` (compliqué) est
+   bien dans les Adjectifs ([data/adjectifs.json:2243](../data/adjectifs.json)).
 
-   ⚠️ **La cause n'est pas le nikud** — les deux recherches le déshabillent
-   correctement : le carnet normalise en NFD et retire `֑-ׇ`
+   **Le contraste qui résume tout le défaut** : `checkAnswer` accepte
+   **toujours** `trKey(card.tr)` **et** `trKey(he2tr(card.he))`
+   ([src/app/js/03-reponses.js:39-40](../src/app/js/03-reponses.js)) — répondre
+   est tolérant, *chercher le même mot* ne l'est pas. Trois normalisations
+   existent dans le dépôt ; la recherche n'en appelle aucune.
+
+   **(a) L'hébreu — et la cause n'est pas le nikud.** Les deux recherches le
+   déshabillent correctement : le carnet normalise en NFD et retire `֑-ׇ`
    ([src/carnet/carnet.js:21](../src/carnet/carnet.js)), l'app cherche dans
    `he_plain` ([src/app/js/07-filtres.js:60](../src/app/js/07-filtres.js)). La
    cause est **l'orthographe** : `data/` stocke la forme vocalisée en *ktiv
    haser*, donc dépouillée elle donne `מסבך` — il manque le **ו** que le *ktiv
-   male* écrit et que tout le monde tape. Chercher `מסבך` marche ; chercher
-   `מסובך` échoue.
+   male* écrit et que tout le monde tape. Chercher `מסבך` marche ; `מסובך`
+   échoue.
 
-   **Ampleur** : 186 entrées sur 1728 portent un kubutz ou un holam sans `ו`.
+   **(b) La translittération n'est pas dans la botte de foin, sur 61 % des
+   cartes.** Les cartes dérivées des tables portent `tr:''` — **1051 sur 1728**
+   (`node -e` sur `cards.json`, compter les `tr` vides). L'écran affiche alors
+   `he2tr(card.he)`, mais la recherche fouille `c.tr` **brut** et ne calcule
+   jamais `he2tr` : la translittération **lisible sur la carte est introuvable**
+   par la recherche. Pour `מְסֻבָּךְ`, l'écran montre `mesubakh` et la recherche
+   ne connaît que la chaîne vide. ⚠️ Le carnet est peu touché ici — il rend un
+   `<span class="tr">` sur 3411 de ses 3525 cellules vedettes.
+
+   **(c) Les variantes de translittération ne sont pas repliées.**
+   `searchNorm` ([07-filtres.js:44](../src/app/js/07-filtres.js)) ne fait que
+   minuscules + dénikoudage ; `trKey`, qui replie `kh`/`ch`, l'apostrophe de
+   ayin et le `e` initial optionnel, n'est jamais appelé par une recherche.
+   Mesuré : `mesubakh`, `mesubach` et `msubakh` sont **trois chaînes distinctes**
+   pour `searchNorm` et **une seule** (`msubah`) pour `trKey` ; idem `yodea` /
+   `yode'a`. Il faut donc taper la translittération au caractère près — sur un
+   standard que l'utilisateur n'a aucune raison de connaître. Cette facette
+   touche le carnet **et** l'app.
+
+   **Ampleur de (a)** : 186 entrées sur 1728 portent un kubutz ou un holam sans `ו`.
    ⚠️ Chiffre indicatif, pas une garde : la mesure **sur-compte** (`רֹאשׁ` →
    `ראש`, où le ktiv male n'insère rien) et **sous-compte** (les cas en `י`,
    hirik haser, ne sont pas comptés). Elle se recalcule — et c'est elle qui fait
@@ -229,28 +256,36 @@ sont des chantiers, dans l'ordre de gravité.
    if(e.he){t++;if(/ֻ/.test(e.he)||/[^ו]ֹ/.test(e.he))k++}}console.log(k+"/"+t)'
    ```
 
-   ⚠️ **Le défaut ne s'arrête pas à la recherche.** `he_plain` sert aussi à
-   l'**affichage** en mode « écriture sans nikud »
+   ⚠️ **(a) déborde de la recherche : il touche l'affichage.** `he_plain` sert
+   aussi au mode « écriture sans nikud »
    ([src/app/js/10-rendu.js:8](../src/app/js/10-rendu.js)) : l'app y montre
-   `מסבך`, une graphie qu'aucun texte réel n'emploie. Le même correctif règle
-   les deux.
+   `מסבך`, une graphie qu'aucun texte réel n'emploie. Une clé de recherche seule
+   ne réglerait pas ça — il faut une **forme ktiv male** de plein droit.
 
-   **Le correctif existe déjà — mais seulement côté outil.**
-   `orthographeVoisine()` (exportée par `tools/build.js`) trouve le mot du
-   premier coup : `node tools/cherche_mots.js מסובך` le rend sous « orthographe
-   voisine (insertion de ו/י) ». Elle n'a jamais été portée aux surfaces
-   déployées. Deux voies, à trancher au chantier : **(a)** le build calcule une
-   **clé de recherche en ktiv male** par entrée, que le carnet et l'app
-   consomment — dans l'esprit du dépôt (le build calcule, les surfaces
-   consomment), au prix d'un champ de plus dans `cards.json` et d'un attribut
-   dans le carnet ; **(b)** porter l'algorithme dans les deux JS de surface —
-   aucun champ en plus, mais deux implémentations à tenir d'accord, ce que « un
-   fichier ne fait qu'une chose » déconseille.
+   **Les trois correctifs existent déjà dans le dépôt, aucun n'est branché sur
+   la recherche.** `orthographeVoisine()` (exportée par `tools/build.js`) résout
+   (a) du premier coup — `node tools/cherche_mots.js מסובך` rend le mot sous
+   « orthographe voisine (insertion de ו/י) » ; `he2tr` résout (b) ; `trKey`
+   résout (c). Le chantier est donc un **branchement**, pas une invention.
+
+   **La voie recommandée** : le build calcule, par entrée, **une clé de
+   recherche unique** — ktiv male + `trKey(he2tr(he))` + `trKey(tr)` + le
+   français — que le carnet (attribut sur la rangée) et l'app (champ de
+   `cards.json`) consomment telle quelle, la saisie passant par la même
+   fonction. C'est l'esprit du dépôt : le build calcule, les surfaces
+   consomment, et il n'y a **qu'une** définition de « ce mot correspond ». Ne
+   pas porter les trois algorithmes dans deux JS de surface : ce serait six
+   implémentations à tenir d'accord, contre « un fichier ne fait qu'une chose ».
+   ⚠️ Prévoir la garde qui va avec, sinon le câblage se défait en silence
+   (mémoire `un-fichier-une-chose`) : un contrôle de build qui **échoue** si une
+   entrée connue n'est pas retrouvée par sa propre clé — `מסובך` et `mesubakh`
+   font deux cas de recette tout trouvés.
 
    **Pourquoi ce n'est pas une dette** : c'est la fonction de consultation
-   principale du carnet, et elle échoue **en silence** — « aucun résultat » se
-   lit « le mot n'est pas là ». Le défaut fabrique une fausse absence, sur un
-   mot présent.
+   principale, et elle échoue **en silence** — « aucun résultat » se lit « le
+   mot n'est pas là ». Le défaut fabrique une fausse absence sur un mot présent,
+   et pour (b) il la fabrique sur une translittération **affichée à l'écran au
+   même instant**.
 
 2. 🟠 **Le portail continue d'animer sous « réduire les animations ».** Sa
    coupure est écrite `*{transition:none;animation:none}`
