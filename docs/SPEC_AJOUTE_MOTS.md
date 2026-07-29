@@ -217,7 +217,7 @@ cellule vide (hors périmètre d'automatiser ce cas).
 règles d'échappement `&`/`<`/`>`, squelette de nouveau sous-thème) a disparu.**
 `ajoute_mots.js` construit un objet JS conforme à `data/SCHEMA.md` et l'écrit via
 `JSON.stringify(valeur, null, 2) + '\n'` — round-trip byte-identique au format déjà
-sur disque (prouvé, task-11-report.md). Composer du HTML, échapper `&`/`<`/`>`,
+sur disque (prouvé mécaniquement). Composer du HTML, échapper `&`/`<`/`>`,
 gérer `lang="he"` : c'est `src/carnet/gabarits.js` qui s'en charge, au moment du
 `node tools/build.js` lancé en aval (§7.B) — jamais ce script.
 
@@ -402,7 +402,7 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
   `verifie_exemples.js` tournent contre lui **en bac à sable** (§7.B) ; `data/`
   réel n'est modifié qu'après **vert complet**. Sinon rien n'est écrit, verdict
   d'échec nommé. Prouvé mécaniquement (`git status --porcelain` vide après un
-  dry-run, y compris un dry-run avec des insertions en attente — task-11-report.md).
+  dry-run, y compris un dry-run avec des insertions en attente).
 - Le script ne commit pas git et ne met pas à jour la doc — fil principal (rung 4
   de la doctrine). En revanche il n'a plus rien à décider sur `sw.js` : le
   `node tools/build.js` qu'il lance en mode `--ecrire` **estampille `VERSION`**
@@ -456,8 +456,8 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
    `orthographeVoisine`, `EXPECTED_LEVELS`, `EXPECTED_THEMES`, `listCats`) — rien
    à y ajouter pour ce script. L'ancien parseur regex du carnet HTML
    (`extractCards` + `rowsOf`/`lisOf`) et le mode `node tools/build.js --verrou` ont été
-   supprimés à cette même tâche (11), `ajoute_mots.js` en étant le dernier
-   consommateur ; les helpers HTML qui survivaient pour les scripts jetables du
+   supprimés, `ajoute_mots.js` en étant le dernier
+   consommateur ; les helpers HTML qui survivaient pour les scripts
    jetables sont partis avec eux, exports compris — `build.js`
    n'exporte plus rien qui lise du HTML.
 2. `he2tr` : **`fonctionsApp(['he2tr'], ROOT)`** (export de `build.js`), qui évalue

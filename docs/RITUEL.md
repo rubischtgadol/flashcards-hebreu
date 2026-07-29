@@ -121,7 +121,7 @@
 - **Rendu visuel (mobile ET desktop)** : Playwright + **WebKit** (vrai moteur Safari — les
   libs système sont installées) avec `devices['iPhone 16 Pro']` ; captures d'écran à
   l'appui, relues visuellement. Les navigateurs téléchargés **persistent** dans
-  `~/.cache/ms-playwright` (webkit-2311 en place) : en début de session, un simple
+  `~/.cache/ms-playwright` : en début de session, un simple
   `npm i playwright` dans le scratchpad suffit — ne relancer
   `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 npx playwright install webkit` que si le
   cache a disparu. Le Chrome système (`google-chrome --headless`) pend en WSL2 — ne pas

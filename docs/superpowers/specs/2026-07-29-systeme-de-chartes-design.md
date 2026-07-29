@@ -1,8 +1,8 @@
 # Système de chartes graphiques — spec de design
 
-Date : 2026-07-29. Statut : conception validée en conversation, **en attente de relecture
-du propriétaire sur pièce**. Prochaine étape après relecture : plan d'implémentation
-(writing-plans), puis les lots du § 10.
+Date : 2026-07-29. Statut : **spec validée et amendée** ; le plan d'implémentation est
+écrit (`docs/superpowers/plans/2026-07-29-systeme-de-chartes.md`) ; **l'exécution attend
+la décision du propriétaire**.
 
 ## 1. Objectif : un banc d'essai, pas une cohabitation
 

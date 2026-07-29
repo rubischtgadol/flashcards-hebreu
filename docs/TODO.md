@@ -101,9 +101,12 @@ worktree. On peut la lire pour documenter l'écart — pas la modifier.
   bien le tronc actif ; cette branche est en attente, pas en cours. Elle est
   **sortie en worktree**
   (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`), donc on
-  ne la `checkout` pas depuis ce répertoire-ci. Intention déjà cadrée sur la
-  branche (commit `92e7aa3`, spec §7) : les deux chartes coexisteront via un
-  sélecteur à l'accueil.
+  ne la `checkout` pas depuis ce répertoire-ci. ⚠️ **Décision du propriétaire
+  (29/07) : la direction v2 actuelle ne le satisfait pas et sera retravaillée**
+  — les planches de jugement de la branche se lisent en le sachant. Le véhicule
+  du portage est désormais le **système de chartes de `main`** (spec + plan dans
+  `docs/superpowers/`) : la v2 deviendra un dossier `src/chartes/<slug>/` quand
+  sa direction sera arrêtée.
 - **`pilier-oral`** — verso des verbes en grille 2×2, accueil idiomatique,
   quelques points de vocabulaire. Pas d'échéance décidée.
 
@@ -133,14 +136,11 @@ git diff --name-only main...<branche> -- app.html index.html vocabulaire_hebreu.
   (`src/app/`, `src/portail/`, `data/` + `src/carnet/`), en lisant le diff comme
   une spécification. Ce n'est pas un merge, c'est une réécriture guidée.
 
-💡 **Et la réorganisation a rendu la charte v2 nettement moins chère qu'à
-l'époque où la branche a été ouverte.** La charte couleur tient maintenant dans
-**`src/tokens.css` — 11 jetons, 4 lignes**, injectés au marqueur
-`<!-- @TOKENS -->` dans les trois pages déployées (piège 5). Une seconde charte
-est donc d'abord un **second jeu de jetons**, plus ce que la v2 ajoute au-delà
-de la couleur (typographie, traitements) dans `src/app/css/` (6 fragments, ~536
-lignes) et `src/portail/`. L'idée déjà cadrée sur la branche — les deux chartes
-coexistant via un sélecteur à l'accueil — se pose donc en ces termes-là.
+💡 **Le portage de la v2 a son véhicule : le système de chartes** (spec et plan
+du 29/07 dans `docs/superpowers/`, non implémenté — voir « Reprendre ici »).
+Une fois ce chantier exécuté, une charte est un dossier `src/chartes/<slug>/`
+(jetons + règles + identité) : la v2 s'y versera comme un jeu de valeurs et son
+décor, sans toucher aux surfaces.
 
 ⚠️ **Un doublon de commit attend au croisement** : `bcf71d0` (sur
 `refonte-retrofuturiste` seulement) et `ff25eec` (sur `main` seulement) portent

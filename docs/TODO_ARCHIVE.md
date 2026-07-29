@@ -3251,3 +3251,77 @@ Sur l'orientation RTL, la recommandation de l'agent **n'a pas été suivie** : l
 sélectionner ». Le défaut était réel (42 px au lieu de 44), sa cause déclarée
 était fausse ; les trois règles mortes ont été retirées plutôt que reconduites.
 
+## Récits sortis des documents vivants — passe documentaire du 2026-07-29
+
+Chaque règle est restée dans son document, au présent ; voici les épisodes qui
+l'avaient établie, sortis de DESIGN.md (et une parenthèse de PRODUCT.md : le
+retard d'accessibilité du carnet, soldé par audit).
+
+**Le test de la lampe, gagné trois fois sur le carnet.** `.part` était bordé et
+teinté d'or au repos et pesait plus lourd que le bouton d'action au-dessus de
+lui ; `.tip` (« 💡 point clé ») était la seconde surface dorée au repos, mieux
+défendable mais échouant au même test (contenu emphatique ≠ action) ; les
+pastilles `.steps li::before` étaient des disques d'or pleins de 26 px. Les
+trois ramenés à leur couche, l'or ne survivant que sur le repère. Même passe :
+les blocs d'exemples vivaient sur `rgba(0,0,0,.14)` — le cinquième gris interdit
+—, remontés à la couche `carte` pour rejoindre `.example`.
+
+**La voix Title et l'angle mort du carnet.** `.subtheme` et `thead th` avaient
+dérivé sur leur propre spec (0.82rem/0.12em, 0.92rem/0.08em) parce que les
+quatre emplois d'origine de la voix vivaient tous dans l'app : la charte n'avait
+jamais inventorié le carnet. Alignés sur la spec Title exacte.
+
+**La typo mesurée, deux corollaires du même jour.** Le carnet n'avait aucun
+`line-height` (héritage `normal` ~1,2, trop serré pour du nikoud) — `1.55` posé
+sur `body`, valeur que `.steps li` et `.tip p` avaient déjà choisie isolément.
+Et `.part-name`/`.part-he` n'étaient séparés que de 1,1 px — écartés d'un vrai
+pas plutôt que fusionnés.
+
+**La colonne et la table qui débordait.** Sans borne de largeur, la prose
+courait sur 158 caractères par ligne en 1280 ; la première calibration, réglée
+sur la largeur du « 0 » (7,87px contre 6,63px d'avance réelle), annonçait 69
+caractères et en rendait 82. Resserrer `--colonne-large` à 44rem a été essayé,
+mesuré, annulé — deux fois. La phrase « aucune table ne dépasse 894px » est
+restée écrite alors qu'un lot venait d'en produire une à 909,94px (« Vie
+quotidienne », Verbes) : une mesure sans garde. Trois pistes fausses avant la
+bonne (relever le cadre ; `white-space:normal` sur un mot sans espace —
+inopérant ; rogner les exemples d'une colonne bornée par une pile : paliers
+902,22/899,61/896,02/894,00). Le coupable : une seule translittération,
+`mitmake'ach` à 105,61px dans une colonne plafonnant à 86,41 — לְהִתְמַקֵּחַ
+remplacé par לְהַחְלִיף (`machlif`, 67,20px), un mot sorti du carnet parce
+qu'aucune retouche ne pouvait le faire entrer.
+
+**Le CTA collant, mesuré à cinq hauteurs.** `static` à `due > 0`, `sticky` à
+`due === 0`, tranché au relevé à mi-course (à défilement maximal les deux états
+montrent le bouton). Désactivé, il restait doré translucide (`opacity:.4`),
+laissait transparaître le contenu et interceptait les taps de quatre chips —
+d'où la peau pleine. Les trois registres capturés côte à côte en WebKit au
+cadrage identique.
+
+**`display:contents`, une cause et deux symptômes sans ressemblance.** Le
+`white-space:nowrap` hérité faisait sortir la glose française par la gauche
+(`left −31px`) et les `.fr`/`.tr` LTR par la droite (document à 444 px pour 402
+de viewport). La passe `getBoundingClientRect()` sur tous les éléments trouvait
+zéro débordant ; la mesure au `Range` en trouvait 6, le pire à `right = 444,1`
+— au dixième de pixel du `scrollWidth`. Deux investigations avaient conclu de
+travers avant ça (piège n°16 de CLAUDE.md, né ici).
+
+**Le palier ordi, quatre épisodes.** (1) Le pixel : la carte à hauteur de
+contenu tombait sur `clientHeight` 152 / `scrollHeight` 153 sous Blink (152/152
+en WebKit) — invisible au banc à barres en surimpression, défigurant sous
+Windows (piège n°17, né ici). (2) Le bloc mort : `body.input-mode #face-content
+.forms` a vécu tout un chantier dans le `@media` de `30-cartes.css` sans jamais
+rien faire, sa base vivant dans `40-reponses.css` concaténé après — inflexions
+rendues à 1,7rem au lieu de 2,2, marge 12 px au lieu de 24. (3) L'écran empilé :
+à 1536×730, « Suivant » tombait 42/150/222 px sous la fenêtre selon le contenu,
+« Je savais » dépassait de 19 px — le coupable était le bloc de correction
+(375 px), pas la carte (264 px). (4) La grille à deux colonnes : déficit
+vertical nul sur 39 des 42 combinaisons mesurées, les trois restantes cumulant
+fenêtre ≤ 700 px, contenu le plus dense et exemple déplié ; confirmé sur
+Chrome/Windows.
+
+**La carte de révision éteinte.** `.review-card:disabled` portait `opacity:.55`
+qui pâlissait le texte et laissait l'icône en or ; remplacé par la peau pleine.
+Mesuré : 0 pixel doré sur les 344 736 de la capture, écart R−B maximal −17. Et
+les 64 notes `data-note` du carnet n'étaient jamais rendues avant `.note-line`.
+
