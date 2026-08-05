@@ -2878,6 +2878,41 @@
     ]
   },
   {
+    "he": "נִקָּיוֹן",
+    "fr": "ménage, propreté",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "נִקָּיוֹן הַבַּיִת לוֹקֵחַ הַרְבֵּה זְמַן",
+        "tr": "nikayon habayit lokeach harbeh zeman",
+        "fr": "le ménage de la maison prend beaucoup de temps"
+      }
+    ]
+  },
+  {
+    "he": "כִּיּוֹר",
+    "fr": "évier",
+    "genre": "m",
+    "pluriel": {
+      "he": "כִּיּוֹרוֹת",
+      "tr": "kiyorot"
+    },
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "הַכִּיּוֹר בַּמִּטְבָּח מָלֵא כֵּלִים",
+        "tr": "hakiyor bamitbach male kelim",
+        "fr": "l'évier de la cuisine est plein de vaisselle"
+      }
+    ]
+  },
+  {
     "he": "מַיִם",
     "fr": "eau",
     "genre": "m",
@@ -4909,6 +4944,190 @@
         "he": "אֲנִי לוֹבֶשֶׁת סְוֶדֶר חָם בַּחוֹרֶף",
         "tr": "ani loveshet sveder cham bachoref",
         "fr": "je porte un pull chaud en hiver"
+      }
+    ]
+  },
+  {
+    "he": "כִּפָּה",
+    "fr": "kippa",
+    "genre": "f",
+    "pluriel": {
+      "he": "כִּפּוֹת",
+      "tr": "kipot"
+    },
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד לוֹבֵשׁ כִּפָּה לְבָנָה",
+        "tr": "hayeled lovesh kipah levanah",
+        "fr": "l'enfant porte une kippa blanche"
+      }
+    ]
+  },
+  {
+    "he": "תִּיק גַּב",
+    "fr": "sac à dos",
+    "genre": "m",
+    "pluriel": {
+      "he": "תִּיקֵי גַּב",
+      "tr": "tikei gav"
+    },
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "תִּיק הַגַּב שֶׁלִּי כָּבֵד",
+        "tr": "tik hagav sheli kaved",
+        "fr": "mon sac à dos est lourd"
+      }
+    ]
+  },
+  {
+    "he": "שַׁרְווּל",
+    "fr": "manche (de vêtement)",
+    "genre": "m",
+    "pluriel": {
+      "he": "שַׁרְווּלִים",
+      "tr": "sharvulim"
+    },
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "הַשַּׁרְווּל שֶׁל הַחֻלְצָה קָצָר",
+        "tr": "hasharvul shel hachultsah katsar",
+        "fr": "la manche de la chemise est courte"
+      }
+    ]
+  },
+  {
+    "he": "אֵפוֹד",
+    "fr": "gilet",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲפוֹדִים",
+      "tr": "afodim"
+    },
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "אֲנִי לוֹבֵשׁ אֵפוֹד חַם",
+        "tr": "ani lovesh efod cham",
+        "fr": "je porte un gilet chaud"
+      }
+    ]
+  },
+  {
+    "he": "מַדִּים",
+    "fr": "uniforme",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "הַחַיָּלִים לוֹבְשִׁים מַדִּים",
+        "tr": "hachayalim lovshim madim",
+        "fr": "les soldats portent un uniforme"
+      }
+    ]
+  },
+  {
+    "he": "תְּכֵלֶת",
+    "fr": "bleu ciel, azur",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "הַשָּׁמַיִם בְּצֶבַע תְּכֵלֶת",
+        "tr": "hashamayim betseva' tekhelet",
+        "fr": "le ciel est de couleur azur"
+      }
+    ]
+  },
+  {
+    "he": "תַּחְפֹּשֶׂת",
+    "fr": "déguisement, costume",
+    "genre": "f",
+    "pluriel": {
+      "he": "תַּחְפּוֹשׂוֹת",
+      "tr": "tachposot"
+    },
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה בּוֹחֶרֶת תַּחְפֹּשֶׂת יָפָה",
+        "tr": "hayaldah bocheret tachposet yafah",
+        "fr": "la fille choisit un beau déguisement"
+      }
+    ]
+  },
+  {
+    "he": "תַּכְשִׁיט",
+    "fr": "bijou",
+    "genre": "m",
+    "pluriel": {
+      "he": "תַּכְשִׁיטִים",
+      "tr": "takhshitim"
+    },
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "הִיא קוֹנָה תַּכְשִׁיט יָקָר",
+        "tr": "hi konah takhshit yakar",
+        "fr": "elle achète un bijou cher"
+      }
+    ]
+  },
+  {
+    "he": "אֲבִיזָר",
+    "fr": "accessoire",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲבִזָרִים",
+      "tr": "avizarim"
+    },
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "הָעֲנִיבָה הִיא אֲבִיזָר יָפֶה",
+        "tr": "ha'anivah hi avizar yafeh",
+        "fr": "la cravate est un bel accessoire"
+      }
+    ]
+  },
+  {
+    "he": "גָּוֶן",
+    "fr": "nuance, teinte (de couleur)",
+    "genre": "m",
+    "pluriel": {
+      "he": "גְּוָנִים",
+      "tr": "gevanim"
+    },
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "לַבֶּגֶד יֵשׁ גָּוֶן כָּחֹל",
+        "tr": "labeged yesh gaven kachol",
+        "fr": "le vêtement a une teinte bleue"
       }
     ]
   },
@@ -7374,6 +7593,276 @@
     ]
   },
   {
+    "he": "אוֹר",
+    "fr": "lumière",
+    "genre": "m",
+    "pluriel": {
+      "he": "אוֹרוֹת",
+      "tr": "orot"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אוֹר הַשֶּׁמֶשׁ חָזָק הַיּוֹם",
+        "tr": "or hashemesh chazak hayom",
+        "fr": "la lumière du soleil est forte aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "עַכְבָּר",
+    "fr": "souris",
+    "genre": "m",
+    "pluriel": {
+      "he": "עַכְבָּרִים",
+      "tr": "'akhbarim"
+    },
+    "niveau": "A1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "יֵשׁ עַכְבָּר קָטָן בַּבַּיִת",
+        "tr": "yesh 'akhbar katan babayit",
+        "fr": "il y a une petite souris dans la maison"
+      }
+    ]
+  },
+  {
+    "he": "אֲוִיר",
+    "fr": "air",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הָאֲוִיר כָּאן נָקִי מְאֹד",
+        "tr": "ha'avir kan naki me'od",
+        "fr": "l'air est ici très pur"
+      }
+    ]
+  },
+  {
+    "he": "צֶמַח",
+    "fr": "plante",
+    "genre": "m",
+    "pluriel": {
+      "he": "צְמָחִים",
+      "tr": "tsmachim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַצֶּמַח הַזֶּה גָּדֵל לְאַט",
+        "tr": "hatsemach hazeh gadel le'at",
+        "fr": "cette plante pousse lentement"
+      }
+    ]
+  },
+  {
+    "he": "חַיָּה",
+    "fr": "animal",
+    "genre": "f",
+    "pluriel": {
+      "he": "חַיּוֹת",
+      "tr": "chayot"
+    },
+    "niveau": "A1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב אֶת הַחַיָּה הַזֹּאת",
+        "tr": "ani ohev et hachayah hazot",
+        "fr": "j'aime cet animal"
+      }
+    ]
+  },
+  {
+    "he": "עָלֶה",
+    "fr": "feuille",
+    "genre": "m",
+    "pluriel": {
+      "he": "עָלִים",
+      "tr": "'alim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "עָלֶה יָרֹק נָפַל מֵהָעֵץ",
+        "tr": "'aleh yarok nafal meha'ets",
+        "fr": "une feuille verte est tombée de l'arbre"
+      }
+    ]
+  },
+  {
+    "he": "צֵל",
+    "fr": "ombre",
+    "genre": "m",
+    "pluriel": {
+      "he": "צְלָלִים",
+      "tr": "tslalim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ יוֹשְׁבִים בַּצֵּל",
+        "tr": "anachnu yoshvim batsel",
+        "fr": "nous sommes assis à l'ombre"
+      }
+    ]
+  },
+  {
+    "he": "חֹשֶׁךְ",
+    "fr": "obscurité",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַחֹשֶׁךְ בַּיַּעַר מַפְחִיד אוֹתִי",
+        "tr": "hachoshekh baya'ar mafchid oti",
+        "fr": "l'obscurité dans la forêt me fait peur"
+      }
+    ]
+  },
+  {
+    "he": "זְבוּב",
+    "fr": "mouche",
+    "genre": "m",
+    "pluriel": {
+      "he": "זְבוּבִים",
+      "tr": "zevuvim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "זְבוּב יָשַׁב עַל הַשֻּׁלְחָן",
+        "tr": "zevuv yashav 'al hashulchan",
+        "fr": "une mouche s'est posée sur la table"
+      }
+    ]
+  },
+  {
+    "he": "יַתּוּשׁ",
+    "fr": "moustique",
+    "genre": "m",
+    "pluriel": {
+      "he": "יַתּוּשִׁים",
+      "tr": "yatushim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַיַּתּוּשׁ עוֹקֵץ בַּלַּיְלָה",
+        "tr": "hayatush 'okets balaylah",
+        "fr": "le moustique pique la nuit"
+      }
+    ]
+  },
+  {
+    "he": "זִהוּם",
+    "fr": "pollution",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "זִהוּם הָאֲוִיר מַזִּיק לַבְּרִיאוּת",
+        "tr": "zihum ha'avir mazik labriyut",
+        "fr": "la pollution de l'air nuit à la santé"
+      }
+    ]
+  },
+  {
+    "he": "אַקְלִים",
+    "fr": "climat",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הָאַקְלִים כָּאן חַם וְיָבֵשׁ",
+        "tr": "ha'aklim kan cham veyavesh",
+        "fr": "le climat ici est chaud et sec"
+      }
+    ]
+  },
+  {
+    "he": "מִין",
+    "fr": "espèce",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִינִים",
+      "tr": "minim"
+    },
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "זֶה מִין נָדִיר שֶׁל צִפּוֹר",
+        "tr": "zeh min nadir shel tsipor",
+        "fr": "c'est une espèce rare d'oiseau"
+      }
+    ]
+  },
+  {
+    "he": "טֶבַע",
+    "fr": "nature",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ אוֹהֲבִים לְטַיֵּל בַּטֶּבַע",
+        "tr": "anachnu ohavim letayel bateva'",
+        "fr": "nous aimons nous promener dans la nature"
+      }
+    ]
+  },
+  {
+    "he": "עַכָּבִישׁ",
+    "fr": "araignée",
+    "genre": "m",
+    "pluriel": {
+      "he": "עַכְבִישִׁים",
+      "tr": "'akhvishim"
+    },
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "יֵשׁ עַכָּבִישׁ גָּדוֹל עַל הַקִּיר",
+        "tr": "yesh 'akavish gadol 'al hakir",
+        "fr": "il y a une grande araignée sur le mur"
+      }
+    ]
+  },
+  {
     "he": "יוֹם",
     "fr": "jour",
     "genre": "m",
@@ -8021,6 +8510,108 @@
         "he": "אֵין לִי הַרְבֵּה זְמַן פָּנוּי הַשָּׁבוּעַ",
         "tr": "ein li harbeh zeman panuy hashavu'a",
         "fr": "je n'ai pas beaucoup de temps libre cette semaine"
+      }
+    ]
+  },
+  {
+    "he": "לִפְנֵי הַצָּהֳרַיִם",
+    "fr": "avant-midi, matinée",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A1",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי פְּגִישָׁה לִפְנֵי הַצָּהֳרַיִם",
+        "tr": "yesh li pegishah lifnei hatsahorayim",
+        "fr": "j'ai un rendez-vous en matinée"
+      }
+    ]
+  },
+  {
+    "he": "הַמְתָּנָה",
+    "fr": "attente",
+    "genre": "f",
+    "pluriel": {
+      "he": "הַמְתָּנוֹת",
+      "tr": "hamtanot"
+    },
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "הַהַמְתָּנָה כָּאן אֲרֻכָּה מְאֹד",
+        "tr": "hahamtanah kan arukah me'od",
+        "fr": "l'attente ici est très longue"
+      }
+    ]
+  },
+  {
+    "he": "תְּדִירוּת",
+    "fr": "fréquence",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "בְּאֵיזוֹ תְּדִירוּת אַתָּה מִתְאַמֵּן?",
+        "tr": "be'eizo tedirut atah mitamen",
+        "fr": "à quelle fréquence tu t'entraînes ?"
+      }
+    ]
+  },
+  {
+    "he": "מַחְזוֹר",
+    "fr": "cycle",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַחְזוֹרִים",
+      "tr": "machzorim"
+    },
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "הַמַּחְזוֹר הַשָּׁנָתִי מִסְתַּיֵּם בְּיוּנִי",
+        "tr": "hamachzor hashanati mistayem beyuni",
+        "fr": "le cycle annuel se termine en juin"
+      }
+    ]
+  },
+  {
+    "he": "דְּחִיפוּת",
+    "fr": "urgence",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "אֵין דְּחִיפוּת, יֵשׁ לָנוּ זְמַן",
+        "tr": "ein dechifut yesh lanu zeman",
+        "fr": "pas d'urgence, on a le temps"
+      }
+    ]
+  },
+  {
+    "he": "דַּיְקָנוּת",
+    "fr": "ponctualité",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "דַּיְקָנוּת חֲשׁוּבָה בָּעֲבוֹדָה שֶׁלִּי",
+        "tr": "daykanut chashuvah ba'avodah sheli",
+        "fr": "la ponctualité est importante dans mon travail"
       }
     ]
   },
@@ -9390,6 +9981,339 @@
         "he": "הָעֵסֶק עָשָׂה רֶוַח גָּדוֹל הַשָּׁנָה",
         "tr": "ha'esek 'asah revach gadol hashanah",
         "fr": "l'entreprise a fait un grand profit cette année"
+      }
+    ]
+  },
+  {
+    "he": "שְׁטָר",
+    "fr": "billet (de banque)",
+    "genre": "m",
+    "pluriel": {
+      "he": "שְׁטָרוֹת",
+      "tr": "shtarot"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "מָצָאתִי שְׁטָר שֶׁל עֶשְׂרִים שֶׁקֶל",
+        "tr": "matsati shtar shel 'esrim shekel",
+        "fr": "j'ai trouvé un billet de vingt shekels"
+      }
+    ]
+  },
+  {
+    "he": "אֲגוֹרָה",
+    "fr": "agora (centime, sous-unité du shekel)",
+    "genre": "f",
+    "pluriel": {
+      "he": "אֲגוֹרוֹת",
+      "tr": "agorot"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "אֵין לִי אֲפִלּוּ אֲגוֹרָה אַחַת",
+        "tr": "ein li afilu agorah achat",
+        "fr": "je n'ai même pas un sou"
+      }
+    ]
+  },
+  {
+    "he": "קְנִיָּה",
+    "fr": "achat",
+    "genre": "f",
+    "pluriel": {
+      "he": "קְנִיּוֹת",
+      "tr": "keniyot"
+    },
+    "niveau": "A1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "זוֹ הָיְתָה קְנִיָּה טוֹבָה מְאֹד",
+        "tr": "zo haytah keniyah tovah me'od",
+        "fr": "c'était un très bon achat"
+      }
+    ]
+  },
+  {
+    "he": "מְכִירָה",
+    "fr": "vente",
+    "genre": "f",
+    "pluriel": {
+      "he": "מְכִירוֹת",
+      "tr": "mekhirot"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "יֵשׁ מְכִירָה גְּדוֹלָה בַּחֲנוּת",
+        "tr": "yesh mekhirah gedolah bachanut",
+        "fr": "il y a une grande vente au magasin"
+      }
+    ]
+  },
+  {
+    "he": "סְחוֹרָה",
+    "fr": "marchandise",
+    "genre": "f",
+    "pluriel": {
+      "he": "סְחוֹרוֹת",
+      "tr": "sechorot"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַסְּחוֹרָה הִגִּיעָה לַחֲנוּת הַבֹּקֶר",
+        "tr": "haschorah higi'ah lachanut haboker",
+        "fr": "la marchandise est arrivée au magasin ce matin"
+      }
+    ]
+  },
+  {
+    "he": "רְשִׁימַת קְנִיּוֹת",
+    "fr": "liste de courses",
+    "genre": "f",
+    "pluriel": {
+      "he": "רְשִׁימוֹת קְנִיּוֹת",
+      "tr": "reshimot keniyot"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "אֲנִי כּוֹתֶבֶת רְשִׁימַת קְנִיּוֹת לַסּוּפֶּרְמַרְקֶט",
+        "tr": "ani kotevet reshimat keniyot lasupermarket",
+        "fr": "j'écris une liste de courses pour le supermarché"
+      }
+    ]
+  },
+  {
+    "he": "כַּרְטִיס חִיּוּב",
+    "fr": "carte de débit",
+    "genre": "m",
+    "pluriel": {
+      "he": "כַּרְטִיסֵי חִיּוּב",
+      "tr": "kartisei chiyuv"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "אֲנִי מְשַׁלֵּם בְּכַרְטִיס חִיּוּב",
+        "tr": "ani meshalem bekhartis chiyuv",
+        "fr": "je paie par carte de débit"
+      }
+    ]
+  },
+  {
+    "he": "חֶשְׁבּוֹן בַּנְק",
+    "fr": "compte bancaire",
+    "genre": "m",
+    "pluriel": {
+      "he": "חֶשְׁבּוֹנוֹת בַּנְק",
+      "tr": "cheshbonot bank"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "פָּתַחְתִּי חֶשְׁבּוֹן בַּנְק חָדָשׁ",
+        "tr": "patachti cheshbon bank chadash",
+        "fr": "j'ai ouvert un nouveau compte bancaire"
+      }
+    ]
+  },
+  {
+    "he": "סוֹחֵר",
+    "fr": "commerçant, marchand",
+    "genre": "m",
+    "pluriel": {
+      "he": "סוֹחֲרִים",
+      "tr": "socharim"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַסּוֹחֵר מוֹכֵר יְרָקוֹת בַּשּׁוּק",
+        "tr": "hasocher mokher yerakot bashuk",
+        "fr": "le commerçant vend des légumes au marché"
+      }
+    ]
+  },
+  {
+    "he": "קוֹנֶה",
+    "fr": "acheteur",
+    "genre": "m",
+    "pluriel": {
+      "he": "קוֹנִים",
+      "tr": "konim"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַקּוֹנֶה בּוֹדֵק אֶת הַמְּחִיר",
+        "tr": "hakoneh bodek et hamchir",
+        "fr": "l'acheteur vérifie le prix"
+      }
+    ]
+  },
+  {
+    "he": "קוּפּוֹן",
+    "fr": "coupon, bon de réduction",
+    "genre": "m",
+    "pluriel": {
+      "he": "קוּפּוֹנִים",
+      "tr": "kuponim"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי קוּפּוֹן הֲנָחָה לַחֲנוּת",
+        "tr": "yesh li kupon hanachah lachanut",
+        "fr": "j'ai un coupon de réduction pour le magasin"
+      }
+    ]
+  },
+  {
+    "he": "דּוּכָן",
+    "fr": "étal, échoppe (de marché)",
+    "genre": "m",
+    "pluriel": {
+      "he": "דּוּכָנִים",
+      "tr": "dukhanim"
+    },
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַדּוּכָן בַּשּׁוּק מוֹכֵר פֵּרוֹת",
+        "tr": "hadukhan bashuk mokher perot",
+        "fr": "l'étal du marché vend des fruits"
+      }
+    ]
+  },
+  {
+    "he": "הֶחְזֵר",
+    "fr": "remboursement",
+    "genre": "m",
+    "pluriel": {
+      "he": "הֶחְזֵרִים",
+      "tr": "hechzerim"
+    },
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "קִבַּלְתִּי הֶחְזֵר עַל הַמּוּצָר",
+        "tr": "kibalti hechzer 'al hamutsar",
+        "fr": "j'ai reçu un remboursement pour le produit"
+      }
+    ]
+  },
+  {
+    "he": "עֵסֶק",
+    "fr": "affaire, commerce (activité)",
+    "genre": "m",
+    "pluriel": {
+      "he": "עֲסָקִים",
+      "tr": "'asakim"
+    },
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "לְאָבִי יֵשׁ עֵסֶק קָטָן",
+        "tr": "le'avi yesh 'esek katan",
+        "fr": "mon père a un petit commerce"
+      }
+    ]
+  },
+  {
+    "he": "עֵרֶךְ",
+    "fr": "valeur",
+    "genre": "m",
+    "pluriel": {
+      "he": "עֲרָכִים",
+      "tr": "'arakhim"
+    },
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "לַתְּמוּנָה הַזֹּאת יֵשׁ עֵרֶךְ רַב",
+        "tr": "latmunah hazot yesh 'erekh rav",
+        "fr": "ce tableau a une grande valeur"
+      }
+    ]
+  },
+  {
+    "he": "עֹשֶׁר",
+    "fr": "richesse",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הָעֹשֶׁר לֹא מֵבִיא אֹשֶׁר",
+        "tr": "ha'osher lo mevi osher",
+        "fr": "la richesse n'apporte pas le bonheur"
+      }
+    ]
+  },
+  {
+    "he": "עֹנִי",
+    "fr": "pauvreté",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַמִּשְׁפָּחָה חַיָּה בְּעֹנִי רַב",
+        "tr": "hamishpachah chayah be'oni rav",
+        "fr": "la famille vit dans une grande pauvreté"
+      }
+    ]
+  },
+  {
+    "he": "מִסְחָר",
+    "fr": "commerce (activité, secteur)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַמִּסְחָר בֵּין הַמְּדִינוֹת חָשׁוּב",
+        "tr": "hamischar bein hamdinot chashuv",
+        "fr": "le commerce entre les pays est important"
       }
     ]
   },
@@ -11667,6 +12591,200 @@
         "he": "אֲנִי צָרִיךְ שֶׁקֶט כְּדֵי לַעֲבֹד",
         "tr": "ani tsarikh sheket kdei la'avod",
         "fr": "j'ai besoin de silence pour travailler"
+      }
+    ]
+  },
+  {
+    "he": "חִיּוּךְ",
+    "fr": "sourire",
+    "genre": "m",
+    "pluriel": {
+      "he": "חִיּוּכִים",
+      "tr": "chiyukhim"
+    },
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָהּ חִיּוּךְ יָפֶה",
+        "tr": "yesh lah chiyukh yafeh",
+        "fr": "elle a un beau sourire"
+      }
+    ]
+  },
+  {
+    "he": "דִּמְעָה",
+    "fr": "larme",
+    "genre": "f",
+    "pluriel": {
+      "he": "דְּמָעוֹת",
+      "tr": "dema'ot"
+    },
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ דִּמְעָה בְּעֵינוֹ",
+        "tr": "yesh dim'ah be'eino",
+        "fr": "il a une larme dans l'œil"
+      }
+    ]
+  },
+  {
+    "he": "אֹשֶׁר",
+    "fr": "bonheur",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הָאֹשֶׁר שֶׁלִּי הוּא הַמִּשְׁפָּחָה שֶׁלִּי",
+        "tr": "ha'osher sheli hu hamishpachah sheli",
+        "fr": "mon bonheur c'est ma famille"
+      }
+    ]
+  },
+  {
+    "he": "אֹמֶץ",
+    "fr": "courage",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "צָרִיךְ אֹמֶץ כְּדֵי לְדַבֵּר",
+        "tr": "tsarikh omets kdei ledaber",
+        "fr": "il faut du courage pour parler"
+      }
+    ]
+  },
+  {
+    "he": "בְּדִיחָה",
+    "fr": "blague, plaisanterie",
+    "genre": "f",
+    "pluriel": {
+      "he": "בְּדִיחוֹת",
+      "tr": "bedichot"
+    },
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא סִפֵּר בְּדִיחָה מַצְחִיקָה",
+        "tr": "hu siper bedichah matschikah",
+        "fr": "il a raconté une blague drôle"
+      }
+    ]
+  },
+  {
+    "he": "אֹפִי",
+    "fr": "caractère, tempérament",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ לוֹ אֹפִי חָזָק",
+        "tr": "yesh lo ofi chazak",
+        "fr": "il a un caractère fort"
+      }
+    ]
+  },
+  {
+    "he": "בִּטָּחוֹן",
+    "fr": "confiance (en soi), assurance",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָהּ בִּטָּחוֹן עַצְמִי רַב",
+        "tr": "yesh lah bitachon 'atsmi rav",
+        "fr": "elle a beaucoup de confiance en elle"
+      }
+    ]
+  },
+  {
+    "he": "שִׁגְרָה",
+    "fr": "routine",
+    "genre": "f",
+    "pluriel": {
+      "he": "שִׁגְרוֹת",
+      "tr": "shigrot"
+    },
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי שִׁגְרָה קְבוּעָה בַּבֹּקֶר",
+        "tr": "yesh li shigrah kevu'ah baboker",
+        "fr": "j'ai une routine fixe le matin"
+      }
+    ]
+  },
+  {
+    "he": "אִי־סֵדֶר",
+    "fr": "désordre",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ אִי־סֵדֶר גָּדוֹל בַּחֶדֶר שֶׁלִּי",
+        "tr": "yesh iseder gadol bacheder sheli",
+        "fr": "il y a un grand désordre dans ma chambre"
+      }
+    ]
+  },
+  {
+    "he": "מְשִׂימָה",
+    "fr": "tâche",
+    "genre": "f",
+    "pluriel": {
+      "he": "מְשִׂימוֹת",
+      "tr": "mesimot"
+    },
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אֲנִי צָרִיךְ לְסַיֵּם אֶת הַמְּשִׂימָה",
+        "tr": "ani tsarikh lesayem et hamsimah",
+        "fr": "je dois terminer la tâche"
+      }
+    ]
+  },
+  {
+    "he": "עֲדִיפוּת",
+    "fr": "priorité",
+    "genre": "f",
+    "pluriel": {
+      "he": "עֲדִיפֻיּוֹת",
+      "tr": "'adifuyot"
+    },
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַמִּשְׁפָּחָה הִיא הָעֲדִיפוּת שֶׁלִּי",
+        "tr": "hamishpachah hi ha'adifut sheli",
+        "fr": "la famille est ma priorité"
       }
     ]
   }

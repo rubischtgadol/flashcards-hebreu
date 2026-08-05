@@ -22,6 +22,28 @@ surfaces, `verifieRecherche()` la garde dans les deux sens) et la **structure du
 carnet** (`</main>` fermait dans une section, deux sections se rendaient hors de
 la colonne de lecture ; `verifieStructureCarnet()` l'interdit désormais).
 
+⚠️ **Découverte du 05/08, plus importante que le lot qui l'a révélée : le
+classement CECRL du corpus est incohérent par endroits.** En visant les cellules
+A1 creuses, les contradicteurs ont requalifié ~46 mots hors de A1 — non par
+erreur, mais en **ancrant chaque mot neuf sur ses voisins déjà présents**. Or
+ces voisins sont eux-mêmes mal placés : le carnet classe `שָׂמֵחַ` « heureux »
+en **A1** et `עָצוּב` « triste » en **A2** ; `לֶאֱהֹב` « aimer » en A1 mais
+`לִצְחֹק` « rire » et `לִבְכּוֹת` « pleurer » en A2. **Une paire d'antonymes
+élémentaires scindée est fausse quel que soit l'endroit où l'on place la
+barre.** Conséquence : `emotions-caractere` A1:4 n'est **pas** un trou de
+vocabulaire — aucun ajout ne le comblera, puisque tout mot neuf s'ancrera sur
+les mêmes voisins fautifs. C'est le barème qu'il faut corriger, pas le stock.
+Un audit de cohérence est lancé (paires d'antonymes scindées, séries
+incomplètes) ; **son résultat attend un arbitrage** avant toute réécriture de
+`niveau` dans `data/`.
+
+✅ **Lot du 05/08 (second) : +100 mots sur les six cellules (thème × niveau) les
+plus creuses.** 1795 → 1895 cartes, exemples 1549 → 1649. Quota de niveau imposé
+par agent, et 280 `tr` dérivés / 0 fourni (la parade tient). ⚠️ Le quota A1 n'a
+PAS été atteint (57 visés, 11 obtenus) — pour la raison ci-dessus, qui est un
+résultat et non un échec. 3 doublons **intra-lot** écartés par le générateur :
+deux agents parallèles avaient proposé les mêmes mots, collision documentée.
+
 ✅ **Lot du 05/08 : les cinq thèmes les plus creux sont comblés.** +67 entrées
 (1728 → 1795 cartes) sur `temps-calendrier` 38→51, `vetements-couleurs` 46→58,
 `argent-achats` 45→59, `communication-pensee` 52→66, `loisirs-culture` 53→67.
@@ -77,7 +99,7 @@ chacun a une commande qui le recalcule :
 
 | Fait | Valeur | L'autorité qui la recalcule |
 | --- | --- | --- |
-| Cartes | 1795 (A1 493 · A2 696 · B1 537 · B2 50 · C1 19) | `node tools/cherche_mots.js --stats` |
+| Cartes | 1895 (A1 504 · A2 742 · B1 580 · B2 50 · C1 19) | `node tools/cherche_mots.js --stats` |
 | Sections du carnet | 45 (44 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
 | Catégories de cartes | 25 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
 | Garde-fous anti-casse silencieuse | 13 | ARCHITECTURE.md § Garde-fous |

@@ -2624,6 +2624,454 @@
     ]
   },
   {
+    "he": "לְהַשְׁקִיעַ",
+    "fr": "investir",
+    "formes": [
+      {
+        "he": "מַשְׁקִיעַ",
+        "tr": "mashki'a"
+      },
+      {
+        "he": "מַשְׁקִיעָה",
+        "tr": "mashki'ah"
+      },
+      {
+        "he": "מַשְׁקִיעִים",
+        "tr": "mashki'im"
+      },
+      {
+        "he": "מַשְׁקִיעוֹת",
+        "tr": "mashki'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא מַשְׁקִיעָה כֶּסֶף בְּעֵסֶק חָדָשׁ",
+        "tr": "hi mashki'ah kesef be'esek chadash",
+        "fr": "elle investit de l'argent dans une nouvelle affaire"
+      }
+    ]
+  },
+  {
+    "he": "לְהַסְפִּיק",
+    "fr": "avoir le temps de, arriver à temps",
+    "formes": [
+      {
+        "he": "מַסְפִּיק",
+        "tr": "maspik"
+      },
+      {
+        "he": "מַסְפִּיקָה",
+        "tr": "maspikah"
+      },
+      {
+        "he": "מַסְפִּיקִים",
+        "tr": "maspikim"
+      },
+      {
+        "he": "מַסְפִּיקוֹת",
+        "tr": "maspikot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "temps-calendrier",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי לֹא מַסְפִּיק לְסַיֵּם הַיּוֹם",
+        "tr": "ani lo maspik lesayem hayom",
+        "fr": "je n'ai pas le temps de finir aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְרַגֵּל",
+    "fr": "s'habituer",
+    "formes": [
+      {
+        "he": "מִתְרַגֵּל",
+        "tr": "mitragel"
+      },
+      {
+        "he": "מִתְרַגֶּלֶת",
+        "tr": "mitragelet"
+      },
+      {
+        "he": "מִתְרַגְּלִים",
+        "tr": "mitraglim"
+      },
+      {
+        "he": "מִתְרַגְּלוֹת",
+        "tr": "mitraglot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְרַגֵּל לַשָּׁעוֹת הַחֲדָשׁוֹת",
+        "tr": "ani mitragel lasha'ot hachadashot",
+        "fr": "je m'habitue aux nouveaux horaires"
+      }
+    ]
+  },
+  {
+    "he": "לְקַצֵּר",
+    "fr": "raccourcir",
+    "formes": [
+      {
+        "he": "מְקַצֵּר",
+        "tr": "mekatser"
+      },
+      {
+        "he": "מְקַצֶּרֶת",
+        "tr": "mekatseret"
+      },
+      {
+        "he": "מְקַצְּרִים",
+        "tr": "mekatsrim"
+      },
+      {
+        "he": "מְקַצְּרוֹת",
+        "tr": "mekatsrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא מְקַצֶּרֶת אֶת זְמַן הַהַמְתָּנָה",
+        "tr": "hi mekatseret et zeman hahamtanah",
+        "fr": "elle raccourcit le temps d'attente"
+      }
+    ]
+  },
+  {
+    "he": "לְעַכֵּב",
+    "fr": "retarder (quelqu'un, quelque chose)",
+    "formes": [
+      {
+        "he": "מְעַכֵּב",
+        "tr": "me'akev"
+      },
+      {
+        "he": "מְעַכֶּבֶת",
+        "tr": "me'akevet"
+      },
+      {
+        "he": "מְעַכְּבִים",
+        "tr": "me'akvim"
+      },
+      {
+        "he": "מְעַכְּבוֹת",
+        "tr": "me'akvot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַגֶּשֶׁם מְעַכֵּב אֶת הַטִּיסָה",
+        "tr": "hageshem me'akev et hatisah",
+        "fr": "la pluie retarde le vol"
+      }
+    ]
+  },
+  {
+    "he": "לְהַאֲרִיךְ",
+    "fr": "prolonger",
+    "formes": [
+      {
+        "he": "מַאֲרִיךְ",
+        "tr": "ma'arikh"
+      },
+      {
+        "he": "מַאֲרִיכָה",
+        "tr": "ma'arikhah"
+      },
+      {
+        "he": "מַאֲרִיכִים",
+        "tr": "ma'arikhim"
+      },
+      {
+        "he": "מַאֲרִיכוֹת",
+        "tr": "ma'arikhot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הֵם מַאֲרִיכִים אֶת הַחֻפְשָׁה בְּשָׁבוּעַ",
+        "tr": "hem ma'arikhim et hachufshah beshavu'a",
+        "fr": "ils prolongent les vacances d'une semaine"
+      }
+    ]
+  },
+  {
+    "he": "לְהַתְמִיד",
+    "fr": "persévérer, continuer avec constance",
+    "formes": [
+      {
+        "he": "מַתְמִיד",
+        "tr": "matmid"
+      },
+      {
+        "he": "מַתְמִידָה",
+        "tr": "matmidah"
+      },
+      {
+        "he": "מַתְמִידִים",
+        "tr": "matmidim"
+      },
+      {
+        "he": "מַתְמִידוֹת",
+        "tr": "matmidot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מַתְמִיד בַּלִּמּוּדִים כָּל יוֹם",
+        "tr": "ani matmid balimudim kol yom",
+        "fr": "je persévère dans mes études chaque jour"
+      }
+    ]
+  },
+  {
+    "he": "לְהַלְבִּישׁ",
+    "fr": "habiller (quelqu'un)",
+    "formes": [
+      {
+        "he": "מַלְבִּישׁ",
+        "tr": "malbish"
+      },
+      {
+        "he": "מַלְבִּישָׁה",
+        "tr": "malbishah"
+      },
+      {
+        "he": "מַלְבִּישִׁים",
+        "tr": "malbishim"
+      },
+      {
+        "he": "מַלְבִּישׁוֹת",
+        "tr": "malbishot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הָאֵם מַלְבִּישָׁה אֶת הַתִּינוֹק",
+        "tr": "ha'em malbishah et hatinok",
+        "fr": "la mère habille le bébé"
+      }
+    ]
+  },
+  {
+    "he": "לִנְעֹל",
+    "fr": "chausser, mettre ses chaussures",
+    "formes": [
+      {
+        "he": "נוֹעֵל",
+        "tr": "no'el"
+      },
+      {
+        "he": "נוֹעֶלֶת",
+        "tr": "no'elet"
+      },
+      {
+        "he": "נוֹעֲלִים",
+        "tr": "no'alim"
+      },
+      {
+        "he": "נוֹעֲלוֹת",
+        "tr": "no'alot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי נוֹעֵל נַעֲלַיִם חֲדָשׁוֹת",
+        "tr": "ani no'el na'alayim chadashot",
+        "fr": "je chausse des chaussures neuves"
+      }
+    ]
+  },
+  {
+    "he": "לִקְשֹׁר",
+    "fr": "attacher, nouer",
+    "formes": [
+      {
+        "he": "קוֹשֵׁר",
+        "tr": "kosher"
+      },
+      {
+        "he": "קוֹשֶׁרֶת",
+        "tr": "kosheret"
+      },
+      {
+        "he": "קוֹשְׁרִים",
+        "tr": "koshrim"
+      },
+      {
+        "he": "קוֹשְׁרוֹת",
+        "tr": "koshrot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד קוֹשֵׁר אֶת הַנַּעֲלַיִם",
+        "tr": "hayeled kosher et hana'alayim",
+        "fr": "l'enfant attache ses chaussures"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְאַרְגֵּן",
+    "fr": "s'organiser",
+    "formes": [
+      {
+        "he": "מִתְאַרְגֵּן",
+        "tr": "mitargen"
+      },
+      {
+        "he": "מִתְאַרְגֶּנֶת",
+        "tr": "mitargenet"
+      },
+      {
+        "he": "מִתְאַרְגְּנִים",
+        "tr": "mitargnim"
+      },
+      {
+        "he": "מִתְאַרְגְּנוֹת",
+        "tr": "mitargnot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "אֲנִי מִתְאַרְגֵּן לִקְרַאת הַיּוֹם",
+        "tr": "ani mitargen likrat hayom",
+        "fr": "je m'organise pour la journée"
+      }
+    ]
+  },
+  {
+    "he": "לְהִסְתַּדֵּר",
+    "fr": "se débrouiller, s'arranger",
+    "formes": [
+      {
+        "he": "מִסְתַּדֵּר",
+        "tr": "mistader"
+      },
+      {
+        "he": "מִסְתַּדֶּרֶת",
+        "tr": "mistaderet"
+      },
+      {
+        "he": "מִסְתַּדְּרִים",
+        "tr": "mistadrim"
+      },
+      {
+        "he": "מִסְתַּדְּרוֹת",
+        "tr": "mistadrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הוּא תָּמִיד מִסְתַּדֵּר לְבַד",
+        "tr": "hu tamid mistader levad",
+        "fr": "il se débrouille toujours tout seul"
+      }
+    ]
+  },
+  {
+    "he": "לְטַפֵּל",
+    "fr": "s'occuper de, traiter",
+    "formes": [
+      {
+        "he": "מְטַפֵּל",
+        "tr": "metapel"
+      },
+      {
+        "he": "מְטַפֶּלֶת",
+        "tr": "metapelet"
+      },
+      {
+        "he": "מְטַפְּלִים",
+        "tr": "metaplim"
+      },
+      {
+        "he": "מְטַפְּלוֹת",
+        "tr": "metaplot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא מְטַפֶּלֶת בַּיֶּלֶד כָּל יוֹם",
+        "tr": "hi metapelet bayeled kol yom",
+        "fr": "elle s'occupe de l'enfant tous les jours"
+      }
+    ]
+  },
+  {
+    "he": "לְנַהֵל",
+    "fr": "gérer, diriger",
+    "formes": [
+      {
+        "he": "מְנַהֵל",
+        "tr": "menahel"
+      },
+      {
+        "he": "מְנַהֶלֶת",
+        "tr": "menahelet"
+      },
+      {
+        "he": "מְנַהֲלִים",
+        "tr": "menahalim"
+      },
+      {
+        "he": "מְנַהֲלוֹת",
+        "tr": "menahalot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "vie-quotidienne",
+    "exemples": [
+      {
+        "he": "הִיא מְנַהֶלֶת אֶת הַזְּמַן שֶׁלָּהּ הֵיטֵב",
+        "tr": "hi menahelet et hazman shelah heitev",
+        "fr": "elle gère bien son temps"
+      }
+    ]
+  },
+  {
     "he": "לְדַבֵּר",
     "fr": "parler",
     "formes": [
@@ -4444,6 +4892,102 @@
         "he": "הוּא מוֹכִיחַ שֶׁהוּא צוֹדֵק",
         "tr": "hu mokhiyach shehu tsodek",
         "fr": "il prouve qu'il a raison"
+      }
+    ]
+  },
+  {
+    "he": "לִסְבֹּל",
+    "fr": "souffrir",
+    "formes": [
+      {
+        "he": "סוֹבֵל",
+        "tr": "sovel"
+      },
+      {
+        "he": "סוֹבֶלֶת",
+        "tr": "sovelet"
+      },
+      {
+        "he": "סוֹבְלִים",
+        "tr": "sovlim"
+      },
+      {
+        "he": "סוֹבְלוֹת",
+        "tr": "sovlot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הִיא סוֹבֶלֶת מֵהַכְּאֵב",
+        "tr": "hi sovelet mehakev",
+        "fr": "elle souffre à cause de la douleur"
+      }
+    ]
+  },
+  {
+    "he": "לִסְלֹחַ",
+    "fr": "pardonner",
+    "formes": [
+      {
+        "he": "סוֹלֵחַ",
+        "tr": "soleach"
+      },
+      {
+        "he": "סוֹלַחַת",
+        "tr": "solachat"
+      },
+      {
+        "he": "סוֹלְחִים",
+        "tr": "solchim"
+      },
+      {
+        "he": "סוֹלְחוֹת",
+        "tr": "solchot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הִיא סוֹלַחַת לְאָחִיהָ",
+        "tr": "hi solachat le'achiha",
+        "fr": "elle pardonne à son frère"
+      }
+    ]
+  },
+  {
+    "he": "לְהִתְנַצֵּל",
+    "fr": "s'excuser",
+    "formes": [
+      {
+        "he": "מִתְנַצֵּל",
+        "tr": "mitnatsel"
+      },
+      {
+        "he": "מִתְנַצֶּלֶת",
+        "tr": "mitnatselet"
+      },
+      {
+        "he": "מִתְנַצְּלִים",
+        "tr": "mitnatslim"
+      },
+      {
+        "he": "מִתְנַצְּלוֹת",
+        "tr": "mitnatslot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "pensee-sentiments",
+    "exemples": [
+      {
+        "he": "הוּא מִתְנַצֵּל עַל הַטָּעוּת",
+        "tr": "hu mitnatsel 'al hata'ut",
+        "fr": "il s'excuse pour l'erreur"
       }
     ]
   },
@@ -7452,6 +7996,230 @@
         "he": "הוּא גּוֹלֵשׁ בַּיָּם בְּכָל קַיִץ",
         "tr": "hu golesh bayam bekhol kayits",
         "fr": "il fait du surf à la mer chaque été"
+      }
+    ]
+  },
+  {
+    "he": "לְחַיֵּךְ",
+    "fr": "sourire",
+    "formes": [
+      {
+        "he": "מְחַיֵּךְ",
+        "tr": "mechayekh"
+      },
+      {
+        "he": "מְחַיֶּכֶת",
+        "tr": "mechayekhet"
+      },
+      {
+        "he": "מְחַיְּכִים",
+        "tr": "mechaykhim"
+      },
+      {
+        "he": "מְחַיְּכוֹת",
+        "tr": "mechaykhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד מְחַיֵּךְ אֶל אִמּוֹ",
+        "tr": "hayeled mechayekh el imo",
+        "fr": "l'enfant sourit à sa mère"
+      }
+    ]
+  },
+  {
+    "he": "לְהַפְחִיד",
+    "fr": "faire peur (à), effrayer",
+    "formes": [
+      {
+        "he": "מַפְחִיד",
+        "tr": "mafchid"
+      },
+      {
+        "he": "מַפְחִידָה",
+        "tr": "mafchidah"
+      },
+      {
+        "he": "מַפְחִידִים",
+        "tr": "mafchidim"
+      },
+      {
+        "he": "מַפְחִידוֹת",
+        "tr": "mafchidot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַכֶּלֶב הַגָּדוֹל מַפְחִיד אֶת הַיֶּלֶד",
+        "tr": "hakelev hagadol mafchid et hayeled",
+        "fr": "le grand chien fait peur à l'enfant"
+      }
+    ]
+  },
+  {
+    "he": "לִצְעֹק",
+    "fr": "crier",
+    "formes": [
+      {
+        "he": "צוֹעֵק",
+        "tr": "tso'ek"
+      },
+      {
+        "he": "צוֹעֶקֶת",
+        "tr": "tso'eket"
+      },
+      {
+        "he": "צוֹעֲקִים",
+        "tr": "tso'akim"
+      },
+      {
+        "he": "צוֹעֲקוֹת",
+        "tr": "tso'akot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים צוֹעֲקִים בֶּחָצֵר",
+        "tr": "hayladim tso'akim bechatser",
+        "fr": "les enfants crient dans la cour"
+      }
+    ]
+  },
+  {
+    "he": "לְחַבֵּק",
+    "fr": "embrasser, serrer dans ses bras",
+    "formes": [
+      {
+        "he": "מְחַבֵּק",
+        "tr": "mechabek"
+      },
+      {
+        "he": "מְחַבֶּקֶת",
+        "tr": "mechabeket"
+      },
+      {
+        "he": "מְחַבְּקִים",
+        "tr": "mechabkim"
+      },
+      {
+        "he": "מְחַבְּקוֹת",
+        "tr": "mechabkot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הָאִמָּא מְחַבֶּקֶת אֶת הַיֶּלֶד",
+        "tr": "ha'ima mechabeket et hayeled",
+        "fr": "la mère embrasse l'enfant"
+      }
+    ]
+  },
+  {
+    "he": "לִרְעֹד",
+    "fr": "trembler",
+    "formes": [
+      {
+        "he": "רוֹעֵד",
+        "tr": "ro'ed"
+      },
+      {
+        "he": "רוֹעֶדֶת",
+        "tr": "ro'edet"
+      },
+      {
+        "he": "רוֹעֲדִים",
+        "tr": "ro'adim"
+      },
+      {
+        "he": "רוֹעֲדוֹת",
+        "tr": "ro'adot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד רוֹעֵד מִפַּחַד",
+        "tr": "hayeled ro'ed mipachad",
+        "fr": "l'enfant tremble de peur"
+      }
+    ]
+  },
+  {
+    "he": "לְהַשְׁקוֹת",
+    "fr": "arroser",
+    "formes": [
+      {
+        "he": "מַשְׁקֶה",
+        "tr": "mashkeh"
+      },
+      {
+        "he": "מַשְׁקָה",
+        "tr": "mashkah"
+      },
+      {
+        "he": "מַשְׁקִים",
+        "tr": "mashkim"
+      },
+      {
+        "he": "מַשְׁקוֹת",
+        "tr": "mashkot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הִיא מַשְׁקָה אֶת הַצְּמָחִים כָּל בֹּקֶר",
+        "tr": "hi mashkah et hatsmachim kol boker",
+        "fr": "elle arrose les plantes chaque matin"
+      }
+    ]
+  },
+  {
+    "he": "לִצְמֹחַ",
+    "fr": "pousser / croître",
+    "formes": [
+      {
+        "he": "צוֹמֵחַ",
+        "tr": "tsomeach"
+      },
+      {
+        "he": "צוֹמַחַת",
+        "tr": "tsomachat"
+      },
+      {
+        "he": "צוֹמְחִים",
+        "tr": "tsomchim"
+      },
+      {
+        "he": "צוֹמְחוֹת",
+        "tr": "tsomchot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "loisirs-emotions",
+    "exemples": [
+      {
+        "he": "הָעֵץ הַזֶּה צוֹמֵחַ מַהֵר מְאֹד",
+        "tr": "ha'ets hazeh tsomeach maher me'od",
+        "fr": "cet arbre pousse très vite"
       }
     ]
   }

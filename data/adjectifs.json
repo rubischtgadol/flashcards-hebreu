@@ -7110,5 +7110,397 @@
         "fr": "ce spectacle est très divertissant"
       }
     ]
+  },
+  {
+    "he": "מֻפְתָּע",
+    "fr": "surpris, étonné",
+    "formes": [
+      {
+        "he": "מֻפְתַּעַת",
+        "tr": "mufta'at"
+      },
+      {
+        "he": "מֻפְתָּעִים",
+        "tr": "mufta'im"
+      },
+      {
+        "he": "מֻפְתָּעוֹת",
+        "tr": "mufta'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי מֻפְתָּע מֵהַחַדְשׁוֹת",
+        "tr": "ani mufta' mehachadshot",
+        "fr": "je suis surpris par les nouvelles"
+      }
+    ]
+  },
+  {
+    "he": "מִצְטַעֵר",
+    "fr": "désolé",
+    "formes": [
+      {
+        "he": "מִצְטַעֶרֶת",
+        "tr": "mitsta'eret"
+      },
+      {
+        "he": "מִצְטַעֲרִים",
+        "tr": "mitsta'arim"
+      },
+      {
+        "he": "מִצְטַעֲרוֹת",
+        "tr": "mitsta'arot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי מִצְטַעֵר עַל הָאִחוּר",
+        "tr": "ani mitsta'er 'al ha'ichur",
+        "fr": "je suis désolé pour le retard"
+      }
+    ]
+  },
+  {
+    "he": "פַּחְדָן",
+    "fr": "peureux, froussard",
+    "formes": [
+      {
+        "he": "פַּחְדָנִית",
+        "tr": "pachdanit"
+      },
+      {
+        "he": "פַּחְדָנִים",
+        "tr": "pachdanim"
+      },
+      {
+        "he": "פַּחְדָנִיּוֹת",
+        "tr": "pachdaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא יֶלֶד פַּחְדָן מְאֹד",
+        "tr": "hu yeled pachdan me'od",
+        "fr": "c'est un enfant très peureux"
+      }
+    ]
+  },
+  {
+    "he": "מְשֻׁגָּע",
+    "fr": "fou, dingue (fam.)",
+    "formes": [
+      {
+        "he": "מְשֻׁגַּעַת",
+        "tr": "meshuga'at"
+      },
+      {
+        "he": "מְשֻׁגָּעִים",
+        "tr": "meshuga'im"
+      },
+      {
+        "he": "מְשֻׁגָּעוֹת",
+        "tr": "meshuga'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא קְצָת מְשֻׁגָּע אֲבָל נֶחְמָד",
+        "tr": "hu ketsat meshuga' aval nechmad",
+        "fr": "il est un peu fou mais sympa"
+      }
+    ]
+  },
+  {
+    "he": "רָגִיל",
+    "fr": "habituel, normal, ordinaire",
+    "formes": [
+      {
+        "he": "רְגִילָה",
+        "tr": "regilah"
+      },
+      {
+        "he": "רְגִילִים",
+        "tr": "regilim"
+      },
+      {
+        "he": "רְגִילוֹת",
+        "tr": "regilot"
+      }
+    ],
+    "niveau": "A1",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה יוֹם רָגִיל בָּעֲבוֹדָה",
+        "tr": "zeh yom ragil ba'avodah",
+        "fr": "c'est une journée normale au travail"
+      }
+    ]
+  },
+  {
+    "he": "סָדִיר",
+    "fr": "régulier",
+    "formes": [
+      {
+        "he": "סְדִירָה",
+        "tr": "sdirah"
+      },
+      {
+        "he": "סְדִירִים",
+        "tr": "sdirim"
+      },
+      {
+        "he": "סְדִירוֹת",
+        "tr": "sdirot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ מִפְגָּשׁ סָדִיר בְּכָל שָׁבוּעַ",
+        "tr": "yesh lanu mifgash sadir bekhol shavu'a",
+        "fr": "on a une rencontre régulière chaque semaine"
+      }
+    ]
+  },
+  {
+    "he": "דָּחוּף",
+    "fr": "urgent",
+    "formes": [
+      {
+        "he": "דְּחוּפָה",
+        "tr": "dechufah"
+      },
+      {
+        "he": "דְּחוּפִים",
+        "tr": "dechufim"
+      },
+      {
+        "he": "דְּחוּפוֹת",
+        "tr": "dechufot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה עִנְיָן דָּחוּף מְאֹד",
+        "tr": "zeh 'inyan dachuf me'od",
+        "fr": "c'est une affaire très urgente"
+      }
+    ]
+  },
+  {
+    "he": "רָצוּף",
+    "fr": "continu, d'affilée",
+    "formes": [
+      {
+        "he": "רְצוּפָה",
+        "tr": "retsufah"
+      },
+      {
+        "he": "רְצוּפִים",
+        "tr": "retsufim"
+      },
+      {
+        "he": "רְצוּפוֹת",
+        "tr": "retsufot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי עוֹבֵד שָׁלוֹשׁ שָׁעוֹת רְצוּפוֹת",
+        "tr": "ani 'oved shalosh sha'ot retsufot",
+        "fr": "je travaille trois heures d'affilée"
+      }
+    ]
+  },
+  {
+    "he": "לָבוּשׁ",
+    "fr": "habillé, vêtu",
+    "formes": [
+      {
+        "he": "לְבוּשָׁה",
+        "tr": "levushah"
+      },
+      {
+        "he": "לְבוּשִׁים",
+        "tr": "levushim"
+      },
+      {
+        "he": "לְבוּשׁוֹת",
+        "tr": "levushot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא לָבוּשׁ יָפֶה הַיּוֹם",
+        "tr": "hu lavush yafeh hayom",
+        "fr": "il est bien habillé aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "מְפֻסְפָּס",
+    "fr": "rayé",
+    "formes": [
+      {
+        "he": "מְפֻסְפֶּסֶת",
+        "tr": "mefuspeset"
+      },
+      {
+        "he": "מְפֻסְפָּסִים",
+        "tr": "mefuspasim"
+      },
+      {
+        "he": "מְפֻסְפָּסוֹת",
+        "tr": "mefuspasot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֻלְצָה מְפֻסְפֶּסֶת בְּכָחֹל וְלָבָן",
+        "tr": "hachultsah mefuspeset bekhachol velavan",
+        "fr": "la chemise est rayée de bleu et blanc"
+      }
+    ]
+  },
+  {
+    "he": "מְיֻשָּׁן",
+    "fr": "démodé",
+    "formes": [
+      {
+        "he": "מְיֻשֶּׁנֶת",
+        "tr": "meyushenet"
+      },
+      {
+        "he": "מְיֻשָּׁנִים",
+        "tr": "meyushanim"
+      },
+      {
+        "he": "מְיֻשָּׁנוֹת",
+        "tr": "meyushanot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֲלִיפָה הַזֹּאת מְיֻשֶּׁנֶת קְצָת",
+        "tr": "hachalifah hazot meyushenet ketsat",
+        "fr": "ce costume est un peu démodé"
+      }
+    ]
+  },
+  {
+    "he": "מְקֻמָּט",
+    "fr": "froissé, chiffonné",
+    "formes": [
+      {
+        "he": "מְקֻמֶּטֶת",
+        "tr": "mekumetet"
+      },
+      {
+        "he": "מְקֻמָּטִים",
+        "tr": "mekumatim"
+      },
+      {
+        "he": "מְקֻמָּטוֹת",
+        "tr": "mekumatot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֻלְצָה שֶׁלִּי מְקֻמֶּטֶת מְאוֹד",
+        "tr": "hachultsah sheli mekumetet meod",
+        "fr": "ma chemise est très froissée"
+      }
+    ]
+  },
+  {
+    "he": "נָהוּג",
+    "fr": "habituel, coutumier",
+    "formes": [
+      {
+        "he": "נְהוּגָה",
+        "tr": "nehugah"
+      },
+      {
+        "he": "נְהוּגִים",
+        "tr": "nehugim"
+      },
+      {
+        "he": "נְהוּגוֹת",
+        "tr": "nehugot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "כָּךְ נָהוּג לַעֲשׂוֹת בָּאָרֶץ",
+        "tr": "kakh nahug la'asot ba'arets",
+        "fr": "c'est ce qui se fait habituellement dans le pays"
+      }
+    ]
+  },
+  {
+    "he": "מְאֻרְגָּן",
+    "fr": "organisé",
+    "formes": [
+      {
+        "he": "מְאֻרְגֶּנֶת",
+        "tr": "me'urgenet"
+      },
+      {
+        "he": "מְאֻרְגָּנִים",
+        "tr": "me'urganim"
+      },
+      {
+        "he": "מְאֻרְגָּנוֹת",
+        "tr": "me'urganot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vie-quotidienne",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֶדֶר שֶׁלּוֹ תָּמִיד מְאֻרְגָּן",
+        "tr": "hacheder shelo tamid me'urgan",
+        "fr": "sa chambre est toujours organisée"
+      }
+    ]
   }
 ]
