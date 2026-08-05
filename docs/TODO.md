@@ -14,58 +14,21 @@
 
 ## Reprendre ici (prochaine session)
 
-🟢 **Aucun défaut ouvert.** Le dernier — le portail qui animait encore sous
-« réduire les animations » — est soldé le 05/08 (voir § Défauts ouverts).
-Soldés le 29/07 : la **recherche** (`cleRecherche`
-replie ktiv male/haser et les variantes de translittération sur les deux
-surfaces, `verifieRecherche()` la garde dans les deux sens) et la **structure du
-carnet** (`</main>` fermait dans une section, deux sections se rendaient hors de
-la colonne de lecture ; `verifieStructureCarnet()` l'interdit désormais).
+🟢 **Aucun défaut ouvert** (voir § Défauts ouverts). La **recherche**
+(`cleRecherche`) replie ktiv male/haser et les variantes de translittération
+sur les deux surfaces ; `verifieRecherche()` la garde dans les deux sens. La
+**structure du carnet** obéit à la même règle : aucune section ne doit se
+rendre après `</main>`, sous peine de perdre la colonne de lecture ;
+`verifieStructureCarnet()` l'interdit.
 
-⚠️ **Découverte du 05/08, plus importante que le lot qui l'a révélée : le
-classement CECRL du corpus est incohérent par endroits.** En visant les cellules
-A1 creuses, les contradicteurs ont requalifié ~46 mots hors de A1 — non par
-erreur, mais en **ancrant chaque mot neuf sur ses voisins déjà présents**. Or
-ces voisins sont eux-mêmes mal placés : le carnet classe `שָׂמֵחַ` « heureux »
-en **A1** et `עָצוּב` « triste » en **A2** ; `לֶאֱהֹב` « aimer » en A1 mais
-`לִצְחֹק` « rire » et `לִבְכּוֹת` « pleurer » en A2. **Une paire d'antonymes
-élémentaires scindée est fausse quel que soit l'endroit où l'on place la
-barre.** Conséquence : `emotions-caractere` A1:4 n'est **pas** un trou de
-vocabulaire — aucun ajout ne le comblera, puisque tout mot neuf s'ancrera sur
-les mêmes voisins fautifs. C'est le barème qu'il faut corriger, pas le stock.
-✅ **Audité et corrigé le 05/08.** L'audit (5 auditeurs, 15 thèmes) conclut que
-le corpus est **globalement sain — 24 cartes sur 1895, soit 1,3 %** — mais que
-le défaut a une **signature unique** : dans une paire d'antonymes, c'est
-**toujours le membre marqué** (le négatif, le moins fréquent) qui est puni d'un
-palier — triste, vendre, laid, malade/sain, salé, précédent, se taire, ennemi.
-Un seul biais appliqué 21 fois, donc corrigible d'un bloc. Les 24 reclassements
-sont appliqués (dont 3 **cascades** : descendre « en bonne santé » sans
-descendre `מַחֲלָה` « maladie » aurait aggravé l'écart nominal). Répartition
-A1 504→**513** · A2 742→**748** · B1 580→**565**, conforme à la prévision.
+⚠️ **Une paire d'antonymes élémentaires ne se scinde pas entre deux niveaux.** Le biais connu du barème : le membre *marqué* (le négatif, le moins fréquent) glisse d'un palier. Un thème pauvre en A1 est donc à lire comme un défaut de barème avant d'être lu comme un trou de vocabulaire — aucun ajout ne comble le second, puisque tout mot neuf s'ancre sur les mêmes voisins.
 
-📌 **Décision de cadrage du propriétaire (05/08) : ne plus viser A1, viser A2 et
+📌 **Décision de cadrage du propriétaire : ne plus viser A1, viser A2 et
 B1.** Un vocabulaire A1 au sens du CECR compte conventionnellement 500 à 750
 mots ; le carnet en a 513. **A1 n'est pas creux, il a la taille d'un A1** — il
 paraissait creux réparti sur 15 thèmes (~34 par thème). Pousser davantage de A1
 gonflerait le niveau au-delà de ce qu'il signifie et diluerait le filtre qui
 sert à choisir une session. Les prochains lots visent A2 et B1.
-
-✅ **Lot du 05/08 (second) : +100 mots sur les six cellules (thème × niveau) les
-plus creuses.** 1795 → 1895 cartes, exemples 1549 → 1649. Quota de niveau imposé
-par agent, et 280 `tr` dérivés / 0 fourni (la parade tient). ⚠️ Le quota A1 n'a
-PAS été atteint (57 visés, 11 obtenus) — pour la raison ci-dessus, qui est un
-résultat et non un échec. 3 doublons **intra-lot** écartés par le générateur :
-deux agents parallèles avaient proposé les mêmes mots, collision documentée.
-
-✅ **Lot du 05/08 : les cinq thèmes les plus creux sont comblés.** +67 entrées
-(1728 → 1795 cartes) sur `temps-calendrier` 38→51, `vetements-couleurs` 46→58,
-`argent-achats` 45→59, `communication-pensee` 52→66, `loisirs-culture` 53→67.
-**Aucun `tr` n'a été rédigé à la main** : 216 dérivés par `he2tr` et relus au
-tableau du générateur — c'est la parade au défaut connu (les agents confondent
-`ch` et `kh`), et elle a tenu. Un contradicteur par lot a vérifié chaque niqqud
-contre he.wiktionary : 3 rejets (dont `חָדְשִׁי`) et 2 féminins d'adjectifs en
-־י corrigés (`פופולריה` → `פופולרית`). `רֶוַח` inséré avec `--force`, sa
-collision de squelette avec `רוּחַ` étant un homographe et non un doublon.
 
 📊 **Sous-produit : la couverture he.wiktionary est mesurée**, sur 70 mots
 réels — **36/70 (51 %)** en entrée directe, **45/70 (64 %)** avec les pages de
@@ -74,18 +37,7 @@ Wiktionnaire hébreu couvre les **noms** (9/9, 7/7) et **pas** les verbes ni les
 adjectifs (0/5, 0/7), que Pealim a fournis. Un éventuel `tools/consulte_dico.js`
 doit donc router **par nature de mot**, pas interroger une source unique.
 
-✅ **Soldé le 05/08 : « aucun résultat » n'est plus un cul-de-sac.** L'état vide
-de la recherche porte un lien vers le Wiktionnaire — **hébreu** si la requête
-contient des lettres hébraïques, **français** sinon
-([07-filtres.js](../src/app/js/07-filtres.js), `runSearch`). C'est un lien, pas
-un appel : la CSP `connect-src 'self'` reste fermée et le fichier autonome
-n'hérite d'aucun jeton interdit. Deux enseignements au passage, tous deux
-consignés : la garde des jetons interdits **lit du texte, pas du code**
-([ARCHITECTURE.md](ARCHITECTURE.md) § Garde-fous, point 6) ; et l'état vide
-**débordait déjà** de 391px sur téléphone (défaut **pré-existant** : la requête
-y est renvoyée en écho, sans coupure de mot), colmaté par
-`overflow-wrap:anywhere` sur `.search-empty` — marges réelles reconfirmées au
-banc WebKit aux 6 largeurs, jamais un zéro-limite (piège n°17).
+**« Aucun résultat » n'est pas un cul-de-sac.** L'état vide de la recherche porte un lien vers le Wiktionnaire — hébreu si la requête contient des lettres hébraïques, français sinon. C'est un lien, pas un appel : la CSP `connect-src 'self'` reste fermée et le fichier autonome n'hérite d'aucun jeton interdit. `.search-empty` porte `overflow-wrap:anywhere`, la requête y étant renvoyée en écho.
 
 📏 **Un chantier est MESURÉ et attend ton arbitrage : la graphie pleine
 (ktiv male)** — voir § Le chantier ktiv male.
@@ -93,7 +45,7 @@ banc WebKit aux 6 largeurs, jamais un zéro-limite (piège n°17).
 **Un chantier est ouvert sur `main` : le système de chartes graphiques.** La
 spec est validée et amendée
 ([superpowers/specs/2026-07-29-systeme-de-chartes-design.md](superpowers/specs/2026-07-29-systeme-de-chartes-design.md) —
-amendements du 29/07 : triplets RGB plutôt qu'alphas nommés, migration du décor
+triplets RGB plutôt qu'alphas nommés, migration du décor
 au lot 2), et **le plan d'implémentation est écrit**
 ([superpowers/plans/2026-07-29-systeme-de-chartes.md](superpowers/plans/2026-07-29-systeme-de-chartes.md)) :
 20 tâches en 3 phases — désincrustation (invisible, banc A/B 24 paires),
@@ -115,7 +67,7 @@ chacun a une commande qui le recalcule :
 | Cartes | 1895 (A1 513 · A2 748 · B1 565 · B2 50 · C1 19) | `node tools/cherche_mots.js --stats` |
 | Sections du carnet | 45 (44 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
 | Catégories de cartes | 25 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
-| Garde-fous anti-casse silencieuse | 13 | ARCHITECTURE.md § Garde-fous |
+| Garde-fous anti-casse silencieuse | 14 | ARCHITECTURE.md § Garde-fous |
 | Outils dev | 7 dans `tools/` | `ls tools/*.js` |
 | Modules de l'app | 14 JS + 6 CSS dans `src/app/` | `src/app/ordre.json`, gardé par `verifieOrphelins()` |
 
@@ -178,8 +130,7 @@ worktree. On peut la lire pour documenter l'écart — pas la modifier.
   bien le tronc actif ; cette branche est en attente, pas en cours. Elle est
   **sortie en worktree**
   (`git worktree list` → `/home/ruben/dev/flashcards-hebreu-refonte`), donc on
-  ne la `checkout` pas depuis ce répertoire-ci. ⚠️ **Décision du propriétaire
-  (29/07) : la direction v2 actuelle ne le satisfait pas et sera retravaillée**
+  ne la `checkout` pas depuis ce répertoire-ci. ⚠️ **Décision du propriétaire : la direction v2 actuelle ne le satisfait pas et sera retravaillée**
   — les planches de jugement de la branche se lisent en le sachant. Le véhicule
   du portage est désormais le **système de chartes de `main`** (spec + plan dans
   `docs/superpowers/`) : la v2 deviendra un dossier `src/chartes/<slug>/` quand
@@ -213,8 +164,7 @@ git diff --name-only main...<branche> -- app.html index.html vocabulaire_hebreu.
   (`src/app/`, `src/portail/`, `data/` + `src/carnet/`), en lisant le diff comme
   une spécification. Ce n'est pas un merge, c'est une réécriture guidée.
 
-💡 **Le portage de la v2 a son véhicule : le système de chartes** (spec et plan
-du 29/07 dans `docs/superpowers/`, non implémenté — voir « Reprendre ici »).
+💡 **Le portage de la v2 a son véhicule : le système de chartes** (spec et plan dans `docs/superpowers/`, non implémenté — voir « Reprendre ici »).
 Une fois ce chantier exécuté, une charte est un dossier `src/chartes/<slug>/`
 (jetons + règles + identité) : la v2 s'y versera comme un jeu de valeurs et son
 décor, sans toucher aux surfaces.
@@ -275,20 +225,19 @@ points : `מסבך`. Ce n'est ni du ktiv haser (qui a besoin de ses points) ni d
 ktiv male (`מסובך`) — c'est une graphie qu'aucun texte réel n'emploie, montrée à
 quelqu'un qui apprend. Où : la **ligne cursive du carnet** (sous chaque mot de
 tableau ou de liste, ~5573) et, dans l'app, la ligne cursive du verso fr→hé
-(inconditionnelle), les deux modes d'écriture et le QCM. **Décision du
-propriétaire (29/07) : la cursive reste SANS nikoud** — la sortie de secours
+(inconditionnelle), les deux modes d'écriture et le QCM. **Décision du propriétaire : la cursive reste SANS nikoud** — la sortie de secours
 « afficher le vocalisé » est donc écartée, il faut la vraie graphie pleine.
 
 **La mesure** (`node tools/propose_ktiv_male.js`, le chiffre se recalcule) :
-sur 4780 formes hébraïques, **1346 s'écartent** (28 %) — dont **338 vedettes**.
-Par confiance : **801 mécaniques** (kubutz/holam/hirik, confirmation en bloc) et
-**545 à arbitrer** (redoublement du ו/י). Le lot le plus court est donc
-**338 vedettes, dont 76 seulement demandent un jugement** (`--vedettes`).
+sur 5376 formes hébraïques, **1524 s'écartent** (28 %) — dont **383 vedettes**.
+Par confiance : **915 mécaniques** (kubutz/holam/hirik, confirmation en bloc) et
+**609 à arbitrer** (redoublement du ו/י). Le lot le plus court est donc
+**383 vedettes, dont 85 seulement demandent un jugement** (`--vedettes`).
 
 ⚠️ **Aucune règle ne fermera le redoublement, et c'est démontré** : `לַיְלָה` et
 `בַּיְשָׁן` portent le motif *identique* (patach, yod, chva) et donnent `לילה`
 (un yod) contre `ביישן` (deux). Et il n'existe **aucun harnais** : `he2tr` se
-règle contre 4229 `tr` écrits à la main, alors que `data/` ne porte aucune
+règle contre 4725 `tr` écrits à la main, alors que `data/` ne porte aucune
 graphie pleine manuscrite. L'outil PROPOSE, il ne décide pas.
 
 **Le régime visé** : celui des `.tr` — un champ écrit à la main qui fait
@@ -306,30 +255,18 @@ ne bloque rien et ne se périme pas).
 Distincts de la dette ci-dessous : aucun ne porte de raison d'être toléré. Ce
 sont des chantiers.
 
-**La liste est vide depuis le 05/08.**
+**La liste est vide.**
 
-✅ *Soldé le 05/08 — le portail animait sous « réduire les animations ».* La
-coupure s'écrivait `*{transition:none;animation:none}` dans **trois** fichiers
-source (portail, app, carnet), or **`*` ne cible pas les pseudo-éléments** : le
-halo de la menorah (`.menorah::before`, animation `lueur`, 4,5 s **infinie**)
-continuait de respirer — exactement le mouvement que le réglage sert à
-éteindre. Les trois coupures s'écrivent désormais `*,*::before,*::after`, et
-chacune porte le pourquoi en commentaire. Une seule des trois était un défaut
-actif ; les deux autres sont préventives (l'app n'anime que de vrais éléments,
-le carnet n'a aucun `@keyframes`) — la prochaine animation sur un `::before`
-aurait rouvert le défaut sans prévenir.
-
-⚠️ **Prouvé au banc WebKit avec son témoin positif** : `animationName` vaut
-`none` sous `reducedMotion:'reduce'` **et** `lueur` sous `no-preference`. Le
-témoin n'est pas décoratif — sans lui, un sélecteur qui ne matche jamais passe
-au vert dans les deux sens et le contrôle ne prouve rien.
-
-✅ **Mécanisé le 05/08, sur arbitrage du propriétaire** : plutôt que d'inscrire
-le piège dans `CLAUDE.md` (qui se paie à chaque tour et dans chaque sous-agent),
-`verifieCharte()` fait désormais échouer le build sur tout bloc
-`prefers-reduced-motion` dont le `*{` ne nomme pas ses pseudo-éléments — sur le
-modèle exact de ce qu'elle fait pour `transition:all`. Voir
-[ARCHITECTURE.md](ARCHITECTURE.md) § Garde-fous, point 14.
+⚠️ **Le mouvement réduit doit couper aussi les pseudo-éléments, pas seulement
+les éléments.** Une coupure écrite `*{transition:none;animation:none}` ne cible
+pas `::before`/`::after` : une animation qui y vit (le halo de la menorah du
+portail, `.menorah::before`, `lueur`, 4,5 s infinie) continue de tourner sous
+« réduire les animations ». Les trois pages déployées (portail, app, carnet)
+écrivent donc la coupure `*,*::before,*::after`, chacune avec le pourquoi en
+commentaire, y compris là où rien n'anime aujourd'hui un pseudo-élément — la
+garde vaut pour la prochaine animation. `verifieCharte()` fait échouer le build
+sur tout bloc `prefers-reduced-motion` dont le `*{` ne nomme pas ses
+pseudo-éléments. Voir [ARCHITECTURE.md](ARCHITECTURE.md) § Garde-fous, point 14.
 
 ### Dette ouverte — trois entrées
 
@@ -337,8 +274,8 @@ Ce qui reste connu, non corrigé, et pourquoi chacun est tolérable. Une entrée
 sans sa raison d'être tolérée n'est pas une dette : c'est un chantier.
 
 1. ⚠️ **259 désaccords entre `he2tr` et les `tr` rédigés à la main** que `trKey`
-   ne replie pas, sur 4229 paires — le nombre que rend `node
-   tools/mesure_translitteration.js` (4229 moins les 3970 accords repliés). Ce qui reste tient à trois causes, toutes documentées, et
+   ne replie pas, sur 4725 paires — le nombre que rend `node
+   tools/mesure_translitteration.js` (4725 moins les 4466 accords repliés). Ce qui reste tient à trois causes, toutes documentées, et
    **aucune n'est un défaut du moteur** : le chva initial, morphologique et
    délibérément approximé (CLAUDE.md § Transliteration standard) ; le hé final,
    où les écarts sont des `tr` rédigés qui s'écartent du standard — une règle
@@ -382,7 +319,6 @@ sans sa raison d'être tolérée n'est pas une dette : c'est un chantier.
    sur la carte la plus haute du corpus. Resserrer le plafond à 40vh rognerait
    à nouveau les exemples longs — c'est le même arbitrage que l'entrée 2, vu
    depuis le téléphone.
-
 
 *Si un nouveau défaut connu apparaît, c'est ici qu'il se note — avec ce qui le
 rend non bloquant, faute de quoi il devient un chantier.*

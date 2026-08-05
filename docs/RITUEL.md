@@ -71,14 +71,11 @@
    faire bouger que quelques compteurs. Le diff de `--update` (168 nœuds ajoutés, 87
    retirés) montre qu'il **brasse** le graphe au lieu de l'étendre — raison de plus pour ne
    pas le lancer pour rien.
-6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md, et ce
-   fichier (surtout « Reprendre ici »).
+6. Documentation à jour : README, ARCHITECTURE, CLAUDE.md, DESIGN.md, PRODUCT.md et TODO.md (surtout « Reprendre ici »).
 
    ⚠️ **Règle des comptes gelés — n'écris pas un nombre que personne ne recalculera.**
    Cartes, exemples, mots, sections, tables, nœuds : tous se périment au lot suivant, en
-   silence, et une doc fausse coûte plus qu'une doc muette (payé deux fois : « aucune
-   table ne dépasse 894px » et les répartitions `data-niveau` du graphe, toutes deux
-   restées écrites longtemps après être devenues fausses). **Écris la commande qui donne
+   silence, et une doc fausse coûte plus qu'une doc muette. **Écris la commande qui donne
    le chiffre, pas le chiffre** : `node tools/build.js --check` (sections, niveaux,
    thèmes, exemples), `node tools/cherche_mots.js --stats` (thèmes/niveaux sous-dotés),
    `grep -c` pour le reste. N'inscris un nombre en dur que s'il est **mesuré et stable
@@ -163,11 +160,11 @@
   gros fichier** — `graphify explain "checkAnswer"` donne la ligne source et les
   appelants/appelés en ~15 lignes, `graphify query "…"` répond en ~2 300 tokens là où lire
   `app.html` en coûte des dizaines de milliers. ⚠️ C'est un **instantané**, et il est
-  périmé sur tout ce que les chantiers 1 à 4 ont créé (voir « Dette de graphe » ci-dessus,
+  périmé sur `data/`, `src/carnet/`, `src/app/`, `src/portail/`, `tools/`, `docs/` et `.githooks/` (voir « Dette de graphe » dans docs/TODO.md,
   seul état de référence) : en cas de contradiction avec le fichier, le fichier fait foi.
   Contenu, communautés et coût de recalage dans ARCHITECTURE.md § Le graphe de connaissance
   du dépôt.
-- **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch le carnet).
+- **Serveur local** : `python3 -m http.server` depuis la racine (l'appli fetch `cards.json`).
 - **Piège jsdom** : `const CARDS` au premier niveau d'un script **n'apparaît pas** sur
   `window` (les `const` ne créent pas de propriété globale) — inutile de chercher
   `w.CARDS` après un boot. Pour vérifier le contenu chargé, passer par le DOM (la
@@ -177,7 +174,7 @@
   le format des trois rapports (chip, départ, `#perf-boot` vide donc masqué) ;
   `test_srs_migration.js` sème un `srs_v1` à l'ancien format **avant** le boot
   (`beforeParse` + `localStorage.setItem`) et vérifie migration + séparation des
-  homographes. ⚠️ Piège payé en l'écrivant : l'espace avant « ms » est une **fine
+  homographes. ⚠️ Piège : l'espace avant « ms » est une **fine
   insécable U+202F** (invisible au terminal, échoue toute comparaison naïve) — elle
   est en escape `\u202f` dans la source d'`app.html` pour cette raison.
 

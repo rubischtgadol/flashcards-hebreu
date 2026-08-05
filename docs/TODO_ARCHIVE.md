@@ -3420,3 +3420,74 @@ qui pâlissait le texte et laissait l'icône en or ; remplacé par la peau plein
 Mesuré : 0 pixel doré sur les 344 736 de la capture, écart R−B maximal −17. Et
 les 64 notes `data-note` du carnet n'étaient jamais rendues avant `.note-line`.
 
+
+## Chantiers clos — archivés le 2026-08-05
+
+**Deux lots de vocabulaire : 1728 → 1895 cartes** (exemples 1482 → 1649). Premier
+lot (+67) sur les cinq thèmes les plus creux : temps-calendrier 38→51,
+vetements-couleurs 46→58, argent-achats 45→59, communication-pensee 52→66,
+loisirs-culture 53→67. Second lot (+100) sur les six cellules (thème × niveau)
+les plus creuses, avec quota de niveau imposé par agent. Dans les deux cas,
+**aucun `tr` rédigé à la main** — 216 puis 280 dérivés par `he2tr`, 0 fourni :
+parade au défaut documenté (les rédacteurs confondent `ch` et `kh`), qui rend la
+faute impossible plutôt que de la rattraper. Un contradicteur par lot a vérifié
+chaque niqqud contre une source externe ; 3 puis 3 rejets, plus des corrections
+de patron (féminin des adjectifs en ־י : `־ית`, jamais `־יה`). `רֶוַח` inséré
+avec `--force`, sa collision de squelette avec `רוּחַ` étant un homographe.
+Nettoyage de fiche récurrent : les agents rendent une fiche presque conforme,
+jamais tout à fait (19 champs `groupe` pour `sous_theme`, 80 champs hors schéma,
+16 libellés humains à re-sluguer).
+
+**Le quota A1 du second lot n'a pas tenu — 57 visés, 11 obtenus — et c'était le
+résultat utile.** Les contradicteurs requalifiaient chaque mot neuf en l'ancrant
+sur ses voisins déjà présents ; argument défendable qui rend A1 structurellement
+irremplissable quand les ancres sont fausses. Elles l'étaient : `שָׂמֵחַ`
+heureux = A1 mais `עָצוּב` triste = A2. Audit de cohérence CECRL lancé dans la
+foulée (5 auditeurs, 15 thèmes) : corpus sain à 98,7 %, mais **signature unique
+— dans une paire d'antonymes, c'est toujours le membre *marqué* (négatif, moins
+fréquent) qui est puni d'un palier**, 21 fois. 24 cartes reclassées, dont 3
+cascades (descendre « en bonne santé » sans descendre « maladie » aurait aggravé
+l'écart nominal). A1 504→513 · A2 742→748 · B1 580→565, conforme à la prévision.
+15 affirmations de l'audit contrôlées avant application, 0 fausse.
+
+**Décision de cadrage du propriétaire : ne plus viser A1, viser A2 et B1.** Un
+A1 au sens du CECR compte 500 à 750 mots ; le carnet en a 513 — il n'est pas
+creux, il paraissait creux réparti sur 15 thèmes.
+
+**« Aucun résultat » cesse d'être un cul-de-sac.** Lien vers le Wiktionnaire dans
+l'état vide de la recherche, hébreu ou français selon l'alphabet de la requête.
+Un lien, pas un appel : rien à déroger dans la CSP. Le banc a révélé au passage
+un **débordement horizontal pré-existant de 391 px** sur téléphone (la requête
+est renvoyée en écho dans `.search-empty`, qui n'avait pas de coupure de mot) —
+invisible parce que personne ne tape 100 caractères sans espace, et parce que
+`getBoundingClientRect()` ne voit pas ce défaut.
+
+**Le mouvement réduit coupe enfin les pseudo-éléments.** Les trois coupures
+(portail, app, carnet) s'écrivaient `*{animation:none}` ; le halo de la menorah
+(`.menorah::before`, `lueur`, 4,5 s infinie) respirait donc malgré le réglage.
+Corrigé en `*,*::before,*::after`, prouvé au banc avec témoin positif, puis
+**mécanisé dans `verifieCharte()`** sur arbitrage du propriétaire — plutôt qu'un
+piège de plus dans `CLAUDE.md`, qui se paie à chaque tour et dans chaque
+sous-agent. Question ouverte depuis le 25/07 sur le réglage « réduire les
+animations » de l'appareil du propriétaire : **close, sans objet**.
+
+**Leçon transverse, payée trois fois dans la même journée : une garde qui lit du
+texte doit d'abord retirer ce qui n'est pas du code.** Le tripwire du fichier
+autonome a fait échouer le build sur un commentaire *citant* `fetch(` ; la garde
+neuve du mouvement réduit est passée au vert sur un fichier réellement cassé,
+parce qu'un commentaire contenant une virgule se collait au sélecteur suivant ;
+`verifieStructureCarnet()` portait déjà la même correction pour les `<script>`.
+Corollaire de méthode : une garde qu'on n'a pas vue échouer sur chacune de ses
+cibles ne prouve rien — c'est en testant les trois fichiers que le trou est
+apparu.
+
+**Mesure obtenue en sous-produit : la couverture de he.wiktionary**, sur 70 mots
+réels — 36/70 en entrée directe, 45/70 avec les pages de racine. Le taux global
+cache le résultat utile : couverture quasi totale sur les **noms** (9/9, 7/7),
+quasi nulle sur les **verbes et adjectifs** (0/5, 0/7), que Pealim sert. Toute
+source externe branchée sur ce dépôt doit router **par nature de mot**. Analyse
+de faisabilité complète d'un « dictionnaire en direct » menée le même jour :
+techniquement possible (CORS ouvert, sans clé) mais bloquée par la CSP
+auto-imposée, et surtout inutile au remplissage du carnet — l'obstacle dominant
+est éditorial (`niveau` et `theme` sont bloquants au build et qu'aucune source
+ne fournit), et aucune des gardes du build n'est une garde de *vérité*.

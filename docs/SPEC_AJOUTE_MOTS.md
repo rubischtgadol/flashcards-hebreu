@@ -50,9 +50,7 @@ un verdict.**
    Le champ `groupe` de `data/*.json` est un slug (`"nourriture-repas"`), pas le
    titre humain qui vivait dans `<h3 class="subtheme">` (`"Nourriture & repas"`).
    `ajoute_mots.js` réutilise **l'algorithme `slug()` qui a produit les valeurs
-   `groupe` de `data/`** (NFD + retrait diacritiques + minuscule + `[^a-z0-9]+` → `-` ;
-   les scripts qui l'ont appliqué ont depuis été supprimés) plutôt que d'en
-   redéfinir un second. Il est idempotent sur un slug déjà propre
+   `groupe` de `data/`** (NFD + retrait diacritiques + minuscule + `[^a-z0-9]+` → `-`) plutôt que d'en redéfinir un second. Il est idempotent sur un slug déjà propre
    (`slug("nourriture-repas") === "nourriture-repas"`), donc `sous_theme` accepte
    indifféremment l'ancien titre humain ou directement le slug de `data/`.
 
@@ -148,9 +146,7 @@ Le
 gabarit de `build.js` (`src/carnet/gabarits.js:heSpan`,
 `ligneAdjectif`/`ligneVerbe`) **n'a pas de représentation pour une forme absente** :
 `heSpan({})` écrirait littéralement `undefined` dans le carnet plutôt qu'un tiret
-(vérifié en lisant `heSpan` avant d'écrire ce contrôle — aucune entrée de
-`data/adjectifs.json` n'a de forme défective aujourd'hui, donc ce gap dormait sans
-symptôme). `ajoute_mots.js` exige donc que les 3 formes
+`ajoute_mots.js` exige donc que les 3 formes
 d'un adjectif (`fs`/`mp`/`fp`) et les 4 d'un verbe (`ms`/`fs`/`mp`/`fp`) portent
 toutes un `he` non vide et vocalisé — erreur pré-insertion nommée sinon.
 Un vrai défectif reste possible via une note éditoriale dans `fr`, pas via une
@@ -228,11 +224,7 @@ diff avec l'existant reste minimal) :
 - `data/adjectifs.json` / `verbes.json` : `he, fr, formes, niveau, theme, groupe, exemples`.
 - `data/listes/<slug>.json` (entrée) : `he, tr, fr, niveau, [groupe], exemples, [fr_court], [note]`.
 
-L'invariant headword-avant-exemple n'a plus de sens à ce niveau : c'est
-`gabarits.js` qui décide de l'ordre d'affichage à partir de l'objet — le script ne
-compose plus rien qui puisse l'inverser.
-
-## 5. Logique de placement
+Aucun invariant d'ordre d'affichage ne se contrôle à ce niveau : `gabarits.js` décide de l'ordre à partir de l'objet, et le script ne compose aucun balisage qui puisse l'inverser.## 5. Logique de placement
 
 1. **Résoudre la section** : comparaison directe de `op.section` contre les
    constantes de `build.js` (`TABLES` = `Noms`/`Adjectifs`/`Verbes`, ou une clé de
@@ -322,7 +314,7 @@ lance ensuite `node tools/build.js` puis `node tools/verifie_exemples.js`. Zéro
 modification des validateurs, preuve complète sur le candidat avant de toucher le
 dépôt réel.
 
-⚠️ **Deux invariants, chacun payé une fois — un bac à sable faux passe au vert, comme
+⚠️ **Deux invariants, sans quoi un bac à sable faux passe au vert, comme
 un témoin muet.**
 
 1. **La disposition `tools/` doit être reproduite.** Les scripts
@@ -335,9 +327,9 @@ un témoin muet.**
    pas dessus.
 2. **Tout fichier de la racine que `build.js` lit du disque doit figurer dans
    `FICHIERS_RACINE_BAC_A_SABLE`** — et rien d'autre : un fichier copié « au cas où »
-   ferait croire que le bac à sable en dépend et masquerait la règle. Payé deux fois,
-   toujours par un ENOENT au dry-run : `verifieCharte()` a introduit la lecture
-   d'`index.html`, qui n'est pas dans la liste puisque le portail est généré et contrôlé
+   ferait croire que le bac à sable en dépend et masquerait la règle. Un ENOENT au dry-run le signale directement :
+   `verifieCharte()` lit
+   `index.html`, absent de la liste puisque le portail est généré et contrôlé
    sur la chaîne assemblée ; et l'estampille lit — puis réécrit — `sw.js`, qui doit donc
    y être. Ajouter une garde qui lit un fichier racine, c'est
    ajouter ce fichier ici.
@@ -378,7 +370,7 @@ cassé → « impossible de relire son compte de cartes ».
 | Typo de label de section (`-` vs `–`, `&` vs `et`) | « vouliez-vous dire… », pas d'erreur sèche |
 | `theme` sur une liste | erreur (mono-thème par nature) |
 | Entrée de table sans exemple | erreur pré-insertion |
-| Verbe/adjectif avec forme manquante/vide | erreur — les 4/3 formes sont désormais toutes obligatoires (§3.3) |
+| Verbe/adjectif avec forme manquante/vide | erreur — les 4/3 formes sont toutes obligatoires (§3.3) |
 | `cible` d'op `exemple` introuvable / ambiguë | erreur nommée ; si ambiguë, liste les candidats |
 | `tr` non fourni | dérivé `he2tr`, écrit en dur, listé dans le tableau §2.1 |
 | `apres` introuvable dans la liste cible | erreur nommée |
@@ -415,7 +407,7 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
   sous-thème neuf exige un `<h3 class="subtheme">` **et** un placeholder
   `<!-- @ENTREES:table#groupe -->` neufs dans le gabarit source
   (`src/carnet/sections/*.html`) — composition de template, l'exact inverse de ce
-  que ce script doit désormais faire (§0, §4).
+  que ce script doit faire (§0, §4).
 
   ⚠️ **Éditer le gabarit ne suffit PAS.** La résolution du
   sous-thème se fait sur **la donnée**, pas sur le gabarit
@@ -454,16 +446,11 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
 1. `build.js` exporte déjà tout ce qu'il faut (`chargeDonnees`, `valideDonnees`,
    `deriveCartes`, `genereCarnet`, `NOTEBOOK`, `APP`, `stripNikud`,
    `orthographeVoisine`, `EXPECTED_LEVELS`, `EXPECTED_THEMES`, `listCats`) — rien
-   à y ajouter pour ce script. L'ancien parseur regex du carnet HTML
-   (`extractCards` + `rowsOf`/`lisOf`) et le mode `node tools/build.js --verrou` ont été
-   supprimés, `ajoute_mots.js` en étant le dernier
-   consommateur ; les helpers HTML qui survivaient pour les scripts
-   jetables sont partis avec eux, exports compris — `build.js`
+   à y ajouter pour ce script. `build.js`
    n'exporte plus rien qui lise du HTML.
 2. `he2tr` : **`fonctionsApp(['he2tr'], ROOT)`** (export de `build.js`), qui évalue
    le module source `src/app/js/02-translitteration.js` dans un bac `vm` ; échec
-   bruyant si le module ou la fonction bouge. ⚠️ La rédaction d'origine annonçait
-   une « extraction textuelle depuis `app.html` » : plus aucun outil ne lit un artefact. `stripNikud` : export de `build.js`.
+   bruyant si le module ou la fonction bouge. ⚠️ Aucun outil ne lit un artefact. `stripNikud` : export de `build.js`.
 3. `slug()` : même algorithme que celui qui a produit les valeurs `groupe`
    actuelles de `data/` — voir §1.4. Redéfini
    localement dans `ajoute_mots.js` (fonction à 2 lignes, pas assez pour justifier
