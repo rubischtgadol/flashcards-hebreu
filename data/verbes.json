@@ -244,7 +244,7 @@
         "tr": "nikhnasot"
       }
     ],
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "ville-transport",
     "groupe": "mouvement-deplacement",
     "exemples": [
@@ -1076,7 +1076,7 @@
         "tr": "mokhrot"
       }
     ],
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "argent-achats",
     "groupe": "vie-quotidienne",
     "exemples": [
@@ -2516,7 +2516,7 @@
         "tr": "makdimot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "temps-calendrier",
     "groupe": "vie-quotidienne",
     "exemples": [
@@ -3124,7 +3124,7 @@
         "tr": "shotkot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "communication-pensee",
     "groupe": "communication-perception",
     "exemples": [

@@ -156,7 +156,7 @@
         "tr": "mekho'arot"
       }
     ],
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "abstrait",
     "groupe": "",
     "exemples": [
@@ -324,7 +324,7 @@
         "tr": "'atsuvot"
       }
     ],
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "emotions-caractere",
     "groupe": "",
     "exemples": [
@@ -380,7 +380,7 @@
         "tr": "tsme'ot"
       }
     ],
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "nourriture",
     "groupe": "",
     "exemples": [
@@ -996,7 +996,7 @@
         "tr": "mu'arot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "maison-objets",
     "groupe": "",
     "exemples": [
@@ -1472,7 +1472,7 @@
         "tr": "shonot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "",
     "exemples": [
@@ -1500,7 +1500,7 @@
         "tr": "zehot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "",
     "exemples": [
@@ -1556,7 +1556,7 @@
         "tr": "shguyot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "",
     "exemples": [
@@ -2032,7 +2032,7 @@
         "tr": "yveshot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "",
     "exemples": [
@@ -2256,7 +2256,7 @@
         "tr": "mesubakhot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "",
     "exemples": [
@@ -2424,7 +2424,7 @@
         "tr": "bri'ot"
       }
     ],
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "corps-sante",
     "groupe": "",
     "exemples": [
@@ -2536,7 +2536,7 @@
         "tr": "meluchot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "nourriture",
     "groupe": "",
     "exemples": [
@@ -3964,7 +3964,7 @@
         "tr": "hakodmot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "temps-calendrier",
     "groupe": "",
     "exemples": [
@@ -4272,7 +4272,7 @@
         "tr": "shketot"
       }
     ],
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "communication-pensee",
     "groupe": "",
     "exemples": [
@@ -5196,7 +5196,7 @@
         "tr": "mechuspasot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "maison-objets",
     "groupe": "",
     "exemples": [

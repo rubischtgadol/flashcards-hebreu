@@ -33,9 +33,22 @@ en **A1** et `עָצוּב` « triste » en **A2** ; `לֶאֱהֹב` « aimer �
 barre.** Conséquence : `emotions-caractere` A1:4 n'est **pas** un trou de
 vocabulaire — aucun ajout ne le comblera, puisque tout mot neuf s'ancrera sur
 les mêmes voisins fautifs. C'est le barème qu'il faut corriger, pas le stock.
-Un audit de cohérence est lancé (paires d'antonymes scindées, séries
-incomplètes) ; **son résultat attend un arbitrage** avant toute réécriture de
-`niveau` dans `data/`.
+✅ **Audité et corrigé le 05/08.** L'audit (5 auditeurs, 15 thèmes) conclut que
+le corpus est **globalement sain — 24 cartes sur 1895, soit 1,3 %** — mais que
+le défaut a une **signature unique** : dans une paire d'antonymes, c'est
+**toujours le membre marqué** (le négatif, le moins fréquent) qui est puni d'un
+palier — triste, vendre, laid, malade/sain, salé, précédent, se taire, ennemi.
+Un seul biais appliqué 21 fois, donc corrigible d'un bloc. Les 24 reclassements
+sont appliqués (dont 3 **cascades** : descendre « en bonne santé » sans
+descendre `מַחֲלָה` « maladie » aurait aggravé l'écart nominal). Répartition
+A1 504→**513** · A2 742→**748** · B1 580→**565**, conforme à la prévision.
+
+📌 **Décision de cadrage du propriétaire (05/08) : ne plus viser A1, viser A2 et
+B1.** Un vocabulaire A1 au sens du CECR compte conventionnellement 500 à 750
+mots ; le carnet en a 513. **A1 n'est pas creux, il a la taille d'un A1** — il
+paraissait creux réparti sur 15 thèmes (~34 par thème). Pousser davantage de A1
+gonflerait le niveau au-delà de ce qu'il signifie et diluerait le filtre qui
+sert à choisir une session. Les prochains lots visent A2 et B1.
 
 ✅ **Lot du 05/08 (second) : +100 mots sur les six cellules (thème × niveau) les
 plus creuses.** 1795 → 1895 cartes, exemples 1549 → 1649. Quota de niveau imposé
@@ -99,7 +112,7 @@ chacun a une commande qui le recalcule :
 
 | Fait | Valeur | L'autorité qui la recalcule |
 | --- | --- | --- |
-| Cartes | 1895 (A1 504 · A2 742 · B1 580 · B2 50 · C1 19) | `node tools/cherche_mots.js --stats` |
+| Cartes | 1895 (A1 513 · A2 748 · B1 565 · B2 50 · C1 19) | `node tools/cherche_mots.js --stats` |
 | Sections du carnet | 45 (44 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
 | Catégories de cartes | 25 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
 | Garde-fous anti-casse silencieuse | 13 | ARCHITECTURE.md § Garde-fous |

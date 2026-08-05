@@ -102,7 +102,7 @@
       "he": "אוֹיְבִים",
       "tr": "oyvim"
     },
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "famille-personnes",
     "groupe": "famille-personnes",
     "exemples": [
@@ -140,7 +140,7 @@
       "he": "אוֹיְבוֹת",
       "tr": "oyvot"
     },
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "famille-personnes",
     "groupe": "famille-personnes",
     "exemples": [
@@ -1776,7 +1776,7 @@
       "he": "מַחֲלוֹת",
       "tr": "machalot"
     },
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "corps-sante",
     "groupe": "sante-urgences",
     "exemples": [
@@ -10049,7 +10049,7 @@
       "he": "מְכִירוֹת",
       "tr": "mekhirot"
     },
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "argent-achats",
     "groupe": "ecole-travail-argent",
     "exemples": [
@@ -10163,7 +10163,7 @@
       "he": "קוֹנִים",
       "tr": "konim"
     },
-    "niveau": "A2",
+    "niveau": "A1",
     "theme": "argent-achats",
     "groupe": "ecole-travail-argent",
     "exemples": [
@@ -11156,7 +11156,7 @@
     "fr": "mort",
     "genre": "m",
     "pluriel": null,
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "abstraits-idees",
     "exemples": [

@@ -333,7 +333,7 @@
           "he_plain": "נכנסות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "ville-transport",
       "exemples": [
         {
@@ -1451,7 +1451,7 @@
           "he_plain": "מוכרות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "argent-achats",
       "exemples": [
         {
@@ -3386,7 +3386,7 @@
           "he_plain": "מקדימות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "temps-calendrier",
       "exemples": [
         {
@@ -4203,7 +4203,7 @@
           "he_plain": "שותקות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "communication-pensee",
       "exemples": [
         {
@@ -11262,7 +11262,7 @@
           "he_plain": "מכערות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "abstrait",
       "exemples": [
         {
@@ -11484,7 +11484,7 @@
           "he_plain": "עצובות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "emotions-caractere",
       "exemples": [
         {
@@ -11558,7 +11558,7 @@
           "he_plain": "צמאות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "nourriture",
       "exemples": [
         {
@@ -12372,7 +12372,7 @@
           "he_plain": "מוארות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "maison-objets",
       "exemples": [
         {
@@ -13001,7 +13001,7 @@
           "he_plain": "שונות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "abstrait",
       "exemples": [
         {
@@ -13038,7 +13038,7 @@
           "he_plain": "זהות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "abstrait",
       "exemples": [
         {
@@ -13112,7 +13112,7 @@
           "he_plain": "שגויות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "abstrait",
       "exemples": [
         {
@@ -13741,7 +13741,7 @@
           "he_plain": "יבשות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "abstrait",
       "exemples": [
         {
@@ -14037,7 +14037,7 @@
           "he_plain": "מסבכות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "abstrait",
       "exemples": [
         {
@@ -14259,7 +14259,7 @@
           "he_plain": "בריאות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "corps-sante",
       "exemples": [
         {
@@ -14407,7 +14407,7 @@
           "he_plain": "מלוחות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "nourriture",
       "exemples": [
         {
@@ -16294,7 +16294,7 @@
           "he_plain": "הקודמות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "temps-calendrier",
       "exemples": [
         {
@@ -16701,7 +16701,7 @@
           "he_plain": "שקטות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "communication-pensee",
       "exemples": [
         {
@@ -17922,7 +17922,7 @@
           "he_plain": "מחספסות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "maison-objets",
       "exemples": [
         {
@@ -21112,7 +21112,7 @@
           "he_plain": "אויבים"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "famille-personnes",
       "exemples": [
         {
@@ -21164,7 +21164,7 @@
           "he_plain": "אויבות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "famille-personnes",
       "exemples": [
         {
@@ -23356,7 +23356,7 @@
           "he_plain": "מחלות"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "corps-sante",
       "exemples": [
         {
@@ -34342,7 +34342,7 @@
           "he_plain": "מכירות"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "argent-achats",
       "exemples": [
         {
@@ -34498,7 +34498,7 @@
           "he_plain": "קונים"
         }
       ],
-      "niveau": "A2",
+      "niveau": "A1",
       "theme": "argent-achats",
       "exemples": [
         {
@@ -35814,7 +35814,7 @@
       "tr": "",
       "fr": "mort (m)",
       "genre": "m",
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "abstrait",
       "exemples": [
         {
