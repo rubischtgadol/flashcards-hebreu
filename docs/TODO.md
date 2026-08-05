@@ -289,12 +289,12 @@ aurait rouvert le défaut sans prévenir.
 témoin n'est pas décoratif — sans lui, un sélecteur qui ne matche jamais passe
 au vert dans les deux sens et le contrôle ne prouve rien.
 
-📌 **Reste à décider** : ce bug est apparu **trois fois**. La note d'origine
-suggérait de l'inscrire aux pièges de `CLAUDE.md` ; une garde de build serait
-préférable — `verifieCharte()` échouerait sur un bloc `prefers-reduced-motion`
-dont le `*{` ne nomme pas ses pseudo-éléments, sur le modèle de ce qu'elle fait
-déjà pour `transition:all`. Coût nul par tour, et ça ne s'oublie pas.
-**Non implémenté : en attente d'arbitrage.**
+✅ **Mécanisé le 05/08, sur arbitrage du propriétaire** : plutôt que d'inscrire
+le piège dans `CLAUDE.md` (qui se paie à chaque tour et dans chaque sous-agent),
+`verifieCharte()` fait désormais échouer le build sur tout bloc
+`prefers-reduced-motion` dont le `*{` ne nomme pas ses pseudo-éléments — sur le
+modèle exact de ce qu'elle fait pour `transition:all`. Voir
+[ARCHITECTURE.md](ARCHITECTURE.md) § Garde-fous, point 14.
 
 ### Dette ouverte — trois entrées
 

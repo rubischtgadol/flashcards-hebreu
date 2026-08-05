@@ -836,6 +836,49 @@ function verifieCharte(appAssembled, notebookGenerated, portailGenerated){
     }
   }
 
+  // Même famille que le contrôle ci-dessus : une écriture qui rate SILENCIEUSEMENT une part
+  // de sa cible. `*` ne sélectionne pas les pseudo-éléments, donc une coupure du mouvement
+  // écrite `*{animation:none}` laisse tourner tout ::before animé — chez quelqu'un qui a
+  // demandé l'arrêt du mouvement, c'est-à-dire le seul cas où ça compte. Défaut apparu TROIS
+  // fois dans ce dépôt avant d'être mécanisé (le halo de la menorah, `.menorah::before`,
+  // respirait en boucle sous « réduire les animations »). On exige donc les trois sélecteurs
+  // partout, y compris là où rien n'est animé aujourd'hui : la garde vaut pour la prochaine
+  // animation, celle que personne n'aura pensé à vérifier.
+  for (const [nom, source] of deployees){
+    // ⚠️ Les commentaires SONT retirés avant lecture, et ce n'est pas cosmétique : un
+    // commentaire placé DANS le bloc média se colle au sélecteur de la règle suivante, et
+    // la moindre virgule dedans (« les trois sélecteurs, toujours ») fait que plus aucun
+    // membre du split ne vaut exactement `*` — la garde passait alors au vert sur un fichier
+    // réellement cassé. Vu échouer sur carnet.css, dont le commentaire est à l'intérieur du
+    // média quand les deux autres l'ont au-dessus. Même leçon que verifieStructureCarnet(),
+    // qui retire les <script> : un commentaire qui cite du code n'est pas du code.
+    const css = [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)]
+      .map(m => m[1]).join('\n').replace(/\/\*[\s\S]*?\*\//g, ' ');
+    for (const ouverture of css.matchAll(/@media[^{]*prefers-reduced-motion[^{]*\{/g)){
+      // Corps à accolades équilibrées : un @media contient des règles, donc `[^{}]*` ne suffit pas.
+      let i = ouverture.index + ouverture[0].length, profondeur = 1;
+      const debut = i;
+      while (i < css.length && profondeur > 0){
+        if (css[i] === '{') profondeur++;
+        else if (css[i] === '}') profondeur--;
+        i++;
+      }
+      for (const regle of css.slice(debut, i - 1).matchAll(/([^{}]+)\{([^{}]*)\}/g)){
+        const selecteurs = regle[1].split(',').map(s => s.trim());
+        if (!selecteurs.includes('*')) continue;
+        const manquants = ['*::before', '*::after'].filter(s => !selecteurs.includes(s));
+        if (manquants.length){
+          echecs.push('coupure du mouvement incomplète dans ' + nom + ' : la règle `'
+            + regle[1].trim() + '{…}` du bloc `prefers-reduced-motion` ne nomme pas '
+            + manquants.join(' ni ') + '. `*` NE cible PAS les pseudo-éléments, donc tout '
+            + '`::before`/`::after` animé continue de bouger malgré le réglage. Écris '
+            + '`*,*::before,*::after` — dans src/portail/index.html, src/app/css/10-base.css '
+            + 'ou src/carnet/carnet.css selon la page nommée.');
+        }
+      }
+    }
+  }
+
   // Le parcours de blocs `sélecteur{…}` ne s'applique qu'aux contenus <style> : denses en
   // accolades, il y reste linéaire. Sur le document entier, `[^{}]+\{` repartait de chaque
   // position d'un long run HTML sans accolade — quadratique, build gelé (payé à
