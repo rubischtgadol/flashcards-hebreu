@@ -6662,5 +6662,453 @@
         "fr": "le Mur occidental se trouve à Jérusalem"
       }
     ]
+  },
+  {
+    "he": "שְׁבוּעִי",
+    "fr": "hebdomadaire",
+    "formes": [
+      {
+        "he": "שְׁבוּעִית",
+        "tr": "shvu'it"
+      },
+      {
+        "he": "שְׁבוּעִיִּים",
+        "tr": "shvu'iyim"
+      },
+      {
+        "he": "שְׁבוּעִיּוֹת",
+        "tr": "shvu'iyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ שִׁעוּר עִבְרִית שְׁבוּעִי",
+        "tr": "yesh lanu shi'ur 'ivrit shvu'i",
+        "fr": "nous avons un cours d'hébreu hebdomadaire"
+      }
+    ]
+  },
+  {
+    "he": "נוֹכְחִי",
+    "fr": "actuel",
+    "formes": [
+      {
+        "he": "נוֹכְחִית",
+        "tr": "nokhchit"
+      },
+      {
+        "he": "נוֹכְחִיִּים",
+        "tr": "nokhchiyim"
+      },
+      {
+        "he": "נוֹכְחִיּוֹת",
+        "tr": "nokhchiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמַּצָּב הַנּוֹכְחִי מְעַנְיֵן",
+        "tr": "hamatsav hanokhchi me'anyen",
+        "fr": "la situation actuelle est intéressante"
+      }
+    ]
+  },
+  {
+    "he": "שְׁנָתִי",
+    "fr": "annuel",
+    "formes": [
+      {
+        "he": "שְׁנָתִית",
+        "tr": "shnatit"
+      },
+      {
+        "he": "שְׁנָתִיִּים",
+        "tr": "shnatiyim"
+      },
+      {
+        "he": "שְׁנָתִיּוֹת",
+        "tr": "shnatiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "temps-calendrier",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זוֹ מְסִבָּה שְׁנָתִית בְּבֵית הַסֵּפֶר",
+        "tr": "zo mesibah shnatit beveit hasefer",
+        "fr": "c'est une fête annuelle à l'école"
+      }
+    ]
+  },
+  {
+    "he": "מְשֻׁלָּם",
+    "fr": "payé",
+    "formes": [
+      {
+        "he": "מְשֻׁלֶּמֶת",
+        "tr": "meshulemet"
+      },
+      {
+        "he": "מְשֻׁלָּמִים",
+        "tr": "meshulamim"
+      },
+      {
+        "he": "מְשֻׁלָּמוֹת",
+        "tr": "meshulamot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֶשְׁבּוֹן כְּבָר מְשֻׁלָּם",
+        "tr": "hacheshbon kvar meshulam",
+        "fr": "la facture est déjà payée"
+      }
+    ]
+  },
+  {
+    "he": "כַּלְכָּלִי",
+    "fr": "économique",
+    "formes": [
+      {
+        "he": "כַּלְכָּלִית",
+        "tr": "kalkalit"
+      },
+      {
+        "he": "כַּלְכָּלִיִּים",
+        "tr": "kalkaliyim"
+      },
+      {
+        "he": "כַּלְכָּלִיּוֹת",
+        "tr": "kalkaliyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ מַצָּב כַּלְכָּלִי טוֹב",
+        "tr": "yesh lanu matsav kalkali tov",
+        "fr": "nous avons une bonne situation économique"
+      }
+    ]
+  },
+  {
+    "he": "מְבֻזְבָּז",
+    "fr": "gaspillé",
+    "formes": [
+      {
+        "he": "מְבֻזְבֶּזֶת",
+        "tr": "mevuzbezet"
+      },
+      {
+        "he": "מְבֻזְבָּזִים",
+        "tr": "mevuzbazim"
+      },
+      {
+        "he": "מְבֻזְבָּזוֹת",
+        "tr": "mevuzbazot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "כָּל הַכֶּסֶף הַזֶּה מְבֻזְבָּז",
+        "tr": "kol hakesef hazeh mevuzbaz",
+        "fr": "tout cet argent est gaspillé"
+      }
+    ]
+  },
+  {
+    "he": "אוֹפְנָתִי",
+    "fr": "à la mode",
+    "formes": [
+      {
+        "he": "אוֹפְנָתִית",
+        "tr": "ofnatit"
+      },
+      {
+        "he": "אוֹפְנָתִיִּים",
+        "tr": "ofnatiyim"
+      },
+      {
+        "he": "אוֹפְנָתִיּוֹת",
+        "tr": "ofnatiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַחֻלְצָה הַזֹּאת מְאֹד אוֹפְנָתִית",
+        "tr": "hachultsah hazot me'od ofnatit",
+        "fr": "cette chemise est très à la mode"
+      }
+    ]
+  },
+  {
+    "he": "בָּלוּי",
+    "fr": "usé",
+    "formes": [
+      {
+        "he": "בְּלוּיָה",
+        "tr": "beluyah"
+      },
+      {
+        "he": "בְּלוּיִים",
+        "tr": "beluyim"
+      },
+      {
+        "he": "בְּלוּיוֹת",
+        "tr": "beluyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "vetements-couleurs",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַנַּעֲלַיִם שֶׁלִּי בְּלוּיוֹת",
+        "tr": "hana'alayim sheli beluyot",
+        "fr": "mes chaussures sont usées"
+      }
+    ]
+  },
+  {
+    "he": "שַׁתְקָן",
+    "fr": "taciturne, peu bavard",
+    "formes": [
+      {
+        "he": "שַׁתְקָנִית",
+        "tr": "shatkanit"
+      },
+      {
+        "he": "שַׁתְקָנִים",
+        "tr": "shatkanim"
+      },
+      {
+        "he": "שַׁתְקָנִיּוֹת",
+        "tr": "shatkaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא שַׁתְקָן, הוּא כִּמְעַט לֹא מְדַבֵּר",
+        "tr": "hu shatkan hu kim'at lo medaber",
+        "fr": "il est taciturne, il ne parle presque pas"
+      }
+    ]
+  },
+  {
+    "he": "שָׁקוּל",
+    "fr": "réfléchi, mesuré (pesé)",
+    "formes": [
+      {
+        "he": "שְׁקוּלָה",
+        "tr": "shkulah"
+      },
+      {
+        "he": "שְׁקוּלִים",
+        "tr": "shkulim"
+      },
+      {
+        "he": "שְׁקוּלוֹת",
+        "tr": "shkulot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא אָדָם שָׁקוּל",
+        "tr": "hu adam shakul",
+        "fr": "c'est quelqu'un de réfléchi, de mesuré"
+      }
+    ]
+  },
+  {
+    "he": "הֶגְיוֹנִי",
+    "fr": "logique, raisonnable",
+    "formes": [
+      {
+        "he": "הֶגְיוֹנִית",
+        "tr": "hegyonit"
+      },
+      {
+        "he": "הֶגְיוֹנִיִּים",
+        "tr": "hegyoniyim"
+      },
+      {
+        "he": "הֶגְיוֹנִיּוֹת",
+        "tr": "hegyoniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה נִשְׁמָע הֶגְיוֹנִי",
+        "tr": "zeh nishma' hegyoni",
+        "fr": "ça semble logique"
+      }
+    ]
+  },
+  {
+    "he": "סוֹדִי",
+    "fr": "secret, confidentiel",
+    "formes": [
+      {
+        "he": "סוֹדִית",
+        "tr": "sodit"
+      },
+      {
+        "he": "סוֹדִיִּים",
+        "tr": "sodiyim"
+      },
+      {
+        "he": "סוֹדִיּוֹת",
+        "tr": "sodiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה מֵידָע סוֹדִי",
+        "tr": "zeh meida' sodi",
+        "fr": "c'est une information confidentielle"
+      }
+    ]
+  },
+  {
+    "he": "פּוֹפּוּלָרִי",
+    "fr": "populaire",
+    "formes": [
+      {
+        "he": "פּוֹפּוּלָרִית",
+        "tr": "popularit"
+      },
+      {
+        "he": "פּוֹפּוּלָרִיִּים",
+        "tr": "populariyim"
+      },
+      {
+        "he": "פּוֹפּוּלָרִיּוֹת",
+        "tr": "populariyot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַזַּמָּר הַזֶּה פּוֹפּוּלָרִי מְאֹד בְּיִשְׂרָאֵל",
+        "tr": "hazamar hazeh populari me'od beyisra'el",
+        "fr": "ce chanteur est très populaire en Israël"
+      }
+    ]
+  },
+  {
+    "he": "תַּרְבּוּתִי",
+    "fr": "culturel",
+    "formes": [
+      {
+        "he": "תַּרְבּוּתִית",
+        "tr": "tarbutit"
+      },
+      {
+        "he": "תַּרְבּוּתִיִּים",
+        "tr": "tarbutiyim"
+      },
+      {
+        "he": "תַּרְבּוּתִיּוֹת",
+        "tr": "tarbutiyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוּזֵיאוֹן הוּא מָקוֹם תַּרְבּוּתִי חָשׁוּב",
+        "tr": "hamuzeyon hu makom tarbuti chashuv",
+        "fr": "le musée est un lieu culturel important"
+      }
+    ]
+  },
+  {
+    "he": "יָדוּעַ",
+    "fr": "connu",
+    "formes": [
+      {
+        "he": "יְדוּעָה",
+        "tr": "yedu'ah"
+      },
+      {
+        "he": "יְדוּעִים",
+        "tr": "yedu'im"
+      },
+      {
+        "he": "יְדוּעוֹת",
+        "tr": "yedu'ot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַסֶּרֶט הַזֶּה יָדוּעַ מְאֹד",
+        "tr": "haseret hazeh yadu'a me'od",
+        "fr": "ce film est très connu"
+      }
+    ]
+  },
+  {
+    "he": "מְבַדֵּר",
+    "fr": "divertissant",
+    "formes": [
+      {
+        "he": "מְבַדֶּרֶת",
+        "tr": "mevaderet"
+      },
+      {
+        "he": "מְבַדְּרִים",
+        "tr": "mevadrim"
+      },
+      {
+        "he": "מְבַדְּרוֹת",
+        "tr": "mevadrot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַמּוֹפָע הַזֶּה מְבַדֵּר מְאֹד",
+        "tr": "hamofa' hazeh mevader me'od",
+        "fr": "ce spectacle est très divertissant"
+      }
+    ]
   }
 ]

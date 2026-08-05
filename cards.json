@@ -1,5 +1,5 @@
 {
-  "version": "2026-07-29",
+  "version": "2026-08-05",
   "cartes": [
     {
       "cat": "Verbes",
@@ -3314,6 +3314,221 @@
     },
     {
       "cat": "Verbes",
+      "he": "לְהִסְתַּיֵּם",
+      "tr": "",
+      "fr": "(infinitif) se terminer, prendre fin",
+      "forms": [
+        {
+          "he": "מִסְתַּיֵּם",
+          "tr": "mistayem",
+          "label": "il",
+          "he_plain": "מסתים"
+        },
+        {
+          "he": "מִסְתַּיֶּמֶת",
+          "tr": "mistayemet",
+          "label": "elle",
+          "he_plain": "מסתימת"
+        },
+        {
+          "he": "מִסְתַּיְּמִים",
+          "tr": "mistaymim",
+          "label": "ils",
+          "he_plain": "מסתימים"
+        },
+        {
+          "he": "מִסְתַּיְּמוֹת",
+          "tr": "mistaymot",
+          "label": "elles",
+          "he_plain": "מסתימות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "הַפְּגִישָׁה מִסְתַּיֶּמֶת בְּשָׁעָה שֶׁבַע",
+          "tr": "hapgishah mistayemet besha'ah sheva'",
+          "fr": "la réunion se termine à sept heures",
+          "he_plain": "הפגישה מסתימת בשעה שבע"
+        }
+      ],
+      "he_plain": "להסתים"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהַקְדִּים",
+      "tr": "",
+      "fr": "(infinitif) devancer, arriver en avance",
+      "forms": [
+        {
+          "he": "מַקְדִּים",
+          "tr": "makdim",
+          "label": "il",
+          "he_plain": "מקדים"
+        },
+        {
+          "he": "מַקְדִּימָה",
+          "tr": "makdimah",
+          "label": "elle",
+          "he_plain": "מקדימה"
+        },
+        {
+          "he": "מַקְדִּימִים",
+          "tr": "makdimim",
+          "label": "ils",
+          "he_plain": "מקדימים"
+        },
+        {
+          "he": "מַקְדִּימוֹת",
+          "tr": "makdimot",
+          "label": "elles",
+          "he_plain": "מקדימות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "הוּא תָּמִיד מַקְדִּים לָבוֹא לָעֲבוֹדָה",
+          "tr": "hu tamid makdim lavo la'avodah",
+          "fr": "il arrive toujours en avance au travail",
+          "he_plain": "הוא תמיד מקדים לבוא לעבודה"
+        }
+      ],
+      "he_plain": "להקדים"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהִתְמַקֵּחַ",
+      "tr": "",
+      "fr": "(infinitif) marchander",
+      "forms": [
+        {
+          "he": "מִתְמַקֵּחַ",
+          "tr": "mitmakeach",
+          "label": "il",
+          "he_plain": "מתמקח"
+        },
+        {
+          "he": "מִתְמַקַּחַת",
+          "tr": "mitmakachat",
+          "label": "elle",
+          "he_plain": "מתמקחת"
+        },
+        {
+          "he": "מִתְמַקְּחִים",
+          "tr": "mitmakchim",
+          "label": "ils",
+          "he_plain": "מתמקחים"
+        },
+        {
+          "he": "מִתְמַקְּחוֹת",
+          "tr": "mitmakchot",
+          "label": "elles",
+          "he_plain": "מתמקחות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הוּא תָּמִיד מִתְמַקֵּחַ עַל הַמְּחִיר בַּשּׁוּק",
+          "tr": "hu tamid mitmakeach 'al hamchir bashuk",
+          "fr": "il marchande toujours sur le prix au marché",
+          "he_plain": "הוא תמיד מתמקח על המחיר בשוק"
+        }
+      ],
+      "he_plain": "להתמקח"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהוֹזִיל",
+      "tr": "",
+      "fr": "(infinitif) baisser le prix, rendre moins cher",
+      "forms": [
+        {
+          "he": "מוֹזִיל",
+          "tr": "mozil",
+          "label": "il",
+          "he_plain": "מוזיל"
+        },
+        {
+          "he": "מוֹזִילָה",
+          "tr": "mozilah",
+          "label": "elle",
+          "he_plain": "מוזילה"
+        },
+        {
+          "he": "מוֹזִילִים",
+          "tr": "mozilim",
+          "label": "ils",
+          "he_plain": "מוזילים"
+        },
+        {
+          "he": "מוֹזִילוֹת",
+          "tr": "mozilot",
+          "label": "elles",
+          "he_plain": "מוזילות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הַחֲנוּת מוֹזִילָה אֶת הַמְּחִירִים בַּקַּיִץ",
+          "tr": "hachanut mozilah et hamchirim bakayits",
+          "fr": "le magasin baisse les prix en été",
+          "he_plain": "החנות מוזילה את המחירים בקיץ"
+        }
+      ],
+      "he_plain": "להוזיל"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לִקְרֹעַ",
+      "tr": "",
+      "fr": "(infinitif) déchirer",
+      "forms": [
+        {
+          "he": "קוֹרֵעַ",
+          "tr": "kore'a",
+          "label": "il",
+          "he_plain": "קורע"
+        },
+        {
+          "he": "קוֹרַעַת",
+          "tr": "kora'at",
+          "label": "elle",
+          "he_plain": "קורעת"
+        },
+        {
+          "he": "קוֹרְעִים",
+          "tr": "kor'im",
+          "label": "ils",
+          "he_plain": "קורעים"
+        },
+        {
+          "he": "קוֹרְעוֹת",
+          "tr": "kor'ot",
+          "label": "elles",
+          "he_plain": "קורעות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "הַיֶּלֶד קוֹרֵעַ אֶת הַמִּכְנָסַיִם",
+          "tr": "hayeled kore'a et hamikhnasayim",
+          "fr": "l'enfant déchire le pantalon",
+          "he_plain": "הילד קורע את המכנסים"
+        }
+      ],
+      "he_plain": "לקרע"
+    },
+    {
+      "cat": "Verbes",
       "he": "לְדַבֵּר",
       "tr": "",
       "fr": "(infinitif) parler",
@@ -4518,6 +4733,178 @@
     },
     {
       "cat": "Verbes",
+      "he": "לְבַקֵּשׁ",
+      "tr": "",
+      "fr": "(infinitif) demander (une requête)",
+      "forms": [
+        {
+          "he": "מְבַקֵּשׁ",
+          "tr": "mevakesh",
+          "label": "il",
+          "he_plain": "מבקש"
+        },
+        {
+          "he": "מְבַקֶּשֶׁת",
+          "tr": "mevakeshet",
+          "label": "elle",
+          "he_plain": "מבקשת"
+        },
+        {
+          "he": "מְבַקְּשִׁים",
+          "tr": "mevakshim",
+          "label": "ils",
+          "he_plain": "מבקשים"
+        },
+        {
+          "he": "מְבַקְּשׁוֹת",
+          "tr": "mevakshot",
+          "label": "elles",
+          "he_plain": "מבקשות"
+        }
+      ],
+      "niveau": "A1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "אֲנִי מְבַקֵּשׁ עֶזְרָה",
+          "tr": "ani mevakesh 'ezrah",
+          "fr": "je demande de l'aide",
+          "he_plain": "אני מבקש עזרה"
+        }
+      ],
+      "he_plain": "לבקש"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהַקְשִׁיב",
+      "tr": "",
+      "fr": "(infinitif) écouter (attentivement)",
+      "forms": [
+        {
+          "he": "מַקְשִׁיב",
+          "tr": "makshiv",
+          "label": "il",
+          "he_plain": "מקשיב"
+        },
+        {
+          "he": "מַקְשִׁיבָה",
+          "tr": "makshivah",
+          "label": "elle",
+          "he_plain": "מקשיבה"
+        },
+        {
+          "he": "מַקְשִׁיבִים",
+          "tr": "makshivim",
+          "label": "ils",
+          "he_plain": "מקשיבים"
+        },
+        {
+          "he": "מַקְשִׁיבוֹת",
+          "tr": "makshivot",
+          "label": "elles",
+          "he_plain": "מקשיבות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "הַיְלָדִים מַקְשִׁיבִים לַמּוֹרָה",
+          "tr": "hayladim makshivim lamorah",
+          "fr": "les enfants écoutent attentivement la maîtresse",
+          "he_plain": "הילדים מקשיבים למורה"
+        }
+      ],
+      "he_plain": "להקשיב"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְתָאֵר",
+      "tr": "",
+      "fr": "(infinitif) décrire",
+      "forms": [
+        {
+          "he": "מְתָאֵר",
+          "tr": "meta'er",
+          "label": "il",
+          "he_plain": "מתאר"
+        },
+        {
+          "he": "מְתָאֶרֶת",
+          "tr": "meta'eret",
+          "label": "elle",
+          "he_plain": "מתארת"
+        },
+        {
+          "he": "מְתָאֲרִים",
+          "tr": "meta'arim",
+          "label": "ils",
+          "he_plain": "מתארים"
+        },
+        {
+          "he": "מְתָאֲרוֹת",
+          "tr": "meta'arot",
+          "label": "elles",
+          "he_plain": "מתארות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "הִיא מְתָאֶרֶת אֶת הַטִּיּוּל שֶׁלָּה",
+          "tr": "hi meta'eret et hatiyul shelah",
+          "fr": "elle décrit son voyage",
+          "he_plain": "היא מתארת את הטיול שלה"
+        }
+      ],
+      "he_plain": "לתאר"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהוֹדִיעַ",
+      "tr": "",
+      "fr": "(infinitif) informer, annoncer",
+      "forms": [
+        {
+          "he": "מוֹדִיעַ",
+          "tr": "modi'a",
+          "label": "il",
+          "he_plain": "מודיע"
+        },
+        {
+          "he": "מוֹדִיעָה",
+          "tr": "modi'ah",
+          "label": "elle",
+          "he_plain": "מודיעה"
+        },
+        {
+          "he": "מוֹדִיעִים",
+          "tr": "modi'im",
+          "label": "ils",
+          "he_plain": "מודיעים"
+        },
+        {
+          "he": "מוֹדִיעוֹת",
+          "tr": "modi'ot",
+          "label": "elles",
+          "he_plain": "מודיעות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "הֵם מוֹדִיעִים עַל הַשִּׁנּוּי",
+          "tr": "hem modi'im 'al hashinuy",
+          "fr": "ils annoncent le changement",
+          "he_plain": "הם מודיעים על השנוי"
+        }
+      ],
+      "he_plain": "להודיע"
+    },
+    {
+      "cat": "Verbes",
       "he": "לִרְצוֹת",
       "tr": "",
       "fr": "(infinitif) vouloir",
@@ -5547,6 +5934,49 @@
         }
       ],
       "he_plain": "להתאים"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהוֹכִיחַ",
+      "tr": "",
+      "fr": "(infinitif) prouver",
+      "forms": [
+        {
+          "he": "מוֹכִיחַ",
+          "tr": "mokhiyach",
+          "label": "il",
+          "he_plain": "מוכיח"
+        },
+        {
+          "he": "מוֹכִיחָה",
+          "tr": "mokhichah",
+          "label": "elle",
+          "he_plain": "מוכיחה"
+        },
+        {
+          "he": "מוֹכִיחִים",
+          "tr": "mokhichim",
+          "label": "ils",
+          "he_plain": "מוכיחים"
+        },
+        {
+          "he": "מוֹכִיחוֹת",
+          "tr": "mokhichot",
+          "label": "elles",
+          "he_plain": "מוכיחות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "הוּא מוֹכִיחַ שֶׁהוּא צוֹדֵק",
+          "tr": "hu mokhiyach shehu tsodek",
+          "fr": "il prouve qu'il a raison",
+          "he_plain": "הוא מוכיח שהוא צודק"
+        }
+      ],
+      "he_plain": "להוכיח"
     },
     {
       "cat": "Verbes",
@@ -7872,6 +8302,221 @@
     },
     {
       "cat": "Verbes",
+      "he": "לִקְבֹּעַ",
+      "tr": "",
+      "fr": "(infinitif) fixer (une date, un rendez-vous)",
+      "forms": [
+        {
+          "he": "קוֹבֵעַ",
+          "tr": "kove'a",
+          "label": "il",
+          "he_plain": "קובע"
+        },
+        {
+          "he": "קוֹבַעַת",
+          "tr": "kova'at",
+          "label": "elle",
+          "he_plain": "קובעת"
+        },
+        {
+          "he": "קוֹבְעִים",
+          "tr": "kov'im",
+          "label": "ils",
+          "he_plain": "קובעים"
+        },
+        {
+          "he": "קוֹבְעוֹת",
+          "tr": "kov'ot",
+          "label": "elles",
+          "he_plain": "קובעות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "אֲנִי קוֹבֵעַ פְּגִישָׁה לְיוֹם רִאשׁוֹן",
+          "tr": "ani kove'a pegishah leyom rishon",
+          "fr": "je fixe un rendez-vous pour dimanche",
+          "he_plain": "אני קובע פגישה ליום ראשון"
+        }
+      ],
+      "he_plain": "לקבע"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לִדְחוֹת",
+      "tr": "",
+      "fr": "(infinitif) reporter, remettre à plus tard",
+      "forms": [
+        {
+          "he": "דּוֹחֶה",
+          "tr": "docheh",
+          "label": "il",
+          "he_plain": "דוחה"
+        },
+        {
+          "he": "דּוֹחָה",
+          "tr": "dochah",
+          "label": "elle",
+          "he_plain": "דוחה"
+        },
+        {
+          "he": "דּוֹחִים",
+          "tr": "dochim",
+          "label": "ils",
+          "he_plain": "דוחים"
+        },
+        {
+          "he": "דּוֹחוֹת",
+          "tr": "dochot",
+          "label": "elles",
+          "he_plain": "דוחות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ דּוֹחִים אֶת הַפְּגִישָׁה לְשָׁבוּעַ הַבָּא",
+          "tr": "anachnu dochim et hapgishah leshavu'a haba",
+          "fr": "nous reportons la réunion à la semaine prochaine",
+          "he_plain": "אנחנו דוחים את הפגישה לשבוע הבא"
+        }
+      ],
+      "he_plain": "לדחות"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְתַזְמֵן",
+      "tr": "",
+      "fr": "(infinitif) planifier, programmer (dans le temps)",
+      "forms": [
+        {
+          "he": "מְתַזְמֵן",
+          "tr": "metazmen",
+          "label": "il",
+          "he_plain": "מתזמן"
+        },
+        {
+          "he": "מְתַזְמֶנֶת",
+          "tr": "metazmenet",
+          "label": "elle",
+          "he_plain": "מתזמנת"
+        },
+        {
+          "he": "מְתַזְמְנִים",
+          "tr": "metazmnim",
+          "label": "ils",
+          "he_plain": "מתזמנים"
+        },
+        {
+          "he": "מְתַזְמְנוֹת",
+          "tr": "metazmnot",
+          "label": "elles",
+          "he_plain": "מתזמנות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "אֲנִי מְתַזְמֵן אֶת הַשָּׁבוּעַ שֶׁלִּי",
+          "tr": "ani metazmen et hashavu'a sheli",
+          "fr": "je planifie ma semaine",
+          "he_plain": "אני מתזמן את השבוע שלי"
+        }
+      ],
+      "he_plain": "לתזמן"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לִגְבּוֹת",
+      "tr": "",
+      "fr": "(infinitif) prélever, facturer",
+      "forms": [
+        {
+          "he": "גּוֹבֶה",
+          "tr": "goveh",
+          "label": "il",
+          "he_plain": "גובה"
+        },
+        {
+          "he": "גּוֹבָה",
+          "tr": "govah",
+          "label": "elle",
+          "he_plain": "גובה"
+        },
+        {
+          "he": "גּוֹבִים",
+          "tr": "govim",
+          "label": "ils",
+          "he_plain": "גובים"
+        },
+        {
+          "he": "גּוֹבוֹת",
+          "tr": "govot",
+          "label": "elles",
+          "he_plain": "גובות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הַמְּדִינָה גּוֹבָה מַס מִכָּל אֶזְרָח",
+          "tr": "hamdinah govah mas mikol ezrach",
+          "fr": "l'État prélève un impôt de chaque citoyen",
+          "he_plain": "המדינה גובה מס מכל אזרח"
+        }
+      ],
+      "he_plain": "לגבות"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְמַמֵּן",
+      "tr": "",
+      "fr": "(infinitif) financer",
+      "forms": [
+        {
+          "he": "מְמַמֵּן",
+          "tr": "memamen",
+          "label": "il",
+          "he_plain": "מממן"
+        },
+        {
+          "he": "מְמַמֶּנֶת",
+          "tr": "memamenet",
+          "label": "elle",
+          "he_plain": "מממנת"
+        },
+        {
+          "he": "מְמַמְּנִים",
+          "tr": "memamnim",
+          "label": "ils",
+          "he_plain": "מממנים"
+        },
+        {
+          "he": "מְמַמְּנוֹת",
+          "tr": "memamnot",
+          "label": "elles",
+          "he_plain": "מממנות"
+        }
+      ],
+      "niveau": "B2",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הַהוֹרִים מְמַמְּנִים אֶת הַלִּמּוּדִים שֶׁלִּי",
+          "tr": "hahorim memamnim et halimudim sheli",
+          "fr": "mes parents financent mes études",
+          "he_plain": "ההורים מממנים את הלמודים שלי"
+        }
+      ],
+      "he_plain": "לממן"
+    },
+    {
+      "cat": "Verbes",
       "he": "לְשַׂחֵק",
       "tr": "",
       "fr": "(infinitif) jouer",
@@ -9202,6 +9847,178 @@
         }
       ],
       "he_plain": "לחגג"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְבַלּוֹת",
+      "tr": "",
+      "fr": "(infinitif) passer du temps, s'amuser",
+      "forms": [
+        {
+          "he": "מְבַלֶּה",
+          "tr": "mevaleh",
+          "label": "il",
+          "he_plain": "מבלה"
+        },
+        {
+          "he": "מְבַלָּה",
+          "tr": "mevalah",
+          "label": "elle",
+          "he_plain": "מבלה"
+        },
+        {
+          "he": "מְבַלִּים",
+          "tr": "mevalim",
+          "label": "ils",
+          "he_plain": "מבלים"
+        },
+        {
+          "he": "מְבַלּוֹת",
+          "tr": "mevalot",
+          "label": "elles",
+          "he_plain": "מבלות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "אֲנִי מְבַלֶּה עִם חֲבֵרִים בְּסוֹף הַשָּׁבוּעַ",
+          "tr": "ani mevaleh 'im chaverim besof hashavu'a",
+          "fr": "je passe du temps avec des amis le week-end",
+          "he_plain": "אני מבלה עם חברים בסוף השבוע"
+        }
+      ],
+      "he_plain": "לבלות"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לִצְפּוֹת",
+      "tr": "",
+      "fr": "(infinitif) regarder, observer",
+      "forms": [
+        {
+          "he": "צוֹפֶה",
+          "tr": "tsofeh",
+          "label": "il",
+          "he_plain": "צופה"
+        },
+        {
+          "he": "צוֹפָה",
+          "tr": "tsofah",
+          "label": "elle",
+          "he_plain": "צופה"
+        },
+        {
+          "he": "צוֹפִים",
+          "tr": "tsofim",
+          "label": "ils",
+          "he_plain": "צופים"
+        },
+        {
+          "he": "צוֹפוֹת",
+          "tr": "tsofot",
+          "label": "elles",
+          "he_plain": "צופות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "אֲנִי צוֹפֶה בַּסֶּרֶט הֶחָדָשׁ",
+          "tr": "ani tsofeh baseret hechadash",
+          "fr": "je regarde le nouveau film",
+          "he_plain": "אני צופה בסרט החדש"
+        }
+      ],
+      "he_plain": "לצפות"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְבַקֵּר",
+      "tr": "",
+      "fr": "(infinitif) visiter",
+      "forms": [
+        {
+          "he": "מְבַקֵּר",
+          "tr": "mevaker",
+          "label": "il",
+          "he_plain": "מבקר"
+        },
+        {
+          "he": "מְבַקֶּרֶת",
+          "tr": "mevakeret",
+          "label": "elle",
+          "he_plain": "מבקרת"
+        },
+        {
+          "he": "מְבַקְּרִים",
+          "tr": "mevakrim",
+          "label": "ils",
+          "he_plain": "מבקרים"
+        },
+        {
+          "he": "מְבַקְּרוֹת",
+          "tr": "mevakrot",
+          "label": "elles",
+          "he_plain": "מבקרות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ מְבַקְּרִים בַּמּוּזֵיאוֹן בַּחֻפְשָׁה",
+          "tr": "anachnu mevakrim bamuzeyon bachufshah",
+          "fr": "nous visitons le musée pendant les vacances",
+          "he_plain": "אנחנו מבקרים במוזיאון בחפשה"
+        }
+      ],
+      "he_plain": "לבקר"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לִגְלֹשׁ",
+      "tr": "",
+      "fr": "(infinitif) glisser, surfer",
+      "forms": [
+        {
+          "he": "גּוֹלֵשׁ",
+          "tr": "golesh",
+          "label": "il",
+          "he_plain": "גולש"
+        },
+        {
+          "he": "גּוֹלֶשֶׁת",
+          "tr": "goleshet",
+          "label": "elle",
+          "he_plain": "גולשת"
+        },
+        {
+          "he": "גּוֹלְשִׁים",
+          "tr": "golshim",
+          "label": "ils",
+          "he_plain": "גולשים"
+        },
+        {
+          "he": "גּוֹלְשׁוֹת",
+          "tr": "golshot",
+          "label": "elles",
+          "he_plain": "גולשות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הוּא גּוֹלֵשׁ בַּיָּם בְּכָל קַיִץ",
+          "tr": "hu golesh bayam bekhol kayits",
+          "fr": "il fait du surf à la mer chaque été",
+          "he_plain": "הוא גולש בים בכל קיץ"
+        }
+      ],
+      "he_plain": "לגלש"
     },
     {
       "cat": "Adjectifs",
@@ -18010,6 +18827,598 @@
       "he_plain": "מערבי"
     },
     {
+      "cat": "Adjectifs",
+      "he": "שְׁבוּעִי",
+      "tr": "",
+      "fr": "hebdomadaire",
+      "forms": [
+        {
+          "he": "שְׁבוּעִית",
+          "tr": "shvu'it",
+          "label": "f. sing.",
+          "he_plain": "שבועית"
+        },
+        {
+          "he": "שְׁבוּעִיִּים",
+          "tr": "shvu'iyim",
+          "label": "m. plur.",
+          "he_plain": "שבועיים"
+        },
+        {
+          "he": "שְׁבוּעִיּוֹת",
+          "tr": "shvu'iyot",
+          "label": "f. plur.",
+          "he_plain": "שבועיות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָנוּ שִׁעוּר עִבְרִית שְׁבוּעִי",
+          "tr": "yesh lanu shi'ur 'ivrit shvu'i",
+          "fr": "nous avons un cours d'hébreu hebdomadaire",
+          "he_plain": "יש לנו שעור עברית שבועי"
+        }
+      ],
+      "he_plain": "שבועי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "נוֹכְחִי",
+      "tr": "",
+      "fr": "actuel",
+      "forms": [
+        {
+          "he": "נוֹכְחִית",
+          "tr": "nokhchit",
+          "label": "f. sing.",
+          "he_plain": "נוכחית"
+        },
+        {
+          "he": "נוֹכְחִיִּים",
+          "tr": "nokhchiyim",
+          "label": "m. plur.",
+          "he_plain": "נוכחיים"
+        },
+        {
+          "he": "נוֹכְחִיּוֹת",
+          "tr": "nokhchiyot",
+          "label": "f. plur.",
+          "he_plain": "נוכחיות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "הַמַּצָּב הַנּוֹכְחִי מְעַנְיֵן",
+          "tr": "hamatsav hanokhchi me'anyen",
+          "fr": "la situation actuelle est intéressante",
+          "he_plain": "המצב הנוכחי מענין"
+        }
+      ],
+      "he_plain": "נוכחי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "שְׁנָתִי",
+      "tr": "",
+      "fr": "annuel",
+      "forms": [
+        {
+          "he": "שְׁנָתִית",
+          "tr": "shnatit",
+          "label": "f. sing.",
+          "he_plain": "שנתית"
+        },
+        {
+          "he": "שְׁנָתִיִּים",
+          "tr": "shnatiyim",
+          "label": "m. plur.",
+          "he_plain": "שנתיים"
+        },
+        {
+          "he": "שְׁנָתִיּוֹת",
+          "tr": "shnatiyot",
+          "label": "f. plur.",
+          "he_plain": "שנתיות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "זוֹ מְסִבָּה שְׁנָתִית בְּבֵית הַסֵּפֶר",
+          "tr": "zo mesibah shnatit beveit hasefer",
+          "fr": "c'est une fête annuelle à l'école",
+          "he_plain": "זו מסבה שנתית בבית הספר"
+        }
+      ],
+      "he_plain": "שנתי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "מְשֻׁלָּם",
+      "tr": "",
+      "fr": "payé",
+      "forms": [
+        {
+          "he": "מְשֻׁלֶּמֶת",
+          "tr": "meshulemet",
+          "label": "f. sing.",
+          "he_plain": "משלמת"
+        },
+        {
+          "he": "מְשֻׁלָּמִים",
+          "tr": "meshulamim",
+          "label": "m. plur.",
+          "he_plain": "משלמים"
+        },
+        {
+          "he": "מְשֻׁלָּמוֹת",
+          "tr": "meshulamot",
+          "label": "f. plur.",
+          "he_plain": "משלמות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הַחֶשְׁבּוֹן כְּבָר מְשֻׁלָּם",
+          "tr": "hacheshbon kvar meshulam",
+          "fr": "la facture est déjà payée",
+          "he_plain": "החשבון כבר משלם"
+        }
+      ],
+      "he_plain": "משלם"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "כַּלְכָּלִי",
+      "tr": "",
+      "fr": "économique",
+      "forms": [
+        {
+          "he": "כַּלְכָּלִית",
+          "tr": "kalkalit",
+          "label": "f. sing.",
+          "he_plain": "כלכלית"
+        },
+        {
+          "he": "כַּלְכָּלִיִּים",
+          "tr": "kalkaliyim",
+          "label": "m. plur.",
+          "he_plain": "כלכליים"
+        },
+        {
+          "he": "כַּלְכָּלִיּוֹת",
+          "tr": "kalkaliyot",
+          "label": "f. plur.",
+          "he_plain": "כלכליות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "יֵשׁ לָנוּ מַצָּב כַּלְכָּלִי טוֹב",
+          "tr": "yesh lanu matsav kalkali tov",
+          "fr": "nous avons une bonne situation économique",
+          "he_plain": "יש לנו מצב כלכלי טוב"
+        }
+      ],
+      "he_plain": "כלכלי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "מְבֻזְבָּז",
+      "tr": "",
+      "fr": "gaspillé",
+      "forms": [
+        {
+          "he": "מְבֻזְבֶּזֶת",
+          "tr": "mevuzbezet",
+          "label": "f. sing.",
+          "he_plain": "מבזבזת"
+        },
+        {
+          "he": "מְבֻזְבָּזִים",
+          "tr": "mevuzbazim",
+          "label": "m. plur.",
+          "he_plain": "מבזבזים"
+        },
+        {
+          "he": "מְבֻזְבָּזוֹת",
+          "tr": "mevuzbazot",
+          "label": "f. plur.",
+          "he_plain": "מבזבזות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "כָּל הַכֶּסֶף הַזֶּה מְבֻזְבָּז",
+          "tr": "kol hakesef hazeh mevuzbaz",
+          "fr": "tout cet argent est gaspillé",
+          "he_plain": "כל הכסף הזה מבזבז"
+        }
+      ],
+      "he_plain": "מבזבז"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "אוֹפְנָתִי",
+      "tr": "",
+      "fr": "à la mode",
+      "forms": [
+        {
+          "he": "אוֹפְנָתִית",
+          "tr": "ofnatit",
+          "label": "f. sing.",
+          "he_plain": "אופנתית"
+        },
+        {
+          "he": "אוֹפְנָתִיִּים",
+          "tr": "ofnatiyim",
+          "label": "m. plur.",
+          "he_plain": "אופנתיים"
+        },
+        {
+          "he": "אוֹפְנָתִיּוֹת",
+          "tr": "ofnatiyot",
+          "label": "f. plur.",
+          "he_plain": "אופנתיות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "הַחֻלְצָה הַזֹּאת מְאֹד אוֹפְנָתִית",
+          "tr": "hachultsah hazot me'od ofnatit",
+          "fr": "cette chemise est très à la mode",
+          "he_plain": "החלצה הזאת מאד אופנתית"
+        }
+      ],
+      "he_plain": "אופנתי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "בָּלוּי",
+      "tr": "",
+      "fr": "usé",
+      "forms": [
+        {
+          "he": "בְּלוּיָה",
+          "tr": "beluyah",
+          "label": "f. sing.",
+          "he_plain": "בלויה"
+        },
+        {
+          "he": "בְּלוּיִים",
+          "tr": "beluyim",
+          "label": "m. plur.",
+          "he_plain": "בלויים"
+        },
+        {
+          "he": "בְּלוּיוֹת",
+          "tr": "beluyot",
+          "label": "f. plur.",
+          "he_plain": "בלויות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "הַנַּעֲלַיִם שֶׁלִּי בְּלוּיוֹת",
+          "tr": "hana'alayim sheli beluyot",
+          "fr": "mes chaussures sont usées",
+          "he_plain": "הנעלים שלי בלויות"
+        }
+      ],
+      "he_plain": "בלוי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "שַׁתְקָן",
+      "tr": "",
+      "fr": "taciturne, peu bavard",
+      "forms": [
+        {
+          "he": "שַׁתְקָנִית",
+          "tr": "shatkanit",
+          "label": "f. sing.",
+          "he_plain": "שתקנית"
+        },
+        {
+          "he": "שַׁתְקָנִים",
+          "tr": "shatkanim",
+          "label": "m. plur.",
+          "he_plain": "שתקנים"
+        },
+        {
+          "he": "שַׁתְקָנִיּוֹת",
+          "tr": "shatkaniyot",
+          "label": "f. plur.",
+          "he_plain": "שתקניות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "הוּא שַׁתְקָן, הוּא כִּמְעַט לֹא מְדַבֵּר",
+          "tr": "hu shatkan hu kim'at lo medaber",
+          "fr": "il est taciturne, il ne parle presque pas",
+          "he_plain": "הוא שתקן, הוא כמעט לא מדבר"
+        }
+      ],
+      "he_plain": "שתקן"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "שָׁקוּל",
+      "tr": "",
+      "fr": "réfléchi, mesuré (pesé)",
+      "forms": [
+        {
+          "he": "שְׁקוּלָה",
+          "tr": "shkulah",
+          "label": "f. sing.",
+          "he_plain": "שקולה"
+        },
+        {
+          "he": "שְׁקוּלִים",
+          "tr": "shkulim",
+          "label": "m. plur.",
+          "he_plain": "שקולים"
+        },
+        {
+          "he": "שְׁקוּלוֹת",
+          "tr": "shkulot",
+          "label": "f. plur.",
+          "he_plain": "שקולות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "הוּא אָדָם שָׁקוּל",
+          "tr": "hu adam shakul",
+          "fr": "c'est quelqu'un de réfléchi, de mesuré",
+          "he_plain": "הוא אדם שקול"
+        }
+      ],
+      "he_plain": "שקול"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "הֶגְיוֹנִי",
+      "tr": "",
+      "fr": "logique, raisonnable",
+      "forms": [
+        {
+          "he": "הֶגְיוֹנִית",
+          "tr": "hegyonit",
+          "label": "f. sing.",
+          "he_plain": "הגיונית"
+        },
+        {
+          "he": "הֶגְיוֹנִיִּים",
+          "tr": "hegyoniyim",
+          "label": "m. plur.",
+          "he_plain": "הגיוניים"
+        },
+        {
+          "he": "הֶגְיוֹנִיּוֹת",
+          "tr": "hegyoniyot",
+          "label": "f. plur.",
+          "he_plain": "הגיוניות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "זֶה נִשְׁמָע הֶגְיוֹנִי",
+          "tr": "zeh nishma' hegyoni",
+          "fr": "ça semble logique",
+          "he_plain": "זה נשמע הגיוני"
+        }
+      ],
+      "he_plain": "הגיוני"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "סוֹדִי",
+      "tr": "",
+      "fr": "secret, confidentiel",
+      "forms": [
+        {
+          "he": "סוֹדִית",
+          "tr": "sodit",
+          "label": "f. sing.",
+          "he_plain": "סודית"
+        },
+        {
+          "he": "סוֹדִיִּים",
+          "tr": "sodiyim",
+          "label": "m. plur.",
+          "he_plain": "סודיים"
+        },
+        {
+          "he": "סוֹדִיּוֹת",
+          "tr": "sodiyot",
+          "label": "f. plur.",
+          "he_plain": "סודיות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "זֶה מֵידָע סוֹדִי",
+          "tr": "zeh meida' sodi",
+          "fr": "c'est une information confidentielle",
+          "he_plain": "זה מידע סודי"
+        }
+      ],
+      "he_plain": "סודי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "פּוֹפּוּלָרִי",
+      "tr": "",
+      "fr": "populaire",
+      "forms": [
+        {
+          "he": "פּוֹפּוּלָרִית",
+          "tr": "popularit",
+          "label": "f. sing.",
+          "he_plain": "פופולרית"
+        },
+        {
+          "he": "פּוֹפּוּלָרִיִּים",
+          "tr": "populariyim",
+          "label": "m. plur.",
+          "he_plain": "פופולריים"
+        },
+        {
+          "he": "פּוֹפּוּלָרִיּוֹת",
+          "tr": "populariyot",
+          "label": "f. plur.",
+          "he_plain": "פופולריות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הַזַּמָּר הַזֶּה פּוֹפּוּלָרִי מְאֹד בְּיִשְׂרָאֵל",
+          "tr": "hazamar hazeh populari me'od beyisra'el",
+          "fr": "ce chanteur est très populaire en Israël",
+          "he_plain": "הזמר הזה פופולרי מאד בישראל"
+        }
+      ],
+      "he_plain": "פופולרי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "תַּרְבּוּתִי",
+      "tr": "",
+      "fr": "culturel",
+      "forms": [
+        {
+          "he": "תַּרְבּוּתִית",
+          "tr": "tarbutit",
+          "label": "f. sing.",
+          "he_plain": "תרבותית"
+        },
+        {
+          "he": "תַּרְבּוּתִיִּים",
+          "tr": "tarbutiyim",
+          "label": "m. plur.",
+          "he_plain": "תרבותיים"
+        },
+        {
+          "he": "תַּרְבּוּתִיּוֹת",
+          "tr": "tarbutiyot",
+          "label": "f. plur.",
+          "he_plain": "תרבותיות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הַמּוּזֵיאוֹן הוּא מָקוֹם תַּרְבּוּתִי חָשׁוּב",
+          "tr": "hamuzeyon hu makom tarbuti chashuv",
+          "fr": "le musée est un lieu culturel important",
+          "he_plain": "המוזיאון הוא מקום תרבותי חשוב"
+        }
+      ],
+      "he_plain": "תרבותי"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "יָדוּעַ",
+      "tr": "",
+      "fr": "connu",
+      "forms": [
+        {
+          "he": "יְדוּעָה",
+          "tr": "yedu'ah",
+          "label": "f. sing.",
+          "he_plain": "ידועה"
+        },
+        {
+          "he": "יְדוּעִים",
+          "tr": "yedu'im",
+          "label": "m. plur.",
+          "he_plain": "ידועים"
+        },
+        {
+          "he": "יְדוּעוֹת",
+          "tr": "yedu'ot",
+          "label": "f. plur.",
+          "he_plain": "ידועות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הַסֶּרֶט הַזֶּה יָדוּעַ מְאֹד",
+          "tr": "haseret hazeh yadu'a me'od",
+          "fr": "ce film est très connu",
+          "he_plain": "הסרט הזה ידוע מאד"
+        }
+      ],
+      "he_plain": "ידוע"
+    },
+    {
+      "cat": "Adjectifs",
+      "he": "מְבַדֵּר",
+      "tr": "",
+      "fr": "divertissant",
+      "forms": [
+        {
+          "he": "מְבַדֶּרֶת",
+          "tr": "mevaderet",
+          "label": "f. sing.",
+          "he_plain": "מבדרת"
+        },
+        {
+          "he": "מְבַדְּרִים",
+          "tr": "mevadrim",
+          "label": "m. plur.",
+          "he_plain": "מבדרים"
+        },
+        {
+          "he": "מְבַדְּרוֹת",
+          "tr": "mevadrot",
+          "label": "f. plur.",
+          "he_plain": "מבדרות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הַמּוֹפָע הַזֶּה מְבַדֵּר מְאֹד",
+          "tr": "hamofa' hazeh mevader me'od",
+          "fr": "ce spectacle est très divertissant",
+          "he_plain": "המופע הזה מבדר מאד"
+        }
+      ],
+      "he_plain": "מבדר"
+    },
+    {
       "cat": "Noms",
       "he": "אִישׁ",
       "tr": "",
@@ -24341,6 +25750,216 @@
     },
     {
       "cat": "Noms",
+      "he": "תַּחְתּוֹנִים",
+      "tr": "",
+      "fr": "sous-vêtements, slip (m)",
+      "genre": "m",
+      "niveau": "A2",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "אֲנִי קוֹנֶה תַּחְתּוֹנִים חֲדָשִׁים בַּחֲנוּת",
+          "tr": "ani koneh tachtonim chadashim bachanut",
+          "fr": "j'achète des sous-vêtements neufs dans le magasin",
+          "he_plain": "אני קונה תחתונים חדשים בחנות"
+        }
+      ],
+      "he_plain": "תחתונים"
+    },
+    {
+      "cat": "Noms",
+      "he": "כִּיס",
+      "tr": "",
+      "fr": "poche (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "כִּיסִים",
+          "tr": "kisim",
+          "label": "pluriel",
+          "he_plain": "כיסים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי מַפְתֵּחַ בַּכִּיס",
+          "tr": "yesh li mafteach bakis",
+          "fr": "j'ai une clé dans la poche",
+          "he_plain": "יש לי מפתח בכיס"
+        }
+      ],
+      "he_plain": "כיס"
+    },
+    {
+      "cat": "Noms",
+      "he": "כֻּתְנָה",
+      "tr": "",
+      "fr": "coton (f)",
+      "genre": "f",
+      "niveau": "B1",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "הַחֻלְצָה הַזֹּאת עֲשׂוּיָה כֻּתְנָה",
+          "tr": "hachultsah hazot 'asuyah kutnah",
+          "fr": "cette chemise est faite de coton",
+          "he_plain": "החלצה הזאת עשויה כתנה"
+        }
+      ],
+      "he_plain": "כתנה"
+    },
+    {
+      "cat": "Noms",
+      "he": "רוֹכְסָן",
+      "tr": "",
+      "fr": "fermeture éclair (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "רוֹכְסָנִים",
+          "tr": "rokhsanim",
+          "label": "pluriel",
+          "he_plain": "רוכסנים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "הָרוֹכְסָן שֶׁל הַמְּעִיל נִתְקַע",
+          "tr": "harokhsan shel ham'il nitka'",
+          "fr": "la fermeture éclair du manteau s'est coincée",
+          "he_plain": "הרוכסן של המעיל נתקע"
+        }
+      ],
+      "he_plain": "רוכסן"
+    },
+    {
+      "cat": "Noms",
+      "he": "מַגָּף",
+      "tr": "",
+      "fr": "botte (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מַגָּפַיִם",
+          "tr": "magafayim",
+          "label": "pluriel",
+          "he_plain": "מגפים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "אֲנִי נוֹעֶלֶת מַגָּפַיִם בַּחוֹרֶף",
+          "tr": "ani no'elet magafayim bachoref",
+          "fr": "je porte des bottes en hiver",
+          "he_plain": "אני נועלת מגפים בחורף"
+        }
+      ],
+      "he_plain": "מגף"
+    },
+    {
+      "cat": "Noms",
+      "he": "סַנְדָּל",
+      "tr": "",
+      "fr": "sandale (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "סַנְדָּלִים",
+          "tr": "sandalim",
+          "label": "pluriel",
+          "he_plain": "סנדלים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "בַּקַּיִץ אֲנִי נוֹעֶלֶת סַנְדָּלִים",
+          "tr": "bakayits ani no'elet sandalim",
+          "fr": "en été, je porte des sandales",
+          "he_plain": "בקיץ אני נועלת סנדלים"
+        }
+      ],
+      "he_plain": "סנדל"
+    },
+    {
+      "cat": "Noms",
+      "he": "חֲלִיפָה",
+      "tr": "",
+      "fr": "costume, tailleur (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "חֲלִיפוֹת",
+          "tr": "chalifot",
+          "label": "pluriel",
+          "he_plain": "חליפות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "הוּא לוֹבֵשׁ חֲלִיפָה לָעֲבוֹדָה",
+          "tr": "hu lovesh chalifah la'avodah",
+          "fr": "il porte un costume pour aller au travail",
+          "he_plain": "הוא לובש חליפה לעבודה"
+        }
+      ],
+      "he_plain": "חליפה"
+    },
+    {
+      "cat": "Noms",
+      "he": "מֶשִׁי",
+      "tr": "",
+      "fr": "soie (m)",
+      "genre": "m",
+      "niveau": "B1",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "הַצְּעִיף עָשׂוּי מֶשִׁי",
+          "tr": "hats'if 'asuy meshi",
+          "fr": "l'écharpe est faite de soie",
+          "he_plain": "הצעיף עשוי משי"
+        }
+      ],
+      "he_plain": "משי"
+    },
+    {
+      "cat": "Noms",
+      "he": "סְוֶדֶר",
+      "tr": "",
+      "fr": "pull (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "סְוֶדֶרִים",
+          "tr": "svederim",
+          "label": "pluriel",
+          "he_plain": "סודרים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vetements-couleurs",
+      "exemples": [
+        {
+          "he": "אֲנִי לוֹבֶשֶׁת סְוֶדֶר חָם בַּחוֹרֶף",
+          "tr": "ani loveshet sveder cham bachoref",
+          "fr": "je porte un pull chaud en hiver",
+          "he_plain": "אני לובשת סודר חם בחורף"
+        }
+      ],
+      "he_plain": "סודר"
+    },
+    {
+      "cat": "Noms",
       "he": "רְחוֹב",
       "tr": "",
       "fr": "rue (m)",
@@ -28357,6 +29976,120 @@
     },
     {
       "cat": "Noms",
+      "he": "יוֹמָן",
+      "tr": "",
+      "fr": "agenda, journal intime (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "יוֹמָנִים",
+          "tr": "yomanim",
+          "label": "pluriel",
+          "he_plain": "יומנים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "אֲנִי כּוֹתֵב בַּיּוֹמָן אֶת כָּל הַפְּגִישׁוֹת שֶׁלִּי",
+          "tr": "ani kotev bayoman et kol hapgishot sheli",
+          "fr": "j'écris tous mes rendez-vous dans mon agenda",
+          "he_plain": "אני כותב ביומן את כל הפגישות שלי"
+        }
+      ],
+      "he_plain": "יומן"
+    },
+    {
+      "cat": "Noms",
+      "he": "עוֹנָה",
+      "tr": "",
+      "fr": "saison (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "עוֹנוֹת",
+          "tr": "'onot",
+          "label": "pluriel",
+          "he_plain": "עונות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "יֵשׁ אַרְבַּע עוֹנוֹת בַּשָּׁנָה",
+          "tr": "yesh arba' 'onot bashanah",
+          "fr": "il y a quatre saisons dans l'année",
+          "he_plain": "יש ארבע עונות בשנה"
+        }
+      ],
+      "he_plain": "עונה"
+    },
+    {
+      "cat": "Noms",
+      "he": "סִיּוּם",
+      "tr": "",
+      "fr": "fin, conclusion (m)",
+      "genre": "m",
+      "niveau": "B1",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "בְּסִיּוּם הַיּוֹם אֲנִי חוֹזֵר הַבַּיְתָה",
+          "tr": "besiyum hayom ani chozer habaytah",
+          "fr": "à la fin de la journée, je rentre à la maison",
+          "he_plain": "בסיום היום אני חוזר הביתה"
+        }
+      ],
+      "he_plain": "סיום"
+    },
+    {
+      "cat": "Noms",
+      "he": "הַתְחָלָה",
+      "tr": "",
+      "fr": "début, commencement (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "הַתְחָלוֹת",
+          "tr": "hatchalot",
+          "label": "pluriel",
+          "he_plain": "התחלות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "זוֹ הַתְחָלָה טוֹבָה",
+          "tr": "zo hatchalah tovah",
+          "fr": "c'est un bon début",
+          "he_plain": "זו התחלה טובה"
+        }
+      ],
+      "he_plain": "התחלה"
+    },
+    {
+      "cat": "Noms",
+      "he": "זְמַן פָּנוּי",
+      "tr": "",
+      "fr": "temps libre (m)",
+      "genre": "m",
+      "niveau": "A2",
+      "theme": "temps-calendrier",
+      "exemples": [
+        {
+          "he": "אֵין לִי הַרְבֵּה זְמַן פָּנוּי הַשָּׁבוּעַ",
+          "tr": "ein li harbeh zeman panuy hashavu'a",
+          "fr": "je n'ai pas beaucoup de temps libre cette semaine",
+          "he_plain": "אין לי הרבה זמן פנוי השבוע"
+        }
+      ],
+      "he_plain": "זמן פנוי"
+    },
+    {
+      "cat": "Noms",
       "he": "סֵפֶר",
       "tr": "",
       "fr": "livre (m)",
@@ -30033,6 +31766,180 @@
     },
     {
       "cat": "Noms",
+      "he": "מוּצָר",
+      "tr": "",
+      "fr": "produit (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מוּצָרִים",
+          "tr": "mutsarim",
+          "label": "pluriel",
+          "he_plain": "מוצרים"
+        }
+      ],
+      "niveau": "A1",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הַמּוּצָר הַזֶּה עוֹלֶה עֶשְׂרִים שֶׁקֶל",
+          "tr": "hamutsar hazeh 'oleh 'esrim shekel",
+          "fr": "ce produit coûte vingt shekels",
+          "he_plain": "המוצר הזה עולה עשרים שקל"
+        }
+      ],
+      "he_plain": "מוצר"
+    },
+    {
+      "cat": "Noms",
+      "he": "עִסְקָה",
+      "tr": "",
+      "fr": "affaire, transaction (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "עִסְקָאוֹת",
+          "tr": "'iskaot",
+          "label": "pluriel",
+          "he_plain": "עסקאות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "עָשִׂינוּ עִסְקָה טוֹבָה בַּחֲנוּת",
+          "tr": "'asinu 'iskah tovah bachanut",
+          "fr": "nous avons fait une bonne affaire dans le magasin",
+          "he_plain": "עשינו עסקה טובה בחנות"
+        }
+      ],
+      "he_plain": "עסקה"
+    },
+    {
+      "cat": "Noms",
+      "he": "מַכֹּלֶת",
+      "tr": "",
+      "fr": "épicerie (f)",
+      "genre": "f",
+      "niveau": "A2",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "אֲנִי קוֹנֶה לֶחֶם בַּמַּכֹּלֶת",
+          "tr": "ani koneh lechem bamakolet",
+          "fr": "j'achète du pain à l'épicerie",
+          "he_plain": "אני קונה לחם במכלת"
+        }
+      ],
+      "he_plain": "מכלת"
+    },
+    {
+      "cat": "Noms",
+      "he": "קֻפַּאי",
+      "tr": "",
+      "fr": "caissier (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "קֻפָּאִים",
+          "tr": "kupa'im",
+          "label": "pluriel",
+          "he_plain": "קפאים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הַקֻּפַּאי סוֹפֵר אֶת הַכֶּסֶף בַּקֻּפָּה",
+          "tr": "hakupa'i sofer et hakesef bakupah",
+          "fr": "le caissier compte l'argent à la caisse",
+          "he_plain": "הקפאי סופר את הכסף בקפה"
+        }
+      ],
+      "he_plain": "קפאי"
+    },
+    {
+      "cat": "Noms",
+      "he": "מַס",
+      "tr": "",
+      "fr": "impôt, taxe (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "מִסִּים",
+          "tr": "misim",
+          "label": "pluriel",
+          "he_plain": "מסים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ מְשַׁלְּמִים מַס עַל הַמּוּצָרִים",
+          "tr": "anachnu meshalmim mas 'al hamutsarim",
+          "fr": "nous payons une taxe sur les produits",
+          "he_plain": "אנחנו משלמים מס על המוצרים"
+        }
+      ],
+      "he_plain": "מס"
+    },
+    {
+      "cat": "Noms",
+      "he": "תַּשְׁלוּם",
+      "tr": "",
+      "fr": "paiement (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "תַּשְׁלוּמִים",
+          "tr": "tashlumim",
+          "label": "pluriel",
+          "he_plain": "תשלומים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הַתַּשְׁלוּם הוּא בְּכַרְטִיס אַשְׁרַאי",
+          "tr": "hatashlum hu bekhartis ashra'i",
+          "fr": "le paiement se fait par carte de crédit",
+          "he_plain": "התשלום הוא בכרטיס אשראי"
+        }
+      ],
+      "he_plain": "תשלום"
+    },
+    {
+      "cat": "Noms",
+      "he": "רֶוַח",
+      "tr": "",
+      "fr": "profit, gain (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "רְוָחִים",
+          "tr": "revachim",
+          "label": "pluriel",
+          "he_plain": "רוחים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "argent-achats",
+      "exemples": [
+        {
+          "he": "הָעֵסֶק עָשָׂה רֶוַח גָּדוֹל הַשָּׁנָה",
+          "tr": "ha'esek 'asah revach gadol hashanah",
+          "fr": "l'entreprise a fait un grand profit cette année",
+          "he_plain": "העסק עשה רוח גדול השנה"
+        }
+      ],
+      "he_plain": "רוח"
+    },
+    {
+      "cat": "Noms",
       "he": "מְסִבָּה",
       "tr": "",
       "fr": "fête (soirée) (f)",
@@ -30874,6 +32781,162 @@
         }
       ],
       "he_plain": "פסל"
+    },
+    {
+      "cat": "Noms",
+      "he": "פְּסַנְתֵּר",
+      "tr": "",
+      "fr": "piano (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "פְּסַנְתֵּרִים",
+          "tr": "pesanterim",
+          "label": "pluriel",
+          "he_plain": "פסנתרים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הַיֶּלֶד מְנַגֵּן בַּפְּסַנְתֵּר כָּל יוֹם",
+          "tr": "hayeled menagen bapsanter kol yom",
+          "fr": "l'enfant joue du piano tous les jours",
+          "he_plain": "הילד מנגן בפסנתר כל יום"
+        }
+      ],
+      "he_plain": "פסנתר"
+    },
+    {
+      "cat": "Noms",
+      "he": "קְרִיאָה",
+      "tr": "",
+      "fr": "lecture (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "קְרִיאוֹת",
+          "tr": "keriyot",
+          "label": "pluriel",
+          "he_plain": "קריאות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "אֲנִי אוֹהֵב קְרִיאָה בָּעֶרֶב",
+          "tr": "ani ohev keriyah ba'erev",
+          "fr": "j'aime la lecture le soir",
+          "he_plain": "אני אוהב קריאה בערב"
+        }
+      ],
+      "he_plain": "קריאה"
+    },
+    {
+      "cat": "Noms",
+      "he": "רוֹמָן",
+      "tr": "",
+      "fr": "roman (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "רוֹמָנִים",
+          "tr": "romanim",
+          "label": "pluriel",
+          "he_plain": "רומנים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "אֲנִי קוֹרֵא רוֹמָן מְעַנְיֵן",
+          "tr": "ani kore roman me'anyen",
+          "fr": "je lis un roman intéressant",
+          "he_plain": "אני קורא רומן מענין"
+        }
+      ],
+      "he_plain": "רומן"
+    },
+    {
+      "cat": "Noms",
+      "he": "רִקּוּד",
+      "tr": "",
+      "fr": "danse (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "רִקּוּדִים",
+          "tr": "rikudim",
+          "label": "pluriel",
+          "he_plain": "רקודים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הֵם אוֹהֲבִים רִקּוּד יִשְׂרְאֵלִי",
+          "tr": "hem ohavim rikud yisreli",
+          "fr": "ils aiment la danse israélienne",
+          "he_plain": "הם אוהבים רקוד ישראלי"
+        }
+      ],
+      "he_plain": "רקוד"
+    },
+    {
+      "cat": "Noms",
+      "he": "תַּיָּר",
+      "tr": "",
+      "fr": "touriste (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "תַּיָּרִים",
+          "tr": "tayarim",
+          "label": "pluriel",
+          "he_plain": "תירים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "הַתַּיָּר מְצַלֵּם אֶת הָעִיר הַיָּפָה",
+          "tr": "hatayar metsalem et ha'ir hayafah",
+          "fr": "le touriste photographie la belle ville",
+          "he_plain": "התיר מצלם את העיר היפה"
+        }
+      ],
+      "he_plain": "תיר"
+    },
+    {
+      "cat": "Noms",
+      "he": "אִמּוּן",
+      "tr": "",
+      "fr": "entraînement (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "אִמּוּנִים",
+          "tr": "imunim",
+          "label": "pluriel",
+          "he_plain": "אמונים"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "loisirs-culture",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי אִמּוּן כַּדּוּרֶגֶל בְּכָל יוֹם שְׁלִישִׁי",
+          "tr": "yesh li imun kaduregel bekhol yom shlishi",
+          "fr": "j'ai un entraînement de football tous les mardis",
+          "he_plain": "יש לי אמון כדורגל בכל יום שלישי"
+        }
+      ],
+      "he_plain": "אמון"
     },
     {
       "cat": "Noms",
@@ -32790,6 +34853,128 @@
         }
       ],
       "he_plain": "עמק"
+    },
+    {
+      "cat": "Noms",
+      "he": "מַחֲשָׁבָה",
+      "tr": "",
+      "fr": "pensée (f)",
+      "genre": "f",
+      "forms": [
+        {
+          "he": "מַחֲשָׁבוֹת",
+          "tr": "machashavot",
+          "label": "pluriel",
+          "he_plain": "מחשבות"
+        }
+      ],
+      "niveau": "B1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "זוֹ מַחֲשָׁבָה טוֹבָה",
+          "tr": "zo machashavah tovah",
+          "fr": "c'est une bonne idée",
+          "he_plain": "זו מחשבה טובה"
+        }
+      ],
+      "he_plain": "מחשבה"
+    },
+    {
+      "cat": "Noms",
+      "he": "זִכָּרוֹן",
+      "tr": "",
+      "fr": "souvenir / mémoire (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "זִכְרוֹנוֹת",
+          "tr": "zikhronot",
+          "label": "pluriel",
+          "he_plain": "זכרונות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "יֵשׁ לִי זִכָּרוֹן טוֹב",
+          "tr": "yesh li zikaron tov",
+          "fr": "j'ai une bonne mémoire",
+          "he_plain": "יש לי זכרון טוב"
+        }
+      ],
+      "he_plain": "זכרון"
+    },
+    {
+      "cat": "Noms",
+      "he": "הֶסְבֵּר",
+      "tr": "",
+      "fr": "explication (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "הֶסְבֵּרִים",
+          "tr": "hesberim",
+          "label": "pluriel",
+          "he_plain": "הסברים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "תּוֹדָה עַל הַהֶסְבֵּר",
+          "tr": "todah 'al hahesber",
+          "fr": "merci pour l'explication",
+          "he_plain": "תודה על ההסבר"
+        }
+      ],
+      "he_plain": "הסבר"
+    },
+    {
+      "cat": "Noms",
+      "he": "קֶשֶׁר",
+      "tr": "",
+      "fr": "lien / contact (m)",
+      "genre": "m",
+      "forms": [
+        {
+          "he": "קְשָׁרִים",
+          "tr": "kesharim",
+          "label": "pluriel",
+          "he_plain": "קשרים"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ בְּקֶשֶׁר כָּל הַזְּמַן",
+          "tr": "anachnu bekesher kol hazman",
+          "fr": "nous sommes en contact tout le temps",
+          "he_plain": "אנחנו בקשר כל הזמן"
+        }
+      ],
+      "he_plain": "קשר"
+    },
+    {
+      "cat": "Noms",
+      "he": "שֶׁקֶט",
+      "tr": "",
+      "fr": "silence (m)",
+      "genre": "m",
+      "niveau": "A1",
+      "theme": "communication-pensee",
+      "exemples": [
+        {
+          "he": "אֲנִי צָרִיךְ שֶׁקֶט כְּדֵי לַעֲבֹד",
+          "tr": "ani tsarikh sheket kdei la'avod",
+          "fr": "j'ai besoin de silence pour travailler",
+          "he_plain": "אני צריך שקט כדי לעבד"
+        }
+      ],
+      "he_plain": "שקט"
     },
     {
       "cat": "Pronoms personnels",

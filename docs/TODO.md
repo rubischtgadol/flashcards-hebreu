@@ -21,6 +21,23 @@ surfaces, `verifieRecherche()` la garde dans les deux sens) et la **structure du
 carnet** (`</main>` fermait dans une section, deux sections se rendaient hors de
 la colonne de lecture ; `verifieStructureCarnet()` l'interdit désormais).
 
+✅ **Lot du 05/08 : les cinq thèmes les plus creux sont comblés.** +67 entrées
+(1728 → 1795 cartes) sur `temps-calendrier` 38→51, `vetements-couleurs` 46→58,
+`argent-achats` 45→59, `communication-pensee` 52→66, `loisirs-culture` 53→67.
+**Aucun `tr` n'a été rédigé à la main** : 216 dérivés par `he2tr` et relus au
+tableau du générateur — c'est la parade au défaut connu (les agents confondent
+`ch` et `kh`), et elle a tenu. Un contradicteur par lot a vérifié chaque niqqud
+contre he.wiktionary : 3 rejets (dont `חָדְשִׁי`) et 2 féminins d'adjectifs en
+־י corrigés (`פופולריה` → `פופולרית`). `רֶוַח` inséré avec `--force`, sa
+collision de squelette avec `רוּחַ` étant un homographe et non un doublon.
+
+📊 **Sous-produit : la couverture he.wiktionary est mesurée**, sur 70 mots
+réels — **36/70 (51 %)** en entrée directe, **45/70 (64 %)** avec les pages de
+racine. Le résultat utile n'est pas le taux mais sa **structure** : le
+Wiktionnaire hébreu couvre les **noms** (9/9, 7/7) et **pas** les verbes ni les
+adjectifs (0/5, 0/7), que Pealim a fournis. Un éventuel `tools/consulte_dico.js`
+doit donc router **par nature de mot**, pas interroger une source unique.
+
 ✅ **Soldé le 05/08 : « aucun résultat » n'est plus un cul-de-sac.** L'état vide
 de la recherche porte un lien vers le Wiktionnaire — **hébreu** si la requête
 contient des lettres hébraïques, **français** sinon
@@ -59,7 +76,7 @@ chacun a une commande qui le recalcule :
 
 | Fait | Valeur | L'autorité qui la recalcule |
 | --- | --- | --- |
-| Cartes | 1728 (A1 490 · A2 669 · B1 503 · B2 47 · C1 19) | `node tools/cherche_mots.js --stats` |
+| Cartes | 1795 (A1 493 · A2 696 · B1 537 · B2 50 · C1 19) | `node tools/cherche_mots.js --stats` |
 | Sections du carnet | 45 (44 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
 | Catégories de cartes | 25 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
 | Garde-fous anti-casse silencieuse | 13 | ARCHITECTURE.md § Garde-fous |
