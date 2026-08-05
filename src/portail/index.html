@@ -45,7 +45,13 @@
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     padding:28px 18px 34px;
   }
-  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+  /* ⚠️ `*` NE CIBLE PAS LES PSEUDO-ÉLÉMENTS — il faut les nommer. Sans ::before,
+     le halo de la menorah (.menorah::before, animation `lueur`) continuait de
+     respirer en boucle sous « réduire les animations », c'est-à-dire exactement
+     le mouvement infini que le réglage sert à éteindre. Défaut apparu TROIS fois
+     dans ce dépôt : on écrit les trois sélecteurs partout, même là où aucun
+     pseudo-élément n'est animé aujourd'hui. */
+  @media (prefers-reduced-motion: reduce){ *,*::before,*::after{transition:none !important; animation:none !important;} }
   :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
 
   /* ————— Premier temps : l'accueil plein écran —————

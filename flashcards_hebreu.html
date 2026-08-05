@@ -45,7 +45,11 @@
     display:flex; flex-direction:column;
     padding:16px 14px 26px;
   }
-  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+  /* ⚠️ `*` ne cible pas les pseudo-éléments : les trois sélecteurs, toujours.
+     Aucune animation de l'app n'est portée par un ::before aujourd'hui (spin et
+     cardIn sont sur de vrais éléments) — c'est justement pourquoi on l'écrit
+     maintenant : la prochaine rouvrirait le défaut sans prévenir. */
+  @media (prefers-reduced-motion: reduce){ *,*::before,*::after{transition:none !important; animation:none !important;} }
 
   /* ---------- Header ---------- */
   header{ text-align:center; margin-bottom:10px; }

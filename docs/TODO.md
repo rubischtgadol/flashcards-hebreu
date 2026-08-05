@@ -14,8 +14,9 @@
 
 ## Reprendre ici (prochaine session)
 
-🟠 **Un défaut ouvert** (voir § Défauts ouverts) : le portail anime encore sous
-« réduire les animations ». Soldés le 29/07 : la **recherche** (`cleRecherche`
+🟢 **Aucun défaut ouvert.** Le dernier — le portail qui animait encore sous
+« réduire les animations » — est soldé le 05/08 (voir § Défauts ouverts).
+Soldés le 29/07 : la **recherche** (`cleRecherche`
 replie ktiv male/haser et les variantes de translittération sur les deux
 surfaces, `verifieRecherche()` la garde dans les deux sens) et la **structure du
 carnet** (`</main>` fermait dans une section, deux sections se rendaient hors de
@@ -270,20 +271,30 @@ ne bloque rien et ne se périme pas).
 Distincts de la dette ci-dessous : aucun ne porte de raison d'être toléré. Ce
 sont des chantiers.
 
-1. 🟠 **Le portail continue d'animer sous « réduire les animations ».** Sa
-   coupure est écrite `*{transition:none;animation:none}`
-   ([src/portail/index.html:48](../src/portail/index.html)), or **`*` ne cible
-   pas les pseudo-éléments** : le halo de la menorah (`.menorah::before`,
-   [index.html:75](../src/portail/index.html)) garde son animation `lueur`. Le
-   commentaire juste au-dessus affirme pourtant « immobile sous
-   prefers-reduced-motion » ([index.html:67](../src/portail/index.html)) — le
-   code se contredit lui-même. Correctif : `*,*::before,*::after`. ⚠️ L'app
-   porte la même écriture ([10-base.css:14](../src/app/css/10-base.css)) mais
-   n'est **pas** touchée aujourd'hui — ses deux animations (`spin`, `cardIn`)
-   portent sur de vrais éléments ; à corriger quand même, la prochaine
-   animation sur un `::before` rouvrirait le défaut sans prévenir. Ce bug est
-   apparu **trois fois** dans ce dépôt : il mérite d'entrer dans les pièges de
-   `CLAUDE.md`.
+**La liste est vide depuis le 05/08.**
+
+✅ *Soldé le 05/08 — le portail animait sous « réduire les animations ».* La
+coupure s'écrivait `*{transition:none;animation:none}` dans **trois** fichiers
+source (portail, app, carnet), or **`*` ne cible pas les pseudo-éléments** : le
+halo de la menorah (`.menorah::before`, animation `lueur`, 4,5 s **infinie**)
+continuait de respirer — exactement le mouvement que le réglage sert à
+éteindre. Les trois coupures s'écrivent désormais `*,*::before,*::after`, et
+chacune porte le pourquoi en commentaire. Une seule des trois était un défaut
+actif ; les deux autres sont préventives (l'app n'anime que de vrais éléments,
+le carnet n'a aucun `@keyframes`) — la prochaine animation sur un `::before`
+aurait rouvert le défaut sans prévenir.
+
+⚠️ **Prouvé au banc WebKit avec son témoin positif** : `animationName` vaut
+`none` sous `reducedMotion:'reduce'` **et** `lueur` sous `no-preference`. Le
+témoin n'est pas décoratif — sans lui, un sélecteur qui ne matche jamais passe
+au vert dans les deux sens et le contrôle ne prouve rien.
+
+📌 **Reste à décider** : ce bug est apparu **trois fois**. La note d'origine
+suggérait de l'inscrire aux pièges de `CLAUDE.md` ; une garde de build serait
+préférable — `verifieCharte()` échouerait sur un bloc `prefers-reduced-motion`
+dont le `*{` ne nomme pas ses pseudo-éléments, sur le modèle de ce qu'elle fait
+déjà pour `transition:all`. Coût nul par tour, et ça ne s'oublie pas.
+**Non implémenté : en attente d'arbitrage.**
 
 ### Dette ouverte — trois entrées
 

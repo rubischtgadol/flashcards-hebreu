@@ -538,7 +538,9 @@
      anime les 27 liens du sommaire. */
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
-    *{ transition:none !important; animation:none !important; }
+    /* ⚠️ `*` ne cible pas les pseudo-éléments : les trois sélecteurs, toujours
+       (le carnet n'a aucun @keyframes aujourd'hui — on ferme la porte avant). */
+    *,*::before,*::after{ transition:none !important; animation:none !important; }
   }
 
   /* Au doigt : mêmes cibles de 44px que l'app (le carnet n'avait aucun @media). */
