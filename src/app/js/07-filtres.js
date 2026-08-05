@@ -99,7 +99,23 @@ function runSearch(){
   trouves.sort((a,b)=> b.r - a.r);
   const total = trouves.length;
   const hits = trouves.slice(0, 80).map(t => t.c);
-  if(!hits.length){ box.innerHTML='<div class="search-empty">Aucun résultat pour « '+escapeHtml(raw)+' ».</div>'; return; }
+  if(!hits.length){
+    // Le corpus est FINI : « aucun résultat » dit la vérité sur le carnet, pas sur la
+    // langue. On offre donc une sortie plutôt qu'un cul-de-sac — vers le Wiktionnaire
+    // hébreu si la requête est en hébreu, français sinon.
+    // C'est un LIEN, pas un appel réseau : rien à déroger dans la CSP (connect-src reste
+    // fermé, coquille.html:11), et aucun des tokens interdits au fichier autonome n'entre
+    // ici. ⚠️ Ce commentaire n'en cite AUCUN littéralement, et c'est délibéré : le
+    // garde-fou de build.js est un includes() sur tout le fichier assemblé, donc une
+    // simple mention en commentaire le fait échouer comme un vrai appel (payé une fois).
+    const enHe = /[א-ת]/.test(raw);
+    const url = 'https://'+(enHe?'he':'fr')+'.wiktionary.org/w/index.php?search='+encodeURIComponent(raw);
+    box.innerHTML = '<div class="search-empty">Aucun résultat pour « '+escapeHtml(raw)+' ».'
+      + '<a class="search-ext" href="'+escapeHtml(url)+'" target="_blank" rel="noopener noreferrer">'
+      + 'Chercher dans le Wiktionnaire '+(enHe?'hébreu':'français')
+      + '<span class="search-ext-fl" aria-hidden="true">↗</span></a></div>';
+    return;
+  }
   // Le compte est désormais EXACT (on a balayé tout le corpus) : plus de « 80+ »
   // qui laissait croire à un plafond alors qu'il disait « au moins 80 ».
   let html = '<div class="sr-count">'+total+' résultat'+(total>1?'s':'')

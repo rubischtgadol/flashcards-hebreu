@@ -53,7 +53,19 @@
   .sr-tr{ font-family:'JetBrains Mono','Courier New',monospace; font-size:.84rem; color:var(--ink-dim); margin-inline-start:8px; }
   .sr-fr{ color:var(--ink); font-size:.9rem; margin-top:1px; }
   .sr-cat{ flex:none; font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:3px 9px; white-space:nowrap; }
-  .search-empty{ color:var(--ink-dim); font-size:.95rem; padding:10px 2px; }
+  /* La requête est renvoyée EN ÉCHO ici : une saisie longue sans espace est donc du
+     texte insécable piloté par l'utilisateur. Sans cette coupure, 100 caractères
+     poussaient le document 391px au-delà du viewport téléphone (mesuré au Range —
+     getBoundingClientRect ne voit pas ce défaut, piège 16). `anywhere` et non
+     `break-word` : seul le premier corrige aussi la taille min-content. */
+  .search-empty{ color:var(--ink-dim); font-size:.95rem; padding:10px 2px;
+    overflow-wrap:anywhere; min-width:0; }
+  /* La seule chose allumée dans une boîte éteinte : le message constate, le lien agit.
+     L'or est licite ici parce que le lien EST l'état actif (règle de la lampe). */
+  .search-ext{ display:inline-block; margin-top:9px; color:var(--gold); text-decoration:none;
+    border-bottom:1px solid transparent; transition:border-color .18s ease, opacity .18s ease; }
+  .search-ext:hover{ border-bottom-color:var(--gold); }
+  .search-ext-fl{ margin-inline-start:5px; opacity:.7; }
   .sr-item{ border:1px solid var(--line); border-radius:11px; background:var(--bg2); overflow:hidden; }
   .sr-item .sr-row{ border:none; border-radius:0; background:transparent; }
   .sr-item.open{ border-color:var(--gold); }

@@ -21,6 +21,19 @@ surfaces, `verifieRecherche()` la garde dans les deux sens) et la **structure du
 carnet** (`</main>` fermait dans une section, deux sections se rendaient hors de
 la colonne de lecture ; `verifieStructureCarnet()` l'interdit désormais).
 
+✅ **Soldé le 05/08 : « aucun résultat » n'est plus un cul-de-sac.** L'état vide
+de la recherche porte un lien vers le Wiktionnaire — **hébreu** si la requête
+contient des lettres hébraïques, **français** sinon
+([07-filtres.js](../src/app/js/07-filtres.js), `runSearch`). C'est un lien, pas
+un appel : la CSP `connect-src 'self'` reste fermée et le fichier autonome
+n'hérite d'aucun jeton interdit. Deux enseignements au passage, tous deux
+consignés : la garde des jetons interdits **lit du texte, pas du code**
+([ARCHITECTURE.md](ARCHITECTURE.md) § Garde-fous, point 6) ; et l'état vide
+**débordait déjà** de 391px sur téléphone (défaut **pré-existant** : la requête
+y est renvoyée en écho, sans coupure de mot), colmaté par
+`overflow-wrap:anywhere` sur `.search-empty` — marges réelles reconfirmées au
+banc WebKit aux 6 largeurs, jamais un zéro-limite (piège n°17).
+
 📏 **Un chantier est MESURÉ et attend ton arbitrage : la graphie pleine
 (ktiv male)** — voir § Le chantier ktiv male.
 
