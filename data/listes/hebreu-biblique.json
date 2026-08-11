@@ -82,24 +82,6 @@
       "exemples": []
     },
     {
-      "he": "אֲדֹנָי",
-      "tr": "adonai",
-      "fr": "seigneur (titre divin)",
-      "niveau": "B1",
-      "groupe": "culte-et-liturgie",
-      "note": "liturgie vivante : se lit à voix haute à la place du Tétragramme",
-      "exemples": []
-    },
-    {
-      "he": "יְהוָה",
-      "tr": "adonai",
-      "fr": "le Tétragramme (nom propre divin)",
-      "niveau": "B1",
-      "groupe": "culte-et-liturgie",
-      "note": "se lit à voix haute אֲדֹנָי, ou הַשֵּׁם hors contexte liturgique",
-      "exemples": []
-    },
-    {
       "he": "כְּרוּב",
       "tr": "keruv",
       "fr": "chérubin",
@@ -260,6 +242,123 @@
       "fr": "abomination, chose abjecte",
       "niveau": "B2",
       "groupe": "recit-et-image",
+      "exemples": []
+    },
+    {
+      "he": "אֵל",
+      "tr": "el",
+      "fr": "dieu (nom divin court, aussi en composés)",
+      "niveau": "B1",
+      "groupe": "noms-de-dieu",
+      "note": "à distinguer de la préposition אֶל (vers, à) et de la négation אַל (défense, « ne fais pas »), mêmes consonnes ; élément théophore de nombreux prénoms : יִשְׂרָאֵל, אֵלִיָּהוּ, מִיכָאֵל",
+      "exemples": []
+    },
+    {
+      "he": "אֱלוֹהַּ",
+      "tr": "eloha",
+      "fr": "dieu (forme singulière poétique)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "surtout en poésie biblique (livre de Job) ; אֱלֹהִים, de forme plurielle mais accordé au singulier quand il désigne Dieu, est à la table Noms",
+      "exemples": []
+    },
+    {
+      "he": "שַׁדַּי",
+      "tr": "shadai",
+      "fr": "tout-puissant (épithète divine)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "s'emploie seul (Rt 1:20-21) ou dans la locution אֵל שַׁדַּי ; étymologie discutée",
+      "exemples": []
+    },
+    {
+      "he": "אֵל עֶלְיוֹן",
+      "tr": "el 'elyon",
+      "fr": "dieu très-haut (épithète divine)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "עֶלְיוֹן seul signifie « supérieur, suprême » (table Adjectifs) ; la locution est celle de Gn 14:18-20, mais עֶלְיוֹן sert aussi seul de titre divin dans les Psaumes (Ps 91:1)",
+      "exemples": []
+    },
+    {
+      "he": "צְבָאוֹת",
+      "tr": "tsva'ot",
+      "fr": "des armées (épithète divine)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "dans la locution יְהוָה צְבָאוֹת (« l'Éternel des armées ») ; צְבָאוֹת est le mot que le grec a transcrit Sabaoth ; צָבָא seul = armée, service militaire (table Noms)",
+      "exemples": []
+    },
+    {
+      "he": "אֶהְיֶה אֲשֶׁר אֶהְיֶה",
+      "tr": "ehyeh asher ehyeh",
+      "fr": "je suis celui qui suis (Ex 3:14)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "réponse à Moïse au buisson ardent ; futur du verbe הָיָה (être), littéralement « je serai ce que je serai »",
+      "exemples": []
+    },
+    {
+      "he": "הַשֵּׁם",
+      "tr": "hashem",
+      "fr": "le nom (appellation courante de Dieu)",
+      "niveau": "B1",
+      "groupe": "noms-de-dieu",
+      "note": "substitut du nom divin hors de la prière, où l'on lit אֲדֹנָי ; courant en hébreu moderne : בָּרוּךְ הַשֵּׁם (Dieu merci), בְּעֶזְרַת הַשֵּׁם (avec l'aide de Dieu)",
+      "exemples": []
+    },
+    {
+      "he": "הַקָּדוֹשׁ בָּרוּךְ הוּא",
+      "tr": "hakadosh barukh hu",
+      "fr": "le saint béni soit-il (appellation rabbinique de Dieu)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "couramment abrégé en sigle הקב״ה",
+      "exemples": []
+    },
+    {
+      "he": "רִבּוֹנוֹ שֶׁל עוֹלָם",
+      "tr": "ribono shel 'olam",
+      "fr": "maître du monde (appellation rabbinique de Dieu)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "le suffixe ־וֹ anticipe le complément : littéralement « son maître, celui du monde » ; s'emploie aussi comme exclamation dans le langage religieux traditionnel",
+      "exemples": []
+    },
+    {
+      "he": "שְׁכִינָה",
+      "tr": "shkhinah",
+      "fr": "présence divine, shekhina",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "de la racine ש־כ־ן (résider) ; terme de l'hébreu rabbinique, grammaticalement féminin",
+      "exemples": []
+    },
+    {
+      "he": "הַמָּקוֹם",
+      "tr": "hamakom",
+      "fr": "le lieu (appellation rabbinique de Dieu)",
+      "niveau": "B2",
+      "groupe": "noms-de-dieu",
+      "note": "le mot מָקוֹם (lieu, table Noms) pris avec l'article comme nom divin ; s'entend surtout dans la formule de deuil הַמָּקוֹם יְנַחֵם אֶתְכֶם (que Dieu vous console)",
+      "exemples": []
+    },
+    {
+      "he": "אֲדֹנָי",
+      "tr": "adonai",
+      "fr": "seigneur (titre divin)",
+      "niveau": "B1",
+      "groupe": "noms-de-dieu",
+      "note": "liturgie vivante : se lit à voix haute à la place du Tétragramme",
+      "exemples": []
+    },
+    {
+      "he": "יְהוָה",
+      "tr": "adonai",
+      "fr": "le Tétragramme (nom propre divin)",
+      "niveau": "B1",
+      "groupe": "noms-de-dieu",
+      "note": "se lit à voix haute אֲדֹנָי, ou הַשֵּׁם hors contexte liturgique",
       "exemples": []
     }
   ]

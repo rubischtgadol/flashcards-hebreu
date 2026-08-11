@@ -15,10 +15,12 @@
 ## Reprendre ici (prochaine session)
 
 🟢 **Aucun défaut ouvert** (voir § Défauts ouverts). Le carnet compte
-**2264 cartes** et **47 sections**, dont trois sections de registre ou de
+**2275 cartes** et **47 sections**, dont trois sections de registre ou de
 grammaire récentes : « Les verbes réfléchis » (10b), « Le « quand » de
 subordination » (20b) et « Hébreu biblique » (44, seule section de liste
-ajoutée depuis Hébreu parlé — 29 entrées en trois groupes). Les champs `note`
+ajoutée depuis Hébreu parlé — 40 entrées en quatre groupes, ouverts par
+« Les noms de Dieu » : la liste complète avec sa note d'usage sur la lecture
+à voix haute et les graphies de substitution). Les champs `note`
 se rendent **partout** — tables et listes, carnet et app — et portent les
 rections des verbes (עוֹזֵר לְ־, מְבַקֵּר אֶת/בְּ־…) et les modes d'emploi
 (אַף פַּעַם לֹא, לֹא … כְּלוּם, אֵין אַף אֶחָד שֶׁ־). La **recherche**
@@ -26,11 +28,6 @@ rections des verbes (עוֹזֵר לְ־, מְבַקֵּר אֶת/בְּ־…) e
 sur les deux surfaces ; `verifieRecherche()` la garde dans les deux sens. La
 **structure du carnet** obéit à la même règle : aucune section ne doit se
 rendre après `</main>` ; `verifieStructureCarnet()` l'interdit.
-
-❓ **Une confirmation attendue du propriétaire** : l'entrée du Tétragramme
-(section Hébreu biblique) est imprimée vocalisée (יְהוָה) avec la note « se
-lit אֲדֹנָי ou הַשֵּׁם » ; certaines publications préfèrent ה'. La graphie se
-change en une ligne de `data/listes/hebreu-biblique.json` si souhaité.
 
 ⚠️ **Une paire d'antonymes élémentaires ne se scinde pas entre deux niveaux.** Le biais connu du barème : le membre *marqué* (le négatif, le moins fréquent) glisse d'un palier. Un thème pauvre en A1 est donc à lire comme un défaut de barème avant d'être lu comme un trou de vocabulaire — aucun ajout ne comble le second, puisque tout mot neuf s'ancre sur les mêmes voisins.
 
@@ -75,7 +72,7 @@ chacun a une commande qui le recalcule :
 
 | Fait | Valeur | L'autorité qui la recalcule |
 | --- | --- | --- |
-| Cartes | 2264 (A1 532 · A2 871 · B1 723 · B2 113 · C1 25) | `node tools/cherche_mots.js --stats` |
+| Cartes | 2275 (A1 532 · A2 871 · B1 725 · B2 122 · C1 25) | `node tools/cherche_mots.js --stats` |
 | Sections du carnet | 48 (47 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
 | Catégories de cartes | 26 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
 | Garde-fous anti-casse silencieuse | 14 | ARCHITECTURE.md § Garde-fous |

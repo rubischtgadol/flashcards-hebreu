@@ -33,7 +33,7 @@
 // restent dans l'historique git de ce fichier (`git log -p -- sw.js`) ; les garder ici
 // afficherait des numéros de version qui n'existent plus, dans un fichier servi.
 /* ligne estampillée par tools/build.js — ne pas éditer la valeur (cf. en-tête) */
-const VERSION = 'v-50e911b6';
+const VERSION = 'v-4ff01dd5';
 const CACHE = 'flashcards-hebreu-' + VERSION;
 
 const ASSETS = [

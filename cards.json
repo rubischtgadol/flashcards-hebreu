@@ -57046,24 +57046,6 @@
     },
     {
       "cat": "Hébreu biblique",
-      "he": "אֲדֹנָי",
-      "tr": "adonai",
-      "fr": "seigneur (titre divin)",
-      "note": "liturgie vivante : se lit à voix haute à la place du Tétragramme",
-      "niveau": "B1",
-      "he_plain": "אדני"
-    },
-    {
-      "cat": "Hébreu biblique",
-      "he": "יְהוָה",
-      "tr": "adonai",
-      "fr": "le Tétragramme (nom propre divin)",
-      "note": "se lit à voix haute <span lang=\"he\">אֲדֹנָי</span>, ou <span lang=\"he\">הַשֵּׁם</span> hors contexte liturgique",
-      "niveau": "B1",
-      "he_plain": "יהוה"
-    },
-    {
-      "cat": "Hébreu biblique",
       "he": "כְּרוּב",
       "tr": "keruv",
       "fr": "chérubin",
@@ -57226,6 +57208,123 @@
       "fr": "abomination, chose abjecte",
       "niveau": "B2",
       "he_plain": "תועבה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אֵל",
+      "tr": "el",
+      "fr": "dieu (nom divin court, aussi en composés)",
+      "note": "à distinguer de la préposition <span lang=\"he\">אֶל</span> (vers, à) et de la négation <span lang=\"he\">אַל</span> (défense, « ne fais pas »), mêmes consonnes ; élément théophore de nombreux prénoms : <span lang=\"he\">יִשְׂרָאֵל</span>, <span lang=\"he\">אֵלִיָּהוּ</span>, <span lang=\"he\">מִיכָאֵל</span>",
+      "niveau": "B1",
+      "he_plain": "אל"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אֱלוֹהַּ",
+      "tr": "eloha",
+      "fr": "dieu (forme singulière poétique)",
+      "note": "surtout en poésie biblique (livre de Job) ; <span lang=\"he\">אֱלֹהִים</span>, de forme plurielle mais accordé au singulier quand il désigne Dieu, est à la table Noms",
+      "niveau": "B2",
+      "he_plain": "אלוה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "שַׁדַּי",
+      "tr": "shadai",
+      "fr": "tout-puissant (épithète divine)",
+      "note": "s'emploie seul (Rt 1:20-21) ou dans la locution <span lang=\"he\">אֵל שַׁדַּי</span> ; étymologie discutée",
+      "niveau": "B2",
+      "he_plain": "שדי"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אֵל עֶלְיוֹן",
+      "tr": "el 'elyon",
+      "fr": "dieu très-haut (épithète divine)",
+      "note": "<span lang=\"he\">עֶלְיוֹן</span> seul signifie « supérieur, suprême » (table Adjectifs) ; la locution est celle de Gn 14:18-20, mais <span lang=\"he\">עֶלְיוֹן</span> sert aussi seul de titre divin dans les Psaumes (Ps 91:1)",
+      "niveau": "B2",
+      "he_plain": "אל עליון"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "צְבָאוֹת",
+      "tr": "tsva'ot",
+      "fr": "des armées (épithète divine)",
+      "note": "dans la locution <span lang=\"he\">יְהוָה צְבָאוֹת</span> (« l'Éternel des armées ») ; <span lang=\"he\">צְבָאוֹת</span> est le mot que le grec a transcrit Sabaoth ; <span lang=\"he\">צָבָא</span> seul = armée, service militaire (table Noms)",
+      "niveau": "B2",
+      "he_plain": "צבאות"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אֶהְיֶה אֲשֶׁר אֶהְיֶה",
+      "tr": "ehyeh asher ehyeh",
+      "fr": "je suis celui qui suis (Ex 3:14)",
+      "note": "réponse à Moïse au buisson ardent ; futur du verbe <span lang=\"he\">הָיָה</span> (être), littéralement « je serai ce que je serai »",
+      "niveau": "B2",
+      "he_plain": "אהיה אשר אהיה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הַשֵּׁם",
+      "tr": "hashem",
+      "fr": "le nom (appellation courante de Dieu)",
+      "note": "substitut du nom divin hors de la prière, où l'on lit <span lang=\"he\">אֲדֹנָי</span> ; courant en hébreu moderne : <span lang=\"he\">בָּרוּךְ הַשֵּׁם</span> (Dieu merci), <span lang=\"he\">בְּעֶזְרַת הַשֵּׁם</span> (avec l'aide de Dieu)",
+      "niveau": "B1",
+      "he_plain": "השם"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הַקָּדוֹשׁ בָּרוּךְ הוּא",
+      "tr": "hakadosh barukh hu",
+      "fr": "le saint béni soit-il (appellation rabbinique de Dieu)",
+      "note": "couramment abrégé en sigle <span lang=\"he\">הקב״ה</span>",
+      "niveau": "B2",
+      "he_plain": "הקדוש ברוך הוא"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "רִבּוֹנוֹ שֶׁל עוֹלָם",
+      "tr": "ribono shel 'olam",
+      "fr": "maître du monde (appellation rabbinique de Dieu)",
+      "note": "le suffixe <span lang=\"he\">־וֹ</span> anticipe le complément : littéralement « son maître, celui du monde » ; s'emploie aussi comme exclamation dans le langage religieux traditionnel",
+      "niveau": "B2",
+      "he_plain": "רבונו של עולם"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "שְׁכִינָה",
+      "tr": "shkhinah",
+      "fr": "présence divine, shekhina",
+      "note": "de la racine <span lang=\"he\">ש־כ־ן</span> (résider) ; terme de l'hébreu rabbinique, grammaticalement féminin",
+      "niveau": "B2",
+      "he_plain": "שכינה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הַמָּקוֹם",
+      "tr": "hamakom",
+      "fr": "le lieu (appellation rabbinique de Dieu)",
+      "note": "le mot <span lang=\"he\">מָקוֹם</span> (lieu, table Noms) pris avec l'article comme nom divin ; s'entend surtout dans la formule de deuil <span lang=\"he\">הַמָּקוֹם יְנַחֵם אֶתְכֶם</span> (que Dieu vous console)",
+      "niveau": "B2",
+      "he_plain": "המקום"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אֲדֹנָי",
+      "tr": "adonai",
+      "fr": "seigneur (titre divin)",
+      "note": "liturgie vivante : se lit à voix haute à la place du Tétragramme",
+      "niveau": "B1",
+      "he_plain": "אדני"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "יְהוָה",
+      "tr": "adonai",
+      "fr": "le Tétragramme (nom propre divin)",
+      "note": "se lit à voix haute <span lang=\"he\">אֲדֹנָי</span>, ou <span lang=\"he\">הַשֵּׁם</span> hors contexte liturgique",
+      "niveau": "B1",
+      "he_plain": "יהוה"
     }
   ]
 }
