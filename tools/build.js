@@ -67,7 +67,7 @@ const SW = path.join(ROOT, 'sw.js');
 const EXPECTED_CATS = ['Verbes','Verbes modaux','Adjectifs','Noms','Pronoms personnels','Démonstratifs',
   'Comparatif et superlatif','Tournures impersonnelles','Impératif',
   'Prépositions','Prépositions fléchies','Conjonctions','Connecteurs du discours','Mots interrogatifs','Nombres','Jours de la semaine','Heure et date','Adverbes','Saisons & mois',
-  'Mots de quantité','Expressions','Existence','Phrases','Abréviations et sigles','Hébreu parlé'];
+  'Mots de quantité','Expressions','Existence','Phrases','Abréviations et sigles','Hébreu parlé','Hébreu biblique'];
 // Niveaux CECRL (data-niveau du carnet) dont la disparition doit faire échouer le
 // build — étendre quand le carnet grandira. C1 ouvert le 2026-07-27 avec le lot
 // « mortier grammatical » : l'app n'a rien demandé (07-filtres.js range déjà C1
@@ -98,7 +98,7 @@ const listCats = { 'Pronoms personnels':'Pronoms personnels', 'Démonstratifs':'
   'Jours de la semaine':'Jours de la semaine', 'Heure et date':'Heure et date', 'Adverbes':'Adverbes', 'Saisons & mois':'Saisons & mois',
   'Mots de quantité':'Mots de quantité', 'Expressions / Divers':'Expressions',
   'Existence et possession':'Existence', 'Phrases':'Phrases',
-  'Abréviations et sigles':'Abréviations et sigles', 'Hébreu parlé':'Hébreu parlé' };
+  'Abréviations et sigles':'Abréviations et sigles', 'Hébreu parlé':'Hébreu parlé', 'Hébreu biblique':'Hébreu biblique' };
 
 // ---------- helpers hébreu ----------
 // Plus aucun lecteur de HTML ici : le mini-parseur du carnet (decodeEntities, textContent,

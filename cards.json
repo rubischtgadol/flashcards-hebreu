@@ -45431,22 +45431,6 @@
       "he_plain": "נשמע"
     },
     {
-      "cat": "Expressions",
-      "he": "שָׁוֶה",
-      "tr": "shaveh",
-      "fr": "ça vaut le coup, ça vaut",
-      "niveau": "B1",
-      "exemples": [
-        {
-          "he": "זֶה שָׁוֶה אֶת הַכֶּסֶף",
-          "tr": "zeh shaveh et hakesef",
-          "fr": "ça vaut son prix",
-          "he_plain": "זה שוה את הכסף"
-        }
-      ],
-      "he_plain": "שוה"
-    },
-    {
       "cat": "Existence",
       "he": "יֵשׁ",
       "tr": "yesh",
@@ -46690,6 +46674,12 @@
           "tr": "hamechir yakar aval zeh shaveh",
           "fr": "le prix est cher mais ça vaut le coup",
           "he_plain": "המחיר יקר אבל זה שוה"
+        },
+        {
+          "he": "זֶה שָׁוֶה אֶת הַכֶּסֶף",
+          "tr": "zeh shaveh et hakesef",
+          "fr": "ça vaut son prix",
+          "he_plain": "זה שוה את הכסף"
         }
       ],
       "he_plain": "שוה"
@@ -46905,6 +46895,269 @@
         }
       ],
       "he_plain": "מבסוט"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אָנֹכִי",
+      "tr": "anokhi",
+      "fr": "moi, je (forme archaïque)",
+      "note": "moderne : <span lang=\"he\">אֲנִי</span>",
+      "niveau": "B1",
+      "he_plain": "אנכי"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אַתֵּנָה",
+      "tr": "atenah",
+      "fr": "vous (féminin pluriel, forme longue)",
+      "note": "moderne : <span lang=\"he\">אַתֶּן</span>",
+      "niveau": "C1",
+      "he_plain": "אתנה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "בַּעֲבוּר",
+      "tr": "ba'avur",
+      "fr": "à cause de, afin que, pour l'amour de",
+      "note": "moderne : <span lang=\"he\">בִּשְׁבִיל</span>, <span lang=\"he\">כְּדֵי</span>",
+      "niveau": "B2",
+      "he_plain": "בעבור"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הֲלֹא",
+      "tr": "halo",
+      "fr": "n'est-ce pas ? (particule interrogative rhétorique)",
+      "niveau": "B2",
+      "he_plain": "הלא"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הֵמָּה",
+      "tr": "hemah",
+      "fr": "eux, ils (forme longue)",
+      "note": "moderne : <span lang=\"he\">הֵם</span>",
+      "niveau": "B2",
+      "he_plain": "המה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הֵנָּה",
+      "tr": "henah",
+      "fr": "elles (forme longue)",
+      "note": "à ne pas confondre avec <span lang=\"he\">הִנֵּה</span> (voici) ni avec l'adverbe <span lang=\"he\">הֵנָּה</span> (ici, jusqu'ici) ; moderne : <span lang=\"he\">הֵן</span>",
+      "niveau": "C1",
+      "he_plain": "הנה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "יַעַן",
+      "tr": "ya'an",
+      "fr": "parce que, car",
+      "note": "moderne : <span lang=\"he\">כִּי</span>, <span lang=\"he\">מִפְּנֵי שֶׁ־</span>",
+      "niveau": "B2",
+      "he_plain": "יען"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "מֵאֵת",
+      "tr": "me'et",
+      "fr": "de la part de, de",
+      "note": "encore employé à l'écrit : <span lang=\"he\">מֵאֵת</span> X = « par X » (mention d'auteur)",
+      "niveau": "B2",
+      "he_plain": "מאת"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "מִמַּעַל",
+      "tr": "mima'al",
+      "fr": "au-dessus, en haut",
+      "note": "moderne : <span lang=\"he\">מִלְמַעְלָה</span>",
+      "niveau": "B2",
+      "he_plain": "ממעל"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אֲדֹנָי",
+      "tr": "adonai",
+      "fr": "seigneur (titre divin)",
+      "note": "liturgie vivante : se lit à voix haute à la place du Tétragramme",
+      "niveau": "B1",
+      "he_plain": "אדני"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "יְהוָה",
+      "tr": "adonai",
+      "fr": "le Tétragramme (nom propre divin)",
+      "note": "se lit à voix haute <span lang=\"he\">אֲדֹנָי</span>, ou <span lang=\"he\">הַשֵּׁם</span> hors contexte liturgique",
+      "niveau": "B1",
+      "he_plain": "יהוה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "כְּרוּב",
+      "tr": "keruv",
+      "fr": "chérubin",
+      "note": "en hébreu moderne, <span lang=\"he\">כְּרוּב</span> désigne aussi le chou",
+      "niveau": "B2",
+      "he_plain": "כרוב"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "סֶלָה",
+      "tr": "selah",
+      "fr": "sélah (terme musical liturgique, sens incertain)",
+      "note": "liturgie vivante : ponctue les psaumes récités",
+      "niveau": "B1",
+      "he_plain": "סלה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הִקְטִיר",
+      "tr": "hiktir",
+      "fr": "faire fumer l'offrande, brûler l'encens (hifil)",
+      "note": "racine cultuelle : <span lang=\"he\">קְטֹרֶת</span> (encens), encore en usage liturgique",
+      "niveau": "B2",
+      "he_plain": "הקטיר"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אָוֶן",
+      "tr": "aven",
+      "fr": "iniquité, malheur",
+      "niveau": "C1",
+      "he_plain": "און"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "אַמָּה",
+      "tr": "amah",
+      "fr": "coudée (unité de longueur)",
+      "note": "environ 45 cm, du coude au bout du majeur",
+      "niveau": "B2",
+      "he_plain": "אמה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "חָרָה",
+      "tr": "charah",
+      "fr": "s'enflammer de colère, s'irriter",
+      "note": "racine vivante dans le tour moderne « <span lang=\"he\">חָרָה לוֹ</span> » (ça l'a contrarié)",
+      "niveau": "B2",
+      "he_plain": "חרה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "כְּסִיל",
+      "tr": "ksil",
+      "fr": "insensé, sot",
+      "niveau": "B2",
+      "he_plain": "כסיל"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "מִקְנֶה",
+      "tr": "mikneh",
+      "fr": "cheptel, bétail, possession",
+      "note": "même racine que le moderne <span lang=\"he\">קִנְיָן</span> (acquisition, propriété)",
+      "niveau": "B2",
+      "he_plain": "מקנה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "נוּס",
+      "tr": "nus",
+      "fr": "fuir, s'enfuir",
+      "note": "racine encore vivante : <span lang=\"he\">לָנוּס</span> (fuir), registre soutenu",
+      "niveau": "B2",
+      "he_plain": "נוס"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "נִצָּב",
+      "tr": "nitsav",
+      "fr": "se tenir debout, être posté (participe nifal)",
+      "note": "même racine que le moderne <span lang=\"he\">מַצָּב</span> (situation) et le grade <span lang=\"he\">נִצָּב</span>",
+      "niveau": "B2",
+      "he_plain": "נצב"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "סוּר",
+      "tr": "sur",
+      "fr": "s'écarter, se détourner, s'en aller",
+      "niveau": "B2",
+      "he_plain": "סור"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "עוּר",
+      "tr": "'ur",
+      "fr": "se réveiller, s'éveiller",
+      "note": "racine du moderne <span lang=\"he\">עֵר</span> (éveillé) ; homographe consonantique de <span lang=\"he\">עוֹר</span> (peau)",
+      "niveau": "B2",
+      "he_plain": "עור"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "פֵּאָה",
+      "tr": "pe'ah",
+      "fr": "côté, bord, extrémité",
+      "note": "en hébreu moderne : <span lang=\"he\">פֵּאָה נָכְרִית</span> (perruque), <span lang=\"he\">פֵּאוֹת</span> (papillotes), et <span lang=\"he\">פֵּאָה</span> = face d'un solide en géométrie",
+      "niveau": "B2",
+      "he_plain": "פאה"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "צַר",
+      "tr": "tsar",
+      "fr": "adversaire, ennemi",
+      "note": "homographe de l'adjectif <span lang=\"he\">צַר</span> (étroit)",
+      "niveau": "C1",
+      "he_plain": "צר"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "שִׁית",
+      "tr": "shit",
+      "fr": "mettre, placer, poser",
+      "niveau": "B2",
+      "he_plain": "שית"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "הִשְׁכִּים",
+      "tr": "hishkim",
+      "fr": "se lever tôt, agir dès le matin (hifil)",
+      "note": "racine vivante : <span lang=\"he\">הַשְׁכָּמָה</span> (lever matinal), registre soutenu",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר",
+          "tr": "vayashkem avraham baboker",
+          "fr": "et Abraham se leva tôt le matin (Gn 22:3)",
+          "he_plain": "וישכם אברהם בבקר"
+        }
+      ],
+      "he_plain": "השכים"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "שָׁמֵם",
+      "tr": "shamem",
+      "fr": "être dévasté, tomber en ruine",
+      "note": "même racine que le moderne <span lang=\"he\">שְׁמָמָה</span> (désolation, terre en friche)",
+      "niveau": "B2",
+      "he_plain": "שמם"
+    },
+    {
+      "cat": "Hébreu biblique",
+      "he": "תּוֹעֵבָה",
+      "tr": "to'evah",
+      "fr": "abomination, chose abjecte",
+      "niveau": "B2",
+      "he_plain": "תועבה"
     }
   ]
 }

@@ -544,6 +544,11 @@
           "he": "הַמְּחִיר יָקָר אֲבָל זֶה שָׁוֶה",
           "tr": "hamechir yakar aval zeh shaveh",
           "fr": "le prix est cher mais ça vaut le coup"
+        },
+        {
+          "he": "זֶה שָׁוֶה אֶת הַכֶּסֶף",
+          "tr": "zeh shaveh et hakesef",
+          "fr": "ça vaut son prix"
         }
       ]
     },

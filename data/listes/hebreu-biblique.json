@@ -1,0 +1,266 @@
+{
+  "section": "Hébreu biblique",
+  "entries": [
+    {
+      "he": "אָנֹכִי",
+      "tr": "anokhi",
+      "fr": "moi, je (forme archaïque)",
+      "niveau": "B1",
+      "groupe": "formes-archaiques",
+      "note": "moderne : אֲנִי",
+      "exemples": []
+    },
+    {
+      "he": "אַתֵּנָה",
+      "tr": "atenah",
+      "fr": "vous (féminin pluriel, forme longue)",
+      "niveau": "C1",
+      "groupe": "formes-archaiques",
+      "note": "moderne : אַתֶּן",
+      "exemples": []
+    },
+    {
+      "he": "בַּעֲבוּר",
+      "tr": "ba'avur",
+      "fr": "à cause de, afin que, pour l'amour de",
+      "niveau": "B2",
+      "groupe": "formes-archaiques",
+      "note": "moderne : בִּשְׁבִיל, כְּדֵי",
+      "exemples": []
+    },
+    {
+      "he": "הֲלֹא",
+      "tr": "halo",
+      "fr": "n'est-ce pas ? (particule interrogative rhétorique)",
+      "niveau": "B2",
+      "groupe": "formes-archaiques",
+      "exemples": []
+    },
+    {
+      "he": "הֵמָּה",
+      "tr": "hemah",
+      "fr": "eux, ils (forme longue)",
+      "niveau": "B2",
+      "groupe": "formes-archaiques",
+      "note": "moderne : הֵם",
+      "exemples": []
+    },
+    {
+      "he": "הֵנָּה",
+      "tr": "henah",
+      "fr": "elles (forme longue)",
+      "niveau": "C1",
+      "groupe": "formes-archaiques",
+      "note": "à ne pas confondre avec הִנֵּה (voici) ni avec l'adverbe הֵנָּה (ici, jusqu'ici) ; moderne : הֵן",
+      "exemples": []
+    },
+    {
+      "he": "יַעַן",
+      "tr": "ya'an",
+      "fr": "parce que, car",
+      "niveau": "B2",
+      "groupe": "formes-archaiques",
+      "note": "moderne : כִּי, מִפְּנֵי שֶׁ־",
+      "exemples": []
+    },
+    {
+      "he": "מֵאֵת",
+      "tr": "me'et",
+      "fr": "de la part de, de",
+      "niveau": "B2",
+      "groupe": "formes-archaiques",
+      "note": "encore employé à l'écrit : מֵאֵת X = « par X » (mention d'auteur)",
+      "exemples": []
+    },
+    {
+      "he": "מִמַּעַל",
+      "tr": "mima'al",
+      "fr": "au-dessus, en haut",
+      "niveau": "B2",
+      "groupe": "formes-archaiques",
+      "note": "moderne : מִלְמַעְלָה",
+      "exemples": []
+    },
+    {
+      "he": "אֲדֹנָי",
+      "tr": "adonai",
+      "fr": "seigneur (titre divin)",
+      "niveau": "B1",
+      "groupe": "culte-et-liturgie",
+      "note": "liturgie vivante : se lit à voix haute à la place du Tétragramme",
+      "exemples": []
+    },
+    {
+      "he": "יְהוָה",
+      "tr": "adonai",
+      "fr": "le Tétragramme (nom propre divin)",
+      "niveau": "B1",
+      "groupe": "culte-et-liturgie",
+      "note": "se lit à voix haute אֲדֹנָי, ou הַשֵּׁם hors contexte liturgique",
+      "exemples": []
+    },
+    {
+      "he": "כְּרוּב",
+      "tr": "keruv",
+      "fr": "chérubin",
+      "niveau": "B2",
+      "groupe": "culte-et-liturgie",
+      "note": "en hébreu moderne, כְּרוּב désigne aussi le chou",
+      "exemples": []
+    },
+    {
+      "he": "סֶלָה",
+      "tr": "selah",
+      "fr": "sélah (terme musical liturgique, sens incertain)",
+      "niveau": "B1",
+      "groupe": "culte-et-liturgie",
+      "note": "liturgie vivante : ponctue les psaumes récités",
+      "exemples": []
+    },
+    {
+      "he": "הִקְטִיר",
+      "tr": "hiktir",
+      "fr": "faire fumer l'offrande, brûler l'encens (hifil)",
+      "niveau": "B2",
+      "groupe": "culte-et-liturgie",
+      "note": "racine cultuelle : קְטֹרֶת (encens), encore en usage liturgique",
+      "exemples": []
+    },
+    {
+      "he": "אָוֶן",
+      "tr": "aven",
+      "fr": "iniquité, malheur",
+      "niveau": "C1",
+      "groupe": "recit-et-image",
+      "exemples": []
+    },
+    {
+      "he": "אַמָּה",
+      "tr": "amah",
+      "fr": "coudée (unité de longueur)",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "environ 45 cm, du coude au bout du majeur",
+      "exemples": []
+    },
+    {
+      "he": "חָרָה",
+      "tr": "charah",
+      "fr": "s'enflammer de colère, s'irriter",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "racine vivante dans le tour moderne « חָרָה לוֹ » (ça l'a contrarié)",
+      "exemples": []
+    },
+    {
+      "he": "כְּסִיל",
+      "tr": "ksil",
+      "fr": "insensé, sot",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "exemples": []
+    },
+    {
+      "he": "מִקְנֶה",
+      "tr": "mikneh",
+      "fr": "cheptel, bétail, possession",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "même racine que le moderne קִנְיָן (acquisition, propriété)",
+      "exemples": []
+    },
+    {
+      "he": "נוּס",
+      "tr": "nus",
+      "fr": "fuir, s'enfuir",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "racine encore vivante : לָנוּס (fuir), registre soutenu",
+      "exemples": []
+    },
+    {
+      "he": "נִצָּב",
+      "tr": "nitsav",
+      "fr": "se tenir debout, être posté (participe nifal)",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "même racine que le moderne מַצָּב (situation) et le grade נִצָּב",
+      "exemples": []
+    },
+    {
+      "he": "סוּר",
+      "tr": "sur",
+      "fr": "s'écarter, se détourner, s'en aller",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "exemples": []
+    },
+    {
+      "he": "עוּר",
+      "tr": "'ur",
+      "fr": "se réveiller, s'éveiller",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "racine du moderne עֵר (éveillé) ; homographe consonantique de עוֹר (peau)",
+      "exemples": []
+    },
+    {
+      "he": "פֵּאָה",
+      "tr": "pe'ah",
+      "fr": "côté, bord, extrémité",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "en hébreu moderne : פֵּאָה נָכְרִית (perruque), פֵּאוֹת (papillotes), et פֵּאָה = face d'un solide en géométrie",
+      "exemples": []
+    },
+    {
+      "he": "צַר",
+      "tr": "tsar",
+      "fr": "adversaire, ennemi",
+      "niveau": "C1",
+      "groupe": "recit-et-image",
+      "note": "homographe de l'adjectif צַר (étroit)",
+      "exemples": []
+    },
+    {
+      "he": "שִׁית",
+      "tr": "shit",
+      "fr": "mettre, placer, poser",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "exemples": []
+    },
+    {
+      "he": "הִשְׁכִּים",
+      "tr": "hishkim",
+      "fr": "se lever tôt, agir dès le matin (hifil)",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "racine vivante : הַשְׁכָּמָה (lever matinal), registre soutenu",
+      "exemples": [
+        {
+          "he": "וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר",
+          "tr": "vayashkem avraham baboker",
+          "fr": "et Abraham se leva tôt le matin (Gn 22:3)"
+        }
+      ]
+    },
+    {
+      "he": "שָׁמֵם",
+      "tr": "shamem",
+      "fr": "être dévasté, tomber en ruine",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "note": "même racine que le moderne שְׁמָמָה (désolation, terre en friche)",
+      "exemples": []
+    },
+    {
+      "he": "תּוֹעֵבָה",
+      "tr": "to'evah",
+      "fr": "abomination, chose abjecte",
+      "niveau": "B2",
+      "groupe": "recit-et-image",
+      "exemples": []
+    }
+  ]
+}
