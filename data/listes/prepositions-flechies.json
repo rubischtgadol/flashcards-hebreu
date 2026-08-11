@@ -10,7 +10,7 @@
       "exemples": [
         {
           "he": "הַתִּיק הַזֶּה שֶׁלִּי",
-          "tr": "hatik haze sheli",
+          "tr": "hatik hazeh sheli",
           "fr": "ce sac est à moi"
         }
       ]
@@ -299,7 +299,7 @@
       "he": "אוֹתָנוּ",
       "tr": "otanu",
       "fr": "nous (COD)",
-      "niveau": "A2",
+      "niveau": "A1",
       "groupe": "et",
       "exemples": [
         {
@@ -313,7 +313,7 @@
       "he": "אֶתְכֶם",
       "tr": "etkhem",
       "fr": "vous (COD ; normé, familier אותכם)",
-      "niveau": "A2",
+      "niveau": "A1",
       "groupe": "et",
       "exemples": [
         {
@@ -327,7 +327,7 @@
       "he": "אוֹתָם",
       "tr": "otam",
       "fr": "les, eux (COD)",
-      "niveau": "A2",
+      "niveau": "A1",
       "groupe": "et",
       "exemples": [
         {

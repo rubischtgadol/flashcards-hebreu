@@ -350,6 +350,15 @@
     color:var(--ink-dim);
     font-style:italic;
   }
+  /* La même note sur une rangée de table (cellule vedette) : même voix, mais
+     alignée comme la glose française qu'elle annote — pas de calage à droite. */
+  td .note-line{
+    display:block;
+    margin-top:6px;
+    font-size:var(--pas-corps);
+    color:var(--ink-dim);
+    font-style:italic;
+  }
 
   /* --- Exemples en situation (extraits vers les flashcards, cf. ARCHITECTURE.md) ---
      Sous-liste <ul class="exemples"> dans le <li> du mot ou la 1re cellule d'une table. */

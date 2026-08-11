@@ -1049,7 +1049,7 @@
       },
       {
         "he": "מְלֵאוֹת",
-        "tr": "meleot"
+        "tr": "mele'ot"
       }
     ],
     "niveau": "A2",
@@ -1282,7 +1282,7 @@
     "exemples": [
       {
         "he": "אֲנִי חָפְשִׁי בְּיוֹם רִאשׁוֹן",
-        "tr": "ani chafshi beyom rishon",
+        "tr": "ani chofshi beyom rishon",
         "fr": "je suis libre dimanche"
       }
     ]
@@ -1293,15 +1293,15 @@
     "formes": [
       {
         "he": "עֵרָה",
-        "tr": "erah"
+        "tr": "'erah"
       },
       {
         "he": "עֵרִים",
-        "tr": "erim"
+        "tr": "'erim"
       },
       {
         "he": "עֵרוֹת",
-        "tr": "erot"
+        "tr": "'erot"
       }
     ],
     "niveau": "A2",
@@ -1310,7 +1310,7 @@
     "exemples": [
       {
         "he": "אֲנִי עֵר עַכְשָׁיו",
-        "tr": "ani er 'akhshav",
+        "tr": "ani 'er 'akhshav",
         "fr": "je suis réveillé maintenant"
       }
     ]
@@ -2318,7 +2318,7 @@
     "exemples": [
       {
         "he": "הַיּוֹם הַזֶּה יוֹם מְיֻחָד",
-        "tr": "hayom hazeh yom meiuchad",
+        "tr": "hayom hazeh yom meyuchad",
         "fr": "ce jour est un jour spécial"
       }
     ]
@@ -2430,7 +2430,7 @@
     "exemples": [
       {
         "he": "הַיְלָדִים בְּרִיאִים וּשְׂמֵחִים",
-        "tr": "hayladim beriyim usmechim",
+        "tr": "hayladim bri'im usmechim",
         "fr": "les enfants sont en bonne santé et heureux"
       }
     ]
@@ -2597,7 +2597,7 @@
     "groupe": "",
     "exemples": [
       {
-        "he": "הַפָּלָאפֶל הַזֶּה חָרִיף מְאֹד",
+        "he": "הַפָלָאפֶל הַזֶּה חָרִיף מְאֹד",
         "tr": "hafalafel hazeh charif me'od",
         "fr": "ce falafel est très épicé"
       }
@@ -3253,15 +3253,15 @@
     "formes": [
       {
         "he": "עַקְשָׁנִית",
-        "tr": "akshanit"
+        "tr": "'akshanit"
       },
       {
         "he": "עַקְשָׁנִים",
-        "tr": "akshanim"
+        "tr": "'akshanim"
       },
       {
         "he": "עַקְשָׁנִיּוֹת",
-        "tr": "akshaniyot"
+        "tr": "'akshaniyot"
       }
     ],
     "niveau": "B1",
@@ -3270,7 +3270,7 @@
     "exemples": [
       {
         "he": "הוּא עַקְשָׁן מְאֹד",
-        "tr": "hu akshan me'od",
+        "tr": "hu 'akshan me'od",
         "fr": "il est très têtu"
       }
     ]
@@ -4120,8 +4120,8 @@
     "fr": "artistique",
     "formes": [
       {
-        "he": "אֳמָּנוּתִיָּה",
-        "tr": "omanutiyah"
+        "he": "אֳמָּנוּתִית",
+        "tr": "omanutit"
       },
       {
         "he": "אֳמָּנוּתִיִּים",
@@ -4148,8 +4148,8 @@
     "fr": "musical",
     "formes": [
       {
-        "he": "מוּזִיקָלִיָּה",
-        "tr": "muzikaliyah"
+        "he": "מוּזִיקָלִית",
+        "tr": "muzikalit"
       },
       {
         "he": "מוּזִיקָלִיִּים",
@@ -4176,8 +4176,8 @@
     "fr": "sportif",
     "formes": [
       {
-        "he": "סְפּוֹרְטִיבִיָּה",
-        "tr": "sportiviyah"
+        "he": "סְפּוֹרְטִיבִית",
+        "tr": "sportivit"
       },
       {
         "he": "סְפּוֹרְטִיבִיִּים",

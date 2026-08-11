@@ -35,7 +35,7 @@
       "exemples": [
         {
           "he": "כּוֹאֵב לִי הָרֹאשׁ עַכְשָׁיו",
-          "tr": "koev li harosh achshav",
+          "tr": "koev li harosh 'akhshav",
           "fr": "j'ai mal à la tête maintenant"
         }
       ]
@@ -61,7 +61,7 @@
       "exemples": [
         {
           "he": "קָשֶׁה לִי לְהָבִין אֶת זֶה",
-          "tr": "kashe li lehavin et zeh",
+          "tr": "kasheh li lehavin et zeh",
           "fr": "c'est dur pour moi de comprendre ça"
         }
       ]
@@ -74,7 +74,7 @@
       "exemples": [
         {
           "he": "בָּא לִי לִישׁוֹן עַכְשָׁיו",
-          "tr": "ba li lishon achshav",
+          "tr": "ba li lishon 'akhshav",
           "fr": "j'ai envie de dormir maintenant"
         }
       ]
@@ -100,7 +100,7 @@
       "exemples": [
         {
           "he": "נִמְאַס לִי מֵהָעֲבוֹדָה הַזֹּאת",
-          "tr": "nim'as li meha'avoda hazot",
+          "tr": "nim'as li meha'avodah hazot",
           "fr": "j'en ai assez de ce travail"
         }
       ]
@@ -133,13 +133,13 @@
     },
     {
       "he": "מַגִּיעַ לִי",
-      "tr": "magia li",
+      "tr": "magi'a li",
       "fr": "je le mérite / j'y ai droit",
       "niveau": "B1",
       "exemples": [
         {
           "he": "מַגִּיעַ לִי חֹפֶשׁ אָרֹךְ",
-          "tr": "magia li chofesh arokh",
+          "tr": "magi'a li chofesh arokh",
           "fr": "je mérite de longues vacances"
         }
       ]

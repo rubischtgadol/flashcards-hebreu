@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-05",
+  "version": "2026-08-10",
   "cartes": [
     {
       "cat": "Verbes",
@@ -3305,7 +3305,7 @@
       "exemples": [
         {
           "he": "הוּא מַשְׁאִיר אֶת הַמַּפְתֵּחַ בַּבַּיִת",
-          "tr": "hu mash'ir et hamafteach babayit",
+          "tr": "hu mashir et hamafteach babayit",
           "fr": "il laisse la clé à la maison",
           "he_plain": "הוא משאיר את המפתח בבית"
         }
@@ -4638,7 +4638,7 @@
       "exemples": [
         {
           "he": "אֲנִי מֵרִיחַ אֶת הַפְּרָחִים בַּגַּן",
-          "tr": "ani meriyach et haprachim bagan",
+          "tr": "ani meriach et haprachim bagan",
           "fr": "je sens les fleurs du jardin",
           "he_plain": "אני מריח את הפרחים בגן"
         }
@@ -5820,7 +5820,7 @@
         },
         {
           "he": "מַאֲמִינָה",
-          "tr": "maaminah",
+          "tr": "ma'aminah",
           "label": "elle",
           "he_plain": "מאמינה"
         },
@@ -5955,13 +5955,13 @@
         },
         {
           "he": "שׁוֹכְחִים",
-          "tr": "shokhechim",
+          "tr": "shokhchim",
           "label": "ils",
           "he_plain": "שוכחים"
         },
         {
           "he": "שׁוֹכְחוֹת",
-          "tr": "shokhechot",
+          "tr": "shokhchot",
           "label": "elles",
           "he_plain": "שוכחות"
         }
@@ -6530,7 +6530,7 @@
       "exemples": [
         {
           "he": "הַחֻלְצָה הַזֹּאת מַתְאִימָה לְךָ",
-          "tr": "hachultsah hazot mat'imah lekha",
+          "tr": "hachultsah hazot matimah lekha",
           "fr": "cette chemise te va bien",
           "he_plain": "החלצה הזאת מתאימה לך"
         }
@@ -6545,7 +6545,7 @@
       "forms": [
         {
           "he": "מוֹכִיחַ",
-          "tr": "mokhiyach",
+          "tr": "mokhiach",
           "label": "il",
           "he_plain": "מוכיח"
         },
@@ -6573,7 +6573,7 @@
       "exemples": [
         {
           "he": "הוּא מוֹכִיחַ שֶׁהוּא צוֹדֵק",
-          "tr": "hu mokhiyach shehu tsodek",
+          "tr": "hu mokhiach shehu tsodek",
           "fr": "il prouve qu'il a raison",
           "he_plain": "הוא מוכיח שהוא צודק"
         }
@@ -7835,7 +7835,7 @@
       "forms": [
         {
           "he": "מְצַחְצֵחַ",
-          "tr": "metsachtse'ach",
+          "tr": "metsachtseach",
           "label": "il",
           "he_plain": "מצחצח"
         },
@@ -7863,7 +7863,7 @@
       "exemples": [
         {
           "he": "אֲנִי מְצַחְצֵחַ אֶת הַשִּׁנַּיִם",
-          "tr": "ani metsachtse'ach et hashinayim",
+          "tr": "ani metsachtseach et hashinayim",
           "fr": "je me brosse les dents",
           "he_plain": "אני מצחצח את השנים"
         }
@@ -8007,25 +8007,25 @@
       "forms": [
         {
           "he": "מְכַבֵּס",
-          "tr": "mechabes",
+          "tr": "mekhabes",
           "label": "il",
           "he_plain": "מכבס"
         },
         {
           "he": "מְכַבֶּסֶת",
-          "tr": "mechabeset",
+          "tr": "mekhabeset",
           "label": "elle",
           "he_plain": "מכבסת"
         },
         {
           "he": "מְכַבְּסִים",
-          "tr": "mechabsim",
+          "tr": "mekhabsim",
           "label": "ils",
           "he_plain": "מכבסים"
         },
         {
           "he": "מְכַבְּסוֹת",
-          "tr": "mechabsot",
+          "tr": "mekhabsot",
           "label": "elles",
           "he_plain": "מכבסות"
         }
@@ -8035,7 +8035,7 @@
       "exemples": [
         {
           "he": "אֲנִי מְכַבֵּס אֶת הַכְּבִיסָה",
-          "tr": "ani mechabes et hakvisah",
+          "tr": "ani mekhabes et hakvisah",
           "fr": "je lave le linge",
           "he_plain": "אני מכבס את הכביסה"
         }
@@ -8093,25 +8093,25 @@
       "forms": [
         {
           "he": "מְכַבֶּה",
-          "tr": "mechabeh",
+          "tr": "mekhabeh",
           "label": "il",
           "he_plain": "מכבה"
         },
         {
           "he": "מְכַבָּה",
-          "tr": "mechabah",
+          "tr": "mekhabah",
           "label": "elle",
           "he_plain": "מכבה"
         },
         {
           "he": "מְכַבִּים",
-          "tr": "mechabim",
+          "tr": "mekhabim",
           "label": "ils",
           "he_plain": "מכבים"
         },
         {
           "he": "מְכַבּוֹת",
-          "tr": "mechabot",
+          "tr": "mekhabot",
           "label": "elles",
           "he_plain": "מכבות"
         }
@@ -8121,7 +8121,7 @@
       "exemples": [
         {
           "he": "אֲנִי מְכַבֶּה אֶת הַטֶּלֶפוֹן",
-          "tr": "ani mechabeh et hatelefon",
+          "tr": "ani mekhabeh et hatelefon",
           "fr": "j'éteins le téléphone",
           "he_plain": "אני מכבה את הטלפון"
         }
@@ -10556,13 +10556,13 @@
         },
         {
           "he": "חוֹגְגִים",
-          "tr": "choggim",
+          "tr": "chogegim",
           "label": "ils",
           "he_plain": "חוגגים"
         },
         {
           "he": "חוֹגְגוֹת",
-          "tr": "choggot",
+          "tr": "chogegot",
           "label": "elles",
           "he_plain": "חוגגות"
         }
@@ -12441,7 +12441,7 @@
         },
         {
           "he": "מְלֵאוֹת",
-          "tr": "meleot",
+          "tr": "mele'ot",
           "label": "f. plur.",
           "he_plain": "מלאות"
         }
@@ -12747,7 +12747,7 @@
       "exemples": [
         {
           "he": "אֲנִי חָפְשִׁי בְּיוֹם רִאשׁוֹן",
-          "tr": "ani chafshi beyom rishon",
+          "tr": "ani chofshi beyom rishon",
           "fr": "je suis libre dimanche",
           "he_plain": "אני חפשי ביום ראשון"
         }
@@ -12762,19 +12762,19 @@
       "forms": [
         {
           "he": "עֵרָה",
-          "tr": "erah",
+          "tr": "'erah",
           "label": "f. sing.",
           "he_plain": "ערה"
         },
         {
           "he": "עֵרִים",
-          "tr": "erim",
+          "tr": "'erim",
           "label": "m. plur.",
           "he_plain": "ערים"
         },
         {
           "he": "עֵרוֹת",
-          "tr": "erot",
+          "tr": "'erot",
           "label": "f. plur.",
           "he_plain": "ערות"
         }
@@ -12784,7 +12784,7 @@
       "exemples": [
         {
           "he": "אֲנִי עֵר עַכְשָׁיו",
-          "tr": "ani er 'akhshav",
+          "tr": "ani 'er 'akhshav",
           "fr": "je suis réveillé maintenant",
           "he_plain": "אני ער עכשיו"
         }
@@ -14116,7 +14116,7 @@
       "exemples": [
         {
           "he": "הַיּוֹם הַזֶּה יוֹם מְיֻחָד",
-          "tr": "hayom hazeh yom meiuchad",
+          "tr": "hayom hazeh yom meyuchad",
           "fr": "ce jour est un jour spécial",
           "he_plain": "היום הזה יום מיחד"
         }
@@ -14264,7 +14264,7 @@
       "exemples": [
         {
           "he": "הַיְלָדִים בְּרִיאִים וּשְׂמֵחִים",
-          "tr": "hayladim beriyim usmechim",
+          "tr": "hayladim bri'im usmechim",
           "fr": "les enfants sont en bonne santé et heureux",
           "he_plain": "הילדים בריאים ושמחים"
         }
@@ -14485,7 +14485,7 @@
       "theme": "nourriture",
       "exemples": [
         {
-          "he": "הַפָּלָאפֶל הַזֶּה חָרִיף מְאֹד",
+          "he": "הַפָלָאפֶל הַזֶּה חָרִיף מְאֹד",
           "tr": "hafalafel hazeh charif me'od",
           "fr": "ce falafel est très épicé",
           "he_plain": "הפלאפל הזה חריף מאד"
@@ -15352,19 +15352,19 @@
       "forms": [
         {
           "he": "עַקְשָׁנִית",
-          "tr": "akshanit",
+          "tr": "'akshanit",
           "label": "f. sing.",
           "he_plain": "עקשנית"
         },
         {
           "he": "עַקְשָׁנִים",
-          "tr": "akshanim",
+          "tr": "'akshanim",
           "label": "m. plur.",
           "he_plain": "עקשנים"
         },
         {
           "he": "עַקְשָׁנִיּוֹת",
-          "tr": "akshaniyot",
+          "tr": "'akshaniyot",
           "label": "f. plur.",
           "he_plain": "עקשניות"
         }
@@ -15374,7 +15374,7 @@
       "exemples": [
         {
           "he": "הוּא עַקְשָׁן מְאֹד",
-          "tr": "hu akshan me'od",
+          "tr": "hu 'akshan me'od",
           "fr": "il est très têtu",
           "he_plain": "הוא עקשן מאד"
         }
@@ -16498,10 +16498,10 @@
       "fr": "artistique",
       "forms": [
         {
-          "he": "אֳמָּנוּתִיָּה",
-          "tr": "omanutiyah",
+          "he": "אֳמָּנוּתִית",
+          "tr": "omanutit",
           "label": "f. sing.",
-          "he_plain": "אמנותיה"
+          "he_plain": "אמנותית"
         },
         {
           "he": "אֳמָּנוּתִיִּים",
@@ -16535,10 +16535,10 @@
       "fr": "musical",
       "forms": [
         {
-          "he": "מוּזִיקָלִיָּה",
-          "tr": "muzikaliyah",
+          "he": "מוּזִיקָלִית",
+          "tr": "muzikalit",
           "label": "f. sing.",
-          "he_plain": "מוזיקליה"
+          "he_plain": "מוזיקלית"
         },
         {
           "he": "מוּזִיקָלִיִּים",
@@ -16572,10 +16572,10 @@
       "fr": "sportif",
       "forms": [
         {
-          "he": "סְפּוֹרְטִיבִיָּה",
-          "tr": "sportiviyah",
+          "he": "סְפּוֹרְטִיבִית",
+          "tr": "sportivit",
           "label": "f. sing.",
-          "he_plain": "ספורטיביה"
+          "he_plain": "ספורטיבית"
         },
         {
           "he": "סְפּוֹרְטִיבִיִּים",
@@ -23439,7 +23439,7 @@
       "exemples": [
         {
           "he": "הָרוֹפֵא הִמְלִיץ עַל נִתּוּחַ.",
-          "tr": "harofe himlits 'al nitucha",
+          "tr": "harofe himlits 'al nituach",
           "fr": "Le médecin a recommandé une opération.",
           "he_plain": "הרופא המליץ על נתוח."
         }
@@ -26204,7 +26204,7 @@
     },
     {
       "cat": "Noms",
-      "he": "פָּלָאפֶל",
+      "he": "פָלָאפֶל",
       "tr": "",
       "fr": "falafel (m)",
       "genre": "m",
@@ -26212,7 +26212,7 @@
       "theme": "nourriture",
       "exemples": [
         {
-          "he": "יֵשׁ פָּלָאפֶל טָעִים בַּשּׁוּק",
+          "he": "יֵשׁ פָלָאפֶל טָעִים בַּשּׁוּק",
           "tr": "yesh falafel ta'im bashuk",
           "fr": "il y a du bon falafel au marché",
           "he_plain": "יש פלאפל טעים בשוק"
@@ -29595,7 +29595,7 @@
       "forms": [
         {
           "he": "כִּוּוּנִים",
-          "tr": "kiuunim",
+          "tr": "kivunim",
           "label": "pluriel",
           "he_plain": "כוונים"
         }
@@ -29621,7 +29621,7 @@
       "forms": [
         {
           "he": "יְצִיאוֹת",
-          "tr": "yetsiyot",
+          "tr": "yetsi'ot",
           "label": "pluriel",
           "he_plain": "יציאות"
         }
@@ -32093,7 +32093,7 @@
       "exemples": [
         {
           "he": "הָעִיר הִשְׁתַּנְּתָה מְאוֹד בָּעָשׂוֹר הָאַחֲרוֹן.",
-          "tr": "ha'ir hishtantah meod ba'asor ha'acharon",
+          "tr": "ha'ir hishtantah me'od ba'asor ha'acharon",
           "fr": "La ville a beaucoup changé au cours de la dernière décennie.",
           "he_plain": "העיר השתנתה מאוד בעשור האחרון."
         }
@@ -34217,7 +34217,7 @@
       "exemples": [
         {
           "he": "הַתַּשְׁלוּם הוּא בְּכַרְטִיס אַשְׁרַאי",
-          "tr": "hatashlum hu bekhartis ashra'i",
+          "tr": "hatashlum hu bekhartis ashrai",
           "fr": "le paiement se fait par carte de crédit",
           "he_plain": "התשלום הוא בכרטיס אשראי"
         }
@@ -36871,7 +36871,7 @@
       "exemples": [
         {
           "he": "יֵשׁ לוֹ פֶּצַע עַל הָרֶגֶל",
-          "tr": "yesh lo petsa 'al haregel",
+          "tr": "yesh lo petsa' 'al haregel",
           "fr": "il a une blessure à la jambe",
           "he_plain": "יש לו פצע על הרגל"
         }
@@ -37546,7 +37546,7 @@
           "he_plain": "רחבים"
         }
       ],
-      "niveau": "B1",
+      "niveau": "A2",
       "theme": "abstrait",
       "exemples": [
         {
@@ -38063,7 +38063,7 @@
       "he": "עַצְמִי",
       "tr": "'atsmi",
       "fr": "moi-même",
-      "note": "se combine : בְּעַצְמִי « par moi-même », אֶת עַצְמִי « moi-même » (COD)",
+      "note": "se combine : <span lang=\"he\">בְּעַצְמִי</span> « par moi-même », <span lang=\"he\">אֶת עַצְמִי</span> « moi-même » (COD)",
       "niveau": "A2",
       "he_plain": "עצמי"
     },
@@ -38336,7 +38336,7 @@
       "he": "יָכוֹל",
       "tr": "yakhol",
       "fr": "pouvoir",
-      "note": "s'accorde : יָכוֹל / יְכוֹלָה / יְכוֹלִים / יְכוֹלוֹת. Ex. אֲנִי יָכוֹל לָלֶכֶת = je peux aller.",
+      "note": "s'accorde : <span lang=\"he\">יָכוֹל</span> / <span lang=\"he\">יְכוֹלָה</span> / <span lang=\"he\">יְכוֹלִים</span> / <span lang=\"he\">יְכוֹלוֹת</span>. Ex. <span lang=\"he\">אֲנִי יָכוֹל לָלֶכֶת</span> = je peux aller.",
       "niveau": "A1",
       "exemples": [
         {
@@ -38353,7 +38353,7 @@
       "he": "צָרִיךְ",
       "tr": "tsarikh",
       "fr": "il faut / devoir",
-      "note": "s'accorde : צָרִיךְ / צְרִיכָה / צְרִיכִים / צְרִיכוֹת. Ex. אֲנִי צָרִיךְ לָלֶכֶת = je dois y aller.",
+      "note": "s'accorde : <span lang=\"he\">צָרִיךְ</span> / <span lang=\"he\">צְרִיכָה</span> / <span lang=\"he\">צְרִיכִים</span> / <span lang=\"he\">צְרִיכוֹת</span>. Ex. <span lang=\"he\">אֲנִי צָרִיךְ לָלֶכֶת</span> = je dois y aller.",
       "niveau": "A1",
       "exemples": [
         {
@@ -38370,7 +38370,7 @@
       "he": "מוּתָּר",
       "tr": "mutar",
       "fr": "il est permis",
-      "note": "invariable. Ex. מוּתָּר לְעַשֵּׁן = il est permis de fumer.",
+      "note": "invariable. Ex. <span lang=\"he\">מוּתָּר לְעַשֵּׁן</span> = il est permis de fumer.",
       "niveau": "A2",
       "he_plain": "מותר"
     },
@@ -38379,7 +38379,7 @@
       "he": "אָסוּר",
       "tr": "asur",
       "fr": "il est interdit",
-      "note": "invariable. Ex. אָסוּר לְעַשֵּׁן = il est interdit de fumer.",
+      "note": "invariable. Ex. <span lang=\"he\">אָסוּר לְעַשֵּׁן</span> = il est interdit de fumer.",
       "niveau": "A2",
       "he_plain": "אסור"
     },
@@ -38388,7 +38388,7 @@
       "he": "כְּדַאי",
       "tr": "kday",
       "fr": "il vaut mieux / ça vaut le coup",
-      "note": "invariable. Ex. כְּדַאי לְךָ לָלֶכֶת = tu ferais mieux d'y aller.",
+      "note": "invariable. Ex. <span lang=\"he\">כְּדַאי לְךָ לָלֶכֶת</span> = tu ferais mieux d'y aller.",
       "niveau": "B1",
       "he_plain": "כדאי"
     },
@@ -38430,7 +38430,7 @@
       "he": "חַיָּב",
       "tr": "chayav",
       "fr": "devoir, être obligé de",
-      "note": "s'accorde : חַיָּב / חַיֶּבֶת / חַיָּבִים / חַיָּבוֹת",
+      "note": "s'accorde : <span lang=\"he\">חַיָּב</span> / <span lang=\"he\">חַיֶּבֶת</span> / <span lang=\"he\">חַיָּבִים</span> / <span lang=\"he\">חַיָּבוֹת</span>",
       "niveau": "A2",
       "exemples": [
         {
@@ -38447,7 +38447,7 @@
       "he": "נִדְמֶה",
       "tr": "nidmeh",
       "fr": "il semble",
-      "note": "impersonnel : נִדְמֶה לִי שֶׁ… « il me semble que… »",
+      "note": "impersonnel : <span lang=\"he\">נִדְמֶה לִי שֶׁ</span>… « il me semble que… »",
       "niveau": "B1",
       "exemples": [
         {
@@ -38468,7 +38468,7 @@
       "exemples": [
         {
           "he": "מוּטָב שֶׁתֵּלֵךְ עַכְשָׁיו",
-          "tr": "mutav shetelekh achshav",
+          "tr": "mutav shetelekh 'akhshav",
           "fr": "il vaut mieux que tu partes maintenant",
           "he_plain": "מוטב שתלך עכשיו"
         }
@@ -38612,7 +38612,7 @@
       "exemples": [
         {
           "he": "כּוֹאֵב לִי הָרֹאשׁ עַכְשָׁיו",
-          "tr": "koev li harosh achshav",
+          "tr": "koev li harosh 'akhshav",
           "fr": "j'ai mal à la tête maintenant",
           "he_plain": "כואב לי הראש עכשיו"
         }
@@ -38644,7 +38644,7 @@
       "exemples": [
         {
           "he": "קָשֶׁה לִי לְהָבִין אֶת זֶה",
-          "tr": "kashe li lehavin et zeh",
+          "tr": "kasheh li lehavin et zeh",
           "fr": "c'est dur pour moi de comprendre ça",
           "he_plain": "קשה לי להבין את זה"
         }
@@ -38660,7 +38660,7 @@
       "exemples": [
         {
           "he": "בָּא לִי לִישׁוֹן עַכְשָׁיו",
-          "tr": "ba li lishon achshav",
+          "tr": "ba li lishon 'akhshav",
           "fr": "j'ai envie de dormir maintenant",
           "he_plain": "בא לי לישון עכשיו"
         }
@@ -38692,7 +38692,7 @@
       "exemples": [
         {
           "he": "נִמְאַס לִי מֵהָעֲבוֹדָה הַזֹּאת",
-          "tr": "nim'as li meha'avoda hazot",
+          "tr": "nim'as li meha'avodah hazot",
           "fr": "j'en ai assez de ce travail",
           "he_plain": "נמאס לי מהעבודה הזאת"
         }
@@ -38734,13 +38734,13 @@
     {
       "cat": "Tournures impersonnelles",
       "he": "מַגִּיעַ לִי",
-      "tr": "magia li",
+      "tr": "magi'a li",
       "fr": "je le mérite / j'y ai droit",
       "niveau": "B1",
       "exemples": [
         {
           "he": "מַגִּיעַ לִי חֹפֶשׁ אָרֹךְ",
-          "tr": "magia li chofesh arokh",
+          "tr": "magi'a li chofesh arokh",
           "fr": "je mérite de longues vacances",
           "he_plain": "מגיע לי חפש ארך"
         }
@@ -38772,7 +38772,7 @@
       "exemples": [
         {
           "he": "בּוֹא הֵנָה עַכְשָׁיו!",
-          "tr": "bo hena achshav!",
+          "tr": "bo henah 'akhshav!",
           "fr": "viens ici maintenant !",
           "he_plain": "בוא הנה עכשיו!"
         }
@@ -38788,7 +38788,7 @@
       "exemples": [
         {
           "he": "בּוֹאִי אִתִּי לַמְּסִבָּה",
-          "tr": "bo'i iti lamesiba",
+          "tr": "bo'i iti lamesibah",
           "fr": "viens avec moi à la fête",
           "he_plain": "בואי אתי למסבה"
         }
@@ -38916,7 +38916,7 @@
       "exemples": [
         {
           "he": "תַּגִּיד לִי מָה קָרָה",
-          "tr": "tagid li ma kara",
+          "tr": "tagid li mah karah",
           "fr": "dis-moi ce qui s'est passé",
           "he_plain": "תגיד לי מה קרה"
         }
@@ -38932,7 +38932,7 @@
       "exemples": [
         {
           "he": "תִּרְאֶה אֵיזֶה יֹפִי בַּחוּץ",
-          "tr": "tireh eize yofi bachuts",
+          "tr": "tireh eizeh yofi bachuts",
           "fr": "regarde comme c'est beau dehors",
           "he_plain": "תראה איזה יפי בחוץ"
         }
@@ -38964,7 +38964,7 @@
       "exemples": [
         {
           "he": "תַּעֲצֹר אֶת הָרֶכֶב פֹּה",
-          "tr": "ta'atsor et harekhev po",
+          "tr": "ta'atsor et harekhev poh",
           "fr": "arrête la voiture ici",
           "he_plain": "תעצר את הרכב פה"
         }
@@ -38980,7 +38980,7 @@
       "exemples": [
         {
           "he": "זוּז, אַתָּה חוֹסֵם לִי",
-          "tr": "zuz, ata chosem li",
+          "tr": "zuz, atah chosem li",
           "fr": "bouge, tu me bloques",
           "he_plain": "זוז, אתה חוסם לי"
         }
@@ -39012,7 +39012,7 @@
       "exemples": [
         {
           "he": "הָאָח שֶׁלִּי כְּמוֹ חָבֵר טוֹב",
-          "tr": "ha'ach sheli kemo chaver tov",
+          "tr": "ha'ach sheli kmo chaver tov",
           "fr": "mon frère est comme un bon ami",
           "he_plain": "האח שלי כמו חבר טוב"
         }
@@ -39038,7 +39038,7 @@
     {
       "cat": "Prépositions",
       "he": "בְּלִי",
-      "tr": "bli",
+      "tr": "beli",
       "fr": "sans",
       "niveau": "A2",
       "exemples": [
@@ -39072,7 +39072,7 @@
       "he": "תַּחַת",
       "tr": "tachat",
       "fr": "sous",
-      "note": "littéraire — à l'oral on dit plutôt מִתַּחַת לְ",
+      "note": "littéraire — à l'oral on dit plutôt <span lang=\"he\">מִתַּחַת לְ</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -39201,7 +39201,7 @@
       "he": "מִן",
       "tr": "min",
       "fr": "de / depuis",
-      "note": "écrit/soutenu — à l'oral on dit plutôt le préfixe מִ־",
+      "note": "écrit/soutenu — à l'oral on dit plutôt le préfixe <span lang=\"he\">מִ־</span>",
       "niveau": "A2",
       "exemples": [
         {
@@ -39530,7 +39530,7 @@
       "he": "אֶת",
       "tr": "et",
       "fr": "(marque du complément d'objet direct défini)",
-      "note": "אֲנִי רוֹאֶה אֶת הַבַּיִת ; cf. section 16 du carnet",
+      "note": "<span lang=\"he\">אֲנִי רוֹאֶה אֶת הַבַּיִת</span> ; cf. section 16 du carnet",
       "niveau": "A1",
       "exemples": [
         {
@@ -39615,7 +39615,7 @@
       "exemples": [
         {
           "he": "הַתִּיק הַזֶּה שֶׁלִּי",
-          "tr": "hatik haze sheli",
+          "tr": "hatik hazeh sheli",
           "fr": "ce sac est à moi",
           "he_plain": "התיק הזה שלי"
         }
@@ -39947,7 +39947,7 @@
       "he": "אוֹתָנוּ",
       "tr": "otanu",
       "fr": "nous (COD)",
-      "niveau": "A2",
+      "niveau": "A1",
       "exemples": [
         {
           "he": "הַמּוֹרֶה רוֹאֶה אוֹתָנוּ",
@@ -39963,7 +39963,7 @@
       "he": "אֶתְכֶם",
       "tr": "etkhem",
       "fr": "vous (COD ; normé, familier אותכם)",
-      "niveau": "A2",
+      "niveau": "A1",
       "exemples": [
         {
           "he": "אֲנִי מַזְמִין אֶתְכֶם",
@@ -39979,7 +39979,7 @@
       "he": "אוֹתָם",
       "tr": "otam",
       "fr": "les, eux (COD)",
-      "niveau": "A2",
+      "niveau": "A1",
       "exemples": [
         {
           "he": "הַמּוֹרָה מַכִּירָה אוֹתָם",
@@ -40708,7 +40708,7 @@
       "he": "כְּדֵי",
       "tr": "kdei",
       "fr": "afin de, pour",
-      "note": "devant un infinitif ; כְּדֵי שֶׁ devant une proposition",
+      "note": "devant un infinitif ; <span lang=\"he\">כְּדֵי שֶׁ</span> devant une proposition",
       "niveau": "A2",
       "exemples": [
         {
@@ -40725,7 +40725,7 @@
       "he": "כְּשֶׁ",
       "tr": "kshe",
       "fr": "quand, lorsque",
-      "note": "préfixe soudé au verbe : כְּשֶׁאֲנִי בָּא",
+      "note": "préfixe soudé au verbe : <span lang=\"he\">כְּשֶׁאֲנִי בָּא</span>",
       "niveau": "A1",
       "exemples": [
         {
@@ -40742,7 +40742,7 @@
       "he": "בִּגְלַל שֶׁ",
       "tr": "biglal she",
       "fr": "parce que",
-      "note": "devant une proposition ; בִּגְלַל seul devant un nom",
+      "note": "devant une proposition ; <span lang=\"he\">בִּגְלַל</span> seul devant un nom",
       "niveau": "A2",
       "he_plain": "בגלל ש"
     },
@@ -41356,7 +41356,7 @@
       "exemples": [
         {
           "he": "אָמְנָם קַר, אֲבָל יָפֶה בַּחוּץ",
-          "tr": "amnam kar, aval yafeh bachuts",
+          "tr": "omnam kar, aval yafeh bachuts",
           "fr": "certes il fait froid, mais il fait beau dehors",
           "he_plain": "אמנם קר, אבל יפה בחוץ"
         }
@@ -41366,7 +41366,7 @@
     {
       "cat": "Connecteurs du discours",
       "he": "אַף עַל פִּי כֵן",
-      "tr": "af al pi khen",
+      "tr": "af 'al pi khen",
       "fr": "malgré tout (soutenu)",
       "niveau": "C1",
       "exemples": [
@@ -41382,7 +41382,7 @@
     {
       "cat": "Connecteurs du discours",
       "he": "יֶתֶר עַל כֵּן",
-      "tr": "yeter al ken",
+      "tr": "yeter 'al ken",
       "fr": "qui plus est (soutenu)",
       "niveau": "C1",
       "exemples": [
@@ -41532,7 +41532,7 @@
       "exemples": [
         {
           "he": "וּבְכֵן, מָה אַתֶּם רוֹצִים",
-          "tr": "uvkhen, mah atem rotsim",
+          "tr": "uvekhen, mah atem rotsim",
           "fr": "eh bien, que voulez-vous ?",
           "he_plain": "ובכן, מה אתם רוצים"
         }
@@ -41768,7 +41768,7 @@
       "he": "מֵאַיִן",
       "tr": "me'ayin",
       "fr": "d'où",
-      "note": "quasi absent de l'oral — on dit plutôt מֵאֵיפֹה",
+      "note": "quasi absent de l'oral — on dit plutôt <span lang=\"he\">מֵאֵיפֹה</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -42026,7 +42026,7 @@
       "he": "אֶחָד",
       "tr": "echad",
       "fr": "un (avec un nom masculin)",
-      "note": "Le féminin (אַחַת…) est la série de comptage par défaut ; le masculin s'accorde : שְׁלוֹשָׁה יְלָדִים.",
+      "note": "Le féminin (<span lang=\"he\">אַחַת</span>…) est la série de comptage par défaut ; le masculin s'accorde : <span lang=\"he\">שְׁלוֹשָׁה יְלָדִים</span>.",
       "niveau": "A1",
       "exemples": [
         {
@@ -42079,7 +42079,7 @@
       "exemples": [
         {
           "he": "שְׁלוֹשָׁה יְלָדִים מְשַׂחֲקִים בַּגַּן",
-          "tr": "shlosha yeladim mesachakim bagan",
+          "tr": "shloshah yeladim mesachakim bagan",
           "fr": "trois enfants jouent au jardin",
           "he_plain": "שלושה ילדים משחקים בגן"
         }
@@ -42103,7 +42103,7 @@
       "exemples": [
         {
           "he": "אַרְבָּעָה סְפָרִים עַל הַשֻּׁלְחָן",
-          "tr": "arba'a sfarim al hashulchan",
+          "tr": "arba'ah sfarim 'al hashulchan",
           "fr": "quatre livres sur la table",
           "he_plain": "ארבעה ספרים על השלחן"
         }
@@ -42127,7 +42127,7 @@
       "exemples": [
         {
           "he": "חֲמִישָּׁה תַּלְמִידִים בַּכִּתָּה",
-          "tr": "chamisha talmidim bakita",
+          "tr": "chamishah talmidim bakitah",
           "fr": "cinq élèves dans la classe",
           "he_plain": "חמישה תלמידים בכתה"
         }
@@ -42151,7 +42151,7 @@
       "exemples": [
         {
           "he": "שִׁישָּׁה אֲנָשִׁים בַּחֶדֶר",
-          "tr": "shisha anashim bacheder",
+          "tr": "shishah anashim bacheder",
           "fr": "six personnes dans la pièce",
           "he_plain": "שישה אנשים בחדר"
         }
@@ -42175,7 +42175,7 @@
       "exemples": [
         {
           "he": "שִׁבְעָה יָמִים בַּשָּׁבוּעַ",
-          "tr": "shiv'a yamim bashavu'a",
+          "tr": "shiv'ah yamim bashavu'a",
           "fr": "sept jours dans la semaine",
           "he_plain": "שבעה ימים בשבוע"
         }
@@ -42199,7 +42199,7 @@
       "exemples": [
         {
           "he": "שְׁמוֹנָה כִּסְאוֹת בַּמִּטְבָּח",
-          "tr": "shmona kis'ot bamitbach",
+          "tr": "shmonah kis'ot bamitbach",
           "fr": "huit chaises dans la cuisine",
           "he_plain": "שמונה כסאות במטבח"
         }
@@ -42223,7 +42223,7 @@
       "exemples": [
         {
           "he": "תִּשְׁעָה כְּלָבִים בָּרְחוֹב",
-          "tr": "tish'a klavim barechov",
+          "tr": "tish'ah klavim barechov",
           "fr": "neuf chiens dans la rue",
           "he_plain": "תשעה כלבים ברחוב"
         }
@@ -42247,7 +42247,7 @@
       "exemples": [
         {
           "he": "עֲשָׂרָה עֶפְרוֹנוֹת בַּיַּלְקוּט",
-          "tr": "asara efronot bayalkut",
+          "tr": "'asarah 'efronot bayalkut",
           "fr": "dix crayons dans le cartable",
           "he_plain": "עשרה עפרונות בילקוט"
         }
@@ -42265,13 +42265,13 @@
     {
       "cat": "Nombres",
       "he": "אַחַד עָשָׂר",
-      "tr": "achad asar",
+      "tr": "achad 'asar",
       "fr": "onze (masculin)",
       "niveau": "B1",
       "exemples": [
         {
           "he": "יֶלֶד בֶּן אַחַד עָשָׂר",
-          "tr": "yeled ben achad asar",
+          "tr": "yeled ben achad 'asar",
           "fr": "un garçon de onze ans",
           "he_plain": "ילד בן אחד עשר"
         }
@@ -42289,13 +42289,13 @@
     {
       "cat": "Nombres",
       "he": "שְׁנֵים עָשָׂר",
-      "tr": "shneim asar",
+      "tr": "shneim 'asar",
       "fr": "douze (masculin)",
       "niveau": "B1",
       "exemples": [
         {
           "he": "שְׁנֵים עָשָׂר חֳדָשִׁים בַּשָּׁנָה",
-          "tr": "shneim asar chodashim bashana",
+          "tr": "shneim 'asar chodashim bashanah",
           "fr": "douze mois dans l'année",
           "he_plain": "שנים עשר חדשים בשנה"
         }
@@ -42319,7 +42319,7 @@
       "exemples": [
         {
           "he": "הוּא בֶּן שְׁלוֹשָׁה עָשָׂר",
-          "tr": "hu ben shlosha asar",
+          "tr": "hu ben shloshah 'asar",
           "fr": "il a treize ans",
           "he_plain": "הוא בן שלושה עשר"
         }
@@ -42343,7 +42343,7 @@
       "exemples": [
         {
           "he": "אַרְבָּעָה עָשָׂר יְלָדִים בַּקְּבוּצָה",
-          "tr": "arba'a asar yeladim bakvutsa",
+          "tr": "arba'ah 'asar yeladim bakvutsah",
           "fr": "quatorze enfants dans le groupe",
           "he_plain": "ארבעה עשר ילדים בקבוצה"
         }
@@ -42367,7 +42367,7 @@
       "exemples": [
         {
           "he": "חֲמִישָּׁה עָשָׂר סְפָרִים בָּאָרוֹן",
-          "tr": "chamisha asar sfarim ba'aron",
+          "tr": "chamishah 'asar sfarim ba'aron",
           "fr": "quinze livres dans l'armoire",
           "he_plain": "חמישה עשר ספרים בארון"
         }
@@ -42391,7 +42391,7 @@
       "exemples": [
         {
           "he": "שִׁישָּׁה עָשָׂר תַּלְמִידִים בַּטִּיּוּל",
-          "tr": "shisha asar talmidim batiyul",
+          "tr": "shishah 'asar talmidim batiyul",
           "fr": "seize élèves en excursion",
           "he_plain": "שישה עשר תלמידים בטיול"
         }
@@ -42415,7 +42415,7 @@
       "exemples": [
         {
           "he": "שִׁבְעָה עָשָׂר אֲנָשִׁים בָּאוּלָם",
-          "tr": "shiv'a asar anashim ba'ulam",
+          "tr": "shiv'ah 'asar anashim ba'ulam",
           "fr": "dix-sept personnes dans la salle",
           "he_plain": "שבעה עשר אנשים באולם"
         }
@@ -42439,7 +42439,7 @@
       "exemples": [
         {
           "he": "הוּא בֶּן שְׁמוֹנָה עָשָׂר",
-          "tr": "hu ben shmona asar",
+          "tr": "hu ben shmonah 'asar",
           "fr": "il a dix-huit ans",
           "he_plain": "הוא בן שמונה עשר"
         }
@@ -42463,7 +42463,7 @@
       "exemples": [
         {
           "he": "תִּשְׁעָה עָשָׂר יְלָדִים בַּגַּן",
-          "tr": "tish'a asar yeladim bagan",
+          "tr": "tish'ah 'asar yeladim bagan",
           "fr": "dix-neuf enfants au jardin d'enfants",
           "he_plain": "תשעה עשר ילדים בגן"
         }
@@ -42599,7 +42599,7 @@
       "exemples": [
         {
           "he": "הָעִיר בַּת אַלְפַּיִם שָׁנָה",
-          "tr": "ha'ir bat alpayim shana",
+          "tr": "ha'ir bat alpayim shanah",
           "fr": "la ville a deux mille ans",
           "he_plain": "העיר בת אלפים שנה"
         }
@@ -42643,7 +42643,7 @@
       "he": "רִאשׁוֹן",
       "tr": "rishon",
       "fr": "premier",
-      "note": "féminin : רִאשׁוֹנָה (rishonah)",
+      "note": "féminin : <span lang=\"he\">רִאשׁוֹנָה</span> (rishonah)",
       "niveau": "A1",
       "he_plain": "ראשון"
     },
@@ -42668,7 +42668,7 @@
       "he": "שֵׁנִי",
       "tr": "sheni",
       "fr": "deuxième",
-      "note": "féminin : שְׁנִיָּה (shniyah)",
+      "note": "féminin : <span lang=\"he\">שְׁנִיָּה</span> (shniyah)",
       "niveau": "A1",
       "he_plain": "שני"
     },
@@ -42693,7 +42693,7 @@
       "he": "שְׁלִישִׁי",
       "tr": "shlishi",
       "fr": "troisième",
-      "note": "féminin : שְׁלִישִׁית (shlishit)",
+      "note": "féminin : <span lang=\"he\">שְׁלִישִׁית</span> (shlishit)",
       "niveau": "A1",
       "he_plain": "שלישי"
     },
@@ -42938,7 +42938,7 @@
       "exemples": [
         {
           "he": "שְׁלוֹשָׁה רְבָעִים מֵהַכּוֹס מָלֵא",
-          "tr": "shlosha reva'im mehakos male",
+          "tr": "shloshah reva'im mehakos male",
           "fr": "les trois quarts du verre sont pleins",
           "he_plain": "שלושה רבעים מהכוס מלא"
         }
@@ -43622,7 +43622,7 @@
       "he": "עֲדַיִן",
       "tr": "'adayin",
       "fr": "encore, toujours",
-      "note": "avec la négation : עֲדַיִן לֹא « pas encore »",
+      "note": "avec la négation : <span lang=\"he\">עֲדַיִן לֹא</span> « pas encore »",
       "niveau": "A1",
       "exemples": [
         {
@@ -43653,7 +43653,7 @@
     {
       "cat": "Adverbes",
       "he": "כָּרֶגַע",
-      "tr": "karega",
+      "tr": "karega'",
       "fr": "en ce moment, actuellement",
       "niveau": "A2",
       "he_plain": "כרגע"
@@ -43661,7 +43661,7 @@
     {
       "cat": "Adverbes",
       "he": "הָרֶגַע",
-      "tr": "harega",
+      "tr": "harega'",
       "fr": "à l'instant, juste maintenant",
       "niveau": "A2",
       "he_plain": "הרגע"
@@ -43843,7 +43843,7 @@
       "exemples": [
         {
           "he": "אַתָּה שׁוּב פַּעַם מְאַחֵר",
-          "tr": "ata shuv pa'am me'acher",
+          "tr": "atah shuv pa'am me'acher",
           "fr": "tu es encore une fois en retard",
           "he_plain": "אתה שוב פעם מאחר"
         }
@@ -43887,7 +43887,7 @@
       "he": "יָמִין",
       "tr": "yamin",
       "fr": "droite",
-      "note": "vers la droite : יָמִינָה (yaminah)",
+      "note": "vers la droite : <span lang=\"he\">יָמִינָה</span> (yaminah)",
       "niveau": "A1",
       "exemples": [
         {
@@ -43904,7 +43904,7 @@
       "he": "שְׂמֹאל",
       "tr": "smol",
       "fr": "gauche",
-      "note": "vers la gauche : שְׂמֹאלָה (smolah)",
+      "note": "vers la gauche : <span lang=\"he\">שְׂמֹאלָה</span> (smolah)",
       "niveau": "A1",
       "exemples": [
         {
@@ -43993,7 +43993,7 @@
       "he": "אֲחוֹרָה",
       "tr": "achorah",
       "fr": "en arrière, vers l'arrière",
-      "niveau": "B1",
+      "niveau": "A2",
       "he_plain": "אחורה"
     },
     {
@@ -44009,7 +44009,7 @@
       "he": "יָמִינָה",
       "tr": "yaminah",
       "fr": "à droite, vers la droite",
-      "note": "forme directionnelle (hé directionnel) : יָמִין « la droite » → יָמִינָה « vers la droite »",
+      "note": "forme directionnelle (hé directionnel) : <span lang=\"he\">יָמִין</span> « la droite » → <span lang=\"he\">יָמִינָה</span> « vers la droite »",
       "niveau": "A2",
       "exemples": [
         {
@@ -44042,7 +44042,7 @@
       "he": "צָפוֹנָה",
       "tr": "tsafonah",
       "fr": "vers le nord",
-      "note": "même hé directionnel : דָּרוֹמָה, מִזְרָחָה, מַעֲרָבָה se forment pareil",
+      "note": "même hé directionnel : <span lang=\"he\">דָּרוֹמָה</span>, <span lang=\"he\">מִזְרָחָה</span>, <span lang=\"he\">מַעֲרָבָה</span> se forment pareil",
       "niveau": "B1",
       "he_plain": "צפונה"
     },
@@ -44151,7 +44151,7 @@
       "exemples": [
         {
           "he": "אַתָּה צוֹדֵק בְּהֶחְלֵט",
-          "tr": "ata tsodek behechlet",
+          "tr": "atah tsodek behechlet",
           "fr": "tu as tout à fait raison",
           "he_plain": "אתה צודק בהחלט"
         }
@@ -44279,7 +44279,7 @@
       "exemples": [
         {
           "he": "אַתָּה מְדַבֵּר מַהֵר מִדַּי",
-          "tr": "ata medaber maher midai",
+          "tr": "atah medaber maher midai",
           "fr": "tu parles trop vite",
           "he_plain": "אתה מדבר מהר מדי"
         }
@@ -44475,7 +44475,7 @@
       "he": "פָּחוֹת",
       "tr": "pachot",
       "fr": "moins",
-      "niveau": "A2",
+      "niveau": "A1",
       "he_plain": "פחות"
     },
     {
@@ -44499,7 +44499,7 @@
       "he": "כְּלוּם",
       "tr": "klum",
       "fr": "rien",
-      "niveau": "A2",
+      "niveau": "A1",
       "he_plain": "כלום"
     },
     {
@@ -44507,7 +44507,7 @@
       "he": "קְצָת",
       "tr": "ktsat",
       "fr": "un peu",
-      "note": "courant à l'oral, = מְעַט",
+      "note": "courant à l'oral, = <span lang=\"he\">מְעַט</span>",
       "niveau": "A1",
       "exemples": [
         {
@@ -44668,7 +44668,7 @@
       "he": "אַף אֶחָד",
       "tr": "af echad",
       "fr": "personne, aucun",
-      "note": "toujours avec la négation : אַף אֶחָד לֹא בָּא",
+      "note": "toujours avec la négation : <span lang=\"he\">אַף אֶחָד לֹא בָּא</span>",
       "niveau": "A1",
       "exemples": [
         {
@@ -44693,7 +44693,7 @@
       "he": "שׁוּם דָּבָר",
       "tr": "shum davar",
       "fr": "rien",
-      "note": "toujours avec la négation : לֹא אָמַרְתִּי שׁוּם דָּבָר",
+      "note": "toujours avec la négation : <span lang=\"he\">לֹא אָמַרְתִּי שׁוּם דָּבָר</span>",
       "niveau": "A1",
       "exemples": [
         {
@@ -44726,7 +44726,7 @@
       "he": "אַחֵר",
       "tr": "acher",
       "fr": "autre",
-      "note": "féminin אַחֶרֶת, pluriel אֲחֵרִים / אֲחֵרוֹת",
+      "note": "féminin <span lang=\"he\">אַחֶרֶת</span>, pluriel <span lang=\"he\">אֲחֵרִים</span> / <span lang=\"he\">אֲחֵרוֹת</span>",
       "niveau": "A2",
       "he_plain": "אחר"
     },
@@ -44743,7 +44743,7 @@
       "he": "הֲכִי",
       "tr": "hakhi",
       "fr": "le plus (superlatif)",
-      "note": "précède l'adjectif : הֲכִי טוֹב « le meilleur »",
+      "note": "précède l'adjectif : <span lang=\"he\">הֲכִי טוֹב</span> « le meilleur »",
       "niveau": "A1",
       "exemples": [
         {
@@ -45008,7 +45008,7 @@
       "he": "שָׁלוֹם",
       "tr": "shalom",
       "fr": "bonjour / au revoir / paix",
-      "note": "entre amis, l'oral dit aussi הַיי",
+      "note": "entre amis, l'oral dit aussi <span lang=\"he\">הַיי</span>",
       "niveau": "A1",
       "he_plain": "שלום"
     },
@@ -45095,7 +45095,7 @@
     {
       "cat": "Expressions",
       "he": "לְהִתְרָאוֹת",
-      "tr": "lehitraot",
+      "tr": "lehitra'ot",
       "fr": "au revoir (à bientôt)",
       "niveau": "A1",
       "he_plain": "להתראות"
@@ -45361,7 +45361,7 @@
       "he": "לָשִׂים לֵב",
       "tr": "lasim lev",
       "fr": "faire attention, remarquer",
-      "note": "suivi de לְ : לָשִׂים לֵב לְמַשֶּׁהוּ",
+      "note": "suivi de <span lang=\"he\">לְ</span> : <span lang=\"he\">לָשִׂים לֵב לְמַשֶּׁהוּ</span>",
       "niveau": "B1",
       "he_plain": "לשים לב"
     },
@@ -45386,7 +45386,7 @@
       "he": "אִכְפַּת",
       "tr": "ikhpat",
       "fr": "tenir à, se soucier de",
-      "note": "surtout à la négative : לֹא אִכְפַּת לִי « ça m'est égal »",
+      "note": "surtout à la négative : <span lang=\"he\">לֹא אִכְפַּת לִי</span> « ça m'est égal »",
       "niveau": "B1",
       "exemples": [
         {
@@ -45891,7 +45891,7 @@
       "he": "ד\"ר",
       "tr": "doktor",
       "fr": "Dr (docteur)",
-      "note": "forme développée : דּוֹקְטוֹר",
+      "note": "forme développée : <span lang=\"he\">דּוֹקְטוֹר</span>",
       "niveau": "A2",
       "exemples": [
         {
@@ -45908,7 +45908,7 @@
       "he": "ת\"א",
       "tr": "tel aviv",
       "fr": "Tel-Aviv",
-      "note": "forme développée : תֵּל אָבִיב",
+      "note": "forme développée : <span lang=\"he\">תֵּל אָבִיב</span>",
       "niveau": "A2",
       "exemples": [
         {
@@ -45925,7 +45925,7 @@
       "he": "וְכוּ'",
       "tr": "vekhule",
       "fr": "etc.",
-      "note": "forme développée : וְכוּלֵי (araméen, « et le reste »)",
+      "note": "forme développée : <span lang=\"he\">וְכוּלֵי</span> (araméen, « et le reste »)",
       "niveau": "B1",
       "exemples": [
         {
@@ -45942,7 +45942,7 @@
       "he": "ז\"א",
       "tr": "zot omeret",
       "fr": "c.-à-d. (זֹאת אוֹמֶרֶת)",
-      "note": "forme développée : זֹאת אוֹמֶרֶת",
+      "note": "forme développée : <span lang=\"he\">זֹאת אוֹמֶרֶת</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -45959,7 +45959,7 @@
       "he": "עו\"ד",
       "tr": "orekh din",
       "fr": "Maître (avocat, עוֹרֵךְ דִּין)",
-      "note": "forme développée : עוֹרֵךְ דִּין",
+      "note": "forme développée : <span lang=\"he\">עוֹרֵךְ דִּין</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -45976,7 +45976,7 @@
       "he": "חוּ\"ל",
       "tr": "chul",
       "fr": "l'étranger (חוּץ לָאָרֶץ)",
-      "note": "forme développée : חוּץ לָאָרֶץ",
+      "note": "forme développée : <span lang=\"he\">חוּץ לָאָרֶץ</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -45993,7 +45993,7 @@
       "he": "צה\"ל",
       "tr": "tsahal",
       "fr": "Tsahal (l'armée)",
-      "note": "forme développée : צְבָא הֲגָנָה לְיִשְׂרָאֵל",
+      "note": "forme développée : <span lang=\"he\">צְבָא הֲגָנָה לְיִשְׂרָאֵל</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -46026,7 +46026,7 @@
       "he": "נ.ב.",
       "tr": "nun bet",
       "fr": "P.-S.",
-      "note": "lu comme les noms des lettres נוּן בֵּית — ne développe pas de phrase, calque de l'usage occidental « P.-S. »",
+      "note": "lu comme les noms des lettres <span lang=\"he\">נוּן בֵּית</span> — ne développe pas de phrase, calque de l'usage occidental « P.-S. »",
       "niveau": "B2",
       "exemples": [
         {
@@ -46043,7 +46043,7 @@
       "he": "בע\"ה",
       "tr": "be'ezrat hashem",
       "fr": "avec l'aide de Dieu (à l'écrit)",
-      "note": "forme développée : בְּעֶזְרַת הַשֵּׁם",
+      "note": "forme développée : <span lang=\"he\">בְּעֶזְרַת הַשֵּׁם</span>",
       "niveau": "C1",
       "exemples": [
         {
@@ -46060,12 +46060,12 @@
       "he": "אי\"ה",
       "tr": "im yirtse hashem",
       "fr": "si Dieu veut (à l'écrit)",
-      "note": "forme développée : אִם יִרְצֶה הַשֵּׁם",
+      "note": "forme développée : <span lang=\"he\">אִם יִרְצֶה הַשֵּׁם</span>",
       "niveau": "C1",
       "exemples": [
         {
           "he": "נִתְרָאֶה בַּחֲתֻנָּה, אי\"ה",
-          "tr": "nitra'e bachatuna, im yirtse hashem",
+          "tr": "nitra'eh bachatunah, im yirtse hashem",
           "fr": "on se verra au mariage, si Dieu veut",
           "he_plain": "נתראה בחתנה, אי\"ה"
         }
@@ -46077,7 +46077,7 @@
       "he": "תַּכְלֶ'ס",
       "tr": "takhles",
       "fr": "concrètement / au fond, en vrai",
-      "note": "de l'hébreu תַּכְלִית par le yiddish ; s'écrit souvent תכל'ס",
+      "note": "de l'hébreu <span lang=\"he\">תַּכְלִית</span> par le yiddish ; s'écrit souvent <span lang=\"he\">תכל</span>'<span lang=\"he\">ס</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -46128,7 +46128,7 @@
       "he": "סְתָם",
       "tr": "stam",
       "fr": "juste comme ça / pour rien",
-      "note": "aussi « n'importe quoi » : סְתָם דִּבּוּרִים",
+      "note": "aussi « n'importe quoi » : <span lang=\"he\">סְתָם דִּבּוּרִים</span>",
       "niveau": "A2",
       "exemples": [
         {
@@ -46161,7 +46161,7 @@
       "he": "פָּשׁוּט",
       "tr": "pashut",
       "fr": "tout simplement, carrément",
-      "note": "emploi adverbial — l'adjectif פָּשׁוּט « simple » est aux Adjectifs",
+      "note": "emploi adverbial — l'adjectif <span lang=\"he\">פָּשׁוּט</span> « simple » est aux Adjectifs",
       "niveau": "A2",
       "exemples": [
         {
@@ -46243,7 +46243,7 @@
       "he": "מָה קוֹרֶה",
       "tr": "mah koreh",
       "fr": "quoi de neuf ? / ça roule ?",
-      "note": "plus familier que מָה נִשְׁמָע",
+      "note": "plus familier que <span lang=\"he\">מָה נִשְׁמָע</span>",
       "niveau": "A2",
       "exemples": [
         {
@@ -46276,7 +46276,7 @@
       "he": "עֲזֹב",
       "tr": "'azov",
       "fr": "laisse tomber",
-      "note": "à une femme : עִזְבִי, 'izvi",
+      "note": "à une femme : <span lang=\"he\">עִזְבִי</span>, 'izvi",
       "niveau": "A2",
       "exemples": [
         {
@@ -46439,7 +46439,7 @@
       "he": "תַּעֲשֶׂה טוֹבָה",
       "tr": "ta'aseh tovah",
       "fr": "fais-moi plaisir / arrête un peu",
-      "note": "à une femme : תַּעֲשִׂי טוֹבָה",
+      "note": "à une femme : <span lang=\"he\">תַּעֲשִׂי טוֹבָה</span>",
       "niveau": "B1",
       "exemples": [
         {
@@ -46492,7 +46492,7 @@
       "exemples": [
         {
           "he": "אֵיךְ הוֹלֵךְ, מָה נִשְׁמָע?",
-          "tr": "eikh holekh, mah nishma?",
+          "tr": "eikh holekh, mah nishma'?",
           "fr": "comment ça va, quoi de neuf ?",
           "he_plain": "איך הולך, מה נשמע?"
         }
@@ -46508,7 +46508,7 @@
       "exemples": [
         {
           "he": "בַּיי, נִתְרָאֶה מָחָר!",
-          "tr": "bai, nitra'e machar!",
+          "tr": "bai, nitra'eh machar!",
           "fr": "salut, à demain !",
           "he_plain": "ביי, נתראה מחר!"
         }
@@ -46682,7 +46682,7 @@
       "he": "שָׁוֶה",
       "tr": "shaveh",
       "fr": "ça vaut le coup",
-      "note": "emploi familier — l'adjectif שָׁוֶה « égal » est aux Adjectifs",
+      "note": "emploi familier — l'adjectif <span lang=\"he\">שָׁוֶה</span> « égal » est aux Adjectifs",
       "niveau": "A2",
       "exemples": [
         {
@@ -46796,7 +46796,7 @@
       "he": "וַאלָה",
       "tr": "valah",
       "fr": "vraiment ?!",
-      "note": "étonnement — à ne pas confondre avec יָאלְלָה",
+      "note": "étonnement — à ne pas confondre avec <span lang=\"he\">יָאלְלָה</span>",
       "niveau": "B2",
       "exemples": [
         {
@@ -46813,7 +46813,7 @@
       "he": "כַּפָּרָה",
       "tr": "kaparah",
       "fr": "mon chou, mon trésor",
-      "note": "affectueux ; souvent כַּפָּרָה עָלֶיךָ",
+      "note": "affectueux ; souvent <span lang=\"he\">כַּפָּרָה עָלֶיךָ</span>",
       "niveau": "B2",
       "exemples": [
         {
@@ -46878,7 +46878,7 @@
       "he": "חָלָס",
       "tr": "chalas",
       "fr": "ça suffit, terminé",
-      "note": "de l'arabe ; plus sec que דַּי",
+      "note": "de l'arabe ; plus sec que <span lang=\"he\">דַּי</span>",
       "niveau": "B1",
       "exemples": [
         {

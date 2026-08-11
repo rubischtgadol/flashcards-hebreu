@@ -2458,7 +2458,7 @@
     "exemples": [
       {
         "he": "הוּא מַשְׁאִיר אֶת הַמַּפְתֵּחַ בַּבַּיִת",
-        "tr": "hu mash'ir et hamafteach babayit",
+        "tr": "hu mashir et hamafteach babayit",
         "fr": "il laisse la clé à la maison"
       }
     ]
@@ -3450,7 +3450,7 @@
     "exemples": [
       {
         "he": "אֲנִי מֵרִיחַ אֶת הַפְּרָחִים בַּגַּן",
-        "tr": "ani meriyach et haprachim bagan",
+        "tr": "ani meriach et haprachim bagan",
         "fr": "je sens les fleurs du jardin"
       }
     ]
@@ -4329,7 +4329,7 @@
       },
       {
         "he": "מַאֲמִינָה",
-        "tr": "maaminah"
+        "tr": "ma'aminah"
       },
       {
         "he": "מַאֲמִינִים",
@@ -4429,11 +4429,11 @@
       },
       {
         "he": "שׁוֹכְחִים",
-        "tr": "shokhechim"
+        "tr": "shokhchim"
       },
       {
         "he": "שׁוֹכְחוֹת",
-        "tr": "shokhechot"
+        "tr": "shokhchot"
       }
     ],
     "niveau": "A2",
@@ -4858,7 +4858,7 @@
     "exemples": [
       {
         "he": "הַחֻלְצָה הַזֹּאת מַתְאִימָה לְךָ",
-        "tr": "hachultsah hazot mat'imah lekha",
+        "tr": "hachultsah hazot matimah lekha",
         "fr": "cette chemise te va bien"
       }
     ]
@@ -4869,7 +4869,7 @@
     "formes": [
       {
         "he": "מוֹכִיחַ",
-        "tr": "mokhiyach"
+        "tr": "mokhiach"
       },
       {
         "he": "מוֹכִיחָה",
@@ -4890,7 +4890,7 @@
     "exemples": [
       {
         "he": "הוּא מוֹכִיחַ שֶׁהוּא צוֹדֵק",
-        "tr": "hu mokhiyach shehu tsodek",
+        "tr": "hu mokhiach shehu tsodek",
         "fr": "il prouve qu'il a raison"
       }
     ]
@@ -5829,7 +5829,7 @@
     "formes": [
       {
         "he": "מְצַחְצֵחַ",
-        "tr": "metsachtse'ach"
+        "tr": "metsachtseach"
       },
       {
         "he": "מְצַחְצַחַת",
@@ -5850,7 +5850,7 @@
     "exemples": [
       {
         "he": "אֲנִי מְצַחְצֵחַ אֶת הַשִּׁנַּיִם",
-        "tr": "ani metsachtse'ach et hashinayim",
+        "tr": "ani metsachtseach et hashinayim",
         "fr": "je me brosse les dents"
       }
     ]
@@ -5957,19 +5957,19 @@
     "formes": [
       {
         "he": "מְכַבֵּס",
-        "tr": "mechabes"
+        "tr": "mekhabes"
       },
       {
         "he": "מְכַבֶּסֶת",
-        "tr": "mechabeset"
+        "tr": "mekhabeset"
       },
       {
         "he": "מְכַבְּסִים",
-        "tr": "mechabsim"
+        "tr": "mekhabsim"
       },
       {
         "he": "מְכַבְּסוֹת",
-        "tr": "mechabsot"
+        "tr": "mekhabsot"
       }
     ],
     "niveau": "A2",
@@ -5978,7 +5978,7 @@
     "exemples": [
       {
         "he": "אֲנִי מְכַבֵּס אֶת הַכְּבִיסָה",
-        "tr": "ani mechabes et hakvisah",
+        "tr": "ani mekhabes et hakvisah",
         "fr": "je lave le linge"
       }
     ]
@@ -6021,19 +6021,19 @@
     "formes": [
       {
         "he": "מְכַבֶּה",
-        "tr": "mechabeh"
+        "tr": "mekhabeh"
       },
       {
         "he": "מְכַבָּה",
-        "tr": "mechabah"
+        "tr": "mekhabah"
       },
       {
         "he": "מְכַבִּים",
-        "tr": "mechabim"
+        "tr": "mekhabim"
       },
       {
         "he": "מְכַבּוֹת",
-        "tr": "mechabot"
+        "tr": "mekhabot"
       }
     ],
     "niveau": "A1",
@@ -6042,7 +6042,7 @@
     "exemples": [
       {
         "he": "אֲנִי מְכַבֶּה אֶת הַטֶּלֶפוֹן",
-        "tr": "ani mechabeh et hatelefon",
+        "tr": "ani mekhabeh et hatelefon",
         "fr": "j'éteins le téléphone"
       }
     ]
@@ -7853,11 +7853,11 @@
       },
       {
         "he": "חוֹגְגִים",
-        "tr": "choggim"
+        "tr": "chogegim"
       },
       {
         "he": "חוֹגְגוֹת",
-        "tr": "choggot"
+        "tr": "chogegot"
       }
     ],
     "niveau": "A2",

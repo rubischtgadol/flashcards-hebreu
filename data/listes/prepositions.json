@@ -22,7 +22,7 @@
       "exemples": [
         {
           "he": "הָאָח שֶׁלִּי כְּמוֹ חָבֵר טוֹב",
-          "tr": "ha'ach sheli kemo chaver tov",
+          "tr": "ha'ach sheli kmo chaver tov",
           "fr": "mon frère est comme un bon ami"
         }
       ]
@@ -42,7 +42,7 @@
     },
     {
       "he": "בְּלִי",
-      "tr": "bli",
+      "tr": "beli",
       "fr": "sans",
       "niveau": "A2",
       "exemples": [

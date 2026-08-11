@@ -32,8 +32,11 @@ function exemplesHtml(exs) {
   return `\n      <ul class="exemples">${items}</ul>\n    `;
 }
 
-const vedette = (e) => `<td><span class="he" lang="he">${e.he}</span><span class="fr">${escFr(e.fr)}</span>${exemplesHtml(e.exemples)}</td>`;
-const attrs = (e) => `data-niveau="${e.niveau}" data-theme="${e.theme}"`;
+// La note d'une entrée de table se rend exactement comme celle d'une entrée de
+// liste (même classe .note-line, même voix, cf. itemListe ci-dessous) — une note
+// stockée sans être rendue est de la donnée morte.
+const vedette = (e) => `<td><span class="he" lang="he">${e.he}</span><span class="fr">${escFr(e.fr)}</span>${e.note ? `<span class="note-line">${escFr(e.note)}</span>` : ''}${exemplesHtml(e.exemples)}</td>`;
+const attrs = (e) => `data-niveau="${e.niveau}" data-theme="${e.theme}"` + (e.note ? ` data-note="${esc(e.note)}"` : '');
 
 function ligneNom(e) {
   // Un nom sans pluriel (94/565, ex. אַבָּא) affiche un tiret cadratin — jamais

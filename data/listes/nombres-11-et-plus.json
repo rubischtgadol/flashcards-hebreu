@@ -10,13 +10,13 @@
     },
     {
       "he": "אַחַד עָשָׂר",
-      "tr": "achad asar",
+      "tr": "achad 'asar",
       "fr": "onze (masculin)",
       "niveau": "B1",
       "exemples": [
         {
           "he": "יֶלֶד בֶּן אַחַד עָשָׂר",
-          "tr": "yeled ben achad asar",
+          "tr": "yeled ben achad 'asar",
           "fr": "un garçon de onze ans"
         }
       ]
@@ -30,13 +30,13 @@
     },
     {
       "he": "שְׁנֵים עָשָׂר",
-      "tr": "shneim asar",
+      "tr": "shneim 'asar",
       "fr": "douze (masculin)",
       "niveau": "B1",
       "exemples": [
         {
           "he": "שְׁנֵים עָשָׂר חֳדָשִׁים בַּשָּׁנָה",
-          "tr": "shneim asar chodashim bashana",
+          "tr": "shneim 'asar chodashim bashanah",
           "fr": "douze mois dans l'année"
         }
       ]
@@ -56,7 +56,7 @@
       "exemples": [
         {
           "he": "הוּא בֶּן שְׁלוֹשָׁה עָשָׂר",
-          "tr": "hu ben shlosha asar",
+          "tr": "hu ben shloshah 'asar",
           "fr": "il a treize ans"
         }
       ]
@@ -76,7 +76,7 @@
       "exemples": [
         {
           "he": "אַרְבָּעָה עָשָׂר יְלָדִים בַּקְּבוּצָה",
-          "tr": "arba'a asar yeladim bakvutsa",
+          "tr": "arba'ah 'asar yeladim bakvutsah",
           "fr": "quatorze enfants dans le groupe"
         }
       ]
@@ -96,7 +96,7 @@
       "exemples": [
         {
           "he": "חֲמִישָּׁה עָשָׂר סְפָרִים בָּאָרוֹן",
-          "tr": "chamisha asar sfarim ba'aron",
+          "tr": "chamishah 'asar sfarim ba'aron",
           "fr": "quinze livres dans l'armoire"
         }
       ]
@@ -116,7 +116,7 @@
       "exemples": [
         {
           "he": "שִׁישָּׁה עָשָׂר תַּלְמִידִים בַּטִּיּוּל",
-          "tr": "shisha asar talmidim batiyul",
+          "tr": "shishah 'asar talmidim batiyul",
           "fr": "seize élèves en excursion"
         }
       ]
@@ -136,7 +136,7 @@
       "exemples": [
         {
           "he": "שִׁבְעָה עָשָׂר אֲנָשִׁים בָּאוּלָם",
-          "tr": "shiv'a asar anashim ba'ulam",
+          "tr": "shiv'ah 'asar anashim ba'ulam",
           "fr": "dix-sept personnes dans la salle"
         }
       ]
@@ -156,7 +156,7 @@
       "exemples": [
         {
           "he": "הוּא בֶּן שְׁמוֹנָה עָשָׂר",
-          "tr": "hu ben shmona asar",
+          "tr": "hu ben shmonah 'asar",
           "fr": "il a dix-huit ans"
         }
       ]
@@ -176,7 +176,7 @@
       "exemples": [
         {
           "he": "תִּשְׁעָה עָשָׂר יְלָדִים בַּגַּן",
-          "tr": "tish'a asar yeladim bagan",
+          "tr": "tish'ah 'asar yeladim bagan",
           "fr": "dix-neuf enfants au jardin d'enfants"
         }
       ]
@@ -292,7 +292,7 @@
       "exemples": [
         {
           "he": "הָעִיר בַּת אַלְפַּיִם שָׁנָה",
-          "tr": "ha'ir bat alpayim shana",
+          "tr": "ha'ir bat alpayim shanah",
           "fr": "la ville a deux mille ans"
         }
       ]

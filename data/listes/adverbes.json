@@ -212,7 +212,7 @@
     },
     {
       "he": "כָּרֶגַע",
-      "tr": "karega",
+      "tr": "karega'",
       "fr": "en ce moment, actuellement",
       "niveau": "A2",
       "groupe": "temps",
@@ -220,7 +220,7 @@
     },
     {
       "he": "הָרֶגַע",
-      "tr": "harega",
+      "tr": "harega'",
       "fr": "à l'instant, juste maintenant",
       "niveau": "A2",
       "groupe": "temps",
@@ -393,7 +393,7 @@
       "exemples": [
         {
           "he": "אַתָּה שׁוּב פַּעַם מְאַחֵר",
-          "tr": "ata shuv pa'am me'acher",
+          "tr": "atah shuv pa'am me'acher",
           "fr": "tu es encore une fois en retard"
         }
       ]
@@ -524,7 +524,7 @@
       "he": "אֲחוֹרָה",
       "tr": "achorah",
       "fr": "en arrière, vers l'arrière",
-      "niveau": "B1",
+      "niveau": "A2",
       "groupe": "lieu-direction",
       "exemples": []
     },
@@ -673,7 +673,7 @@
       "exemples": [
         {
           "he": "אַתָּה צוֹדֵק בְּהֶחְלֵט",
-          "tr": "ata tsodek behechlet",
+          "tr": "atah tsodek behechlet",
           "fr": "tu as tout à fait raison"
         }
       ]
@@ -791,7 +791,7 @@
       "exemples": [
         {
           "he": "אַתָּה מְדַבֵּר מַהֵר מִדַּי",
-          "tr": "ata medaber maher midai",
+          "tr": "atah medaber maher midai",
           "fr": "tu parles trop vite"
         }
       ]

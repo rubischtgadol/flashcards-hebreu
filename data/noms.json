@@ -1839,7 +1839,7 @@
     "exemples": [
       {
         "he": "הָרוֹפֵא הִמְלִיץ עַל נִתּוּחַ.",
-        "tr": "harofe himlits 'al nitucha",
+        "tr": "harofe himlits 'al nituach",
         "fr": "Le médecin a recommandé une opération."
       }
     ]
@@ -3933,7 +3933,7 @@
     ]
   },
   {
-    "he": "פָּלָאפֶל",
+    "he": "פָלָאפֶל",
     "fr": "falafel",
     "genre": "m",
     "pluriel": null,
@@ -3942,7 +3942,7 @@
     "groupe": "nourriture-repas",
     "exemples": [
       {
-        "he": "יֵשׁ פָּלָאפֶל טָעִים בַּשּׁוּק",
+        "he": "יֵשׁ פָלָאפֶל טָעִים בַּשּׁוּק",
         "tr": "yesh falafel ta'im bashuk",
         "fr": "il y a du bon falafel au marché"
       }
@@ -6465,7 +6465,7 @@
     "genre": "m",
     "pluriel": {
       "he": "כִּוּוּנִים",
-      "tr": "kiuunim"
+      "tr": "kivunim"
     },
     "niveau": "A2",
     "theme": "ville-transport",
@@ -6484,7 +6484,7 @@
     "genre": "f",
     "pluriel": {
       "he": "יְצִיאוֹת",
-      "tr": "yetsiyot"
+      "tr": "yetsi'ot"
     },
     "niveau": "A2",
     "theme": "ville-transport",
@@ -8368,7 +8368,7 @@
     "exemples": [
       {
         "he": "הָעִיר הִשְׁתַּנְּתָה מְאוֹד בָּעָשׂוֹר הָאַחֲרוֹן.",
-        "tr": "ha'ir hishtantah meod ba'asor ha'acharon",
+        "tr": "ha'ir hishtantah me'od ba'asor ha'acharon",
         "fr": "La ville a beaucoup changé au cours de la dernière décennie."
       }
     ]
@@ -9960,7 +9960,7 @@
     "exemples": [
       {
         "he": "הַתַּשְׁלוּם הוּא בְּכַרְטִיס אַשְׁרַאי",
-        "tr": "hatashlum hu bekhartis ashra'i",
+        "tr": "hatashlum hu bekhartis ashrai",
         "fr": "le paiement se fait par carte de crédit"
       }
     ]
@@ -11945,7 +11945,7 @@
     "exemples": [
       {
         "he": "יֵשׁ לוֹ פֶּצַע עַל הָרֶגֶל",
-        "tr": "yesh lo petsa 'al haregel",
+        "tr": "yesh lo petsa' 'al haregel",
         "fr": "il a une blessure à la jambe"
       }
     ]
@@ -12453,7 +12453,7 @@
       "he": "רְחָבִים",
       "tr": "rechavim"
     },
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "abstraits-idees",
     "exemples": [

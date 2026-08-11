@@ -450,6 +450,7 @@ function deriveCartes(donnees){
     const labels = ['il','elle','ils','elles'];
     const forms = (e.formes || []).map((f, i) => ({ he: f.he, tr: f.tr, label: labels[i], he_plain: stripNikud(f.he) }));
     const card = { cat: 'Verbes', he: e.he, tr: '', fr: '(infinitif) ' + e.fr, forms };
+    if (e.note) card.note = gabarits.escFr(e.note);
     if (e.niveau) card.niveau = e.niveau;
     if (e.theme) card.theme = e.theme;
     if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
@@ -461,6 +462,7 @@ function deriveCartes(donnees){
     const forms = [];
     (e.formes || []).forEach((f, i) => { if (f.he) forms.push({ he: f.he, tr: f.tr, label: labels[i], he_plain: stripNikud(f.he) }); });
     const card = { cat: 'Adjectifs', he: e.he, tr: '', fr: e.fr, forms };
+    if (e.note) card.note = gabarits.escFr(e.note);
     if (e.niveau) card.niveau = e.niveau;
     if (e.theme) card.theme = e.theme;
     if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
@@ -472,6 +474,7 @@ function deriveCartes(donnees){
     const card = { cat: 'Noms', he: e.he, tr: '', fr: e.fr + ((genre === 'm' || genre === 'f') ? (' (' + genre + ')') : '') };
     if (genre === 'm' || genre === 'f') card.genre = genre;
     if (e.pluriel && e.pluriel.he) card.forms = [{ he: e.pluriel.he, tr: e.pluriel.tr, label: 'pluriel', he_plain: stripNikud(e.pluriel.he) }];
+    if (e.note) card.note = gabarits.escFr(e.note);
     if (e.niveau) card.niveau = e.niveau;
     if (e.theme) card.theme = e.theme;
     if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
@@ -490,7 +493,9 @@ function deriveCartes(donnees){
     if (!liste) return;
     liste.entries.forEach(e => {
       const card = { cat: listCats[sec], he: e.he, tr: e.tr, fr: e.fr_court || e.fr };
-      if (e.note) card.note = e.note;
+      // escFr et non e.note brut : l'app injecte card.note en innerHTML, et l'hébreu
+      // d'une note doit porter son lang="he" (piège 6) — même source unique que le carnet.
+      if (e.note) card.note = gabarits.escFr(e.note);
       if (e.niveau) card.niveau = e.niveau;
       if ((e.exemples || []).length) card.exemples = withPlain(e.exemples);
       cards.push(card);

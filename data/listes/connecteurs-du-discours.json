@@ -113,14 +113,14 @@
       "exemples": [
         {
           "he": "אָמְנָם קַר, אֲבָל יָפֶה בַּחוּץ",
-          "tr": "amnam kar, aval yafeh bachuts",
+          "tr": "omnam kar, aval yafeh bachuts",
           "fr": "certes il fait froid, mais il fait beau dehors"
         }
       ]
     },
     {
       "he": "אַף עַל פִּי כֵן",
-      "tr": "af al pi khen",
+      "tr": "af 'al pi khen",
       "fr": "malgré tout (soutenu)",
       "niveau": "C1",
       "exemples": [
@@ -133,7 +133,7 @@
     },
     {
       "he": "יֶתֶר עַל כֵּן",
-      "tr": "yeter al ken",
+      "tr": "yeter 'al ken",
       "fr": "qui plus est (soutenu)",
       "niveau": "C1",
       "exemples": [
@@ -256,7 +256,7 @@
       "exemples": [
         {
           "he": "וּבְכֵן, מָה אַתֶּם רוֹצִים",
-          "tr": "uvkhen, mah atem rotsim",
+          "tr": "uvekhen, mah atem rotsim",
           "fr": "eh bien, que voulez-vous ?"
         }
       ]
