@@ -342,6 +342,32 @@
           "fr": "que s'est-il passé hier ?"
         }
       ]
+    },
+    {
+      "he": "מִי אַתָּה",
+      "tr": "mi atah",
+      "fr": "qui es-tu (à un homme)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מִי אַתָּה? אֲנִי לֹא מַכִּיר אוֹתְךָ",
+          "tr": "mi atah ani lo makir otkha",
+          "fr": "qui es-tu ? je ne te connais pas"
+        }
+      ]
+    },
+    {
+      "he": "מִי אַתְּ",
+      "tr": "mi at",
+      "fr": "qui es-tu (à une femme)",
+      "niveau": "A1",
+      "exemples": [
+        {
+          "he": "מִי אַתְּ? אֲנִי לֹא מַכִּיר אוֹתָךְ",
+          "tr": "mi at ani lo makir otakh",
+          "fr": "qui es-tu ? je ne te connais pas"
+        }
+      ]
     }
   ]
 }

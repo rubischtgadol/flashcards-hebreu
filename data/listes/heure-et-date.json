@@ -119,6 +119,76 @@
       ]
     },
     {
+      "he": "רֶבַע לְ־",
+      "tr": "reva' le",
+      "fr": "… moins le quart",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה רֶבַע לִשְׁמוֹנֶה",
+          "tr": "hasha'ah reva' lishmoneh",
+          "fr": "il est huit heures moins le quart"
+        }
+      ],
+      "note": "לְ־ + l'heure suivante, symétrique de וָרֶבַע"
+    },
+    {
+      "he": "וְחָמֵשׁ",
+      "tr": "vechamesh",
+      "fr": "et cinq",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה אַחַת וְחָמֵשׁ",
+          "tr": "hasha'ah achat vechamesh",
+          "fr": "il est une heure cinq"
+        }
+      ],
+      "note": "les minutes se comptent avec le nombre féminin (חָמֵשׁ, jamais חֲמִשָּׁה) car elles s'accordent avec דַּקּוֹת sous-entendu"
+    },
+    {
+      "he": "חָמֵשׁ לְ־",
+      "tr": "chamesh le",
+      "fr": "… moins cinq",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה חָמֵשׁ לִשְׁתַּיִם",
+          "tr": "hasha'ah chamesh lishtayim",
+          "fr": "il est deux heures moins cinq"
+        }
+      ],
+      "note": "symétrique de וְחָמֵשׁ, avec לְ־ + l'heure suivante"
+    },
+    {
+      "he": "וְעֶשֶׂר",
+      "tr": "ve'eser",
+      "fr": "et dix",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה שֵׁשׁ וְעֶשֶׂר",
+          "tr": "hasha'ah shesh ve'eser",
+          "fr": "il est six heures dix"
+        }
+      ],
+      "note": "même construction que וְחָמֵשׁ, avec le féminin עֶשֶׂר (jamais עֲשָׂרָה ni עֶשְׂרֵה, réservé aux nombres 11-19)"
+    },
+    {
+      "he": "עֶשֶׂר לְ־",
+      "tr": "'eser le",
+      "fr": "… moins dix",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה עֶשֶׂר לְתֵשַׁע",
+          "tr": "hasha'ah 'eser letesha'",
+          "fr": "il est neuf heures moins dix"
+        }
+      ],
+      "note": "symétrique de וְעֶשֶׂר"
+    },
+    {
       "he": "בְּשָׁעָה",
       "tr": "besha'ah",
       "fr": "à … heure(s)",
@@ -143,6 +213,20 @@
           "fr": "à quelle heure te lèves-tu ?"
         }
       ]
+    },
+    {
+      "he": "וְעֶשְׂרִים",
+      "tr": "ve'esrim",
+      "fr": "et vingt",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַשָּׁעָה שֶׁבַע וְעֶשְׂרִים",
+          "tr": "hasha'ah sheva' ve'esrim",
+          "fr": "il est sept heures vingt"
+        }
+      ],
+      "note": "symétrique de עֶשְׂרִים לְ־"
     },
     {
       "he": "עֶשְׂרִים לְ־",

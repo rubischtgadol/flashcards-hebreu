@@ -739,6 +739,20 @@
           "fr": "il est sorti content du rendez-vous"
         }
       ]
+    },
+    {
+      "he": "צִ'יפְּס",
+      "tr": "chips",
+      "fr": "frites",
+      "niveau": "A2",
+      "groupe": "emprunts",
+      "exemples": [
+        {
+          "he": "אֲנַחְנוּ אוֹכְלִים צִ'יפְּס בַּמִּסְעָדָה",
+          "tr": "anachnu okhlim chips bamis'adah",
+          "fr": "nous mangeons des frites au restaurant"
+        }
+      ]
     }
   ]
 }

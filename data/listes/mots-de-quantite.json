@@ -59,7 +59,14 @@
       "tr": "klum",
       "fr": "rien",
       "niveau": "A1",
-      "exemples": []
+      "exemples": [
+        {
+          "he": "אֲנִי לֹא רוֹאֶה כְּלוּם",
+          "tr": "ani lo ro'eh klum",
+          "fr": "je ne vois rien"
+        }
+      ],
+      "note": "toujours avec la négation : לֹא רָאִיתִי כְּלוּם ; moins appuyé que שׁוּם דָּבָר"
     },
     {
       "he": "קְצָת",
@@ -205,9 +212,14 @@
           "he": "אַף אֶחָד לֹא יוֹדֵעַ",
           "tr": "af echad lo yode'a",
           "fr": "personne ne sait"
+        },
+        {
+          "he": "אֵין אַף אֶחָד שֶׁרוֹצֶה לָלֶכֶת",
+          "tr": "ein af echad sherotseh lalekhet",
+          "fr": "il n'y a personne qui veuille partir"
         }
       ],
-      "note": "toujours avec la négation : אַף אֶחָד לֹא בָּא"
+      "note": "toujours avec la négation : אַף אֶחָד לֹא בָּא ; existence : אֵין אַף אֶחָד שֶׁ־"
     },
     {
       "he": "אַף לֹא אֶחָד",
@@ -228,7 +240,7 @@
           "fr": "il ne s'est rien passé"
         }
       ],
-      "note": "toujours avec la négation : לֹא אָמַרְתִּי שׁוּם דָּבָר"
+      "note": "toujours avec la négation : שׁוּם דָּבָר לֹא קָרָה (sujet) / לֹא אָמַרְתִּי שׁוּם דָּבָר (objet)"
     },
     {
       "he": "כָּל דָּבָר",

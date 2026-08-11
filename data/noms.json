@@ -1160,6 +1160,312 @@
     ]
   },
   {
+    "he": "יָדִיד",
+    "fr": "ami (soutenu)",
+    "genre": "m",
+    "pluriel": {
+      "he": "יְדִידִים",
+      "tr": "yedidim"
+    },
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי יָדִיד טוֹב בָּעֲבוֹדָה",
+        "tr": "yesh li yadid tov ba'avodah",
+        "fr": "j'ai un bon ami au travail"
+      }
+    ]
+  },
+  {
+    "he": "יְדִידָה",
+    "fr": "amie (soutenu)",
+    "genre": "f",
+    "pluriel": {
+      "he": "יְדִידוֹת",
+      "tr": "yedidot"
+    },
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הִיא יְדִידָה שֶׁל הַמִּשְׁפָּחָה",
+        "tr": "hi yedidah shel hamishpachah",
+        "fr": "c'est une amie de la famille"
+      }
+    ]
+  },
+  {
+    "he": "מַנְהִיג",
+    "fr": "dirigeant, leader",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַנְהִיגִים",
+      "tr": "manhigim"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הוּא הַמַּנְהִיג שֶׁל הַקְּבוּצָה",
+        "tr": "hu hamanhig shel hakvutsah",
+        "fr": "il est le leader de l'équipe"
+      }
+    ]
+  },
+  {
+    "he": "שִׁדּוּךְ",
+    "fr": "shidoukh, rencontre arrangée en vue du mariage",
+    "genre": "m",
+    "pluriel": {
+      "he": "שִׁדּוּכִים",
+      "tr": "shidukhim"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הַהוֹרִים שֶׁלָּהּ מְחַפְּשִׂים לָהּ שִׁדּוּךְ",
+        "tr": "hahorim shelah mechapsim lah shidukh",
+        "fr": "ses parents lui cherchent un parti"
+      }
+    ]
+  },
+  {
+    "he": "מְחֻתָּן",
+    "fr": "beau-parent par alliance (parent du gendre ou de la bru)",
+    "genre": "m",
+    "pluriel": {
+      "he": "מְחֻתָּנִים",
+      "tr": "mechutanim"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "אַבָּא שֶׁל הַכַּלָּה הוּא הַמְּחֻתָּן שֶׁלִּי",
+        "tr": "aba shel hakalah hu hamchutan sheli",
+        "fr": "le père de la mariée est mon beau-parent par alliance"
+      }
+    ]
+  },
+  {
+    "he": "גֶּבֶר",
+    "fr": "homme (adulte de sexe masculin)",
+    "genre": "m",
+    "pluriel": {
+      "he": "גְּבָרִים",
+      "tr": "gevarim"
+    },
+    "niveau": "A1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הוּא גֶּבֶר חָזָק",
+        "tr": "hu gever chazak",
+        "fr": "c'est un homme fort"
+      }
+    ]
+  },
+  {
+    "he": "אָב",
+    "fr": "père",
+    "genre": "m",
+    "pluriel": {
+      "he": "אָבוֹת",
+      "tr": "avot"
+    },
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הוּא אָב לִשְׁלוֹשָׁה יְלָדִים",
+        "tr": "hu av lishloshah yeladim",
+        "fr": "il est père de trois enfants"
+      }
+    ]
+  },
+  {
+    "he": "אָדוֹן",
+    "fr": "monsieur, maître",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲדוֹנִים",
+      "tr": "adonim"
+    },
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הָאָדוֹן יוֹשֵׁב לְיַד הַחַלּוֹן",
+        "tr": "ha'adon yoshev leyad hachalon",
+        "fr": "le monsieur est assis à côté de la fenêtre"
+      }
+    ]
+  },
+  {
+    "he": "אָדָם",
+    "fr": "être humain, personne",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "כָּל אָדָם צָרִיךְ אֹכֶל וּמַיִם",
+        "tr": "kol adam tsarikh okhel umayim",
+        "fr": "tout être humain a besoin de nourriture et d'eau"
+      }
+    ]
+  },
+  {
+    "he": "בְּכוֹר",
+    "fr": "premier-né, aîné (fils)",
+    "genre": "m",
+    "pluriel": {
+      "he": "בְּכוֹרִים",
+      "tr": "bekhorim"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הוּא הַבֵּן הַבְּכוֹר בַּמִּשְׁפָּחָה",
+        "tr": "hu haben habkhor bamishpachah",
+        "fr": "il est le fils aîné de la famille"
+      }
+    ]
+  },
+  {
+    "he": "גִּבּוֹר",
+    "fr": "héros",
+    "genre": "m",
+    "pluriel": {
+      "he": "גִּבּוֹרִים",
+      "tr": "giborim"
+    },
+    "niveau": "A2",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד רוֹצֶה לִהְיוֹת גִּבּוֹר",
+        "tr": "hayeled rotseh lihyot gibor",
+        "fr": "l'enfant veut être un héros"
+      }
+    ]
+  },
+  {
+    "he": "גּוֹי",
+    "fr": "non-juif",
+    "genre": "m",
+    "pluriel": {
+      "he": "גּוֹיִם",
+      "tr": "goyim"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "יֵשׁ לוֹ חָבֵר גּוֹי",
+        "tr": "yesh lo chaver goy",
+        "fr": "il a un ami non-juif"
+      }
+    ]
+  },
+  {
+    "he": "גֵּר",
+    "fr": "converti (au judaïsme)",
+    "genre": "m",
+    "pluriel": {
+      "he": "גֵּרִים",
+      "tr": "gerim"
+    },
+    "niveau": "B2",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הַגֵּר לוֹמֵד עִבְרִית וְתוֹרָה",
+        "tr": "hager lomed 'ivrit vetorah",
+        "fr": "le converti apprend l'hébreu et la torah"
+      }
+    ]
+  },
+  {
+    "he": "כֹּהֵן",
+    "fr": "cohen, prêtre (membre du sacerdoce, judaïsme)",
+    "genre": "m",
+    "pluriel": {
+      "he": "כֹּהֲנִים",
+      "tr": "kohanim"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "סַבָּא שֶׁלִּי הוּא כֹּהֵן",
+        "tr": "saba sheli hu kohen",
+        "fr": "mon grand-père est cohen (prêtre)"
+      }
+    ]
+  },
+  {
+    "he": "עֵדָה",
+    "fr": "communauté (ethnique, religieuse)",
+    "genre": "f",
+    "pluriel": {
+      "he": "עֵדוֹת",
+      "tr": "'edot"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הָעֵדָה הַזֹּאת גָּרָה בַּשְּׁכוּנָה שֶׁלָּנוּ",
+        "tr": "ha'edah hazot garah bashkhunah shelanu",
+        "fr": "cette communauté habite dans notre quartier"
+      },
+      {
+        "he": "יֵשׁ בְּיִשְׂרָאֵל עֵדוֹת רַבּוֹת",
+        "tr": "yesh beyisra'el 'edot rabot",
+        "fr": "il y a de nombreuses communautés en Israël"
+      }
+    ]
+  },
+  {
+    "he": "שֵׁבֶט",
+    "fr": "tribu, clan",
+    "genre": "m",
+    "pluriel": {
+      "he": "שְׁבָטִים",
+      "tr": "shvatim"
+    },
+    "niveau": "B1",
+    "theme": "famille-personnes",
+    "groupe": "famille-personnes",
+    "exemples": [
+      {
+        "he": "הַשֵּׁבֶט הַזֶּה גָּר בַּצָּפוֹן",
+        "tr": "hashevet hazeh gar batsafon",
+        "fr": "cette tribu habite dans le nord"
+      }
+    ]
+  },
+  {
     "he": "יָד",
     "fr": "main / bras",
     "genre": "f",
@@ -1898,6 +2204,30 @@
         "he": "הִרְגַּשְׁתִּי בְּחִילָה אַחֲרֵי הָאֹכֶל.",
         "tr": "hirgashti bechilah acharei ha'okhel",
         "fr": "j'ai ressenti une nausée après le repas"
+      }
+    ]
+  },
+  {
+    "he": "קָרְבָּן",
+    "fr": "victime",
+    "genre": "m",
+    "pluriel": {
+      "he": "קָרְבָּנוֹת",
+      "tr": "karbanot"
+    },
+    "niveau": "B1",
+    "theme": "corps-sante",
+    "groupe": "sante-urgences",
+    "exemples": [
+      {
+        "he": "הוּא קָרְבָּן שֶׁל תְּאוּנָה",
+        "tr": "hu karban shel teunah",
+        "fr": "il est victime d'un accident"
+      },
+      {
+        "he": "הַמִּשְׁטָרָה עוֹזֶרֶת לַקָּרְבָּן",
+        "tr": "hamishtarah 'ozeret lakarban",
+        "fr": "la police aide la victime"
       }
     ]
   },
@@ -2909,6 +3239,423 @@
         "he": "הַכִּיּוֹר בַּמִּטְבָּח מָלֵא כֵּלִים",
         "tr": "hakiyor bamitbach male kelim",
         "fr": "l'évier de la cuisine est plein de vaisselle"
+      }
+    ]
+  },
+  {
+    "he": "סִיר",
+    "fr": "casserole, marmite",
+    "genre": "m",
+    "pluriel": {
+      "he": "סִירִים",
+      "tr": "sirim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי מְבַשֵּׁל מָרָק בַּסִּיר",
+        "tr": "ani mevashel marak basir",
+        "fr": "je cuisine une soupe dans la casserole"
+      }
+    ]
+  },
+  {
+    "he": "מַחֲבַת",
+    "fr": "poêle",
+    "genre": "f",
+    "pluriel": {
+      "he": "מַחֲבַתּוֹת",
+      "tr": "machavatot"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי מְטַגֵּן בֵּיצִים בַּמַּחֲבַת",
+        "tr": "ani metagen beitsim bamachavat",
+        "fr": "je fais frire des œufs dans la poêle"
+      }
+    ]
+  },
+  {
+    "he": "מִכְסֶה",
+    "fr": "couvercle",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִכְסִים",
+      "tr": "mikhsim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "הַמִּכְסֶה שֶׁל הַסִּיר חַם",
+        "tr": "hamikhseh shel hasir cham",
+        "fr": "le couvercle de la casserole est chaud"
+      }
+    ]
+  },
+  {
+    "he": "קֶרֶשׁ חִתּוּךְ",
+    "fr": "planche à découper",
+    "genre": "m",
+    "pluriel": {
+      "he": "קַרְשֵׁי חִתּוּךְ",
+      "tr": "karshei chitukh"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי חוֹתֵךְ יְרָקוֹת עַל קֶרֶשׁ הַחִתּוּךְ",
+        "tr": "ani chotekh yerakot 'al keresh hachitukh",
+        "fr": "je coupe des légumes sur la planche à découper"
+      }
+    ]
+  },
+  {
+    "he": "מִסְנֶנֶת",
+    "fr": "passoire",
+    "genre": "f",
+    "pluriel": {
+      "he": "מִסְנָנוֹת",
+      "tr": "misnanot"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹזֵג אֶת הַמַּיִם דֶּרֶךְ הַמִּסְנֶנֶת",
+        "tr": "ani mozeg et hamayim derekh hamisnenet",
+        "fr": "je verse l'eau à travers la passoire"
+      }
+    ]
+  },
+  {
+    "he": "פֻּמְפִּיָּה",
+    "fr": "râpe (de cuisine)",
+    "genre": "f",
+    "pluriel": {
+      "he": "פֻּמְפִּיּוֹת",
+      "tr": "pumpiyot"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "יֵשׁ פֻּמְפִּיָּה חֲדָשָׁה בַּמְּגֵרָה",
+        "tr": "yesh pumpiyah chadashah bamgerah",
+        "fr": "il y a une nouvelle râpe dans le tiroir"
+      }
+    ]
+  },
+  {
+    "he": "מַטְרֵפָה",
+    "fr": "fouet (de cuisine)",
+    "genre": "f",
+    "pluriel": {
+      "he": "מַטְרֵפוֹת",
+      "tr": "matrefot"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי מַקְצִיף בֵּיצִים בְּמַטְרֵפָה",
+        "tr": "ani maktsif beitsim bematrefah",
+        "fr": "je fouette des œufs avec un fouet"
+      }
+    ]
+  },
+  {
+    "he": "תַּבְנִית",
+    "fr": "moule (à gâteau, plat allant au four)",
+    "genre": "f",
+    "pluriel": {
+      "he": "תַּבְנִיּוֹת",
+      "tr": "tavniyot"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹפֶה עוּגָה בַּתַּבְנִית",
+        "tr": "ani ofeh 'ugah batavnit",
+        "fr": "je fais cuire un gâteau dans le moule"
+      }
+    ]
+  },
+  {
+    "he": "כִּירַיִם",
+    "fr": "plaque de cuisson, table de cuisson",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "יֵשׁ שְׁתֵּי מַחֲבַתּוֹת עַל הַכִּירַיִם",
+        "tr": "yesh shtei machavatot 'al hakirayim",
+        "fr": "il y a deux poêles sur la plaque de cuisson"
+      }
+    ]
+  },
+  {
+    "he": "מִטְבָּח",
+    "fr": "cuisine (la pièce)",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִטְבָּחִים",
+      "tr": "mitbachim"
+    },
+    "niveau": "A1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי מְבַשֵּׁל בַּמִּטְבָּח",
+        "tr": "ani mevashel bamitbach",
+        "fr": "je cuisine dans la cuisine"
+      }
+    ]
+  },
+  {
+    "he": "קוּמְקוּם",
+    "fr": "bouilloire",
+    "genre": "m",
+    "pluriel": {
+      "he": "קוּמְקוּמִים",
+      "tr": "kumkumim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי מַרְתִּיחַ מַיִם בַּקּוּמְקוּם",
+        "tr": "ani martiyach mayim bakumkum",
+        "fr": "je fais bouillir de l'eau dans la bouilloire"
+      }
+    ]
+  },
+  {
+    "he": "מִיקְרוֹגַל",
+    "fr": "micro-ondes",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִיקְרוֹגַלִּים",
+      "tr": "mikrogalim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי מְחַמֵּם אֶת הָאֹכֶל בַּמִּיקְרוֹגַל",
+        "tr": "ani mechamem et ha'okhel bamikrogal",
+        "fr": "je réchauffe la nourriture au micro-ondes"
+      }
+    ]
+  },
+  {
+    "he": "מַקְפִּיא",
+    "fr": "congélateur",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַקְפִּיאִים",
+      "tr": "makpiyim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי שָׂם אֶת הַבָּשָׂר בַּמַּקְפִּיא",
+        "tr": "ani sam et habasar bamakpi",
+        "fr": "je mets la viande dans le congélateur"
+      }
+    ]
+  },
+  {
+    "he": "מֵדִיחַ כֵּלִים",
+    "fr": "lave-vaisselle",
+    "genre": "m",
+    "pluriel": {
+      "he": "מְדִיחֵי כֵּלִים",
+      "tr": "medichei kelim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ מֵדִיחַ כֵּלִים חָדָשׁ בַּמִּטְבָּח",
+        "tr": "yesh lanu mediyach kelim chadash bamitbach",
+        "fr": "nous avons un nouveau lave-vaisselle dans la cuisine"
+      }
+    ]
+  },
+  {
+    "he": "מָרִית",
+    "fr": "spatule",
+    "genre": "f",
+    "pluriel": {
+      "he": "מָרִיּוֹת",
+      "tr": "mariyot"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנִי הוֹפֵךְ אֶת הַחֲבִיתָה בְּמָרִית",
+        "tr": "ani hofekh et hachavitah bemarit",
+        "fr": "je retourne l'omelette avec une spatule"
+      }
+    ]
+  },
+  {
+    "he": "מַצֶּקֶת",
+    "fr": "louche",
+    "genre": "f",
+    "pluriel": {
+      "he": "מַצָּקוֹת",
+      "tr": "matsakot"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אִמָּא מַגִּישָׁה מָרָק בְּמַצֶּקֶת",
+        "tr": "ima magishah marak bematseket",
+        "fr": "maman sert la soupe avec une louche"
+      }
+    ]
+  },
+  {
+    "he": "מַגָּשׁ",
+    "fr": "plateau",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַגָּשִׁים",
+      "tr": "magashim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "הִיא מְבִיאָה אֶת הָעוּגָה עַל מַגָּשׁ",
+        "tr": "hi meviyah et ha'ugah 'al magash",
+        "fr": "elle apporte le gâteau sur un plateau"
+      }
+    ]
+  },
+  {
+    "he": "פּוֹתְחָן",
+    "fr": "ouvre-bouteille, ouvre-boîte",
+    "genre": "m",
+    "pluriel": {
+      "he": "פּוֹתְחָנִים",
+      "tr": "potchanim"
+    },
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אַבָּא מְחַפֵּשׂ פּוֹתְחָן בַּמִּטְבָּח",
+        "tr": "aba mechapes potchan bamitbach",
+        "fr": "papa cherche un ouvre-bouteille dans la cuisine"
+      }
+    ]
+  },
+  {
+    "he": "אֹהֶל",
+    "fr": "tente",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֹהָלִים",
+      "tr": "ohalim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ יְשֵׁנִים בְּאֹהֶל בַּטִּיּוּל",
+        "tr": "anachnu yeshenim be'ohel batiyul",
+        "fr": "nous dormons dans une tente pendant l'excursion"
+      }
+    ]
+  },
+  {
+    "he": "חָצֵר",
+    "fr": "cour, cour intérieure",
+    "genre": "f",
+    "pluriel": {
+      "he": "חֲצֵרוֹת",
+      "tr": "chatserot"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "לַבַּיִת יֵשׁ חָצֵר גְּדוֹלָה",
+        "tr": "labayit yesh chatser gedolah",
+        "fr": "la maison a une grande cour"
+      }
+    ]
+  },
+  {
+    "he": "כְּלִי",
+    "fr": "ustensile, outil, instrument",
+    "genre": "m",
+    "pluriel": {
+      "he": "כֵּלִים",
+      "tr": "kelim"
+    },
+    "niveau": "A2",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "יֵשׁ כֵּלִים בַּכִּיּוֹר",
+        "tr": "yesh kelim bakiyor",
+        "fr": "il y a de la vaisselle dans l'évier"
+      },
+      {
+        "he": "זֶה כְּלִי חָשׁוּב לָעֲבוֹדָה",
+        "tr": "zeh kli chashuv la'avodah",
+        "fr": "c'est un outil important pour le travail"
+      }
+    ]
+  },
+  {
+    "he": "נְחֹשֶׁת",
+    "fr": "cuivre",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "maison-objets",
+    "groupe": "maison-objets",
+    "exemples": [
+      {
+        "he": "לַנְּחֹשֶׁת יֵשׁ צֶבַע אָדֹם",
+        "tr": "lanchoshet yesh tseva' adom",
+        "fr": "le cuivre a une couleur rouge"
       }
     ]
   },
@@ -4176,6 +4923,1596 @@
     ]
   },
   {
+    "he": "אֲבַטִּיחַ",
+    "fr": "pastèque",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲבַטִּיחִים",
+      "tr": "avatichim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ קוֹנִים אֲבַטִּיחַ גָּדוֹל בַּשּׁוּק",
+        "tr": "anachnu konim avatiyach gadol bashuk",
+        "fr": "nous achetons une grosse pastèque au marché"
+      }
+    ]
+  },
+  {
+    "he": "מֵלוֹן",
+    "fr": "melon",
+    "genre": "m",
+    "pluriel": {
+      "he": "מֵלוֹנִים",
+      "tr": "melonim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ מֵלוֹן מָתוֹק עַל הַשֻּׁלְחָן",
+        "tr": "yesh melon matok 'al hashulchan",
+        "fr": "il y a un melon sucré sur la table"
+      }
+    ]
+  },
+  {
+    "he": "אֲפַרְסֵק",
+    "fr": "pêche",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲפַרְסְקִים",
+      "tr": "afarskim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב אֲפַרְסֵק צָהֹב וּמָתוֹק",
+        "tr": "ani ohev afarsek tsahov umatok",
+        "fr": "j'aime une pêche jaune et sucrée"
+      }
+    ]
+  },
+  {
+    "he": "מִשְׁמֵשׁ",
+    "fr": "abricot",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִשְׁמֶשִׁים",
+      "tr": "mishmeshim"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי קוֹנֶה מִשְׁמֵשׁ טָרִי בַּשּׁוּק",
+        "tr": "ani koneh mishmesh tari bashuk",
+        "fr": "j'achète un abricot frais au marché"
+      }
+    ]
+  },
+  {
+    "he": "שְׁזִיף",
+    "fr": "prune",
+    "genre": "m",
+    "pluriel": {
+      "he": "שְׁזִיפִים",
+      "tr": "shzifim"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַשְּׁזִיף הַסָּגֹל הַזֶּה קְצָת חָמוּץ",
+        "tr": "hashzif hasagol hazeh ketsat chamuts",
+        "fr": "cette prune violette est un peu acide"
+      }
+    ]
+  },
+  {
+    "he": "אַגָּס",
+    "fr": "poire",
+    "genre": "m",
+    "pluriel": {
+      "he": "אַגָּסִים",
+      "tr": "agasim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֵל אַגָּס יָרֹק אַחֲרֵי הָאֲרוּחָה",
+        "tr": "ani okhel agas yarok acharei ha'aruchah",
+        "fr": "je mange une poire verte après le repas"
+      }
+    ]
+  },
+  {
+    "he": "דֻּבְדְּבָן",
+    "fr": "cerise",
+    "genre": "m",
+    "pluriel": {
+      "he": "דֻּבְדְּבָנִים",
+      "tr": "duvdvanim"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים אוֹהֲבִים דֻּבְדְּבָנִים אֲדֻמִּים",
+        "tr": "hayladim ohavim duvdvanim adumim",
+        "fr": "les enfants aiment les cerises rouges"
+      }
+    ]
+  },
+  {
+    "he": "תְּאֵנָה",
+    "fr": "figue",
+    "genre": "f",
+    "pluriel": {
+      "he": "תְּאֵנִים",
+      "tr": "te'enim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ תְּאֵנִים מְתוּקוֹת עַל הָעֵץ",
+        "tr": "yesh te'enim metukot 'al ha'ets",
+        "fr": "il y a des figues sucrées sur l'arbre"
+      }
+    ]
+  },
+  {
+    "he": "תָּמָר",
+    "fr": "datte",
+    "genre": "m",
+    "pluriel": {
+      "he": "תְּמָרִים",
+      "tr": "temarim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב תְּמָרִים מְתוּקִים מְאֹד",
+        "tr": "ani ohev temarim metukim me'od",
+        "fr": "j'aime les dattes très sucrées"
+      }
+    ]
+  },
+  {
+    "he": "רִמּוֹן",
+    "fr": "grenade",
+    "genre": "m",
+    "pluriel": {
+      "he": "רִמּוֹנִים",
+      "tr": "rimonim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אִמָּא קוֹנָה רִמּוֹן אָדֹם גָּדוֹל",
+        "tr": "ima konah rimon adom gadol",
+        "fr": "maman achète une grosse grenade rouge"
+      }
+    ]
+  },
+  {
+    "he": "מַנְגּוֹ",
+    "fr": "mangue",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַמַּנְגּוֹ הַזֶּה מָתוֹק וְרַךְ",
+        "tr": "hamango hazeh matok verakh",
+        "fr": "cette mangue est sucrée et tendre"
+      }
+    ]
+  },
+  {
+    "he": "זַיִת",
+    "fr": "olive",
+    "genre": "m",
+    "pluriel": {
+      "he": "זֵיתִים",
+      "tr": "zeitim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ זֵיתִים שְׁחוֹרִים בַּסָּלָט",
+        "tr": "yesh zeitim shechorim basalat",
+        "fr": "il y a des olives noires dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "אָנָנָס",
+    "fr": "ananas",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲנָנָסִים",
+      "tr": "ananasim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹתֶה מִיץ אָנָנָס בַּבֹּקֶר",
+        "tr": "ani shoteh mits ananas baboker",
+        "fr": "je bois du jus d'ananas le matin"
+      }
+    ]
+  },
+  {
+    "he": "קִיוִי",
+    "fr": "kiwi",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַקִּיוִי הַזֶּה קְצָת חָמוּץ",
+        "tr": "hakivi hazeh ketsat chamuts",
+        "fr": "ce kiwi est un peu acide"
+      }
+    ]
+  },
+  {
+    "he": "קִשּׁוּא",
+    "fr": "courgette",
+    "genre": "m",
+    "pluriel": {
+      "he": "קִשּׁוּאִים",
+      "tr": "kishu'im"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב קִשּׁוּאִים מְבֻשָּׁלִים",
+        "tr": "ani ohev kishu'im mevushalim",
+        "fr": "j'aime les courgettes cuites"
+      }
+    ]
+  },
+  {
+    "he": "כְּרוּב",
+    "fr": "chou",
+    "genre": "m",
+    "pluriel": {
+      "he": "כְּרוּבִים",
+      "tr": "keruvim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ כְּרוּב לָבָן בַּסָּלָט",
+        "tr": "yesh keruv lavan basalat",
+        "fr": "il y a du chou blanc dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "כְּרוּבִית",
+    "fr": "chou-fleur",
+    "genre": "f",
+    "pluriel": {
+      "he": "כְּרוּבִיּוֹת",
+      "tr": "keruviyot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֶלֶת כְּרוּבִית מְבֻשֶּׁלֶת בָּעֶרֶב",
+        "tr": "ani okhelet keruvit mevushelet ba'erev",
+        "fr": "je mange du chou-fleur cuit le soir"
+      }
+    ]
+  },
+  {
+    "he": "בְּרוֹקוֹלִי",
+    "fr": "brocoli",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים לֹא אוֹהֲבִים בְּרוֹקוֹלִי יָרֹק",
+        "tr": "hayladim lo ohavim berokoli yarok",
+        "fr": "les enfants n'aiment pas le brocoli vert"
+      }
+    ]
+  },
+  {
+    "he": "חַסָּה",
+    "fr": "laitue",
+    "genre": "f",
+    "pluriel": {
+      "he": "חַסּוֹת",
+      "tr": "chasot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ חַסָּה טְרִיָּה בַּסָּלָט",
+        "tr": "yesh chasah teriyah basalat",
+        "fr": "il y a de la laitue fraîche dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "תֶּרֶד",
+    "fr": "épinards",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֵל תֶּרֶד עִם בֵּיצָה בַּבֹּקֶר",
+        "tr": "ani okhel tered 'im beitsah baboker",
+        "fr": "je mange des épinards avec un œuf le matin"
+      }
+    ]
+  },
+  {
+    "he": "סֶלֶק",
+    "fr": "betterave",
+    "genre": "m",
+    "pluriel": {
+      "he": "סְלָקִים",
+      "tr": "slakim"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אִמָּא מְבַשֶּׁלֶת סֶלֶק אָדֹם לַמָּרָק",
+        "tr": "ima mevashelet selek adom lamarak",
+        "fr": "maman cuisine une betterave rouge pour la soupe"
+      }
+    ]
+  },
+  {
+    "he": "צְנוֹנִית",
+    "fr": "radis",
+    "genre": "f",
+    "pluriel": {
+      "he": "צְנוֹנִיּוֹת",
+      "tr": "tsnoniyot"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ צְנוֹנִיּוֹת אֲדֻמּוֹת בַּסָּלָט",
+        "tr": "yesh tsnoniyot adumot basalat",
+        "fr": "il y a des radis rouges dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "פִּטְרִיָּה",
+    "fr": "champignon",
+    "genre": "f",
+    "pluriel": {
+      "he": "פִּטְרִיּוֹת",
+      "tr": "pitriyot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי קוֹנָה פִּטְרִיּוֹת טְרִיּוֹת בַּשּׁוּק",
+        "tr": "ani konah pitriyot teriyot bashuk",
+        "fr": "j'achète des champignons frais au marché"
+      }
+    ]
+  },
+  {
+    "he": "תִּירָס",
+    "fr": "maïs",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ תִּירָס צָהֹב בַּסָּלָט",
+        "tr": "yesh tiras tsahov basalat",
+        "fr": "il y a du maïs jaune dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "אֲפוּנָה",
+    "fr": "petits pois",
+    "genre": "f",
+    "pluriel": {
+      "he": "אֲפוּנִים",
+      "tr": "afunim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב אֲפוּנָה יְרֻקָּה בַּמָּרָק",
+        "tr": "ani ohev afunah yerukah bamarak",
+        "fr": "j'aime les petits pois verts dans la soupe"
+      }
+    ]
+  },
+  {
+    "he": "שְׁעוּעִית",
+    "fr": "haricots",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ שְׁעוּעִית לְבָנָה בַּתַּבְשִׁיל",
+        "tr": "yesh she'u'it levanah batavshil",
+        "fr": "il y a des haricots blancs dans le plat mijoté"
+      }
+    ]
+  },
+  {
+    "he": "בָּטָטָה",
+    "fr": "patate douce",
+    "genre": "f",
+    "pluriel": {
+      "he": "בָּטָטוֹת",
+      "tr": "batatot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֶלֶת בָּטָטָה אֲפוּיָה בָּעֶרֶב",
+        "tr": "ani okhelet batatah afuyah ba'erev",
+        "fr": "je mange une patate douce cuite au four le soir"
+      }
+    ]
+  },
+  {
+    "he": "דְּלַעַת",
+    "fr": "citrouille / potiron",
+    "genre": "f",
+    "pluriel": {
+      "he": "דְּלוּעִים",
+      "tr": "delu'im"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אִמָּא מְבַשֶּׁלֶת מְרַק דְּלַעַת בַּחֹרֶף",
+        "tr": "ima mevashelet merak dela'at bachoref",
+        "fr": "maman cuisine une soupe de citrouille en hiver"
+      }
+    ]
+  },
+  {
+    "he": "אֶשְׁכּוֹלִית",
+    "fr": "pamplemousse",
+    "genre": "f",
+    "pluriel": {
+      "he": "אֶשְׁכּוֹלִיּוֹת",
+      "tr": "eshkoliyot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֶלֶת אֶשְׁכּוֹלִית חֲמוּצָה בַּבֹּקֶר",
+        "tr": "ani okhelet eshkolit chamutsah baboker",
+        "fr": "je mange un pamplemousse acide le matin"
+      }
+    ]
+  },
+  {
+    "he": "קְלֵמֶנְטִינָה",
+    "fr": "clémentine",
+    "genre": "f",
+    "pluriel": {
+      "he": "קְלֵמֶנְטִינוֹת",
+      "tr": "kelementinot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים אוֹכְלִים קְלֵמֶנְטִינָה מְתוּקָה בַּחֹרֶף",
+        "tr": "hayladim okhlim kelementinah metukah bachoref",
+        "fr": "les enfants mangent une clémentine sucrée en hiver"
+      }
+    ]
+  },
+  {
+    "he": "אֲפַרְסְמוֹן",
+    "fr": "kaki",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲפַרְסְמוֹנִים",
+      "tr": "afarsmonim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב אֲפַרְסְמוֹן מָתוֹק בַּסְּתָיו",
+        "tr": "ani ohev afarsmon matok bastav",
+        "fr": "j'aime un kaki sucré en automne"
+      }
+    ]
+  },
+  {
+    "he": "נֶקְטָרִינָה",
+    "fr": "nectarine",
+    "genre": "f",
+    "pluriel": {
+      "he": "נֶקְטָרִינוֹת",
+      "tr": "nektarinot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי קוֹנָה נֶקְטָרִינָה אֲדֻמָּה בַּשּׁוּק",
+        "tr": "ani konah nektarinah adumah bashuk",
+        "fr": "j'achète une nectarine rouge au marché"
+      }
+    ]
+  },
+  {
+    "he": "עֲדָשָׁה",
+    "fr": "lentille",
+    "genre": "f",
+    "pluriel": {
+      "he": "עֲדָשִׁים",
+      "tr": "'adashim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מְבַשֶּׁלֶת מְרַק עֲדָשִׁים בַּחֹרֶף",
+        "tr": "ani mevashelet merak 'adashim bachoref",
+        "fr": "je cuisine une soupe de lentilles en hiver"
+      }
+    ]
+  },
+  {
+    "he": "מַרְכִּיב",
+    "fr": "ingrédient",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַרְכִּיבִים",
+      "tr": "markivim"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "בַּמַּתְכּוֹן הַזֶּה יֵשׁ חֲמִשָּׁה מַרְכִּיבִים",
+        "tr": "bamatkon hazeh yesh chamishah markivim",
+        "fr": "il y a cinq ingrédients dans cette recette"
+      }
+    ]
+  },
+  {
+    "he": "בָּצֵק",
+    "fr": "pâte (à pétrir, crue)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ בָּצֵק טָרִי בַּמְּקָרֵר",
+        "tr": "yesh batsek tari bamkarer",
+        "fr": "il y a de la pâte fraîche dans le réfrigérateur"
+      }
+    ]
+  },
+  {
+    "he": "רֹטֶב",
+    "fr": "sauce",
+    "genre": "m",
+    "pluriel": {
+      "he": "רְטָבִים",
+      "tr": "retavim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹסִיף רֹטֶב עַגְבָנִיּוֹת לַפַּסְטָה",
+        "tr": "ani mosif rotev 'agvaniyot lapastah",
+        "fr": "j'ajoute de la sauce tomate aux pâtes"
+      }
+    ]
+  },
+  {
+    "he": "קְעָרָה",
+    "fr": "bol, saladier",
+    "genre": "f",
+    "pluriel": {
+      "he": "קְעָרוֹת",
+      "tr": "ke'arot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מְעַרְבֵּב אֶת הַסָּלָט בַּקְּעָרָה",
+        "tr": "ani me'arbev et hasalat bak'arah",
+        "fr": "je mélange la salade dans le saladier"
+      }
+    ]
+  },
+  {
+    "he": "כַּפִּית",
+    "fr": "petite cuillère, cuillère à café",
+    "genre": "f",
+    "pluriel": {
+      "he": "כַּפִּיּוֹת",
+      "tr": "kapiyot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי שָׂם כַּפִּית סֻכָּר בַּתֵּה",
+        "tr": "ani sam kapit sukar bateh",
+        "fr": "je mets une cuillère à café de sucre dans le thé"
+      }
+    ]
+  },
+  {
+    "he": "חֹמֶץ",
+    "fr": "vinaigre",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ חֹמֶץ וְשֶׁמֶן בַּסָּלָט",
+        "tr": "yesh chomets veshemen basalat",
+        "fr": "il y a du vinaigre et de l'huile dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "חַרְדָּל",
+    "fr": "moutarde",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹהֵב חַרְדָּל עַל הַלֶּחֶם",
+        "tr": "ani ohev chardal 'al halechem",
+        "fr": "j'aime la moutarde sur le pain"
+      }
+    ]
+  },
+  {
+    "he": "מָיוֹנֶז",
+    "fr": "mayonnaise",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אִמָּא שָׂמָה מָיוֹנֶז בַּסָּלָט",
+        "tr": "ima samah mayonez basalat",
+        "fr": "maman met de la mayonnaise dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "קֶטְשׁוֹפּ",
+    "fr": "ketchup",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד אוֹכֵל תַּפּוּחַ אֲדָמָה עִם קֶטְשׁוֹפּ",
+        "tr": "hayeled okhel tapuach adamah 'im ketshop",
+        "fr": "l'enfant mange une pomme de terre avec du ketchup"
+      }
+    ]
+  },
+  {
+    "he": "טְחִינָה",
+    "fr": "tahini",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "A1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֵל פָלָאפֶל עִם טְחִינָה",
+        "tr": "ani okhel falafel 'im techinah",
+        "fr": "je mange un falafel avec du tahini"
+      }
+    ]
+  },
+  {
+    "he": "זַעְתָּר",
+    "fr": "za'atar",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ זַעְתָּר וְשֶׁמֶן זַיִת עַל הַלֶּחֶם",
+        "tr": "yesh za'tar veshemen zayit 'al halechem",
+        "fr": "il y a du za'atar et de l'huile d'olive sur le pain"
+      }
+    ]
+  },
+  {
+    "he": "כַּמּוֹן",
+    "fr": "cumin",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹסִיף כַּמּוֹן לַתַּבְשִׁיל",
+        "tr": "ani mosif kamon latavshil",
+        "fr": "j'ajoute du cumin au plat cuisiné"
+      }
+    ]
+  },
+  {
+    "he": "פַּפְּרִיקָה",
+    "fr": "paprika",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹסִיף פַּפְּרִיקָה לַתַּבְשִׁיל",
+        "tr": "ani mosif paprikah latavshil",
+        "fr": "j'ajoute du paprika au plat cuisiné"
+      }
+    ]
+  },
+  {
+    "he": "כֻּרְכּוּם",
+    "fr": "curcuma",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹסִיף כֻּרְכּוּם לָאֹרֶז",
+        "tr": "ani mosif kurkum la'orez",
+        "fr": "j'ajoute du curcuma au riz"
+      }
+    ]
+  },
+  {
+    "he": "קִנָּמוֹן",
+    "fr": "cannelle",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אִמָּא מוֹסִיפָה קִנָּמוֹן לָעוּגָה",
+        "tr": "ima mosifah kinamon la'ugah",
+        "fr": "maman ajoute de la cannelle au gâteau"
+      }
+    ]
+  },
+  {
+    "he": "נַעְנַע",
+    "fr": "menthe",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹתֶה תֵּה עִם נַעְנַע",
+        "tr": "ani shoteh teh 'im na'na'",
+        "fr": "je bois du thé à la menthe"
+      }
+    ]
+  },
+  {
+    "he": "פֶּטְרוֹזִילְיָה",
+    "fr": "persil",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹסִיף פֶּטְרוֹזִילְיָה לַסָּלָט",
+        "tr": "ani mosif petrozilyah lasalat",
+        "fr": "j'ajoute du persil à la salade"
+      }
+    ]
+  },
+  {
+    "he": "כֻּסְבָּרָה",
+    "fr": "coriandre",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ כֻּסְבָּרָה בַּסָּלָט",
+        "tr": "yesh kusbarah basalat",
+        "fr": "il y a de la coriandre dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "שָׁמִיר",
+    "fr": "aneth",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי שָׂם שָׁמִיר עַל הַדָּג",
+        "tr": "ani sam shamir 'al hadag",
+        "fr": "je mets de l'aneth sur le poisson"
+      }
+    ]
+  },
+  {
+    "he": "בָּזִילִיקוּם",
+    "fr": "basilic",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ בָּזִילִיקוּם בַּפַּסְטָה",
+        "tr": "yesh bazilikum bapastah",
+        "fr": "il y a du basilic dans les pâtes"
+      }
+    ]
+  },
+  {
+    "he": "רוֹזְמָרִין",
+    "fr": "romarin",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹסִיף רוֹזְמָרִין לָעוֹף",
+        "tr": "ani mosif rozmarin la'of",
+        "fr": "j'ajoute du romarin au poulet"
+      }
+    ]
+  },
+  {
+    "he": "זַנְגְּבִיל",
+    "fr": "gingembre",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹתֶה תֵּה עִם זַנְגְּבִיל",
+        "tr": "ani shoteh teh 'im zangvil",
+        "fr": "je bois du thé au gingembre"
+      }
+    ]
+  },
+  {
+    "he": "רֹטֶב סוֹיָה",
+    "fr": "sauce soja",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹסִיף רֹטֶב סוֹיָה לָאֹרֶז",
+        "tr": "ani mosif rotev soyah la'orez",
+        "fr": "j'ajoute de la sauce soja au riz"
+      }
+    ]
+  },
+  {
+    "he": "שֶׁמֶן זַיִת",
+    "fr": "huile d'olive",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מְבַשֵּׁל עִם שֶׁמֶן זַיִת",
+        "tr": "ani mevashel 'im shemen zayit",
+        "fr": "je cuisine à l'huile d'olive"
+      }
+    ]
+  },
+  {
+    "he": "פִּלְפֵּל שָׁחוֹר",
+    "fr": "poivre noir",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "צָרִיךְ מֶלַח וּפִלְפֵּל שָׁחוֹר בַּמָּרָק",
+        "tr": "tsarikh melach ufilpel shachor bamarak",
+        "fr": "il faut du sel et du poivre noir dans la soupe"
+      }
+    ]
+  },
+  {
+    "he": "פִּלְפֵּל חָרִיף",
+    "fr": "piment",
+    "genre": "m",
+    "pluriel": {
+      "he": "פִּלְפְּלִים חֲרִיפִים",
+      "tr": "pilplim charifim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ פִּלְפֵּל חָרִיף בַּסָּלָט",
+        "tr": "yesh pilpel charif basalat",
+        "fr": "il y a du piment dans la salade"
+      }
+    ]
+  },
+  {
+    "he": "סְחוּג",
+    "fr": "skhug (sauce piquante yéménite)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ סְחוּג חָרִיף עַל הַשֻּׁלְחָן",
+        "tr": "yesh sechug charif 'al hashulchan",
+        "fr": "il y a du skhug épicé sur la table"
+      }
+    ]
+  },
+  {
+    "he": "עַמְבָּה",
+    "fr": "amba (condiment de mangue marinée)",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֵל פָלָאפֶל עִם עַמְבָּה",
+        "tr": "ani okhel falafel 'im 'ambah",
+        "fr": "je mange un falafel avec de l'amba"
+      }
+    ]
+  },
+  {
+    "he": "סִילָן",
+    "fr": "sirop de datte",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ סִילָן וּטְחִינָה עַל הַשֻּׁלְחָן",
+        "tr": "yesh silan utchinah 'al hashulchan",
+        "fr": "il y a du sirop de datte et du tahini sur la table"
+      }
+    ]
+  },
+  {
+    "he": "אוֹרֶגָנוֹ",
+    "fr": "origan",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ אוֹרֶגָנוֹ בַּפַּסְטָה",
+        "tr": "yesh oregano bapastah",
+        "fr": "il y a de l'origan dans les pâtes"
+      }
+    ]
+  },
+  {
+    "he": "שֻׁמְשֹׁם",
+    "fr": "sésame",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ שֻׁמְשֹׁם עַל הַלֶּחֶם",
+        "tr": "yesh shumshom 'al halechem",
+        "fr": "il y a du sésame sur le pain"
+      }
+    ]
+  },
+  {
+    "he": "הֵל",
+    "fr": "cardamome",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי שָׂם הֵל בַּקָּפֶה",
+        "tr": "ani sam hel bakafeh",
+        "fr": "je mets de la cardamome dans le café"
+      }
+    ]
+  },
+  {
+    "he": "קָארִי",
+    "fr": "curry",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ קָארִי בָּאֹרֶז",
+        "tr": "yesh kari ba'orez",
+        "fr": "il y a du curry dans le riz"
+      }
+    ]
+  },
+  {
+    "he": "עֲלֵה דַּפְנָה",
+    "fr": "feuille de laurier",
+    "genre": "m",
+    "pluriel": {
+      "he": "עֲלֵי דַּפְנָה",
+      "tr": "'alei dafnah"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי שָׂם עֲלֵה דַּפְנָה בַּמָּרָק",
+        "tr": "ani sam 'aleh dafnah bamarak",
+        "fr": "je mets une feuille de laurier dans la soupe"
+      }
+    ]
+  },
+  {
+    "he": "חִלְבָּה",
+    "fr": "hilbé, condiment yéménite au fenugrec",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ חִלְבָּה עַל הַשֻּׁלְחָן",
+        "tr": "yesh chilbah 'al hashulchan",
+        "fr": "il y a du hilbé sur la table"
+      }
+    ]
+  },
+  {
+    "he": "כְּרֵשָׁה",
+    "fr": "poireau",
+    "genre": "f",
+    "pluriel": {
+      "he": "כְּרֵשִׁים",
+      "tr": "kereshim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אִמָּא מְבַשֶּׁלֶת מָרָק עִם כְּרֵשָׁה",
+        "tr": "ima mevashelet marak 'im kereshah",
+        "fr": "maman cuisine une soupe avec du poireau"
+      }
+    ]
+  },
+  {
+    "he": "אַרְטִישׁוֹק",
+    "fr": "artichaut",
+    "genre": "m",
+    "pluriel": {
+      "he": "אַרְטִישׁוֹקִים",
+      "tr": "artishokim"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ אוֹכְלִים אַרְטִישׁוֹק בָּאֲרוּחָה",
+        "tr": "anachnu okhlim artishok ba'aruchah",
+        "fr": "nous mangeons un artichaut au repas"
+      }
+    ]
+  },
+  {
+    "he": "קוֹקוֹס",
+    "fr": "noix de coco",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד אוֹהֵב קוֹקוֹס וּבָנָנָה",
+        "tr": "hayeled ohev kokos uvananah",
+        "fr": "l'enfant aime la noix de coco et la banane"
+      }
+    ]
+  },
+  {
+    "he": "בָּצָל יָרֹק",
+    "fr": "oignon vert",
+    "genre": "m",
+    "pluriel": {
+      "he": "בְּצָלִים יְרֻקִּים",
+      "tr": "betsalim yerukim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי חוֹתֵךְ בָּצָל יָרֹק לַסָּלָט",
+        "tr": "ani chotekh batsal yarok lasalat",
+        "fr": "je coupe de l'oignon vert pour la salade"
+      }
+    ]
+  },
+  {
+    "he": "לֶפֶת",
+    "fr": "navet",
+    "genre": "f",
+    "pluriel": {
+      "he": "לְפָתוֹת",
+      "tr": "lefatot"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "בַּחוֹרֶף אֲנַחְנוּ אוֹכְלִים מָרָק עִם לֶפֶת",
+        "tr": "bachoref anachnu okhlim marak 'im lefet",
+        "fr": "en hiver nous mangeons une soupe avec du navet"
+      }
+    ]
+  },
+  {
+    "he": "אֱגוֹז",
+    "fr": "noix (fruit à coque)",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֱגוֹזִים",
+      "tr": "egozim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הוּא אוֹהֵב אֱגוֹזִים וּשְׁקֵדִים",
+        "tr": "hu ohev egozim ushkedim",
+        "fr": "il aime les noix et les amandes"
+      }
+    ]
+  },
+  {
+    "he": "שָׁקֵד",
+    "fr": "amande",
+    "genre": "m",
+    "pluriel": {
+      "he": "שְׁקֵדִים",
+      "tr": "shkedim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֶלֶת שְׁקֵדִים בַּבֹּקֶר",
+        "tr": "ani okhelet shkedim baboker",
+        "fr": "je mange des amandes le matin"
+      }
+    ]
+  },
+  {
+    "he": "פֶּסְטוֹ",
+    "fr": "pesto",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הִיא שָׂמָה פֶּסְטוֹ עַל הַלֶּחֶם",
+        "tr": "hi samah pesto 'al halechem",
+        "fr": "elle met du pesto sur le pain"
+      }
+    ]
+  },
+  {
+    "he": "קוֹרָנִית",
+    "fr": "thym",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "יֵשׁ קוֹרָנִית בַּמָּרָק",
+        "tr": "yesh koranit bamarak",
+        "fr": "il y a du thym dans la soupe"
+      }
+    ]
+  },
+  {
+    "he": "מַשְׁקֶה",
+    "fr": "boisson",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַשְׁקָאוֹת",
+      "tr": "mashkaot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי רוֹצֶה מַשְׁקֶה קַר",
+        "tr": "ani rotseh mashkeh kar",
+        "fr": "je veux une boisson froide"
+      }
+    ]
+  },
+  {
+    "he": "כָּרִיךְ",
+    "fr": "sandwich",
+    "genre": "m",
+    "pluriel": {
+      "he": "כְּרִיכִים",
+      "tr": "kerikhim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיֶּלֶד אוֹכֵל כָּרִיךְ גְּבִינָה לַאֲרוּחַת בֹּקֶר",
+        "tr": "hayeled okhel karikh gevinah la'aruchat boker",
+        "fr": "l'enfant mange un sandwich au fromage pour le petit-déjeuner"
+      }
+    ]
+  },
+  {
+    "he": "פִּיצָה",
+    "fr": "pizza",
+    "genre": "f",
+    "pluriel": {
+      "he": "פִּיצוֹת",
+      "tr": "pitsot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ קוֹנִים פִּיצָה בְּיוֹם שִׁישִׁי",
+        "tr": "anachnu konim pitsah beyom shishi",
+        "fr": "nous achetons une pizza le vendredi"
+      }
+    ]
+  },
+  {
+    "he": "סֻכָּרִיָּה",
+    "fr": "bonbon",
+    "genre": "f",
+    "pluriel": {
+      "he": "סֻכָּרִיּוֹת",
+      "tr": "sukariyot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיַּלְדָּה אוֹכֶלֶת סֻכָּרִיָּה אַחַת בַּיּוֹם",
+        "tr": "hayaldah okhelet sukariyah achat bayom",
+        "fr": "la fillette mange un bonbon par jour"
+      }
+    ]
+  },
+  {
+    "he": "חַלָּה",
+    "fr": "halla (pain de shabbat)",
+    "genre": "f",
+    "pluriel": {
+      "he": "חַלּוֹת",
+      "tr": "chalot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ קוֹנִים חַלָּה לְשַׁבָּת",
+        "tr": "anachnu konim chalah leshabat",
+        "fr": "nous achetons une challah pour chabbat"
+      }
+    ]
+  },
+  {
+    "he": "שַׁקְשׁוּקָה",
+    "fr": "shakshuka",
+    "genre": "f",
+    "pluriel": {
+      "he": "שַׁקְשׁוּקוֹת",
+      "tr": "shakshukot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֵל שַׁקְשׁוּקָה לַאֲרוּחַת בֹּקֶר",
+        "tr": "ani okhel shakshukah la'aruchat boker",
+        "fr": "je mange une shakshuka au petit-déjeuner"
+      }
+    ]
+  },
+  {
+    "he": "סַבִּיח",
+    "fr": "sabich",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי קוֹנֶה סַבִּיח בַּשּׁוּק",
+        "tr": "ani koneh sabich bashuk",
+        "fr": "j'achète un sabich au marché"
+      }
+    ]
+  },
+  {
+    "he": "בּוּרֶקָס",
+    "fr": "burekas",
+    "genre": "m",
+    "pluriel": {
+      "he": "בּוּרֶקָסִים",
+      "tr": "burekasim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים אוֹהֲבִים בּוּרֶקָס עִם גְּבִינָה",
+        "tr": "hayladim ohavim burekas 'im gevinah",
+        "fr": "les enfants aiment les burekas au fromage"
+      }
+    ]
+  },
+  {
+    "he": "מָזוֹן",
+    "fr": "alimentation, nourriture (formel)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "הַחֲנוּת מוֹכֶרֶת מָזוֹן לְתִינוֹקוֹת",
+        "tr": "hachanut mokheret mazon letinokot",
+        "fr": "le magasin vend de la nourriture pour bébés"
+      }
+    ]
+  },
+  {
+    "he": "תַּפְרִיט",
+    "fr": "menu",
+    "genre": "m",
+    "pluriel": {
+      "he": "תַּפְרִיטִים",
+      "tr": "tafritim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֶפְשָׁר לִרְאוֹת אֶת הַתַּפְרִיט?",
+        "tr": "efshar lirot et hatafrit",
+        "fr": "peut-on voir le menu ?"
+      }
+    ]
+  },
+  {
+    "he": "מָנָה",
+    "fr": "plat / portion",
+    "genre": "f",
+    "pluriel": {
+      "he": "מָנוֹת",
+      "tr": "manot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי רוֹצֶה מָנָה שֶׁל פָלָאפֶל",
+        "tr": "ani rotseh manah shel falafel",
+        "fr": "je veux une portion de falafel"
+      }
+    ]
+  },
+  {
+    "he": "מָנָה רִאשׁוֹנָה",
+    "fr": "entrée",
+    "genre": "f",
+    "pluriel": {
+      "he": "מָנוֹת רִאשׁוֹנוֹת",
+      "tr": "manot rishonot"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "אֲנִי מַזְמִין מָנָה רִאשׁוֹנָה",
+        "tr": "ani mazmin manah rishonah",
+        "fr": "je commande une entrée"
+      }
+    ]
+  },
+  {
+    "he": "מָנָה עִקָּרִית",
+    "fr": "plat principal",
+    "genre": "f",
+    "pluriel": {
+      "he": "מָנוֹת עִקָּרִיּוֹת",
+      "tr": "manot 'ikariyot"
+    },
+    "niveau": "B1",
+    "theme": "nourriture",
+    "groupe": "nourriture-repas",
+    "exemples": [
+      {
+        "he": "מָה הַמָּנָה הָעִקָּרִית הַיּוֹם?",
+        "tr": "mah hamanah ha'ikarit hayom",
+        "fr": "quel est le plat principal aujourd'hui ?"
+      }
+    ]
+  },
+  {
     "he": "בֶּגֶד",
     "fr": "vêtement",
     "genre": "m",
@@ -5137,6 +7474,22 @@
     ]
   },
   {
+    "he": "זָהָב",
+    "fr": "or (métal)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "vetements-couleurs",
+    "groupe": "vetements-accessoires",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָהּ טַבַּעַת זָהָב",
+        "tr": "yesh lah taba'at zahav",
+        "fr": "elle a une bague en or"
+      }
+    ]
+  },
+  {
     "he": "רְחוֹב",
     "fr": "rue",
     "genre": "m",
@@ -5492,7 +7845,8 @@
         "tr": "hamalon 'al yad hayam",
         "fr": "l'hôtel est au bord de la mer"
       }
-    ]
+    ],
+    "note": "homographe de מֵלוֹן (melon) — niqqud différent, kamats contre tsere"
   },
   {
     "he": "כִּכָּר",
@@ -6719,6 +9073,168 @@
     ]
   },
   {
+    "he": "מִזְנוֹן",
+    "fr": "cafétéria, buvette",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִזְנוֹנִים",
+      "tr": "miznonim"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "אֲנִי אוֹכֵל צָהֳרַיִם בַּמִּזְנוֹן שֶׁל הָעֲבוֹדָה",
+        "tr": "ani okhel tsahorayim bamiznon shel ha'avodah",
+        "fr": "je déjeune à la cafétéria du travail"
+      }
+    ]
+  },
+  {
+    "he": "הֵיכָל",
+    "fr": "palais, temple, grande salle monumentale",
+    "genre": "m",
+    "pluriel": {
+      "he": "הֵיכָלוֹת",
+      "tr": "heikhalot"
+    },
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַהֵיכָל יָשָׁן וְגָדוֹל",
+        "tr": "haheikhol yashan vegadol",
+        "fr": "le palais est ancien et grand"
+      }
+    ]
+  },
+  {
+    "he": "חוֹמָה",
+    "fr": "mur d'enceinte, muraille, rempart",
+    "genre": "f",
+    "pluriel": {
+      "he": "חוֹמוֹת",
+      "tr": "chomot"
+    },
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "חוֹמַת הָעִיר גְּבוֹהָה מְאֹד",
+        "tr": "chomat ha'ir gevohah me'od",
+        "fr": "la muraille de la ville est très haute"
+      }
+    ]
+  },
+  {
+    "he": "מִגְרָשׁ",
+    "fr": "terrain, parcelle ; terrain de jeu, terrain de sport",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִגְרָשִׁים",
+      "tr": "migrashim"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַיְלָדִים מְשַׂחֲקִים בַּמִּגְרָשׁ",
+        "tr": "hayladim mesachakim bamigrash",
+        "fr": "les enfants jouent sur le terrain"
+      }
+    ]
+  },
+  {
+    "he": "מַחֲנֶה",
+    "fr": "camp",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַחֲנוֹת",
+      "tr": "machanot"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַחַיָּלִים גָּרִים בַּמַּחֲנֶה",
+        "tr": "hachayalim garim bamachaneh",
+        "fr": "les soldats vivent dans le camp"
+      },
+      {
+        "he": "הַיְלָדִים שְׂמֵחִים בְּמַחֲנֵה הַקַּיִץ",
+        "tr": "hayladim smechim bemachaneh hakayits",
+        "fr": "les enfants sont heureux au camp d'été"
+      }
+    ]
+  },
+  {
+    "he": "מִקְדָּשׁ",
+    "fr": "sanctuaire, temple, lieu saint",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִקְדָּשִׁים",
+      "tr": "mikdashim"
+    },
+    "niveau": "B1",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַמִּקְדָּשׁ הַיָּשָׁן יָפֶה",
+        "tr": "hamikdash hayashan yafeh",
+        "fr": "le vieux sanctuaire est beau"
+      }
+    ]
+  },
+  {
+    "he": "מִשְׁכָּן",
+    "fr": "siège, résidence officielle",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִשְׁכָּנוֹת",
+      "tr": "mishkanot"
+    },
+    "niveau": "B2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַמִּשְׁכָּן הַזֶּה יָשָׁן מְאֹד",
+        "tr": "hamishkan hazeh yashan me'od",
+        "fr": "cette résidence est très ancienne"
+      },
+      {
+        "he": "מִשְׁכַּן הַכְּנֶסֶת נִמְצָא בִּירוּשָׁלַיִם",
+        "tr": "mishkan hakneset nimtsa birushalayim",
+        "fr": "le siège du parlement se trouve à Jérusalem"
+      }
+    ]
+  },
+  {
+    "he": "שַׁעַר",
+    "fr": "portail, porte (large, monumentale) ; but (football)",
+    "genre": "m",
+    "pluriel": {
+      "he": "שְׁעָרִים",
+      "tr": "she'arim"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ville-lieux-transport",
+    "exemples": [
+      {
+        "he": "הַקְּבוּצָה שֶׁלִּי כּוֹבֶשֶׁת שַׁעַר בְּכָל מִשְׂחָק.",
+        "tr": "hakvutsah sheli koveshet sha'ar bekhol mischak",
+        "fr": "mon équipe marque un but à chaque match"
+      }
+    ]
+  },
+  {
     "he": "שֶׁמֶשׁ",
     "fr": "soleil",
     "genre": "f",
@@ -7849,6 +10365,344 @@
     ]
   },
   {
+    "he": "שְׁקִיעָה",
+    "fr": "coucher du soleil",
+    "genre": "f",
+    "pluriel": {
+      "he": "שְׁקִיעוֹת",
+      "tr": "shki'ot"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַשְּׁקִיעָה עַל הַיָּם יָפָה מְאֹד",
+        "tr": "hashki'ah 'al hayam yafah me'od",
+        "fr": "le coucher du soleil sur la mer est très beau"
+      }
+    ]
+  },
+  {
+    "he": "זְרִיחָה",
+    "fr": "lever du soleil",
+    "genre": "f",
+    "pluriel": {
+      "he": "זְרִיחוֹת",
+      "tr": "zerichot"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ רוֹאִים אֶת הַזְּרִיחָה מֵהָהָר",
+        "tr": "anachnu ro'im et hazrichah mehahar",
+        "fr": "nous voyons le lever du soleil depuis la montagne"
+      }
+    ]
+  },
+  {
+    "he": "אַיִל",
+    "fr": "bélier",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֵילִים",
+      "tr": "eilim"
+    },
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הָאַיִל עוֹמֵד בַּשָּׂדֶה",
+        "tr": "ha'ayil 'omed basadeh",
+        "fr": "le bélier se tient dans le champ"
+      }
+    ]
+  },
+  {
+    "he": "אֶרֶז",
+    "fr": "cèdre",
+    "genre": "m",
+    "pluriel": {
+      "he": "אֲרָזִים",
+      "tr": "arazim"
+    },
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הָאֶרֶז הוּא עֵץ גָּבוֹהַּ",
+        "tr": "ha'erez hu 'ets gavoha",
+        "fr": "le cèdre est un arbre haut"
+      }
+    ]
+  },
+  {
+    "he": "בְּהֵמָה",
+    "fr": "animal domestique, bête (de somme ou d'élevage)",
+    "genre": "f",
+    "pluriel": {
+      "he": "בְּהֵמוֹת",
+      "tr": "behemot"
+    },
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַבְּהֵמָה אוֹכֶלֶת בַּשָּׂדֶה",
+        "tr": "habhemah okhelet basadeh",
+        "fr": "la bête mange dans le champ"
+      }
+    ]
+  },
+  {
+    "he": "בָּקָר",
+    "fr": "gros bétail, bovins (collectif)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "יֵשׁ הַרְבֵּה בָּקָר בַּשָּׂדֶה",
+        "tr": "yesh harbeh bakar basadeh",
+        "fr": "il y a beaucoup de bétail dans le champ"
+      }
+    ]
+  },
+  {
+    "he": "בַּרְזֶל",
+    "fr": "fer",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַדֶּלֶת עֲשׂוּיָה מִבַּרְזֶל",
+        "tr": "hadelet 'asuyah mibarzel",
+        "fr": "la porte est faite de fer"
+      }
+    ]
+  },
+  {
+    "he": "חֲמוֹר",
+    "fr": "âne",
+    "genre": "m",
+    "pluriel": {
+      "he": "חֲמוֹרִים",
+      "tr": "chamorim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַחֲמוֹר אוֹכֵל דֶּשֶׁא בַּשָּׂדֶה",
+        "tr": "hachamor okhel deshe basadeh",
+        "fr": "l'âne mange de l'herbe dans le champ"
+      }
+    ]
+  },
+  {
+    "he": "כָּנָף",
+    "fr": "aile (d'un oiseau, d'un avion)",
+    "genre": "f",
+    "pluriel": {
+      "he": "כְּנָפַיִם",
+      "tr": "knafayim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "לַמָּטוֹס יֵשׁ כְּנָפַיִם גְּדוֹלוֹת",
+        "tr": "lamatos yesh knafayim gedolot",
+        "fr": "l'avion a de grandes ailes"
+      }
+    ]
+  },
+  {
+    "he": "כֶּרֶם",
+    "fr": "vigne, vignoble",
+    "genre": "m",
+    "pluriel": {
+      "he": "כְּרָמִים",
+      "tr": "keramim"
+    },
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ כֶּרֶם גָּדוֹל",
+        "tr": "yesh lanu kerem gadol",
+        "fr": "nous avons un grand vignoble"
+      },
+      {
+        "he": "הֵם עוֹבְדִים בַּכֶּרֶם כָּל הַקַּיִץ",
+        "tr": "hem 'ovdim bakerem kol hakayits",
+        "fr": "ils travaillent dans le vignoble tout l'été"
+      }
+    ]
+  },
+  {
+    "he": "נֶגֶב",
+    "fr": "Néguev (région désertique du sud d'Israël)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ נוֹסְעִים לַנֶּגֶב בְּסוֹף הַשָּׁבוּעַ",
+        "tr": "anachnu nos'im lanegev besof hashavu'a",
+        "fr": "nous partons pour le Néguev ce week-end"
+      }
+    ]
+  },
+  {
+    "he": "נַחַל",
+    "fr": "torrent, oued, ruisseau saisonnier",
+    "genre": "m",
+    "pluriel": {
+      "he": "נְחָלִים",
+      "tr": "nechalim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מְטַיְּלִים לְיַד הַנַּחַל",
+        "tr": "anachnu metaylim leyad hanachal",
+        "fr": "nous nous promenons près du torrent"
+      }
+    ]
+  },
+  {
+    "he": "עֵמֶק",
+    "fr": "vallée",
+    "genre": "m",
+    "pluriel": {
+      "he": "עֲמָקִים",
+      "tr": "'amakim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ מְטַיְּלִים בָּעֵמֶק",
+        "tr": "anachnu metaylim ba'emek",
+        "fr": "nous nous promenons dans la vallée"
+      },
+      {
+        "he": "הָעֵמֶק יָרֹק וְיָפֶה בָּאָבִיב",
+        "tr": "ha'emek yarok veyafeh ba'aviv",
+        "fr": "la vallée est verte et belle au printemps"
+      }
+    ]
+  },
+  {
+    "he": "עָפָר",
+    "fr": "poussière, terre (matière du sol)",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הָרוּחַ מְרִימָה עָפָר מֵהָאֲדָמָה",
+        "tr": "haruach merimah 'afar meha'adamah",
+        "fr": "le vent soulève de la poussière du sol"
+      },
+      {
+        "he": "הַמְּכוֹנִית מְכֻסָּה בְּעָפָר",
+        "tr": "hamkhonit mekhusah be'afar",
+        "fr": "la voiture est couverte de poussière"
+      }
+    ]
+  },
+  {
+    "he": "פַּר",
+    "fr": "taureau",
+    "genre": "m",
+    "pluriel": {
+      "he": "פָּרִים",
+      "tr": "parim"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הַפָּר עוֹמֵד בַּשָּׂדֶה",
+        "tr": "hapar 'omed basadeh",
+        "fr": "le taureau se tient dans le champ"
+      },
+      {
+        "he": "יֵשׁ לַחַקְלַאי פָּרָה וּפַר",
+        "tr": "yesh lachakla'i parah ufar",
+        "fr": "l'agriculteur a une vache et un taureau"
+      }
+    ]
+  },
+  {
+    "he": "צֹאן",
+    "fr": "petit bétail, troupeau (moutons, chèvres)",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "הָרוֹעֶה שׁוֹמֵר עַל הַצֹּאן",
+        "tr": "haro'eh shomer 'al hatson",
+        "fr": "le berger garde le troupeau"
+      },
+      {
+        "he": "הַצֹּאן רוֹעָה בַּשָּׂדֶה",
+        "tr": "hatson ro'ah basadeh",
+        "fr": "le troupeau paît dans le champ"
+      }
+    ]
+  },
+  {
+    "he": "קֶשֶׁת",
+    "fr": "arc-en-ciel",
+    "genre": "f",
+    "pluriel": {
+      "he": "קְשָׁתוֹת",
+      "tr": "keshatot"
+    },
+    "niveau": "A2",
+    "theme": "nature",
+    "groupe": "nature-animaux",
+    "exemples": [
+      {
+        "he": "יֵשׁ קֶשֶׁת בַּשָּׁמַיִם אַחֲרֵי הַגֶּשֶׁם",
+        "tr": "yesh keshet bashamayim acharei hageshem",
+        "fr": "il y a un arc-en-ciel dans le ciel après la pluie"
+      },
+      {
+        "he": "לַקֶּשֶׁת יֵשׁ הַרְבֵּה צְבָעִים",
+        "tr": "lakeshet yesh harbeh tsva'im",
+        "fr": "l'arc-en-ciel a beaucoup de couleurs"
+      }
+    ]
+  },
+  {
     "he": "יוֹם",
     "fr": "jour",
     "genre": "m",
@@ -8598,6 +11452,46 @@
         "he": "דַּיְקָנוּת חֲשׁוּבָה בָּעֲבוֹדָה שֶׁלִּי",
         "tr": "daykanut chashuvah ba'avodah sheli",
         "fr": "la ponctualité est importante dans mon travail"
+      }
+    ]
+  },
+  {
+    "he": "חֲצִי שָׁנָה",
+    "fr": "demi-année, six mois",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A1",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "אֲנִי לוֹמֵד עִבְרִית כְּבָר חֲצִי שָׁנָה",
+        "tr": "ani lomed 'ivrit kvar chatsi shanah",
+        "fr": "j'apprends l'hébreu depuis déjà six mois"
+      }
+    ]
+  },
+  {
+    "he": "עֵת",
+    "fr": "temps, moment, époque",
+    "genre": "f",
+    "pluriel": {
+      "he": "עִתִּים",
+      "tr": "'itim"
+    },
+    "niveau": "B2",
+    "theme": "temps-calendrier",
+    "groupe": "temps-calendrier",
+    "exemples": [
+      {
+        "he": "הִיא מְחַכָּה לָעֵת הַנְּכוֹנָה",
+        "tr": "hi mechakah la'et hankhonah",
+        "fr": "elle attend le bon moment"
+      },
+      {
+        "he": "מֵעֵת לְעֵת הוּא מְבַקֵּר אֶת הוֹרָיו",
+        "tr": "me'et le'et hu mevaker et horav",
+        "fr": "de temps à autre, il rend visite à ses parents"
       }
     ]
   },
@@ -10304,6 +13198,265 @@
     ]
   },
   {
+    "he": "נַהָג",
+    "fr": "chauffeur, conducteur",
+    "genre": "m",
+    "pluriel": {
+      "he": "נֶהָגִים",
+      "tr": "nehagim"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הוּא עוֹבֵד כְּנַהָג אוֹטוֹבּוּס",
+        "tr": "hu 'oved knahag otobus",
+        "fr": "il travaille comme chauffeur de bus"
+      }
+    ]
+  },
+  {
+    "he": "נַהֶגֶת",
+    "fr": "conductrice, chauffeuse",
+    "genre": "f",
+    "pluriel": {
+      "he": "נֶהָגוֹת",
+      "tr": "nehagot"
+    },
+    "niveau": "A2",
+    "theme": "ville-transport",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הִיא עוֹבֶדֶת כְּנַהֶגֶת מוֹנִית",
+        "tr": "hi 'ovedet knaheget monit",
+        "fr": "elle travaille comme chauffeuse de taxi"
+      }
+    ]
+  },
+  {
+    "he": "מֶלְצַר",
+    "fr": "serveur",
+    "genre": "m",
+    "pluriel": {
+      "he": "מֶלְצָרִים",
+      "tr": "meltsarim"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַמֶּלְצַר עוֹבֵד בַּמִּסְעָדָה",
+        "tr": "hameltsar 'oved bamis'adah",
+        "fr": "le serveur travaille au restaurant"
+      }
+    ]
+  },
+  {
+    "he": "מֶלְצָרִית",
+    "fr": "serveuse",
+    "genre": "f",
+    "pluriel": {
+      "he": "מֶלְצָרִיּוֹת",
+      "tr": "meltsariyot"
+    },
+    "niveau": "A2",
+    "theme": "nourriture",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַמֶּלְצָרִית עוֹבֶדֶת בַּמִּסְעָדָה בָּעֶרֶב",
+        "tr": "hameltsarit 'ovedet bamis'adah ba'erev",
+        "fr": "la serveuse travaille au restaurant le soir"
+      }
+    ]
+  },
+  {
+    "he": "תַּלְמִידָה",
+    "fr": "élève",
+    "genre": "f",
+    "pluriel": {
+      "he": "תַּלְמִידוֹת",
+      "tr": "talmidot"
+    },
+    "niveau": "A1",
+    "theme": "travail-etudes",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַתַּלְמִידָה כּוֹתֶבֶת בַּמַּחְבֶּרֶת",
+        "tr": "hatalmidah kotevet bamachberet",
+        "fr": "l'élève écrit dans le cahier"
+      }
+    ]
+  },
+  {
+    "he": "מְפַקֵּד",
+    "fr": "commandant, chef (d’unité militaire ou d’équipe)",
+    "genre": "m",
+    "pluriel": {
+      "he": "מְפַקְּדִים",
+      "tr": "mefakdim"
+    },
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַמְּפַקֵּד אַחְרַאי עַל הַקְּבוּצָה",
+        "tr": "hamfaked achra'i 'al hakvutsah",
+        "fr": "le commandant est responsable du groupe"
+      }
+    ]
+  },
+  {
+    "he": "אוֹצָר",
+    "fr": "trésor, réserve",
+    "genre": "m",
+    "pluriel": {
+      "he": "אוֹצָרוֹת",
+      "tr": "otsarot"
+    },
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "יֵשׁ לוֹ אוֹצָר שֶׁל סְפָרִים יְשָׁנִים",
+        "tr": "yesh lo otsar shel sfarim yeshanim",
+        "fr": "il a un trésor de vieux livres"
+      }
+    ]
+  },
+  {
+    "he": "מְלָאכָה",
+    "fr": "ouvrage, tâche, artisanat (travail manuel)",
+    "genre": "f",
+    "pluriel": {
+      "he": "מְלָאכוֹת",
+      "tr": "melakhot"
+    },
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ שִׁעוּר מְלָאכָה בְּבֵית הַסֵּפֶר",
+        "tr": "yesh lanu shi'ur melakhah beveit hasefer",
+        "fr": "nous avons un cours de travaux manuels à l’école"
+      }
+    ]
+  },
+  {
+    "he": "מִשְׁמֶרֶת",
+    "fr": "garde, tour de service, quart de travail",
+    "genre": "f",
+    "pluriel": {
+      "he": "מִשְׁמָרוֹת",
+      "tr": "mishmarot"
+    },
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "אֲנִי עוֹבֵד בְּמִשְׁמֶרֶת לַיְלָה",
+        "tr": "ani 'oved bemishmeret laylah",
+        "fr": "je travaille de nuit, en service de nuit"
+      }
+    ]
+  },
+  {
+    "he": "נָשִׂיא",
+    "fr": "président, chef",
+    "genre": "m",
+    "pluriel": {
+      "he": "נְשִׂיאִים",
+      "tr": "nesiyim"
+    },
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הוּא נָשִׂיא טוֹב מְאֹד",
+        "tr": "hu nasi tov me'od",
+        "fr": "c'est un très bon président"
+      },
+      {
+        "he": "יֵשׁ לָנוּ נָשִׂיא חָדָשׁ",
+        "tr": "yesh lanu nasi chadash",
+        "fr": "nous avons un nouveau président"
+      }
+    ]
+  },
+  {
+    "he": "צְדָקָה",
+    "fr": "charité, aumône, don caritatif",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הִיא נוֹתֶנֶת צְדָקָה לָעֲנִיִּים",
+        "tr": "hi notenet tsdakah la'aniyim",
+        "fr": "elle fait la charité aux pauvres"
+      },
+      {
+        "he": "יֵשׁ קֻפַּת צְדָקָה לְיַד הַכְּנִיסָה",
+        "tr": "yesh kupat tsdakah leyad haknisah",
+        "fr": "il y a une boîte de charité à côté de l'entrée"
+      }
+    ]
+  },
+  {
+    "he": "קֶרֶן",
+    "fr": "fonds (financier)",
+    "genre": "f",
+    "pluriel": {
+      "he": "קְרָנוֹת",
+      "tr": "keranot"
+    },
+    "niveau": "B1",
+    "theme": "argent-achats",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הוּא שָׂם כֶּסֶף בַּקֶּרֶן",
+        "tr": "hu sam kesef bakeren",
+        "fr": "il met de l'argent dans le fonds"
+      },
+      {
+        "he": "הַקֶּרֶן הַזֹּאת עוֹזֶרֶת לְמִשְׁפָּחוֹת",
+        "tr": "hakeren hazot 'ozeret lemishpachot",
+        "fr": "ce fonds aide des familles"
+      }
+    ]
+  },
+  {
+    "he": "שַׂר",
+    "fr": "ministre, chef, dignitaire",
+    "genre": "m",
+    "pluriel": {
+      "he": "שָׂרִים",
+      "tr": "sarim"
+    },
+    "niveau": "B1",
+    "theme": "travail-etudes",
+    "groupe": "ecole-travail-argent",
+    "exemples": [
+      {
+        "he": "הַשַּׂר הֶחָדָשׁ מְדַבֵּר בַּכְּנֶסֶת",
+        "tr": "hasar hechadash medaber bakneset",
+        "fr": "le nouveau ministre parle à la Knesset"
+      }
+    ]
+  },
+  {
     "he": "מְסִבָּה",
     "fr": "fête (soirée)",
     "genre": "f",
@@ -11049,6 +14202,68 @@
     ]
   },
   {
+    "he": "בָּמָה",
+    "fr": "scène, estrade, podium",
+    "genre": "f",
+    "pluriel": {
+      "he": "בָּמוֹת",
+      "tr": "bamot"
+    },
+    "niveau": "B1",
+    "theme": "loisirs-culture",
+    "groupe": "culture-loisirs",
+    "exemples": [
+      {
+        "he": "הַזַּמָּר עוֹלֶה עַל הַבָּמָה",
+        "tr": "hazamar 'oleh 'al habamah",
+        "fr": "le chanteur monte sur scène"
+      }
+    ]
+  },
+  {
+    "he": "מִזְבֵּחַ",
+    "fr": "autel",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִזְבְּחוֹת",
+      "tr": "mizbchot"
+    },
+    "niveau": "B2",
+    "theme": "loisirs-culture",
+    "groupe": "culture-loisirs",
+    "exemples": [
+      {
+        "he": "בַּמּוּזֵיאוֹן יֵשׁ מִזְבֵּחַ עַתִּיק",
+        "tr": "bamuzeyon yesh mizbeach 'atik",
+        "fr": "il y a un autel antique au musée"
+      }
+    ]
+  },
+  {
+    "he": "עַמּוּד",
+    "fr": "colonne, pilier, page",
+    "genre": "m",
+    "pluriel": {
+      "he": "עַמּוּדִים",
+      "tr": "'amudim"
+    },
+    "niveau": "A2",
+    "theme": "loisirs-culture",
+    "groupe": "culture-loisirs",
+    "exemples": [
+      {
+        "he": "הַסִּפּוּר מַתְחִיל בְּעַמּוּד עֶשְׂרִים",
+        "tr": "hasipur matchil be'amud 'esrim",
+        "fr": "l'histoire commence à la page vingt"
+      },
+      {
+        "he": "בַּבִּנְיָן יֵשׁ עַמּוּדִים גְּבוֹהִים",
+        "tr": "babinyan yesh 'amudim gevohim",
+        "fr": "il y a de hautes colonnes dans le bâtiment"
+      }
+    ]
+  },
+  {
     "he": "מִלָּה",
     "fr": "mot",
     "genre": "f",
@@ -11247,7 +14462,7 @@
   },
   {
     "he": "מָקוֹם",
-    "fr": "endroit / place",
+    "fr": "lieu / endroit / place",
     "genre": "m",
     "pluriel": {
       "he": "מְקוֹמוֹת",
@@ -12771,6 +15986,828 @@
         "he": "הַמִּשְׁפָּחָה הִיא הָעֲדִיפוּת שֶׁלִּי",
         "tr": "hamishpachah hi ha'adifut sheli",
         "fr": "la famille est ma priorité"
+      }
+    ]
+  },
+  {
+    "he": "אוֹת",
+    "fr": "signe, signal",
+    "genre": "m",
+    "pluriel": {
+      "he": "אוֹתוֹת",
+      "tr": "otot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַסְּפִינָה שׁוֹלַחַת אוֹתוֹת מְצוּקָה",
+        "tr": "hasfinah sholachat otot metsukah",
+        "fr": "le navire envoie des signaux de détresse"
+      }
+    ]
+  },
+  {
+    "he": "אֱלֹהִים",
+    "fr": "dieu",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הֵם מַאֲמִינִים בֵּאלֹהִים",
+        "tr": "hem ma'aminim belohim",
+        "fr": "ils croient en dieu"
+      }
+    ]
+  },
+  {
+    "he": "בְּרִית",
+    "fr": "alliance, pacte",
+    "genre": "f",
+    "pluriel": {
+      "he": "בְּרִיתוֹת",
+      "tr": "beritot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ בְּרִית צְבָאִית בֵּין שְׁתֵּי הַמְּדִינוֹת",
+        "tr": "yesh berit tsva'it bein shtei hamdinot",
+        "fr": "il y a une alliance militaire entre les deux pays"
+      }
+    ]
+  },
+  {
+    "he": "בְּרָכָה",
+    "fr": "bénédiction",
+    "genre": "f",
+    "pluriel": {
+      "he": "בְּרָכוֹת",
+      "tr": "berakhot"
+    },
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה אוֹמֵר בְּרָכָה לִפְנֵי הָאֲרוּחָה",
+        "tr": "hamoreh omer berakhah lifnei ha'aruchah",
+        "fr": "l'enseignant dit une bénédiction avant le repas"
+      }
+    ]
+  },
+  {
+    "he": "גּוֹרָל",
+    "fr": "destin, sort",
+    "genre": "m",
+    "pluriel": {
+      "he": "גּוֹרָלוֹת",
+      "tr": "goralot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "זֶה הַגּוֹרָל שֶׁלִּי",
+        "tr": "zeh hagoral sheli",
+        "fr": "c'est mon destin"
+      }
+    ]
+  },
+  {
+    "he": "דַּעַת",
+    "fr": "discernement, entendement",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַסֵּפֶר הַזֶּה מַרְחִיב אֶת הַדַּעַת",
+        "tr": "hasefer hazeh marchiv et hada'at",
+        "fr": "ce livre élargit les connaissances"
+      }
+    ]
+  },
+  {
+    "he": "הֶבֶל",
+    "fr": "vanité, futilité, sornettes",
+    "genre": "m",
+    "pluriel": {
+      "he": "הֲבָלִים",
+      "tr": "havalim"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "כָּל הַסִּפּוּר הַזֶּה הֶבֶל",
+        "tr": "kol hasipur hazeh hevel",
+        "fr": "toute cette histoire n'est que du vent"
+      }
+    ]
+  },
+  {
+    "he": "הָמוֹן",
+    "fr": "foule, multitude",
+    "genre": "m",
+    "pluriel": {
+      "he": "הֲמוֹנִים",
+      "tr": "hamonim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ הָמוֹן אֲנָשִׁים בָּעִיר הַיּוֹם",
+        "tr": "yesh hamon anashim ba'ir hayom",
+        "fr": "il y a une foule de gens en ville aujourd'hui"
+      }
+    ]
+  },
+  {
+    "he": "חַיִל",
+    "fr": "force, vaillance ; corps d'armée, arme (sens moderne)",
+    "genre": "m",
+    "pluriel": {
+      "he": "חֵילוֹת",
+      "tr": "cheilot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הִיא אֵשֶׁת חַיִל",
+        "tr": "hi eshet chayil",
+        "fr": "elle est une femme de valeur"
+      }
+    ]
+  },
+  {
+    "he": "חָכְמָה",
+    "fr": "sagesse, savoir, habileté",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "לַמּוֹרֶה יֵשׁ הַרְבֵּה חָכְמָה",
+        "tr": "lamoreh yesh harbeh chakhmah",
+        "fr": "le professeur a beaucoup de sagesse"
+      }
+    ]
+  },
+  {
+    "he": "חֵמָה",
+    "fr": "colère violente, fureur",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B2",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא מְדַבֵּר בְּחֵמָה גְּדוֹלָה",
+        "tr": "hu medaber bechemah gedolah",
+        "fr": "il parle avec une grande fureur"
+      }
+    ]
+  },
+  {
+    "he": "חֶסֶד",
+    "fr": "bonté, bienveillance",
+    "genre": "m",
+    "pluriel": {
+      "he": "חֲסָדִים",
+      "tr": "chasadim"
+    },
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "טוֹב לַעֲשׂוֹת חֶסֶד עִם הַשָּׁכֵן",
+        "tr": "tov la'asot chesed 'im hashakhen",
+        "fr": "c'est bien de faire preuve de bonté envers le voisin"
+      }
+    ]
+  },
+  {
+    "he": "חֹק",
+    "fr": "loi",
+    "genre": "m",
+    "pluriel": {
+      "he": "חֻקִּים",
+      "tr": "chukim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "בְּיִשְׂרָאֵל יֵשׁ חֹק חָדָשׁ",
+        "tr": "beyisra'el yesh chok chadash",
+        "fr": "en Israël il y a une nouvelle loi"
+      }
+    ]
+  },
+  {
+    "he": "חֻקָּה",
+    "fr": "constitution",
+    "genre": "f",
+    "pluriel": {
+      "he": "חֻקּוֹת",
+      "tr": "chukot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "לְכָל אֶרֶץ יֵשׁ חֻקָּה",
+        "tr": "lekhol erets yesh chukah",
+        "fr": "chaque pays a une constitution"
+      }
+    ]
+  },
+  {
+    "he": "חֶרֶב",
+    "fr": "épée",
+    "genre": "f",
+    "pluriel": {
+      "he": "חֲרָבוֹת",
+      "tr": "charavot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "זוֹ חֶרֶב יְשָׁנָה מְאֹד",
+        "tr": "zo cherev yeshanah me'od",
+        "fr": "c'est une très vieille épée"
+      }
+    ]
+  },
+  {
+    "he": "חֶרְפָּה",
+    "fr": "déshonneur, honte (registre fort)",
+    "genre": "f",
+    "pluriel": {
+      "he": "חֲרָפוֹת",
+      "tr": "charafot"
+    },
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "זוֹ חֶרְפָּה גְּדוֹלָה",
+        "tr": "zo cherpah gedolah",
+        "fr": "c'est une grande honte"
+      }
+    ]
+  },
+  {
+    "he": "יְשׁוּעָה",
+    "fr": "salut, délivrance (registre soutenu)",
+    "genre": "f",
+    "pluriel": {
+      "he": "יְשׁוּעוֹת",
+      "tr": "yeshu'ot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אַחֲרֵי הַמִּלְחָמָה בָּאָה הַיְשׁוּעָה",
+        "tr": "acharei hamilchamah ba'ah hayshu'ah",
+        "fr": "après la guerre vient la délivrance"
+      }
+    ]
+  },
+  {
+    "he": "כָּבוֹד",
+    "fr": "honneur, respect",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַמּוֹרֶה מְקַבֵּל כָּבוֹד מֵהַתַּלְמִידִים",
+        "tr": "hamoreh mekabel kavod mehatalmidim",
+        "fr": "le professeur reçoit du respect des élèves"
+      },
+      {
+        "he": "הוּא מְדַבֵּר עִם הַהוֹרִים שֶׁלּוֹ בְּכָבוֹד",
+        "tr": "hu medaber 'im hahorim shelo bekhavod",
+        "fr": "il parle à ses parents avec respect"
+      }
+    ]
+  },
+  {
+    "he": "מַטֶּה",
+    "fr": "état-major (aussi : bâton, tribu, sens biblique)",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַטּוֹת",
+      "tr": "matot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא עוֹבֵד בַּמַּטֶּה",
+        "tr": "hu 'oved bamateh",
+        "fr": "il travaille à l'état-major"
+      }
+    ]
+  },
+  {
+    "he": "מַלְאָךְ",
+    "fr": "ange",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַלְאָכִים",
+      "tr": "malakhim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "לְכָל יֶלֶד יֵשׁ מַלְאָךְ שׁוֹמֵר",
+        "tr": "lekhol yeled yesh malakh shomer",
+        "fr": "chaque enfant a un ange gardien"
+      },
+      {
+        "he": "הִיא מַמָּשׁ מַלְאָךְ",
+        "tr": "hi mamash malakh",
+        "fr": "elle est vraiment un ange"
+      }
+    ]
+  },
+  {
+    "he": "מַמְלָכָה",
+    "fr": "royaume",
+    "genre": "f",
+    "pluriel": {
+      "he": "מַמְלָכוֹת",
+      "tr": "mamlakhot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַמַּמְלָכָה הַזֹּאת גְּדוֹלָה מְאֹד",
+        "tr": "hamamlakhah hazot gedolah me'od",
+        "fr": "ce royaume est très grand"
+      }
+    ]
+  },
+  {
+    "he": "מִנְחָה",
+    "fr": "prière de l'après-midi (office religieux)",
+    "genre": "f",
+    "pluriel": null,
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "מִנְחָה הִיא תְּפִלַּת אַחַר הַצָּהֳרַיִם",
+        "tr": "minchah hi tefilat achar hatsahorayim",
+        "fr": "mincha est la prière de l’après-midi"
+      }
+    ]
+  },
+  {
+    "he": "מַעֲשֶׂה",
+    "fr": "action, acte, fait",
+    "genre": "m",
+    "pluriel": {
+      "he": "מַעֲשִׂים",
+      "tr": "ma'asim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "זֶה מַעֲשֶׂה טוֹב מְאֹד",
+        "tr": "zeh ma'aseh tov me'od",
+        "fr": "c'est une très bonne action"
+      }
+    ]
+  },
+  {
+    "he": "מִצְוָה",
+    "fr": "bonne action, précepte (religieux)",
+    "genre": "f",
+    "pluriel": {
+      "he": "מִצְווֹת",
+      "tr": "mitsvot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "לַעֲזֹר לַשְּׁכֵנִים זוֹ מִצְוָה גְּדוֹלָה",
+        "tr": "la'azor lashkhenim zo mitsvah gedolah",
+        "fr": "aider les voisins, c'est une grande mitsva (bonne action)"
+      }
+    ]
+  },
+  {
+    "he": "מִשְׁפָּט",
+    "fr": "phrase (grammaire), jugement, procès, justice",
+    "genre": "m",
+    "pluriel": {
+      "he": "מִשְׁפָּטִים",
+      "tr": "mishpatim"
+    },
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אֲנִי כּוֹתֵב מִשְׁפָּט חָדָשׁ",
+        "tr": "ani kotev mishpat chadash",
+        "fr": "j'écris une nouvelle phrase"
+      },
+      {
+        "he": "הַמִּשְׁפָּט מַתְחִיל מָחָר",
+        "tr": "hamishpat matchil machar",
+        "fr": "le procès commence demain"
+      }
+    ]
+  },
+  {
+    "he": "נְאוּם",
+    "fr": "discours, allocution",
+    "genre": "m",
+    "pluriel": {
+      "he": "נְאוּמִים",
+      "tr": "neumim"
+    },
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אֲנִי שׁוֹמֵעַ אֶת הַנְּאוּם בָּרַדְיוֹ",
+        "tr": "ani shome'a et hanum baradyo",
+        "fr": "j'écoute le discours à la radio"
+      }
+    ]
+  },
+  {
+    "he": "נָבִיא",
+    "fr": "prophète",
+    "genre": "m",
+    "pluriel": {
+      "he": "נְבִיאִים",
+      "tr": "neviyim"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא מְדַבֵּר כְּמוֹ נָבִיא",
+        "tr": "hu medaber kmo navi",
+        "fr": "il parle comme un prophète"
+      }
+    ]
+  },
+  {
+    "he": "נַחֲלָה",
+    "fr": "domaine agricole, patrimoine, héritage",
+    "genre": "f",
+    "pluriel": {
+      "he": "נְחָלוֹת",
+      "tr": "nechalot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ עוֹבְדִים בַּנַּחֲלָה שֶׁל הַמִּשְׁפָּחָה",
+        "tr": "anachnu 'ovdim banachalah shel hamishpachah",
+        "fr": "nous travaillons dans le domaine familial"
+      }
+    ]
+  },
+  {
+    "he": "נֶפֶשׁ",
+    "fr": "âme, personne, être vivant",
+    "genre": "f",
+    "pluriel": {
+      "he": "נְפָשׁוֹת",
+      "tr": "nefashot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "לְכָל אָדָם יֵשׁ נֶפֶשׁ",
+        "tr": "lekhol adam yesh nefesh",
+        "fr": "chaque personne a une âme"
+      },
+      {
+        "he": "יֵשׁ בַּמִּשְׁפָּחָה חָמֵשׁ נְפָשׁוֹת",
+        "tr": "yesh bamishpachah chamesh nefashot",
+        "fr": "il y a cinq personnes dans la famille"
+      }
+    ]
+  },
+  {
+    "he": "עָוֹן",
+    "fr": "faute, péché, délit",
+    "genre": "m",
+    "pluriel": {
+      "he": "עֲוֹנוֹת",
+      "tr": "'aonot"
+    },
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא מוֹדֶה בֶּעָוֹן",
+        "tr": "hu modeh be'aon",
+        "fr": "il avoue la faute"
+      },
+      {
+        "he": "זֶה לֹא עָוֹן גָּדוֹל",
+        "tr": "zeh lo 'aon gadol",
+        "fr": "ce n’est pas une grande faute"
+      }
+    ]
+  },
+  {
+    "he": "עֵצָה",
+    "fr": "conseil, recommandation",
+    "genre": "f",
+    "pluriel": {
+      "he": "עֵצוֹת",
+      "tr": "'etsot"
+    },
+    "niveau": "B1",
+    "theme": "communication-pensee",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "אֲנִי צָרִיךְ עֵצָה טוֹבָה",
+        "tr": "ani tsarikh 'etsah tovah",
+        "fr": "j'ai besoin d'un bon conseil"
+      },
+      {
+        "he": "הִיא נוֹתֶנֶת לִי עֵצָה חֲשׁוּבָה",
+        "tr": "hi notenet li 'etsah chashuvah",
+        "fr": "elle me donne un conseil important"
+      }
+    ]
+  },
+  {
+    "he": "פֶּשַׁע",
+    "fr": "crime, faute",
+    "genre": "m",
+    "pluriel": {
+      "he": "פְּשָׁעִים",
+      "tr": "pesha'im"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "זֶה פֶּשַׁע לְהַשְׁאִיר אֹכֶל בַּחוּץ",
+        "tr": "zeh pesha' lehashir okhel bachuts",
+        "fr": "c'est un crime de laisser de la nourriture dehors"
+      },
+      {
+        "he": "הַמִּשְׁטָרָה חוֹקֶרֶת אֶת הַפֶּשַׁע",
+        "tr": "hamishtarah chokeret et hapesha'",
+        "fr": "la police enquête sur le crime"
+      }
+    ]
+  },
+  {
+    "he": "צָבָא",
+    "fr": "armée, service (militaire)",
+    "genre": "m",
+    "pluriel": {
+      "he": "צְבָאוֹת",
+      "tr": "tsvaot"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא מְשָׁרֵת בַּצָּבָא",
+        "tr": "hu mesharet batsava",
+        "fr": "il sert dans l'armée"
+      },
+      {
+        "he": "הַצָּבָא מֵגֵן עַל הַמְּדִינָה",
+        "tr": "hatsava megen 'al hamdinah",
+        "fr": "l'armée défend le pays"
+      }
+    ]
+  },
+  {
+    "he": "צֶדֶק",
+    "fr": "justice, droit",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "כֻּלָּם רוֹצִים צֶדֶק",
+        "tr": "kulam rotsim tsedek",
+        "fr": "tout le monde veut la justice"
+      },
+      {
+        "he": "הוּא נִלְחָם לְמַעַן הַצֶּדֶק",
+        "tr": "hu nilcham lema'an hatsedek",
+        "fr": "il se bat pour la justice"
+      }
+    ]
+  },
+  {
+    "he": "צָרָה",
+    "fr": "ennui, problème",
+    "genre": "f",
+    "pluriel": {
+      "he": "צָרוֹת",
+      "tr": "tsarot"
+    },
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ לִי צָרָה קְטַנָּה",
+        "tr": "yesh li tsarah ketanah",
+        "fr": "j'ai un petit problème"
+      },
+      {
+        "he": "לַמִּשְׁפָּחָה יֵשׁ צָרוֹת",
+        "tr": "lamishpachah yesh tsarot",
+        "fr": "la famille a des problèmes"
+      }
+    ]
+  },
+  {
+    "he": "קְלָלָה",
+    "fr": "malédiction",
+    "genre": "f",
+    "pluriel": {
+      "he": "קְלָלוֹת",
+      "tr": "kelalot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא מְפַחֵד מֵהַקְּלָלָה",
+        "tr": "hu mefached mehaklalah",
+        "fr": "il a peur de la malédiction"
+      },
+      {
+        "he": "הַמִּשְׁפָּחָה מְפַחֶדֶת מֵהַקְּלָלָה הַזֹּאת",
+        "tr": "hamishpachah mefachedet mehaklalah hazot",
+        "fr": "la famille a peur de cette malédiction"
+      }
+    ]
+  },
+  {
+    "he": "קֵץ",
+    "fr": "fin",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "לְכָל דָּבָר יֵשׁ קֵץ",
+        "tr": "lekhol davar yesh kets",
+        "fr": "chaque chose a une fin"
+      },
+      {
+        "he": "זֶה לֹא הַקֵּץ",
+        "tr": "zeh lo hakets",
+        "fr": "ce n'est pas la fin"
+      }
+    ]
+  },
+  {
+    "he": "שָׁלָל",
+    "fr": "butin",
+    "genre": "m",
+    "pluriel": null,
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הַשּׁוֹטְרִים מְחַפְּשִׂים אֶת הַשָּׁלָל.",
+        "tr": "hashotrim mechapsim et hashalal",
+        "fr": "les policiers cherchent le butin"
+      },
+      {
+        "he": "יֵשׁ שְׁלַל סִבּוֹת לִלְמֹד עִבְרִית.",
+        "tr": "yesh shlal sibot lilmod 'ivrit",
+        "fr": "il y a une multitude de raisons d'apprendre l'hébreu"
+      }
+    ]
+  },
+  {
+    "he": "תּוֹרָה",
+    "fr": "la torah, loi religieuse juive ; doctrine, théorie",
+    "genre": "f",
+    "pluriel": {
+      "he": "תּוֹרוֹת",
+      "tr": "torot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "יֵשׁ הַרְבֵּה תּוֹרוֹת שׁוֹנוֹת בָּעוֹלָם.",
+        "tr": "yesh harbeh torot shonot ba'olam",
+        "fr": "il existe de nombreuses théories différentes dans le monde"
+      },
+      {
+        "he": "הוּא לוֹמֵד תּוֹרָה כָּל בֹּקֶר.",
+        "tr": "hu lomed torah kol boker",
+        "fr": "il étudie la torah tous les matins"
+      }
+    ]
+  },
+  {
+    "he": "תְּפִלָּה",
+    "fr": "prière",
+    "genre": "f",
+    "pluriel": {
+      "he": "תְּפִלּוֹת",
+      "tr": "tefilot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הֵם אוֹמְרִים תְּפִלָּה לִפְנֵי הָאֹכֶל.",
+        "tr": "hem omrim tefilah lifnei ha'okhel",
+        "fr": "ils disent une prière avant le repas"
+      }
+    ]
+  },
+  {
+    "he": "תְּרוּמָה",
+    "fr": "offrande, don, contribution",
+    "genre": "f",
+    "pluriel": {
+      "he": "תְּרוּמוֹת",
+      "tr": "terumot"
+    },
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "abstraits-idees",
+    "exemples": [
+      {
+        "he": "הוּא נוֹתֵן תְּרוּמָה גְּדוֹלָה לְבֵית הַחוֹלִים.",
+        "tr": "hu noten terumah gedolah leveit hacholim",
+        "fr": "il fait un don important à l'hôpital"
       }
     ]
   }

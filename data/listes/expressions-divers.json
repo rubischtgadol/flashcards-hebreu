@@ -371,6 +371,90 @@
           "fr": "ça a l'air d'une bonne idée"
         }
       ]
+    },
+    {
+      "he": "טוֹב מְאֹד",
+      "tr": "tov me'od",
+      "fr": "très bien",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "לֹא כָּל כָּךְ",
+      "tr": "lo kol kakh",
+      "fr": "pas tellement, pas très",
+      "niveau": "A2",
+      "exemples": []
+    },
+    {
+      "he": "שָׁבוּעַ טוֹב",
+      "tr": "shavu'a tov",
+      "fr": "bonne semaine (à la sortie du chabbat)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "חַג שָׂמֵחַ",
+      "tr": "chag sameach",
+      "fr": "joyeuse fête",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "קוֹרְאִים לִי…",
+      "tr": "korim li",
+      "fr": "je m'appelle…",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "שַׁבָּת שָׁלוֹם",
+      "tr": "shabat shalom",
+      "fr": "bon chabbat (dès le vendredi)",
+      "niveau": "A1",
+      "exemples": []
+    },
+    {
+      "he": "אַל",
+      "tr": "al",
+      "fr": "ne … pas ! (défense, devant un verbe au futur)",
+      "niveau": "A2",
+      "exemples": [
+        {
+          "he": "אַל תִּדְאַג, הַכֹּל בְּסֵדֶר",
+          "tr": "al tidag hakol beseder",
+          "fr": "ne t'inquiète pas, tout va bien"
+        }
+      ],
+      "note": "précède un verbe au futur pour former une défense (« ne fais pas »), jamais l'impératif direct ; à ne pas confondre avec אֶל « vers, à », mêmes consonnes, vocalisation différente"
+    },
+    {
+      "he": "בִּלְתִּי",
+      "tr": "bilti",
+      "fr": "non-, in-, im- (particule négative devant un adjectif ou un participe)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "זֶה בִּלְתִּי אֶפְשָׁרִי",
+          "tr": "zeh bilti efshari",
+          "fr": "c'est impossible"
+        }
+      ],
+      "note": "registre soutenu ; mot distinct placé devant l'adjectif ou le participe qu'il nie, parfois relié par un trait d'union : בִּלְתִּי אֶפְשָׁרִי « impossible », בִּלְתִּי רָגִיל « inhabituel »"
+    },
+    {
+      "he": "נָא",
+      "tr": "na",
+      "fr": "veuillez, s'il vous plaît (particule de politesse formelle)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "נָא לְכַבּוֹת טֶלֶפוֹנִים נַיָּדִים",
+          "tr": "na lekhabot telefonim nayadim",
+          "fr": "veuillez éteindre les téléphones portables"
+        }
+      ],
+      "note": "registre soutenu/officiel (affiches, annonces, consignes écrites) : נָא לֹא לְעַשֵּׁן ; à l'oral courant on dit plutôt בְּבַקָּשָׁה"
     }
   ]
 }

@@ -7502,5 +7502,422 @@
         "fr": "sa chambre est toujours organisée"
       }
     ]
+  },
+  {
+    "he": "קַמְצָן",
+    "fr": "avare, radin",
+    "formes": [
+      {
+        "he": "קַמְצָנִית",
+        "tr": "kamtsanit"
+      },
+      {
+        "he": "קַמְצָנִים",
+        "tr": "kamtsanim"
+      },
+      {
+        "he": "קַמְצָנִיּוֹת",
+        "tr": "kamtsaniyot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא אָדָם קַמְצָן מְאֹד",
+        "tr": "hu adam kamtsan me'od",
+        "fr": "c'est un homme très avare"
+      },
+      {
+        "he": "הַקַּמְצָן לֹא אוֹהֵב לְשַׁלֵּם",
+        "tr": "hakamtsan lo ohev leshalem",
+        "fr": "l'avare n'aime pas payer"
+      }
+    ]
+  },
+  {
+    "he": "מְחֻבָּר",
+    "fr": "relié, connecté",
+    "formes": [
+      {
+        "he": "מְחֻבֶּרֶת",
+        "tr": "mechuberet"
+      },
+      {
+        "he": "מְחֻבָּרִים",
+        "tr": "mechubarim"
+      },
+      {
+        "he": "מְחֻבָּרוֹת",
+        "tr": "mechubarot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "communication-pensee",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנִי מְחֻבָּר לָאִינְטֶרְנֶט",
+        "tr": "ani mechubar la'internet",
+        "fr": "je suis connecté à internet"
+      }
+    ]
+  },
+  {
+    "he": "מְשֻׁתָּף",
+    "fr": "commun, partagé, conjoint",
+    "formes": [
+      {
+        "he": "מְשֻׁתֶּפֶת",
+        "tr": "meshutefet"
+      },
+      {
+        "he": "מְשֻׁתָּפִים",
+        "tr": "meshutafim"
+      },
+      {
+        "he": "מְשֻׁתָּפוֹת",
+        "tr": "meshutafot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ חֶשְׁבּוֹן בַּנְק מְשֻׁתָּף",
+        "tr": "yesh lanu cheshbon bank meshutaf",
+        "fr": "nous avons un compte bancaire commun"
+      }
+    ]
+  },
+  {
+    "he": "אָרוּר",
+    "fr": "maudit",
+    "formes": [
+      {
+        "he": "אֲרוּרָה",
+        "tr": "arurah"
+      },
+      {
+        "he": "אֲרוּרִים",
+        "tr": "arurim"
+      },
+      {
+        "he": "אֲרוּרוֹת",
+        "tr": "arurot"
+      }
+    ],
+    "niveau": "B2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "זֶה יוֹם אָרוּר",
+        "tr": "zeh yom arur",
+        "fr": "c'est un jour maudit"
+      }
+    ]
+  },
+  {
+    "he": "בָּרוּךְ",
+    "fr": "béni",
+    "formes": [
+      {
+        "he": "בְּרוּכָה",
+        "tr": "berukhah"
+      },
+      {
+        "he": "בְּרוּכִים",
+        "tr": "berukhim"
+      },
+      {
+        "he": "בְּרוּכוֹת",
+        "tr": "berukhot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "אֲנַחְנוּ אוֹמְרִים בָּרוּךְ הַבָּא לָאוֹרֵחַ",
+        "tr": "anachnu omrim barukh haba laoreach",
+        "fr": "nous disons bienvenue à l'invité"
+      }
+    ]
+  },
+  {
+    "he": "טָהוֹר",
+    "fr": "pur",
+    "formes": [
+      {
+        "he": "טְהוֹרָה",
+        "tr": "tehorah"
+      },
+      {
+        "he": "טְהוֹרִים",
+        "tr": "tehorim"
+      },
+      {
+        "he": "טְהוֹרוֹת",
+        "tr": "tehorot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַלֵּב שֶׁלּוֹ טָהוֹר",
+        "tr": "halev shelo tahor",
+        "fr": "son cœur est pur"
+      }
+    ]
+  },
+  {
+    "he": "טָמֵא",
+    "fr": "impur",
+    "formes": [
+      {
+        "he": "טְמֵאָה",
+        "tr": "teme'ah"
+      },
+      {
+        "he": "טְמֵאִים",
+        "tr": "teme'im"
+      },
+      {
+        "he": "טְמֵאוֹת",
+        "tr": "temeot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הֵם חוֹשְׁבִים שֶׁהַבָּשָׂר הַזֶּה טָמֵא",
+        "tr": "hem choshvim shehabasar hazeh tame",
+        "fr": "ils pensent que cette viande est impure"
+      }
+    ]
+  },
+  {
+    "he": "עֶלְיוֹן",
+    "fr": "supérieur, suprême",
+    "formes": [
+      {
+        "he": "עֶלְיוֹנָה",
+        "tr": "'elyonah"
+      },
+      {
+        "he": "עֶלְיוֹנִים",
+        "tr": "'elyonim"
+      },
+      {
+        "he": "עֶלְיוֹנוֹת",
+        "tr": "'elyonot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "בֵּית הַמִּשְׁפָּט הָעֶלְיוֹן דָּן בַּתִּיק",
+        "tr": "beit hamishpat ha'elyon dan batik",
+        "fr": "la cour suprême examine l'affaire"
+      },
+      {
+        "he": "אֲנַחְנוּ גָּרִים בַּקּוֹמָה הָעֶלְיוֹנָה",
+        "tr": "anachnu garim bakomah ha'elyonah",
+        "fr": "nous habitons à l'étage supérieur"
+      }
+    ]
+  },
+  {
+    "he": "צַדִּיק",
+    "fr": "juste, pieux, vertueux",
+    "formes": [
+      {
+        "he": "צַדִּיקָה",
+        "tr": "tsadikah"
+      },
+      {
+        "he": "צַדִּיקִים",
+        "tr": "tsadikim"
+      },
+      {
+        "he": "צַדִּיקוֹת",
+        "tr": "tsadikot"
+      }
+    ],
+    "niveau": "B2",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא אִישׁ צַדִּיק וְיָשָׁר",
+        "tr": "hu ish tsadik veyashar",
+        "fr": "c'est un homme juste et droit"
+      },
+      {
+        "he": "כֻּלָּם רוֹאִים בָּהּ אִשָּׁה צַדִּיקָה",
+        "tr": "kulam ro'im bah ishah tsadikah",
+        "fr": "tout le monde la considère comme une femme juste"
+      }
+    ]
+  },
+  {
+    "he": "קָדוֹשׁ",
+    "fr": "saint",
+    "formes": [
+      {
+        "he": "קְדוֹשָׁה",
+        "tr": "kedoshah"
+      },
+      {
+        "he": "קְדוֹשִׁים",
+        "tr": "kedoshim"
+      },
+      {
+        "he": "קְדוֹשׁוֹת",
+        "tr": "kedoshot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הַשַּׁבָּת הִיא יוֹם קָדוֹשׁ",
+        "tr": "hashabat hi yom kadosh",
+        "fr": "le chabbat est un jour saint"
+      },
+      {
+        "he": "בֵּית הַכְּנֶסֶת קָדוֹשׁ",
+        "tr": "beit hakneset kadosh",
+        "fr": "la synagogue est sainte"
+      }
+    ]
+  },
+  {
+    "he": "רַב",
+    "fr": "nombreux, grand",
+    "formes": [
+      {
+        "he": "רַבָּה",
+        "tr": "rabah"
+      },
+      {
+        "he": "רַבִּים",
+        "tr": "rabim"
+      },
+      {
+        "he": "רַבּוֹת",
+        "tr": "rabot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "יֵשׁ לָנוּ זְמַן רַב",
+        "tr": "yesh lanu zeman rav",
+        "fr": "nous avons beaucoup de temps"
+      },
+      {
+        "he": "בָּעִיר יֵשׁ אֲנָשִׁים רַבִּים",
+        "tr": "ba'ir yesh anashim rabim",
+        "fr": "il y a beaucoup de gens en ville"
+      }
+    ]
+  },
+  {
+    "he": "רָשָׁע",
+    "fr": "méchant, malfaisant, scélérat",
+    "formes": [
+      {
+        "he": "רְשָׁעָה",
+        "tr": "resha'ah"
+      },
+      {
+        "he": "רְשָׁעִים",
+        "tr": "resha'im"
+      },
+      {
+        "he": "רְשָׁעוֹת",
+        "tr": "resha'ot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא רָשָׁע וְאַכְזָרִי",
+        "tr": "hu rasha' ve'akhzari",
+        "fr": "il est méchant et cruel"
+      }
+    ]
+  },
+  {
+    "he": "תָּמִים",
+    "fr": "naïf, candide",
+    "formes": [
+      {
+        "he": "תְּמִימָה",
+        "tr": "temimah"
+      },
+      {
+        "he": "תְּמִימִים",
+        "tr": "temimim"
+      },
+      {
+        "he": "תְּמִימוֹת",
+        "tr": "temimot"
+      }
+    ],
+    "niveau": "B1",
+    "theme": "emotions-caractere",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא תָּמִים מִדַּי וּמַאֲמִין לְכֻלָּם.",
+        "tr": "hu tamim miday uma'amin lekhulam",
+        "fr": "il est trop naïf et croit tout le monde"
+      }
+    ]
+  },
+  {
+    "he": "שָׁלֵם",
+    "fr": "entier, intact, complet",
+    "formes": [
+      {
+        "he": "שְׁלֵמָה",
+        "tr": "shlemah"
+      },
+      {
+        "he": "שְׁלֵמִים",
+        "tr": "shlemim"
+      },
+      {
+        "he": "שְׁלֵמוֹת",
+        "tr": "shlemot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "abstrait",
+    "groupe": "",
+    "exemples": [
+      {
+        "he": "הוּא חוֹזֵר הַבַּיְתָה בָּרִיא וְשָׁלֵם.",
+        "tr": "hu chozer habaytah bari veshalem",
+        "fr": "il rentre à la maison sain et sauf"
+      }
+    ]
   }
 ]

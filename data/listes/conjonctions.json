@@ -474,6 +474,62 @@
           "fr": "ce n'est pas un problème, mais une opportunité"
         }
       ]
+    },
+    {
+      "he": "אַךְ",
+      "tr": "akh",
+      "fr": "mais, cependant",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הַיּוֹם קַר, אַךְ אֲנִי יוֹצֵא",
+          "tr": "hayom kar akh ani yotse",
+          "fr": "aujourd'hui il fait froid, mais je sors"
+        }
+      ],
+      "note": "plus soutenu que אֲבָל, surtout à l'écrit"
+    },
+    {
+      "he": "כִּי אִם",
+      "tr": "ki im",
+      "fr": "mais plutôt, si ce n'est (registre soutenu)",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "אֲנִי לֹא רוֹצֶה כֶּסֶף, כִּי אִם כָּבוֹד",
+          "tr": "ani lo rotseh kesef ki im kavod",
+          "fr": "je ne veux pas d'argent, mais plutôt de l'honneur"
+        }
+      ],
+      "note": "construction corrélative לֹא… כִּי אִם… (« pas… mais plutôt… »), variante soutenue de אֶלָּא"
+    },
+    {
+      "he": "לוּ",
+      "tr": "lu",
+      "fr": "si (irréel), si seulement",
+      "niveau": "B2",
+      "exemples": [
+        {
+          "he": "לוּ הָיִיתִי עָשִׁיר, הָיִיתִי קוֹנֶה בַּיִת",
+          "tr": "lu hayiti 'ashir hayiti koneh bayit",
+          "fr": "si j'étais riche, j'achèterais une maison"
+        }
+      ],
+      "note": "homographe consonantique avec לוֹ (à lui — Prépositions fléchies) : niqqud et sens différents, sections différentes ; registre soutenu — à l'oral on dit plutôt אִלּוּ ou אִם"
+    },
+    {
+      "he": "פֶּן",
+      "tr": "pen",
+      "fr": "de peur que, pour ne pas que",
+      "niveau": "C1",
+      "exemples": [
+        {
+          "he": "הוּא נִזְהָר פֶּן יִפֹּל",
+          "tr": "hu nizhar pen yipol",
+          "fr": "il fait attention de peur de tomber"
+        }
+      ],
+      "note": "conjonction de registre soutenu, encore usitée à l'écrit formel ; l'oral courant préfère כְּדֵי שֶׁלֹּא"
     }
   ]
 }

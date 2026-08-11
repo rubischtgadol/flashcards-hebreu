@@ -513,6 +513,52 @@
           "fr": "il a raconté au sujet du voyage"
         }
       ]
+    },
+    {
+      "he": "לְמַעַן",
+      "tr": "lema'an",
+      "fr": "pour, dans l'intérêt de, au nom de (soutenu)",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "אֲנִי עוֹבֵד לְמַעַן הַמִּשְׁפָּחָה שֶׁלִּי",
+          "tr": "ani 'oved lema'an hamishpachah sheli",
+          "fr": "je travaille pour ma famille"
+        }
+      ],
+      "note": "préposition + nom : לְמַעַן הַשָּׁלוֹם, לְמַעַן הַיְלָדִים ; registre soutenu, l'équivalent courant est בִּשְׁבִיל ou עֲבוּר — pour « afin que » on dit כְּדֵי שֶׁ ou עַל מְנָת שֶׁ"
+    },
+    {
+      "he": "לִקְרַאת",
+      "tr": "likrat",
+      "fr": "à la rencontre de, au-devant de ; à l'approche de, en vue de",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא רָץ לִקְרַאת אִמָּא שֶׁלּוֹ",
+          "tr": "hu rats likrat ima shelo",
+          "fr": "il court à la rencontre de sa mère"
+        },
+        {
+          "he": "כֻּלָּם מִתְרַגְּשִׁים לִקְרַאת הֶחָג",
+          "tr": "kulam mitragshim likrat hechag",
+          "fr": "tout le monde est excité à l'approche de la fête"
+        }
+      ],
+      "note": "sens spatial et sens temporel très courant à l'oral (לקראת החג, לקראת סוף השבוע)"
+    },
+    {
+      "he": "מִפְּנֵי",
+      "tr": "mipnei",
+      "fr": "à cause de (soutenu) — surtout dans מִפְּנֵי שֶׁ, « parce que »",
+      "niveau": "B1",
+      "exemples": [
+        {
+          "he": "הוּא לֹא יוֹצֵא מִפְּנֵי הַגֶּשֶׁם",
+          "tr": "hu lo yotse mipnei hageshem",
+          "fr": "il ne sort pas à cause de la pluie"
+        }
+      ]
     }
   ]
 }

@@ -111,7 +111,8 @@
           "tr": "hi af pa'am lo okhelet basar",
           "fr": "elle ne mange jamais de viande"
         }
-      ]
+      ],
+      "note": "toujours avec la négation : אַף פַּעַם לֹא ; forme soutenue : לְעוֹלָם לֹא (futur), מֵעוֹלָם לֹא (passé)"
     },
     {
       "he": "לִפְעָמִים",
@@ -399,6 +400,21 @@
       ]
     },
     {
+      "he": "עַתָּה",
+      "tr": "'atah",
+      "fr": "maintenant, à présent (soutenu)",
+      "niveau": "C1",
+      "groupe": "temps",
+      "exemples": [
+        {
+          "he": "לְעֵת עַתָּה אֵין תְּשׁוּבָה סוֹפִית",
+          "tr": "le'et 'atah ein teshuvah sofit",
+          "fr": "pour l'instant, il n'y a pas de réponse définitive"
+        }
+      ],
+      "note": "registre soutenu/littéraire ; l'hébreu courant dit עַכְשָׁיו ; עַתָּה survit dans des expressions comme לְעֵת עַתָּה (pour l'instant)"
+    },
+    {
       "he": "כָּאן",
       "tr": "kan",
       "fr": "ici",
@@ -585,6 +601,11 @@
           "he": "זֶה בְּדִיּוּק מָה שֶׁרָצִיתִי",
           "tr": "zeh bediyuk mah sheratsiti",
           "fr": "c'est exactement ce que je voulais"
+        },
+        {
+          "he": "הַשָּׁעָה שֶׁבַע בְּדִיּוּק",
+          "tr": "hasha'ah sheva' bediyuk",
+          "fr": "il est sept heures pile"
         }
       ]
     },
@@ -705,6 +726,21 @@
           "fr": "apparemment il va pleuvoir demain"
         }
       ]
+    },
+    {
+      "he": "כֹּה",
+      "tr": "koh",
+      "fr": "tellement, si (registre soutenu)",
+      "niveau": "B2",
+      "groupe": "degre-intensite",
+      "exemples": [
+        {
+          "he": "זֶה כֹּה חָשׁוּב לִי",
+          "tr": "zeh koh chashuv li",
+          "fr": "c'est tellement important pour moi"
+        }
+      ],
+      "note": "intensificateur soutenu devant adjectif (כֹּה חָשׁוּב = si important) ; à ne pas confondre avec עַד כֹּה (jusqu’à présent) et כָּכָה (ainsi, courant)"
     },
     {
       "he": "כָּכָה",
