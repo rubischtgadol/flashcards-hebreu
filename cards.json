@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-10",
+  "version": "2026-08-11",
   "cartes": [
     {
       "cat": "Verbes",
@@ -941,7 +941,7 @@
         {
           "he": "הָאוֹטוֹבּוּס עוֹצֵר בְּכָל תַּחֲנָה.",
           "tr": "haotobus 'otser bekhol tachanah",
-          "fr": "Le bus s'arrête à chaque station.",
+          "fr": "le bus s'arrête à chaque station",
           "he_plain": "האוטובוס עוצר בכל תחנה."
         }
       ],
@@ -984,7 +984,7 @@
         {
           "he": "הַגַּנָּב בּוֹרֵחַ מֵהַשּׁוֹטֵר.",
           "tr": "haganav boreach mehashoter",
-          "fr": "Le voleur s'enfuit du policier.",
+          "fr": "le voleur s'enfuit du policier",
           "he_plain": "הגנב בורח מהשוטר."
         }
       ],
@@ -1027,7 +1027,7 @@
         {
           "he": "אֲנַחְנוּ מִתְקַדְּמִים לְאַט בַּפְּקָק.",
           "tr": "anachnu mitkadmim le'at bapkak",
-          "fr": "Nous avançons lentement dans l'embouteillage.",
+          "fr": "nous avançons lentement dans l'embouteillage",
           "he_plain": "אנחנו מתקדמים לאט בפקק."
         }
       ],
@@ -1070,7 +1070,7 @@
         {
           "he": "הָאֳנִיָּה מִתְרַחֶקֶת מִן הַחוֹף.",
           "tr": "ha'oniyah mitracheket min hachof",
-          "fr": "Le bateau s'éloigne de la côte.",
+          "fr": "le bateau s'éloigne de la côte",
           "he_plain": "האניה מתרחקת מן החוף."
         }
       ],
@@ -3134,7 +3134,7 @@
         {
           "he": "הַטַּבָּח מְעַרְבֵּב אֶת הַמָּרָק.",
           "tr": "hatabach me'arbev et hamarak",
-          "fr": "Le cuisinier mélange la soupe.",
+          "fr": "le cuisinier mélange la soupe",
           "he_plain": "הטבח מערבב את המרק."
         }
       ],
@@ -3177,7 +3177,7 @@
         {
           "he": "הַמֶּלְצַר מוֹזֵג יַיִן לַכּוֹס.",
           "tr": "hameltsar mozeg yayin lakos",
-          "fr": "Le serveur verse du vin dans le verre.",
+          "fr": "le serveur verse du vin dans le verre",
           "he_plain": "המלצר מוזג יין לכוס."
         }
       ],
@@ -3220,7 +3220,7 @@
         {
           "he": "סָבְתָא תּוֹפֶרֶת כַּפְתּוֹר לַחֻלְצָה.",
           "tr": "savta toferet kaftor lachultsah",
-          "fr": "Grand-mère coud un bouton à la chemise.",
+          "fr": "grand-mère coud un bouton à la chemise",
           "he_plain": "סבתא תופרת כפתור לחלצה."
         }
       ],
@@ -5155,7 +5155,7 @@
         {
           "he": "אֲנִי מַזְכִּיר לְךָ אֶת הַפְּגִישָׁה.",
           "tr": "ani mazkir lekha et hapgishah",
-          "fr": "Je te rappelle le rendez-vous.",
+          "fr": "je te rappelle le rendez-vous",
           "he_plain": "אני מזכיר לך את הפגישה."
         }
       ],
@@ -5198,7 +5198,7 @@
         {
           "he": "הוּא מַצִּיעַ לָלֶכֶת לַקּוֹלְנוֹעַ.",
           "tr": "hu matsi'a lalekhet lakolno'a",
-          "fr": "Il propose d'aller au cinéma.",
+          "fr": "il propose d'aller au cinéma",
           "he_plain": "הוא מציע ללכת לקולנוע."
         }
       ],
@@ -5241,7 +5241,7 @@
         {
           "he": "הִיא מְתַרְגֶּמֶת אֶת הַסֵּפֶר לְעִבְרִית.",
           "tr": "hi metargemet et hasefer le'ivrit",
-          "fr": "Elle traduit le livre en hébreu.",
+          "fr": "elle traduit le livre en hébreu",
           "he_plain": "היא מתרגמת את הספר לעברית."
         }
       ],
@@ -5284,7 +5284,7 @@
         {
           "he": "הוּא מְשַׁקֵּר לַחֲבֵרִים שֶׁלּוֹ.",
           "tr": "hu meshaker lachaverim shelo",
-          "fr": "Il ment à ses amis.",
+          "fr": "il ment à ses amis",
           "he_plain": "הוא משקר לחברים שלו."
         }
       ],
@@ -5327,7 +5327,7 @@
         {
           "he": "הַשֶּׁלֶט מַזְהִיר אֶת הַנֶּהָגִים מִפְּנֵי הַסַּכָּנָה.",
           "tr": "hashelet mazhir et hanehagim mipnei hasakanah",
-          "fr": "Le panneau avertit les conducteurs du danger.",
+          "fr": "le panneau avertit les conducteurs du danger",
           "he_plain": "השלט מזהיר את הנהגים מפני הסכנה."
         }
       ],
@@ -6316,7 +6316,7 @@
         {
           "he": "אַתָּה מְנַחֵשׁ אֶת הַתְּשׁוּבָה הַנְּכוֹנָה.",
           "tr": "atah menachesh et hatshuvah hankhonah",
-          "fr": "Tu devines la bonne réponse.",
+          "fr": "tu devines la bonne réponse",
           "he_plain": "אתה מנחש את התשובה הנכונה."
         }
       ],
@@ -6359,7 +6359,7 @@
         {
           "he": "הַקּוֹנֶה מַשְׁוֶה בֵּין הַמְּחִירִים.",
           "tr": "hakoneh mashveh bein hamchirim",
-          "fr": "L'acheteur compare les prix.",
+          "fr": "l'acheteur compare les prix",
           "he_plain": "הקונה משוה בין המחירים."
         }
       ],
@@ -6402,7 +6402,7 @@
         {
           "he": "הַשָּׁכֵן מִתְלוֹנֵן עַל הָרַעַשׁ.",
           "tr": "hashakhen mitlonen 'al hara'ash",
-          "fr": "Le voisin se plaint du bruit.",
+          "fr": "le voisin se plaint du bruit",
           "he_plain": "השכן מתלונן על הרעש."
         }
       ],
@@ -6445,7 +6445,7 @@
         {
           "he": "אֲנִי מִתְגַּעְגֵּעַ לַמִּשְׁפָּחָה שֶׁלִּי.",
           "tr": "ani mitga'ge'a lamishpachah sheli",
-          "fr": "Ma famille me manque.",
+          "fr": "ma famille me manque",
           "he_plain": "אני מתגעגע למשפחה שלי."
         }
       ],
@@ -8380,7 +8380,7 @@
         {
           "he": "הוּא חוֹתֵם עַל הַטֹּפֶס",
           "tr": "hu chotem 'al hatofes",
-          "fr": "Il signe le formulaire",
+          "fr": "il signe le formulaire",
           "he_plain": "הוא חותם על הטפס"
         }
       ],
@@ -8423,7 +8423,7 @@
         {
           "he": "אֲנִי מְמַלֵּא אֶת הַטֹּפֶס",
           "tr": "ani memale et hatofes",
-          "fr": "Je remplis le formulaire",
+          "fr": "je remplis le formulaire",
           "he_plain": "אני ממלא את הטפס"
         }
       ],
@@ -8767,7 +8767,7 @@
         {
           "he": "הוּא מִשְׁתַּתֵּף בַּיְּשִׁיבָה.",
           "tr": "hu mishtatef bayshivah",
-          "fr": "Il participe à la réunion.",
+          "fr": "il participe à la réunion",
           "he_plain": "הוא משתתף בישיבה."
         }
       ],
@@ -8810,7 +8810,7 @@
         {
           "he": "אֲנַחְנוּ מְתַכְנְנִים אֶת הַטִּיּוּל.",
           "tr": "anachnu metakhnnim et hatiyul",
-          "fr": "Nous planifions l'excursion.",
+          "fr": "nous planifions l'excursion",
           "he_plain": "אנחנו מתכננים את הטיול."
         }
       ],
@@ -8853,7 +8853,7 @@
         {
           "he": "הַמּוֹרֶה בּוֹדֵק אֶת הַמִּבְחָנִים.",
           "tr": "hamoreh bodek et hamivchanim",
-          "fr": "Le professeur vérifie les examens.",
+          "fr": "le professeur vérifie les examens",
           "he_plain": "המורה בודק את המבחנים."
         }
       ],
@@ -8896,7 +8896,7 @@
         {
           "he": "הַתַּלְמִיד פּוֹתֵר אֶת הַתַּרְגִּיל.",
           "tr": "hatalmid poter et hatargil",
-          "fr": "L'élève résout l'exercice.",
+          "fr": "l'élève résout l'exercice",
           "he_plain": "התלמיד פותר את התרגיל."
         }
       ],
@@ -10444,7 +10444,7 @@
         {
           "he": "אֲנִי מִתְרַגֵּשׁ לִפְנֵי הַהוֹפָעָה.",
           "tr": "ani mitragesh lifnei hahofa'ah",
-          "fr": "Je suis ému avant le spectacle.",
+          "fr": "je suis ému avant le spectacle",
           "he_plain": "אני מתרגש לפני ההופעה."
         }
       ],
@@ -10487,7 +10487,7 @@
         {
           "he": "הוּא מִתְעַנְיֵן בְּהִיסְטוֹרְיָה.",
           "tr": "hu mit'anyen behistoryah",
-          "fr": "Il s'intéresse à l'histoire.",
+          "fr": "il s'intéresse à l'histoire",
           "he_plain": "הוא מתענין בהיסטוריה."
         }
       ],
@@ -10530,7 +10530,7 @@
         {
           "he": "אֲנַחְנוּ נֶהֱנִים מֵהַמְּסִבָּה.",
           "tr": "anachnu nehenim mehamsibah",
-          "fr": "Nous profitons de la fête.",
+          "fr": "nous profitons de la fête",
           "he_plain": "אנחנו נהנים מהמסבה."
         }
       ],
@@ -10573,7 +10573,7 @@
         {
           "he": "הַמִּשְׁפָּחָה חוֹגֶגֶת אֶת יוֹם הַהֻלֶּדֶת.",
           "tr": "hamishpachah chogeget et yom hahuledet",
-          "fr": "La famille fête l'anniversaire.",
+          "fr": "la famille fête l'anniversaire",
           "he_plain": "המשפחה חוגגת את יום ההלדת."
         }
       ],
@@ -16078,7 +16078,7 @@
         {
           "he": "אֲנִי אָלֶרְגִּי לְחָלָב",
           "tr": "ani alergi lechalav",
-          "fr": "Je suis allergique au lait",
+          "fr": "je suis allergique au lait",
           "he_plain": "אני אלרגי לחלב"
         }
       ],
@@ -19001,7 +19001,7 @@
         {
           "he": "הַיּוֹם מֶזֶג הָאֲוִיר נָעִים.",
           "tr": "hayom mezeg ha'avir na'im",
-          "fr": "Aujourd'hui le temps est agréable.",
+          "fr": "aujourd'hui le temps est agréable",
           "he_plain": "היום מזג האויר נעים."
         }
       ],
@@ -19038,7 +19038,7 @@
         {
           "he": "זֶה שֵׁם נָפוֹץ בְּעִבְרִית.",
           "tr": "zeh shem nafots be'ivrit",
-          "fr": "C'est un prénom courant en hébreu.",
+          "fr": "c'est un prénom courant en hébreu",
           "he_plain": "זה שם נפוץ בעברית."
         }
       ],
@@ -19075,7 +19075,7 @@
         {
           "he": "הַקַּו שֶׁצִּיַּרְתָּ קְצָת עָקֹם.",
           "tr": "hakav shetsiyarta ketsat 'akom",
-          "fr": "La ligne que tu as dessinée est un peu tordue.",
+          "fr": "la ligne que tu as dessinée est un peu tordue",
           "he_plain": "הקו שצירת קצת עקם."
         }
       ],
@@ -19112,7 +19112,7 @@
         {
           "he": "הַיָּדַיִם שֶׁלִּי דְּבִיקוֹת מֵהַדְּבַשׁ.",
           "tr": "hayadayim sheli devikot mehadvash",
-          "fr": "Mes mains sont collantes à cause du miel.",
+          "fr": "mes mains sont collantes à cause du miel",
           "he_plain": "הידים שלי דביקות מהדבש."
         }
       ],
@@ -19149,7 +19149,7 @@
         {
           "he": "הַסְּפָרִים עַל הַמַּדָּף מְאֻבָּקִים.",
           "tr": "hasfarim 'al hamadaf me'ubakim",
-          "fr": "Les livres sur l'étagère sont poussiéreux.",
+          "fr": "les livres sur l'étagère sont poussiéreux",
           "he_plain": "הספרים על המדף מאבקים."
         }
       ],
@@ -19186,7 +19186,7 @@
         {
           "he": "הַשֻּׁלְחָן עָשׂוּי מֵעֵץ מוּצָק.",
           "tr": "hashulchan 'asuy me'ets mutsak",
-          "fr": "La table est faite en bois solide.",
+          "fr": "la table est faite en bois solide",
           "he_plain": "השלחן עשוי מעץ מוצק."
         }
       ],
@@ -19223,7 +19223,7 @@
         {
           "he": "הוּא אָדָם חַשְׁדָן וְלֹא בּוֹטֵחַ בְּאִישׁ.",
           "tr": "hu adam chashdan velo boteach be'ish",
-          "fr": "C'est un homme méfiant qui ne fait confiance à personne.",
+          "fr": "c'est un homme méfiant qui ne fait confiance à personne",
           "he_plain": "הוא אדם חשדן ולא בוטח באיש."
         }
       ],
@@ -19260,7 +19260,7 @@
         {
           "he": "הַמַּפְתֵּחַ הַיָּשָׁן חָלוּד.",
           "tr": "hamafteach hayashan chalud",
-          "fr": "La vieille clé est rouillée.",
+          "fr": "la vieille clé est rouillée",
           "he_plain": "המפתח הישן חלוד."
         }
       ],
@@ -19297,7 +19297,7 @@
         {
           "he": "הִיא אִשָּׁה עֲדִינָה וְנֶחְמָדָה.",
           "tr": "hi ishah 'adinah venechmadah",
-          "fr": "C'est une femme délicate et gentille.",
+          "fr": "c'est une femme délicate et gentille",
           "he_plain": "היא אשה עדינה ונחמדה."
         }
       ],
@@ -19334,7 +19334,7 @@
         {
           "he": "הוּא דִּבֵּר בְּצוּרָה גַּסָּה מְאוֹד.",
           "tr": "hu diber betsurah gasah meod",
-          "fr": "Il a parlé d'une manière très grossière.",
+          "fr": "il a parlé d'une manière très grossière",
           "he_plain": "הוא דבר בצורה גסה מאוד."
         }
       ],
@@ -19371,7 +19371,7 @@
         {
           "he": "הוּא נִשְׁאַר אָדִישׁ לְמַה שֶּׁקָּרָה.",
           "tr": "hu nishar adish lemah shekarah",
-          "fr": "Il est resté indifférent à ce qui s'est passé.",
+          "fr": "il est resté indifférent à ce qui s'est passé",
           "he_plain": "הוא נשאר אדיש למה שקרה."
         }
       ],
@@ -19408,7 +19408,7 @@
         {
           "he": "אַחֲרֵי הַקָּפֶה אֲנִי מַרְגִּישׁ עֵרָנִי.",
           "tr": "acharei hakafeh ani margish 'erani",
-          "fr": "Après le café je me sens alerte.",
+          "fr": "après le café je me sens alerte",
           "he_plain": "אחרי הקפה אני מרגיש ערני."
         }
       ],
@@ -19445,7 +19445,7 @@
         {
           "he": "הַיֶּלֶד רָגִישׁ מְאוֹד וּבוֹכֶה בְּקַלּוּת.",
           "tr": "hayeled ragish meod uvokheh bekalut",
-          "fr": "L'enfant est très sensible et pleure facilement.",
+          "fr": "l'enfant est très sensible et pleure facilement",
           "he_plain": "הילד רגיש מאוד ובוכה בקלות."
         }
       ],
@@ -19482,7 +19482,7 @@
         {
           "he": "הַמְּנַהֵל הֶחָדָשׁ יָהִיר וְלֹא מַקְשִׁיב.",
           "tr": "hamnahel hechadash yahir velo makshiv",
-          "fr": "Le nouveau directeur est arrogant et n'écoute pas.",
+          "fr": "le nouveau directeur est arrogant et n'écoute pas",
           "he_plain": "המנהל החדש יהיר ולא מקשיב."
         }
       ],
@@ -19519,7 +19519,7 @@
         {
           "he": "הָיִיתִי מָתוּחַ לִפְנֵי הַמִּבְחָן.",
           "tr": "hayiti matuach lifnei hamivchan",
-          "fr": "J'étais tendu avant l'examen.",
+          "fr": "j'étais tendu avant l'examen",
           "he_plain": "הייתי מתוח לפני המבחן."
         }
       ],
@@ -19556,7 +19556,7 @@
         {
           "he": "הַשְּׁבִיל לָהָר תָּלוּל מְאוֹד.",
           "tr": "hashvil lahar talul meod",
-          "fr": "Le sentier vers la montagne est très escarpé.",
+          "fr": "le sentier vers la montagne est très escarpé",
           "he_plain": "השביל להר תלול מאוד."
         }
       ],
@@ -19593,7 +19593,7 @@
         {
           "he": "מֵי הַנַּחַל צְלוּלִים וְקָרִים.",
           "tr": "mei hanachal tselulim vekarim",
-          "fr": "L'eau du ruisseau est limpide et froide.",
+          "fr": "l'eau du ruisseau est limpide et froide",
           "he_plain": "מי הנחל צלולים וקרים."
         }
       ],
@@ -19630,7 +19630,7 @@
         {
           "he": "הַמַּצָּב הַכַּלְכָּלִי יַצִּיב הַשָּׁנָה.",
           "tr": "hamatsav hakalkali yatsiv hashanah",
-          "fr": "La situation économique est stable cette année.",
+          "fr": "la situation économique est stable cette année",
           "he_plain": "המצב הכלכלי יציב השנה."
         }
       ],
@@ -19667,7 +19667,7 @@
         {
           "he": "הַשְּׁרִירִים שֶׁלּוֹ רְפוּיִים אַחֲרֵי הָעִסּוּי.",
           "tr": "hashririm shelo refuyim acharei ha'isuy",
-          "fr": "Ses muscles sont relâchés après le massage.",
+          "fr": "ses muscles sont relâchés après le massage",
           "he_plain": "השרירים שלו רפויים אחרי העסוי."
         }
       ],
@@ -21658,7 +21658,7 @@
         {
           "he": "הַשָּׁכֵן שֶׁלִּי נֶחְמָד",
           "tr": "hashakhen sheli nechmad",
-          "fr": "Mon voisin est sympa",
+          "fr": "mon voisin est sympa",
           "he_plain": "השכן שלי נחמד"
         }
       ],
@@ -22422,7 +22422,7 @@
         {
           "he": "כָּל הַקְּרוֹבִים בָּאוּ לַחֲתֻנָּה.",
           "tr": "kol hakrovim bau lachatunah",
-          "fr": "Tous les proches sont venus au mariage.",
+          "fr": "tous les proches sont venus au mariage",
           "he_plain": "כל הקרובים באו לחתנה."
         }
       ],
@@ -22448,7 +22448,7 @@
         {
           "he": "פָּגַשְׁתִּי מַכָּר יָשָׁן בָּרְחוֹב.",
           "tr": "pagashti makar yashan barchov",
-          "fr": "J'ai rencontré une vieille connaissance dans la rue.",
+          "fr": "j'ai rencontré une vieille connaissance dans la rue",
           "he_plain": "פגשתי מכר ישן ברחוב."
         }
       ],
@@ -22474,7 +22474,7 @@
         {
           "he": "אֲנִי גָּר עִם שׁוּתָף לְדִירָה.",
           "tr": "ani gar 'im shutaf ledirah",
-          "fr": "Je vis avec un colocataire.",
+          "fr": "je vis avec un colocataire",
           "he_plain": "אני גר עם שותף לדירה."
         }
       ],
@@ -22500,7 +22500,7 @@
         {
           "he": "כָּל אֶזְרָח חַיָּב לְהַצְבִּיעַ.",
           "tr": "kol ezrach chayav lehatsbi'a",
-          "fr": "Chaque citoyen doit voter.",
+          "fr": "chaque citoyen doit voter",
           "he_plain": "כל אזרח חיב להצביע."
         }
       ],
@@ -22526,7 +22526,7 @@
         {
           "he": "הָאֻכְלוּסִיָּה בָּעִיר גְּדֵלָה מַהֵר.",
           "tr": "ha'ukhlusiyah ba'ir gedelah maher",
-          "fr": "La population de la ville augmente vite.",
+          "fr": "la population de la ville augmente vite",
           "he_plain": "האכלוסיה בעיר גדלה מהר."
         }
       ],
@@ -23240,7 +23240,7 @@
         {
           "he": "אֲנִי הוֹלֵךְ לְרוֹפֵא שִׁנַּיִם מָחָר",
           "tr": "ani holekh lerofe shinayim machar",
-          "fr": "Je vais chez le dentiste demain",
+          "fr": "je vais chez le dentiste demain",
           "he_plain": "אני הולך לרופא שנים מחר"
         }
       ],
@@ -23258,7 +23258,7 @@
         {
           "he": "יֵשׁ לִי הִצְטַנְּנוּת וַאֲנִי בַּבַּיִת",
           "tr": "yesh li hitstanenut va'ani babayit",
-          "fr": "J'ai un rhume et je suis à la maison",
+          "fr": "j'ai un rhume et je suis à la maison",
           "he_plain": "יש לי הצטננות ואני בבית"
         }
       ],
@@ -23284,7 +23284,7 @@
         {
           "he": "יֵשׁ לוֹ אָלֶרְגְּיָה לְבֵיצִים",
           "tr": "yesh lo alergyah leveitsim",
-          "fr": "Il a une allergie aux œufs",
+          "fr": "il a une allergie aux œufs",
           "he_plain": "יש לו אלרגיה לביצים"
         }
       ],
@@ -23310,7 +23310,7 @@
         {
           "he": "הָרוֹפֵא נוֹתֵן לִי מִרְשָׁם",
           "tr": "harofe noten li mirsham",
-          "fr": "Le médecin me donne une ordonnance",
+          "fr": "le médecin me donne une ordonnance",
           "he_plain": "הרופא נותן לי מרשם"
         }
       ],
@@ -23336,7 +23336,7 @@
         {
           "he": "הַיֶּלֶד מְקַבֵּל חִסּוּן הַיּוֹם",
           "tr": "hayeled mekabel chisun hayom",
-          "fr": "L'enfant reçoit un vaccin aujourd'hui",
+          "fr": "l'enfant reçoit un vaccin aujourd'hui",
           "he_plain": "הילד מקבל חסון היום"
         }
       ],
@@ -23362,7 +23362,7 @@
         {
           "he": "יֵשׁ לוֹ מַחֲלָה קָשָׁה.",
           "tr": "yesh lo machalah kashah",
-          "fr": "Il a une maladie grave.",
+          "fr": "il a une maladie grave",
           "he_plain": "יש לו מחלה קשה."
         }
       ],
@@ -23388,7 +23388,7 @@
         {
           "he": "הַטִּפּוּל אָרַךְ שָׁבוּעַ שָׁלֵם.",
           "tr": "hatipul arakh shavu'a shalem",
-          "fr": "Le traitement a duré une semaine entière.",
+          "fr": "le traitement a duré une semaine entière",
           "he_plain": "הטפול ארך שבוע שלם."
         }
       ],
@@ -23414,7 +23414,7 @@
         {
           "he": "יֵשׁ לוֹ דַּלֶּקֶת בַּגָּרוֹן.",
           "tr": "yesh lo daleket bagaron",
-          "fr": "Il a une inflammation de la gorge.",
+          "fr": "il a une inflammation de la gorge",
           "he_plain": "יש לו דלקת בגרון."
         }
       ],
@@ -23440,7 +23440,7 @@
         {
           "he": "הָרוֹפֵא הִמְלִיץ עַל נִתּוּחַ.",
           "tr": "harofe himlits 'al nituach",
-          "fr": "Le médecin a recommandé une opération.",
+          "fr": "le médecin a recommandé une opération",
           "he_plain": "הרופא המליץ על נתוח."
         }
       ],
@@ -23466,7 +23466,7 @@
         {
           "he": "חֹם גָּבוֹהַּ הוּא תַּסְמִין נָפוֹץ.",
           "tr": "chom gavoha hu tasmin nafots",
-          "fr": "Une forte fièvre est un symptôme courant.",
+          "fr": "une forte fièvre est un symptôme courant",
           "he_plain": "חם גבוה הוא תסמין נפוץ."
         }
       ],
@@ -23492,7 +23492,7 @@
         {
           "he": "הָאָחוֹת נָתְנָה לִי זְרִיקָה בַּזְּרוֹעַ.",
           "tr": "ha'achot natnah li zerikah bazro'a",
-          "fr": "L'infirmière m'a fait une piqûre dans le bras.",
+          "fr": "l'infirmière m'a fait une piqûre dans le bras",
           "he_plain": "האחות נתנה לי זריקה בזרוע."
         }
       ],
@@ -23518,7 +23518,7 @@
         {
           "he": "הִרְגַּשְׁתִּי בְּחִילָה אַחֲרֵי הָאֹכֶל.",
           "tr": "hirgashti bechilah acharei ha'okhel",
-          "fr": "J'ai ressenti une nausée après le repas.",
+          "fr": "j'ai ressenti une nausée après le repas",
           "he_plain": "הרגשתי בחילה אחרי האכל."
         }
       ],
@@ -24394,7 +24394,7 @@
         {
           "he": "אֵין אִינְטֶרְנֶט בַּבַּיִת הַיּוֹם",
           "tr": "ein internet babayit hayom",
-          "fr": "Il n'y a pas d'internet à la maison aujourd'hui",
+          "fr": "il n'y a pas d'internet à la maison aujourd'hui",
           "he_plain": "אין אינטרנט בבית היום"
         }
       ],
@@ -24412,7 +24412,7 @@
         {
           "he": "יֵשׁ כָּאן וַיְפַי?",
           "tr": "yesh kan vaifai?",
-          "fr": "Il y a du wifi ici ?",
+          "fr": "il y a du wifi ici ?",
           "he_plain": "יש כאן ויפי?"
         }
       ],
@@ -24438,7 +24438,7 @@
         {
           "he": "אֵין סוֹלְלָה בַּטֶּלֶפוֹן",
           "tr": "ein solelah batelefon",
-          "fr": "Il n'y a plus de batterie dans le téléphone",
+          "fr": "il n'y a plus de batterie dans le téléphone",
           "he_plain": "אין סוללה בטלפון"
         }
       ],
@@ -24464,7 +24464,7 @@
         {
           "he": "אֵיפֹה הַמַּטְעֵן שֶׁלִּי?",
           "tr": "eifoh hamat'en sheli?",
-          "fr": "Où est mon chargeur ?",
+          "fr": "où est mon chargeur ?",
           "he_plain": "איפה המטען שלי?"
         }
       ],
@@ -24734,7 +24734,7 @@
         {
           "he": "הַמַּפְתֵּחַ נִמְצָא בַּמְּגֵרָה.",
           "tr": "hamafteach nimtsa bamgerah",
-          "fr": "La clé se trouve dans le tiroir.",
+          "fr": "la clé se trouve dans le tiroir",
           "he_plain": "המפתח נמצא במגרה."
         }
       ],
@@ -24760,7 +24760,7 @@
         {
           "he": "הוּא תָּקַע אֶת הַמַּסְמֵר עִם פַּטִּישׁ.",
           "tr": "hu taka' et hamasmer 'im patish",
-          "fr": "Il a enfoncé le clou avec un marteau.",
+          "fr": "il a enfoncé le clou avec un marteau",
           "he_plain": "הוא תקע את המסמר עם פטיש."
         }
       ],
@@ -24786,7 +24786,7 @@
         {
           "he": "נִקִּיתִי אֶת הָרִצְפָּה עִם מַטְאֲטֵא.",
           "tr": "nikiti et haritspah 'im matate",
-          "fr": "J'ai nettoyé le sol avec un balai.",
+          "fr": "j'ai nettoyé le sol avec un balai",
           "he_plain": "נקיתי את הרצפה עם מטאטא."
         }
       ],
@@ -24812,7 +24812,7 @@
         {
           "he": "שַׂמְתִּי מַנְעוּל עַל הַשַּׁעַר.",
           "tr": "samti man'ul 'al hasha'ar",
-          "fr": "J'ai mis un cadenas sur le portail.",
+          "fr": "j'ai mis un cadenas sur le portail",
           "he_plain": "שמתי מנעול על השער."
         }
       ],
@@ -25960,7 +25960,7 @@
         {
           "he": "אֲנִי קוֹנֶה לִיטֶר חָלָב",
           "tr": "ani koneh liter chalav",
-          "fr": "J'achète un litre de lait",
+          "fr": "j'achète un litre de lait",
           "he_plain": "אני קונה ליטר חלב"
         }
       ],
@@ -25986,7 +25986,7 @@
         {
           "he": "כַּמָּה גְּרָם גְּבִינָה אַתָּה רוֹצֶה?",
           "tr": "kamah gram gvinah atah rotseh?",
-          "fr": "Combien de grammes de fromage veux-tu ?",
+          "fr": "combien de grammes de fromage veux-tu ?",
           "he_plain": "כמה גרם גבינה אתה רוצה?"
         }
       ],
@@ -26354,7 +26354,7 @@
         {
           "he": "הַמַּתְכּוֹן הַזֶּה קַל מְאוֹד.",
           "tr": "hamatkon hazeh kal meod",
-          "fr": "Cette recette est très facile.",
+          "fr": "cette recette est très facile",
           "he_plain": "המתכון הזה קל מאוד."
         }
       ],
@@ -26380,7 +26380,7 @@
         {
           "he": "אֲנִי אוֹהֵב לְהוֹסִיף תַּבְלִין לַמָּרָק.",
           "tr": "ani ohev lehosif tavlin lamarak",
-          "fr": "J'aime ajouter des épices à la soupe.",
+          "fr": "j'aime ajouter des épices à la soupe",
           "he_plain": "אני אוהב להוסיף תבלין למרק."
         }
       ],
@@ -26406,7 +26406,7 @@
         {
           "he": "לַקִּנּוּחַ אָכַלְנוּ עוּגַת שׁוֹקוֹלָד.",
           "tr": "lakinuach akhalnu 'ugat shokolad",
-          "fr": "En dessert, nous avons mangé un gâteau au chocolat.",
+          "fr": "en dessert, nous avons mangé un gâteau au chocolat",
           "he_plain": "לקנוח אכלנו עוגת שוקולד."
         }
       ],
@@ -26432,7 +26432,7 @@
         {
           "he": "לַמָּרָק הַזֶּה יֵשׁ טַעַם טוֹב.",
           "tr": "lamarak hazeh yesh ta'am tov",
-          "fr": "Cette soupe a bon goût.",
+          "fr": "cette soupe a bon goût",
           "he_plain": "למרק הזה יש טעם טוב."
         }
       ],
@@ -26458,7 +26458,7 @@
         {
           "he": "קָנִיתִי מַאֲפֶה טָרִי בַּבֹּקֶר.",
           "tr": "kaniti ma'afeh tari baboker",
-          "fr": "J'ai acheté une viennoiserie fraîche le matin.",
+          "fr": "j'ai acheté une viennoiserie fraîche le matin",
           "he_plain": "קניתי מאפה טרי בבקר."
         }
       ],
@@ -26484,7 +26484,7 @@
         {
           "he": "בַּתַּפּוּחַ הַזֶּה יֵשׁ הַרְבֵּה גַּרְעִינִים.",
           "tr": "batapuach hazeh yesh harbeh gar'inim",
-          "fr": "Dans cette pomme, il y a beaucoup de pépins.",
+          "fr": "dans cette pomme, il y a beaucoup de pépins",
           "he_plain": "בתפוח הזה יש הרבה גרעינים."
         }
       ],
@@ -26510,7 +26510,7 @@
         {
           "he": "אִמָּא הֵכִינָה תַּבְשִׁיל טָעִים לָעֶרֶב.",
           "tr": "ima hekhinah tavshil ta'im la'erev",
-          "fr": "Maman a préparé un bon plat pour ce soir.",
+          "fr": "maman a préparé un bon plat pour ce soir",
           "he_plain": "אמא הכינה תבשיל טעים לערב."
         }
       ],
@@ -27292,7 +27292,7 @@
         {
           "he": "הַשִּׂמְלָה עֲשׂוּיָה מִבַּד רַךְ.",
           "tr": "hasimlah 'asuyah mibad rakh",
-          "fr": "La robe est faite d'un tissu doux.",
+          "fr": "la robe est faite d'un tissu doux",
           "he_plain": "השמלה עשויה מבד רך."
         }
       ],
@@ -27310,7 +27310,7 @@
         {
           "he": "הַסְּוֶדֶר עָשׂוּי צֶמֶר חַם.",
           "tr": "hasveder 'asuy tsemer cham",
-          "fr": "Le pull est fait de laine chaude.",
+          "fr": "le pull est fait de laine chaude",
           "he_plain": "הסודר עשוי צמר חם."
         }
       ],
@@ -27336,7 +27336,7 @@
         {
           "he": "נָפַל כַּפְתּוֹר מִן הַחֻלְצָה.",
           "tr": "nafal kaftor min hachultsah",
-          "fr": "Un bouton est tombé de la chemise.",
+          "fr": "un bouton est tombé de la chemise",
           "he_plain": "נפל כפתור מן החלצה."
         }
       ],
@@ -27868,7 +27868,7 @@
         {
           "he": "יִשְׂרָאֵל אֶרֶץ קְטַנָּה וְיָפָה",
           "tr": "Yisra'el erets ketanah veyafah",
-          "fr": "Israël est un pays petit et beau",
+          "fr": "israël est un pays petit et beau",
           "he_plain": "ישראל ארץ קטנה ויפה"
         }
       ],
@@ -28962,7 +28962,7 @@
         {
           "he": "הוּא מְקַבֵּל רִשְׁיוֹן נְהִיגָה הַיּוֹם",
           "tr": "hu mekabel rishyon nehigah hayom",
-          "fr": "Il reçoit son permis de conduire aujourd'hui",
+          "fr": "il reçoit son permis de conduire aujourd'hui",
           "he_plain": "הוא מקבל רשיון נהיגה היום"
         }
       ],
@@ -28980,7 +28980,7 @@
         {
           "he": "אֵין דֶּלֶק בַּמְּכוֹנִית",
           "tr": "ein delek bamekhonit",
-          "fr": "Il n'y a plus d'essence dans la voiture",
+          "fr": "il n'y a plus d'essence dans la voiture",
           "he_plain": "אין דלק במכונית"
         }
       ],
@@ -29450,7 +29450,7 @@
         {
           "he": "הָלַכְנוּ בְּסִמְטָה צָרָה וַעֲתִיקָה.",
           "tr": "halakhnu besimtah tsarah va'atikah",
-          "fr": "Nous avons marché dans une ruelle étroite et ancienne.",
+          "fr": "nous avons marché dans une ruelle étroite et ancienne",
           "he_plain": "הלכנו בסמטה צרה ועתיקה."
         }
       ],
@@ -29476,7 +29476,7 @@
         {
           "he": "אֲנִי גָּר בַּקּוֹמָה הַשְּׁלִישִׁית.",
           "tr": "ani gar bakomah hashlishit",
-          "fr": "J'habite au troisième étage.",
+          "fr": "j'habite au troisième étage",
           "he_plain": "אני גר בקומה השלישית."
         }
       ],
@@ -29502,7 +29502,7 @@
         {
           "he": "הַמְּכוֹנִית עָצְרָה לִפְנֵי הַמַּחְסוֹם.",
           "tr": "hamkhonit 'atsrah lifnei hamachsom",
-          "fr": "La voiture s'est arrêtée devant le barrage.",
+          "fr": "la voiture s'est arrêtée devant le barrage",
           "he_plain": "המכונית עצרה לפני המחסום."
         }
       ],
@@ -29528,7 +29528,7 @@
         {
           "he": "הַחֲזֵק אֶת הַמַּעֲקֶה כְּשֶׁאַתָּה יוֹרֵד.",
           "tr": "hachazek et hama'akeh keshe'atah yored",
-          "fr": "Tiens la rambarde quand tu descends.",
+          "fr": "tiens la rambarde quand tu descends",
           "he_plain": "החזק את המעקה כשאתה יורד."
         }
       ],
@@ -30890,7 +30890,7 @@
         {
           "he": "בַּבֹּקֶר הָיָה עֲרָפֶל כָּבֵד.",
           "tr": "baboker hayah 'arafel kaved",
-          "fr": "Le matin, il y avait un brouillard épais.",
+          "fr": "le matin, il y avait un brouillard épais",
           "he_plain": "בבקר היה ערפל כבד."
         }
       ],
@@ -30916,7 +30916,7 @@
         {
           "he": "רָאִינוּ בָּרָק גָּדוֹל בַּשָּׁמַיִם.",
           "tr": "ra'inu barak gadol bashamayim",
-          "fr": "Nous avons vu un grand éclair dans le ciel.",
+          "fr": "nous avons vu un grand éclair dans le ciel",
           "he_plain": "ראינו ברק גדול בשמים."
         }
       ],
@@ -30942,7 +30942,7 @@
         {
           "he": "הַזְּאֵב חַי בַּיַּעַר.",
           "tr": "hazev chay baya'ar",
-          "fr": "Le loup vit dans la forêt.",
+          "fr": "le loup vit dans la forêt",
           "he_plain": "הזאב חי ביער."
         }
       ],
@@ -30968,7 +30968,7 @@
         {
           "he": "צִפּוֹר יָשְׁבָה עַל הֶעָנָף.",
           "tr": "tsipor yashvah 'al he'anaf",
-          "fr": "Un oiseau était posé sur la branche.",
+          "fr": "un oiseau était posé sur la branche",
           "he_plain": "צפור ישבה על הענף."
         }
       ],
@@ -30994,7 +30994,7 @@
         {
           "he": "טִפַּסְנוּ עַל הַגִּבְעָה בַּבֹּקֶר.",
           "tr": "tipasnu 'al hagiv'ah baboker",
-          "fr": "Nous avons grimpé sur la colline le matin.",
+          "fr": "nous avons grimpé sur la colline le matin",
           "he_plain": "טפסנו על הגבעה בבקר."
         }
       ],
@@ -32016,7 +32016,7 @@
         {
           "he": "זֹאת תְּקוּפָה קָשָׁה בַּחַיִּים שֶׁלִּי.",
           "tr": "zot tekufah kashah bachayim sheli",
-          "fr": "C'est une période difficile de ma vie.",
+          "fr": "c'est une période difficile de ma vie",
           "he_plain": "זאת תקופה קשה בחיים שלי."
         }
       ],
@@ -32042,7 +32042,7 @@
         {
           "he": "חַכֵּה רֶגַע אֶחָד בְּבַקָּשָׁה.",
           "tr": "chakeh rega' echad bevakashah",
-          "fr": "Attends un instant, s'il te plaît.",
+          "fr": "attends un instant, s'il te plaît",
           "he_plain": "חכה רגע אחד בבקשה."
         }
       ],
@@ -32068,7 +32068,7 @@
         {
           "he": "הָיָה עִכּוּב גָּדוֹל בָּרַכֶּבֶת.",
           "tr": "hayah 'ikuv gadol barakevet",
-          "fr": "Il y a eu un gros retard dans le train.",
+          "fr": "il y a eu un gros retard dans le train",
           "he_plain": "היה עכוב גדול ברכבת."
         }
       ],
@@ -32094,7 +32094,7 @@
         {
           "he": "הָעִיר הִשְׁתַּנְּתָה מְאוֹד בָּעָשׂוֹר הָאַחֲרוֹן.",
           "tr": "ha'ir hishtantah me'od ba'asor ha'acharon",
-          "fr": "La ville a beaucoup changé au cours de la dernière décennie.",
+          "fr": "la ville a beaucoup changé au cours de la dernière décennie",
           "he_plain": "העיר השתנתה מאוד בעשור האחרון."
         }
       ],
@@ -32120,7 +32120,7 @@
         {
           "he": "אֲנַחְנוּ חַיִּים בְּעִדָּן דִּיגִיטָלִי.",
           "tr": "anachnu chayim be'idan digitali",
-          "fr": "Nous vivons à l'ère du numérique.",
+          "fr": "nous vivons à l'ère du numérique",
           "he_plain": "אנחנו חיים בעדן דיגיטלי."
         }
       ],
@@ -32138,7 +32138,7 @@
         {
           "he": "מֶשֶׁךְ הַסֶּרֶט הוּא שְׁעָתַיִם.",
           "tr": "meshekh haseret hu she'atayim",
-          "fr": "La durée du film est de deux heures.",
+          "fr": "la durée du film est de deux heures",
           "he_plain": "משך הסרט הוא שעתים."
         }
       ],
@@ -33072,7 +33072,7 @@
         {
           "he": "יֵשׁ לִי כַּרְטִיס אַשְׁרַאי חָדָשׁ",
           "tr": "yesh li kartis ashrai chadash",
-          "fr": "J'ai une nouvelle carte de crédit",
+          "fr": "j'ai une nouvelle carte de crédit",
           "he_plain": "יש לי כרטיס אשראי חדש"
         }
       ],
@@ -33090,7 +33090,7 @@
         {
           "he": "שְׂכַר הַדִּירָה כָּאן גָּבוֹהַּ",
           "tr": "skhar hadirah kan gavoha",
-          "fr": "Le loyer ici est élevé",
+          "fr": "le loyer ici est élevé",
           "he_plain": "שכר הדירה כאן גבוה"
         }
       ],
@@ -33116,7 +33116,7 @@
         {
           "he": "אֲנִי מְשַׁלֵּם עַל בִּטּוּחַ בְּרִיאוּת",
           "tr": "ani meshalem 'al bituach beriyut",
-          "fr": "Je paie une assurance santé",
+          "fr": "je paie une assurance santé",
           "he_plain": "אני משלם על בטוח בריאות"
         }
       ],
@@ -33142,7 +33142,7 @@
         {
           "he": "הַמַּשְׂכֹּרֶת שֶׁלִּי לֹא גְּבוֹהָה",
           "tr": "hamaskoret sheli lo gvohah",
-          "fr": "Mon salaire n'est pas élevé",
+          "fr": "mon salaire n'est pas élevé",
           "he_plain": "המשכרת שלי לא גבוהה"
         }
       ],
@@ -33168,7 +33168,7 @@
         {
           "he": "יֵשׁ לִי קוֹלֵגָה חָדָשׁ בָּעֲבוֹדָה",
           "tr": "yesh li kolegah chadash ba'avodah",
-          "fr": "J'ai un nouveau collègue au travail",
+          "fr": "j'ai un nouveau collègue au travail",
           "he_plain": "יש לי קולגה חדש בעבודה"
         }
       ],
@@ -33194,7 +33194,7 @@
         {
           "he": "הַיְשִׁיבָה מַתְחִילָה עַכְשָׁיו",
           "tr": "hayeshivah matchilah 'akhshav",
-          "fr": "La réunion commence maintenant",
+          "fr": "la réunion commence maintenant",
           "he_plain": "הישיבה מתחילה עכשיו"
         }
       ],
@@ -33220,7 +33220,7 @@
         {
           "he": "הַטֹּפֶס הַזֶּה אָרוֹךְ",
           "tr": "hatofes hazeh arokh",
-          "fr": "Ce formulaire est long",
+          "fr": "ce formulaire est long",
           "he_plain": "הטפס הזה ארוך"
         }
       ],
@@ -33246,7 +33246,7 @@
         {
           "he": "יֵשׁ לִי רֵאָיוֹן עֲבוֹדָה מָחָר",
           "tr": "yesh li re'ayon 'avodah machar",
-          "fr": "J'ai un entretien d'embauche demain",
+          "fr": "j'ai un entretien d'embauche demain",
           "he_plain": "יש לי ראיון עבודה מחר"
         }
       ],
@@ -33532,7 +33532,7 @@
         {
           "he": "יֵשׁ לִי מִנּוּי חָדָשׁ",
           "tr": "yesh li minui chadash",
-          "fr": "J'ai un nouvel abonnement",
+          "fr": "j'ai un nouvel abonnement",
           "he_plain": "יש לי מנוי חדש"
         }
       ],
@@ -33888,7 +33888,7 @@
         {
           "he": "רְפוּאָה הִיא מִקְצוֹעַ קָשֶׁה.",
           "tr": "refu'ah hi miktso'a kasheh",
-          "fr": "La médecine est un métier difficile.",
+          "fr": "la médecine est un métier difficile",
           "he_plain": "רפואה היא מקצוע קשה."
         }
       ],
@@ -33914,7 +33914,7 @@
         {
           "he": "יֵשׁ לִי פְּגִישָׁה חֲשׁוּבָה מָחָר.",
           "tr": "yesh li pegishah chashuvah machar",
-          "fr": "J'ai une réunion importante demain.",
+          "fr": "j'ai une réunion importante demain",
           "he_plain": "יש לי פגישה חשובה מחר."
         }
       ],
@@ -33940,7 +33940,7 @@
         {
           "he": "הַמַּעֲסִיק שֶׁלִּי הוֹגֵן מְאוֹד.",
           "tr": "hama'asik sheli hogen meod",
-          "fr": "Mon employeur est très équitable.",
+          "fr": "mon employeur est très équitable",
           "he_plain": "המעסיק שלי הוגן מאוד."
         }
       ],
@@ -33966,7 +33966,7 @@
         {
           "he": "קִבַּלְתִּי מִלְגָּה לַלִּמּוּדִים.",
           "tr": "kibalti milgah lalimudim",
-          "fr": "J'ai obtenu une bourse pour mes études.",
+          "fr": "j'ai obtenu une bourse pour mes études",
           "he_plain": "קבלתי מלגה ללמודים."
         }
       ],
@@ -33992,7 +33992,7 @@
         {
           "he": "הַהַרְצָאָה בָּאוּנִיבֶרְסִיטָה הָיְתָה מְעַנְיֶנֶת.",
           "tr": "hahartsa'ah bauniversitah haytah me'anyenet",
-          "fr": "La conférence à l'université était intéressante.",
+          "fr": "la conférence à l'université était intéressante",
           "he_plain": "ההרצאה באוניברסיטה היתה מענינת."
         }
       ],
@@ -34018,7 +34018,7 @@
         {
           "he": "יֵשׁ לוֹ תַּפְקִיד חָשׁוּב בַּחֶבְרָה.",
           "tr": "yesh lo tafkid chashuv bachevrah",
-          "fr": "Il occupe un poste important dans l'entreprise.",
+          "fr": "il occupe un poste important dans l'entreprise",
           "he_plain": "יש לו תפקיד חשוב בחברה."
         }
       ],
@@ -34044,7 +34044,7 @@
         {
           "he": "הַתַּקְצִיב שֶׁל הַמִּשְׁפָּחָה מֻגְבָּל.",
           "tr": "hataktsiv shel hamishpachah mugbal",
-          "fr": "Le budget de la famille est limité.",
+          "fr": "le budget de la famille est limité",
           "he_plain": "התקציב של המשפחה מגבל."
         }
       ],
@@ -34070,7 +34070,7 @@
         {
           "he": "לָקַחְנוּ הַלְוָאָה מֵהַבַּנְק.",
           "tr": "lakachnu halva'ah mehabank",
-          "fr": "Nous avons pris un prêt à la banque.",
+          "fr": "nous avons pris un prêt à la banque",
           "he_plain": "לקחנו הלואה מהבנק."
         }
       ],
@@ -35454,7 +35454,7 @@
         {
           "he": "הַקָּהָל מָחָא כַּפַּיִם בְּהִתְלַהֲבוּת.",
           "tr": "hakahal macha kapayim behitlahavut",
-          "fr": "Le public a applaudi avec enthousiasme.",
+          "fr": "le public a applaudi avec enthousiasme",
           "he_plain": "הקהל מחא כפים בהתלהבות."
         }
       ],
@@ -35480,7 +35480,7 @@
         {
           "he": "הַמּוֹפָע שֶׁל הַזַּמָּר הָיָה מַרְהִיב.",
           "tr": "hamofa' shel hazamar hayah marhiv",
-          "fr": "Le spectacle du chanteur était impressionnant.",
+          "fr": "le spectacle du chanteur était impressionnant",
           "he_plain": "המופע של הזמר היה מרהיב."
         }
       ],
@@ -35506,7 +35506,7 @@
         {
           "he": "זֹאת יְצִירָה מְפֻרְסֶמֶת שֶׁל אָמָּן גָּדוֹל.",
           "tr": "zot yetsirah mefursemet shel aman gadol",
-          "fr": "C'est une œuvre célèbre d'un grand artiste.",
+          "fr": "c'est une œuvre célèbre d'un grand artiste",
           "he_plain": "זאת יצירה מפרסמת של אמן גדול."
         }
       ],
@@ -35532,7 +35532,7 @@
         {
           "he": "בַּכִּכָּר עוֹמֵד פֶּסֶל עַתִּיק.",
           "tr": "bakikar 'omed pesel 'atik",
-          "fr": "Sur la place se dresse une statue ancienne.",
+          "fr": "sur la place se dresse une statue ancienne",
           "he_plain": "בככר עומד פסל עתיק."
         }
       ],
@@ -37188,7 +37188,7 @@
         {
           "he": "יֵשׁ הֶבְדֵּל גָּדוֹל בֵּין שְׁתֵּי הַמִּלִּים.",
           "tr": "yesh hevdel gadol bein shetei hamilim",
-          "fr": "Il y a une grande différence entre les deux mots.",
+          "fr": "il y a une grande différence entre les deux mots",
           "he_plain": "יש הבדל גדול בין שתי המלים."
         }
       ],
@@ -37214,7 +37214,7 @@
         {
           "he": "אֵין לִי שׁוּם סָפֵק בְּכָךְ.",
           "tr": "ein li shum safek bekhakh",
-          "fr": "Je n'ai aucun doute là-dessus.",
+          "fr": "je n'ai aucun doute là-dessus",
           "he_plain": "אין לי שום ספק בכך."
         }
       ],
@@ -37240,7 +37240,7 @@
         {
           "he": "לַשִּׁטָּה הַזֹּאת יֵשׁ יִתְרוֹן גָּדוֹל.",
           "tr": "lashitah hazot yesh yitron gadol",
-          "fr": "Cette méthode a un grand avantage.",
+          "fr": "cette méthode a un grand avantage",
           "he_plain": "לשטה הזאת יש יתרון גדול."
         }
       ],
@@ -37266,7 +37266,7 @@
         {
           "he": "זֹאת הִזְדַּמְּנוּת מְצֻיֶּנֶת לִלְמֹד.",
           "tr": "zot hizdamnut metsuyenet lilmod",
-          "fr": "C'est une excellente occasion d'apprendre.",
+          "fr": "c'est une excellente occasion d'apprendre",
           "he_plain": "זאת הזדמנות מצינת ללמד."
         }
       ],
@@ -41919,7 +41919,7 @@
         {
           "he": "בַּמֶּה אֶפְשָׁר לַעֲזֹר?",
           "tr": "bameh efshar la'azor?",
-          "fr": "En quoi peut-on aider ?",
+          "fr": "en quoi peut-on aider ?",
           "he_plain": "במה אפשר לעזר?"
         }
       ],
@@ -45931,7 +45931,7 @@
         {
           "he": "הֵבֵאתִי עִפָּרוֹן, מַחְבֶּרֶת וְכוּ'",
           "tr": "heveti iparon, machberet vekhule",
-          "fr": "j'ai apporté un crayon, un cahier, etc.",
+          "fr": "j'ai apporté un crayon, un cahier, etc",
           "he_plain": "הבאתי עפרון, מחברת וכו'"
         }
       ],
@@ -45965,7 +45965,7 @@
         {
           "he": "עו\"ד לֵוִי יָבוֹא מָחָר",
           "tr": "orekh din levi yavo machar",
-          "fr": "Maître Lévi viendra demain",
+          "fr": "maître Lévi viendra demain",
           "he_plain": "עו\"ד לוי יבוא מחר"
         }
       ],
@@ -46032,7 +46032,7 @@
         {
           "he": "נ.ב. אֲנִי מִתְגַּעְגֵּעַ אֵלַיִךְ",
           "tr": "nun bet, ani mitga'ge'a elayikh",
-          "fr": "P.-S. tu me manques",
+          "fr": "p.-S. tu me manques",
           "he_plain": "נ.ב. אני מתגעגע אליך"
         }
       ],
@@ -46083,7 +46083,7 @@
         {
           "he": "תַּכְלֶ'ס, אֲנִי לֹא רוֹצֶה לָלֶכֶת",
           "tr": "takhles, ani lo rotseh lalekhet",
-          "fr": "Franchement, je n'ai pas envie d'y aller.",
+          "fr": "franchement, je n'ai pas envie d'y aller",
           "he_plain": "תכל'ס, אני לא רוצה ללכת"
         }
       ],
@@ -46100,7 +46100,7 @@
         {
           "he": "הוּא כְּאִילּוּ לֹא רוֹאֶה אוֹתִי",
           "tr": "hu ke'ilu lo ro'eh oti",
-          "fr": "Il fait genre qu'il ne me voit pas.",
+          "fr": "il fait genre qu'il ne me voit pas",
           "he_plain": "הוא כאילו לא רואה אותי"
         }
       ],
@@ -46117,7 +46117,7 @@
         {
           "he": "דַּוְקָא אָהַבְתִּי אֶת הַסֶּרֶט",
           "tr": "davka ahavti et haseret",
-          "fr": "En fait si, j'ai bien aimé le film.",
+          "fr": "en fait si, j'ai bien aimé le film",
           "he_plain": "דוקא אהבתי את הסרט"
         }
       ],
@@ -46134,7 +46134,7 @@
         {
           "he": "סְתָם שָׁאַלְתִּי, בְּלִי סִבָּה",
           "tr": "stam sha'alti, beli sibah",
-          "fr": "Je demandais juste comme ça, sans raison.",
+          "fr": "je demandais juste comme ça, sans raison",
           "he_plain": "סתם שאלתי, בלי סבה"
         }
       ],
@@ -46150,7 +46150,7 @@
         {
           "he": "בְּעֶצֶם, אַתָּה צוֹדֵק",
           "tr": "be'etsem, atah tsodek",
-          "fr": "Au fond, tu as raison.",
+          "fr": "au fond, tu as raison",
           "he_plain": "בעצם, אתה צודק"
         }
       ],
@@ -46167,7 +46167,7 @@
         {
           "he": "פָּשׁוּט שָׁכַחְתִּי אֶת הַמַּפְתֵּחַ",
           "tr": "pashut shakhachti et hamafteach",
-          "fr": "J'ai tout simplement oublié la clé.",
+          "fr": "j'ai tout simplement oublié la clé",
           "he_plain": "פשוט שכחתי את המפתח"
         }
       ],
@@ -46183,7 +46183,7 @@
         {
           "he": "בְּקִיצוּר, זֶה לֹא עָבַד",
           "tr": "bekitsur, zeh lo 'avad",
-          "fr": "Bref, ça n'a pas marché.",
+          "fr": "bref, ça n'a pas marché",
           "he_plain": "בקיצור, זה לא עבד"
         }
       ],
@@ -46200,7 +46200,7 @@
         {
           "he": "לֹא הֵבַנְתִּי בִּכְלָל",
           "tr": "lo hevanti bikhlal",
-          "fr": "Je n'ai pas compris du tout.",
+          "fr": "je n'ai pas compris du tout",
           "he_plain": "לא הבנתי בכלל"
         }
       ],
@@ -46216,7 +46216,7 @@
         {
           "he": "אַגַּב, רָאִיתִי אוֹתוֹ אֶתְמוֹל",
           "tr": "agav, ra'iti oto etmol",
-          "fr": "Au fait, je l'ai vu hier.",
+          "fr": "au fait, je l'ai vu hier",
           "he_plain": "אגב, ראיתי אותו אתמול"
         }
       ],
@@ -46232,7 +46232,7 @@
         {
           "he": "זֶה יַחֲסִית זוֹל",
           "tr": "zeh yachasit zol",
-          "fr": "C'est relativement bon marché.",
+          "fr": "c'est relativement bon marché",
           "he_plain": "זה יחסית זול"
         }
       ],
@@ -46249,7 +46249,7 @@
         {
           "he": "מָה קוֹרֶה, אָח שֶׁלִּי?",
           "tr": "mah koreh, ach sheli?",
-          "fr": "Quoi de neuf, mon frère ?",
+          "fr": "quoi de neuf, mon frère ?",
           "he_plain": "מה קורה, אח שלי?"
         }
       ],
@@ -46265,7 +46265,7 @@
         {
           "he": "מָה פִּתְאוֹם? אֲנִי מְשַׁלֵּם",
           "tr": "mah pit'om? ani meshalem",
-          "fr": "Et puis quoi encore ? C'est moi qui paie.",
+          "fr": "et puis quoi encore ? C'est moi qui paie",
           "he_plain": "מה פתאום? אני משלם"
         }
       ],
@@ -46282,7 +46282,7 @@
         {
           "he": "עֲזֹב, זֶה לֹא חָשׁוּב",
           "tr": "'azov, zeh lo chashuv",
-          "fr": "Laisse tomber, ce n'est pas important.",
+          "fr": "laisse tomber, ce n'est pas important",
           "he_plain": "עזב, זה לא חשוב"
         }
       ],
@@ -46298,7 +46298,7 @@
         {
           "he": "דַּי, מַסְפִּיק לְהַיּוֹם",
           "tr": "dai, maspik lehayom",
-          "fr": "Ça suffit, assez pour aujourd'hui.",
+          "fr": "ça suffit, assez pour aujourd'hui",
           "he_plain": "די, מספיק להיום"
         }
       ],
@@ -46315,7 +46315,7 @@
         {
           "he": "נוּ, מָה אָמְרוּ לְךָ?",
           "tr": "nu, mah amru lekha?",
-          "fr": "Alors, qu'est-ce qu'ils t'ont dit ?",
+          "fr": "alors, qu'est-ce qu'ils t'ont dit ?",
           "he_plain": "נו, מה אמרו לך?"
         }
       ],
@@ -46331,7 +46331,7 @@
         {
           "he": "זֶהוּ, סִיַּמְנוּ אֶת הָעֲבוֹדָה",
           "tr": "zehu, siyamnu et ha'avodah",
-          "fr": "Voilà, on a fini le travail.",
+          "fr": "voilà, on a fini le travail",
           "he_plain": "זהו, סימנו את העבודה"
         }
       ],
@@ -46347,7 +46347,7 @@
         {
           "he": "לֹא מְשַׁנֶּה, נִפָּגֵשׁ מָחָר",
           "tr": "lo meshaneh, nipagesh machar",
-          "fr": "Peu importe, on se voit demain.",
+          "fr": "peu importe, on se voit demain",
           "he_plain": "לא משנה, נפגש מחר"
         }
       ],
@@ -46363,7 +46363,7 @@
         {
           "he": "תֵּכֶף אֲנִי מַגִּיעַ",
           "tr": "tekhef ani magi'a",
-          "fr": "J'arrive tout de suite.",
+          "fr": "j'arrive tout de suite",
           "he_plain": "תכף אני מגיע"
         }
       ],
@@ -46379,7 +46379,7 @@
         {
           "he": "בְּטַח שֶׁאֲנִי בָּא",
           "tr": "betach she'ani ba",
-          "fr": "Bien sûr que je viens.",
+          "fr": "bien sûr que je viens",
           "he_plain": "בטח שאני בא"
         }
       ],
@@ -46395,7 +46395,7 @@
         {
           "he": "בֶּאֱמֶת? לֹא יָדַעְתִּי",
           "tr": "be'emet? lo yada'ti",
-          "fr": "Vraiment ? Je ne savais pas.",
+          "fr": "vraiment ? Je ne savais pas",
           "he_plain": "באמת? לא ידעתי"
         }
       ],
@@ -46411,7 +46411,7 @@
         {
           "he": "בְּחַיַּי שֶׁלֹּא סִפַּרְתִּי לָהּ",
           "tr": "bechayai shelo siparti lah",
-          "fr": "Je te jure que je ne lui ai rien dit.",
+          "fr": "je te jure que je ne lui ai rien dit",
           "he_plain": "בחיי שלא ספרתי לה"
         }
       ],
@@ -46428,7 +46428,7 @@
         {
           "he": "אַתָּה לֹא מַסְכִּים? שֶׁיִּהְיֶה",
           "tr": "atah lo maskim? sheyihyeh",
-          "fr": "Tu n'es pas d'accord ? Soit.",
+          "fr": "tu n'es pas d'accord ? Soit",
           "he_plain": "אתה לא מסכים? שיהיה"
         }
       ],
@@ -46445,7 +46445,7 @@
         {
           "he": "תַּעֲשֶׂה טוֹבָה, תַּפְסִיק כְּבָר",
           "tr": "ta'aseh tovah, tafsik kvar",
-          "fr": "Fais-moi plaisir, arrête un peu.",
+          "fr": "fais-moi plaisir, arrête un peu",
           "he_plain": "תעשה טובה, תפסיק כבר"
         }
       ],
@@ -46525,7 +46525,7 @@
         {
           "he": "אוֹקֵיי, אֲנִי בָּא מִיָּד",
           "tr": "okei, ani ba miyad",
-          "fr": "OK, j'arrive tout de suite",
+          "fr": "oK, j'arrive tout de suite",
           "he_plain": "אוקיי, אני בא מיד"
         }
       ],
@@ -46542,7 +46542,7 @@
         {
           "he": "אַחְלָה מִסְעָדָה מָצָאתָ",
           "tr": "achlah mis'adah matsata",
-          "fr": "Tu as trouvé un super restaurant.",
+          "fr": "tu as trouvé un super restaurant",
           "he_plain": "אחלה מסעדה מצאת"
         }
       ],
@@ -46558,7 +46558,7 @@
         {
           "he": "הַשִּׁיר הַזֶּה מַגְנִיב",
           "tr": "hashir hazeh magniv",
-          "fr": "Cette chanson est top.",
+          "fr": "cette chanson est top",
           "he_plain": "השיר הזה מגניב"
         }
       ],
@@ -46575,7 +46575,7 @@
         {
           "he": "הָאֹכֶל שָׁם חֲבָל עַל הַזְּמַן",
           "tr": "ha'okhel sham chaval 'al hazman",
-          "fr": "La nourriture là-bas, c'est une tuerie.",
+          "fr": "la nourriture là-bas, c'est une tuerie",
           "he_plain": "האכל שם חבל על הזמן"
         }
       ],
@@ -46591,7 +46591,7 @@
         {
           "he": "הַשֵּׁרוּת פֹּה עַל הַפָּנִים",
           "tr": "hasherut poh 'al hapanim",
-          "fr": "Le service ici est catastrophique.",
+          "fr": "le service ici est catastrophique",
           "he_plain": "השרות פה על הפנים"
         }
       ],
@@ -46607,7 +46607,7 @@
         {
           "he": "אֵיזוֹ בָּאסָה שֶׁלֹּא בָּאתָ",
           "tr": "eizo basah shelo bata",
-          "fr": "Quelle loose que tu ne sois pas venu.",
+          "fr": "quelle loose que tu ne sois pas venu",
           "he_plain": "איזו באסה שלא באת"
         }
       ],
@@ -46623,7 +46623,7 @@
         {
           "he": "אֵיזוֹ פַדִיחָה הָיְתָה לִי אֶתְמוֹל",
           "tr": "eizo fadichah haytah li etmol",
-          "fr": "J'ai eu tellement honte hier.",
+          "fr": "j'ai eu tellement honte hier",
           "he_plain": "איזו פדיחה היתה לי אתמול"
         }
       ],
@@ -46639,7 +46639,7 @@
         {
           "he": "כָּל הַכָּבוֹד, עָבַדְתָּ קָשֶׁה",
           "tr": "kol hakavod, 'avadta kasheh",
-          "fr": "Bravo, tu as travaillé dur.",
+          "fr": "bravo, tu as travaillé dur",
           "he_plain": "כל הכבוד, עבדת קשה"
         }
       ],
@@ -46655,7 +46655,7 @@
         {
           "he": "אֵין מַצָּב שֶׁהוּא אָמַר אֶת זֶה",
           "tr": "ein matsav shehu amar et zeh",
-          "fr": "Pas possible qu'il ait dit ça.",
+          "fr": "pas possible qu'il ait dit ça",
           "he_plain": "אין מצב שהוא אמר את זה"
         }
       ],
@@ -46671,7 +46671,7 @@
         {
           "he": "בְּסֵדֶר גָּמוּר, נִפָּגֵשׁ בְּשֶׁבַע",
           "tr": "beseder gamur, nipagesh besheva'",
-          "fr": "Parfait, on se voit à sept heures.",
+          "fr": "parfait, on se voit à sept heures",
           "he_plain": "בסדר גמור, נפגש בשבע"
         }
       ],
@@ -46688,7 +46688,7 @@
         {
           "he": "הַמְּחִיר יָקָר אֲבָל זֶה שָׁוֶה",
           "tr": "hamechir yakar aval zeh shaveh",
-          "fr": "Le prix est cher mais ça vaut le coup.",
+          "fr": "le prix est cher mais ça vaut le coup",
           "he_plain": "המחיר יקר אבל זה שוה"
         }
       ],
@@ -46704,7 +46704,7 @@
         {
           "he": "אִחַרְתָּ? לֹא נוֹרָא",
           "tr": "icharta? lo nora",
-          "fr": "Tu es en retard ? Ce n'est pas grave.",
+          "fr": "tu es en retard ? Ce n'est pas grave",
           "he_plain": "אחרת? לא נורא"
         }
       ],
@@ -46720,7 +46720,7 @@
         {
           "he": "אֵיזֶה קֶטַע, פָּגַשְׁתִּי אוֹתוֹ שׁוּב",
           "tr": "eizeh keta', pagashti oto shuv",
-          "fr": "C'est dingue, je suis retombé sur lui.",
+          "fr": "c'est dingue, je suis retombé sur lui",
           "he_plain": "איזה קטע, פגשתי אותו שוב"
         }
       ],
@@ -46737,7 +46737,7 @@
         {
           "he": "הַחֻפְשָׁה הָיְתָה עַל הַכֵּיפַק",
           "tr": "hachufshah haytah 'al hakeifak",
-          "fr": "Les vacances étaient au poil.",
+          "fr": "les vacances étaient au poil",
           "he_plain": "החפשה היתה על הכיפק"
         }
       ],
@@ -46753,7 +46753,7 @@
         {
           "he": "הַכֹּל סַבָּבָּה, אַל תִּדְאַג",
           "tr": "hakol sababah, al tid'ag",
-          "fr": "Tout va bien, ne t'inquiète pas.",
+          "fr": "tout va bien, ne t'inquiète pas",
           "he_plain": "הכל סבבה, אל תדאג"
         }
       ],
@@ -46785,7 +46785,7 @@
         {
           "he": "יָאלְלָה, אֲנַחְנוּ מְאַחֲרִים",
           "tr": "yallah, anachnu me'acharim",
-          "fr": "Allez, on est en retard.",
+          "fr": "allez, on est en retard",
           "he_plain": "יאללה, אנחנו מאחרים"
         }
       ],
@@ -46802,7 +46802,7 @@
         {
           "he": "וַאלָה? לֹא הֶאֱמַנְתִּי",
           "tr": "valah? lo he'emanti",
-          "fr": "Sérieux ? Je n'y croyais pas.",
+          "fr": "sérieux ? Je n'y croyais pas",
           "he_plain": "ואלה? לא האמנתי"
         }
       ],
@@ -46819,7 +46819,7 @@
         {
           "he": "תּוֹדָה, כַּפָּרָה עָלֶיךָ",
           "tr": "todah, kaparah 'alekha",
-          "fr": "Merci, tu es un amour.",
+          "fr": "merci, tu es un amour",
           "he_plain": "תודה, כפרה עליך"
         }
       ],
@@ -46835,7 +46835,7 @@
         {
           "he": "בּוֹאִי, נְשָׁמָה, נֵלֵךְ הַבַּיְתָה",
           "tr": "bo'i, neshamah, nelekh habaytah",
-          "fr": "Viens, mon cœur, on rentre.",
+          "fr": "viens, mon cœur, on rentre",
           "he_plain": "בואי, נשמה, נלך הביתה"
         }
       ],
@@ -46851,7 +46851,7 @@
         {
           "he": "יָא חַבִּיבִּי, אֵיזֶה יוֹם",
           "tr": "ya chabibi, eizeh yom",
-          "fr": "Eh mon vieux, quelle journée !",
+          "fr": "eh mon vieux, quelle journée !",
           "he_plain": "יא חביבי, איזה יום"
         }
       ],
@@ -46867,7 +46867,7 @@
         {
           "he": "הַהוֹפָעָה הָיְתָה סוֹף הַדֶּרֶךְ",
           "tr": "hahofa'ah haytah sof haderekh",
-          "fr": "Le concert était le top du top.",
+          "fr": "le concert était le top du top",
           "he_plain": "ההופעה היתה סוף הדרך"
         }
       ],
@@ -46884,7 +46884,7 @@
         {
           "he": "חָלָס עִם הַוִּיכּוּחִים",
           "tr": "chalas 'im havikuchim",
-          "fr": "Ça suffit avec les disputes.",
+          "fr": "ça suffit avec les disputes",
           "he_plain": "חלס עם הויכוחים"
         }
       ],
@@ -46900,7 +46900,7 @@
         {
           "he": "הוּא יָצָא מַבְסוּט מֵהַפְּגִישָׁה",
           "tr": "hu yatsa mabsut mehapgishah",
-          "fr": "Il est sorti content du rendez-vous.",
+          "fr": "il est sorti content du rendez-vous",
           "he_plain": "הוא יצא מבסוט מהפגישה"
         }
       ],
