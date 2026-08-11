@@ -14,12 +14,23 @@
 
 ## Reprendre ici (prochaine session)
 
-🟢 **Aucun défaut ouvert** (voir § Défauts ouverts). La **recherche**
+🟢 **Aucun défaut ouvert** (voir § Défauts ouverts). Le carnet compte
+**2264 cartes** et **47 sections**, dont trois sections de registre ou de
+grammaire récentes : « Les verbes réfléchis » (10b), « Le « quand » de
+subordination » (20b) et « Hébreu biblique » (44, seule section de liste
+ajoutée depuis Hébreu parlé — 29 entrées en trois groupes). Les champs `note`
+se rendent **partout** — tables et listes, carnet et app — et portent les
+rections des verbes (עוֹזֵר לְ־, מְבַקֵּר אֶת/בְּ־…) et les modes d'emploi
+(אַף פַּעַם לֹא, לֹא … כְּלוּם, אֵין אַף אֶחָד שֶׁ־). La **recherche**
 (`cleRecherche`) replie ktiv male/haser et les variantes de translittération
 sur les deux surfaces ; `verifieRecherche()` la garde dans les deux sens. La
 **structure du carnet** obéit à la même règle : aucune section ne doit se
-rendre après `</main>`, sous peine de perdre la colonne de lecture ;
-`verifieStructureCarnet()` l'interdit.
+rendre après `</main>` ; `verifieStructureCarnet()` l'interdit.
+
+❓ **Une confirmation attendue du propriétaire** : l'entrée du Tétragramme
+(section Hébreu biblique) est imprimée vocalisée (יְהוָה) avec la note « se
+lit אֲדֹנָי ou הַשֵּׁם » ; certaines publications préfèrent ה'. La graphie se
+change en une ligne de `data/listes/hebreu-biblique.json` si souhaité.
 
 ⚠️ **Une paire d'antonymes élémentaires ne se scinde pas entre deux niveaux.** Le biais connu du barème : le membre *marqué* (le négatif, le moins fréquent) glisse d'un palier. Un thème pauvre en A1 est donc à lire comme un défaut de barème avant d'être lu comme un trou de vocabulaire — aucun ajout ne comble le second, puisque tout mot neuf s'ancre sur les mêmes voisins.
 
@@ -64,9 +75,9 @@ chacun a une commande qui le recalcule :
 
 | Fait | Valeur | L'autorité qui la recalcule |
 | --- | --- | --- |
-| Cartes | 1895 (A1 513 · A2 748 · B1 565 · B2 50 · C1 19) | `node tools/cherche_mots.js --stats` |
-| Sections du carnet | 45 (44 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
-| Catégories de cartes | 25 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
+| Cartes | 2264 (A1 532 · A2 871 · B1 723 · B2 113 · C1 25) | `node tools/cherche_mots.js --stats` |
+| Sections du carnet | 48 (47 portent un `<h2>`, le préambule non) | `node -e` sur `src/carnet/sections.json` |
+| Catégories de cartes | 26 | `catOrder` (07-filtres.js), gardé par `verifieCatOrder()` |
 | Garde-fous anti-casse silencieuse | 14 | ARCHITECTURE.md § Garde-fous |
 | Outils dev | 7 dans `tools/` | `ls tools/*.js` |
 | Modules de l'app | 14 JS + 6 CSS dans `src/app/` | `src/app/ordre.json`, gardé par `verifieOrphelins()` |
@@ -211,6 +222,12 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 - `tools/mesure_translitteration.js` **créé**
   (harnais de notation de `he2tr`). Le graphe ne l'a jamais connu ; la ligne est
   ici pour que le prochain recalage sache qu'il existe.
+- ⚠️ GRAPHE À RECALER : `src/carnet/sections/10b-verbes-reflechis.html`,
+  `src/carnet/sections/20b-le-quand-de-subordination.html`,
+  `src/carnet/sections/44-hebreu-biblique.html` et
+  `data/listes/hebreu-biblique.json` **créés** ; les sections 04 (racine +
+  7 binyanim) et 10 (patrons) sont refondues, et le bandeau `part-vocabulaire`
+  vit désormais en fin de 20b, plus dans 20.
 - `outils_migration/` **supprimé** (ses trois scripts :
   `extrait_donnees.js`, `decoupe_carnet.js`, `decoupe_app.js`). Le graphe ne les a
   jamais connus (dossier créé après le dernier recalage), donc **rien à retirer de
@@ -250,6 +267,17 @@ laissent un mot en graphie pleine au-dessus de ses formes en graphie
 défective) ; et le **moment** (avant ou après le chantier des chartes — celui-ci
 ne bloque rien et ne se périme pas).
 
+### Pistes — notes d'usage candidates, récoltées par l'audit, non arbitrées
+
+Chacune est une entrée existante dont l'audit juge qu'une note (polysémie,
+rection, registre) éviterait une confusion réelle. À traiter par petits lots,
+chaque note vérifiée avant écriture ; aucune n'est un défaut.
+
+- Polysémies à désambiguïser : בַּעַל (mari/propriétaire), שׁוּתָף (associé/colocataire), חוֹזֶה (contrat/prophète), מוֹעֵד (délai/demi-fête), בִּטּוּחַ (assurance/certitude), יְשִׁיבָה (réunion/yeshiva), רֶוַח (profit/intervalle), עֵסֶק↔עִסְקָה, רַעֲנָן (frais/reposé), מְיֻחָד (spécial/particulier), שָׁקוּל (mesuré/équivalent), צָנוּעַ (modeste/pudique), מַזָּל (מזל טוב = félicitations), קָרוֹב (nom/adjectif).
+- Rections à noter : אַחְרַאי עַל, זָהִיר מִ/עִם, נָגִישׁ לְ, לְהַזְמִין (3 sens/rections), לַחְזֹר עַל = réviser, לָתֵת לְ + inf. = laisser, חַיָּב + inf. bien plus fréquent que le sens financier, אֶלָּא après négation seulement, כּוֹלֵל s'accorde (participe).
+- Sens courants absents des gloses : לִשְׁמֹעַ (entendre ET écouter), לְהִתְקַשֵּׁר עִם (s'entendre avec), לְהִתְקַיֵּם (avoir lieu), לִצְפּוֹת לְ (s'attendre à), שָׁוֶה (ça vaut le coup), צוֹדֵק (participe conjugable), מִתְחַשֵּׁק לִי (marquer fam. comme בָּא לִי), לְהַמְטִיר (littéraire face à יורד גשם), כִּי complémenteur soutenu.
+- Morphologie/lecture : פָּנִים et מַיִם (pluriel-tantum), קוֹלֵגָה (pluriel figé en ־וֹת), בֶּן/בַּת כַּמָּה (l'âge en « fils/fille de »), אוֹתָךְ ambigu sans nikoud (phrases.json:138), כָּל = kol (kamats katan, mots-de-quantite.json:100), לְהִתְרָאוֹת (réciproque figé en interjection), מֵאַיִן/מִנַּיִן (gradation de registre), חוץ מ/מלבד/פרט ל (trio sans notes), בּוֹ locatif général.
+
 ### Défauts ouverts — à corriger, pas à tolérer
 
 Distincts de la dette ci-dessous : aucun ne porte de raison d'être toléré. Ce
@@ -273,9 +301,9 @@ pseudo-éléments. Voir [ARCHITECTURE.md](ARCHITECTURE.md) § Garde-fous, point 
 Ce qui reste connu, non corrigé, et pourquoi chacun est tolérable. Une entrée
 sans sa raison d'être tolérée n'est pas une dette : c'est un chantier.
 
-1. ⚠️ **259 désaccords entre `he2tr` et les `tr` rédigés à la main** que `trKey`
-   ne replie pas, sur 4725 paires — le nombre que rend `node
-   tools/mesure_translitteration.js` (4725 moins les 4466 accords repliés). Ce qui reste tient à trois causes, toutes documentées, et
+1. ⚠️ **236 désaccords entre `he2tr` et les `tr` rédigés à la main** que `trKey`
+   ne replie pas, sur 5720 paires — le nombre que rend `node
+   tools/mesure_translitteration.js` (5720 moins les 5484 accords repliés). Ce qui reste tient à trois causes, toutes documentées, et
    **aucune n'est un défaut du moteur** : le chva initial, morphologique et
    délibérément approximé (CLAUDE.md § Transliteration standard) ; le hé final,
    où les écarts sont des `tr` rédigés qui s'écartent du standard — une règle

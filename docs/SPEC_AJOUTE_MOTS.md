@@ -43,7 +43,7 @@ un verdict.**
    silencieux. `stripNikud` vient de l'export de `build.js`.
 3. **Écriture : uniquement `data/*.json`.** Jamais `vocabulaire_hebreu.html`
    directement (100 % généré), jamais `cards.json`, jamais
-   `flashcards_hebreu.html`, jamais `app.html`, jamais `sw.js`. Les trois artefacts
+   `flashcards_hebreu.html`, jamais `app.html`, jamais `index.html`, jamais `sw.js`. Les cinq artefacts
    déployés/dérivés sont régénérés en appelant `node tools/build.js`, jamais composés par
    ce script.
 4. **Sous-thème humain → `groupe` de data/ : un seul algorithme, déjà éprouvé.**
@@ -66,7 +66,7 @@ un verdict.**
 | genre `m`/`f` + pluriel `he` (noms) | **humain** | |
 | formes MS/FS/MP/FP `he` (verbes/adjectifs) | **humain** | le niqqud des formes ; les 3/4 formes sont obligatoires (§3.3) |
 | exemple(s) : `he` + `fr` | **humain** | verbe ⇒ phrase au présent |
-| `note` / `fr_court` (listes) | **humain**, optionnel | |
+| `note` (tables et listes — rendue au carnet et dans l’app) / `fr_court` (listes) | **humain**, optionnel | |
 | `apres` (ancrage dans une liste ordonnée) | **humain**, optionnel | §5.3 |
 | **`tr` de tout champ hébreu** | **machine** (`he2tr`), surchargeable | §2.1 |
 | l'objet JSON à insérer dans `data/*.json` | **machine** | jamais de balisage HTML composé (§10) |
@@ -178,16 +178,14 @@ cellule vide (hors périmètre d'automatiser ce cas).
   "exemples": [ { "he": "…", "fr": "…" } ] }
 ```
 
-- `section` = un LABEL de `listCats` (build.js), inchangé : `Pronoms personnels`,
-  `Démonstratifs`, `Verbes modaux`, `Prépositions`, `Conjonctions`,
-  `Mots interrogatifs`, `Nombres (0–10)`, `Nombres (11 et plus)`,
-  `Nombres ordinaux`, `Jours de la semaine`, `Adverbes`, `Saisons & mois`,
-  `Mots de quantité`, `Expressions / Divers`, `Existence et possession`, `Phrases`,
-  `Hébreu parlé`.
+- `section` = un LABEL de `listCats` (tools/build.js) — la liste vivante est
+  dans le code (`grep -n listCats tools/build.js`), de `Pronoms personnels` à
+  `Hébreu biblique` ; toute énumération recopiée ici périmerait.
 - `sous_theme` requis seulement pour les listes dont au moins une entrée porte déjà
   un champ `groupe` dans `data/listes/<slug>.json` (aujourd'hui : `Adverbes` →
   `Temps` | `Lieu & direction` | `Degré & intensité` | `Manière` ; `Saisons & mois` → `Saisons` | `Mois` ;
-  `Hébreu parlé` → `particules` | `conversation` | `reagir` | `emprunts`) — dérivé
+  `Hébreu parlé` → `particules` | `conversation` | `reagir` | `emprunts` ;
+  `Hébreu biblique` → `formes-archaiques` | `culte-et-liturgie` | `recit-et-image`) — dérivé
   mécaniquement de la donnée, jamais d'une liste codée en dur dans le script.
 - **Pas de `theme`** sur une liste (mono-thème par nature ; en poser un = erreur).
 - `exemples` optionnel (obligatoire seulement sur les 3 tables).
@@ -220,8 +218,8 @@ gérer `lang="he"` : c'est `src/carnet/gabarits.js` qui s'en charge, au moment d
 Ordre des champs (mêmes conventions que `data/SCHEMA.md`, respecté pour que le
 diff avec l'existant reste minimal) :
 
-- `data/noms.json` : `he, fr, genre, pluriel, niveau, theme, groupe, exemples`.
-- `data/adjectifs.json` / `verbes.json` : `he, fr, formes, niveau, theme, groupe, exemples`.
+- `data/noms.json` : `he, fr, genre, pluriel, niveau, theme, groupe, exemples, [note]`.
+- `data/adjectifs.json` / `verbes.json` : `he, fr, formes, niveau, theme, groupe, exemples, [note]`.
 - `data/listes/<slug>.json` (entrée) : `he, tr, fr, niveau, [groupe], exemples, [fr_court], [note]`.
 
 Aucun invariant d'ordre d'affichage ne se contrôle à ce niveau : `gabarits.js` décide de l'ordre à partir de l'objet, et le script ne compose aucun balisage qui puisse l'inverser.## 5. Logique de placement
@@ -255,8 +253,8 @@ dérivent) n'a plus d'existence possible dans ce modèle.
 
 ## 6. Invariants préservés (contrôlés par le script, pas par la discipline)
 
-1. **Ne jamais écrire ailleurs que `data/*.json`.** Les trois artefacts dérivés
-   (`vocabulaire_hebreu.html`, `cards.json`, `flashcards_hebreu.html`) ne sont
+1. **Ne jamais écrire ailleurs que `data/*.json`.** Les cinq artefacts dérivés
+   (`vocabulaire_hebreu.html`, `cards.json`, `app.html`, `flashcards_hebreu.html`, `index.html`) ne sont
    jamais composés par ce script — seulement régénérés en appelant `node tools/build.js`
    en aval, après vert bac à sable.
 2. **`data-niveau` obligatoire** partout ; **`theme` sur les 3 tables
@@ -352,7 +350,7 @@ cassé → « impossible de relire son compte de cartes ».
 - Bac à sable `node tools/verifie_exemples.js` — **0 erreur requise**, warnings
   remontés tels quels (signaux éditoriaux).
 - En `--ecrire`, après vert bac à sable : écriture des seuls fichiers `data/*.json`
-  réellement modifiés, puis `node tools/build.js` **réel** (régénère les trois
+  réellement modifiés, puis `node tools/build.js` **réel** (régénère les cinq
   artefacts déployés/dérivés). Si ce build réel échoue (ne devrait jamais arriver
   après un bac à sable vert), rollback des fichiers `data/` modifiés à leur
   contenu d'origine.
@@ -432,7 +430,7 @@ node tools/ajoute_mots.js nouveaux_mots.json --ecrire --force   # passe outre le
   (Pealim/Wiktionnaire en cache), jamais en live. `data/` reste la source unique.
   L'étage 1 prend ces champs comme entrées.
 - **Nouveau thème (16ᵉ slug)** : hors périmètre du script — exige d'aligner
-  **deux fichiers** : `EXPECTED_THEMES` (build.js) **et** `THEMES` (app.html),
+  **deux fichiers** : `EXPECTED_THEMES` (build.js) **et** `THEMES` (src/app/js/07-filtres.js),
   slugs identiques, avant tout `theme` neuf dans `data/`. Le message d'erreur
   « thème inconnu » récite cette procédure.
 - **Nouvelle section** : hors périmètre — exige `listCats` + `EXPECTED_CATS` dans

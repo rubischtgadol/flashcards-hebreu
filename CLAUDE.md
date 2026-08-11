@@ -85,6 +85,7 @@ What still matters when touching `data/`:
 
 - A list file's `section` field is the routing key: it must match an entry in `listCats`/`EXPECTED_CATS` (`tools/build.js`), or the section is silently excluded from cards.
 - `.tr`/`tr` values are **authoritative** — copied verbatim into cards, never regenerated from `he2tr`.
+- `note` fields render **everywhere** — tables and lists alike (`.note-line` in the notebook via `vedette`/`itemListe`, card back in the app; `deriveCartes` copies them for all branches, Hebrew wrapped `lang="he"` via `escFr` at derivation). A note carries usage facts of the language only (rections, register, disambiguation) — never project narration, changelog or "already in the notebook" bookkeeping (owner's rule).
 - The card schema is unchanged in shape (`{cat, he, tr, fr, note?, niveau?, theme?, exemples?:[{he, tr, fr, he_plain}], he_plain, forms?:[{he, tr, label, he_plain}], genre?}`) — its single source is now `deriveCartes(donnees)`. Table-derived cards have `tr:''`; the UI falls back to `he2tr(card.he)`. Full detail in docs/ARCHITECTURE.md §3.
 
 ## Transliteration standard
