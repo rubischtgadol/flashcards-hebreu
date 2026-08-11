@@ -2794,7 +2794,7 @@
     "exemples": [
       {
         "he": "אַתָּה צוֹדֵק, זֶה נָכוֹן",
-        "tr": "atah tsodek, zeh nachon",
+        "tr": "atah tsodek, zeh nakhon",
         "fr": "tu as raison, c'est vrai"
       }
     ]
@@ -3869,15 +3869,15 @@
     "formes": [
       {
         "he": "עִוֶּרֶת",
-        "tr": "iveret"
+        "tr": "'iveret"
       },
       {
         "he": "עִוְרִים",
-        "tr": "ivrim"
+        "tr": "'ivrim"
       },
       {
         "he": "עִוְרוֹת",
-        "tr": "ivrot"
+        "tr": "'ivrot"
       }
     ],
     "niveau": "B1",
@@ -3886,7 +3886,7 @@
     "exemples": [
       {
         "he": "הַכֶּלֶב שֶׁלִּי עִוֵּר",
-        "tr": "hakelev sheli iver",
+        "tr": "hakelev sheli 'iver",
         "fr": "mon chien est aveugle"
       }
     ]
@@ -6553,7 +6553,7 @@
   },
   {
     "he": "צְפוֹנִי",
-    "fr": "nord, septentrional, nordique",
+    "fr": "nord, septentrional",
     "formes": [
       {
         "he": "צְפוֹנִית",

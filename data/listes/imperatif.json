@@ -31,7 +31,7 @@
       "he": "בּוֹאוּ",
       "tr": "bo'u",
       "fr": "venez !",
-      "niveau": "A2",
+      "niveau": "A1",
       "exemples": [
         {
           "he": "בּוֹאוּ נֵשֵׁב בַּגִּנָּה",
@@ -74,7 +74,7 @@
       "exemples": [
         {
           "he": "חַכֵּה רֶגַע, אֲנִי בָּא",
-          "tr": "chakeh rega, ani ba",
+          "tr": "chakeh rega', ani ba",
           "fr": "attends un instant, j'arrive"
         }
       ]
@@ -94,26 +94,26 @@
     },
     {
       "he": "סַע",
-      "tr": "sa",
+      "tr": "sa'",
       "fr": "roule ! / vas-y (en véhicule)",
       "niveau": "B1",
       "exemples": [
         {
           "he": "סַע לְאַט בַּגֶּשֶׁם",
-          "tr": "sa le'at bageshem",
+          "tr": "sa' le'at bageshem",
           "fr": "roule lentement sous la pluie"
         }
       ]
     },
     {
       "he": "תִּשְׁמַע",
-      "tr": "tishma",
+      "tr": "tishma'",
       "fr": "écoute ! (futur-impératif, le courant)",
       "niveau": "A2",
       "exemples": [
         {
           "he": "תִּשְׁמַע, אֲנִי צָרִיךְ עֶזְרָה",
-          "tr": "tishma, ani tsarikh ezra",
+          "tr": "tishma', ani tsarikh 'ezrah",
           "fr": "écoute, j'ai besoin d'aide"
         }
       ]
@@ -146,13 +146,13 @@
     },
     {
       "he": "תֵּרָגַע",
-      "tr": "teraga",
+      "tr": "teraga'",
       "fr": "calme-toi !",
       "niveau": "B1",
       "exemples": [
         {
           "he": "תֵּרָגַע, הַכֹּל בְּסֵדֶר",
-          "tr": "teraga, hakol beseder",
+          "tr": "teraga', hakol beseder",
           "fr": "calme-toi, tout va bien"
         }
       ]

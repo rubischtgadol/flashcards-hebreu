@@ -2642,7 +2642,7 @@
     "genre": "f",
     "pluriel": {
       "he": "שְׂמִיכוֹת",
-      "tr": "smichot"
+      "tr": "smikhot"
     },
     "niveau": "A2",
     "theme": "vie-quotidienne",
@@ -2650,7 +2650,7 @@
     "exemples": [
       {
         "he": "אֲנִי יָשֵׁן מִתַּחַת לַשְּׂמִיכָה בַּחוֹרֶף",
-        "tr": "ani yashen mitachat lasmichah bachoref",
+        "tr": "ani yashen mitachat lasmikhah bachoref",
         "fr": "je dors sous la couverture en hiver"
       }
     ]
@@ -3786,6 +3786,11 @@
         "he": "אֲנַחְנוּ אוֹכְלִים דָּג בְּיוֹם שִׁשִּׁי",
         "tr": "anachnu okhlim dag beyom shishi",
         "fr": "nous mangeons du poisson le vendredi"
+      },
+      {
+        "he": "יֵשׁ דָּגִים קְטַנִּים בַּיָּם",
+        "tr": "yesh dagim ketanim bayam",
+        "fr": "il y a de petits poissons dans la mer"
       }
     ]
   },
@@ -4550,7 +4555,7 @@
     "genre": "f",
     "pluriel": {
       "he": "עֲנִיבוֹת",
-      "tr": "anivot"
+      "tr": "'anivot"
     },
     "niveau": "A2",
     "theme": "vetements-couleurs",
@@ -4558,7 +4563,7 @@
     "exemples": [
       {
         "he": "אַבָּא לוֹבֵשׁ עֲנִיבָה כְּחֻלָּה לָעֲבוֹדָה",
-        "tr": "aba lovesh anivah kechulah la'avodah",
+        "tr": "aba lovesh 'anivah kechulah la'avodah",
         "fr": "papa porte une cravate bleue au travail"
       }
     ]
@@ -4607,7 +4612,7 @@
     "genre": "m",
     "pluriel": {
       "he": "עֲגִילִים",
-      "tr": "agilim"
+      "tr": "'agilim"
     },
     "niveau": "B1",
     "theme": "vetements-couleurs",
@@ -4615,7 +4620,7 @@
     "exemples": [
       {
         "he": "אִמָּא לוֹבֶשֶׁת עֲגִילִים יָפִים",
-        "tr": "ima loveshet agilim yafim",
+        "tr": "ima loveshet 'agilim yafim",
         "fr": "maman porte de belles boucles d'oreille"
       }
     ]
@@ -6069,7 +6074,7 @@
     "genre": "f",
     "pluriel": {
       "he": "מִדְרָכוֹת",
-      "tr": "midrachot"
+      "tr": "midrakhot"
     },
     "niveau": "A2",
     "theme": "ville-transport",
@@ -6183,7 +6188,7 @@
     "genre": "f",
     "pluriel": {
       "he": "שְׁכוּנוֹת",
-      "tr": "shchunot"
+      "tr": "shkhunot"
     },
     "niveau": "A2",
     "theme": "ville-transport",
@@ -6191,7 +6196,7 @@
     "exemples": [
       {
         "he": "אֲנַחְנוּ גָּרִים בִּשְׁכוּנָה יָפָה",
-        "tr": "anachnu garim bishchunah yafah",
+        "tr": "anachnu garim bishkhunah yafah",
         "fr": "nous habitons dans un beau quartier"
       }
     ]
@@ -6397,7 +6402,7 @@
     "exemples": [
       {
         "he": "הַמְּכוֹנִית עָצְרָה לִפְנֵי הַמַּחְסוֹם.",
-        "tr": "hamkhonit 'atsrah lifnei hamachsom",
+        "tr": "hamekhonit 'atsrah lifnei hamachsom",
         "fr": "la voiture s'est arrêtée devant le barrage"
       }
     ]
@@ -6952,25 +6957,6 @@
     ]
   },
   {
-    "he": "דָּג",
-    "fr": "poisson",
-    "genre": "m",
-    "pluriel": {
-      "he": "דָּגִים",
-      "tr": "dagim"
-    },
-    "niveau": "A1",
-    "theme": "nature",
-    "groupe": "nature-animaux",
-    "exemples": [
-      {
-        "he": "יֵשׁ דָּגִים קְטַנִּים בַּיָּם",
-        "tr": "yesh dagim ketanim bayam",
-        "fr": "il y a de petits poissons dans la mer"
-      }
-    ]
-  },
-  {
     "he": "אֵשׁ",
     "fr": "feu",
     "genre": "f",
@@ -7235,7 +7221,7 @@
     "exemples": [
       {
         "he": "יֵשׁ כְּבָשִׂים לְבָנִים בַּשָּׂדֶה",
-        "tr": "yesh kevasim levanim basadeh",
+        "tr": "yesh kvasim levanim basadeh",
         "fr": "il y a des moutons blancs dans le champ"
       }
     ]
@@ -7254,7 +7240,7 @@
     "exemples": [
       {
         "he": "הַתַּרְנְגֹלֶת נוֹתֶנֶת בֵּיצָה כָּל בֹּקֶר",
-        "tr": "hatarngolet notenet beitsah kol boker",
+        "tr": "hatarnegolet notenet beitsah kol boker",
         "fr": "la poule donne un œuf chaque matin"
       }
     ]
@@ -8025,7 +8011,7 @@
     "exemples": [
       {
         "he": "בַּצָּהֳרַיִם אֲנִי אוֹכֵל עִם חֲבֵרִים",
-        "tr": "batsahorayim ani okhel 'im chaverim",
+        "tr": "batsohorayim ani okhel 'im chaverim",
         "fr": "à midi je mange avec des amis"
       }
     ]
@@ -8117,7 +8103,7 @@
     "exemples": [
       {
         "he": "רֶגַע, שְׁנִיָּה אַחַת בְּבַקָּשָׁה",
-        "tr": "rega' sheniyah achat bevakashah",
+        "tr": "rega' shniyah achat bevakashah",
         "fr": "un instant, une seconde s'il te plaît"
       }
     ]
@@ -8524,7 +8510,7 @@
     "exemples": [
       {
         "he": "יֵשׁ לִי פְּגִישָׁה לִפְנֵי הַצָּהֳרַיִם",
-        "tr": "yesh li pegishah lifnei hatsahorayim",
+        "tr": "yesh li pegishah lifnei hatsohorayim",
         "fr": "j'ai un rendez-vous en matinée"
       }
     ]
@@ -8789,7 +8775,7 @@
     "genre": "m",
     "pluriel": {
       "he": "נְיָרוֹת",
-      "tr": "niyarot"
+      "tr": "neyarot"
     },
     "niveau": "A2",
     "theme": "travail-etudes",
@@ -12497,7 +12483,7 @@
     "exemples": [
       {
         "he": "עֹמֶק הַיָּם רַב",
-        "tr": "omek hayam rav",
+        "tr": "'omek hayam rav",
         "fr": "la profondeur de la mer est grande"
       }
     ]

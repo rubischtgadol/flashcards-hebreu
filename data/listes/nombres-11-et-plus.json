@@ -123,7 +123,7 @@
     },
     {
       "he": "שְׁבַע עֶשְׂרֵה",
-      "tr": "shva 'esreh",
+      "tr": "shva' 'esreh",
       "fr": "dix-sept",
       "niveau": "A2",
       "exemples": []
@@ -163,7 +163,7 @@
     },
     {
       "he": "תְּשַׁע עֶשְׂרֵה",
-      "tr": "tsha 'esreh",
+      "tr": "tsha' 'esreh",
       "fr": "dix-neuf",
       "niveau": "A2",
       "exemples": []
@@ -279,7 +279,7 @@
       "exemples": [
         {
           "he": "בַּסֵּפֶר שְׁלוֹשׁ מֵאוֹת עַמּוּדִים",
-          "tr": "basefer shlosh me'ot amudim",
+          "tr": "basefer shlosh me'ot 'amudim",
           "fr": "le livre a trois cents pages"
         }
       ]
@@ -318,7 +318,7 @@
       "exemples": [
         {
           "he": "זֶה עוֹלֶה מִילְיַארְד דּוֹלָר",
-          "tr": "zeh oleh milyard dolar",
+          "tr": "zeh 'oleh milyard dolar",
           "fr": "ça coûte un milliard de dollars"
         }
       ]

@@ -49,7 +49,7 @@
       },
       {
         "he": "בָּאוֹת",
-        "tr": "baot"
+        "tr": "ba'ot"
       }
     ],
     "niveau": "A1",
@@ -1556,7 +1556,7 @@
         "tr": "metot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A2",
     "theme": "abstrait",
     "groupe": "vie-quotidienne",
     "exemples": [
@@ -3409,7 +3409,7 @@
       },
       {
         "he": "רוֹאוֹת",
-        "tr": "root"
+        "tr": "ro'ot"
       }
     ],
     "niveau": "A1",
@@ -3621,7 +3621,7 @@
     "formes": [
       {
         "he": "נִפְצָע",
-        "tr": "niftsa"
+        "tr": "niftsa'"
       },
       {
         "he": "נִפְצַעַת",
@@ -3642,7 +3642,7 @@
     "exemples": [
       {
         "he": "הַיֶּלֶד נִפְצָע עַל הָרֶגֶל",
-        "tr": "hayeled niftsa 'al haregel",
+        "tr": "hayeled niftsa' 'al haregel",
         "fr": "l'enfant se blesse à la jambe"
       }
     ]
@@ -4180,7 +4180,7 @@
         "tr": "sonot"
       }
     ],
-    "niveau": "B1",
+    "niveau": "A1",
     "theme": "emotions-caractere",
     "groupe": "pensee-sentiments",
     "exemples": [

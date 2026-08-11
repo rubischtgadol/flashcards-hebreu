@@ -613,7 +613,7 @@
       "exemples": [
         {
           "he": "שָׁאַלְתִּי מִמֶּנּוּ עֵט",
-          "tr": "sha'alti mimenu et",
+          "tr": "sha'alti mimenu 'et",
           "fr": "je lui ai emprunté un stylo"
         }
       ]
@@ -627,7 +627,7 @@
       "exemples": [
         {
           "he": "שָׁאַלְתִּי מִמֶּנָּה עֵט",
-          "tr": "sha'alti mimenah et",
+          "tr": "sha'alti mimenah 'et",
           "fr": "je lui ai emprunté un stylo"
         }
       ]
