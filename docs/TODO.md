@@ -219,7 +219,10 @@ en-têtes `// Expose :` (listés dans ARCHITECTURE.md § Anatomie de l'app).
 - `tools/mesure_translitteration.js` **créé**
   (harnais de notation de `he2tr`). Le graphe ne l'a jamais connu ; la ligne est
   ici pour que le prochain recalage sache qu'il existe.
-- ⚠️ GRAPHE À RECALER : `src/carnet/sections/10b-verbes-reflechis.html`,
+- ⚠️ GRAPHE À RECALER : `lexique.pdf` **créé** à la racine (le lexique
+  imprimable, publié sur décision du 17/08 — un binaire, le graphe n'a rien à y
+  cartographier, la ligne est là pour l'inventaire) ;
+  `src/carnet/sections/10b-verbes-reflechis.html`,
   `src/carnet/sections/20b-le-quand-de-subordination.html`,
   `src/carnet/sections/44-hebreu-biblique.html` et
   `data/listes/hebreu-biblique.json` **créés** ; les sections 04 (racine +
