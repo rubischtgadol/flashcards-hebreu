@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-11",
+  "version": "2026-08-16",
   "cartes": [
     {
       "cat": "Verbes",
@@ -1443,6 +1443,49 @@
         }
       ],
       "he_plain": "לרכב"
+    },
+    {
+      "cat": "Verbes",
+      "he": "לְהוֹלִיךְ",
+      "tr": "",
+      "fr": "(infinitif) emmener",
+      "forms": [
+        {
+          "he": "מוֹלִיךְ",
+          "tr": "molikh",
+          "label": "il",
+          "he_plain": "מוליך"
+        },
+        {
+          "he": "מוֹלִיכָה",
+          "tr": "molikhah",
+          "label": "elle",
+          "he_plain": "מוליכה"
+        },
+        {
+          "he": "מוֹלִיכִים",
+          "tr": "molikhim",
+          "label": "ils",
+          "he_plain": "מוליכים"
+        },
+        {
+          "he": "מוֹלִיכוֹת",
+          "tr": "molikhot",
+          "label": "elles",
+          "he_plain": "מוליכות"
+        }
+      ],
+      "niveau": "A2",
+      "theme": "vie-quotidienne",
+      "exemples": [
+        {
+          "he": "אֲנִי מוֹלִיךְ אֶת הַיְלָדִים לַגַּן",
+          "tr": "ani molikh et hayladim lagan",
+          "fr": "j'emmène les enfants à la garderie",
+          "he_plain": "אני מוליך את הילדים לגן"
+        }
+      ],
+      "he_plain": "להוליך"
     },
     {
       "cat": "Verbes",

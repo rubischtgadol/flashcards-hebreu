@@ -1076,6 +1076,38 @@
     ]
   },
   {
+    "he": "לְהוֹלִיךְ",
+    "fr": "emmener",
+    "formes": [
+      {
+        "he": "מוֹלִיךְ",
+        "tr": "molikh"
+      },
+      {
+        "he": "מוֹלִיכָה",
+        "tr": "molikhah"
+      },
+      {
+        "he": "מוֹלִיכִים",
+        "tr": "molikhim"
+      },
+      {
+        "he": "מוֹלִיכוֹת",
+        "tr": "molikhot"
+      }
+    ],
+    "niveau": "A2",
+    "theme": "vie-quotidienne",
+    "groupe": "mouvement-deplacement",
+    "exemples": [
+      {
+        "he": "אֲנִי מוֹלִיךְ אֶת הַיְלָדִים לַגַּן",
+        "tr": "ani molikh et hayladim lagan",
+        "fr": "j'emmène les enfants à la garderie"
+      }
+    ]
+  },
+  {
     "he": "לֶאֱכֹל",
     "fr": "manger",
     "formes": [
