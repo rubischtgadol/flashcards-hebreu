@@ -41,9 +41,9 @@ Il n'y a donc **qu'une seule app** (les sources de `src/app/`, la racine étant 
 
 ## Les fichiers
 
-⚠️ **Où vit quoi** : la racine ne porte plus que
-ce qui est **servi** (les cinq artefacts, la couche PWA) plus `README.md`
-et `CLAUDE.md`. Les sources sont dans `data/` (contenu) et `src/` (gabarits du carnet, code
+⚠️ **Où vit quoi** : la racine ne porte que ce qui est **servi** — les cinq
+artefacts générés, `lexique.pdf`, la couche PWA — plus `README.md` et
+`CLAUDE.md`. Les sources sont dans `data/` (contenu) et `src/` (gabarits du carnet, code
 de l'app, source du portail) ; l'outillage dans `tools/` ; la prose dans `docs/`. **Les outils se lancent
 toujours depuis la racine** (`node tools/build.js`), jamais depuis `tools/` : ils visent
 `ROOT = path.join(__dirname, '..')`, exporté par `build.js` pour que les cinq autres ne
@@ -62,6 +62,7 @@ le recalculent pas. Les chemins de ce tableau sont donnés depuis la racine.
 | [cherche_mots.js](../tools/cherche_mots.js) | Dev only. Consultation **en lecture seule** de `data/*.json` (n'écrit jamais rien) — le canal cheap du piège n°15 de CLAUDE.md. `node tools/cherche_mots.js TERME…` : terme hébreu = comparaison exacte sur `he_plain` (headwords, puis formes pluriel/MS/FS/MP/FP, puis mot exact dans les exemples), **puis, seulement si l'exacte échoue, l'appariement ktiv male/haser** (`orthographeVoisine`) sorti en rubrique séparée « orthographe voisine » — le carnet vocalisé s'écrit défectif (עִתּוֹן → `עתון`) quand on cherche plein (`עיתון`), et sans cette rubrique 6 mots sur 24 ressortaient `ABSENT` en étant présents ; terme latin = sous-chaîne à frontière de mot en tête dans `.fr`/`note`/`exemples`. Sortie `CATÉGORIE fichier:ligne · hébreu — français` (ancre dans `data/*.json`, qui remplace l'ancienne ancre « carnet Lnnnn » — la source d'un mot est désormais `data/`, le carnet n'en est qu'un dérivé généré), `ABSENT` seulement si ni exacte ni voisine, bornée à 8 occurrences par rubrique (surplus compté). `--stats` : total + répartition section/niveau/thème (du moins doté au plus doté). Répond « ce mot existe-t-il ? où ? quel thème est sous-doté ? » pour ~200 tokens au lieu de lire le carnet. Réutilise les exports de build.js (`chargeDonnees`, `deriveCartes`, `stripNikud`, `orthographeVoisine`, `fichiersDonnees`…) : aucun troisième parseur, et **aucune énumération de `data/` en propre** — l'index des fichiers vient de `fichiersDonnees()`. | ✅ oui |
 | [mesure_translitteration.js](../tools/mesure_translitteration.js) | Dev only. Note `he2tr` face à **tous les `.tr` écrits à la main** (cartes, exemples, formes) — les seuls qui font foi. Sort trois nombres : accord exact, accord après `trKey` (celui qui dit ce que la saisie accepte) et distance d'édition totale. `--top` liste les 15 plus gros écarts ; `--shva` tabule, **sur le `tr` humain seul**, ce que l'usage fait du shva initial consonne par consonne. Existe parce que la règle du shva est morphologique et que `he2tr` ne peut que l'approcher : c'est le harnais qui arbitre toute retouche de l'approximation, et **un changement ne se garde que s'il améliore les trois nombres**. Charge les fonctions par `fonctionsApp()` — aucune copie de la translittération. | ✅ oui |
 | [controle_tr.js](../tools/controle_tr.js) | Dev only. Compare la translittération rédigée à la main au résultat de `he2tr`, entrée par entrée — têtes, exemples et formes. Distingue `✔ replié` (divergence d'affichage que `trKey` confond) de `✘ BRUT` (désaccord réel, arbitrage humain : le `tr` rédigé fait foi, un brut n'est pas forcément une faute — cf. chva morphologique). Signale aussi `⚠ MUET` : un couple he/tr troué — `he` absent, ou `tr` absent **sur une forme, un pluriel ou un exemple**. Jamais sur une tête, où l'absence de `tr` est la norme des tables (aucune tête des trois tables n'en porte — l'app retombe sur `he2tr`). Sort en code 1 s'il reste un `✘ BRUT` **ou** un `⚠ MUET`. Tout bordereau de mots nouveaux y passe avant insertion dans `data/`. Charge les fonctions par `fonctionsApp()` — aucune copie de la translittération ; toujours pas de validation de schéma : il ne regarde que les couples he/tr, qui sont son sujet, et refuse ceux qui ont un trou. | ✅ oui |
+| [lexique.pdf](../lexique.pdf) | Lexique imprimable, servi par Pages. **Produit hors du dépôt** : `build.js` ne le connaît pas, `--check` ne le compare pas, aucune garde ne le couvre. Il est *copié* ici, jamais généré ici — le régénérer suppose la chaîne XeLaTeX externe. | ✅ oui (copié) |
 | [manifest.webmanifest](../manifest.webmanifest), [sw.js](../sw.js), `icons/` | Couche PWA : installation (icône א, plein écran) et hors-ligne. | ✅ oui (icônes générées) |
 
 ## La couche PWA
@@ -95,7 +96,7 @@ Le carnet est aligné sur `app.html` et `index.html` pour l'accessibilité : mê
   l'hébreu en phonétique française — sur un document dont l'hébreu *est* le produit.
 - **Garde `prefers-reduced-motion`**, qui doit inclure `scroll-behavior:auto`. Le `transition:none`
   global de l'app **ne suffirait pas** ici : c'est le défilement doux (`html{scroll-behavior:smooth}`)
-  qui anime les 42 liens du sommaire.
+  qui anime les liens du sommaire.
 - **Bloc `@media (pointer:coarse)`** tenant les cibles à 44 px : pastilles du sommaire, `.app-link`,
   `.search-clear` (elle était à 28 px alors que son jumeau dans l'app était déjà à 44).
 - Le champ de recherche porte un `aria-label`.
@@ -103,7 +104,7 @@ Le carnet est aligné sur `app.html` et `index.html` pour l'accessibilité : mê
   (`outline:2px solid var(--gold)`, offset 2px, **jamais de `border-radius`**). ⚠️ Aucun `transition:all` ne doit subsister quand on pose un anneau : le
   raccourci capture les longhands `outline-*` et l'anneau naît déjà cassé (piège décrit plus
   bas, il vaut pour les trois fichiers et pas seulement pour `app.html`). Mesuré sous vraie tabulation :
-  23 focusables déclarés, 1 masqué, **22 arrêts, 0 sans anneau d'or**.
+  chaque focusable déclaré s'arrête au clavier, **aucun sans anneau d'or**.
 - **`<main>`** autour des trois parties. Le `<nav class="toc">` et la barre de recherche restent
   **hors** du landmark : l'un est une navigation, l'autre un outil global.
 - **`theme-color`** et `-webkit-tap-highlight-color:transparent` alignés sur les deux autres
@@ -122,7 +123,7 @@ par inadvertance :
   verticales des enfants, dont la fusion règle tout le rythme du document.
   ⚠️ **Les deux valeurs sont mesurées, pas choisies** : `--colonne-large` est un plancher
   (la table la plus large se pose à ~890px, aucune au-delà de 894 ; sous 55,6rem les
-  tables passent en défilement — 4 sur 36 —, et `--colonne` se calibre sur l'avance réelle de la prose (6,63px par
+  tables passent en défilement — celles qui dépassent la colonne —, et `--colonne` se calibre sur l'avance réelle de la prose (6,63px par
   caractère), jamais sur la largeur d'un chiffre (7,87px, soit 19 % de trop).
   ⚠️ **Piège de cascade** : `main > *:not(.table-wrap)` pèse 0,1,1 et fait **plancher de
   spécificité** — tout sélecteur d'élément nu qui voudrait le contredire (`main > h2`,
@@ -136,7 +137,7 @@ par inadvertance :
   Aucune taille littérale hors rampe ; seule exception nommée, le `1.15em` de l'hébreu en
   prose, relatif par nature. **Ne pas déplacer le 22px sur `html`** pour « réparer » :
   ×1,375 sur chaque `rem` d'ici *et* d'`app.html`. Détail : DESIGN.md §3.
-- **Tout hébreu se compose en Frank Ruhl**, y compris les 684 suites insérées au milieu
+- **Tout hébreu se compose en Frank Ruhl**, y compris les suites insérées au milieu
   d'un paragraphe français, atteintes par `span[lang="he"]:not([class])` (serif + 1,15em).
   Sans cette règle, elles hériteraient d'Assistant, ce qui violerait la règle des trois voix *et* celle de la
   vedette, et rendrait le nikoud illisible dans les passages qui l'enseignent. Deux voix
@@ -148,11 +149,11 @@ par inadvertance :
   Repère-mono (JetBrains Mono / 0,7rem / 0,14em). Elles remplacent quatre specs ad hoc. Une
   nouvelle étiquette rejoint l'une des deux — on n'en invente pas une troisième.
 - **`border:1px dashed` ne veut dire qu'une chose : « rien ici »** (`.empty`, section vidée par la
-  recherche). Un encadré important prend un filet **plein** : c'est la classe `.attention` (×4).
+  recherche). Un encadré important prend un filet **plein** : c'est la classe `.attention`.
 - **Aucune surface n'est teintée d'or au repos** : `.part` et `.tip` passent le test « action,
   sélection ou identité ? » et restent neutres. Seule la carte « Révision du jour » de l'app
-  garde cette licence. Deux composants nommés en CSS portent l'exception : `.attention` (×4) et `.gram-title`
-  (×5, titres de sous-section de grammaire) — un style porté par un attribut `style=` du corps
+  garde cette licence. Deux composants nommés en CSS portent l'exception : `.attention` et `.gram-title`
+  (titres de sous-section de grammaire) — un style porté par un attribut `style=` du corps
   du document **échapperait au détecteur**, qui ne lit que le CSS.
 
 **Sûreté vis-à-vis de l'extraction — la question ne se pose plus.** Le mini-parseur HTML
