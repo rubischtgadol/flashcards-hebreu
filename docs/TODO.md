@@ -283,7 +283,14 @@ chaque note vérifiée avant écriture ; aucune n'est un défaut.
 Distincts de la dette ci-dessous : aucun ne porte de raison d'être toléré. Ce
 sont des chantiers.
 
-**La liste est vide.**
+1. **Les pluriels des entrées multi-mots de `data/noms.json`.** Sur les 62
+   entrées dont le `he` porte une espace, 16 n'ont pas de `pluriel` — des
+   indénombrables légitimes (שֶׁמֶן זַיִת) y côtoient des pluriels réels et
+   courants qui manquent (תַּפּוּחַ אֲדָמָה → תַּפּוּחֵי אֲדָמָה) ; et
+   שִׁעוּרֵי בַּיִת comme קוֹרוֹת חַיִּים portent un `pluriel` strictement
+   identique à leur `he` — un composé déjà pluriel n'a pas de second pluriel,
+   la valeur attendue est l'absence du champ. À arbitrer entrée par entrée :
+   pluriel réel, ou absence assumée.
 
 ⚠️ **Le mouvement réduit doit couper aussi les pseudo-éléments, pas seulement
 les éléments.** Une coupure écrite `*{transition:none;animation:none}` ne cible
