@@ -85,12 +85,20 @@ Verdicts et versos sont annoncés aux lecteurs d'écran.
 
 ## Le lexique imprimable
 
-`lexique.pdf` — le vocabulaire en deux colonnes sur A4, classé dans l'ordre
-alphabétique hébreu, sans translittération. Chaque entrée porte sa vedette
-vocalisée et, entre parenthèses, le pluriel d'un nom, le féminin d'un adjectif
-ou les deux formes du présent d'un verbe. Les verbes portent en plus leur
-binyan, leur racine et la préposition qu'ils régissent, en code couleur ; les
-adjectifs, la préposition qu'ils régissent quand ils en imposent une.
+`lexique.pdf` — 68 pages A4. Le vocabulaire en deux colonnes, classé dans
+l'ordre alphabétique hébreu, sans translittération : chaque entrée porte sa
+vedette vocalisée et, entre parenthèses, le pluriel d'un nom, le féminin d'un
+adjectif ou les deux formes du présent d'un verbe. Les verbes portent en plus
+leur binyan, leur racine et la préposition qu'ils régissent, en code couleur ;
+les adjectifs, la préposition qu'ils régissent quand ils en imposent une.
+
+Quatre annexes de grammaire le suivent : **A**, le mode d'emploi du lexique et
+les sept binyanim conjugués ; **B**, la smikhut ; **C**, la possession ;
+**D**, les nombres. Elles se lisent seules, et le noir y est le mot quand la
+couleur est ce que la langue ajoute.
+
+Le PDF est **copié** ici, jamais produit ici : sa chaîne de composition
+(XeLaTeX) vit hors du dépôt, et `tools/build.js` ne le connaît pas.
 
 ## Translittération
 
