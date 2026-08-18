@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-16",
+  "version": "2026-08-18",
   "cartes": [
     {
       "cat": "Verbes",
@@ -49677,147 +49677,147 @@
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתִּי",
+      "he": "אִתִּי",
       "tr": "iti",
       "fr": "avec moi",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הוּא בָּא אִיתִּי",
+          "he": "הוּא בָּא אִתִּי",
           "tr": "hu ba iti",
           "fr": "il est venu avec moi",
-          "he_plain": "הוא בא איתי"
+          "he_plain": "הוא בא אתי"
         }
       ],
-      "he_plain": "איתי"
+      "he_plain": "אתי"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתְּךָ",
+      "he": "אִתְּךָ",
       "tr": "itkha",
       "fr": "avec toi (h.)",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "אֲנִי רוֹצֶה לָבוֹא אִיתְּךָ",
+          "he": "אֲנִי רוֹצֶה לָבוֹא אִתְּךָ",
           "tr": "ani rotseh lavo itkha",
           "fr": "je veux venir avec toi",
-          "he_plain": "אני רוצה לבוא איתך"
+          "he_plain": "אני רוצה לבוא אתך"
         }
       ],
-      "he_plain": "איתך"
+      "he_plain": "אתך"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתָּךְ",
+      "he": "אִתָּךְ",
       "tr": "itakh",
       "fr": "avec toi (f.)",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הִיא רוֹצָה לָבוֹא אִיתָּךְ",
+          "he": "הִיא רוֹצָה לָבוֹא אִתָּךְ",
           "tr": "hi rotsah lavo itakh",
           "fr": "elle veut venir avec toi",
-          "he_plain": "היא רוצה לבוא איתך"
+          "he_plain": "היא רוצה לבוא אתך"
         }
       ],
-      "he_plain": "איתך"
+      "he_plain": "אתך"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתּוֹ",
+      "he": "אִתּוֹ",
       "tr": "ito",
       "fr": "avec lui",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "בָּאתִי אִיתּוֹ אֶתְמוֹל",
+          "he": "בָּאתִי אִתּוֹ אֶתְמוֹל",
           "tr": "bati ito etmol",
           "fr": "je suis venu avec lui hier",
-          "he_plain": "באתי איתו אתמול"
+          "he_plain": "באתי אתו אתמול"
         }
       ],
-      "he_plain": "איתו"
+      "he_plain": "אתו"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתָּהּ",
+      "he": "אִתָּהּ",
       "tr": "itah",
       "fr": "avec elle",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "דִּבַּרְתִּי אִיתָּהּ אֶתְמוֹל",
+          "he": "דִּבַּרְתִּי אִתָּהּ אֶתְמוֹל",
           "tr": "dibarti itah etmol",
           "fr": "j'ai parlé avec elle hier",
-          "he_plain": "דברתי איתה אתמול"
+          "he_plain": "דברתי אתה אתמול"
         }
       ],
-      "he_plain": "איתה"
+      "he_plain": "אתה"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתָּנוּ",
+      "he": "אִתָּנוּ",
       "tr": "itanu",
       "fr": "avec nous",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "בּוֹא אִיתָּנוּ הָעֶרֶב",
+          "he": "בּוֹא אִתָּנוּ הָעֶרֶב",
           "tr": "bo itanu ha'erev",
           "fr": "viens avec nous ce soir",
-          "he_plain": "בוא איתנו הערב"
+          "he_plain": "בוא אתנו הערב"
         }
       ],
-      "he_plain": "איתנו"
+      "he_plain": "אתנו"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתְּכֶם",
+      "he": "אִתְּכֶם",
       "tr": "itkhem",
       "fr": "avec vous",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "אֲנִי אוֹכֵל אִיתְּכֶם",
+          "he": "אֲנִי אוֹכֵל אִתְּכֶם",
           "tr": "ani okhel itkhem",
           "fr": "je mange avec vous",
-          "he_plain": "אני אוכל איתכם"
+          "he_plain": "אני אוכל אתכם"
         }
       ],
-      "he_plain": "איתכם"
+      "he_plain": "אתכם"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אִיתָּם",
+      "he": "אִתָּם",
       "tr": "itam",
       "fr": "avec eux",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "הֵם שִׂחֲקוּ אִיתָּם",
+          "he": "הֵם שִׂחֲקוּ אִתָּם",
           "tr": "hem sichaku itam",
           "fr": "ils ont joué avec eux",
-          "he_plain": "הם שחקו איתם"
+          "he_plain": "הם שחקו אתם"
         }
       ],
-      "he_plain": "איתם"
+      "he_plain": "אתם"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "עָלַיי",
+      "he": "עָלַי",
       "tr": "'alai",
       "fr": "sur moi / à mon sujet",
       "niveau": "B1",
       "exemples": [
         {
-          "he": "אַתָּה יָכוֹל לִסְמֹךְ עָלַיי",
+          "he": "אַתָּה יָכוֹל לִסְמֹךְ עָלַי",
           "tr": "atah yakhol lismokh 'alai",
           "fr": "tu peux compter sur moi",
-          "he_plain": "אתה יכול לסמך עליי"
+          "he_plain": "אתה יכול לסמך עלי"
         }
       ],
-      "he_plain": "עליי"
+      "he_plain": "עלי"
     },
     {
       "cat": "Prépositions fléchies",
@@ -50014,19 +50014,19 @@
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "מֵאִיתָּנוּ",
+      "he": "מֵאִתָּנוּ",
       "tr": "me'itanu",
       "fr": "de nous (sans ambiguïté)",
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הַמֶּרְחָק מֵאִיתָּנוּ גָּדוֹל",
+          "he": "הַמֶּרְחָק מֵאִתָּנוּ גָּדוֹל",
           "tr": "hamerchak me'itanu gadol",
           "fr": "la distance depuis chez nous est grande",
-          "he_plain": "המרחק מאיתנו גדול"
+          "he_plain": "המרחק מאתנו גדול"
         }
       ],
-      "he_plain": "מאיתנו"
+      "he_plain": "מאתנו"
     },
     {
       "cat": "Prépositions fléchies",
@@ -50254,35 +50254,35 @@
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "לְפָנַיי",
+      "he": "לְפָנַי",
       "tr": "lefanai",
       "fr": "devant/avant moi",
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הוּא הָלַךְ לְפָנַיי",
+          "he": "הוּא הָלַךְ לְפָנַי",
           "tr": "hu halakh lefanai",
           "fr": "il a marché devant moi",
-          "he_plain": "הוא הלך לפניי"
+          "he_plain": "הוא הלך לפני"
         }
       ],
-      "he_plain": "לפניי"
+      "he_plain": "לפני"
     },
     {
       "cat": "Prépositions fléchies",
-      "he": "אַחֲרַיי",
+      "he": "אַחֲרַי",
       "tr": "acharai",
       "fr": "après/derrière moi",
       "niveau": "B1",
       "exemples": [
         {
-          "he": "הַכֶּלֶב רָץ אַחֲרַיי",
+          "he": "הַכֶּלֶב רָץ אַחֲרַי",
           "tr": "hakelev rats acharai",
           "fr": "le chien a couru après moi",
-          "he_plain": "הכלב רץ אחריי"
+          "he_plain": "הכלב רץ אחרי"
         }
       ],
-      "he_plain": "אחריי"
+      "he_plain": "אחרי"
     },
     {
       "cat": "Prépositions fléchies",
@@ -51905,19 +51905,19 @@
     },
     {
       "cat": "Nombres",
-      "he": "חֲמִישָּׁה",
+      "he": "חֲמִשָּׁה",
       "tr": "chamishah",
       "fr": "cinq (avec un nom masculin)",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "חֲמִישָּׁה תַּלְמִידִים בַּכִּתָּה",
+          "he": "חֲמִשָּׁה תַּלְמִידִים בַּכִּתָּה",
           "tr": "chamishah talmidim bakitah",
           "fr": "cinq élèves dans la classe",
-          "he_plain": "חמישה תלמידים בכתה"
+          "he_plain": "חמשה תלמידים בכתה"
         }
       ],
-      "he_plain": "חמישה"
+      "he_plain": "חמשה"
     },
     {
       "cat": "Nombres",
@@ -51929,19 +51929,19 @@
     },
     {
       "cat": "Nombres",
-      "he": "שִׁישָּׁה",
+      "he": "שִׁשָּׁה",
       "tr": "shishah",
       "fr": "six (avec un nom masculin)",
       "niveau": "A2",
       "exemples": [
         {
-          "he": "שִׁישָּׁה אֲנָשִׁים בַּחֶדֶר",
+          "he": "שִׁשָּׁה אֲנָשִׁים בַּחֶדֶר",
           "tr": "shishah anashim bacheder",
           "fr": "six personnes dans la pièce",
-          "he_plain": "שישה אנשים בחדר"
+          "he_plain": "ששה אנשים בחדר"
         }
       ],
-      "he_plain": "שישה"
+      "he_plain": "ששה"
     },
     {
       "cat": "Nombres",
@@ -52145,19 +52145,19 @@
     },
     {
       "cat": "Nombres",
-      "he": "חֲמִישָּׁה עָשָׂר",
+      "he": "חֲמִשָּׁה עָשָׂר",
       "tr": "chamishah 'asar",
       "fr": "quinze (masculin)",
       "niveau": "B1",
       "exemples": [
         {
-          "he": "חֲמִישָּׁה עָשָׂר סְפָרִים בָּאָרוֹן",
+          "he": "חֲמִשָּׁה עָשָׂר סְפָרִים בָּאָרוֹן",
           "tr": "chamishah 'asar sfarim ba'aron",
           "fr": "quinze livres dans l'armoire",
-          "he_plain": "חמישה עשר ספרים בארון"
+          "he_plain": "חמשה עשר ספרים בארון"
         }
       ],
-      "he_plain": "חמישה עשר"
+      "he_plain": "חמשה עשר"
     },
     {
       "cat": "Nombres",
@@ -52169,19 +52169,19 @@
     },
     {
       "cat": "Nombres",
-      "he": "שִׁישָּׁה עָשָׂר",
+      "he": "שִׁשָּׁה עָשָׂר",
       "tr": "shishah 'asar",
       "fr": "seize (masculin)",
       "niveau": "B1",
       "exemples": [
         {
-          "he": "שִׁישָּׁה עָשָׂר תַּלְמִידִים בַּטִּיּוּל",
+          "he": "שִׁשָּׁה עָשָׂר תַּלְמִידִים בַּטִּיּוּל",
           "tr": "shishah 'asar talmidim batiyul",
           "fr": "seize élèves en excursion",
-          "he_plain": "שישה עשר תלמידים בטיול"
+          "he_plain": "ששה עשר תלמידים בטיול"
         }
       ],
-      "he_plain": "שישה עשר"
+      "he_plain": "ששה עשר"
     },
     {
       "cat": "Nombres",
@@ -52556,19 +52556,19 @@
     },
     {
       "cat": "Nombres",
-      "he": "שִׁישִּׁית",
+      "he": "שִׁשִּׁית",
       "tr": "shishit",
       "fr": "sixième (féminin)",
       "niveau": "B1",
       "exemples": [
         {
-          "he": "זֹאת הָעִיר הַשִּׁישִּׁית שֶׁל הַטִּיּוּל",
+          "he": "זֹאת הָעִיר הַשִּׁשִּׁית שֶׁל הַטִּיּוּל",
           "tr": "zot ha'ir hashishit shel hatiyul",
           "fr": "c'est la sixième ville du voyage",
-          "he_plain": "זאת העיר השישית של הטיול"
+          "he_plain": "זאת העיר הששית של הטיול"
         }
       ],
-      "he_plain": "שישית"
+      "he_plain": "ששית"
     },
     {
       "cat": "Nombres",

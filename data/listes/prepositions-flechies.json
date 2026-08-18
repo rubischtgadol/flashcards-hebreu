@@ -338,126 +338,126 @@
       ]
     },
     {
-      "he": "אִיתִּי",
+      "he": "אִתִּי",
       "tr": "iti",
       "fr": "avec moi",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "הוּא בָּא אִיתִּי",
+          "he": "הוּא בָּא אִתִּי",
           "tr": "hu ba iti",
           "fr": "il est venu avec moi"
         }
       ]
     },
     {
-      "he": "אִיתְּךָ",
+      "he": "אִתְּךָ",
       "tr": "itkha",
       "fr": "avec toi (h.)",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "אֲנִי רוֹצֶה לָבוֹא אִיתְּךָ",
+          "he": "אֲנִי רוֹצֶה לָבוֹא אִתְּךָ",
           "tr": "ani rotseh lavo itkha",
           "fr": "je veux venir avec toi"
         }
       ]
     },
     {
-      "he": "אִיתָּךְ",
+      "he": "אִתָּךְ",
       "tr": "itakh",
       "fr": "avec toi (f.)",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "הִיא רוֹצָה לָבוֹא אִיתָּךְ",
+          "he": "הִיא רוֹצָה לָבוֹא אִתָּךְ",
           "tr": "hi rotsah lavo itakh",
           "fr": "elle veut venir avec toi"
         }
       ]
     },
     {
-      "he": "אִיתּוֹ",
+      "he": "אִתּוֹ",
       "tr": "ito",
       "fr": "avec lui",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "בָּאתִי אִיתּוֹ אֶתְמוֹל",
+          "he": "בָּאתִי אִתּוֹ אֶתְמוֹל",
           "tr": "bati ito etmol",
           "fr": "je suis venu avec lui hier"
         }
       ]
     },
     {
-      "he": "אִיתָּהּ",
+      "he": "אִתָּהּ",
       "tr": "itah",
       "fr": "avec elle",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "דִּבַּרְתִּי אִיתָּהּ אֶתְמוֹל",
+          "he": "דִּבַּרְתִּי אִתָּהּ אֶתְמוֹל",
           "tr": "dibarti itah etmol",
           "fr": "j'ai parlé avec elle hier"
         }
       ]
     },
     {
-      "he": "אִיתָּנוּ",
+      "he": "אִתָּנוּ",
       "tr": "itanu",
       "fr": "avec nous",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "בּוֹא אִיתָּנוּ הָעֶרֶב",
+          "he": "בּוֹא אִתָּנוּ הָעֶרֶב",
           "tr": "bo itanu ha'erev",
           "fr": "viens avec nous ce soir"
         }
       ]
     },
     {
-      "he": "אִיתְּכֶם",
+      "he": "אִתְּכֶם",
       "tr": "itkhem",
       "fr": "avec vous",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "אֲנִי אוֹכֵל אִיתְּכֶם",
+          "he": "אֲנִי אוֹכֵל אִתְּכֶם",
           "tr": "ani okhel itkhem",
           "fr": "je mange avec vous"
         }
       ]
     },
     {
-      "he": "אִיתָּם",
+      "he": "אִתָּם",
       "tr": "itam",
       "fr": "avec eux",
       "niveau": "A2",
       "groupe": "im",
       "exemples": [
         {
-          "he": "הֵם שִׂחֲקוּ אִיתָּם",
+          "he": "הֵם שִׂחֲקוּ אִתָּם",
           "tr": "hem sichaku itam",
           "fr": "ils ont joué avec eux"
         }
       ]
     },
     {
-      "he": "עָלַיי",
+      "he": "עָלַי",
       "tr": "'alai",
       "fr": "sur moi / à mon sujet",
       "niveau": "B1",
       "groupe": "al",
       "exemples": [
         {
-          "he": "אַתָּה יָכוֹל לִסְמֹךְ עָלַיי",
+          "he": "אַתָּה יָכוֹל לִסְמֹךְ עָלַי",
           "tr": "atah yakhol lismokh 'alai",
           "fr": "tu peux compter sur moi"
         }
@@ -633,14 +633,14 @@
       ]
     },
     {
-      "he": "מֵאִיתָּנוּ",
+      "he": "מֵאִתָּנוּ",
       "tr": "me'itanu",
       "fr": "de nous (sans ambiguïté)",
       "niveau": "B1",
       "groupe": "min",
       "exemples": [
         {
-          "he": "הַמֶּרְחָק מֵאִיתָּנוּ גָּדוֹל",
+          "he": "הַמֶּרְחָק מֵאִתָּנוּ גָּדוֹל",
           "tr": "hamerchak me'itanu gadol",
           "fr": "la distance depuis chez nous est grande"
         }
@@ -843,28 +843,28 @@
       ]
     },
     {
-      "he": "לְפָנַיי",
+      "he": "לְפָנַי",
       "tr": "lefanai",
       "fr": "devant/avant moi",
       "niveau": "B1",
       "groupe": "autres",
       "exemples": [
         {
-          "he": "הוּא הָלַךְ לְפָנַיי",
+          "he": "הוּא הָלַךְ לְפָנַי",
           "tr": "hu halakh lefanai",
           "fr": "il a marché devant moi"
         }
       ]
     },
     {
-      "he": "אַחֲרַיי",
+      "he": "אַחֲרַי",
       "tr": "acharai",
       "fr": "après/derrière moi",
       "niveau": "B1",
       "groupe": "autres",
       "exemples": [
         {
-          "he": "הַכֶּלֶב רָץ אַחֲרַיי",
+          "he": "הַכֶּלֶב רָץ אַחֲרַי",
           "tr": "hakelev rats acharai",
           "fr": "le chien a couru après moi"
         }
